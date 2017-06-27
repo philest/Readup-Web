@@ -40,6 +40,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    airbrake (6.1.2)
+      airbrake-ruby (~> 2.2, >= 2.2.5)
+    airbrake-ruby (2.2.7)
     arel (8.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -184,6 +187,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake (~> 6.1)
   bcrypt (~> 3.1.7)
   byebug
   capybara (~> 2.13)
@@ -194,7 +198,7 @@ DEPENDENCIES
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.2)
-  react_on_rails (= 8.0.3)
+  react_on_rails (~> 8.0.3)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring

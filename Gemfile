@@ -28,8 +28,10 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'react_on_rails', '8.0.3'
+gem 'react_on_rails', '~> 8.0.3'
 gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'airbrake', '~> 6.1'
 
 
 # Use Capistrano for deployment
