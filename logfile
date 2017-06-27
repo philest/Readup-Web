@@ -1,0 +1,29 @@
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 23381) running in data directory "/usr/local/var/postgres"?
+LOG:  database system was shut down at 2017-06-26 17:03:42 PDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+FATAL:  database "aubrey" does not exist
+FATAL:  database "aubrey" does not exist
+FATAL:  database "aubreywahl" does not exist
+ERROR:  role "aubreywahl" already exists
+STATEMENT:  CREATE ROLE aubreywahl NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+ERROR:  role "aubreywahl" already exists
+STATEMENT:  CREATE ROLE aubreywahl NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+FATAL:  role "birdup" does not exist
+FATAL:  role "birdup" does not exist
+FATAL:  database "birdup" does not exist
+ERROR:  role "birdup" already exists
+STATEMENT:  CREATE ROLE birdup NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+FATAL:  database "birdup" does not exist
+ERROR:  syntax error at or near "-" at character 23
+STATEMENT:  create database birdup-development;
+ERROR:  syntax error at or near "'birdup-development'" at character 17
+STATEMENT:  create database 'birdup-development';
+ERROR:  database "birdup_development" already exists
+STATEMENT:  CREATE DATABASE "birdup_development" ENCODING = 'unicode'
+ERROR:  database "birdup_development" already exists
+STATEMENT:  CREATE DATABASE "birdup_development" ENCODING = 'unicode'
+ERROR:  database "birdup_test" already exists
+STATEMENT:  CREATE DATABASE "birdup_test" ENCODING = 'unicode'

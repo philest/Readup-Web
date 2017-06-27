@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "postinstall": "cd client && yarn install"
+  },
+  "cacheDirectories": [
+    "node_modules", "client/node_modules"
+  ],
   "name": "birdup",
   "private": true,
   "dependencies": {}
