@@ -1,10 +1,10 @@
 language:
   - ruby
 rvm:
-  - 2.4.1
+  - 2.3.3
 sudo: false
 notifications:
-  slack: shakacode:YvfXbuFMcFAHt6ZjABIs0KET
+  slack: story-time:8J2jQOxFW4EM31eLhf6BYmaP
 addons:
   apt:
     sources:
