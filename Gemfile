@@ -38,11 +38,31 @@ gem 'airbrake', '~> 6.1'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+
+  gem 'rspec-rails', '~> 3.6'
+  gem "rspec-retry"
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
+  gem "capybara-screenshot"
+  gem "chromedriver-helper"
   gem 'selenium-webdriver'
+
+  gem "coveralls", require: false
+ 
+  gem 'rubocop'
+
+  # security vulnerability testing
+  gem 'brakeman', :require => false 
+  
+  # colorful console
+  gem 'rainbow' 
+
+
+
 end
 
 group :development do
