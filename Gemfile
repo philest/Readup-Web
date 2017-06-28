@@ -63,6 +63,8 @@ group :development, :test do
   gem 'rainbow' 
 
 
+  # authentication
+  gem 'devise'
 
 end
 
