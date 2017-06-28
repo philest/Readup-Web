@@ -1,6 +1,10 @@
 # task :default => [:piss]
 desc "Some description here"
 namespace :run_webpack do
-  puts "\n\n\n\n RUNNING WEBPACK YAY --Aubs\n#{Dir.pwd}\n\n\n\n"
-  `yarn run build:test`
+  puts "\n\n\n\n RUNNING WEBPACK IF TEST YAY --Aubs\n#{Dir.pwd} test?:#{Rails.env.test?}\n\n\n\n"
+  if Rails.env.test?
+    `yarn run build:test`
+  else
+    puts "eh I guess I'm not gonna pack the web"
+  end
 end
