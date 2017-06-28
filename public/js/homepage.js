@@ -400,7 +400,14 @@
 
   $('.logger-in.signup-button#top-button').click(function(event) {
     console.log('clicked the top button');
+    $('body').css('right', '0px'); // fixes a mysterious problem where opening modal causes body to shift
+    $('body').css('left', '0px');
     $('#myModal').modal('toggle');
+  });
+
+  $('.signup-button').click(function(event) {
+    $('body').css('right', '0px'); // fixes a mysterious problem where opening modal causes body to shift
+    $('body').css('left', '0px');
   });
 
 
