@@ -1,5 +1,9 @@
 language:
   - ruby
+cache:
+  bundler: true
+  directories:
+    - node_modules
 rvm:
   - 2.3.3
 sudo: false
@@ -37,7 +41,6 @@ install:
 before_script:
    - export DISPLAY=:99.0
    - sh -e /etc/init.d/xvfb start
-   - psql -c 'create database birdup_test;' -U postgres
 
 script:
   - bundle exec rake db:schema:load
