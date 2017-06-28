@@ -14,6 +14,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 
 
+
 ## configure capybara to use chrome driver!!!!!
 # https://mikecoutermarsh.com/rails-capybara-selenium-chrome-driver-setup/
 # https://github.com/thoughtbot/capybara-webkit/issues/885
@@ -50,6 +51,16 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+
+  ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
+
+  # Because we're using some CSS Webpack files, we need to ensure the webpack files are generated
+  # for all feature specs. https://github.com/shakacode/react_on_rails/issues/792
+  config.define_derived_metadata(file_path: %r{spec/(features|requests)}) do |metadata|
+    metadata[:requires_webpack_assets] = true
+  end
+
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

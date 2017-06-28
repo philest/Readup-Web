@@ -20,6 +20,7 @@ services:
 env:
   global:
     - RAILS_ENV=test
+    - RACK_ENV=test
     - CXX=g++-4.9
 before_install:
   - mkdir $PWD/travis-phantomjs
