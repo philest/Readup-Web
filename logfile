@@ -31,3 +31,7 @@ ERROR:  relation "users" does not exist
 STATEMENT:  ALTER TABLE "users" RENAME TO "depracted_users"
 ERROR:  relation "users" does not exist
 STATEMENT:  ALTER TABLE "users" RENAME TO "depracted_users"
+FATAL:  database "birup" does not exist
+ERROR:  database "birdup_test" already exists
+STATEMENT:  create database birdup_test;
+FATAL:  database "aubreywahl" does not exist
