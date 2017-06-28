@@ -27,3 +27,7 @@ ERROR:  database "birdup_development" already exists
 STATEMENT:  CREATE DATABASE "birdup_development" ENCODING = 'unicode'
 ERROR:  database "birdup_test" already exists
 STATEMENT:  CREATE DATABASE "birdup_test" ENCODING = 'unicode'
+ERROR:  relation "users" does not exist
+STATEMENT:  ALTER TABLE "users" RENAME TO "depracted_users"
+ERROR:  relation "users" does not exist
+STATEMENT:  ALTER TABLE "users" RENAME TO "depracted_users"
