@@ -2,7 +2,7 @@
 # written so that we can keep the same view hierarchy as the storytime repo
 # but should probably restructure so there isn't so much boilerplate...
 
-class StaticPagesController < ApplicationController
+class StaticPagesController < ActionController::Base
 
   def index
     @mixpanel_homepage_key = ENV['MIXPANEL_HOMEPAGE']
@@ -25,20 +25,8 @@ class StaticPagesController < ApplicationController
     render 'static_pages/pages/terms'
   end
 
-  def read
-    redirect_to '/signup'
-  end
-
   def doc
     redirect_to '/doc/'
-  end
-
-  def start
-    redirect_to '/signup'
-  end
-
-  def go
-    redirect_to 'http://m.me/490917624435792'
   end
 
   def team

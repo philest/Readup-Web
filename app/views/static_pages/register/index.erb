@@ -2,13 +2,13 @@
 <html>
 <head>
   
-    <%= erb :'components/headers' %>
+    <%= render 'static_pages/components/headers' %>
 
-    <%= erb :'register/headers/mixpanel' %>
+    <%= render 'static_pages/register/headers/mixpanel' %>
 
-    <%= erb :'register/headers/libraries' %>
+    <%= render 'static_pages/register/headers/libraries' %>
 
-    <%= erb :'components/favicon' %>
+    <%= render 'static_pages/components/favicon' %>
 
     <!-- our scripts -->
     <script type="text/javascript" src="/js/validations.js"></script>
@@ -27,12 +27,12 @@
 
 <body id="override">
   <!-- navbar -->
-  <% locals = {text: text,class_code:class_code, locale:locale,teacher_id:teacher_id, teacher: teacher, school: school} %>
-  <%= erb :'register/modals/user-name-phone', locals: locals %>
-  <%= erb :'register/modals/role', locals: locals %>
-  <%= erb :'register/modals/password', locals: locals %>
-  <%= erb :'register/modals/get-app', locals: locals %>
-  <%= erb :'register/modals/maintenance', locals: locals %>
+  <% @locals = {text:@text,class_code:@class_code, locale:@locale,teacher_id:@teacher_id, teacher: @teacher, school: @school} %>
+  <%= render 'static_pages/register/modals/user-name-phone', locals: @locals %>
+  <%= render 'static_pages/register/modals/role', locals: @locals %>
+  <%= render 'static_pages/register/modals/password', locals: @locals %>
+  <%= render 'static_pages/register/modals/get-app', locals: @locals %>
+  <%= render 'static_pages/register/modals/maintenance', locals: @locals %>
 
   <form id="hidden-inputs">
     <input type="hidden" name="teacher_sig" value="<%= teacher %>">
