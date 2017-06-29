@@ -1,5 +1,9 @@
 language:
   - ruby
+cache:
+  bundler: true
+  directories:
+    - node_modules
 rvm:
   - 2.3.3
 sudo: false
@@ -16,6 +20,7 @@ services:
 env:
   global:
     - RAILS_ENV=test
+    - RACK_ENV=test
     - CXX=g++-4.9
 before_install:
   - mkdir $PWD/travis-phantomjs

@@ -35,6 +35,10 @@ gem 'airbrake', '~> 6.1'
 gem 'newrelic_rpm'
 
 
+# authentication
+gem 'devise'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

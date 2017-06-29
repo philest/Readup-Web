@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root 'static_pages#index'
 
   get 'app', to: 'static_pages#app'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   get 'schools', to: 'static_pages#schools'
   get 'illustrator', to: 'static_pages#illustrator'
   get 'design', to: 'static_pages#design'
+
 
 
 
