@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  has_many :teachers
+
   after_initialize :set_defaults, unless: :persisted?
 
   # The set_defaults will only work if the object is new
