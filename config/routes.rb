@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
 
+  # static pages
+
   get 'app', to: 'static_pages#app'
   get 'class', to: 'static_pages#class'
   get 'error', to: 'static_pages#error'
@@ -21,7 +23,11 @@ Rails.application.routes.draw do
   get 'illustrator', to: 'static_pages#illustrator'
   get 'design', to: 'static_pages#design'
 
+  # user stuff including auth
+
   resources :users
+
+  get 'auth/user_exists', to: 'users#exists'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

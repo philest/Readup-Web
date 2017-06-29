@@ -99,7 +99,7 @@
       url: 'auth/user_exists',
       type: 'get',
       data: {
-        username: username
+        email: username
       },
       success: function(data) {
         // a user already exists with this username/phone, so log that user in
@@ -256,9 +256,10 @@
 
   $('#signup-name-password').submit(function(event) {
     var username = $('#signup-email input[name=username]').val();
+    var usernameFieldName = (validatePhone(username)) ? 'user[phone]' : 'user[email]';
     var input = $('<input>')
                       .attr('type', 'hidden')
-                      .attr('name', 'username')
+                      .attr('name', usernameFieldName)
                       .val(username);
     $('#signup-name-password').append($(input));
 
