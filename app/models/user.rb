@@ -26,6 +26,14 @@ class User < ApplicationRecord
       errors.add(:email, 'password or email must be submitted')
     end
   end
+  
+   # custom validation
+  validate :full_name_present
+  def full_name_present
+    if name.nil? || name == "" || name.split(" ").size < 2
+      errors.add(:name, 'Full name must be entered.')
+    end
+  end
 
 
   before_save {
