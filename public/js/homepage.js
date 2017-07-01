@@ -411,6 +411,11 @@
     $('body').css('left', '0px');
   });
 
+  $('#main-signup-button').click(function(event) {
+    $('body').css('right', '0px'); // fixes a mysterious problem where opening modal causes body to shift
+    $('body').css('left', '0px');
+  });
+
 
 
 }); // end (document).ready
