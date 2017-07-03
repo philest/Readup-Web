@@ -1,72 +1,76 @@
-const webpack = require("webpack")
-const path = require("path")
+// For inspiration on your webpack configuration, see:
+// https://github.com/shakacode/react_on_rails/tree/master/spec/dummy/client
+// https://github.com/shakacode/react-webpack-rails-tutorial/tree/master/client
 
-const nodeEnv = process.env.NODE_ENV || "development"
+const webpack = require('webpack');
+const { resolve } = require('path');
 
-console.log(nodeEnv)
+const ManifestPlugin = require('webpack-manifest-plugin');
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
-const PORT = 8080
+const configPath = resolve('..', 'config');
+const { devBuild, manifest, webpackOutputPath, webpackPublicOutputDir } =
+  webpackConfigLoader(configPath);
 
 const config = {
-  entry: [
-    "babel-polyfill",
-    "react-hot-loader/patch",
-    "entry"
-  ],
+
+  context: resolve(__dirname),
+
+  entry: {
+    'webpack-bundle': [
+      'es5-shim/es5-shim',
+      'es5-shim/es5-sham',
+      'babel-polyfill',
+      './src/entry',
+    ],
+  },
 
   output: {
-    filename: "hmr-bundle.js",
-    publicPath: `http://localhost:${PORT}/`
+    // Name comes from the entry section.
+    filename: '[name]-[hash].js',
+
+    // Leading slash is necessary
+    publicPath: `/${webpackPublicOutputDir}`,
+    path: webpackOutputPath,
   },
 
   resolve: {
-    modules: [path.resolve("./src"), "node_modules"],
-    extensions: [".js"],
+    extensions: ['.js', '.jsx'],
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      "process.env": { NODE_ENV: JSON.stringify(nodeEnv) }
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      DEBUG: false,
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new ManifestPlugin({ fileName: manifest, writeToFileEmit: true }),
   ],
 
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: "babel-loader",
-        include: [path.resolve("./src")]
+        test: require.resolve('react'),
+        use: {
+          loader: 'imports-loader',
+          options: {
+            shim: 'es5-shim/es5-shim',
+            sham: 'es5-shim/es5-sham',
+          },
+        },
       },
-
       {
-        test: /\.css$/,
-        loader: [
-          "style-loader?sourceMap",
-          "css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
-        ]
-      }
-    ]
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+    ],
   },
+};
 
-  devServer: {
-    host: "0.0.0.0",
-    port: PORT,
-    hot: true,
-    stats: {
-      hash: false,
-      version: false,
-      chunks: false
-    }
-  }
-}
+module.exports = config;
 
-if (nodeEnv !== "production") {
-  config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
-  config.devtool = "cheap-module-source-map"
+if (devBuild) {
+  console.log('Webpack dev build for Rails'); // eslint-disable-line no-console
+  module.exports.devtool = 'eval-source-map';
 } else {
-  config.devtool = "eval"
-}
-
-module.exports = config
+  console.log('Webpack production build for Rails'); // eslint-disable-line no-console

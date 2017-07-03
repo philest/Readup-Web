@@ -6,7 +6,8 @@
     "npm": "4.1.1"
   },
   "scripts": {
-    "build:development": "webpack-dev-server --config webpack.config --progress"
+    "build:development": "webpack-dev-server --config webpack.config.dev --progress",
+    "build:test": "webpack-dev-server --config webpack.config --progress"
   },
   "dependencies": {
     "babel-core": "^6.23.1",
