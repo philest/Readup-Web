@@ -4,8 +4,9 @@
 
 class StaticPagesController < ActionController::Base
 
+  @mixpanel_homepage_key = ENV['MIXPANEL_HOMEPAGE']
+  
   def index
-    @mixpanel_homepage_key = ENV['MIXPANEL_HOMEPAGE']
     render 'static_pages/homepage/index'
   end
 

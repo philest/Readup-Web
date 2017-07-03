@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :users
-
   root 'static_pages#index'
+
+  # static pages
 
   get 'app', to: 'static_pages#app'
   get 'class', to: 'static_pages#class'
@@ -23,9 +23,12 @@ Rails.application.routes.draw do
   get 'illustrator', to: 'static_pages#illustrator'
   get 'design', to: 'static_pages#design'
 
+  # user stuff including auth
 
+  resources :users
 
+  get 'auth/user_exists', to: 'users#exists'
+  get 'auth/complete_signup', to:'users#show_complete_signup'
 
-  get 'hello_world', to: 'hello_world#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
