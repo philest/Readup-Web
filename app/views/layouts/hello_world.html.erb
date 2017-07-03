@@ -6,10 +6,12 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'webpack-bundle' %>
   </head>
 
   <body>
     <%= yield %>
+    <% if ENV["HMR"] == "1" %>
+      <%= javascript_include_tag "http://localhost:8080/hmr-bundle.js" %>
+    <% end %>
   </body>
 </html>
