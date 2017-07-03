@@ -49,4 +49,6 @@ function createHotModule(Komponent) {
 
 
 // ReactOnRails.registerStore({ store: configureStore })
-ReactOnRails.register({ HelloWorld: createHotModule(HelloWorld) })
+ReactOnRails.register({
+  HelloWorld: createHotModule(HelloWorld),
+})

@@ -26,7 +26,7 @@ export default class HelloWorld extends React.Component {
     return (
       <div>
         <h3>
-          Helloss, {this.state.name}!
+          Hello Daniel, {this.state.name}!
         </h3>
         <hr />
         <form >
