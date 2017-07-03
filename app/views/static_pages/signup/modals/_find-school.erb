@@ -119,7 +119,9 @@
                       var availableSchools = [];
                         
                         $( "#page4-find-school input[name=school_name]" ).autocomplete({
+
                           source: 'https://www.joinstorytime.com/auth/list-of-schools',
+
                           minLength: 2,
                           appendTo: "#just-to-append",
                           position: { my: "left top", at: "left bottom", of: "#status-text" },
@@ -205,6 +207,7 @@
 
                     $('#page4-find-school select[name=classroom_grade]').change(function(event){
 
+
                       // Here's a good place to change the next page based on the inputted grade
                       // i.e. if grade too old, show we don't support it, don't let user advance
 
@@ -219,6 +222,7 @@
                       
                     });
 
+
                     $(document).on('click', '#page4-find-school #page4link',function(event){
                       var ValidStatus = $("#page4-find-school #school-info").valid();
                       // console.log(ValidStatus);
@@ -229,6 +233,7 @@
                           return false;
                       }
                     });
+
 
 
 

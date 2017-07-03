@@ -99,7 +99,9 @@
       url: 'auth/user_exists',
       type: 'get',
       data: {
+
         email: username
+
       },
       success: function(data) {
         // a user already exists with this username/phone, so log that user in
@@ -256,10 +258,12 @@
 
   $('#signup-name-password').submit(function(event) {
     var username = $('#signup-email input[name=username]').val();
+
     var usernameFieldName = (validatePhone(username)) ? 'user[phone]' : 'user[email]';
     var input = $('<input>')
                       .attr('type', 'hidden')
                       .attr('name', usernameFieldName)
+
                       .val(username);
     $('#signup-name-password').append($(input));
 
@@ -411,10 +415,12 @@
     $('body').css('left', '0px');
   });
 
+
   $('#main-signup-button').click(function(event) {
     $('body').css('right', '0px'); // fixes a mysterious problem where opening modal causes body to shift
     $('body').css('left', '0px');
   });
+
 
 
 
