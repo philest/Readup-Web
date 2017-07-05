@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  has_many :teachers
+
   after_initialize :set_defaults, unless: :persisted?
 
   # The set_defaults will only work if the object is new
@@ -22,6 +24,14 @@ class User < ApplicationRecord
   def email_or_password_must_be_set
     if !(phone.present? || email.present?)
       errors.add(:email, 'password or email must be submitted')
+    end
+  end
+  
+   # custom validation
+  validate :full_name_present
+  def full_name_present
+    if name.nil? || name == "" || name.split(" ").size < 2
+      errors.add(:name, 'Full name must be entered.')
     end
   end
 
