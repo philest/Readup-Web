@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
 
+  get 'hello', to: 'hello_world#index'
+
+
   # static pages
 
   get 'app', to: 'static_pages#app'
