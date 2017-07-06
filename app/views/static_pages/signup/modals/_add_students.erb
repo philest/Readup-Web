@@ -11,10 +11,10 @@
     background-size: 30px;
   }
 
-  .dropdown-menu {
+  .add-student-dropdown {
     background-color: #E6F6FD;
   }
-  .dropdown-menu a:hover {
+  .add-student-dropdown a:hover {
     background-color: transparent;
   }
 
@@ -56,13 +56,19 @@
     color: #A5A5A5;
   }
 
+  .submit-button-disabled {
+    color: white !important;
+    background-color: #A5A5A5 !important;
+    cursor: default !important;
+  }
+
 
 </style>
 
       <div data-role="page" class="wrapper" id="page5-add-students">
         <%= render 'static_pages/components/navbar' %>
      
-        <div data-role="main" class="body add-students" style="display: flex;">
+        <div data-role="main" class="body invite-teacher">
 
           <div class="container" style="padding-top:0em;">
             <div class="content-wrapper">
@@ -70,16 +76,16 @@
                 <h2 class="modal-signup-heading" id="modal-signup-heading">Add Students</h2>
                 <!-- <h3 class="modal-signup-heading">to add your class</h3> -->
 
-                <form id="#add-students" class="signup-form" style="position: relative"> 
+                <form id="add-students" class="signup-form" style="position: relative"> 
                   <div class="signup-setup">
                       <div class="field" id="signup-field">
                          <label class="label">Start typing to add students</label>
-                        <input name="student_name" autocomplete="off" placeholder="First and last name" class="input" required>
+                        <input name="student_name" autocomplete="off" placeholder="First and last name" class="input">
                       </div>
                   </div>
 
                   <!-- create the dropdown menu here -->
-                  <div class="dropdown-menu" style="display: none;">
+                  <div class="dropdown-menu add-student-dropdown" style="display: none;">
                     <a id="add-student-button" class="disabled" href="#"><p>Add students</p></a>
                   </div>
 
@@ -91,13 +97,16 @@
                     <p class="no-students-added">No students added yet</p>
                   </div>
 
-                  <a id="page5link" class="transition-link ui-btn web-mobile-signup-button" href="#" data-transition="fade">
+                  <a id="page5link" class="transition-link ui-btn web-mobile-signup-button submit-button-disabled" href="#page6-successs" data-transition="fade">
                     Done adding students
                   </a>
         
                   <script>
 
                     $(function() {
+
+                      // honestly have no idea why this should be necessary.... but it is, trust me
+                      $('#page5link').attr('href', '#page6-success');
 
                       var studentNames = []
 
@@ -108,13 +117,13 @@
                       $('input[name="student_name"]').on('input', function() {
                         var studentName = $(this).val();
                         if (studentName == '') {
-                          $('.dropdown-menu').css('display', 'none');
+                          $('.add-student-dropdown').css('display', 'none');
                         }
                         else {
                           $('.signup-setup .field label').text('Start typing to add students');
                           $('.signup-setup .field label').css('color', 'black');
-                          $('.dropdown-menu a p').text('Add "' + studentName + '"');
-                          $('.dropdown-menu').css('display', 'block');
+                          $('.add-student-dropdown a p').text('Add "' + studentName + '"');
+                          $('.add-student-dropdown').css('display', 'block');
                         }
                         
                       });
@@ -135,8 +144,9 @@
 
                         $('.no-students-added').css('display', 'none');
                         $('input[name="student_name"]').val('');
-                        $('.dropdown-menu').css('display', 'none');
+                        $('.add-student-dropdown').css('display', 'none');
                         $('.header-row label').text(studentNames.length + ' students');
+                        $('#page5link').removeClass('submit-button-disabled');
                       });
 
                       $(document).on('click', '#remove-row', function() {
@@ -147,57 +157,44 @@
 
                         if (studentNames.length == 0) {
                           $('.no-students-added').css('display', 'block');
+                          $('#page5link').addClass('submit-button-disabled');
                         }
                         $('.header-row label').text(studentNames.length + ' students');
 
                       });
 
 
-
-                    //   _renderItem = function( ul, item ) {
-                    //       return $( "<li>", {
-                    //           class: 'school-selector',
-                    //           click: function(event) {
-                    //               $('#page4-find-school input[name=school_name]').blur();
-                    //           }
-                    //        })
-                    //        .append( "<a>" + item.label + "<br><span class='city'>" + item.desc + "</span></a>" )
-                    //        .appendTo( ul );
-                    //     };
-                    //   });
-                    // // });
-
-                      
-                    // // $('#page4-find-school input[name=school_name]').click(function() {
-                    // //   $('.dropdown-menu').css('display', 'block');
-                    // // });
-
-                    // $('#page5link-add-school').on('mousedown', function(event) {
-                    //   // event.stopImmediatePropagation();
-                    //   event.preventDefault(); 
-                    // });
-                    
-
-                    
-                      
-                    // });
+                      // when user presses enter, don't submit form, submit adding new student
+                      $('#add-students').on('keyup keypress', function(e) {
+                        var keyCode = e.keyCode || e.which;
+                        if (keyCode === 13) {
+                          if (!($('input[name="student_name"]').val() == '')) {
+                            console.log('not empty')
+                            e.preventDefault();
+                            $('#add-student-button').click();
+                            // console.log('curval::  ' + $('input[name="student_name"]').val());
+                            return false;
+                          }
+                          else {
+                            console.log('is empty');
+                          }
+                        }
+                        return true;
+                      });
 
 
-                    $(document).on('click', '#page5-add-students #page6link',function(event){
-                      var ValidStatus = $("#page5-add-students #class-students").valid();
-                      // console.log(ValidStatus);
-                      if (ValidStatus == false) {
-                          event.preventDefault();
-                          event.stopPropagation();
-                          mixpanel.track('invalid student list info given');
-                          return false;
-                      }
+
+                      $(document).on('click', '#page5-add-students #page5link',function(event){
+                        var ValidStatus = $("#page5-add-students #add-students").valid() && (studentNames.length > 0);
+                        // console.log(ValidStatus);
+                        if (ValidStatus == false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            mixpanel.track('invalid student list info given');
+                            return false;
+                        }
+                      });
                     });
-
-                  });
-
-
-
 
                   </script>
                 </form>
