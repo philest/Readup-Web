@@ -31,7 +31,7 @@ class User < ApplicationRecord
       errors.add(:email, 'phone or email must be submitted')
     end
   end
-  
+
    # custom validation
   validate :full_name_present
   def full_name_present

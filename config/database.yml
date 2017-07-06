@@ -85,3 +85,9 @@ production:
   database: birdup_production
   username: birdup
   password: <%= ENV['BIRDUP_DATABASE_PASSWORD'] %>
+
+birdv:
+  <<: *default
+  database: birdv_production
+  url: postgres://mhjpebyufqygzp:12b4425a1602a5aaf6cca4f670f7abafb1129f40197d57d74206d21d4c4a59d0@ec2-54-225-99-171.compute-1.amazonaws.com:5432/dmun042an1aob
+

@@ -6,3 +6,7 @@ Style/DoubleNegation:
   Enabled: false
 Style/GuardClause:
   Enabled: false
+Style/IndentationConsistency:
+  Enabled: false
+Style/Tab:
+  Enabled: false
