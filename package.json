@@ -9,5 +9,5 @@
     "client/node_modules"
   ],
   "name": "birdup",
-  "private": true,
+  "private": true
 }

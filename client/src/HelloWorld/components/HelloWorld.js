@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import styles from './poop.css'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -25,13 +26,13 @@ export default class HelloWorld extends React.Component {
   render() {
     return (
       <div>
-        <h3>
-          Hello Daniel, {this.state.name}!
+        <h3 >
+          Hello, {this.state.name}!
         </h3>
         <hr />
         <form >
           <label htmlFor="name">
-            Say hello to:
+            Say hello to my lil' friend!!!!:
           </label>
           <input
             id="name"
