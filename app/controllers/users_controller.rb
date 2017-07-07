@@ -36,6 +36,8 @@ class UsersController < ApplicationController
         # format.html { redirect_to @user, notice: 'User was successfully created.' }
         # format.json { render :show, status: :created, location: @user }
         # partial signup complete, now redirect to finish
+        session[:user_id] = @user.id
+        
         format.html do
           redirect_to '/auth/complete_signup'
         end

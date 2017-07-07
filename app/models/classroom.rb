@@ -21,13 +21,16 @@ class Classroom < ApplicationRecord
       :student_list
     )
 
+    puts 'student_list'
+    puts student_list
+
     ActiveRecord::Base.transaction do
       t = User.find_by(id: user_id).teachers.create()
       cl = Classroom.new(
-        classroom_name: classroom_name,
+        name: classroom_name,
         grade_level: grade_level
       )
-      cl.add_teacher(t)
+      t.classrooms = cl
       student_list.each do |stu|
         cl.students.create(
           first_name: stu[:first_name],

@@ -11,7 +11,11 @@
                   <div class="signup-setup">
                     <div class="field" id="signup-field">
                       <input name="signature" placeholder="Ms. Jones" class="input" required>
-                      <input type="hidden" name="role" value="">
+                    </div>
+
+                    <div class="field" id="signup-field">
+                      <label class="label">Classroom name</label>
+                      <input name="classroom_name" placeholder='e.g. "Homeroom" or "1st Grade English"' class="input" required>
                     </div>
 
                      <a id="page3link" class="transition-link ui-btn web-mobile-signup-button" href="#page5-add-students" data-transition="fade">
@@ -31,6 +35,9 @@
                             return false;
                         }
                         mixpanel.track('signature given');
+
+                        $('#page5-add-students form#add-students').find('input[name=signature]').val($('#page3-signature input[name=signature]').val());
+                        $('#page5-add-students form#add-students').find('input[name=classroom_name]').val($('#page3-signature input[name=classroom_name]').val());
                       });
 
                      </script>

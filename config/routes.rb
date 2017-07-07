@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get 'auth/user_exists', to: 'users#exists'
   get 'auth/complete_signup', to:'users#show_complete_signup'
 
+  post 'auth/create_classroom', to: 'registration#create_classroom'
+
   get 'hello_world', to: 'hello_world#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

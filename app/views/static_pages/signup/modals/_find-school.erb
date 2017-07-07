@@ -104,7 +104,6 @@
                   <input type="hidden" name="school_name" value="">
                   <input type="hidden" name="school_city" value="">
                   <input type="hidden" name="school_state" value="">
-                  <input type="hidden" name="role" value="">
                   <input type="hidden" name="signature" value="">
 
                   <a id="page4link" class="transition-link ui-btn web-mobile-signup-button" href="#" data-transition="fade">
@@ -232,6 +231,15 @@
                           mixpanel.track('invalid school info given');
                           return false;
                       }
+
+                      $('#page5-add-students form#add-students').find('input[name=school_id]').val($('#page4-find-school input[name=school_id]').val());
+                      $('#page5-add-students form#add-students').find('input[name=school_name]').val($('#page4-find-school input[name=school_name]').val());
+                      $('#page5-add-students form#add-students').find('input[name=school_city]').val($('#page4-find-school input[name=school_city]').val());
+                      $('#page5-add-students form#add-students').find('input[name=school_state]').val($('#page4-find-school input[name=school_state]').val());
+                      $('#page5-add-students form#add-students').find('input[name=classroom_grade]').val($('#page4-find-school select[name=classroom_grade]').val());
+
+                      
+                      
                     });
 
 

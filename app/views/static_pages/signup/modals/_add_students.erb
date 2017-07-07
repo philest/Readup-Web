@@ -18,7 +18,7 @@
   .student-list {
     background-color: #F5F5F5;
     margin-top: 30px;
-    height: 420px; /* blaze */
+    height: 220px;
     margin-left: -16px;
     margin-right: -16px;
     border-top: 1.5px solid #E6E6E6;
@@ -45,7 +45,7 @@
   }
   .no-students-added {
     font-family: 'Karla';
-    margin-top: 100px;
+    margin-top: 80px;
     color: #A5A5A5;
   }
   .submit-button-disabled {
@@ -90,6 +90,18 @@
                   <a id="page5link" class="transition-link ui-btn web-mobile-signup-button submit-button-disabled" href="#page6-successs" data-transition="fade">
                     Done adding students
                   </a>
+
+                  <!-- Hidden fields for form submission -->
+                  <input type="hidden" name='user_id' value='<%= session[:user_id] %>'>
+                  <input type="hidden" name="school_id" value="">
+                  <input type="hidden" name="school_name" value="">
+                  <input type="hidden" name="school_city" value="">
+                  <input type="hidden" name="school_state" value="">
+                  <input type="hidden" name="classroom_grade" value="">
+                  <input type="hidden" name="classroom_name" value="">
+                  <input type="hidden" name="signature" value="">
+
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         
                   <script>
                     $(function() {
@@ -99,6 +111,8 @@
                       function renderStudentRow(studentName) {
                         return '<div class="student-row"><span>' + studentName + '</span><a id="remove-row" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>';
                       }
+
+
                       $('input[name="student_name"]').on('input', function() {
                         var studentName = $(this).val();
                         if (studentName == '') {
@@ -112,6 +126,8 @@
                         }
                         
                       });
+
+
                       $('#add-student-button').click(function() {
                         var studentName = $('input[name="student_name"]').val();
                         if (!studentName.includes(' ')) {
@@ -128,6 +144,8 @@
                         $('.header-row label').text(studentNames.length + ' students');
                         $('#page5link').removeClass('submit-button-disabled');
                       });
+
+
                       $(document).on('click', '#remove-row', function() {
                         var nameToRemove = $(this).prev().text();
                         $(this).parent().remove(); // remove the row
@@ -139,23 +157,23 @@
                         }
                         $('.header-row label').text(studentNames.length + ' students');
                       });
+
+
                       // when user presses enter, don't submit form, submit adding new student
                       $('#add-students').on('keyup keypress', function(e) {
                         var keyCode = e.keyCode || e.which;
                         if (keyCode === 13) {
                           if (!($('input[name="student_name"]').val() == '')) {
-                            console.log('not empty')
                             e.preventDefault();
                             $('#add-student-button').click();
                             // console.log('curval::  ' + $('input[name="student_name"]').val());
                             return false;
                           }
-                          else {
-                            console.log('is empty');
-                          }
                         }
                         return true;
                       });
+
+
                       $(document).on('click', '#page5-add-students #page5link',function(event){
                         var ValidStatus = $("#page5-add-students #add-students").valid() && (studentNames.length > 0);
                         // console.log(ValidStatus);
@@ -165,8 +183,50 @@
                             mixpanel.track('invalid student list info given');
                             return false;
                         }
+
+                        var postData = {
+                          'user_id': $('#page5-add-students form#add-students').find('input[name=user_id]').val(),
+                          'school_id': $('#page5-add-students form#add-students').find('input[name=school_id]').val(),
+                          'school_name': $('#page5-add-students form#add-students').find('input[name=school_name]').val(),
+                          'school_city': $('#page5-add-students form#add-students').find('input[name=school_city]').val(),
+                          'school_state': $('#page5-add-students form#add-students').find('input[name=school_state]').val(),
+                          'signature': $('#page5-add-students form#add-students').find('input[name=signature]').val(),
+                          'classroom_grade': $('#page5-add-students form#add-students').find('input[name=classroom_grade]').val(),
+                          'classroom_name': $('#page5-add-students form#add-students').find('input[name=classroom_name]').val(),
+                          'student_names': studentNames,
+                          'authenticity_token': $('#page5-add-students form#add-students').find('input[name=authenticity_token]').val(),
+                        };
+
+                        console.log("signup post data  " + postData);
+
+                        $.ajax({
+                          url: 'create_classroom',
+                          type: 'post',
+                          data: postData
+                        }).done(function(data, statusText, xhr) {
+                            console.log(data);
+                            console.log('statusText is:');
+                            console.log(statusText);
+                            console.log(xhr);
+
+
+                        });
+
+                        var formdata = $("#page5-add-students form#add-students").serializeArray();
+                        console.log(formdata);
+                        var data = {};
+                        $(formdata).each(function(index, obj){
+                            data[obj.name] = obj.value;
+                        });
+                        console.log(data);
+                        mixpanel.people.set(data);
+                        mixpanel.track('finished freemium signup');
+
+
                       });
                     });
+
+
                   </script>
                 </form>
 
@@ -183,13 +243,14 @@
                   </button> -->
 
                   <script>
-                    $('#page4-find-school form#log-into-dat-account').on('submit', function(event) {
-                      var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                      $('form#log-into-dat-account').find('input[name=role]').val(role);
-                      var sig = $('form#educator-signature-form').find('input[name=signature]').val();
-                      $('form#log-into-dat-account').find('input[name=signature]').val(sig);
-                      // $('form#log-into-dat-account').submit();
-                    });
+                    // I think we can uncomment this once we have a logged in interface
+                    // $('#page4-find-school form#log-into-dat-account').on('submit', function(event) {
+                    //   var role = $('form#choose-educator-role-form').find('input[name=role]').val();
+                    //   $('form#log-into-dat-account').find('input[name=role]').val(role);
+                    //   var sig = $('form#educator-signature-form').find('input[name=signature]').val();
+                    //   $('form#log-into-dat-account').find('input[name=signature]').val(sig);
+                    //   $('form#log-into-dat-account').submit();
+                    // });
                   </script>
 
                 </form>
