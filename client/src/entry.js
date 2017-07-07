@@ -9,6 +9,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import { render } from 'react-dom'
 import ReactOnRails from 'react-on-rails'
 import HelloWorld from './HelloWorld'
+import StudentDashboard from './StudentDashboard'
 
 const history = createBrowserHistory()
 
@@ -39,9 +40,9 @@ function createHotModule(Komponent) {
     }
     renderApp(HelloWorld)
     if (module.hot) {
-      module.hot.accept(['./HelloWorld'], () => {
+      module.hot.accept(['./HelloWorld', './StudentDashboard'], () => {
         // store.replaceReducer(reducer)
-        renderApp(HelloWorld)
+        renderApp(StudentDashboard)
       })
     }
   }
@@ -51,4 +52,5 @@ function createHotModule(Komponent) {
 // ReactOnRails.registerStore({ store: configureStore })
 ReactOnRails.register({
   HelloWorld: createHotModule(HelloWorld),
+  StudentDashboard: createHotModule(StudentDashboard),
 })
