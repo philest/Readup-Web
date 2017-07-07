@@ -163,8 +163,8 @@
                       $('#add-students').on('keyup keypress', function(e) {
                         var keyCode = e.keyCode || e.which;
                         if (keyCode === 13) {
+                          e.preventDefault();
                           if (!($('input[name="student_name"]').val() == '')) {
-                            e.preventDefault();
                             $('#add-student-button').click();
                             // console.log('curval::  ' + $('input[name="student_name"]').val());
                             return false;

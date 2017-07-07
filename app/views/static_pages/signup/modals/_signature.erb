@@ -24,7 +24,15 @@
                      </a>
 
                      <script>
-                       $(document).on('click', '#page3link',function(event){
+
+                      $('#educator-signature-form').on('keyup keypress', function(e) {
+                        var keyCode = e.keyCode || e.which;
+                        if (keyCode === 13) {
+                          $('#page3link').click();
+                        }
+                      });
+                      
+                      $(document).on('click', '#page3link',function(event){
 
                         var ValidStatus = $("#educator-signature-form").valid();
                         // console.log(ValidStatus);
