@@ -67,13 +67,13 @@
 
   <% if flash[:freemium_permission_error] %>
     <div id="alert">
-        <a class="alert" href="#alert">Your free StoryTime trial is almost ready! We'll let you know when you're off the waitlist.</a>
+        <a class="alert" href="#alert">Your free ReadUp trial is almost ready! We'll let you know when you're off the waitlist.</a>
     </div>
   <% end %>
 
   <% if flash[:wrong_grade_level_error] %>
     <div id="alert">
-        <a class="alert" href="#alert">Right now, Storytime is only available for preschool. We'll email you when it's ready for your grade level!</a>
+        <a class="alert" href="#alert">Right now, ReadUp is only available for preschool. We'll email you when it's ready for your grade level!</a>
     </div>
   <% end %>
 
@@ -165,8 +165,8 @@
   <!-- mobile splash -->
     <div class="splash-new-mobile">
     <div class="splash-container">
-      <h1>The easiest way to assess reading fluency.</h1>
-      <h4>ReadUp listens to students read and gives a running record with miscue analysis, accuracy, rate and comprehension.</h4>
+      <h1>Automatic running records.</h1>
+      <h4>ReadUp listens to students read and creates a full running record for you.</h4>
 
 
       <form id="signup-email-mobile" class="signup-form"> 
@@ -207,8 +207,8 @@
   <div class="splash-new">
     <div class="splash-container">
       <div class="title" style="width:40em;">
-        <h1 id="pitch">The easiest way to assess reading fluency and comprehension</h1>
-        <center><h4 id="sub-pitch" style="width:35em">ReadUp listens to students read and gives you a running record with miscue analysis, accuracy, rate, and comprehension.</h4></center>
+        <h1 id="pitch">Automatic running records.</h1>
+        <center><h4 id="sub-pitch" style="width:35em">ReadUp listens to students read and creates a full running record for you.</h4></center>
         <button type="button" data-toggle="modal" data-target="#signupEmail" class="btn btn-primary btn-lg pure-button pure-button-primary get_update dialog-button" id="main-signup-button" onclick="mixpanel.track('splash signup button clicked', {'location': 'splash'});">
                     Sign up
                   </button>
