@@ -1,0 +1,47 @@
+
+.fullHeight {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
+
+.navBar {
+	height: 60px;
+	z-index: 100;
+}
+
+.contentContainer {
+	display: flex;
+	width: 100%;
+	/*height: 100%;*/
+	flex: 1;
+	background-color: black;
+	z-index: 1;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.leftButtonContainer {
+	width: 200px;
+	background-color: blue;
+	height: 70px;
+	margin: 30px;
+
+}
+
+.rightButtonContainer {
+	width: 200px;
+	background-color: green;
+	height: 70px;
+	margin: 30px;
+
+}
+
+.readerContainer {
+	width: 400px;
+	height: 80%;
+	background-color: purple;
+}
+
+
+
