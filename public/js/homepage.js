@@ -25,6 +25,17 @@
       $('.signup-name-password-mobile').slideDown();
       mixpanel.track('email given', {"platform": "mobile"});
     }
+
+    var username = $('#signup-email-mobile input[name=usernameDisplay]').val();
+
+    var usernameFieldName = 'user[email]';
+    var input = $('<input>')
+                      .attr('type', 'hidden')
+                      .attr('name', usernameFieldName)
+                      .val(username);
+    $('#signup-name-password-mobile').append($(input));
+
+
   }
 
   $('#signup-email-button-mobile').click(function(event) {
