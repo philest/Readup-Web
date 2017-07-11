@@ -1,0 +1,11 @@
+st_elementary:
+    name: ST Elementary
+    address: 260 Dwight St
+    city: New Haven
+    state: CT
+
+cool_school:
+  name: Cool School
+  address: 8825 Hawkins Lane
+  city: Chevy Chase
+  state: MD

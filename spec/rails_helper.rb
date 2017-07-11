@@ -96,4 +96,6 @@ RSpec.configure do |config|
     # Capybara.current_session.driver.browser.manage.window.resize_to(2_500, 2_500)
   end
 
+  config.include Capybara::DSL
+  
 end

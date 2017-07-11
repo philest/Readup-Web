@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-  
+
+
+    <%= csrf_meta_tags %>
+
+
     <%= render 'static_pages/components/headers' %>
 
     <%= render 'static_pages/homepage/headers/mixpanel', locals: {mixpanel_homepage_key: @mixpanel_homepage_key} %>
-    
+
     <%= render 'static_pages/homepage/headers/libraries' %>
-    
+
     <%= render 'static_pages/components/favicon' %>
 
     <!-- our stylesheets -->
@@ -26,7 +30,7 @@
 
     <script type="text/javascript">
       $(document).ready(function(){
- 
+
         $(window).scroll(function (event) {
           var scroll = $(window).scrollTop();
           if (scroll < 645) {
@@ -84,7 +88,12 @@
       <%= render 'static_pages/homepage/modals/school-info' %>
       <%= render 'static_pages/homepage/modals/rayna-video' %>
       <%= render 'static_pages/homepage/modals/signup-name-password' %>
+<%
+=begin %>
       <%= render 'static_pages/homepage/modals/educator-login' %>
+<%
+=end %>
+      <%= render 'static_pages/homepage/modals/gotta-wait' %>
       <%= render 'static_pages/homepage/modals/demo' %>
       <%= render 'static_pages/homepage/modals/signup-email' %>
       <%= render 'static_pages/homepage/modals/main-signup-form' %>
@@ -100,7 +109,7 @@
          </div>
        </a>
        <ul class="navbar-right">
-         
+
          <li class="navbar-button-item">
            <a>
              <% if session['educator'].nil? %>
@@ -109,7 +118,7 @@
                Log in
                </button>
              <% else %>
-               <form action="signup" method="get">                 
+               <form action="signup" method="get">
                  <button id="top-button" type="submit" class="signup-button logger-in log-in-fake-button">
                    Log in
                  </button>
@@ -142,7 +151,7 @@
                   Log in
                   </button>
                 <% else %>
-                  <form action="signup" method="get">                 
+                  <form action="signup" method="get">
                     <button id="top-button" type="submit" class="signup-button logger-in log-in-fake-button">
                       Log in
                     </button>
@@ -152,7 +161,7 @@
             </li>
 
             <li class="navbar-button-item">
-              <a>       
+              <a>
                   <button id="top-button" onclick="mixpanel.track('navbar signup button clicked', {'location': 'navbar'});" data-toggle="modal" data-target="#signupEmail" class="pure-button-primary pure-button signup-button">
                     Sign up
                   </button>
@@ -169,10 +178,10 @@
       <h4>ReadUp listens to students read and creates a full running record for you.</h4>
 
 
-      <form id="signup-email-mobile" class="signup-form"> 
+      <form id="signup-email-mobile" class="signup-form">
           <div class="signup-setup">
               <div class="field" id="signup-field">
-                <input name="usernameDisplay" placeholder="Enter your email or phone number" class="input" required> 
+                <input name="usernameDisplay" placeholder="Enter your email or phone number" class="input" required>
                 <input type="hidden" name='username'>
               </div>
 
@@ -182,7 +191,7 @@
 
       <div class="signup-name-password-mobile" style="display: none;">
         <h2>Enter your name and a password</h2>
-        <form id='signup-name-password-mobile' class="signup-form" action="/auth/freemium-signup-register" method="post"> 
+        <form id='signup-name-password-mobile' class="signup-form" action="/auth/freemium-signup-register" method="post">
               <!-- <form id='login'> -->
                 <div class="signup-setup">
                   <div class="field" id="signup-field">
@@ -197,7 +206,7 @@
 
     </div>
     <!-- End container -->
-  </div> 
+  </div>
 
 
   <!-- end mobile splash -->
@@ -213,11 +222,11 @@
                     Sign up
                   </button>
       </div>
-      
+
 
     </div>
     <!-- End container -->
-  </div> 
+  </div>
   <!-- End Splash -->
 
 <!-- body -->
@@ -226,7 +235,7 @@
 <section class="product-display" id="end-no-reading">
   <h1 class="section-banner">The end of scoring running records.</h1>
   <div class="pure-g">
- 
+
     <div class="pure-u-1 pure-push-md-1-2 pure-u-md-1-2">
       <div class="product-img">
         <img src="/images/ipad-1.png" alt="">
@@ -252,7 +261,7 @@
 
 <section class="product-display" id="support-families" style="background-color: #676487; color:#ffffff;">
   <div class="pure-g" style="padding-top: 6em;">
-     
+
     <div class="pure-u-1 pure-u-md-1-2">
       <div class="product-img">
         <img src="/images/ipad-2.png" alt="">
@@ -273,7 +282,7 @@
 
   </div>
 
-  
+
 </section>
 
 
@@ -295,15 +304,15 @@
 
 
           <img class="contact-image call-to-action-image" src="https://d2yudi7y1eei74.cloudfront.net/assets/phone.png">
-          <a href="mailto:hello@joinstorytime.com?&subject=Storytime">   
+          <a href="mailto:hello@joinstorytime.com?&subject=Storytime">
               <img id="email-image" class="contact-image call-to-action-image call-to-action-email-image" src="https://d2yudi7y1eei74.cloudfront.net/assets/email.png">
           </a>
 
   </div>
 
- 
 
-  <%= render 'static_pages/components/footer' %> 
+
+  <%= render 'static_pages/components/footer' %>
 
   <script>
       mixpanel.track_links("a#case-study-link", "Case study link clicked");

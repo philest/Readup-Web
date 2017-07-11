@@ -1,33 +1,38 @@
 class User < ApplicationRecord
 
-  has_many :teachers
+  has_many :teachers, inverse_of: :user
 
   after_initialize :set_defaults, unless: :persisted?
 
   # The set_defaults will only work if the object is new
   def set_defaults
-    self.email ||= ""
-    self.phone ||= ""
+
   end
 
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  # validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }
   validates :email, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false },
+                    uniqueness: { allow_blank: true,
+                                  case_sensitive: false },
                     allow_blank: true
+  validates :phone, numericality: true,
+                    allow_blank: true,
+                    uniqueness: { allow_blank: true }
+  validates :password, length: { minimum: 6 }
+
 
   # custom validation
-  validate :email_or_password_must_be_set
-  def email_or_password_must_be_set
+  validate :phone_or_email_must_be_set
+  def phone_or_email_must_be_set
     if !(phone.present? || email.present?)
-      errors.add(:email, 'password or email must be submitted')
+      errors.add(:email, 'phone or email must be submitted')
     end
   end
-  
-   # custom validation
+
+  # custom validation
   validate :full_name_present
   def full_name_present
     if name.nil? || name == "" || name.split(" ").size < 2
@@ -37,7 +42,10 @@ class User < ApplicationRecord
 
 
   before_save {
-    self.email = email.downcase
+    self.email = email.downcase if email.present?
+    name_arr = name.split
+    self.first_name = name_arr[0, name_arr.size - 1].join(" ")
+    self.last_name  = name_arr[-1]
   }
 
   has_secure_password

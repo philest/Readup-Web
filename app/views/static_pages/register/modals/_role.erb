@@ -1,6 +1,6 @@
 <style>
   .container {
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
   }
 </style>
@@ -10,7 +10,7 @@
   <%= render 'static_pages/components/navbar' %>
       <div data-role="main" class="body" style="display: block;">
         <div class="pure-g">
-          
+
           <div class="pure-u-1 class-information password-text">
                   <h1 style="font-size:20px;margin-top:29px;"><%= text[:header_role] %></h1>
                 </div>
@@ -19,9 +19,9 @@
       <form class="role" id="choose-educator-role-form" style="display: none;">
         <input type="hidden" name="role" value="">
       </form>
-        
+
         <a class="transition-link" href="#page3" data-transition="fade">
-          
+
           <div class="container choose-educator-role" id="parent">
             <div class="pure-g">
               <div class="pure-u-1 role-form">
@@ -32,8 +32,8 @@
                       </div>
                     </div>
 
-   
-                
+
+
                 <!-- <button class="role" type="submit"> -->
                 <!-- </button> -->
 
@@ -41,7 +41,7 @@
             </div> <%# end pure-g %>
           </div>
         </a>
-        
+
 
         <a class="transition-link" href="#page3" data-transition="fade">
           <div class="container choose-educator-role" id="teacher">
@@ -60,7 +60,7 @@
             </div> <%# end pure-g %>
           </div>
         </a>
-        
+
         <a class="transition-link" href="#page3" data-transition="fade">
           <div class="container choose-educator-role" id="admin">
             <div class="pure-g">
@@ -77,7 +77,7 @@
             </div> <%# end pure-g %>
           </div>
         </a>
-        
+
       </div> <%# body class %>
 
   </div> <%# wrapper %>
@@ -91,7 +91,7 @@
           var role = $(this).attr('id');
 
           $('form#password-form').find('input[name=role]').val(role);
-          
+
         });
       });
 
@@ -102,7 +102,7 @@
 
   <!-- Mixpanel Form tracking -->
  <script>
- function formTracker() { 
+ function formTracker() {
     mixpanel.track_forms('#teacher-form', 'Selected Teacher Role');
     mixpanel.track_forms('#parent-form', 'Selected Parent Role');
     mixpanel.track_forms('#admin-form', 'Selected Admin Role');

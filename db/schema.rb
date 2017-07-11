@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629191225) do
+ActiveRecord::Schema.define(version: 20170710180019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,27 +18,46 @@ ActiveRecord::Schema.define(version: 20170629191225) do
   create_table "classrooms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "school_id"
+    t.string "name"
+    t.integer "grade_level"
   end
 
-  create_table "student_classrooms", force: :cascade do |t|
+  create_table "classrooms_students", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "student_id"
     t.integer "classroom_id"
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.integer "grade"
-  end
-
-  create_table "teacher_classrooms", force: :cascade do |t|
+  create_table "classrooms_teachers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "teacher_id"
     t.integer "classroom_id"
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "name"
+    t.string "signature"
+    t.string "zip_code"
+    t.text "address"
+    t.string "phone"
+    t.text "email"
+    t.string "state"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "country"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "nick"
+    t.integer "grade"
+    t.string "first_name"
+    t.string "last_name"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -47,6 +66,7 @@ ActiveRecord::Schema.define(version: 20170629191225) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "school"
+    t.integer "school_id_default"
     t.index ["signature"], name: "index_teachers_on_signature", unique: true
   end
 
@@ -64,13 +84,6 @@ ActiveRecord::Schema.define(version: 20170629191225) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone"], name: "index_users_on_phone", unique: true
-  end
-
-  create_table "users_tables", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "phone_number"
   end
 
 end

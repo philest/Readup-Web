@@ -21,7 +21,7 @@
       var username = $('form#signup-email-mobile input[name=usernameDisplay]').val();
       if (validatePhone(username)) {
         console.log(validatePhone(username));
-        var phone = username; 
+        var phone = username;
 
         phone = phone.replace(/[\(\)\.\-\ ]/g, '');
 
@@ -69,43 +69,31 @@
     $('#signup-email').validate({ // initialize the plugin
         rules: {
             usernameDisplay: {
-                validateContactId: true
+                email: true,
+                required: true
             }
         }
     }).form();
 
-    var ValidStatus = $("#signup-email").valid();
-    if (ValidStatus == false) {
+    if (!$("#signup-email").valid()) {
         mixpanel.track('invalid email given', {'platform':'desktop'});
         return false;
     }
 
     var username = $('form#signup-email input[name=usernameDisplay]').val();
     var usernameDisplay = username;
-    if (validatePhone(username)) {
-      console.log(validatePhone(username));
-      var phone = username; 
-
-      phone = phone.replace(/[\(\)\.\-\ ]/g, '');
-
-
-      $('form#signup-email input[name=username]').val(phone);
-
-      username = phone;
-
-    }
 
     $.ajax({
       url: 'auth/user_exists',
       type: 'get',
       data: {
-        username: username
+        email: username
       },
       success: function(data) {
         // a user already exists with this username/phone, so log that user in
         $('#teacher-info input[name=usernameDisplay]').val(usernameDisplay);
         $('#teacher-info input[name=username]').val(username);
-        $('#myModal').modal('toggle'); 
+        $('#myModal').modal('toggle');
       },
       error: function (xhr, ajaxOptions, thrownError){
           if(xhr.status==404) {
@@ -249,16 +237,19 @@
     console.log(data);
     mixpanel.people.set(data);
 
-    mixpanel.track('freemium registration submitted', {'platform':'mobile'}); 
+    mixpanel.track('freemium registration submitted', {'platform':'mobile'});
 
   });
 
 
   $('#signup-name-password').submit(function(event) {
     var username = $('#signup-email input[name=username]').val();
+
+    var usernameFieldName = 'user[email]';
     var input = $('<input>')
                       .attr('type', 'hidden')
-                      .attr('name', 'username')
+                      .attr('name', usernameFieldName)
+
                       .val(username);
     $('#signup-name-password').append($(input));
 
@@ -270,7 +261,7 @@
     console.log(data);
     mixpanel.people.set(data);
 
-    mixpanel.track('freemium registration submitted', {'platform':'desktop'}); 
+    mixpanel.track('freemium registration submitted', {'platform':'desktop'});
 
   });
 
@@ -323,7 +314,7 @@
   });
 
 
-  
+
   // might also belong to a different page...
   $('#admin-login').submit(function(event) {
 
@@ -392,10 +383,10 @@
     $('body').css("padding-right", '0px');
     $("body").addClass("my-modal-open");
   });
-  
 
-  // 
-  // 
+
+  //
+  //
   // YUP, SIGNUP FLOW, RIGHT ABOVE ME!!!!!
 
   $('.logger-in.signup-button#top-button').click(function(event) {
@@ -409,6 +400,13 @@
     $('body').css('right', '0px'); // fixes a mysterious problem where opening modal causes body to shift
     $('body').css('left', '0px');
   });
+
+
+  $('#main-signup-button').click(function(event) {
+    $('body').css('right', '0px'); // fixes a mysterious problem where opening modal causes body to shift
+    $('body').css('left', '0px');
+  });
+
 
 
 

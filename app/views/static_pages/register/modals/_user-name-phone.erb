@@ -1,7 +1,7 @@
 <div data-role="page" class="wrapper" id="page1">
 
   <%= render 'static_pages/components/navbar' %>
-    
+
       <div data-role="main" class="body">
         <div class="container first-page">
           <div class="pure-g">
@@ -14,7 +14,7 @@
               </div>
 
               <div class="login-form">
-                <form id="register"> 
+                <form id="register">
                   <div class="signup-setup">
                     <div class="field" id="signup-field">
                        <label class="label"><%= text[:full_name] %></label>
@@ -26,8 +26,8 @@
                       <input type="hidden" name="locale" value="<%= locale %>">
                       <input type="hidden" name="class_code" value="<%= class_code %>">
                     </div>
-                   
-                        <a id="page1link" class="transition-link ui-btn web-mobile-signup-button" href="#page2" data-transition="fade">  
+
+                        <a id="page1link" class="transition-link ui-btn web-mobile-signup-button" href="#page2" data-transition="fade">
                           <%= text[:sign_up] %>
                           <!-- <button data-transition="fade" action="#page2" class="web-mobile-signup-button" type="submit"><%= text[:sign_up] %></button> -->
                         </a>
@@ -55,7 +55,7 @@
         </div> <%# end pure-g %>
 
 
-          
+
       </div> <%# container %>
     </div> <%# body %>
 

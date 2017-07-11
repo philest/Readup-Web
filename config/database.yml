@@ -85,3 +85,12 @@ production:
   database: birdup_production
   username: birdup
   password: <%= ENV['BIRDUP_DATABASE_PASSWORD'] %>
+
+birdup_production:
+  <<: *default
+  url: <%= ENV['BIRDUP_PRODUCTION_URL'] %>
+
+birdv_production:
+  <<: *default
+  database: <%= ENV['BIRDV_DB'] %>
+  url:  <%= ENV['BIRDV_URL'] %>

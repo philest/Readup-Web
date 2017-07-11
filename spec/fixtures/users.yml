@@ -1,0 +1,4 @@
+based_god:
+  password_digest: some_crazy_hash
+  email: example@example.com
+  name: 'Bobry Wahl'

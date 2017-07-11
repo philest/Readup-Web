@@ -9,14 +9,14 @@
       <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
       <div data-role="page" class="wrapper" id="page6-school-info">
         <%= render 'static_pages/components/navbar' %>
-     
+
         <div data-role="main" class="body invite-teacher">
 
           <div class="container" style="padding-top:0em;">
               <h2 class="modal-signup-heading" id="modal-signup-heading">Add your school</h2>
               <!-- <h3 class="modal-signup-heading">to add your class</h3> -->
 
-              <form id="school-info" class="signup-form"> 
+              <form id="school-info" class="signup-form">
                 <div class="signup-setup">
                   <div class="field" id="signup-field">
                      <label class="label">School name</label>
@@ -107,17 +107,17 @@
                 <a id="page6link" class="transition-link ui-btn web-mobile-signup-button" href="#" data-transition="fade">
                   Continue
                 </a>
-                
+
                 <script>
 
                   $('#page6-school-info select[name=classroom_grade]').change(function(event){
                     // get the grade
                     var grade = $('#page6-school-info select[name=classroom_grade]').val();
-                    grade = parseInt(grade); 
+                    grade = parseInt(grade);
 
                     var role = $('form#choose-educator-role-form').find('input[name=role]').val();
 
-                    // Allow up to (and including) 1st grade teachers!  
+                    // Allow up to (and including) 1st grade teachers!
                     if (grade <= 1) {
                       if (role == "parent") {
                         $('#page4link').attr('href', '#page2-invite-teacher');
@@ -143,7 +143,7 @@
                   $(document).on('click', '#page6link',function(event){
 
                     var ValidStatus = $("#page6-school-info #school-info").valid();
-                    
+
                     if (ValidStatus == false) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -156,7 +156,7 @@
 
                     var sig = $('form#educator-signature-form').find('input[name=signature]').val();
 
-                    $('form#school-info').find('input[name=signature]').val(sig);    
+                    $('form#school-info').find('input[name=signature]').val(sig);
 
                     // $.post('/freemium-signup', $('form#school-info').serialize());
 
@@ -172,7 +172,7 @@
                           console.log(xhr);
 
                           var grade = $('#page6-school-info select[name=classroom_grade]').val();
-                          grade = parseInt(grade); 
+                          grade = parseInt(grade);
 
                           if (grade <= 1) {
                             console.log('yup, gonna submit');

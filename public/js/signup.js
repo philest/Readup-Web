@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function () {
-  
+
   var timezone = getUserTimezone();
 
   var tz = $('<input>')
