@@ -103,19 +103,10 @@ class StudentDashboardRouteComponent extends React.Component {
     console.log('rerendering, pageNumber is ' + this.state.pageNumber)
     return (
 
-      <RouteTransition
-            pathname={this.props.location.pathname}
-            atEnter={{ opacity: 0 }}
-            atLeave={{ opacity: 0 }}
-            atActive={{ opacity: 1 }}
-            className={styles.routeTransition}
-          >
+      
 
           
       <div className={styles.fullHeight}>
-
-                
-
         <NavigationBar className={styles.navBar} />
 
         <div className={styles.contentContainer}>
@@ -130,9 +121,19 @@ class StudentDashboardRouteComponent extends React.Component {
           </div>
 
           <div className={styles.readerContainer}>
-            <Reader 
-              pageNumber={this.state.pageNumber}
-            />
+            <RouteTransition
+              pathname={this.props.location.pathname}
+              atEnter={{ opacity: 0 }}
+              atLeave={{ opacity: 0 }}
+              atActive={{ opacity: 1 }}
+              className={styles.routeTransition}
+            >
+
+              <Reader 
+                pageNumber={this.state.pageNumber}
+              />
+              
+            </RouteTransition>
           </div>
 
           <div className={styles.rightButtonContainer}>
@@ -144,60 +145,25 @@ class StudentDashboardRouteComponent extends React.Component {
             />
           </div>
 
-
-          
-
-        </div>
-
-
+        </div>        
       </div>
-      </RouteTransition>
+      
       
     );
   }
 }
 
 
-// const Fade = ({ children, ...props }) => (
-//  <CSSTransition
-//    {...props}
-//    timeout={50}
-//    classNames="fade"
-//  >
-//   {children}
-//  </CSSTransition>
-// );
-
 export default class StudentDashboard extends React.Component {
-
-  // constructor(...args) {
-  //   super(...args);
-  //   this.state= { show: false }
-
-  //   setInterval(() => {
-  //     this.setState({ show: true})
-  //   }, 500)
-  // }
 
   render()  {
 
     return (
       <HashRouter>
-
-          
-          
-
-            <Route 
-              path="/story/:story_id/page/:page_number" 
-              component={StudentDashboardRouteComponent}
-              // location={location}
-              // key={location.key}
-            />
-          
-          
-
-          
-        
+        <Route 
+          path="/story/:story_id/page/:page_number" 
+          component={StudentDashboardRouteComponent}
+        />
       </HashRouter>
     );
   }
