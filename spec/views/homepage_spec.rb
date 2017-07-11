@@ -5,8 +5,7 @@ RSpec.describe "homepage", type: :view do
 
   it 'renders the homepage' do
     visit '/'
-    expect(page).to have_content('The easiest way to assess reading fluency and comprehension')
-    expect(page).to have_content('Spend your time teaching, not testing')
+    expect(page).to have_content('ReadUp does running records for you.')
   end
 
   it 'has good links to static content' do
