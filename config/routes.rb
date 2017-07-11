@@ -37,7 +37,9 @@ Rails.application.routes.draw do
 
   # React Pages
   get 'hello_world', to: 'hello_world#index'
+
   get 'student_dashboard', to: 'student_dashboard#index'
+  get 'student_dashboard/', to: 'student_dashboard#index' # with added route info tacked on with hash, i.e. student_dashboard/#/story/:story_id/page/:page_id, handled by ReactRouter
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

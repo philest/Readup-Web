@@ -23,7 +23,6 @@
 
 .leftButtonContainer {
 	width: 200px;
-	background-color: blue;
 	height: 70px;
 	margin: 30px;
 
@@ -31,7 +30,6 @@
 
 .rightButtonContainer {
 	width: 200px;
-	background-color: green;
 	height: 70px;
 	margin: 30px;
 
@@ -44,4 +42,10 @@
 }
 
 
-
+.routeTransition, .routeTransition > div {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
