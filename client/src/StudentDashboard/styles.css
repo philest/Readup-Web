@@ -42,12 +42,7 @@
 }
 
 
-.routeTransition {
-	width: 100%;
-	height: 100%;
-}
-
-.routeTransition > div {
+.routeTransition, .routeTransition > div  {
 	width: 100%;
 	height: 100%;
 }

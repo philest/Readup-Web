@@ -4,23 +4,9 @@ import RectangleButton from '../RectangleButton'
 import css from './styles.css'
 
 
-// const RU_BLUE = '#3C8FCA';
-// const NAVBAR_HEIGHT = 60;
-
-// const navContainer = {
-//   display: 'flex',
-//   height: NAVBAR_HEIGHT,
-//   backgroundColor: RU_BLUE,
-// };
-
-// const brandText = {
-//   color: 'white',
-// }
-
-
 export default class NavigationBar extends React.Component {
   static propTypes = {
-    
+    studentName: PropTypes.string.isRequired,
   };
 
   /**
@@ -54,7 +40,7 @@ export default class NavigationBar extends React.Component {
         </div>
         <div className={css.subContainer}>
           <div className={css.rightDisplayContainer}>
-            <span className={css.userNameLabel}>David Jones</span>
+            <span className={css.userNameLabel}>{this.props.studentName}</span>
             <span className={css.logoutButton}>
               <span className={css.logoutLabel}>Logout</span>
             </span>

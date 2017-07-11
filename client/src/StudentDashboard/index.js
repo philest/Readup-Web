@@ -33,24 +33,16 @@ inlineStyles.fill = {
 
 class StudentDashboardRouteComponent extends React.Component {
   static propTypes = {
-    // name: PropTypes.string.isRequired, // this is passed from the Rails view
+    studentName: PropTypes.string.isRequired, // this is passed from the Rails view
   };
 
-  /**
-   * @param props - Comes from your rails view.
-   * @param _railsContext - Comes from React on Rails
-   */
   constructor(props, _railsContext) {
     super(props);
 
-    
-
-    // How to set initial state in ES6 class syntax
-    // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     this.state = {  
       pageNumber: parseInt(this.props.match.params.page_number),
+      storyId: this.props.match.params.story_id,
     };
-
 
 
     this.pauseRecordingClicked = this.pauseRecordingClicked.bind(this);
@@ -76,6 +68,7 @@ class StudentDashboardRouteComponent extends React.Component {
   }
 
   stopRecordingClicked() {
+
   }
 
   nextPageClicked() {
@@ -91,23 +84,21 @@ class StudentDashboardRouteComponent extends React.Component {
 
     // Catch redirection to other pages
     if (this.state.redirectForward) {
-      console.log('redirect forward')
       return <Redirect push to={'/story/STORY_ID/page/'+(this.state.pageNumber+1)} />
     }
     if (this.state.redirectBack) {
-      console.log('redirect back')
       return <Redirect push to={'/story/STORY_ID/page/'+(this.state.pageNumber-1)} />
     }
 
     // Default: render page
-    console.log('rerendering, pageNumber is ' + this.state.pageNumber)
+    console.log('Rerendering, pageNumber is: ' + this.state.pageNumber)
     return (
-
-      
-
-          
+ 
       <div className={styles.fullHeight}>
-        <NavigationBar className={styles.navBar} />
+        <NavigationBar 
+          className={styles.navBar}
+          studentName={this.props.studentName} 
+        />
 
         <div className={styles.contentContainer}>
 
@@ -131,8 +122,10 @@ class StudentDashboardRouteComponent extends React.Component {
 
               <Reader 
                 pageNumber={this.state.pageNumber}
+                textLines={["Cesar worked hard so that others could live better.", "He made life more fair."]}
+                imageURL={"http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg"}
               />
-              
+
             </RouteTransition>
           </div>
 
@@ -153,16 +146,23 @@ class StudentDashboardRouteComponent extends React.Component {
   }
 }
 
-
+// Really just a wrapper component that contains the router
 export default class StudentDashboard extends React.Component {
+  static propTypes = {
+    studentName: PropTypes.string.isRequired, // this is passed from the Rails view
+  };
 
   render()  {
-
+    console.log('more props!!')
+    console.log(this.props)
     return (
       <HashRouter>
         <Route 
           path="/story/:story_id/page/:page_number" 
-          component={StudentDashboardRouteComponent}
+          render={(props) => {
+            const fullProps = {...props, ...this.props}
+            return <StudentDashboardRouteComponent {...fullProps} />
+          }}
         />
       </HashRouter>
     );

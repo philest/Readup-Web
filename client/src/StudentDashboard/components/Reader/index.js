@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-export default class StudentDashboard extends React.Component {
+export default class Reader extends React.Component {
   static propTypes = {
   };
 
@@ -18,25 +18,20 @@ export default class StudentDashboard extends React.Component {
 
 
   render() {
+
+    const FormattedText = ({textLines}) => (
+      <div className={styles.readerTextContainer}>
+        {textLines.map(text => (
+          <div className={styles.textParagraph} key={text}>{text}</div>
+        ))}
+      </div>
+    ); 
+
     return (
       <div className={styles.readerContentContainer}>
-        <img src="/images/chavez.jpeg" className={styles.readerImage} />
-
-        <div className={styles.readerTextContainer}>
-
-          <div className={styles.textParagraph}>
-            Cesar worked hard so that others could live better.
-          </div>
-          
-          <div className={styles.textParagraph}>
-            He made life more fair.
-          </div>
-
-      
-          
-        </div>
-
         
+        <img src={this.props.imageURL} className={styles.readerImage} />
+        <FormattedText textLines={this.props.textLines} />
         <div className={styles.pageNumber}>{this.props.pageNumber}</div>
 
       </div>
