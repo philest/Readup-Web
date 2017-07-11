@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :schools
   root 'static_pages#index'
 
   get 'hello', to: 'hello_world#index'
