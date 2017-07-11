@@ -19,16 +19,6 @@
         mixpanel.track('invalid username given', {"platform": "mobile"});
     } else {
       var username = $('form#signup-email-mobile input[name=usernameDisplay]').val();
-      if (validatePhone(username)) {
-        console.log(validatePhone(username));
-        var phone = username;
-
-        phone = phone.replace(/[\(\)\.\-\ ]/g, '');
-
-
-        $('form#signup-email-mobile input[name=username]').val(phone);
-
-      }
 
 
       $('#signup-email-mobile').slideUp();

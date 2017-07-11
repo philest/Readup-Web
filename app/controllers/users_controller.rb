@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    puts "\n\n\n\n\n#{user_params}\n\n\n\n"
     @user = User.new(user_params)
     @user.name = user_params[:first_name] + ' ' + user_params[:last_name]
 
