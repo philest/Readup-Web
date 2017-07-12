@@ -4,6 +4,9 @@ import styles from './styles.css'
 
 export default class RectangleButton extends React.Component {
   static propTypes = {
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    onClick: PropTypes.func,
   };
 
   /**
@@ -19,7 +22,10 @@ export default class RectangleButton extends React.Component {
     return (
       <div className={styles.rectangleButtonContainer} style={this.props.style} onClick={this.props.onClick}>
         <div className={styles.rectangleButtonTitle}>{this.props.title}</div>
-        <div className={styles.rectangleButtonSubtitle}>{this.props.subtitle}</div>
+
+        { this.props.subtitle && this.props.subtitle != '' && 
+          <div className={styles.rectangleButtonSubtitle}>{this.props.subtitle}</div>
+        }
 
 
       </div>

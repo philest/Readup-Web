@@ -12,7 +12,7 @@
 .readerImage {
 	width: 100%;
 	height: auto;
-	min-height: 200px;
+	/*min-height: 200px;*/
 }
 
 .readerTextContainer {
@@ -36,5 +36,5 @@
 	font-family: 'Arial';
 	font-size: 1.2em;
 	padding: 10px;
-	height: 20px;
+	height: 40px;
 }

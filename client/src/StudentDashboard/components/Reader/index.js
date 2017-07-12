@@ -4,6 +4,9 @@ import styles from './styles.css'
 
 export default class Reader extends React.Component {
   static propTypes = {
+    pageNumber: PropTypes.number,
+    textLines: PropTypes.arrayOf(PropTypes.string),
+    imageURL: PropTypes.string,
   };
 
   /**

@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// import styles from './poop.css'
+import styles from './styles.css'
 
-export default class StudentDashboard extends React.Component {
+export default class ModalHeader extends React.Component {
+  static propTypes = {
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -10,14 +12,14 @@ export default class StudentDashboard extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-
   }
 
   render() {
     return (
-      <div>
-        
+      <div className={styles.modalHeaderTitleWrapper}>
+        <div className={styles.modalHeaderTitleText}>{this.props.title}</div>
       </div>
+        
     );
   }
 }

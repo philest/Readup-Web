@@ -4,10 +4,15 @@ import React from 'react';
 import NavigationBar from './components/NavigationBar'
 import Reader from './components/Reader'
 import RectangleButton from './components/RectangleButton'
+import DoneModal from './components/modals/DoneModal'
+import PausedModal from './components/modals/PausedModal'
+import MicModal from './components/modals/MicModal'
 
 import styles from './styles.css'
 
-import { RouteTransition } from 'react-router-transition';
+import { RouteTransition, presets } from 'react-router-transition';
+
+import { Modal, Button } from 'react-bootstrap';
 
 
 import {
@@ -58,7 +63,8 @@ class StudentDashboardRouteComponent extends React.Component {
       this.setState({  
         pageNumber: parseInt(this.props.match.params.page_number),
         redirectForward: false,
-        redirectBack: false
+        redirectBack: false,
+        showDoneModal: false,
       });
     }
   }
@@ -92,9 +98,27 @@ class StudentDashboardRouteComponent extends React.Component {
 
     // Default: render page
     console.log('Rerendering, pageNumber is: ' + this.state.pageNumber)
+
+
+    // const transitionPreset = this.props.location.action === 'POP' ? presets.slideLeft : presets.slideRight;
+    const transitionProps = {...presets.pop, pathname: this.props.location.pathname, className: styles.routeTransition}
+
     return (
  
       <div className={styles.fullHeight}>
+
+
+        <Modal 
+          dialogueClassName={styles.doneModal} 
+          className={styles.doneModal} 
+          show={false} 
+          onHide={this.close}
+          animation={true}
+        >
+          <MicModal />
+        </Modal>
+
+
         <NavigationBar 
           className={styles.navBar}
           studentName={this.props.studentName} 
@@ -112,12 +136,7 @@ class StudentDashboardRouteComponent extends React.Component {
           </div>
 
           <div className={styles.readerContainer}>
-            <RouteTransition
-              pathname={this.props.location.pathname}
-              atEnter={{ opacity: 0 }}
-              atLeave={{ opacity: 0 }}
-              atActive={{ opacity: 1 }}
-              className={styles.routeTransition}
+            <RouteTransition {...transitionProps}
             >
 
               <Reader 
