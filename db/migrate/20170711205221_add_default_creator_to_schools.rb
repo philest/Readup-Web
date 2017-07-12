@@ -1,8 +1,7 @@
 class AddDefaultCreatorToSchools < ActiveRecord::Migration[5.1]
   def change
-
-    add_reference :schools, :creator, references: :users, index: true, default: 2
-    add_foreign_key :schools, :users, column: :creator_id
+    add_column :schools, :creator_id, :integer, default: 2
+    # add_reference :schools, :creator, foreign_key: {to_table: :users}, default: 2
 
   end
 end

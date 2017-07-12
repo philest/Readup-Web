@@ -49,8 +49,7 @@ ActiveRecord::Schema.define(version: 20170711205221) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "country"
-    t.bigint "creator_id", default: 2
-    t.index ["creator_id"], name: "index_schools_on_creator_id"
+    t.integer "creator_id", default: 2
   end
 
   create_table "students", force: :cascade do |t|
@@ -88,5 +87,4 @@ ActiveRecord::Schema.define(version: 20170711205221) do
     t.index ["phone"], name: "index_users_on_phone", unique: true
   end
 
-  add_foreign_key "schools", "users", column: "creator_id"
 end
