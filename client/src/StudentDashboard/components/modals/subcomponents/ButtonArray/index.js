@@ -20,7 +20,7 @@ export default class ButtonArray extends React.Component {
       <div className={styles.buttonArrayWrapper}>
 
         {zipped.map(titleImageArray => (
-          <div className={styles.buttonWrapper}>
+          <div className={styles.buttonWrapper} key={titleImageArray[1]}>
             <img className={styles.buttonImage} src={titleImageArray[0]} />
             <div className={styles.buttonText}>{titleImageArray[1]}</div>
           </div>

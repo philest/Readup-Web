@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-export default class Reader extends React.Component {
+export default class BookPage extends React.Component {
   static propTypes = {
     pageNumber: PropTypes.number,
     textLines: PropTypes.arrayOf(PropTypes.string),
