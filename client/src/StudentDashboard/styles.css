@@ -47,6 +47,33 @@
 	height: 100%;
 }
 
+.doneModal {
+	/*background-color: green;
+	opacity: 0.5;*/
+}
+
+.doneModalZZZ {
+
+}
+
 .doneModal > div {
-	width: 450px;
+	width: 450px; /* sets the width of the modal */
+}
+
+.fill {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;	
+}
+
+.modalBackdropXXX {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: green;
+	opacity: 0.3;
 }

@@ -1,3 +1,7 @@
+//@flow
+
+
+
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -5,7 +9,11 @@ import Reader from './Reader'
 
 import styles from './styles.css'
 
+import DoneModal from './components/modals/DoneModal'
 import PausedModal from './components/modals/PausedModal'
+import MicModal from './components/modals/MicModal'
+
+import { Modal } from 'react-bootstrap'
 
 import {
   HashRouter,
@@ -14,25 +22,56 @@ import {
 } from 'react-router-dom'
 
 
+const ReaderStateTypes = {
+  unstarted: 'READER_STATE_UNSTARTED',
+  inProgress: 'READER_STATE_IN_PROGRESS',
+  paused: 'READER_STATE_PAUSED',
+  done: 'READER_STATE_DONE',
+}
+
+// export type ReaderState = "teacher" | "parent" | "admin" | '';
+// export type SignupFormKeys = $Keys<ReaderStateTypes>;
+
+
 
 const sampleBook = {
-  title: "Mom's Rocket",
+  title: "Cezar Chavez",
+  author: "Ginger Wordsworth",
   s3Key: 'rocket',
   description: "Mom gets to come along on a space adventure",
+  numPages: 5,
   pages: {
-      1: {
-        lines: [
-            "This is the first line of the first page.",
-            "This is the second line of the first page."
-        ]
-      },
-      2: {
-        lines: [
-          "This is the first line of the second page.",
-          "This is the second line of the second page."
-        ]
+    1: {
+      lines: [
+          "This is the first line of the first page.",
+          "This is the second line of the first page."
+      ]
     },
-  },
+    2: {
+      lines: [
+        "This is the first line of the second page.",
+        "This is the second line of the second page."
+      ]
+    },
+    3: {
+      lines: [
+        "This is the first line of the third page.",
+        "This is the second line of the third page."
+      ]
+    },
+    4: {
+      lines: [
+        "This is the first line of the fourth page.",
+        "This is the second line of the fourth page."
+      ]
+    },
+    5: {
+      lines: [
+        "This is the first line of the fifth page.",
+        "The end."
+      ]
+    },
+  },  
 }
 
 
@@ -48,13 +87,12 @@ export default class StudentDashboard extends React.Component {
     this.state = {  
       pageNumber: parseInt(this.props.match.params.page_number),
       storyId: this.props.match.params.story_id,
+      numPages: Object.keys(sampleBook.pages).length,
       redirectForward: false,
       redirectBack: false,
       redirectInvalid: false,
-      paused: false,
+      readerState: ReaderStateTypes.inProgress,
     };
-
-    console.log("!!!!!! CONSTRUCTOR!!!!!!!")
 
   }
 
@@ -63,7 +101,7 @@ export default class StudentDashboard extends React.Component {
 
     const newPageNumber = parseInt(this.props.match.params.page_number)
 
-    if (newPageNumber < 1 || newPageNumber > Object.keys(sampleBook.pages).length) {
+    if (newPageNumber < 0 || newPageNumber > Object.keys(sampleBook.pages).length) {
       console.log('redirecting due to invalid page number')
       this.setState({ 
         redirectInvalid: true,
@@ -89,7 +127,7 @@ export default class StudentDashboard extends React.Component {
   componentWillMount() {
     // Need to check for invalid page number here too, because didUpdate isn't called on first time
     const newPageNumber = parseInt(this.props.match.params.page_number)
-    if (newPageNumber < 1 || newPageNumber > Object.keys(sampleBook.pages).length) {
+    if (newPageNumber < 0 || newPageNumber > Object.keys(sampleBook.pages).length) {
       this.setState({ 
         redirectInvalid: true,
         redirectForward: false,
@@ -103,21 +141,126 @@ export default class StudentDashboard extends React.Component {
   //   return true;
   // }
 
-  onPauseRecordingClicked = () => {
+  /* Callbacks */
 
-  };
+  onPauseClicked = () => {
+    this.setState({ readerState: ReaderStateTypes.paused })
+  }
 
-  onStopRecordingClicked = () => {
+  onUnpauseClicked = () => {
+    console.log('!!!!!!')
+    this.setState({ readerState: ReaderStateTypes.inProgress })
+  }
 
-  };
+  onStopClicked = () => {
+    console.log("ON STOP!")
+    this.setState({ readerState: ReaderStateTypes.done })
+  }
+
+  onTurnInClicked = () => {
+    console.log('TURN IN')
+  }
+
+  onStartClicked = () => {
+    console.log('ON START')
+    this.setState({ redirectForward: true })
+  }
+
+  onStartOverClicked = () => {
+    console.log('START OVER')
+  }
+
+  onHearRecordingClicked = () => {
+    console.log('HEAR RECORDING')
+  }
 
   onNextPageClicked = () => {
+    console.log('asdfasfsff!!!')
     this.setState({ redirectForward: true })
-  };
+  }
 
   onPreviousPageClicked = () => {
     this.setState({ redirectBack: true })
-  };
+  }
+
+  /* Rendering */
+
+  // Returns a Reader component with /prop/er props based on page number
+  renderReaderComponentWithProps = () => {
+    const basicReaderProps = {
+      // stuff that doesn't change with page number
+      studentName: this.props.studentName,
+      pathname: this.props.location.pathname,
+    }
+
+    let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
+
+    
+    if (this.state.pageNumber == 0) { // cover
+      readerProps = {
+        ...readerProps,
+        showCover: true,
+        coverImageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cesar_chavez_crop2.jpg/220px-Cesar_chavez_crop2.jpg',
+        bookTitle: sampleBook.title,
+        bookAuthor: sampleBook.author,
+        onStartClicked: this.onStartClicked,
+      }
+    }
+    else { // any other page... need to check ReaderState?
+      readerProps = {
+        ...readerProps,
+        pageNumber: this.state.pageNumber,
+        textLines: sampleBook.pages[this.state.pageNumber].lines,
+        imageURL: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg', //TODO
+        isFirstPage: (this.state.pageNumber == 1),
+        isLastPage: (this.state.pageNumber == this.state.numPages),
+        onPreviousPageClicked: this.onPreviousPageClicked,
+        onPauseClicked: this.onPauseClicked,
+        onNextPageClicked: (this.state.pageNumber == this.state.numPages) ? null : this.onNextPageClicked,
+        onStopClicked: (this.state.pageNumber == this.state.numPages) ? this.onStopClicked : null,
+      }
+    }
+
+    return <Reader {...readerProps} />
+  }
+
+
+  renderModalComponentOrNullBasedOnState = () => {
+    if (this.state.readerState === ReaderStateTypes.inProgress) {
+      return null;
+    }
+
+    let ModalContentComponent = null;
+    if (this.state.readerState === ReaderStateTypes.paused) {
+      ModalContentComponent = 
+        <PausedModal 
+          onContinueClicked={this.onUnpauseClicked}
+          onStartOverClicked={this.onStartOverClicked}
+          onTurnInClicked={this.onTurnInClicked} 
+        />
+    }
+    else if (this.state.readerState === ReaderStateTypes.done) {
+      ModalContentComponent = 
+        <DoneModal 
+          onHearRecordingClicked={this.onHearRecordingClicked}
+          onTurnInClicked={this.onTurnInClicked} 
+        />
+    }
+
+
+    return (
+      <Modal 
+        dialogClassName={styles.doneModalDialog} 
+        className={styles.doneModal} 
+        show={true} 
+        onHide={this.close}
+        animation={true}
+      >
+        { ModalContentComponent }
+      </Modal>
+    );
+  }
+
 
   render()  {
 
@@ -130,23 +273,29 @@ export default class StudentDashboard extends React.Component {
       return <Redirect key='back' push to={'/story/STORY_ID/page/'+(this.state.pageNumber-1)} />
     }
     if (this.state.redirectInvalid) {
-      // Todo how to handle?
-      return <Redirect key='invalid' push to={'/story/STORY_ID/page/1'} />
+      return <Redirect key='invalid' push to={'/story/STORY_ID/page/1'} /> // Todo how to handle?
     }
 
-    const readerProps = {
-      studentName: this.props.studentName,
-      pageNumber: this.state.pageNumber,
-      textLines: sampleBook.pages[this.state.pageNumber].lines,
-      imageURL: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg', //TODO
-      onNextPageClicked: this.onNextPageClicked,
-      onPreviousPageClicked: this.onPreviousPageClicked,
-      pathname: this.props.location.pathname
-    }
 
-    return <Reader {...readerProps} />
+    console.log('state::: ' + this.state.readerState)
+
+
+    const ReaderComponent = this.renderReaderComponentWithProps()
+    const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()
+
+    return (
+      <div className={styles.fill}>
+        { ReaderComponent }     
+        { ModalComponentOrNull }
+      </div>      
+    );
+    
   }
 }
+
+
+
+
 
 
 

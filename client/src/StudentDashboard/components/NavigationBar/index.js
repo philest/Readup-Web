@@ -7,7 +7,16 @@ import css from './styles.css'
 export default class NavigationBar extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired,
+    onPauseClicked: PropTypes.func,
+
+    // cover related stuff
+    isCoverPage: PropTypes.bool,
+    bookTitle: PropTypes.string,
+    bookAuthor: PropTypes.string,
   };
+  static defaultProps = {
+    isCoverPage: false,
+  }
 
   /**
    * @param props - Comes from your rails view.
@@ -31,10 +40,12 @@ export default class NavigationBar extends React.Component {
         <div className={css.subContainer}>
           <div className={css.centerDisplayContainer}>
             <RectangleButton  
-              title='Pause' 
-              subtitle='recording'
+              title={ (this.props.isCoverPage && this.props.bookTitle) || 'Pause'  }
+              subtitle={ (this.props.isCoverPage && ('by ' + this.props.bookAuthor)) || 'recording'  }
               style={{marginTop: 20}}
               id="navigation-button"
+              disabled={this.props.isCoverPage}
+              onClick={this.props.onPauseClicked}
             />
           </div>
         </div>

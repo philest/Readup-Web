@@ -3,10 +3,9 @@ import React from 'react';
 
 import NavigationBar from './components/NavigationBar'
 import BookPage from './components/BookPage'
+import BookCover from './components/BookCover'
 import RectangleButton from './components/RectangleButton'
-import DoneModal from './components/modals/DoneModal'
-import PausedModal from './components/modals/PausedModal'
-import MicModal from './components/modals/MicModal'
+
 
 import styles from './styles.css'
 
@@ -24,23 +23,125 @@ import {
 
 export default class Reader extends React.Component {
   static propTypes = {
-    // For displaying the page
+    // For displaying the book page
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
     pageNumber: PropTypes.number,
     textLines: PropTypes.arrayOf(PropTypes.string),
     imageURL: PropTypes.string,
 
+    // For displaying book cover
+    showCover: PropTypes.bool,
+    coverImageURL: PropTypes.string,
+    bookTitle: PropTypes.string,
+    bookAuthor: PropTypes.string,
+
+    // other minimal state
+    isFirstPage: PropTypes.bool,
+    isLastPage: PropTypes.bool,
+
     // Callback functions
-    onPauseRecordingClicked: PropTypes.func,
-    onStopRecordingClicked: PropTypes.func,
+    // not required because not all functions needed for every page
+    // i.e. the last page shouldn't have a nextPageClicked function
+    onPauseClicked: PropTypes.func,
+    onStopClicked: PropTypes.func,
+    onStartClicked: PropTypes.func,
     onNextPageClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
   };
+
+  static defaultProps = {
+    // Default to showing a regular page (neither cover nor first nor last)
+    showCover: false,
+    isFirstPage: false,
+    isLastPage: false,
+  }
 
   constructor(props, _railsContext) {
     super(props);
   }
 
+  renderLeftButton = () => {
+    if (this.props.showCover || this.props.isFirstPage) {
+      return null
+    }
+    return (
+      <RectangleButton  
+        title='Previous' 
+        subtitle='page'
+        style={{ backgroundColor: '#2C6D9C' }}
+        onClick={this.props.onPreviousPageClicked}
+      />
+    );
+  }
+
+  renderCenterDisplay = () => {
+    if (this.props.showCover) {
+      return <BookCover imageURL={this.props.coverImageURL} />
+    }
+    return (
+      <BookPage 
+        pageNumber={this.props.pageNumber}
+        textLines={this.props.textLines}
+        imageURL={this.props.imageURL}
+      />
+    );
+  }
+
+  renderRightButton = () => {
+    if (this.props.isLastPage) {
+      return (
+        <RectangleButton  
+          title='Stop' 
+          subtitle='recording'
+          style={{ backgroundColor: 'red' }}
+          onClick={this.props.onStopClicked}
+        />
+      );
+    }
+    else if (this.props.showCover) {
+      return (
+        <RectangleButton  
+          title='Start' 
+          subtitle='recording'
+          style={{ backgroundColor: 'green' }}
+          onClick={this.props.onStartClicked}
+        />
+      );
+    }
+
+    return (
+      <RectangleButton  
+        title='Next' 
+        subtitle='page'
+        style={{ backgroundColor: 'green' }}
+        onClick={this.props.onNextPageClicked}
+      />
+    );
+  }
+
+  renderNavigationBar = () => {
+    let navProps = {
+      className: styles.navBar,
+      studentName: this.props.studentName,
+    }
+
+    if (this.props.showCover) {
+      navProps = {
+        ...navProps,
+        isCoverPage: true,
+        bookTitle: this.props.bookTitle,
+        bookAuthor: this.props.bookAuthor,
+      }
+    }
+    else {
+      navProps = {
+        ...navProps,
+        onPauseClicked: this.props.onPauseClicked,
+      }
+    }
+
+    return <NavigationBar {...navProps} />
+  }
 
   render() {
 
@@ -55,53 +156,22 @@ export default class Reader extends React.Component {
       <div className={styles.fullHeight}>
 
 
-        <Modal 
-          dialogueClassName={styles.doneModal} 
-          className={styles.doneModal} 
-          show={false} 
-          onHide={this.close}
-          animation={true}
-        >
-          <MicModal />
-        </Modal>
-
-
-        <NavigationBar 
-          className={styles.navBar}
-          studentName={this.props.studentName} 
-        />
+        { this.renderNavigationBar() }
 
         <div className={styles.contentContainer}>
 
           <div className={styles.leftButtonContainer}>
-            <RectangleButton  
-              title='Previous' 
-              subtitle='page'
-              style={{ backgroundColor: '#2C6D9C' }}
-              onClick={this.props.onPreviousPageClicked}
-            />
+            { this.renderLeftButton() }
           </div>
 
           <div className={styles.bookpageContainer}>
-            <RouteTransition {...transitionProps}
-            >
-
-              <BookPage 
-                pageNumber={this.props.pageNumber}
-                textLines={this.props.textLines}
-                imageURL={this.props.imageURL}
-              />
-
+            <RouteTransition {...transitionProps}>
+              { this.renderCenterDisplay() }
             </RouteTransition>
           </div>
 
           <div className={styles.rightButtonContainer}>
-            <RectangleButton  
-              title='Next' 
-              subtitle='page'
-              style={{ backgroundColor: 'green' }}
-              onClick={this.props.onNextPageClicked}
-            />
+            { this.renderRightButton() }
           </div>
 
         </div>        

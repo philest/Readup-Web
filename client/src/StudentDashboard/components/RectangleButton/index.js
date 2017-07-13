@@ -7,7 +7,11 @@ export default class RectangleButton extends React.Component {
     title: PropTypes.string,
     subtitle: PropTypes.string,
     onClick: PropTypes.func,
+    disabled: PropTypes.bool,
   };
+  static defaultProps = {
+    disabled: false
+  }
 
   /**
    * @param props - Comes from your rails view.
@@ -19,8 +23,17 @@ export default class RectangleButton extends React.Component {
   }
 
   render() {
+
     return (
-      <div className={styles.rectangleButtonContainer} style={this.props.style} onClick={this.props.onClick}>
+      <div 
+        className={ this.props.disabled ? styles.disabledButtonContainer : styles.rectangleButtonContainer} 
+        style={this.props.style} 
+        onClick={() => {
+          !this.props.disabled && this.props.onClick()
+        }}
+      >
+        
+
         <div className={styles.rectangleButtonTitle}>{this.props.title}</div>
 
         { this.props.subtitle && this.props.subtitle != '' && 

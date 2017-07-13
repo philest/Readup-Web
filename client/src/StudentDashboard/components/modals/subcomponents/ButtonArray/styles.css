@@ -16,6 +16,7 @@
 	/*background-color: yellow;*/
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 }
 
 .buttonImage {

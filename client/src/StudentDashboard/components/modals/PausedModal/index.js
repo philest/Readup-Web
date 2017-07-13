@@ -8,8 +8,9 @@ import ButtonArray from '../subcomponents/ButtonArray'
 
 export default class PausedModal extends React.Component {
   static propTypes = {
-    titles: PropTypes.arrayOf(PropTypes.string).isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onContinueClicked: PropTypes.func.isRequired,
+    onStartOverClicked: PropTypes.func,  // TODO required?
+    onTurnInClicked: PropTypes.func
   };
 
   /**
@@ -33,13 +34,15 @@ export default class PausedModal extends React.Component {
             className={styles.pausedModalContinueButton}
             title="Continue!"
             style={{ width: 200, height: 65, backgroundColor: 'green' }}
+            onClick={this.props.onContinueClicked}
           />
         </div>
         
         <div className={styles.pausedModalButtonArrayWrapper}>
           <ButtonArray
             titles={['Start over', 'Turn it in']}
-            images={['', '']} 
+            images={['/images/dashboard/record-again-icon.png', '/images/dashboard/turn-it-in-icon.png']}  //TODO strip /images/dashboard
+            actions={[this.props.onStartOverClicked, this.props.onTurnInClicked]}
           />
         </div>
 

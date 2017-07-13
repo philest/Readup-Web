@@ -7,7 +7,8 @@ import ButtonArray from '../subcomponents/ButtonArray'
 
 export default class DoneModal extends React.Component {
   static propTypes = {
-    
+    onHearRecordingClicked: PropTypes.func,
+    onTurnInClicked: PropTypes.func,
   };
 
   /**
@@ -29,7 +30,8 @@ export default class DoneModal extends React.Component {
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
             titles={['Hear it', 'Turn it in']}
-            images={['', '']} 
+            images={['/images/dashboard/hear-it-icon.png', '/images/dashboard/turn-it-in-icon.png']} 
+            actions={[this.props.onHearRecordingClicked, this.props.onTurnInClicked]}
           />
         </div>
 
