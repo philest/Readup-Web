@@ -93,7 +93,7 @@ export default class Reader extends React.Component {
         <RectangleButton  
           title='Stop' 
           subtitle='recording'
-          style={{ backgroundColor: 'red' }}
+          style={{ backgroundColor: '#982E2B' }}
           onClick={this.props.onStopClicked}
         />
       );

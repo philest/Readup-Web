@@ -10,7 +10,7 @@ export default class RectangleButton extends React.Component {
     disabled: PropTypes.bool,
   };
   static defaultProps = {
-    disabled: false
+    disabled: false,
   }
 
   /**

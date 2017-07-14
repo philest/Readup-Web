@@ -29,6 +29,9 @@ const ReaderStateTypes = {
   done: 'READER_STATE_DONE',
 }
 
+// how many images in advance to load
+const PRELOAD_IMAGES_ADVANCE = 3
+
 // export type ReaderState = "teacher" | "parent" | "admin" | '';
 // export type SignupFormKeys = $Keys<ReaderStateTypes>;
 
@@ -40,36 +43,42 @@ const sampleBook = {
   s3Key: 'rocket',
   description: "Mom gets to come along on a space adventure",
   numPages: 5,
+  coverImage: '',
   pages: {
     1: {
       lines: [
           "This is the first line of the first page.",
           "This is the second line of the first page."
-      ]
+      ],
+      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-1-610x381.jpg',
     },
     2: {
       lines: [
         "This is the first line of the second page.",
         "This is the second line of the second page."
-      ]
+      ],
+      img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
     },
     3: {
       lines: [
         "This is the first line of the third page.",
         "This is the second line of the third page."
-      ]
+      ],
+      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
     },
     4: {
       lines: [
         "This is the first line of the fourth page.",
         "This is the second line of the fourth page."
-      ]
+      ],
+      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
     },
     5: {
       lines: [
         "This is the first line of the fifth page.",
         "The end."
-      ]
+      ],
+      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
     },
   },  
 }
@@ -92,6 +101,7 @@ export default class StudentDashboard extends React.Component {
       redirectBack: false,
       redirectInvalid: false,
       readerState: ReaderStateTypes.inProgress,
+      lastImageIndexLoaded: 0,
     };
 
   }
@@ -183,6 +193,8 @@ export default class StudentDashboard extends React.Component {
     this.setState({ redirectBack: true })
   }
 
+
+
   /* Rendering */
 
   // Returns a Reader component with /prop/er props based on page number
@@ -200,18 +212,18 @@ export default class StudentDashboard extends React.Component {
       readerProps = {
         ...readerProps,
         showCover: true,
-        coverImageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cesar_chavez_crop2.jpg/220px-Cesar_chavez_crop2.jpg',
+        coverImageURL: sampleBook.coverImage,
         bookTitle: sampleBook.title,
         bookAuthor: sampleBook.author,
         onStartClicked: this.onStartClicked,
       }
     }
-    else { // any other page... need to check ReaderState?
+    else { // any other page... need to check ReaderState? I don't think so....
       readerProps = {
         ...readerProps,
         pageNumber: this.state.pageNumber,
         textLines: sampleBook.pages[this.state.pageNumber].lines,
-        imageURL: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg', //TODO
+        imageURL: sampleBook.pages[this.state.pageNumber].img, 
         isFirstPage: (this.state.pageNumber == 1),
         isLastPage: (this.state.pageNumber == this.state.numPages),
         onPreviousPageClicked: this.onPreviousPageClicked,
@@ -262,6 +274,34 @@ export default class StudentDashboard extends React.Component {
   }
 
 
+  // The best way to preload images is just to render hidden img components, with src set to the url we want to load
+  // That way they'll be cached by the browser for when we actually want to display them
+  renderHiddenPreloadImages = () => {
+    if (!PRELOAD_IMAGES_ADVANCE || this.state.lastImageIndexLoaded == this.state.numPages) {
+      console.log('DONT NEED TO PRELOAD')
+      return null
+    } 
+
+    let preloadImageURLs = []
+    for (let i = this.state.pageNumber + 1; i <= this.state.numPages && i <= this.state.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
+      console.log(i)
+      preloadImageURLs.push(sampleBook.pages[i].img)
+    }
+
+    console.log(preloadImageURLs)
+
+    return (
+      <div style={{'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden'}}> 
+        {preloadImageURLs.map((preloadImage) => {
+          return (
+            <img key={preloadImage} src={preloadImage} />
+          );
+        })}
+      </div>
+    );
+  }
+
+
   render()  {
 
     // Catch redirection
@@ -287,7 +327,10 @@ export default class StudentDashboard extends React.Component {
       <div className={styles.fill}>
         { ReaderComponent }     
         { ModalComponentOrNull }
-      </div>      
+        { this.renderHiddenPreloadImages() }     
+      </div>
+
+       
     );
     
   }
