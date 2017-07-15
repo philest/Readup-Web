@@ -25,6 +25,7 @@ class SchoolsController < ApplicationController
   # POST /schools
   # POST /schools.json
   def create
+    puts school_params
     @school = School.new(school_params)
 
     respond_to do |format|
