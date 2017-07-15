@@ -1,6 +1,6 @@
 class SchoolsController < ApplicationController
-  # before_action :set_school, only: [:show, :edit, :update, :destroy]
-  before_action :set_school, only: [:new, :create, :edit]
+  before_action :set_school, only: [:show, :edit, :update]
+  # before_action :set_school, only: [:new, :create, :edit]
 
   # GET /schools
   # GET /schools.json
@@ -70,6 +70,6 @@ class SchoolsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_params
-      params.fetch(:school, {})
+      params.require(:school).permit(:name, :city, :state)
     end
 end

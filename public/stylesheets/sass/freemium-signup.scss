@@ -7,7 +7,7 @@ body {
   text-shadow: none !important;
 }
 
-  
+
 
 
 #school-info.signup-form {
@@ -20,7 +20,7 @@ body {
 
 .dropdown-menu {
   position: absolute;
-  width: 100%;
+  width: 48%;
   background-color: white;
   z-index: 1000;
   border: solid #DCDEE2 1px;
@@ -77,7 +77,7 @@ a.transition-link {
     text-shadow: none;
   }
 
-}  
+}
 
 
 body {
@@ -102,7 +102,7 @@ form.role {
 p.school-name {
   margin-top: 0px;
   color: #6C6C6E;
-  font-size: 1.4em; 
+  font-size: 1.4em;
 }
 
 #page4link {
@@ -239,7 +239,7 @@ p.school-name {
   border-radius: 5px;
   line-height: 28px;
   margin-top: 23px;
-  background-color: #ed7a44 
+  background-color: #ed7a44
 }
 
 .label {
@@ -254,11 +254,11 @@ p.school-name {
 */
 
 
-label.error { 
-  float: left; 
-  color: red; 
-  padding-top: 0em; 
-  vertical-align: top; 
+label.error {
+  float: left;
+  color: red;
+  padding-top: 0em;
+  vertical-align: top;
   font-weight:bold;
   width: 100%;
   text-align: left;
@@ -311,7 +311,7 @@ label.error {
 #invite-teacher-form {
   a {
     font-size: 1.3em;
-    border-radius: 0.5em; 
+    border-radius: 0.5em;
   }
 
   max-width: 85%;
@@ -321,7 +321,7 @@ label.error {
 .password-text h1 {
   text-align: center;
   font-weight: normal;
-  line-height: 1.2em; 
+  line-height: 1.2em;
   font-family: 'Karla';
 }
 
@@ -338,10 +338,10 @@ label.error {
 .class-information.password-text p {
   text-align: center;
   font-weight: normal;
-  width: 100%; 
-  display: block; 
-  margin: 0 auto; 
-  color: #808287; 
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  color: #808287;
   line-height: 1.4em;
 }
 
@@ -395,13 +395,13 @@ button#join {
 
 #app-icon {
   width: 100%;
-  display: block; 
+  display: block;
 }
 
 #app-icon img {
   width: 11em;
   height: auto;
-  display: block; 
+  display: block;
   margin: 0 auto;
   padding-right: 2em;
   margin-bottom: 1em;
@@ -410,7 +410,7 @@ button#join {
 
 #teacher-icon {
   width: 70px;
-  display: block; 
+  display: block;
   margin: 0 auto;
 }
 
@@ -519,5 +519,5 @@ button#join {
 }
 
 
-  
+
 

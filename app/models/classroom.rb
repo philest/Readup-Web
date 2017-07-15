@@ -48,7 +48,7 @@ class Classroom < ApplicationRecord
         end
       end
 
-      if cl.save
+      if cl.save!
         return cl
       else
         raise "failed to create classroom #{classroom_name}"

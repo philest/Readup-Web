@@ -10,8 +10,8 @@ $(document).ready(function () {
             .attr('type', 'hidden')
             .attr('name', 'time_zone')
             .val(timezone);
-  $('#invite-teacher-form').append($(tz));
-  $('#school-info').append($(tz));
+  $('form#invite-teacher-form').append($(tz));
+  $('form#school-info').append($(tz));
 
   var os = getMobileOperatingSystem();
 

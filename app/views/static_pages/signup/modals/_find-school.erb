@@ -78,27 +78,14 @@
                     </div>
 
                     <div id="add-your-school-link">
-                      <p>Can't find your school? <a id="page4link-add-school" href="#" data-transition="fade">Add one now.</a></p>
+                      <p>Can't find your school? <a id="page4link-add-school" href="#page6-school-info" data-transition="fade">Add one now.</a></p>
                     </div>
                   </div>
 
+                  <!-- grade selection -->
+                  <%= render 'static_pages/signup/modals/partials/grade_level' %>
 
-                      <label class="label">Grade level</label>
-                      <select class="form-control" id="classroom_grade" name="classroom_grade" required>
-                        <option value="">Select your grade</option>
-                        <option value="-3">Infant</option>
-                        <option value="-2">Toddler</option>
-                        <option value="-1">Preschool</option>
-                        <option value="0">Kindergarten</option>
-                        <option value="1">1st Grade</option>
-                        <option value="2">2nd Grade</option>
-                        <option value="3">3rd Grade</option>
-                        <option value="4">4th Grade</option>
-                        <option value="5">5th Grade</option>
-                        <option value="6">6th Grade</option>
-                        <option value="7">7th Grade or above</option>
 
-                      </select>
 
                   <input type="hidden" name="school_id" value="">
                   <input type="hidden" name="school_name" value="">
@@ -106,7 +93,7 @@
                   <input type="hidden" name="school_state" value="">
                   <input type="hidden" name="signature" value="">
 
-                  <a id="page4link" class="transition-link ui-btn web-mobile-signup-button" href="#" data-transition="fade">
+                  <a id="page4link" class="transition-link ui-btn web-mobile-signup-button" href="#page3-signature" data-transition="fade">
                     Continue
                   </a>
 
@@ -129,7 +116,7 @@
 
                         $( "#page4-find-school input[name=school_name]" ).autocomplete({
 
-                          source: 'https://www.joinstorytime.com/auth/list-of-schools',
+                          source: '/auth/search_school',
 
                           minLength: 2,
                           appendTo: "#just-to-append",
@@ -190,22 +177,6 @@
                       $('.dropdown-menu').css('display', 'none');
                     });
 
-                    $('#page4-find-school select[name=classroom_grade]').change(function(event){
-
-
-                      // Here's a good place to change the next page based on the inputted grade
-                      // i.e. if grade too old, show we don't support it, don't let user advance
-
-                      // var grade = $('#page4-find-school select[name=classroom_grade]').val();
-                      // grade = parseInt(grade);
-                      // if (grade... ) {
-                      //   $('#page4link').attr('href', '#');
-                      // }
-
-                      // for now default to going to the next page
-                      $('#page4link').attr('href', '#page3-signature');
-
-                    });
 
 
                     $(document).on('click', '#page4-find-school #page4link',function(event){

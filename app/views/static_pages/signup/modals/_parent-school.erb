@@ -233,7 +233,7 @@
 
 
                     $(document).on('click', '#page2-parent-school #page2link',function(event){
-                      var ValidStatus = $("#page2-parent-school #school-info").valid();
+                      var ValidStatus = $("#page2-parent-school #find-school").valid();
                       // console.log(ValidStatus);
                       if (ValidStatus == false) {
                           event.preventDefault();
@@ -243,11 +243,11 @@
                       }
 
                       var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                      $('#page2-parent-school form#school-info').find('input[name=role]').val(role);
+                      $('#page2-parent-school form#find-school').find('input[name=role]').val(role);
 
                       var sig = $('form#educator-signature-form').find('input[name=signature]').val();
 
-                      $('#page2-parent-school form#school-info').find('input[name=signature]').val(sig);    
+                      $('#page2-parent-school form#find-school').find('input[name=signature]').val(sig);    
 
                       // check if preschool or below
                       // if preschool, perform the regular action of logging in
@@ -259,7 +259,7 @@
                       $.ajax({
                         url: 'freemium-signup',
                         type: 'post',
-                        data: $('#page2-parent-school form#school-info').serialize()
+                        data: $('#page2-parent-school form#find-school').serialize()
                       }).done(function(data, statusText, xhr) {
                           console.log(data);
                           console.log('statusText is:');
@@ -277,7 +277,7 @@
                           // $('form#log-into-dat-account input[name=password]').val(data);
                       });
 
-                      var formdata = $("#page2-parent-school form#school-info").serializeArray();
+                      var formdata = $("#page2-parent-school form#find-school").serializeArray();
                       console.log(formdata);
                       var data = {};
                       $(formdata).each(function(index, obj){

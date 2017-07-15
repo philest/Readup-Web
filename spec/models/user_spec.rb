@@ -21,8 +21,9 @@ RSpec.describe User, type: :model do
     }.to change { User.count }.by(1)
   end
 
-  it "has default user" do
-    expect(User.count).to eq 1
+  it "has default users" do
+    expect(User.count).to eq 2
+    expect(User.where(id: 2).first).not_to be nil
   end
 
   it "fails if no phone or email provided" do

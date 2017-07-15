@@ -23,4 +23,40 @@ class RegistrationController < ApplicationController
     end
 
   end
+
+  def search_school
+    puts params.inspect
+    # blacklist = [
+    #   'StoryTime',
+    #   'Freemium',
+    #   'Freemium School',
+    #   'ST Elementary'
+    # ]
+
+    schools = School.search(params["term"])
+    school_list = schools.map do |s|
+
+      location = ''
+      if s.city && s.state
+        location = "#{s.city}, #{s.state}"
+      elsif s.city
+        location = s.city.to_s
+      elsif s.state
+        location = s.state.to_s
+      end
+      {
+        label: s.name,
+        id: s.id,
+        value: s.id,
+        desc: location,
+        city: s.city,
+        state: s.state
+      }
+    end
+
+    puts school_list
+
+    render json: school_list
+
+  end
 end
