@@ -25,8 +25,11 @@ class SchoolsController < ApplicationController
   # POST /schools
   # POST /schools.json
   def create
-    puts school_params
-    @school = School.new(school_params)
+    puts "\n\n\n\njjjjjj\n\n\n"
+    puts params
+    puts school_params.to_h
+    puts school_params["school"]
+    @school = School.new(school_params.to_h)
 
     respond_to do |format|
       if @school.save!

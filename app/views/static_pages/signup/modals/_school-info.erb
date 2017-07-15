@@ -144,9 +144,9 @@
                       $('form#add-students').find('input[name=school_id]').val(data.id);
                       $('form#add-students').find('input[name=classroom_grade]').val(gradeLevel);
                     }).fail(function(data, statusText, xhr) {
+                      alert('Please try again!')
                       event.preventDefault();
                       event.stopPropagation();
-                      alert('Please try again!')
                       // TODO: mixpanel
                       return false;
                     })
