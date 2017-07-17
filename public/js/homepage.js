@@ -28,7 +28,7 @@ function registerUser (event, target, platform) {
     $(target).submit();
 }
 
-
+var triggeredMobileForm = false;
 
 $( document ).ready(function() {
 
@@ -49,7 +49,7 @@ $( document ).ready(function() {
       var username = $('form#signup-email-mobile input[name=usernameDisplay]').val();
 
 
-      $('#signup-email-mobile').slideUp();
+      $('#signup-email-button-mobile').slideUp();
       $('.signup-name-password-mobile').slideDown();
       mixpanel.track('email given', {"platform": "mobile"});
     }
@@ -109,6 +109,8 @@ $( document ).ready(function() {
         return false;
     }
 
+    triggeredMobileForm = true;
+
     var username = $('form#signup-email input[name=usernameDisplay]').val();
     var usernameDisplay = username;
 
@@ -153,9 +155,23 @@ $( document ).ready(function() {
     var target = '#signup-name-password-mobile';
     var keyCode = e.keyCode || e.which;
     if (keyCode === 13) {
+      if (triggeredMobileForm) {
+        registerUser(event, target, 'mobile');
+      } else {
+        transitionToNamePassword();
+      }
+    }
+  });
+
+  // handle enter button on signup form
+  $('#signup-name-password-mobile').on('keyup keypress', function(e) {
+    var target = '#signup-name-password-mobile';
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
       registerUser(event, target, 'mobile');
     }
   });
+
 
 
   $('#signup-name-password-button').click(function(event) {
