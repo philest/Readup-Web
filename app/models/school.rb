@@ -3,7 +3,9 @@ class School < ApplicationRecord
   pg_search_scope :search,
                   against: %i[name signature address zip_code state],
                   using: {
-                    tsearch: {},
+                    tsearch: {
+                      tsvector_column: "tsv",
+                    },
                     trigram: { only: %i[name signature], threshold: 0.2 },
                   },
                   ignoring: :accents,
