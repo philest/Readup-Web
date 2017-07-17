@@ -27,7 +27,7 @@ class RegistrationController < ApplicationController
   def search_school
     puts params.inspect
     # blacklist = [
-    #   'StoryTime',
+    #   'ReadUp',
     #   'Freemium',
     #   'Freemium School',
     #   'ST Elementary'
