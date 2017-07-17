@@ -160,46 +160,9 @@
         </div>
       </nav>
 
-  <!-- mobile splash -->
-    <div class="splash-new-mobile">
-    <div class="splash-container">
-      <h1>ReadUp does running records for you.</h1>
-      <h4>ReadUp listens to students read and creates a full running record for you.</h4>
 
 
-      <form id="signup-email-mobile" class="signup-form">
-          <div class="signup-setup">
-              <div class="field" id="signup-field">
-                <input name="usernameDisplay" placeholder="Enter your email or phone number" class="input" required>
-                <input type="hidden" name='username'>
-              </div>
-
-                <button type="button" id="signup-email-button-mobile" class="signup-form-button pure-button pure-button-primary get_update dialog-button">Continue</button>
-          </div>
-      </form>
-
-      <div class="signup-name-password-mobile" style="display: none;">
-        <h2>Enter your name and a password</h2>
-        <form id='signup-name-password-mobile' class="signup-form" action="/users" method="post">
-              <!-- <form id='login'> -->
-                <div class="signup-setup">
-                  <div class="field" id="signup-field">
-                      <input name="user[first_name]" autocomplete="off" placeholder="First name" class="input" required>
-                      <input name="user[last_name]" autocomplete="off" placeholder="Last name" class="input" required>
-                      <input name="user[password]" autocomplete="off" placeholder="Password" type="password" class="input" pattern=".{6,}" title="Password must be at least 6 characters long" required>
-                  </div>
-                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                  <button id="signup-name-password-button-mobile" type="submit" class="signup-form-button pure-button pure-button-primary get_update dialog-button">Complete sign up</button>
-               </div>
-        </form>
-      </div>
-
-    </div>
-    <!-- End container -->
-  </div>
-
-
-  <!-- end mobile splash -->
+  <%= render 'static_pages/homepage/modals/mobile-signup' %>
 
 
 
@@ -207,7 +170,9 @@
     <div class="splash-container">
       <div class="title" style="width:40em;">
         <h1 id="pitch">ReadUp does running records for you.</h1>
-        <center><h4 id="sub-pitch" style="width:35em">ReadUp listens to students read and creates a full running record for you.</h4></center>
+        <center><h4 id="sub-pitch" style="width:35em">
+          ReadUp listens to students read and creates a full running record for you.
+        </h4></center>
         <button type="button" data-toggle="modal" data-target="#signupEmail" class="btn btn-primary btn-lg pure-button pure-button-primary get_update dialog-button" id="main-signup-button" onclick="mixpanel.track('splash signup button clicked', {'location': 'splash'});">
                     Sign up
                   </button>
@@ -237,7 +202,7 @@
       <div class="product-text">
         <h2>Running records scored for you</h2>
         <ul>
-          <p><b>Save hundreds of hours</b> to spend teaching,not testing. </p>
+          <p><b>Save hundreds of hours</b> to spend teaching, not testing. </p>
           <p><b>See miscue analyses</b> to know the type of errors students make.</p>
           <p><b>Hear recordings</b> played back at anytime. </p>
         </ul>

@@ -148,6 +148,15 @@ $( document ).ready(function() {
   });
 
 
+  // handle enter button on signup form
+  $('#signup-email-mobile').on('keyup keypress', function(e) {
+    var target = '#signup-name-password-mobile';
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+      registerUser(event, target, 'mobile');
+    }
+  });
+
 
   $('#signup-name-password-button').click(function(event) {
     var target = '#signup-name-password';

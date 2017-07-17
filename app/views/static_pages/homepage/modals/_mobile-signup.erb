@@ -1,0 +1,53 @@
+<!-- mobile splash -->
+<div class="splash-new-mobile">
+
+  <div class="splash-container">
+    <h1>ReadUp does running records for you.</h1>
+    <h4>ReadUp listens to students read and creates a full running record for you.</h4>
+
+
+    <form id="signup-email-mobile" class="signup-form">
+        <div class="signup-setup">
+            <div class="field" id="signup-field">
+              <input name="usernameDisplay" placeholder="Enter your email or phone number" class="input" required>
+              <input type="hidden" name='username'>
+            </div>
+
+              <button type="button" id="signup-email-button-mobile" class="signup-form-button pure-button pure-button-primary get_update dialog-button">Continue</button>
+        </div>
+    </form>
+
+    <div class="signup-name-password-mobile" style="display: none;">
+      <h2>Enter your name and a password</h2>
+      <form id='signup-name-password-mobile' class="signup-form" action="/users" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <!-- <form id='login'> -->
+              <div class="signup-setup">
+                <div class="field" id="signup-field">
+                    <input name="user[first_name]" autocomplete="off" placeholder="First name" class="input" required>
+                    <input name="user[last_name]" autocomplete="off" placeholder="Last name" class="input" required>
+                    <input name="user[password]" autocomplete="off" placeholder="Password" type="password" class="input" pattern=".{6,}" title="Password must be at least 6 characters long" required>
+                </div>
+                <button id="signup-name-password-button-mobile" type="submit" class="signup-form-button pure-button pure-button-primary get_update dialog-button">Complete sign up</button>
+             </div>
+      </form>
+    </div>
+
+  </div>
+
+    <script type="text/javascript">
+    $('#signup-email-mobile').on('keyup keypress', function(e) {
+      var keyCode = e.keyCode || e.which;
+      if (keyCode === 13) {
+        e.preventDefault();
+        if (!($('input[name="student_name"]').val() == '')) {
+          $('#add-student-button').click();
+          // console.log('curval::  ' + $('input[name="student_name"]').val());
+          return false;
+        }
+      }
+      return true;
+    });
+  </script>
+
+</div>
