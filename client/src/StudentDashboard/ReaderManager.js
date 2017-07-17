@@ -43,7 +43,7 @@ const sampleBook = {
   s3Key: 'rocket',
   description: "Mom gets to come along on a space adventure",
   numPages: 5,
-  coverImage: '',
+  coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
   pages: {
     1: {
       lines: [
