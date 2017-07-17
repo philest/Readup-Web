@@ -1,5 +1,8 @@
 {
-
+  "engines": {
+    "node": "7.9.0",
+    "npm": "4.1.1"
+  },
   "scripts": {
     "postinstall": "cd client && yarn install",
     "build:test": "cd client && yarn run build:test",
