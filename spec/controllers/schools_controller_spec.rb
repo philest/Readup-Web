@@ -25,6 +25,8 @@ require 'rails_helper'
 
 RSpec.describe SchoolsController, type: :controller do
 
+  fixtures :schools, :users
+
   # This should return the minimal set of attributes required to create a valid
   # School. As you add validations to School, be sure to
   # adjust the attributes here as well.

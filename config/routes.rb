@@ -8,15 +8,15 @@ Rails.application.routes.draw do
 
   # static pages
 
-  get 'app', to: 'static_pages#app'
-  get 'class', to: 'static_pages#class'
+  # get 'app', to: 'static_pages#app'
+  # get 'class', to: 'static_pages#class'
+  # get 'start', to: 'static_pages#start'
+  # get 'go', to: 'static_pages#go'
+  # get 'doc', to: 'static_pages#doc'
+  # get 'read', to: 'static_pages#read'
   get 'error', to: 'static_pages#error'
   get 'privacy', to: 'static_pages#privacy'
   get 'terms', to: 'static_pages#terms'
-  get 'read', to: 'static_pages#read'
-  get 'start', to: 'static_pages#start'
-  get 'go', to: 'static_pages#go'
-  get 'doc', to: 'static_pages#doc'
   get 'team', to: 'static_pages#team'
   get 'case_study', to: 'static_pages#case_study'
   get 'join', to: 'static_pages#join'

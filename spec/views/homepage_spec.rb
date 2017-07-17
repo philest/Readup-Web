@@ -65,6 +65,8 @@ RSpec.describe "homepage", type: :view do
   xit 'requires valid username on signup' do
     visit '/'
     find('#main-signup-button').click
+    find('#signup-email-button-desktop').click
+
     click_button 'Continue'
     expect(page).to have_content('This field is required')
     fill_in('usernameDisplay', :with => 'capybara-test-new-user')
@@ -75,15 +77,17 @@ RSpec.describe "homepage", type: :view do
     visit '/'
     find('#main-signup-button').click
     page.execute_script("document.getElementById('signup-email-input').value = 'capybara-test-new-user@readupapp.com'")
-    click_button 'Continue'
+    find('#signup-email-button-desktop').click
     expect(page).to have_content('Enter your name and password')
   end
 
-  it 'requires valid name and password for signup' do
+  it 'requires valid name and password for signup',  :btn do
     visit '/'
     find('#main-signup-button').click
     page.execute_script("document.getElementById('signup-email-input').value = 'capybara-test-new-user@readupapp.com'")
-    click_button 'Continue'
+    find('#signup-email-button-desktop').click
+    expect(page).to have_content('Enter your name and password')
+    find('#signup-name-password-button').click
     click_button 'Complete sign up'
     expect(page).to have_content('This field is required')
   end

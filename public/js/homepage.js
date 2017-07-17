@@ -2,7 +2,35 @@
  * JS for all homepage modals, forms, and validations.
  */
 
- $( document ).ready(function() {
+
+function registerUser (event, target, platform) {
+    event.preventDefault();
+    event.stopPropagation();
+    $(target).validate({ // initialize the plugin
+        rules: {
+            first_name: {
+                required: true
+            },
+            last_name: {
+              required: true
+            },
+            password: {
+                required: true
+            }
+        }
+    }).form();
+
+    var ValidStatus = $(target).valid();
+    if (ValidStatus == false) {
+        mixpanel.track('invalid name-password given', {'platform': platform});
+        return false;
+    }
+    $(target).submit();
+}
+
+
+
+$( document ).ready(function() {
 
   function transitionToNamePassword() {
     $('#signup-email-mobile').validate({ // initialize the plugin
@@ -64,7 +92,7 @@
   });
 
 
-  $('#signup-email-button').click(function(event) {
+  $('#signup-email-button-desktop').click(function(event) {
     event.preventDefault();
 
     $('#signup-email').validate({ // initialize the plugin
@@ -109,109 +137,24 @@
 
     mixpanel.track('email given', {'platform':'desktop'});
 
-    // $("body").addClass("modal-open");
   });
 
 
 
 
   $('#signup-name-password-button-mobile').click(function(event) {
-    event.preventDefault();
-    $('#signup-name-password-mobile').validate({ // initialize the plugin
-        rules: {
-            first_name: {
-                required: true
-            },
-            last_name: {
-              required: true
-            },
-            password: {
-                required: true
-            }
-        }
-    }).form();
-
-    var ValidStatus = $("#signup-name-password-mobile").valid();
-    if (ValidStatus == false) {
-        mixpanel.track('invalid name-password given', {'platform':'mobile'});
-        return false;
-    }
-
-     // we want to POST this, clear the first-signup-form, the move on to the next modal
-    $('#signup-name-password-mobile').submit();
-
+    var target = '#signup-name-password-mobile';
+    registerUser(event, target, 'mobile');
   });
 
 
 
   $('#signup-name-password-button').click(function(event) {
-    event.preventDefault();
-    $('#signup-name-password').validate({ // initialize the plugin
-        rules: {
-            first_name: {
-                required: true
-            },
-            last_name: {
-              required: true
-            },
-            password: {
-                required: true
-            }
-        }
-    }).form();
-
-    var ValidStatus = $("#signup-name-password").valid();
-    if (ValidStatus == false) {
-        mixpanel.track('invalid name-password given', {'platform':'desktop'});
-        return false;
-    }
-    // we want to POST this, clear the first-signup-form, the move on to the next modal
-    $('#signup-name-password').submit();
-
+    var target = '#signup-name-password';
+    registerUser(event, target, 'desktop');
   });
 
 
-  $('#signup-signature-button').click(function(event) {
-    event.preventDefault();
-    $('#signup-signature').validate({ // initialize the plugin
-        rules: {
-            signature: {
-                required: true
-            }
-        }
-    }).form();
-
-    var ValidStatus = $("#signup-signature").valid();
-    if (ValidStatus == false) {
-        return false;
-    }
-    $('body').addClass('modalTransition');
-    $('#schoolInfo').modal('toggle');
-    // $("body").addClass("modal-open");
-  });
-
-
-
-  $('#school-info-button').click(function(event) {
-    // gather all form fields + submit
-    event.preventDefault();
-    $('#school-info').validate({ // initialize the plugin
-        rules: {
-            school_name:  {required:true},
-            school_city:  {required:true},
-            school_state: {required:true}
-        }
-    }).form();
-
-    var ValidStatus = $("#school-info").valid();
-    if (ValidStatus == false) {
-        return false;
-    }
-
-    // otherwise, gather everything from the forms!
-    $('body').addClass('modalTransition');
-    $('#main-signup-form').submit();
-  });
 
 
   $('button.demo-form-button').click(function(){
@@ -315,48 +258,6 @@
   });
 
 
-
-  // might also belong to a different page...
-  $('#admin-login').submit(function(event) {
-
-    var adminInfo = $('#teacher-info').serializeArray();
-
-    for (var i = 0; i < adminInfo.length; i++) {
-      var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', adminInfo[i]['name']).val(adminInfo[i]['value']);
-      $('#admin-login').append($(input));
-    }
-
-    var first_name = $("#admin-login").find("input[name=first_name]").val();
-    var last_name = $("#admin-login").find("input[name=last_name]").val();
-
-    var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'first_name')
-                    .val(first_name);
-    $('#admin-login').append($(input));
-
-    var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'last_name')
-                    .val(first_name);
-    $('#admin-login').append($(input));
-
-    var signature = first_name + " " + last_name;
-    var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'signature')
-                    .val(signature);
-    $('#admin-login').append($(input));
-
-    var role = $('<input>')
-                  .attr('type', 'hidden')
-                  .attr('name', 'role')
-                  .val('admin');
-    $('#admin-login').append($(role));
-
-  });
 
 
   $('.modal').on('hidden.bs.modal', function(event) {

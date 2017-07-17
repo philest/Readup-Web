@@ -10,9 +10,9 @@ class StaticPagesController < ActionController::Base
     render 'static_pages/homepage/index'
   end
 
-  def app
-    render 'static_pages/pages/get-the-app'
-  end
+  # def app
+  #   render 'static_pages/pages/get-the-app'
+  # end
 
   def error
     render 'static_pages/register/error'
@@ -26,9 +26,6 @@ class StaticPagesController < ActionController::Base
     render 'static_pages/pages/terms'
   end
 
-  def doc
-    redirect_to '/doc/'
-  end
 
   def team
     render 'static_pages/pages/team'
