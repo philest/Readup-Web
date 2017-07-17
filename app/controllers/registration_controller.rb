@@ -33,7 +33,7 @@ class RegistrationController < ApplicationController
     #   'ST Elementary'
     # ]
 
-    schools = School.search(params["term"])
+    schools = School.search(params["term"]).limit(10)
     school_list = schools.map do |s|
 
       location = ''

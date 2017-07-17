@@ -75,7 +75,7 @@
                   <div class="dropdown-menu" style="display: none;">
                     <div id="just-to-append">
                       <div id="status-text">
-                        <p><i>Suggested schools for you</i></p>
+                        <p></p>
                       </div>
                     </div>
 
@@ -117,7 +117,7 @@
                       var availableSchools = [];
 
                         $( "#page4-find-school input[name=school_name]" ).autocomplete({
-
+                          delay: 400,
                           source: '/auth/search_school',
 
                           minLength: 2,

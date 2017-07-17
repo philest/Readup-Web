@@ -36,7 +36,6 @@ class SchoolsController < ApplicationController
         format.html { redirect_to @school, notice: 'School was successfully created.' }
         format.json { render :show, status: :created, location: @school }
       else
-        format.html { render :new }
         format.json { render json: @school.errors, status: :unprocessable_entity }
       end
     end
