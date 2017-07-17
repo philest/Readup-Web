@@ -34,20 +34,4 @@
     </div>
 
   </div>
-
-    <script type="text/javascript">
-    $('#signup-email-mobile').on('keyup keypress', function(e) {
-      var keyCode = e.keyCode || e.which;
-      if (keyCode === 13) {
-        e.preventDefault();
-        if (!($('input[name="student_name"]').val() == '')) {
-          $('#add-student-button').click();
-          // console.log('curval::  ' + $('input[name="student_name"]').val());
-          return false;
-        }
-      }
-      return true;
-    });
-  </script>
-
 </div>

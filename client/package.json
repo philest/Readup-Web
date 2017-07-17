@@ -1,8 +1,8 @@
 {
-  "name": "react-on-rails-hot-minimal",
+  "name": "birdup",
   "private": true,
   "engines": {
-    "node": "6.9.0",
+    "node": "7.9.0",
     "npm": "4.1.1"
   },
   "scripts": {

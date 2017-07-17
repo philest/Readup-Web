@@ -1,4 +1,5 @@
 {
+
   "scripts": {
     "postinstall": "cd client && yarn install",
     "build:test": "cd client && yarn run build:test",
