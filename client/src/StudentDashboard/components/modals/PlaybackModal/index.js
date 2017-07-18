@@ -8,9 +8,9 @@ import ModalHeader from '../subcomponents/ModalHeader'
 import RectangleButton from '../../RectangleButton'
 import ButtonArray from '../subcomponents/ButtonArray'
 
-export default class PausedModal extends React.Component {
+export default class PlaybackModal extends React.Component {
   static propTypes = {
-    onContinueClicked: PropTypes.func.isRequired,
+    audioSrc: PropTypes.string.isRequired,
     onStartOverClicked: PropTypes.func,  // TODO required?
     onTurnInClicked: PropTypes.func
   };
@@ -31,13 +31,11 @@ export default class PausedModal extends React.Component {
           <ModalHeader title="Paused" />
         </div>
 
-        <div className={styles.pausedModalContinueButtonWrapper}>
-          <RectangleButton 
-            className={styles.pausedModalContinueButton}
-            title="Continue!"
-            style={{ width: 200, height: 65, backgroundColor: 'green' }}
-            onClick={this.props.onContinueClicked}
-          />
+        <div className={styles.playbackContainer}>
+          <h4 style={{ fontWeight: 'bold', marginTop: 20 }}>Hear it</h4>
+          <audio src={this.props.audioSrc} style={{ marginBottom: 20 }} controls>
+
+          </audio>
         </div>
         
         <div className={commonStyles.modalButtonArrayWrapper}>

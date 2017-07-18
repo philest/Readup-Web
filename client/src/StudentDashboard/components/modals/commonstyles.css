@@ -1,0 +1,25 @@
+
+
+.modalContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.modalHeaderWrapper {
+	width: 100%;
+	height: 80px;
+}
+
+.modalMainButtonWrapper {
+	width: 100%;
+	height: 130px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 0.1px solid lightgray;
+}
+
+.modalButtonArrayWrapper {
+	height: 200px;
+	width: 100%;
+}

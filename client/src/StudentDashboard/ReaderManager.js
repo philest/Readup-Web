@@ -5,13 +5,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+
 import Reader from './Reader'
+
+import Recorder from './recorder'
 
 import styles from './styles.css'
 
 import DoneModal from './components/modals/DoneModal'
 import PausedModal from './components/modals/PausedModal'
 import MicModal from './components/modals/MicModal'
+import PlaybackModal from './components/modals/PlaybackModal'
+import SubmittedModal from './components/modals/SubmittedModal'
 
 import { Modal } from 'react-bootstrap'
 
@@ -27,6 +32,8 @@ const ReaderStateTypes = {
   inProgress: 'READER_STATE_IN_PROGRESS',
   paused: 'READER_STATE_PAUSED',
   done: 'READER_STATE_DONE',
+  doneDisplayingPlayback: 'READER_STATE_PLAYBACK',
+  submitted: 'READER_STATE_SUBMITTED'
 }
 
 // how many images in advance to load
@@ -36,13 +43,16 @@ const PRELOAD_IMAGES_ADVANCE = 3
 // export type SignupFormKeys = $Keys<ReaderStateTypes>;
 
 
+const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
 
 const sampleBook = {
   title: "Cezar Chavez",
   author: "Ginger Wordsworth",
   s3Key: 'rocket',
   description: "Mom gets to come along on a space adventure",
-  numPages: 5,
+  numPages: 2,
   coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
   pages: {
     1: {
@@ -59,27 +69,27 @@ const sampleBook = {
       ],
       img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
     },
-    3: {
-      lines: [
-        "This is the first line of the third page.",
-        "This is the second line of the third page."
-      ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
-    },
-    4: {
-      lines: [
-        "This is the first line of the fourth page.",
-        "This is the second line of the fourth page."
-      ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
-    },
-    5: {
-      lines: [
-        "This is the first line of the fifth page.",
-        "The end."
-      ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
-    },
+    // 3: {
+    //   lines: [
+    //     "This is the first line of the third page.",
+    //     "This is the second line of the third page."
+    //   ],
+    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
+    // },
+    // 4: {
+    //   lines: [
+    //     "This is the first line of the fourth page.",
+    //     "This is the second line of the fourth page."
+    //   ],
+    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
+    // },
+    // 5: {
+    //   lines: [
+    //     "This is the first line of the fifth page.",
+    //     "The end."
+    //   ],
+    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
+    // },
   },  
 }
 
@@ -100,9 +110,20 @@ export default class StudentDashboard extends React.Component {
       redirectForward: false,
       redirectBack: false,
       redirectInvalid: false,
+      redirectCover: false,
       readerState: ReaderStateTypes.inProgress,
       lastImageIndexLoaded: 0,
+      recorder: new Recorder(),
     };
+
+
+    if (!Recorder.browserSupportsRecording()) {
+      alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.");
+    }
+    else {
+      this.state.recorder.initialize()
+    }
+    
 
   }
 
@@ -117,6 +138,7 @@ export default class StudentDashboard extends React.Component {
         redirectInvalid: true,
         redirectForward: false,
         redirectBack: false,
+        redirectCover: false,
         pageNumber: newPageNumber,
       })
 
@@ -127,6 +149,7 @@ export default class StudentDashboard extends React.Component {
         redirectForward: false,
         redirectBack: false,
         redirectInvalid: false,
+        redirectCover: false,
         showDoneModal: false,
       });
     }
@@ -142,10 +165,14 @@ export default class StudentDashboard extends React.Component {
         redirectInvalid: true,
         redirectForward: false,
         redirectBack: false, 
+        redirectCover: false,
       })
     }
 
   }
+
+
+  ////
 
   // shouldComponentUpdate() {
   //   return true;
@@ -155,33 +182,50 @@ export default class StudentDashboard extends React.Component {
 
   onPauseClicked = () => {
     this.setState({ readerState: ReaderStateTypes.paused })
+    this.state.recorder.pauseRecording()
   }
 
   onUnpauseClicked = () => {
     console.log('!!!!!!')
     this.setState({ readerState: ReaderStateTypes.inProgress })
+    this.state.recorder.resumeRecording()
   }
 
   onStopClicked = () => {
     console.log("ON STOP!")
+    this.state.recorder.stopRecording()
     this.setState({ readerState: ReaderStateTypes.done })
   }
 
   onTurnInClicked = () => {
     console.log('TURN IN')
+    // submit to server, then...
+    this.setState({ readerState: ReaderStateTypes.submitted })
+
+    // redirect home
+    setTimeout(() => {
+      window.location.href = "/" // TODO where to redirect?
+    }, 5000)
   }
 
   onStartClicked = () => {
     console.log('ON START')
+    this.state.recorder.startRecording()
     this.setState({ redirectForward: true })
   }
 
   onStartOverClicked = () => {
     console.log('START OVER')
+    this.state.recorder.reset()
+    this.setState({ 
+      redirectCover: true,
+      readerState: ReaderStateTypes.inProgress,
+    })
   }
 
   onHearRecordingClicked = () => {
     console.log('HEAR RECORDING')
+    this.setState({ readerState: ReaderStateTypes.doneDisplayingPlayback })
   }
 
   onNextPageClicked = () => {
@@ -251,6 +295,14 @@ export default class StudentDashboard extends React.Component {
           onTurnInClicked={this.onTurnInClicked} 
         />
     }
+    else if (this.state.readerState === ReaderStateTypes.doneDisplayingPlayback) {
+      ModalContentComponent = 
+        <PlaybackModal 
+          audioSrc={this.state.recorder.getBlobURL()}
+          onStartOverClicked={this.onStartOverClicked}
+          onTurnInClicked={this.onTurnInClicked} 
+        />
+    }
     else if (this.state.readerState === ReaderStateTypes.done) {
       ModalContentComponent = 
         <DoneModal 
@@ -312,8 +364,22 @@ export default class StudentDashboard extends React.Component {
     if (this.state.redirectBack) {
       return <Redirect key='back' push to={'/story/STORY_ID/page/'+(this.state.pageNumber-1)} />
     }
+    if (this.state.redirectCover) {
+      return <Redirect key='back' push to={'/story/STORY_ID/page/0'} />
+    }
     if (this.state.redirectInvalid) {
       return <Redirect key='invalid' push to={'/story/STORY_ID/page/1'} /> // Todo how to handle?
+    }
+
+
+
+
+    if (this.state.readerState === ReaderStateTypes.submitted) {
+      return (
+        <div className={styles.fill}>
+          <SubmittedModal />
+        </div>
+      );
     }
 
 
