@@ -4,11 +4,11 @@ import styles from './styles.css'
 
 import ModalHeader from '../subcomponents/ModalHeader'
 import ButtonArray from '../subcomponents/ButtonArray'
-import RectangleButton from '../../RectangleButton'
+import RectangleButton from 'StudentDashboard/components/RectangleButton'
 
 export default class MicModal extends React.Component {
   static propTypes = {
-    
+
   };
 
   /**
@@ -28,13 +28,13 @@ export default class MicModal extends React.Component {
         </div>
 
         <div className={styles.micModalFixWrapper}>
-          <h4 style={{fontWeight: 'bold'}}>How to fix</h4>
-          <p> <span style={{fontWeight: 'bold'}}>1.</span> Plug it in!</p>
-          <p> <span style={{fontWeight: 'bold'}}>2.</span> Speak up!</p>
+          <h4 style={{ fontWeight: 'bold' }}>How to fix</h4>
+          <p> <span style={{ fontWeight: 'bold' }}>1.</span> Plug it in!</p>
+          <p> <span style={{ fontWeight: 'bold' }}>2.</span> Speak up!</p>
         </div>
 
         <div className={styles.micModalStartOverButtonWrapper}>
-          <RectangleButton 
+          <RectangleButton
             className={styles.micModalStartOverButton}
             title="Start over"
             style={{ width: 200, height: 65, backgroundColor: 'green' }}
@@ -44,7 +44,7 @@ export default class MicModal extends React.Component {
 
       </div>
 
-       
+
     );
   }
 }

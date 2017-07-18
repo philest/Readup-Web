@@ -25,7 +25,7 @@ export default class ButtonArray extends React.Component {
           </div>
         ))}
 
-      </div>    
+      </div>
     );
   }
 }

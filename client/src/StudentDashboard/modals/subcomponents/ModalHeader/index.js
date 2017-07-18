@@ -19,7 +19,7 @@ export default class ModalHeader extends React.Component {
       <div className={styles.modalHeaderTitleWrapper}>
         <div className={styles.modalHeaderTitleText}>{this.props.title}</div>
       </div>
-        
+
     );
   }
 }

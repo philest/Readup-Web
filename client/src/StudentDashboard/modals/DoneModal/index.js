@@ -26,11 +26,11 @@ export default class DoneModal extends React.Component {
         <div className={styles.doneModalHeaderWrapper}>
           <ModalHeader title="You're Done!" />
         </div>
-        
+
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
             titles={['Hear it', 'Turn it in']}
-            images={['/images/dashboard/hear-it-icon.png', '/images/dashboard/turn-it-in-icon.png']} 
+            images={['/images/dashboard/hear-it-icon.png', '/images/dashboard/turn-it-in-icon.png']}
             actions={[this.props.onHearRecordingClicked, this.props.onTurnInClicked]}
           />
         </div>
@@ -38,7 +38,7 @@ export default class DoneModal extends React.Component {
 
       </div>
 
-       
+
     );
   }
 }

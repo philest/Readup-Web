@@ -1,49 +1,45 @@
-import PropTypes from 'prop-types';
+// @flow
+
 import React from 'react';
 import styles from './styles.css'
 
-export default class RectangleButton extends React.Component {
-  static propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    onClick: PropTypes.func,
-    disabled: PropTypes.bool,
-  };
-  static defaultProps = {
-    disabled: false,
-  }
+type props = {
+  title: string,
+  subtitle: string,
+  onClick: Function,
+  disabled: boolean,
+  style: {},
+};
 
-  /**
-   * @param props - Comes from your rails view.
-   * @param _railsContext - Comes from React on Rails
-   */
-  constructor(props, _railsContext) {
-    super(props);
-    this.state = {  };
-  }
+function RectangleButton ({
+  title = "",
+  subtitle = "",
+  onClick = function () { return null },
+  disabled = false,
+  style = {},
+} : props) {
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      className={disabled ? styles.disabledButtonContainer : styles.rectangleButtonContainer}
+      style={style}
+      onClick={() => (!disabled && onClick())}
+    >
 
-  render() {
-
-    return (
-      <div 
-        className={ this.props.disabled ? styles.disabledButtonContainer : styles.rectangleButtonContainer} 
-        style={this.props.style} 
-        onClick={() => {
-          !this.props.disabled && this.props.onClick()
-        }}
-      >
-        
-
-        <div className={styles.rectangleButtonTitle}>{this.props.title}</div>
-
-        { this.props.subtitle && this.props.subtitle != '' && 
-          <div className={styles.rectangleButtonSubtitle}>{this.props.subtitle}</div>
-        }
-
-
+      <div className={styles.rectangleButtonTitle}>
+        {title}
       </div>
 
-       
-    );
-  }
+      {
+        subtitle
+        && (subtitle !== '')
+        && <div className={styles.rectangleButtonSubtitle}> {subtitle} </div>
+      }
+
+    </div>
+  )
 }
+
+export default RectangleButton
+

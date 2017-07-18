@@ -5,13 +5,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+
 import Reader from './Reader'
+
+import Recorder from './recorder'
 
 import styles from './styles.css'
 
-import DoneModal from './components/modals/DoneModal'
-import PausedModal from './components/modals/PausedModal'
-import MicModal from './components/modals/MicModal'
+import DoneModal from './modals/DoneModal'
+import PausedModal from './modals/PausedModal'
+import MicModal from './modals/MicModal'
+import PlaybackModal from './modals/PlaybackModal'
+
+import SubmittedModal from './modals/SubmittedModal'
+import PermissionsModal from './modals/PermissionsModal'
 
 import { Modal } from 'react-bootstrap'
 
@@ -23,10 +30,13 @@ import {
 
 
 const ReaderStateTypes = {
-  unstarted: 'READER_STATE_UNSTARTED',
+  awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
+  awaitingStart: 'READER_STATE_AWAITING_START',
   inProgress: 'READER_STATE_IN_PROGRESS',
   paused: 'READER_STATE_PAUSED',
   done: 'READER_STATE_DONE',
+  doneDisplayingPlayback: 'READER_STATE_PLAYBACK',
+  submitted: 'READER_STATE_SUBMITTED',
 }
 
 // how many images in advance to load
@@ -36,14 +46,17 @@ const PRELOAD_IMAGES_ADVANCE = 3
 // export type SignupFormKeys = $Keys<ReaderStateTypes>;
 
 
+const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
 
 const sampleBook = {
   title: "Cezar Chavez",
   author: "Ginger Wordsworth",
   s3Key: 'rocket',
   description: "Mom gets to come along on a space adventure",
-  numPages: 5,
-  coverImage: '',
+  numPages: 2,
+  coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
   pages: {
     1: {
       lines: [
@@ -59,27 +72,27 @@ const sampleBook = {
       ],
       img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
     },
-    3: {
-      lines: [
-        "This is the first line of the third page.",
-        "This is the second line of the third page."
-      ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
-    },
-    4: {
-      lines: [
-        "This is the first line of the fourth page.",
-        "This is the second line of the fourth page."
-      ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
-    },
-    5: {
-      lines: [
-        "This is the first line of the fifth page.",
-        "The end."
-      ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
-    },
+    // 3: {
+    //   lines: [
+    //     "This is the first line of the third page.",
+    //     "This is the second line of the third page."
+    //   ],
+    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
+    // },
+    // 4: {
+    //   lines: [
+    //     "This is the first line of the fourth page.",
+    //     "This is the second line of the fourth page."
+    //   ],
+    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
+    // },
+    // 5: {
+    //   lines: [
+    //     "This is the first line of the fifth page.",
+    //     "The end."
+    //   ],
+    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
+    // },
   },  
 }
 
@@ -93,6 +106,11 @@ export default class StudentDashboard extends React.Component {
   constructor(props, _railsContext) {
     super(props);
 
+    if (!Recorder.browserSupportsRecording()) {
+      alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.")
+      return
+    }
+
     this.state = {  
       pageNumber: parseInt(this.props.match.params.page_number),
       storyId: this.props.match.params.story_id,
@@ -100,9 +118,36 @@ export default class StudentDashboard extends React.Component {
       redirectForward: false,
       redirectBack: false,
       redirectInvalid: false,
-      readerState: ReaderStateTypes.inProgress,
+      redirectCover: false,
+      readerState:  ReaderStateTypes.awaitingPermissions,
       lastImageIndexLoaded: 0,
+      recorder: new Recorder(),
     };
+
+    Recorder.hasRecordingPermissions((hasPermissions) => {
+      console.log("We have permissions? " + hasPermissions)
+      if (hasPermissions) {
+        this.setState({ readerState: ReaderStateTypes.awaitingStart })
+        this.state.recorder.initialize()
+      }
+      else {
+        this.state.recorder.initialize((error) => {
+          console.log('okay now we got it')
+          if (error) {
+            console.log('ReaderManager encountered recorder error!!')
+            alert('Did you block microphone access?')
+          }
+          else {
+            this.setState({ readerState: ReaderStateTypes.awaitingStart })
+          }
+
+        })
+      }
+    });
+
+
+
+    
 
   }
 
@@ -117,6 +162,7 @@ export default class StudentDashboard extends React.Component {
         redirectInvalid: true,
         redirectForward: false,
         redirectBack: false,
+        redirectCover: false,
         pageNumber: newPageNumber,
       })
 
@@ -127,6 +173,7 @@ export default class StudentDashboard extends React.Component {
         redirectForward: false,
         redirectBack: false,
         redirectInvalid: false,
+        redirectCover: false,
         showDoneModal: false,
       });
     }
@@ -142,10 +189,14 @@ export default class StudentDashboard extends React.Component {
         redirectInvalid: true,
         redirectForward: false,
         redirectBack: false, 
+        redirectCover: false,
       })
     }
 
   }
+
+
+  ////
 
   // shouldComponentUpdate() {
   //   return true;
@@ -155,33 +206,50 @@ export default class StudentDashboard extends React.Component {
 
   onPauseClicked = () => {
     this.setState({ readerState: ReaderStateTypes.paused })
+    this.state.recorder.pauseRecording()
   }
 
   onUnpauseClicked = () => {
     console.log('!!!!!!')
     this.setState({ readerState: ReaderStateTypes.inProgress })
+    this.state.recorder.resumeRecording()
   }
 
   onStopClicked = () => {
     console.log("ON STOP!")
+    this.state.recorder.stopRecording()
     this.setState({ readerState: ReaderStateTypes.done })
   }
 
   onTurnInClicked = () => {
     console.log('TURN IN')
+    // submit to server, then...
+    this.setState({ readerState: ReaderStateTypes.submitted })
+
+    // redirect home
+    setTimeout(() => {
+      window.location.href = "/" // TODO where to redirect?
+    }, 5000)
   }
 
   onStartClicked = () => {
     console.log('ON START')
+    this.state.recorder.startRecording()
     this.setState({ redirectForward: true })
   }
 
   onStartOverClicked = () => {
     console.log('START OVER')
+    this.state.recorder.reset()
+    this.setState({ 
+      redirectCover: true,
+      readerState: ReaderStateTypes.inProgress,
+    })
   }
 
   onHearRecordingClicked = () => {
     console.log('HEAR RECORDING')
+    this.setState({ readerState: ReaderStateTypes.doneDisplayingPlayback })
   }
 
   onNextPageClicked = () => {
@@ -238,7 +306,8 @@ export default class StudentDashboard extends React.Component {
 
 
   renderModalComponentOrNullBasedOnState = () => {
-    if (this.state.readerState === ReaderStateTypes.inProgress) {
+    if (this.state.readerState === ReaderStateTypes.inProgress || this.state.readerState === ReaderStateTypes.awaitingStart || this.state.readerState === ReaderStateTypes.awaitingPermissions || this.state.readerState === ReaderStateTypes.submitted) {
+      // no modal
       return null;
     }
 
@@ -247,6 +316,14 @@ export default class StudentDashboard extends React.Component {
       ModalContentComponent = 
         <PausedModal 
           onContinueClicked={this.onUnpauseClicked}
+          onStartOverClicked={this.onStartOverClicked}
+          onTurnInClicked={this.onTurnInClicked} 
+        />
+    }
+    else if (this.state.readerState === ReaderStateTypes.doneDisplayingPlayback) {
+      ModalContentComponent = 
+        <PlaybackModal 
+          audioSrc={this.state.recorder.getBlobURL()}
           onStartOverClicked={this.onStartOverClicked}
           onTurnInClicked={this.onTurnInClicked} 
         />
@@ -273,22 +350,32 @@ export default class StudentDashboard extends React.Component {
     );
   }
 
+  renderOverlayOrNullBasedOnState = () => {
+    if (this.state.readerState === ReaderStateTypes.submitted) {
+      return <SubmittedModal />
+    }
+    else if (this.state.readerState === ReaderStateTypes.awaitingPermissions) {
+      return <PermissionsModal />
+    }
+    return null
+  }
+
 
   // The best way to preload images is just to render hidden img components, with src set to the url we want to load
   // That way they'll be cached by the browser for when we actually want to display them
   renderHiddenPreloadImages = () => {
-    if (!PRELOAD_IMAGES_ADVANCE || this.state.lastImageIndexLoaded == this.state.numPages) {
+
+    // the image loading blocks chrome from checking if microphone access exists,
+    // so don't do any preloading if we're awaiting permissions
+    if (!PRELOAD_IMAGES_ADVANCE || this.state.readerState == ReaderStateTypes.awaitingPermissions) {
       console.log('DONT NEED TO PRELOAD')
       return null
     } 
 
     let preloadImageURLs = []
     for (let i = this.state.pageNumber + 1; i <= this.state.numPages && i <= this.state.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
-      console.log(i)
       preloadImageURLs.push(sampleBook.pages[i].img)
     }
-
-    console.log(preloadImageURLs)
 
     return (
       <div style={{'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden'}}> 
@@ -312,9 +399,13 @@ export default class StudentDashboard extends React.Component {
     if (this.state.redirectBack) {
       return <Redirect key='back' push to={'/story/STORY_ID/page/'+(this.state.pageNumber-1)} />
     }
+    if (this.state.redirectCover) {
+      return <Redirect key='back' push to={'/story/STORY_ID/page/0'} />
+    }
     if (this.state.redirectInvalid) {
       return <Redirect key='invalid' push to={'/story/STORY_ID/page/1'} /> // Todo how to handle?
     }
+
 
 
     console.log('state::: ' + this.state.readerState)
@@ -322,11 +413,16 @@ export default class StudentDashboard extends React.Component {
 
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()
+    const OverlayOrNull = this.renderOverlayOrNullBasedOnState()
+
+
+    console.log(OverlayOrNull)
 
     return (
       <div className={styles.fill}>
         { ReaderComponent }     
         { ModalComponentOrNull }
+        { this.renderOverlayOrNullBasedOnState() }
         { this.renderHiddenPreloadImages() }     
       </div>
 
