@@ -4,7 +4,7 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import { connect } from 'react-redux'
 
 import Reader from './Reader'
 
@@ -93,25 +93,33 @@ const sampleBook = {
     //   ],
     //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
     // },
-  },  
+  },
+};
+
+function mapStateToProps (state) {
+  console.log(state)
+  return {
+    micEnabled: state.reader.micEnabled
+  }
 }
 
 
 
-export default class StudentDashboard extends React.Component {
+class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
   };
 
   constructor(props, _railsContext) {
     super(props);
+    console.log(props)
 
     if (!Recorder.browserSupportsRecording()) {
       alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.")
       return
     }
 
-    this.state = {  
+    this.state = {
       pageNumber: parseInt(this.props.match.params.page_number),
       storyId: this.props.match.params.story_id,
       numPages: Object.keys(sampleBook.pages).length,
@@ -147,7 +155,7 @@ export default class StudentDashboard extends React.Component {
 
 
 
-    
+
 
   }
 
@@ -158,7 +166,7 @@ export default class StudentDashboard extends React.Component {
 
     if (newPageNumber < 0 || newPageNumber > Object.keys(sampleBook.pages).length) {
       console.log('redirecting due to invalid page number')
-      this.setState({ 
+      this.setState({
         redirectInvalid: true,
         redirectForward: false,
         redirectBack: false,
@@ -168,7 +176,7 @@ export default class StudentDashboard extends React.Component {
 
     }
     else if (newPageNumber != this.state.pageNumber) {
-      this.setState({  
+      this.setState({
         pageNumber: newPageNumber,
         redirectForward: false,
         redirectBack: false,
@@ -185,10 +193,10 @@ export default class StudentDashboard extends React.Component {
     // Need to check for invalid page number here too, because didUpdate isn't called on first time
     const newPageNumber = parseInt(this.props.match.params.page_number)
     if (newPageNumber < 0 || newPageNumber > Object.keys(sampleBook.pages).length) {
-      this.setState({ 
+      this.setState({
         redirectInvalid: true,
         redirectForward: false,
-        redirectBack: false, 
+        redirectBack: false,
         redirectCover: false,
       })
     }
@@ -241,7 +249,7 @@ export default class StudentDashboard extends React.Component {
   onStartOverClicked = () => {
     console.log('START OVER')
     this.state.recorder.reset()
-    this.setState({ 
+    this.setState({
       redirectCover: true,
       readerState: ReaderStateTypes.inProgress,
     })
@@ -275,7 +283,7 @@ export default class StudentDashboard extends React.Component {
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
 
-    
+
     if (this.state.pageNumber == 0) { // cover
       readerProps = {
         ...readerProps,
@@ -291,7 +299,7 @@ export default class StudentDashboard extends React.Component {
         ...readerProps,
         pageNumber: this.state.pageNumber,
         textLines: sampleBook.pages[this.state.pageNumber].lines,
-        imageURL: sampleBook.pages[this.state.pageNumber].img, 
+        imageURL: sampleBook.pages[this.state.pageNumber].img,
         isFirstPage: (this.state.pageNumber == 1),
         isLastPage: (this.state.pageNumber == this.state.numPages),
         onPreviousPageClicked: this.onPreviousPageClicked,
@@ -313,35 +321,35 @@ export default class StudentDashboard extends React.Component {
 
     let ModalContentComponent = null;
     if (this.state.readerState === ReaderStateTypes.paused) {
-      ModalContentComponent = 
-        <PausedModal 
+      ModalContentComponent =
+        <PausedModal
           onContinueClicked={this.onUnpauseClicked}
           onStartOverClicked={this.onStartOverClicked}
-          onTurnInClicked={this.onTurnInClicked} 
+          onTurnInClicked={this.onTurnInClicked}
         />
     }
     else if (this.state.readerState === ReaderStateTypes.doneDisplayingPlayback) {
-      ModalContentComponent = 
-        <PlaybackModal 
+      ModalContentComponent =
+        <PlaybackModal
           audioSrc={this.state.recorder.getBlobURL()}
           onStartOverClicked={this.onStartOverClicked}
-          onTurnInClicked={this.onTurnInClicked} 
+          onTurnInClicked={this.onTurnInClicked}
         />
     }
     else if (this.state.readerState === ReaderStateTypes.done) {
-      ModalContentComponent = 
-        <DoneModal 
+      ModalContentComponent =
+        <DoneModal
           onHearRecordingClicked={this.onHearRecordingClicked}
-          onTurnInClicked={this.onTurnInClicked} 
+          onTurnInClicked={this.onTurnInClicked}
         />
     }
 
 
     return (
-      <Modal 
-        dialogClassName={styles.doneModalDialog} 
-        className={styles.doneModal} 
-        show={true} 
+      <Modal
+        dialogClassName={styles.doneModalDialog}
+        className={styles.doneModal}
+        show={true}
         onHide={this.close}
         animation={true}
       >
@@ -370,7 +378,7 @@ export default class StudentDashboard extends React.Component {
     if (!PRELOAD_IMAGES_ADVANCE || this.state.readerState == ReaderStateTypes.awaitingPermissions) {
       console.log('DONT NEED TO PRELOAD')
       return null
-    } 
+    }
 
     let preloadImageURLs = []
     for (let i = this.state.pageNumber + 1; i <= this.state.numPages && i <= this.state.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
@@ -378,7 +386,7 @@ export default class StudentDashboard extends React.Component {
     }
 
     return (
-      <div style={{'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden'}}> 
+      <div style={{'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden'}}>
         {preloadImageURLs.map((preloadImage) => {
           return (
             <img key={preloadImage} src={preloadImage} />
@@ -420,22 +428,22 @@ export default class StudentDashboard extends React.Component {
 
     return (
       <div className={styles.fill}>
-        { ReaderComponent }     
+        { ReaderComponent }
         { ModalComponentOrNull }
         { this.renderOverlayOrNullBasedOnState() }
-        { this.renderHiddenPreloadImages() }     
+        { this.renderHiddenPreloadImages() }
       </div>
 
-       
+
     );
-    
+
   }
 }
 
 
 
 
-
+export default connect(mapStateToProps)(StudentDashboard)
 
 
 
