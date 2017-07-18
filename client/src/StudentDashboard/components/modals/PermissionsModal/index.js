@@ -8,7 +8,7 @@ import ModalHeader from '../subcomponents/ModalHeader'
 import RectangleButton from '../../RectangleButton'
 import ButtonArray from '../subcomponents/ButtonArray'
 
-export default class SubmittedModal extends React.Component {
+export default class PermissionsModal extends React.Component {
   static propTypes = {
     onStartOverClicked: PropTypes.func,  // TODO required?
     onTurnInClicked: PropTypes.func
@@ -25,14 +25,11 @@ export default class SubmittedModal extends React.Component {
 
   render() {
     return (
-      <div className={commonStyles.fill}>
-        <div className={styles.submittedContainer}>
-          <h4 className={styles.title}>Great Job!</h4>
-          <img src="/images/dashboard/Little-girl-jumping.png" className={styles.submittedImage} />
-          <p className={styles.subtitle}>Logging out...</p>
-        </div>
+      <div className={styles.permissionsContainer}>
+        <h1 style={{ color: 'white', fontSize: '2.5em' }}>
+          Click "<i>Allow</i>" in the box above.
+        </h1>
       </div>
-
        
     );
   }

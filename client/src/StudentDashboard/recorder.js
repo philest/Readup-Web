@@ -1,5 +1,6 @@
 
-import RecordRTC from 'recordrtc';
+import RecordRTC from 'recordrtc'
+import DetectRTC from 'detectrtc'
 
 export default class Recorder {
 
@@ -7,6 +8,8 @@ export default class Recorder {
 		this.rtcRecorder = null
 		this.blobURL = null
 		this.recording = false
+
+    console.log('browserr:::  ' + JSON.stringify(DetectRTC.browser))
 	}
 
 	static browserSupportsRecording() {
@@ -14,20 +17,38 @@ export default class Recorder {
                         navigator.mozGetUserMedia || navigator.msGetUserMedia)
 	}
 
+  static hasRecordingPermissions(callback) {
+    DetectRTC.load(function() {
+      console.log('LOADED')
+      const has = DetectRTC.isWebsiteHasMicrophonePermissions
+      console.log("DUZZZZ has?? " + has)
+      callback(has)
+    })
+  }
+
 	captureUserMedia(callback) {
 		var params = { audio: true, video: false };
 
     navigator.getUserMedia(params, callback, (error) => {
-      alert(JSON.stringify(error));
+      // alert(JSON.stringify(error));
+      console.log('USER MEDIA ERROR::   ' + JSON.stringify(error))
+      callback(null, error)
     });
 	}
 
-	initialize() {
+	initialize(callback) {
 		console.log('initialize Recorder -- requestUserMedia')
-    this.captureUserMedia((stream) => {
+    this.captureUserMedia((stream, error) => {
       // this.setState({ src: window.URL.createObjectURL(stream) });
       // console.log('setting state', this.state)
+      if (error) {
+        return callback && callback(error)
+      }
+
       this.rtcRecorder = RecordRTC(stream, { type: 'audio', mimeType: 'audio/wav' });
+      callback && callback(null)
+
+      
     });
 	}
 

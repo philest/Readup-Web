@@ -16,7 +16,9 @@ import DoneModal from './components/modals/DoneModal'
 import PausedModal from './components/modals/PausedModal'
 import MicModal from './components/modals/MicModal'
 import PlaybackModal from './components/modals/PlaybackModal'
+
 import SubmittedModal from './components/modals/SubmittedModal'
+import PermissionsModal from './components/modals/PermissionsModal'
 
 import { Modal } from 'react-bootstrap'
 
@@ -28,12 +30,13 @@ import {
 
 
 const ReaderStateTypes = {
-  unstarted: 'READER_STATE_UNSTARTED',
+  awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
+  awaitingStart: 'READER_STATE_AWAITING_START',
   inProgress: 'READER_STATE_IN_PROGRESS',
   paused: 'READER_STATE_PAUSED',
   done: 'READER_STATE_DONE',
   doneDisplayingPlayback: 'READER_STATE_PLAYBACK',
-  submitted: 'READER_STATE_SUBMITTED'
+  submitted: 'READER_STATE_SUBMITTED',
 }
 
 // how many images in advance to load
@@ -103,6 +106,11 @@ export default class StudentDashboard extends React.Component {
   constructor(props, _railsContext) {
     super(props);
 
+    if (!Recorder.browserSupportsRecording()) {
+      alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.")
+      return
+    }
+
     this.state = {  
       pageNumber: parseInt(this.props.match.params.page_number),
       storyId: this.props.match.params.story_id,
@@ -111,18 +119,34 @@ export default class StudentDashboard extends React.Component {
       redirectBack: false,
       redirectInvalid: false,
       redirectCover: false,
-      readerState: ReaderStateTypes.inProgress,
+      readerState:  ReaderStateTypes.awaitingPermissions,
       lastImageIndexLoaded: 0,
       recorder: new Recorder(),
     };
 
+    Recorder.hasRecordingPermissions((hasPermissions) => {
+      console.log("We have permissions? " + hasPermissions)
+      if (hasPermissions) {
+        this.setState({ readerState: ReaderStateTypes.awaitingStart })
+        this.state.recorder.initialize()
+      }
+      else {
+        this.state.recorder.initialize((error) => {
+          console.log('okay now we got it')
+          if (error) {
+            console.log('ReaderManager encountered recorder error!!')
+            alert('Did you block microphone access?')
+          }
+          else {
+            this.setState({ readerState: ReaderStateTypes.awaitingStart })
+          }
 
-    if (!Recorder.browserSupportsRecording()) {
-      alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.");
-    }
-    else {
-      this.state.recorder.initialize()
-    }
+        })
+      }
+    });
+
+
+
     
 
   }
@@ -282,7 +306,8 @@ export default class StudentDashboard extends React.Component {
 
 
   renderModalComponentOrNullBasedOnState = () => {
-    if (this.state.readerState === ReaderStateTypes.inProgress) {
+    if (this.state.readerState === ReaderStateTypes.inProgress || this.state.readerState === ReaderStateTypes.awaitingStart || this.state.readerState === ReaderStateTypes.awaitingPermissions || this.state.readerState === ReaderStateTypes.submitted) {
+      // no modal
       return null;
     }
 
@@ -325,22 +350,32 @@ export default class StudentDashboard extends React.Component {
     );
   }
 
+  renderOverlayOrNullBasedOnState = () => {
+    if (this.state.readerState === ReaderStateTypes.submitted) {
+      return <SubmittedModal />
+    }
+    else if (this.state.readerState === ReaderStateTypes.awaitingPermissions) {
+      return <PermissionsModal />
+    }
+    return null
+  }
+
 
   // The best way to preload images is just to render hidden img components, with src set to the url we want to load
   // That way they'll be cached by the browser for when we actually want to display them
   renderHiddenPreloadImages = () => {
-    if (!PRELOAD_IMAGES_ADVANCE || this.state.lastImageIndexLoaded == this.state.numPages) {
+
+    // the image loading blocks chrome from checking if microphone access exists,
+    // so don't do any preloading if we're awaiting permissions
+    if (!PRELOAD_IMAGES_ADVANCE || this.state.readerState == ReaderStateTypes.awaitingPermissions) {
       console.log('DONT NEED TO PRELOAD')
       return null
     } 
 
     let preloadImageURLs = []
     for (let i = this.state.pageNumber + 1; i <= this.state.numPages && i <= this.state.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
-      console.log(i)
       preloadImageURLs.push(sampleBook.pages[i].img)
     }
-
-    console.log(preloadImageURLs)
 
     return (
       <div style={{'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden'}}> 
@@ -373,26 +408,21 @@ export default class StudentDashboard extends React.Component {
 
 
 
-
-    if (this.state.readerState === ReaderStateTypes.submitted) {
-      return (
-        <div className={styles.fill}>
-          <SubmittedModal />
-        </div>
-      );
-    }
-
-
     console.log('state::: ' + this.state.readerState)
 
 
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()
+    const OverlayOrNull = this.renderOverlayOrNullBasedOnState()
+
+
+    console.log(OverlayOrNull)
 
     return (
       <div className={styles.fill}>
         { ReaderComponent }     
         { ModalComponentOrNull }
+        { this.renderOverlayOrNullBasedOnState() }
         { this.renderHiddenPreloadImages() }     
       </div>
 
