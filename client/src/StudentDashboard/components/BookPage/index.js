@@ -28,11 +28,11 @@ export default class BookPage extends React.Component {
           <div className={styles.textParagraph} key={text}>{text}</div>
         ))}
       </div>
-    ); 
+    );
 
     return (
       <div className={styles.readerContentContainer}>
-        
+
         <img src={this.props.imageURL} className={styles.readerImage} />
         <FormattedText textLines={this.props.textLines} />
         <div className={styles.pageNumber}>{this.props.pageNumber}</div>

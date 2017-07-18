@@ -39,10 +39,10 @@ export default class NavigationBar extends React.Component {
         </div>
         <div className={css.subContainer}>
           <div className={css.centerDisplayContainer}>
-            <RectangleButton  
+            <RectangleButton
               title={ (this.props.isCoverPage && this.props.bookTitle) || 'Pause'  }
               subtitle={ (this.props.isCoverPage && ('by ' + this.props.bookAuthor)) || 'recording'  }
-              style={{marginTop: 20}}
+              style={{ marginTop: 20 }}
               id="navigation-button"
               disabled={this.props.isCoverPage}
               onClick={this.props.onPauseClicked}

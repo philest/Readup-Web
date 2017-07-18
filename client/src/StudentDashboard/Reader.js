@@ -65,8 +65,8 @@ export default class Reader extends React.Component {
       return null
     }
     return (
-      <RectangleButton  
-        title='Previous' 
+      <RectangleButton
+        title='Previous'
         subtitle='page'
         style={{ backgroundColor: '#2C6D9C' }}
         onClick={this.props.onPreviousPageClicked}
@@ -79,7 +79,7 @@ export default class Reader extends React.Component {
       return <BookCover imageURL={this.props.coverImageURL} />
     }
     return (
-      <BookPage 
+      <BookPage
         pageNumber={this.props.pageNumber}
         textLines={this.props.textLines}
         imageURL={this.props.imageURL}
@@ -90,8 +90,8 @@ export default class Reader extends React.Component {
   renderRightButton = () => {
     if (this.props.isLastPage) {
       return (
-        <RectangleButton  
-          title='Stop' 
+        <RectangleButton
+          title='Stop'
           subtitle='recording'
           style={{ backgroundColor: '#982E2B' }}
           onClick={this.props.onStopClicked}
@@ -100,8 +100,8 @@ export default class Reader extends React.Component {
     }
     else if (this.props.showCover) {
       return (
-        <RectangleButton  
-          title='Start' 
+        <RectangleButton
+          title='Start'
           subtitle='recording'
           style={{ backgroundColor: 'green' }}
           onClick={this.props.onStartClicked}
@@ -110,8 +110,8 @@ export default class Reader extends React.Component {
     }
 
     return (
-      <RectangleButton  
-        title='Next' 
+      <RectangleButton
+        title='Next'
         subtitle='page'
         style={{ backgroundColor: 'green' }}
         onClick={this.props.onNextPageClicked}
@@ -152,7 +152,7 @@ export default class Reader extends React.Component {
     const transitionProps = {...presets.pop, pathname: this.props.pathname, className: styles.routeTransition}
 
     return (
- 
+
       <div className={styles.fullHeight}>
 
 
@@ -174,10 +174,10 @@ export default class Reader extends React.Component {
             { this.renderRightButton() }
           </div>
 
-        </div>        
+        </div>
       </div>
-      
-      
+
+
     );
   }
 }
