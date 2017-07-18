@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux'
 
+import * as actionCreators from './state'
+import { bindActionCreators } from 'redux'
+
 import Reader from './Reader'
 
-import Recorder from './recorder'
+
 
 import styles from './styles.css'
 
@@ -29,6 +32,7 @@ import {
 } from 'react-router-dom'
 
 
+// TODO PUT IN OWN FILE
 const ReaderStateTypes = {
   awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
   awaitingStart: 'READER_STATE_AWAITING_START',
@@ -50,59 +54,23 @@ const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedi
                         navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
 
-const sampleBook = {
-  title: "Cezar Chavez",
-  author: "Ginger Wordsworth",
-  s3Key: 'rocket',
-  description: "Mom gets to come along on a space adventure",
-  numPages: 2,
-  coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
-  pages: {
-    1: {
-      lines: [
-          "This is the first line of the first page.",
-          "This is the second line of the first page."
-      ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-1-610x381.jpg',
-    },
-    2: {
-      lines: [
-        "This is the first line of the second page.",
-        "This is the second line of the second page."
-      ],
-      img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
-    },
-    // 3: {
-    //   lines: [
-    //     "This is the first line of the third page.",
-    //     "This is the second line of the third page."
-    //   ],
-    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
-    // },
-    // 4: {
-    //   lines: [
-    //     "This is the first line of the fourth page.",
-    //     "This is the second line of the fourth page."
-    //   ],
-    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
-    // },
-    // 5: {
-    //   lines: [
-    //     "This is the first line of the fifth page.",
-    //     "The end."
-    //   ],
-    //   img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
-    // },
-  },
-};
+
 
 function mapStateToProps (state) {
   console.log(state)
   return {
-    micEnabled: state.reader.micEnabled
+    // micEnabled: state.reader.micEnabled,
+    pageNumber: state.reader.pageNumber,
+    readerState: state.reader.readerState,
+    numPages: state.reader.book.numPages,
+    book: state.reader.book,
+    recorder: state.reader.recorder, // TODO probably shouldn't have access
   }
 }
 
+function mapDispatchToProps (dispatch) {
+  return { actions: bindActionCreators(actionCreators, dispatch) }
+}
 
 
 class StudentDashboard extends React.Component {
@@ -114,44 +82,32 @@ class StudentDashboard extends React.Component {
     super(props);
     console.log(props)
 
-    if (!Recorder.browserSupportsRecording()) {
-      alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.")
-      return
-    }
+    // if (!Recorder.browserSupportsRecording()) {
+    //   alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.")
+    //   return
+    // }
 
-    this.state = {
-      pageNumber: parseInt(this.props.match.params.page_number),
-      storyId: this.props.match.params.story_id,
-      numPages: Object.keys(sampleBook.pages).length,
-      redirectForward: false,
-      redirectBack: false,
-      redirectInvalid: false,
-      redirectCover: false,
-      readerState:  ReaderStateTypes.awaitingPermissions,
-      lastImageIndexLoaded: 0,
-      recorder: new Recorder(),
-    };
 
-    Recorder.hasRecordingPermissions((hasPermissions) => {
-      console.log("We have permissions? " + hasPermissions)
-      if (hasPermissions) {
-        this.setState({ readerState: ReaderStateTypes.awaitingStart })
-        this.state.recorder.initialize()
-      }
-      else {
-        this.state.recorder.initialize((error) => {
-          console.log('okay now we got it')
-          if (error) {
-            console.log('ReaderManager encountered recorder error!!')
-            alert('Did you block microphone access?')
-          }
-          else {
-            this.setState({ readerState: ReaderStateTypes.awaitingStart })
-          }
+    // Recorder.hasRecordingPermissions((hasPermissions) => {
+    //   console.log("We have permissions? " + hasPermissions)
+    //   if (hasPermissions) {
+    //     this.setState({ readerState: ReaderStateTypes.awaitingStart })
+    //     this.props.recorder.initialize()
+    //   }
+    //   else {
+    //     this.props.recorder.initialize((error) => {
+    //       console.log('okay now we got it')
+    //       if (error) {
+    //         console.log('ReaderManager encountered recorder error!!')
+    //         alert('Did you block microphone access?')
+    //       }
+    //       else {
+    //         this.setState({ readerState: ReaderStateTypes.awaitingStart })
+    //       }
 
-        })
-      }
-    });
+    //     })
+    //   }
+    // });
 
 
 
@@ -160,46 +116,46 @@ class StudentDashboard extends React.Component {
   }
 
   componentDidUpdate(nextProps) {
-    console.log('DIDUPDATE; path pagenumber =' + this.props.match.params.page_number)
+    console.log('DIDUPDATE; pagenumber =' + this.props.pageNumber)
 
-    const newPageNumber = parseInt(this.props.match.params.page_number)
+    // const newPageNumber = parseInt(this.props.match.params.page_number)
 
-    if (newPageNumber < 0 || newPageNumber > Object.keys(sampleBook.pages).length) {
-      console.log('redirecting due to invalid page number')
-      this.setState({
-        redirectInvalid: true,
-        redirectForward: false,
-        redirectBack: false,
-        redirectCover: false,
-        pageNumber: newPageNumber,
-      })
+    // if (newPageNumber < 0 || newPageNumber > Object.keys(this.props.book.pages).length) {
+    //   console.log('redirecting due to invalid page number')
+    //   this.setState({
+    //     redirectInvalid: true,
+    //     redirectForward: false,
+    //     redirectBack: false,
+    //     redirectCover: false,
+    //     pageNumber: newPageNumber,
+    //   })
 
-    }
-    else if (newPageNumber != this.state.pageNumber) {
-      this.setState({
-        pageNumber: newPageNumber,
-        redirectForward: false,
-        redirectBack: false,
-        redirectInvalid: false,
-        redirectCover: false,
-        showDoneModal: false,
-      });
-    }
+    // }
+    // else if (newPageNumber != this.props.pageNumber) {
+    //   this.setState({
+    //     pageNumber: newPageNumber,
+    //     redirectForward: false,
+    //     redirectBack: false,
+    //     redirectInvalid: false,
+    //     redirectCover: false,
+    //     showDoneModal: false,
+    //   });
+    // }
 
 
   }
 
   componentWillMount() {
     // Need to check for invalid page number here too, because didUpdate isn't called on first time
-    const newPageNumber = parseInt(this.props.match.params.page_number)
-    if (newPageNumber < 0 || newPageNumber > Object.keys(sampleBook.pages).length) {
-      this.setState({
-        redirectInvalid: true,
-        redirectForward: false,
-        redirectBack: false,
-        redirectCover: false,
-      })
-    }
+    // const newPageNumber = parseInt(this.props.match.params.page_number)
+    // if (newPageNumber < 0 || newPageNumber > Object.keys(this.props.book.pages).length) {
+    //   this.setState({
+    //     redirectInvalid: true,
+    //     redirectForward: false,
+    //     redirectBack: false,
+    //     redirectCover: false,
+    //   })
+    // }
 
   }
 
@@ -213,60 +169,48 @@ class StudentDashboard extends React.Component {
   /* Callbacks */
 
   onPauseClicked = () => {
-    this.setState({ readerState: ReaderStateTypes.paused })
-    this.state.recorder.pauseRecording()
+    console.log('PAUSE CLICKED')
+    this.props.actions.pauseRecording()
   }
 
   onUnpauseClicked = () => {
-    console.log('!!!!!!')
-    this.setState({ readerState: ReaderStateTypes.inProgress })
-    this.state.recorder.resumeRecording()
+    console.log('UNPAUSE CLICKED')
+    this.props.actions.resumeRecording()
   }
 
   onStopClicked = () => {
-    console.log("ON STOP!")
-    this.state.recorder.stopRecording()
-    this.setState({ readerState: ReaderStateTypes.done })
+    console.log("STOP CLICKED")
+    this.props.actions.stopRecording()
   }
 
   onTurnInClicked = () => {
-    console.log('TURN IN')
-    // submit to server, then...
-    this.setState({ readerState: ReaderStateTypes.submitted })
-
-    // redirect home
-    setTimeout(() => {
-      window.location.href = "/" // TODO where to redirect?
-    }, 5000)
+    console.log('TURN IN CLICKED')
+    this.props.actions.submitRecording()
   }
 
   onStartClicked = () => {
-    console.log('ON START')
-    this.state.recorder.startRecording()
-    this.setState({ redirectForward: true })
+    console.log('START CLICKED')
+    this.props.actions.startRecording()
   }
 
   onStartOverClicked = () => {
-    console.log('START OVER')
-    this.state.recorder.reset()
-    this.setState({
-      redirectCover: true,
-      readerState: ReaderStateTypes.inProgress,
-    })
+    console.log('START OVER CLICKED')
+    this.props.actions.restartRecording()
   }
 
   onHearRecordingClicked = () => {
-    console.log('HEAR RECORDING')
-    this.setState({ readerState: ReaderStateTypes.doneDisplayingPlayback })
+    console.log('HEAR RECORDING CLICKED')
+    this.props.actions.playbackRecording()
   }
 
   onNextPageClicked = () => {
-    console.log('asdfasfsff!!!')
-    this.setState({ redirectForward: true })
+    console.log('NEXT PAGE CLICKED')
+    this.props.actions.incrementPage()
   }
 
   onPreviousPageClicked = () => {
-    this.setState({ redirectBack: true })
+    console.log('PREVIOUS PAGE CLICKED')
+    this.props.actions.decrementPage()
   }
 
 
@@ -284,28 +228,28 @@ class StudentDashboard extends React.Component {
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
 
 
-    if (this.state.pageNumber == 0) { // cover
+    if (this.props.pageNumber == 0) { // cover
       readerProps = {
         ...readerProps,
         showCover: true,
-        coverImageURL: sampleBook.coverImage,
-        bookTitle: sampleBook.title,
-        bookAuthor: sampleBook.author,
+        coverImageURL: this.props.book.coverImage,
+        bookTitle: this.props.book.title,
+        bookAuthor: this.props.book.author,
         onStartClicked: this.onStartClicked,
       }
     }
     else { // any other page... need to check ReaderState? I don't think so....
       readerProps = {
         ...readerProps,
-        pageNumber: this.state.pageNumber,
-        textLines: sampleBook.pages[this.state.pageNumber].lines,
-        imageURL: sampleBook.pages[this.state.pageNumber].img,
-        isFirstPage: (this.state.pageNumber == 1),
-        isLastPage: (this.state.pageNumber == this.state.numPages),
+        pageNumber: this.props.pageNumber,
+        textLines: this.props.book.pages[this.props.pageNumber].lines,
+        imageURL: this.props.book.pages[this.props.pageNumber].img,
+        isFirstPage: (this.props.pageNumber == 1),
+        isLastPage: (this.props.pageNumber == this.props.numPages),
         onPreviousPageClicked: this.onPreviousPageClicked,
         onPauseClicked: this.onPauseClicked,
-        onNextPageClicked: (this.state.pageNumber == this.state.numPages) ? null : this.onNextPageClicked,
-        onStopClicked: (this.state.pageNumber == this.state.numPages) ? this.onStopClicked : null,
+        onNextPageClicked: (this.props.pageNumber == this.props.numPages) ? null : this.onNextPageClicked,
+        onStopClicked: (this.props.pageNumber == this.props.numPages) ? this.onStopClicked : null,
       }
     }
 
@@ -314,13 +258,13 @@ class StudentDashboard extends React.Component {
 
 
   renderModalComponentOrNullBasedOnState = () => {
-    if (this.state.readerState === ReaderStateTypes.inProgress || this.state.readerState === ReaderStateTypes.awaitingStart || this.state.readerState === ReaderStateTypes.awaitingPermissions || this.state.readerState === ReaderStateTypes.submitted) {
+    if (this.props.readerState === ReaderStateTypes.inProgress || this.props.readerState === ReaderStateTypes.awaitingStart || this.props.readerState === ReaderStateTypes.awaitingPermissions || this.props.readerState === ReaderStateTypes.submitted) {
       // no modal
       return null;
     }
 
     let ModalContentComponent = null;
-    if (this.state.readerState === ReaderStateTypes.paused) {
+    if (this.props.readerState === ReaderStateTypes.paused) {
       ModalContentComponent =
         <PausedModal
           onContinueClicked={this.onUnpauseClicked}
@@ -328,15 +272,15 @@ class StudentDashboard extends React.Component {
           onTurnInClicked={this.onTurnInClicked}
         />
     }
-    else if (this.state.readerState === ReaderStateTypes.doneDisplayingPlayback) {
+    else if (this.props.readerState === ReaderStateTypes.doneDisplayingPlayback) {
       ModalContentComponent =
         <PlaybackModal
-          audioSrc={this.state.recorder.getBlobURL()}
+          audioSrc={this.props.recorder.getBlobURL()}
           onStartOverClicked={this.onStartOverClicked}
           onTurnInClicked={this.onTurnInClicked}
         />
     }
-    else if (this.state.readerState === ReaderStateTypes.done) {
+    else if (this.props.readerState === ReaderStateTypes.done) {
       ModalContentComponent =
         <DoneModal
           onHearRecordingClicked={this.onHearRecordingClicked}
@@ -359,10 +303,10 @@ class StudentDashboard extends React.Component {
   }
 
   renderOverlayOrNullBasedOnState = () => {
-    if (this.state.readerState === ReaderStateTypes.submitted) {
+    if (this.props.readerState === ReaderStateTypes.submitted) {
       return <SubmittedModal />
     }
-    else if (this.state.readerState === ReaderStateTypes.awaitingPermissions) {
+    else if (this.props.readerState === ReaderStateTypes.awaitingPermissions) {
       return <PermissionsModal />
     }
     return null
@@ -375,14 +319,14 @@ class StudentDashboard extends React.Component {
 
     // the image loading blocks chrome from checking if microphone access exists,
     // so don't do any preloading if we're awaiting permissions
-    if (!PRELOAD_IMAGES_ADVANCE || this.state.readerState == ReaderStateTypes.awaitingPermissions) {
+    if (!PRELOAD_IMAGES_ADVANCE || this.props.readerState == ReaderStateTypes.awaitingPermissions) {
       console.log('DONT NEED TO PRELOAD')
       return null
     }
 
     let preloadImageURLs = []
-    for (let i = this.state.pageNumber + 1; i <= this.state.numPages && i <= this.state.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
-      preloadImageURLs.push(sampleBook.pages[i].img)
+    for (let i = this.props.pageNumber + 1; i <= this.props.numPages && i <= this.props.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
+      preloadImageURLs.push(this.props.book.pages[i].img)
     }
 
     return (
@@ -401,22 +345,22 @@ class StudentDashboard extends React.Component {
 
     // Catch redirection
     // Setting the keys is !important, see: https://github.com/ReactTraining/react-router/issues/5273
-    if (this.state.redirectForward) {
-      return <Redirect key='forward' push to={'/story/STORY_ID/page/'+(this.state.pageNumber+1)} />
+    if (this.props.redirectForward) {
+      return <Redirect key='forward' push to={'/story/STORY_ID/page/'+(this.props.pageNumber+1)} />
     }
-    if (this.state.redirectBack) {
-      return <Redirect key='back' push to={'/story/STORY_ID/page/'+(this.state.pageNumber-1)} />
+    if (this.props.redirectBack) {
+      return <Redirect key='back' push to={'/story/STORY_ID/page/'+(this.props.pageNumber-1)} />
     }
-    if (this.state.redirectCover) {
+    if (this.props.redirectCover) {
       return <Redirect key='back' push to={'/story/STORY_ID/page/0'} />
     }
-    if (this.state.redirectInvalid) {
+    if (this.props.redirectInvalid) {
       return <Redirect key='invalid' push to={'/story/STORY_ID/page/1'} /> // Todo how to handle?
     }
 
 
 
-    console.log('state::: ' + this.state.readerState)
+    console.log('state::: ' + this.props.readerState)
 
 
     const ReaderComponent = this.renderReaderComponentWithProps()
@@ -443,7 +387,7 @@ class StudentDashboard extends React.Component {
 
 
 
-export default connect(mapStateToProps)(StudentDashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard)
 
 
 

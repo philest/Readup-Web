@@ -14,7 +14,7 @@ import {
 
 
 
-function Root ({ store }) {
+function Root ({ store, rorProps }) {
   console.log(store)
   return (
     <Provider store={store}>
@@ -23,7 +23,7 @@ function Root ({ store }) {
         <Route
           path="/story/:story_id/page/:page_number"
           render={(props) => {
-            const readerManagerProps = {...props, ...this.props} //router: this.props.history}
+            const readerManagerProps = {...props, ...rorProps} //router: this.props.history}
             return <ReaderManager {...readerManagerProps} />
           }}
         />
@@ -43,7 +43,7 @@ function Root ({ store }) {
 
 
 export default function ConnectedStudentDashboard ({ ...props }) {
-  return <Root {...props} store={storeConfig.store} />
+  return <Root rorProps={props} store={storeConfig.store} />
 }
 
 

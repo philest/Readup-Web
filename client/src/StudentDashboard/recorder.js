@@ -10,6 +10,8 @@ export default class Recorder {
 		this.recording = false
 
     console.log('browserr:::  ' + JSON.stringify(DetectRTC.browser))
+
+    this.initialize()
 	}
 
 	static browserSupportsRecording() {
