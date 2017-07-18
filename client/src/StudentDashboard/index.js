@@ -1,5 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import { Provider } from 'react-redux'
+import React from 'react'
+import storeConfig from './createStore'
 
 import ReaderManager from './ReaderManager'
 
@@ -12,11 +14,10 @@ import {
 
 
 
-export default class StudentDashboard extends React.Component {
-
-  render() {
-
-    return (
+function Root ({ store }) {
+  console.log(store)
+  return (
+    <Provider store={store}>
       <HashRouter>
       <Switch>
         <Route
@@ -36,10 +37,14 @@ export default class StudentDashboard extends React.Component {
         }} />
       </Switch>
       </HashRouter>
-    );
-  }
+    </Provider>
+  );
 }
 
+
+export default function ConnectedStudentDashboard ({ ...props }) {
+  return <Root {...props} store={storeConfig.store} />
+}
 
 
 
