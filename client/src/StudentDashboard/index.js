@@ -19,8 +19,8 @@ export default class StudentDashboard extends React.Component {
     return (
       <HashRouter>
       <Switch>
-        <Route 
-          path="/story/:story_id/page/:page_number" 
+        <Route
+          path="/story/:story_id/page/:page_number"
           render={(props) => {
             const readerManagerProps = {...props, ...this.props} //router: this.props.history}
             return <ReaderManager {...readerManagerProps} />
@@ -28,7 +28,7 @@ export default class StudentDashboard extends React.Component {
         />
 
 
-        <Route render={(props) => { 
+        <Route render={(props) => {
           // default catchall
           // TODO how to handle?
           console.log('404!!!!')

@@ -5,7 +5,7 @@ import styles from './styles.css'
 import commonStyles from '../commonstyles.css'
 
 import ModalHeader from '../subcomponents/ModalHeader'
-import RectangleButton from '../../RectangleButton'
+import RectangleButton from 'StudentDashboard/components/RectangleButton'
 import ButtonArray from '../subcomponents/ButtonArray'
 
 export default class PlaybackModal extends React.Component {

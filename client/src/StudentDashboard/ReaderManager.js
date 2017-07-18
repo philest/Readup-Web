@@ -12,13 +12,13 @@ import Recorder from './recorder'
 
 import styles from './styles.css'
 
-import DoneModal from './components/modals/DoneModal'
-import PausedModal from './components/modals/PausedModal'
-import MicModal from './components/modals/MicModal'
-import PlaybackModal from './components/modals/PlaybackModal'
+import DoneModal from './modals/DoneModal'
+import PausedModal from './modals/PausedModal'
+import MicModal from './modals/MicModal'
+import PlaybackModal from './modals/PlaybackModal'
 
-import SubmittedModal from './components/modals/SubmittedModal'
-import PermissionsModal from './components/modals/PermissionsModal'
+import SubmittedModal from './modals/SubmittedModal'
+import PermissionsModal from './modals/PermissionsModal'
 
 import { Modal } from 'react-bootstrap'
 

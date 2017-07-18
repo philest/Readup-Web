@@ -4,7 +4,7 @@ import styles from './styles.css'
 
 import ModalHeader from '../subcomponents/ModalHeader'
 import ButtonArray from '../subcomponents/ButtonArray'
-import RectangleButton from '../../RectangleButton'
+import RectangleButton from 'StudentDashboard/components/RectangleButton'
 
 export default class MicModal extends React.Component {
   static propTypes = {
