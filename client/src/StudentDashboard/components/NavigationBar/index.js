@@ -11,11 +11,13 @@ export default class NavigationBar extends React.Component {
 
     // cover related stuff
     isCoverPage: PropTypes.bool,
+    showPauseButton: PropTypes.bool,
     bookTitle: PropTypes.string,
     bookAuthor: PropTypes.string,
   };
   static defaultProps = {
     isCoverPage: false,
+    showPauseButton: true,
   }
 
   /**
@@ -32,6 +34,7 @@ export default class NavigationBar extends React.Component {
 
 
   render() {
+    console.log('**** show pause??  ' + this.props.showPauseButton)
     return (
       <div className={css.navContainer}>
         <div className={css.subContainer}>
@@ -40,11 +43,11 @@ export default class NavigationBar extends React.Component {
         <div className={css.subContainer}>
           <div className={css.centerDisplayContainer}>
             <RectangleButton
-              title={ (this.props.isCoverPage && this.props.bookTitle) || 'Pause'  }
-              subtitle={ (this.props.isCoverPage && ('by ' + this.props.bookAuthor)) || 'recording'  }
-              style={ (this.props.isCoverPage && { marginTop: 20 }) || { marginTop: 20, backgroundColor: '#9D2C28' }}
+              title={ (this.props.showPauseButton && 'Pause' || this.props.bookTitle) }
+              subtitle={ (!this.props.showPauseButton && ('by ' + this.props.bookAuthor)) || 'recording'  }
+              style={ (!this.props.showPauseButton && { marginTop: 20 }) || { marginTop: 20, backgroundColor: '#9D2C28' }}
               id="navigation-button"
-              disabled={this.props.isCoverPage}
+              disabled={!this.props.showPauseButton}
               onClick={this.props.onPauseClicked}
             />
           </div>

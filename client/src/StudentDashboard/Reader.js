@@ -35,7 +35,8 @@ export default class Reader extends React.Component {
     bookTitle: PropTypes.string,
     bookAuthor: PropTypes.string,
 
-    // other minimal state
+    // other state
+    showPauseButton: PropTypes.bool,
     isFirstPage: PropTypes.bool,
     isLastPage: PropTypes.bool,
 
@@ -54,6 +55,7 @@ export default class Reader extends React.Component {
     showCover: false,
     isFirstPage: false,
     isLastPage: false,
+    showPauseButton: true,
   }
 
   constructor(props, _railsContext) {
@@ -122,24 +124,15 @@ export default class Reader extends React.Component {
   }
 
   renderNavigationBar = () => {
-    let navProps = {
+
+    const navProps = {
       className: styles.navBar,
       studentName: this.props.studentName,
-    }
-
-    if (this.props.showCover) {
-      navProps = {
-        ...navProps,
-        isCoverPage: true,
-        bookTitle: this.props.bookTitle,
-        bookAuthor: this.props.bookAuthor,
-      }
-    }
-    else {
-      navProps = {
-        ...navProps,
-        onPauseClicked: this.props.onPauseClicked,
-      }
+      showPauseButton: this.props.showPauseButton,
+      bookTitle: this.props.bookTitle,
+      bookAuthor: this.props.bookAuthor,
+      isCoverPage: this.props.showCover,
+      onPauseClicked: this.props.onPauseClicked,
     }
 
     return <NavigationBar {...navProps} />

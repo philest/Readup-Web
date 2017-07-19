@@ -21,8 +21,11 @@ import PausedModal from './modals/PausedModal'
 import MicModal from './modals/MicModal'
 import PlaybackModal from './modals/PlaybackModal'
 
+// these are really overlays
+// should probably rename in the future
 import SubmittedModal from './modals/SubmittedModal'
 import PermissionsModal from './modals/PermissionsModal'
+import CountdownModal from './modals/CountdownModal'
 
 import { Modal } from 'react-bootstrap'
 
@@ -85,6 +88,7 @@ class StudentDashboard extends React.Component {
       return
     }
 
+    // This stuff kicks off the process, gets state out of initializing
     Recorder.hasRecordingPermissions((hasPermissions) => {
       console.log("We have permissions? " + hasPermissions)
       if (hasPermissions) {
@@ -136,7 +140,7 @@ class StudentDashboard extends React.Component {
 
   onStartClicked = () => {
     console.log('START CLICKED')
-    this.props.actions.startRecording()
+    this.props.actions.startCountdownToStart()
   }
 
   onStartOverClicked = () => {
@@ -179,6 +183,9 @@ class StudentDashboard extends React.Component {
       // stuff that doesn't change with page number
       studentName: this.props.studentName,
       pathname: this.props.location.pathname,
+      coverImageURL: this.props.book.coverImage,
+      bookTitle: this.props.book.title,
+      bookAuthor: this.props.book.author,
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
@@ -188,18 +195,19 @@ class StudentDashboard extends React.Component {
       readerProps = {
         ...readerProps,
         showCover: true,
-        coverImageURL: this.props.book.coverImage,
-        bookTitle: this.props.book.title,
-        bookAuthor: this.props.book.author,
+        showPauseButton: false,
+        
         onStartClicked: this.onStartClicked,
       }
     }
-    else { // any other page... need to check ReaderState? I don't think so....
+    else { // any other page... 
+
       readerProps = {
         ...readerProps,
         pageNumber: this.props.pageNumber,
         textLines: this.props.book.pages[this.props.pageNumber].lines,
         imageURL: this.props.book.pages[this.props.pageNumber].img,
+        showPauseButton: this.props.readerState === ReaderStateOptions.inProgress,
         isFirstPage: (this.props.pageNumber == 1),
         isLastPage: (this.props.pageNumber == this.props.numPages),
         onPreviousPageClicked: this.onPreviousPageClicked,
@@ -264,6 +272,11 @@ class StudentDashboard extends React.Component {
     else if (this.props.readerState === ReaderStateOptions.awaitingPermissions) {
       return <PermissionsModal onArrowClicked={this.onPermisionsArrowClicked} />
     }
+    else if (this.props.readerState === ReaderStateOptions.countdownToStart) {
+      return <CountdownModal countdownDuration={3} onCountdownFinished={() => {
+        this.props.actions.startRecording()
+      }} />
+    }
     return null
   }
 
@@ -315,6 +328,9 @@ class StudentDashboard extends React.Component {
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()
     const OverlayOrNull = this.renderOverlayOrNullBasedOnState()
+
+    console.log('overrrrr')
+    console.log(OverlayOrNull)
 
 
     return (

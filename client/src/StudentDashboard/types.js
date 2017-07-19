@@ -5,6 +5,7 @@ export const ReaderStateOptions = {
   awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
   permissionsBlocked: 'READER_STATE_PERMISSIONS_BLOCKED',
   awaitingStart: 'READER_STATE_AWAITING_START',
+  countdownToStart: 'READER_STATE_COUNTDOWN_TO_START',
   inProgress: 'READER_STATE_IN_PROGRESS',
   paused: 'READER_STATE_PAUSED',
   done: 'READER_STATE_DONE',

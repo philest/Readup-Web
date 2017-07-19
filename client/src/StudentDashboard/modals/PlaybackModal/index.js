@@ -33,7 +33,7 @@ export default class PlaybackModal extends React.Component {
 
         <div className={styles.playbackContainer}>
           <h4 style={{ fontWeight: 'bold', marginTop: 20 }}>Hear it</h4>
-          <audio autoplay="autoplay" controls style={{ marginBottom: 20 }}>
+          <audio controls autoPlay style={{ marginBottom: 20 }}>
             <source src={this.props.audioSrc} />
             <p>Playback not supported</p>
           </audio>

@@ -14,12 +14,15 @@ import Recorder from './recorder'
 import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
 
 
+const DEV_DISABLE_VOICE_INSTRUCTIONS = false
+
 
 const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
 
 const PAGE_INCREMENT = 'PAGE_INCREMENT'
 const PAGE_DECREMENT = 'PAGE_DECREMENT'
 
+const RECORDING_COUNTDOWN_TO_START = 'RECORDING_COUNTDOWN_TO_START'
 const RECORDING_START = 'RECORDING_START'
 const RECORDING_STOP = 'RECORDING_STOP'
 const RECORDING_PAUSE = 'RECORDING_PAUSE'
@@ -51,6 +54,12 @@ export function incrementPage() {
 export function decrementPage() {
   return {
     type: PAGE_DECREMENT,
+  }
+}
+
+export function startCountdownToStart() {
+  return {
+    type: RECORDING_COUNTDOWN_TO_START,
   }
 }
 
@@ -164,6 +173,8 @@ const initialState = {
 // Should move this to a saga
 
 function playSound(file) {
+  if (DEV_DISABLE_VOICE_INSTRUCTIONS) return
+
   var audio = new Audio(file);
   audio.play();
 }
@@ -206,7 +217,9 @@ function reducer(state = initialState, action = {}) {
     case PAGE_DECREMENT: {
       return { ...state, pageNumber: state.pageNumber - 1}
     }
-
+    case RECORDING_COUNTDOWN_TO_START: {
+      return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
+    }
     case RECORDING_START: {
       state.recorder.startRecording()
       return { ...state, readerState: ReaderStateOptions.inProgress, pageNumber: 1 }
