@@ -8,6 +8,7 @@ type props = {
   subtitle: string,
   onClick: Function,
   disabled: boolean,
+  pulsatingArrow: boolean,
   style: {},
 };
 
@@ -16,6 +17,7 @@ function RectangleButton ({
   subtitle = "",
   onClick = function () { return null },
   disabled = false,
+  pulsatingArrow = false,
   style = {},
 } : props) {
   return (
@@ -27,8 +29,13 @@ function RectangleButton ({
       onClick={() => (!disabled && onClick())}
     >
 
+      
       <div className={styles.rectangleButtonTitle}>
+        { pulsatingArrow && 
+          <i className={['fa fa-angle-right', styles.pulsatingArrow].join(' ')}></i>
+        }
         {title}
+        
       </div>
 
       {

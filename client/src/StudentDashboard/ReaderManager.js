@@ -163,6 +163,7 @@ class StudentDashboard extends React.Component {
   /* Rando other callbacks */
 
   onPermisionsArrowClicked = () => {
+    // TODO stop double playing
     var audio = new Audio('/audio/click_allow_button.m4a');
     audio.play();
   }

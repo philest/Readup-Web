@@ -94,6 +94,7 @@ export default class Reader extends React.Component {
           title='Stop'
           subtitle='recording'
           style={{ backgroundColor: '#982E2B' }}
+          pulsatingArrow={true}
           onClick={this.props.onStopClicked}
         />
       );
@@ -102,8 +103,9 @@ export default class Reader extends React.Component {
       return (
         <RectangleButton
           title='Start'
-          subtitle='recording'
+          subtitle='read and record'
           style={{ backgroundColor: 'green' }}
+          pulsatingArrow={true}
           onClick={this.props.onStartClicked}
         />
       );

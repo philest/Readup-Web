@@ -14,8 +14,7 @@
 
 @keyframes upAndDown {
     0% { top: 80px; }
-    50% { top: 100px; }
-    100% { top: 80px; }
+    100% { top: 100px; }
 }
 
 .upArrow {
@@ -23,6 +22,5 @@
 	top: 80px;
 	left: 318px;
 	width: 60px;
-	/*height: 150px;*/
-	animation: upAndDown 3s infinite;
+	animation: upAndDown 1s infinite alternate;
 }
