@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import RectangleButton from '../RectangleButton'
+import BookInfoHeader from '../BookInfoHeader'
 import css from './styles.css'
 
 
@@ -42,14 +43,25 @@ export default class NavigationBar extends React.Component {
         </div>
         <div className={css.subContainer}>
           <div className={css.centerDisplayContainer}>
+
+          { this.props.showPauseButton && 
             <RectangleButton
-              title={ (this.props.showPauseButton && 'Pause' || this.props.bookTitle) }
-              subtitle={ (!this.props.showPauseButton && ('by ' + this.props.bookAuthor)) || 'recording'  }
-              style={ (!this.props.showPauseButton && { marginTop: 20 }) || { marginTop: 20, backgroundColor: '#9D2C28' }}
+              title={'Pause'}
+              subtitle={'recording'}
+              style={{ marginTop: 20, backgroundColor: '#9D2C28' }}
               id="navigation-button"
-              disabled={!this.props.showPauseButton}
               onClick={this.props.onPauseClicked}
             />
+          }
+
+          { !this.props.showPauseButton && 
+            <BookInfoHeader
+              title={this.props.bookTitle}
+              subtitle={( this.props.bookAuthor)}
+              style={{ marginTop: 20 }}
+            />
+          }
+            
           </div>
         </div>
         <div className={css.subContainer}>
