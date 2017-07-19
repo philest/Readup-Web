@@ -23,8 +23,11 @@ const RECORDING_PAUSE = 'RECORDING_PAUSE'
 const RECORDING_RESUME = 'RECORDING_RESUME'
 const RECORDING_SUBMIT = 'RECORDING_SUBMIT'
 const RECORDING_RESTART = 'RECORDING_RESTART'
-
 const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
+
+
+const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
+
 
 
 export function incrementPage() {
@@ -82,6 +85,16 @@ export function playbackRecording() {
 }
 
 
+// TODO FLOW 'granted' | 'awaiting' | 'blocked'
+export function setMicPermissions(micPermissionsStatus: 'awaiting') {
+  return {
+    type: MIC_SET_PERMISSIONS,
+    payload: {
+      micPermissionsStatus,
+    },
+  }
+}
+
 
 const sampleBook = {
   title: "Cezar Chavez",
@@ -132,22 +145,14 @@ const sampleBook = {
 
 
 
-export const MIC_SET_PERMISSION = 'MIC_SET_PERMISSION'
-
-export function setMicPermission(micEnabled: false) {
-  return {
-    type: MIC_SET_PERMISSION,
-    payload: {
-      micEnabled,
-    },
-  }
-}
 
 
 
 
 const ReaderStateTypes = {
+  initializing: 'READER_STATE_INITIALIZING', // i.e. waiting to determine if we have permissions
   awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
+  permissionsBlocked: 'READER_STATE_PERMISSIONS_BLOCKED',
   awaitingStart: 'READER_STATE_AWAITING_START',
   inProgress: 'READER_STATE_IN_PROGRESS',
   paused: 'READER_STATE_PAUSED',
@@ -159,8 +164,9 @@ const ReaderStateTypes = {
 const initialState = {
   pageNumber: 0,
   book: sampleBook,
-  readerState:  ReaderStateTypes.awaitingStart,
+  readerState:  ReaderStateTypes.initializing,
   recorder: new Recorder(),
+  micPermissionsStatus: 'awaiting',
 }
 
 
@@ -173,8 +179,23 @@ function reducer(state = initialState, action = {}) {
   const { payload, type } = action
   switch (type) {
 
-    case MIC_SET_PERMISSION: {
-      return { ...state, micEnabled: payload.micEnabled }
+    case MIC_SET_PERMISSIONS: {
+
+      switch (payload.micPermissionsStatus) {
+        // I don't think I actually need micPermissionStatus here, because it's encapsulated in ReaderStateTypes
+        // ^ Is that good or bad...?
+        case 'granted': {
+          // state.recorder.initialize() // do in a saga
+          return { ...state, readerState: ReaderStateTypes.awaitingStart, micPermissionsStatus: payload.micPermissionsStatus }
+        }
+        case 'awaiting': {
+          return { ...state, readerState: ReaderStateTypes.awaitingPermissions, micPermissionsStatus: payload.micPermissionsStatus }
+        }
+        case 'blocked': {
+          return { ...state, readerState: ReaderStateTypes.permissionsBlocked, micPermissionsStatus: payload.micPermissionsStatus }
+        }
+      }
+      return { ...state, micPermissionsStatus: payload.micPermissionsStatus }
     }
 
 
@@ -188,7 +209,6 @@ function reducer(state = initialState, action = {}) {
 
     case RECORDING_START: {
       state.recorder.startRecording()
-      console.log('1state: ' + JSON.stringify(state))
       return { ...state, readerState: ReaderStateTypes.inProgress, pageNumber: 1 }
     }
     case RECORDING_STOP: {

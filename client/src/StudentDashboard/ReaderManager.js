@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux'
 
 import Reader from './Reader'
 
-
+import Recorder from './recorder' 
 
 import styles from './styles.css'
 
@@ -34,7 +34,9 @@ import {
 
 // TODO PUT IN OWN FILE
 const ReaderStateTypes = {
+  initializing: 'READER_STATE_INITIALIZING', // i.e. waiting to determine if we have permissions
   awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
+  permissionsBlocked: 'READER_STATE_PERMISSIONS_BLOCKED',
   awaitingStart: 'READER_STATE_AWAITING_START',
   inProgress: 'READER_STATE_IN_PROGRESS',
   paused: 'READER_STATE_PAUSED',
@@ -82,89 +84,45 @@ class StudentDashboard extends React.Component {
     super(props);
     console.log(props)
 
-    // if (!Recorder.browserSupportsRecording()) {
-    //   alert("Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.")
-    //   return
-    // }
+    
+
+  }
 
 
-    // Recorder.hasRecordingPermissions((hasPermissions) => {
-    //   console.log("We have permissions? " + hasPermissions)
-    //   if (hasPermissions) {
-    //     this.setState({ readerState: ReaderStateTypes.awaitingStart })
-    //     this.props.recorder.initialize()
-    //   }
-    //   else {
-    //     this.props.recorder.initialize((error) => {
-    //       console.log('okay now we got it')
-    //       if (error) {
-    //         console.log('ReaderManager encountered recorder error!!')
-    //         alert('Did you block microphone access?')
-    //       }
-    //       else {
-    //         this.setState({ readerState: ReaderStateTypes.awaitingStart })
-    //       }
+  componentWillMount() {
 
-    //     })
-    //   }
-    // });
+    if (!Recorder.browserSupportsRecording()) {
+      alert("Your browser cannot record audio. Please switch to Chrome or Firefox.")
+      return
+    }
 
+    Recorder.hasRecordingPermissions((hasPermissions) => {
+      console.log("We have permissions? " + hasPermissions)
+      if (hasPermissions) {
+        this.props.actions.setMicPermissions('granted')
+      }
+      else {
+        this.props.actions.setMicPermissions('awaiting')
 
+        this.props.recorder.initialize((error) => {
+          // User responded to permissions request
+          if (error) {
+            this.props.actions.setMicPermissions('blocked')
+          }
+          else {
+            this.props.actions.setMicPermissions('granted')
+          }
 
-
+        })
+      }
+    });
 
   }
 
   componentDidUpdate(nextProps) {
     console.log('DIDUPDATE; pagenumber =' + this.props.pageNumber)
-
-    // const newPageNumber = parseInt(this.props.match.params.page_number)
-
-    // if (newPageNumber < 0 || newPageNumber > Object.keys(this.props.book.pages).length) {
-    //   console.log('redirecting due to invalid page number')
-    //   this.setState({
-    //     redirectInvalid: true,
-    //     redirectForward: false,
-    //     redirectBack: false,
-    //     redirectCover: false,
-    //     pageNumber: newPageNumber,
-    //   })
-
-    // }
-    // else if (newPageNumber != this.props.pageNumber) {
-    //   this.setState({
-    //     pageNumber: newPageNumber,
-    //     redirectForward: false,
-    //     redirectBack: false,
-    //     redirectInvalid: false,
-    //     redirectCover: false,
-    //     showDoneModal: false,
-    //   });
-    // }
-
-
   }
 
-  componentWillMount() {
-    // Need to check for invalid page number here too, because didUpdate isn't called on first time
-    // const newPageNumber = parseInt(this.props.match.params.page_number)
-    // if (newPageNumber < 0 || newPageNumber > Object.keys(this.props.book.pages).length) {
-    //   this.setState({
-    //     redirectInvalid: true,
-    //     redirectForward: false,
-    //     redirectBack: false,
-    //     redirectCover: false,
-    //   })
-    // }
-
-  }
-
-
-  ////
-
-  // shouldComponentUpdate() {
-  //   return true;
-  // }
 
   /* Callbacks */
 
@@ -319,7 +277,7 @@ class StudentDashboard extends React.Component {
 
     // the image loading blocks chrome from checking if microphone access exists,
     // so don't do any preloading if we're awaiting permissions
-    if (!PRELOAD_IMAGES_ADVANCE || this.props.readerState == ReaderStateTypes.awaitingPermissions) {
+    if (!PRELOAD_IMAGES_ADVANCE || this.props.readerState == ReaderStateTypes.initializing || this.props.readerState == ReaderStateTypes.awaitingPermissions) {
       console.log('DONT NEED TO PRELOAD')
       return null
     }
@@ -343,24 +301,18 @@ class StudentDashboard extends React.Component {
 
   render()  {
 
-    // Catch redirection
-    // Setting the keys is !important, see: https://github.com/ReactTraining/react-router/issues/5273
-    if (this.props.redirectForward) {
-      return <Redirect key='forward' push to={'/story/STORY_ID/page/'+(this.props.pageNumber+1)} />
-    }
-    if (this.props.redirectBack) {
-      return <Redirect key='back' push to={'/story/STORY_ID/page/'+(this.props.pageNumber-1)} />
-    }
-    if (this.props.redirectCover) {
-      return <Redirect key='back' push to={'/story/STORY_ID/page/0'} />
-    }
-    if (this.props.redirectInvalid) {
-      return <Redirect key='invalid' push to={'/story/STORY_ID/page/1'} /> // Todo how to handle?
-    }
+    console.log('Rendering with reader State: ' + this.props.readerState)
 
 
+    if (this.props.readerState === ReaderStateTypes.initializing) {
+      return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
+    }
 
-    console.log('state::: ' + this.props.readerState)
+    if (this.props.readerState === ReaderStateTypes.permissionsBlocked) {
+      return (
+        <div>You blocked us!</div>
+      );
+    }
 
 
     const ReaderComponent = this.renderReaderComponentWithProps()
@@ -368,13 +320,11 @@ class StudentDashboard extends React.Component {
     const OverlayOrNull = this.renderOverlayOrNullBasedOnState()
 
 
-    console.log(OverlayOrNull)
-
     return (
       <div className={styles.fill}>
         { ReaderComponent }
         { ModalComponentOrNull }
-        { this.renderOverlayOrNullBasedOnState() }
+        { OverlayOrNull }
         { this.renderHiddenPreloadImages() }
       </div>
 

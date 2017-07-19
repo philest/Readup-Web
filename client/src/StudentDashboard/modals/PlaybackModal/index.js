@@ -28,7 +28,7 @@ export default class PlaybackModal extends React.Component {
     return (
       <div className={commonStyles.modalContainer}>
         <div className={commonStyles.modalHeaderWrapper}>
-          <ModalHeader title="Paused" />
+          <ModalHeader title="Your Recording" />
         </div>
 
         <div className={styles.playbackContainer}>

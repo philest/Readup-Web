@@ -8,10 +8,6 @@ export default class Recorder {
 		this.rtcRecorder = null
 		this.blobURL = null
 		this.recording = false
-
-    console.log('browserr:::  ' + JSON.stringify(DetectRTC.browser))
-
-    this.initialize()
 	}
 
 	static browserSupportsRecording() {
@@ -39,11 +35,17 @@ export default class Recorder {
 	}
 
 	initialize(callback) {
+
+
+    if (!!this.rtcRecorder) {
+      console.log('Attempted to initialize an already initialized recorder')
+      return
+    }
+
 		console.log('initialize Recorder -- requestUserMedia')
     this.captureUserMedia((stream, error) => {
-      // this.setState({ src: window.URL.createObjectURL(stream) });
-      // console.log('setting state', this.state)
       if (error) {
+        console.log('!!errror capturing user media!!')
         return callback && callback(error)
       }
 
