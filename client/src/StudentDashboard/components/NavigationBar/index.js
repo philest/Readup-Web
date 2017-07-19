@@ -42,7 +42,7 @@ export default class NavigationBar extends React.Component {
             <RectangleButton
               title={ (this.props.isCoverPage && this.props.bookTitle) || 'Pause'  }
               subtitle={ (this.props.isCoverPage && ('by ' + this.props.bookAuthor)) || 'recording'  }
-              style={{ marginTop: 20 }}
+              style={ (this.props.isCoverPage && { marginTop: 20 }) || { marginTop: 20, backgroundColor: '#9D2C28' }}
               id="navigation-button"
               disabled={this.props.isCoverPage}
               onClick={this.props.onPauseClicked}

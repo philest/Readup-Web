@@ -15,9 +15,10 @@ import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermis
 
 
 
+const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
+
 const PAGE_INCREMENT = 'PAGE_INCREMENT'
 const PAGE_DECREMENT = 'PAGE_DECREMENT'
-
 
 const RECORDING_START = 'RECORDING_START'
 const RECORDING_STOP = 'RECORDING_STOP'
@@ -28,9 +29,18 @@ const RECORDING_RESTART = 'RECORDING_RESTART'
 const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 
 
-const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
+
+const PERMIMSSIONS_ARROW_CLICKED = 'PERMIMSSIONS_ARROW_CLICKED'
 
 
+export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
+  return {
+    type: MIC_SET_PERMISSIONS,
+    payload: {
+      micPermissionsStatus,
+    },
+  }
+}
 
 export function incrementPage() {
   return {
@@ -86,12 +96,10 @@ export function playbackRecording() {
   }
 }
 
-export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
+
+export function clickedPermissionsArrow() {
   return {
-    type: MIC_SET_PERMISSIONS,
-    payload: {
-      micPermissionsStatus,
-    },
+    type: PERMIMSSIONS_ARROW_CLICKED,
   }
 }
 
@@ -153,6 +161,14 @@ const initialState = {
 }
 
 
+// Should move this to a saga
+
+function playSound(file) {
+  var audio = new Audio(file);
+  audio.play();
+}
+
+
 // any way to do this other than writing a custom reducer for each?
 
 // how to use flow here then?
@@ -169,6 +185,7 @@ function reducer(state = initialState, action = {}) {
         // ^ Is that good or bad...?
         case MicPermissionsStatusOptions.granted: {
           state.recorder.initialize() // do in a saga
+          playSound('/audio/book_intro.m4a')
           return { ...state, readerState: ReaderStateOptions.awaitingStart, micPermissionsStatus: payload.micPermissionsStatus }
         }
         case MicPermissionsStatusOptions.awaiting: {
@@ -184,7 +201,6 @@ function reducer(state = initialState, action = {}) {
 
 
     case PAGE_INCREMENT: {
-      console.log('2state: ' + JSON.stringify(state))
       return { ...state, pageNumber: state.pageNumber + 1}
     }
     case PAGE_DECREMENT: {
@@ -197,10 +213,12 @@ function reducer(state = initialState, action = {}) {
     }
     case RECORDING_STOP: {
       state.recorder.stopRecording()
+      playSound('/audio/done.m4a')
       return { ...state, readerState: ReaderStateOptions.done}
     }
     case RECORDING_PAUSE: {
       state.recorder.pauseRecording()
+      playSound('/audio/paused.m4a')
       return { ...state, readerState: ReaderStateOptions.paused }
     }
     case RECORDING_RESUME: {
@@ -219,6 +237,11 @@ function reducer(state = initialState, action = {}) {
     }
     case RECORDING_PLAYBACK: {
       return { ...state, readerState: ReaderStateOptions.doneDisplayingPlayback }
+    }
+
+
+    case PERMIMSSIONS_ARROW_CLICKED: {
+      playSound('/audio/click_allow_button.m4a')
     }
 
     default: return state;

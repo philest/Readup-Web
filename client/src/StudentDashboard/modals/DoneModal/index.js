@@ -29,9 +29,9 @@ export default class DoneModal extends React.Component {
 
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
-            titles={['Hear it', 'Turn it in']}
-            images={['/images/dashboard/hear-it-icon.png', '/images/dashboard/turn-it-in-icon.png']}
-            actions={[this.props.onHearRecordingClicked, this.props.onTurnInClicked]}
+            titles={['Finish', 'Hear it']}
+            images={['/images/dashboard/finish-icon.png', '/images/dashboard/hear-it-icon.png']}
+            actions={[this.props.onTurnInClicked, this.props.onHearRecordingClicked]}
           />
         </div>
 

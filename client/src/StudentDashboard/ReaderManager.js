@@ -164,8 +164,9 @@ class StudentDashboard extends React.Component {
 
   onPermisionsArrowClicked = () => {
     // TODO stop double playing
-    var audio = new Audio('/audio/click_allow_button.m4a');
-    audio.play();
+    this.props.actions.clickedPermissionsArrow()
+    // or actually maybe do dispatch PLAY_SOUND
+    // that was can take advantage of take_first / take_latest to prevent double play
   }
 
 
@@ -297,7 +298,7 @@ class StudentDashboard extends React.Component {
 
   render()  {
 
-    console.log('Rendering with reader State: ' + this.props.readerState)
+    console.log('Rendering ReaderManager with ReaderState: ' + this.props.readerState)
 
 
     if (this.props.readerState === ReaderStateOptions.initializing) {

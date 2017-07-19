@@ -34,7 +34,7 @@ export default class PausedModal extends React.Component {
         <div className={styles.pausedModalContinueButtonWrapper}>
           <RectangleButton
             className={styles.pausedModalContinueButton}
-            title="Continue!"
+            title="Go on!"
             style={{ width: 200, height: 65, backgroundColor: 'green' }}
             onClick={this.props.onContinueClicked}
           />
@@ -43,7 +43,7 @@ export default class PausedModal extends React.Component {
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
             titles={['Start over', 'Turn it in']}
-            images={['/images/dashboard/record-again-icon.png', '/images/dashboard/turn-it-in-icon.png']}  // TODO strip /images/dashboard
+            images={['/images/dashboard/record-again-icon.png', '/images/dashboard/finish-icon-blue.png']} 
             actions={[this.props.onStartOverClicked, this.props.onTurnInClicked]}
           />
         </div>

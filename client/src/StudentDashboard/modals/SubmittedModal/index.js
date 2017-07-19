@@ -27,9 +27,9 @@ export default class SubmittedModal extends React.Component {
     return (
       <div className={commonStyles.fill}>
         <div className={styles.submittedContainer}>
-          <h4 className={styles.title}>Great Job!</h4>
+          <h4 className={styles.title}>Good Job!</h4>
           <img src="/images/dashboard/Little-girl-jumping.png" className={styles.submittedImage} />
-          <p className={styles.subtitle}>Logging out...</p>
+          <p className={styles.subtitle}>Goodbye for now!</p>
         </div>
       </div>
 

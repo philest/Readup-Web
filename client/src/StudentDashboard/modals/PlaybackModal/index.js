@@ -33,14 +33,17 @@ export default class PlaybackModal extends React.Component {
 
         <div className={styles.playbackContainer}>
           <h4 style={{ fontWeight: 'bold', marginTop: 20 }}>Hear it</h4>
-          <audio src={this.props.audioSrc} style={{ marginBottom: 20 }} controls />
+          <audio autoplay="autoplay" controls style={{ marginBottom: 20 }}>
+            <source src={this.props.audioSrc} />
+            <p>Playback not supported</p>
+          </audio>
         </div>
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Start over', 'Turn it in']}
-            images={['/images/dashboard/record-again-icon.png', '/images/dashboard/turn-it-in-icon.png']}  // TODO strip /images/dashboard
-            actions={[this.props.onStartOverClicked, this.props.onTurnInClicked]}
+            titles={['Finish', 'Read again']}
+            images={['/images/dashboard/finish-icon.png', '/images/dashboard/record-again-icon.png']}
+            actions={[this.props.onTurnInClicked, this.props.onStartOverClicked]}
           />
         </div>
 

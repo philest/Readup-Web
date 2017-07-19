@@ -46,7 +46,8 @@ export default class Recorder {
         return callback && callback(error)
       }
 
-      this.rtcRecorder = RecordRTC(stream, { type: 'audio', mimeType: 'audio/wav' });
+      // { audio: 'true', mimeType: 'audio/webm' }  <-- smaller filesize
+      this.rtcRecorder = RecordRTC(stream, { audioType: RecordRTC.StereoAudioRecorder, mimeType: 'audio/wav' });
       callback && callback(null)
 
       

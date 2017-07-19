@@ -13,13 +13,13 @@
 }
 
 @keyframes upAndDown {
-    0% { top: 80px; }
-    100% { top: 100px; }
+    0% { top: 120px; }
+    100% { top: 140px; }
 }
 
 .upArrow {
 	position: fixed;
-	top: 80px;
+	top: 120px;
 	left: 318px;
 	width: 60px;
 	animation: upAndDown 1s infinite alternate;
