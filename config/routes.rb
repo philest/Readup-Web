@@ -46,5 +46,8 @@ Rails.application.routes.draw do
   post '/audio_process/save_file', to: 'audio_process#save_file'
   get '/audio_process', to: 'audio_process#index'
 
+  mount AudioUploader::UploadEndpoint => "/audio"
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

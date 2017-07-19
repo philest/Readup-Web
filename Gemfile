@@ -40,8 +40,12 @@ gem 'pg_search'
 # authentication
 gem 'devise'
 
-gem 'aws-sdk', '~> 2'
 gem 'sidekiq'
+
+# for uploads
+gem 'aws-sdk', '~> 2'
+gem 'shrine'
+gem 'roda'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
