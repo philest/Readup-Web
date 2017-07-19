@@ -11,3 +11,18 @@
 	align-items: center;
 	z-index: 999;
 }
+
+@keyframes upAndDown {
+    0% { top: 80px; }
+    50% { top: 100px; }
+    100% { top: 80px; }
+}
+
+.upArrow {
+	position: fixed;
+	top: 80px;
+	left: 318px;
+	width: 60px;
+	/*height: 150px;*/
+	animation: upAndDown 3s infinite;
+}

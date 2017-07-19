@@ -112,7 +112,7 @@ class StudentDashboard extends React.Component {
   }
 
 
-  /* Callbacks */
+  /* Main State Callbacks */
 
   onPauseClicked = () => {
     console.log('PAUSE CLICKED')
@@ -157,6 +157,14 @@ class StudentDashboard extends React.Component {
   onPreviousPageClicked = () => {
     console.log('PREVIOUS PAGE CLICKED')
     this.props.actions.decrementPage()
+  }
+
+
+  /* Rando other callbacks */
+
+  onPermisionsArrowClicked = () => {
+    var audio = new Audio('/audio/click_allow_button.m4a');
+    audio.play();
   }
 
 
@@ -252,7 +260,7 @@ class StudentDashboard extends React.Component {
       return <SubmittedModal />
     }
     else if (this.props.readerState === ReaderStateOptions.awaitingPermissions) {
-      return <PermissionsModal />
+      return <PermissionsModal onArrowClicked={this.onPermisionsArrowClicked} />
     }
     return null
   }

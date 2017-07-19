@@ -10,8 +10,7 @@ import ButtonArray from '../subcomponents/ButtonArray'
 
 export default class PermissionsModal extends React.Component {
   static propTypes = {
-    onStartOverClicked: PropTypes.func,  // TODO required?
-    onTurnInClicked: PropTypes.func,
+    onArrowClicked: PropTypes.func,
   };
 
   /**
@@ -29,7 +28,9 @@ export default class PermissionsModal extends React.Component {
         <h1 style={{ color: 'white', fontSize: '2.5em' }}>
           Click "<i>Allow</i>" in the box above.
         </h1>
+        <img src="/images/dashboard/green-up-arrow.png" className={styles.upArrow} onClick={this.props.onArrowClicked} />
       </div>
+
 
     );
   }
