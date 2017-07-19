@@ -172,10 +172,23 @@ const initialState = {
 
 // Should move this to a saga
 
-function playSound(file) {
-  if (DEV_DISABLE_VOICE_INSTRUCTIONS) return
+let audio = null
 
-  var audio = new Audio(file);
+function playSound(file) {
+  if (DEV_DISABLE_VOICE_INSTRUCTIONS) {
+    return
+  }
+
+  if (!!audio) {
+    audio.pause()
+  }
+
+  audio = new Audio(file);
+
+  audio.addEventListener('ended', function() {
+      audio = null
+  });
+
   audio.play();
 }
 
