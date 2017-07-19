@@ -110,6 +110,7 @@ class StudentDashboard extends React.Component {
             this.props.actions.setMicPermissions('blocked')
           }
           else {
+
             this.props.actions.setMicPermissions('granted')
           }
 

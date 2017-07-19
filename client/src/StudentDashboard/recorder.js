@@ -17,10 +17,8 @@ export default class Recorder {
 
   static hasRecordingPermissions(callback) {
     DetectRTC.load(function() {
-      console.log('LOADED')
-      const has = DetectRTC.isWebsiteHasMicrophonePermissions
-      console.log("DUZZZZ has?? " + has)
-      callback(has)
+      const hasPermissions = DetectRTC.isWebsiteHasMicrophonePermissions
+      callback(hasPermissions)
     })
   }
 
@@ -36,9 +34,8 @@ export default class Recorder {
 
 	initialize(callback) {
 
-
-    if (!!this.rtcRecorder) {
-      console.log('Attempted to initialize an already initialized recorder')
+    if (this.rtcRecorder) {
+      console.log('Attempted to initialize an already initialized recorder but that\'s expected')
       return
     }
 

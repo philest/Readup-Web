@@ -185,7 +185,7 @@ function reducer(state = initialState, action = {}) {
         // I don't think I actually need micPermissionStatus here, because it's encapsulated in ReaderStateTypes
         // ^ Is that good or bad...?
         case 'granted': {
-          // state.recorder.initialize() // do in a saga
+          state.recorder.initialize() // do in a saga
           return { ...state, readerState: ReaderStateTypes.awaitingStart, micPermissionsStatus: payload.micPermissionsStatus }
         }
         case 'awaiting': {
