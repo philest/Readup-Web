@@ -10,8 +10,9 @@ import * as actionCreators from './state'
 import { bindActionCreators } from 'redux'
 
 import Reader from './Reader'
-
 import Recorder from './recorder' 
+
+import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
 
 import styles from './styles.css'
 
@@ -33,23 +34,11 @@ import {
 
 
 // TODO PUT IN OWN FILE
-const ReaderStateTypes = {
-  initializing: 'READER_STATE_INITIALIZING', // i.e. waiting to determine if we have permissions
-  awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
-  permissionsBlocked: 'READER_STATE_PERMISSIONS_BLOCKED',
-  awaitingStart: 'READER_STATE_AWAITING_START',
-  inProgress: 'READER_STATE_IN_PROGRESS',
-  paused: 'READER_STATE_PAUSED',
-  done: 'READER_STATE_DONE',
-  doneDisplayingPlayback: 'READER_STATE_PLAYBACK',
-  submitted: 'READER_STATE_SUBMITTED',
-}
+
 
 // how many images in advance to load
 const PRELOAD_IMAGES_ADVANCE = 3
 
-// export type ReaderState = "teacher" | "parent" | "admin" | '';
-// export type SignupFormKeys = $Keys<ReaderStateTypes>;
 
 
 const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -99,19 +88,17 @@ class StudentDashboard extends React.Component {
     Recorder.hasRecordingPermissions((hasPermissions) => {
       console.log("We have permissions? " + hasPermissions)
       if (hasPermissions) {
-        this.props.actions.setMicPermissions('granted')
+        this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
       }
       else {
-        this.props.actions.setMicPermissions('awaiting')
-
+        this.props.actions.setMicPermissions(MicPermissionsStatusOptions.awaiting)
         this.props.recorder.initialize((error) => {
           // User responded to permissions request
           if (error) {
-            this.props.actions.setMicPermissions('blocked')
+            this.props.actions.setMicPermissions(MicPermissionsStatusOptions.blocked)
           }
           else {
-
-            this.props.actions.setMicPermissions('granted')
+            this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
           }
 
         })
@@ -121,7 +108,7 @@ class StudentDashboard extends React.Component {
   }
 
   componentDidUpdate(nextProps) {
-    console.log('DIDUPDATE; pagenumber =' + this.props.pageNumber)
+    console.log('ReaderManager updated to pageNumber:  ' + this.props.pageNumber)
   }
 
 
@@ -217,13 +204,9 @@ class StudentDashboard extends React.Component {
 
 
   renderModalComponentOrNullBasedOnState = () => {
-    if (this.props.readerState === ReaderStateTypes.inProgress || this.props.readerState === ReaderStateTypes.awaitingStart || this.props.readerState === ReaderStateTypes.awaitingPermissions || this.props.readerState === ReaderStateTypes.submitted) {
-      // no modal
-      return null;
-    }
 
     let ModalContentComponent = null;
-    if (this.props.readerState === ReaderStateTypes.paused) {
+    if (this.props.readerState === ReaderStateOptions.paused) {
       ModalContentComponent =
         <PausedModal
           onContinueClicked={this.onUnpauseClicked}
@@ -231,7 +214,7 @@ class StudentDashboard extends React.Component {
           onTurnInClicked={this.onTurnInClicked}
         />
     }
-    else if (this.props.readerState === ReaderStateTypes.doneDisplayingPlayback) {
+    else if (this.props.readerState === ReaderStateOptions.doneDisplayingPlayback) {
       ModalContentComponent =
         <PlaybackModal
           audioSrc={this.props.recorder.getBlobURL()}
@@ -239,12 +222,15 @@ class StudentDashboard extends React.Component {
           onTurnInClicked={this.onTurnInClicked}
         />
     }
-    else if (this.props.readerState === ReaderStateTypes.done) {
+    else if (this.props.readerState === ReaderStateOptions.done) {
       ModalContentComponent =
         <DoneModal
           onHearRecordingClicked={this.onHearRecordingClicked}
           onTurnInClicked={this.onTurnInClicked}
         />
+    }
+    else {
+      return null
     }
 
 
@@ -262,10 +248,10 @@ class StudentDashboard extends React.Component {
   }
 
   renderOverlayOrNullBasedOnState = () => {
-    if (this.props.readerState === ReaderStateTypes.submitted) {
+    if (this.props.readerState === ReaderStateOptions.submitted) {
       return <SubmittedModal />
     }
-    else if (this.props.readerState === ReaderStateTypes.awaitingPermissions) {
+    else if (this.props.readerState === ReaderStateOptions.awaitingPermissions) {
       return <PermissionsModal />
     }
     return null
@@ -278,7 +264,7 @@ class StudentDashboard extends React.Component {
 
     // the image loading blocks chrome from checking if microphone access exists,
     // so don't do any preloading if we're awaiting permissions
-    if (!PRELOAD_IMAGES_ADVANCE || this.props.readerState == ReaderStateTypes.initializing || this.props.readerState == ReaderStateTypes.awaitingPermissions) {
+    if (!PRELOAD_IMAGES_ADVANCE || this.props.readerState == ReaderStateOptions.initializing || this.props.readerState == ReaderStateOptions.awaitingPermissions) {
       console.log('DONT NEED TO PRELOAD')
       return null
     }
@@ -305,11 +291,11 @@ class StudentDashboard extends React.Component {
     console.log('Rendering with reader State: ' + this.props.readerState)
 
 
-    if (this.props.readerState === ReaderStateTypes.initializing) {
+    if (this.props.readerState === ReaderStateOptions.initializing) {
       return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
     }
 
-    if (this.props.readerState === ReaderStateTypes.permissionsBlocked) {
+    if (this.props.readerState === ReaderStateOptions.permissionsBlocked) {
       return (
         <div>You blocked us!</div>
       );

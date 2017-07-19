@@ -11,6 +11,8 @@
 // TODO REMOVE, put recorder logic in saga
 import Recorder from './recorder' 
 
+import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
+
 
 
 const PAGE_INCREMENT = 'PAGE_INCREMENT'
@@ -84,9 +86,7 @@ export function playbackRecording() {
   }
 }
 
-
-// TODO FLOW 'granted' | 'awaiting' | 'blocked'
-export function setMicPermissions(micPermissionsStatus: 'awaiting') {
+export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
   return {
     type: MIC_SET_PERMISSIONS,
     payload: {
@@ -144,29 +144,12 @@ const sampleBook = {
 
 
 
-
-
-
-
-
-const ReaderStateTypes = {
-  initializing: 'READER_STATE_INITIALIZING', // i.e. waiting to determine if we have permissions
-  awaitingPermissions: 'READER_STATE_AWAITING_PERMISSIONS',
-  permissionsBlocked: 'READER_STATE_PERMISSIONS_BLOCKED',
-  awaitingStart: 'READER_STATE_AWAITING_START',
-  inProgress: 'READER_STATE_IN_PROGRESS',
-  paused: 'READER_STATE_PAUSED',
-  done: 'READER_STATE_DONE',
-  doneDisplayingPlayback: 'READER_STATE_PLAYBACK',
-  submitted: 'READER_STATE_SUBMITTED',
-}
-
 const initialState = {
   pageNumber: 0,
   book: sampleBook,
-  readerState:  ReaderStateTypes.initializing,
+  readerState:  ReaderStateOptions.initializing,
   recorder: new Recorder(),
-  micPermissionsStatus: 'awaiting',
+  micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
 }
 
 
@@ -182,20 +165,21 @@ function reducer(state = initialState, action = {}) {
     case MIC_SET_PERMISSIONS: {
 
       switch (payload.micPermissionsStatus) {
-        // I don't think I actually need micPermissionStatus here, because it's encapsulated in ReaderStateTypes
+        // I don't think I actually need micPermissionStatus here, because it's encapsulated in ReaderStateOptions
         // ^ Is that good or bad...?
-        case 'granted': {
+        case MicPermissionsStatusOptions.granted: {
           state.recorder.initialize() // do in a saga
-          return { ...state, readerState: ReaderStateTypes.awaitingStart, micPermissionsStatus: payload.micPermissionsStatus }
+          return { ...state, readerState: ReaderStateOptions.awaitingStart, micPermissionsStatus: payload.micPermissionsStatus }
         }
-        case 'awaiting': {
-          return { ...state, readerState: ReaderStateTypes.awaitingPermissions, micPermissionsStatus: payload.micPermissionsStatus }
+        case MicPermissionsStatusOptions.awaiting: {
+          return { ...state, readerState: ReaderStateOptions.awaitingPermissions, micPermissionsStatus: payload.micPermissionsStatus }
         }
-        case 'blocked': {
-          return { ...state, readerState: ReaderStateTypes.permissionsBlocked, micPermissionsStatus: payload.micPermissionsStatus }
+        case MicPermissionsStatusOptions.blocked: {
+          return { ...state, readerState: ReaderStateOptions.permissionsBlocked, micPermissionsStatus: payload.micPermissionsStatus }
         }
+        default: return state
       }
-      return { ...state, micPermissionsStatus: payload.micPermissionsStatus }
+      
     }
 
 
@@ -209,32 +193,32 @@ function reducer(state = initialState, action = {}) {
 
     case RECORDING_START: {
       state.recorder.startRecording()
-      return { ...state, readerState: ReaderStateTypes.inProgress, pageNumber: 1 }
+      return { ...state, readerState: ReaderStateOptions.inProgress, pageNumber: 1 }
     }
     case RECORDING_STOP: {
       state.recorder.stopRecording()
-      return { ...state, readerState: ReaderStateTypes.done}
+      return { ...state, readerState: ReaderStateOptions.done}
     }
     case RECORDING_PAUSE: {
       state.recorder.pauseRecording()
-      return { ...state, readerState: ReaderStateTypes.paused }
+      return { ...state, readerState: ReaderStateOptions.paused }
     }
     case RECORDING_RESUME: {
       state.recorder.resumeRecording()
-      return { ...state, readerState: ReaderStateTypes.inProgress }
+      return { ...state, readerState: ReaderStateOptions.inProgress }
     }
     case RECORDING_SUBMIT: {
       setTimeout(() => {
         window.location.href = "/" // TODO where to redirect?
       }, 5000)
-      return { ...state, readerState: ReaderStateTypes.submitted }
+      return { ...state, readerState: ReaderStateOptions.submitted }
     }
     case RECORDING_RESTART: {
       state.recorder.reset()
-      return { ...state, pageNumber: 0, readerState: ReaderStateTypes.inProgress }
+      return { ...state, pageNumber: 0, readerState: ReaderStateOptions.inProgress }
     }
     case RECORDING_PLAYBACK: {
-      return { ...state, readerState: ReaderStateTypes.doneDisplayingPlayback }
+      return { ...state, readerState: ReaderStateOptions.doneDisplayingPlayback }
     }
 
     default: return state;
