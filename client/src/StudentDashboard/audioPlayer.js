@@ -4,22 +4,31 @@ const DEV_DISABLE_VOICE_INSTRUCTIONS = false
 
 let audio = null
 
-export function playSound(file) {
-  if (DEV_DISABLE_VOICE_INSTRUCTIONS) {
-    return
-  }
+export function playSound(file, onEnd) {
+  return new Promise(function(resolve, reject) {
+    if (DEV_DISABLE_VOICE_INSTRUCTIONS) {
+      resolve()
+      return
+    }
 
-  if (!!audio) {
-    audio.pause()
-  }
+    if (!!audio) {
+      audio.pause()
+    }
 
-  console.log('Playing Sound: ' + file)
+    console.log('Playing Sound: ' + file)
 
-  audio = new Audio(file);
-  audio.addEventListener('ended', function() {
+    audio = new Audio(file);
+    audio.addEventListener('ended', function() {
       audio = null
-  });
-  audio.play();
+      console.log("audio ended")
+      resolve()
+    });
+    audio.addEventListener('error', function(error) {
+      console.log("audio error")
+      reject(error)
+    })
+    audio.play();
+  })
 
 }
 

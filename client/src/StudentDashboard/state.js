@@ -15,6 +15,7 @@ import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermis
 
 
 export const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
+export const BOOK_INTRO_RECORDING_ENDED = 'BOOK_INTRO_RECORDING_ENDED'
 
 export const PAGE_INCREMENT = 'PAGE_INCREMENT'
 export const PAGE_DECREMENT = 'PAGE_DECREMENT'
@@ -103,6 +104,12 @@ export function playbackRecording() {
 }
 
 
+export function bookIntroRecordingEnded() {
+  return {
+    type: BOOK_INTRO_RECORDING_ENDED,
+  }
+}
+
 export function clickedPermissionsArrow() {
   return {
     type: PERMISSIONS_ARROW_CLICKED,
@@ -186,7 +193,7 @@ function reducer(state = initialState, action = {}) {
         // I don't think I actually need micPermissionStatus here, because it's encapsulated in ReaderStateOptions
         // ^ Is that good or bad...?
         case MicPermissionsStatusOptions.granted: {
-          return { ...state, readerState: ReaderStateOptions.awaitingStart, micPermissionsStatus: payload.micPermissionsStatus }
+          return { ...state, readerState: ReaderStateOptions.playingBookIntro, micPermissionsStatus: payload.micPermissionsStatus }
         }
         case MicPermissionsStatusOptions.awaiting: {
           return { ...state, readerState: ReaderStateOptions.awaitingPermissions, micPermissionsStatus: payload.micPermissionsStatus }
@@ -199,6 +206,9 @@ function reducer(state = initialState, action = {}) {
       
     }
 
+    case BOOK_INTRO_RECORDING_ENDED: {
+      return { ...state, readerState: ReaderStateOptions.awaitingStart }
+    }
 
     case PAGE_INCREMENT: {
       history.pushState({}, 'Readup', '#/story/STORY_ID/page/' + (state.pageNumber+1))

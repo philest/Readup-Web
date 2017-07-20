@@ -10,7 +10,7 @@ import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermis
 
 // actions
 
-import { MIC_SET_PERMISSIONS, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED } from '../state'
+import { MIC_SET_PERMISSIONS, BOOK_INTRO_RECORDING_ENDED, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED, bookIntroRecordingEnded } from '../state'
 
 
 
@@ -25,7 +25,8 @@ export default function* audioEffectsSaga() {
     yield call(stopAudio)
 
     if (action.payload.micPermissionsStatus === MicPermissionsStatusOptions.granted) {
-      yield call(playSound, '/audio/book_intro.m4a')
+      const error = yield call(playSound, '/audio/book_intro.m4a')
+      yield put({ type: BOOK_INTRO_RECORDING_ENDED })
     }
         
   })
@@ -73,7 +74,6 @@ export default function* audioEffectsSaga() {
   })
 
   yield takeEvery(PERMISSIONS_ARROW_CLICKED, function* (action) {
-    yield call(console.log, '!!!!!!!!!!!!!!sdafasfasd!!!!')
     yield call(playSound, '/audio/click_allow_button.m4a')
   })
 

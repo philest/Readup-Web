@@ -99,6 +99,7 @@ export default class Reader extends React.Component {
           subtitle='recording'
           style={{ backgroundColor: '#982E2B' }}
           pulsatingArrow={true}
+          disabled={this.props.disabled}
           onClick={this.props.onStopClicked}
         />
       );
@@ -110,6 +111,7 @@ export default class Reader extends React.Component {
           subtitle='read and record'
           style={{ backgroundColor: 'green' }}
           pulsatingArrow={true}
+          disabled={this.props.disabled}
           onClick={this.props.onStartClicked}
         />
       );
