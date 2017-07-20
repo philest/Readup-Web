@@ -28,6 +28,12 @@ class AudioProcessController < ApplicationController
 
 	end
 
+
+	def save_link
+		puts params[:awsRes]
+    	redirect_to action: 'index', status: 201
+	end
+
 	private
 	def set_s3_direct_post
     	@s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')

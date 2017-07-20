@@ -82,19 +82,54 @@
         data.append("file", blob, fileName);
 
         var oReq = new XMLHttpRequest();
+
+        oReq.onreadystatechange = function() {
+           if (this.readyState == 4 && this.status == 201) {
+               sendLinkToServer(this);
+           }
+        };
+
         oReq.open("POST", "<%= @s3_direct_post.url %>");
-        // token = $('meta[name=csrf-token]').attr('content');
-        // oReq.setRequestHeader('X-CSRF-Token', token);
-        // oReq.setRequestHeader("Content-type", "audio/wav");  
+
         oReq.setRequestHeader("processData", false); 
         oReq.send(data);
+        var awsRes;
         oReq.onload = function(oEvent) {
             if (oReq.status == 201) {
-                console.log("Uploaded." + oReq.response);
+                console.log("Uploaded.");
             } else {
                 console.log("Error " + oReq.status + " occurred uploading your file.");
             }
         };
+
+        function sendLinkToServer(xmlRes){
+          var raw = xmlRes.responseXML;
+          var resData = new FormData();
+          resData.set("awsRes", new XMLSerializer().serializeToString(raw.documentElement));
+
+          var oReq2 = new XMLHttpRequest();
+          oReq2.open("POST", "audio_process/save_link");
+          token = $('meta[name=csrf-token]').attr('content');
+          oReq2.setRequestHeader('X-CSRF-Token', token); 
+          oReq2.send(resData);
+          oReq2.onload = function(oEvent) {
+              if (oReq2.status == 201) {
+                  console.log("Sent awsRes data to server.");
+              } else {
+                  console.log("Error " + oReq2.status + " occurred.");
+              }
+          };
+        }
+
+     
+
+
+
+
+
+
+
+
   }
 
 
