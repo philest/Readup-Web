@@ -51,7 +51,6 @@ const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedi
 
 
 function mapStateToProps (state) {
-  console.log(state)
   return {
     // micEnabled: state.reader.micEnabled,
     pageNumber: state.reader.pageNumber,
@@ -74,9 +73,6 @@ class StudentDashboard extends React.Component {
 
   constructor(props, _railsContext) {
     super(props);
-    console.log(props)
-
-    
 
   }
 
@@ -108,6 +104,8 @@ class StudentDashboard extends React.Component {
         })
       }
     });
+
+    console.log(this.props)
 
   }
 
@@ -183,6 +181,7 @@ class StudentDashboard extends React.Component {
       // stuff that doesn't change with page number
       studentName: this.props.studentName,
       pathname: this.props.location.pathname,
+      isDemo: (this.props.match.params.story_id === 'demo'),
       coverImageURL: this.props.book.coverImage,
       bookTitle: this.props.book.title,
       bookAuthor: this.props.book.author,

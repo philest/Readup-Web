@@ -11,7 +11,7 @@ import styles from './styles.css'
 
 import { RouteTransition, presets } from 'react-router-transition';
 
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Popover, OverlayTrigger } from 'react-bootstrap';
 
 
 import {
@@ -23,6 +23,7 @@ import {
 
 export default class Reader extends React.Component {
   static propTypes = {
+    isDemo: PropTypes.bool,
     // For displaying the book page
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
     pageNumber: PropTypes.number,
@@ -52,6 +53,7 @@ export default class Reader extends React.Component {
   };
 
   static defaultProps = {
+    isDemo: false,
     // Default to showing a regular page (neither cover nor first nor last)
     showCover: false,
     isFirstPage: false,
@@ -64,10 +66,37 @@ export default class Reader extends React.Component {
     super(props);
   }
 
+  
+
   renderLeftButton = () => {
     if (this.props.showCover || this.props.isFirstPage) {
       return null
     }
+
+    if (this.props.isDemo) { // disabled previous button
+      const previousHoverPopover = (
+        <Popover id="popover-trigger-hover-focus" title="Popover bottom">
+          <div style={{ backgroundColor: 'white' }}>
+            Previous button is disabled in demo
+          </div>
+        </Popover>
+      );
+
+      return (
+        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Previous button is disabled in this demo</Popover>}>
+          <div className={styles.fullWidthHeight}>
+            <RectangleButton
+              title='Previous'
+              subtitle='page'
+              style={{ backgroundColor: '#2C6D9C' }}
+              disabled={true}
+              onClick={this.props.onPreviousPageClicked}
+            />
+          </div>
+        </OverlayTrigger>
+      );
+    }
+
     return (
       <RectangleButton
         title='Previous'
@@ -75,13 +104,15 @@ export default class Reader extends React.Component {
         style={{ backgroundColor: '#2C6D9C' }}
         onClick={this.props.onPreviousPageClicked}
       />
-    );
+    )
+    
   }
 
   renderCenterDisplay = () => {
     if (this.props.showCover) {
       return <BookCover imageURL={this.props.coverImageURL} />
     }
+
     return (
       <BookPage
         pageNumber={this.props.pageNumber}

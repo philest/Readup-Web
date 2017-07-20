@@ -22,8 +22,6 @@ function RectangleButton ({
 } : props) {
   return (
     <div
-      role="button"
-      tabIndex={0}
       className={disabled ? styles.disabledButtonContainer : styles.rectangleButtonContainer}
       style={style}
       onClick={() => (!disabled && onClick())}

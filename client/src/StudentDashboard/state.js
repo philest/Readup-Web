@@ -211,15 +211,15 @@ function reducer(state = initialState, action = {}) {
     }
 
     case PAGE_INCREMENT: {
-      history.pushState({}, 'Readup', '#/story/STORY_ID/page/' + (state.pageNumber+1))
+      history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
       return { ...state, pageNumber: state.pageNumber + 1}
     }
     case PAGE_DECREMENT: {
-      history.pushState({}, 'Readup', '#/story/STORY_ID/page/' + (state.pageNumber-1))
+      history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber-1))
       return { ...state, pageNumber: state.pageNumber - 1}
     }
     case RECORDING_COUNTDOWN_TO_START: {
-      history.pushState({}, 'Readup', '#/story/STORY_ID/page/' + (state.pageNumber+1))
+      history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
       return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
     }
     case RECORDING_START: {
