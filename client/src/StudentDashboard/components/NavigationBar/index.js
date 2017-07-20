@@ -57,7 +57,7 @@ export default class NavigationBar extends React.Component {
           { !this.props.showPauseButton && 
             <BookInfoHeader
               title={this.props.bookTitle}
-              subtitle={( this.props.bookAuthor)}
+              subtitle={( 'by ' + this.props.bookAuthor)}
               style={{ marginTop: 20 }}
             />
           }

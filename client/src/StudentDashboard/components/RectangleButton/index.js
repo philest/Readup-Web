@@ -31,8 +31,9 @@ function RectangleButton ({
 
       
       <div className={styles.rectangleButtonTitle}>
-        { pulsatingArrow && 
-          <i className={['fa fa-angle-right', styles.pulsatingArrow].join(' ')}></i>
+        { pulsatingArrow 
+          && !disabled
+          && <i className={['fa fa-angle-right', styles.pulsatingArrow].join(' ')}></i>
         }
         {title}
         

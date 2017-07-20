@@ -40,6 +40,8 @@
 	color: white;
 	border-radius: 5px;
 
+	opacity: 0.4;
+
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
 	-webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
