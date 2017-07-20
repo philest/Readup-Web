@@ -90,10 +90,9 @@
                     <p class="no-students-added">No students added yet</p>
                   </div>
 
-                  <a 
-                    id="page5link" 
-                    class="transition-link ui-btn web-mobile-signup-button submit-button-disabled" 
-                    href="#" 
+                  <a
+                    class="transition-link ui-btn web-mobile-signup-button submit-button-disabled submitUserCreationForm"
+                    href="#"
                     data-transition="fade"
                     style="font-size: 1.3em;"
                   >
@@ -115,7 +114,7 @@
                   <script>
                     $(function() {
                       // honestly have no idea why this should be necessary.... but it is, trust me
-                      // $('#page5link').attr('href', '#page6-success');
+                      // $('#submitUserCreationForm').attr('href', '#page6-success');
                       var studentNames = []
                       function renderStudentRow(studentName) {
                         return '<div class="student-row"><span>' + studentName + '</span><a id="remove-row" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>';
@@ -151,7 +150,7 @@
                         $('input[name="student_name"]').val('');
                         $('.add-student-dropdown').css('display', 'none');
                         $('.header-row label').text(studentNames.length + ' students');
-                        $('#page5link').removeClass('submit-button-disabled');
+                        $('#submitUserCreationForm').removeClass('submit-button-disabled');
                       });
 
 
@@ -162,7 +161,7 @@
                         studentNames.splice(index, 1);
                         if (studentNames.length == 0) {
                           $('.no-students-added').css('display', 'block');
-                          $('#page5link').addClass('submit-button-disabled');
+                          $('#submitUserCreationForm').addClass('submit-button-disabled');
                         }
                         $('.header-row label').text(studentNames.length + ' students');
                       });
@@ -183,7 +182,7 @@
                       });
 
 
-                      $(document).on('click', '#page5-add-students #page5link',function(event){
+                      $(document).on('click', '#page5-add-students .submitUserCreationForm',function(event){
                         var ValidStatus = $("#page5-add-students #add-students").valid() && (studentNames.length > 0);
                         // console.log(ValidStatus);
                         if (ValidStatus == false) {
@@ -194,16 +193,16 @@
                         }
 
                         var postData = {
-                          'user_id': $('#page5-add-students form#add-students').find('input[name=user_id]').val(),
-                          'school_id': $('#page5-add-students form#add-students').find('input[name=school_id]').val(),
-                          'school_name': $('#page5-add-students form#add-students').find('input[name=school_name]').val(),
-                          'school_city': $('#page5-add-students form#add-students').find('input[name=school_city]').val(),
-                          'school_state': $('#page5-add-students form#add-students').find('input[name=school_state]').val(),
-                          'signature': $('#page5-add-students form#add-students').find('input[name=signature]').val(),
-                          'classroom_grade': $('#page5-add-students form#add-students').find('input[name=classroom_grade]').val(),
-                          'classroom_name': $('#page5-add-students form#add-students').find('input[name=classroom_name]').val(),
+                          'user_id': $('form#add-students').find('input[name=user_id]').val(),
+                          'school_id': $('form#add-students').find('input[name=school_id]').val(),
+                          'school_name': $('form#add-students').find('input[name=school_name]').val(),
+                          'school_city': $('form#add-students').find('input[name=school_city]').val(),
+                          'school_state': $('form#add-students').find('input[name=school_state]').val(),
+                          'signature': $('form#add-students').find('input[name=signature]').val(),
+                          'classroom_grade': $('form#add-students').find('input[name=classroom_grade]').val(),
+                          'classroom_name': $('form#add-students').find('input[name=classroom_name]').val(),
                           'student_names': studentNames,
-                          'authenticity_token': $('#page5-add-students form#add-students').find('input[name=authenticity_token]').val(),
+                          'authenticity_token': $('form#add-students').find('input[name=authenticity_token]').val(),
                         };
 
                         console.log("signup post data  " + postData);
@@ -220,7 +219,7 @@
                           }
                         );
 
-                        var formdata = $("#page5-add-students form#add-students").serializeArray();
+                        var formdata = $("form#add-students").serializeArray();
                         console.log(formdata);
                         var data = {};
                         $(formdata).each(function(index, obj){
@@ -231,40 +230,14 @@
                         mixpanel.track('finished freemium signup');
 
 
-                      });
+                      }); // END $(document).on('click', '#page5-add-students .submitUserCreationForm'
+
+
                     });
 
 
                   </script>
                 </form>
-
-                <!-- submit form -->
-                <form id='log-into-dat-account' action='/auth/signin' method='post' data-ajax="false" style="display: none;">
-                  <input type="hidden" name='username' value='<%= session[:username] %>'>
-                  <input type="hidden" name='signature' value=''>
-                  <input type="hidden" name='password' value='<%= session[:password] %>'>
-                  <input type="hidden" name='role' value=''>
-
-                  <!-- HERE IS THE LOCUS OF PRODUCTION -->
- <!--                  <button id="go-to-dashboard" data-ajax="false" style="font-size: 1.2em;" type="submit">
-                      Log in
-                  </button> -->
-
-                  <script>
-                    // I think we can uncomment this once we have a logged in interface
-                    // $('#page4-find-school form#log-into-dat-account').on('submit', function(event) {
-                    //   var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                    //   $('form#log-into-dat-account').find('input[name=role]').val(role);
-                    //   var sig = $('form#educator-signature-form').find('input[name=signature]').val();
-                    //   $('form#log-into-dat-account').find('input[name=signature]').val(sig);
-                    //   $('form#log-into-dat-account').submit();
-                    // });
-                  </script>
-
-                </form>
-                <!-- submit form -->
-
-
               </div>
           </div> <%# container %>
         </div>

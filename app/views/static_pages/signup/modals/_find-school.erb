@@ -95,8 +95,13 @@
                   <input type="hidden" name="school_state" value="">
                   <input type="hidden" name="signature" value="">
 
-                  <a id="page4link" class="transition-link ui-btn web-mobile-signup-button" href="#page3-signature" data-transition="fade">
-                    Continue
+                  <a
+                    id="page4link"
+                    class="transition-link ui-btn web-mobile-signup-button"
+                    href="#page3-signature"
+                    data-transition="fade">
+                    Take Me To Demo
+                    <!-- Continue -->
                   </a>
 
                   <script>
@@ -198,44 +203,51 @@
                       $('#page5-add-students form#add-students').find('input[name=classroom_grade]').val($('#page4-find-school select[name=classroom_grade]').val());
 
 
+                        var postData = {
+                          'user_id': $('form#add-students').find('input[name=user_id]').val(),
+                          'school_id': $('form#add-students').find('input[name=school_id]').val(),
+                          'school_name': $('form#add-students').find('input[name=school_name]').val(),
+                          'school_city': $('form#add-students').find('input[name=school_city]').val(),
+                          'school_state': $('form#add-students').find('input[name=school_state]').val(),
+                          'student_names': ['Demo Student'],
+                          'authenticity_token': $('form#add-students').find('input[name=authenticity_token]').val(),
+                          'classroom_grade': $('form#add-students').find('input[name=classroom_grade]').val(),
+                          'classroom_name': 'Demo Classroom',
+                          'signature': "Demo Teacher",
+                        };
+
+                        console.log("signup post data  " + postData);
+
+                        $.ajax({
+                          url: 'create_classroom',
+                          type: 'post',
+                          data: postData
+                        }).done(function(data, statusText, xhr) {
+                          var cur = window.location.hostname
+                          location.href= "/success"
+                        }).fail(function(){
+
+                          }
+                        );
+
+                        var formdata = $("form#add-students").serializeArray();
+                        console.log(formdata);
+                        var data = {};
+                        $(formdata).each(function(index, obj){
+                            data[obj.name] = obj.value;
+                        });
+                        console.log(data);
 
                     });
 
 
 
 
+
+
+
                   </script>
                 </form>
-
-                <!-- submit form -->
-                <form id='log-into-dat-account' action='/auth/signin' method='post' data-ajax="false" style="display: none;">
-                  <input type="hidden" name='username' value='<%= session[:username] %>'>
-                  <input type="hidden" name='signature' value=''>
-                  <input type="hidden" name='password' value='<%= session[:password] %>'>
-                  <input type="hidden" name='role' value=''>
-
-                  <!-- HERE IS THE LOCUS OF PRODUCTION -->
- <!--                  <button id="go-to-dashboard" data-ajax="false" style="font-size: 1.2em;" type="submit">
-                      Log in
-                  </button> -->
-
-                  <script>
-                    $('#page4-find-school form#log-into-dat-account').on('submit', function(event) {
-                      var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                      $('form#log-into-dat-account').find('input[name=role]').val(role);
-
-                      var sig = $('form#educator-signature-form').find('input[name=signature]').val();
-
-                      $('form#log-into-dat-account').find('input[name=signature]').val(sig);
-
-
-                      // $('form#log-into-dat-account').submit();
-                    });
-                  </script>
-
-                </form>
-                <!-- submit form -->
-
 
               </div>
           </div> <%# container %>

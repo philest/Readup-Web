@@ -151,47 +151,10 @@
                       return false;
                     })
 
-
-                    // var formdata = $("form#find-school").serializeArray();
-                    // var data = {};
-                    // $(formdata).each(function(index, obj){
-                    //     data[obj.name] = obj.value;
-                    // });
-                    // console.log(data);
-                    // mixpanel.people.set(data);
-                    // mixpanel.track('finished freemium signup');
-
-
-
                   });
 
                 </script>
               </form>
-
-             <!-- submit form -->
-             <form id='log-into-dat-account' action='/auth/signin' method='post' data-ajax="false" style="display: none;">
-               <input type="hidden" name='username' value='<%= session[:username] %>'>
-               <input type="hidden" name='signature' value=''>
-               <input type="hidden" name='password' value='<%= session[:password] %>'>
-               <input type="hidden" name='role' value=''>
-
-
-               <script>
-                 $('#page6-school-info form#log-into-dat-account').on('submit', function(event) {
-                  console.log('submitting this form...');
-                   var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                   $(this).find('input[name=role]').val(role);
-
-                   var sig = $('form#educator-signature-form').find('input[name=signature]').val();
-
-                   $(this).find('input[name=signature]').val(sig);
-
-                   // $('form#log-into-dat-account').submit();
-                 });
-               </script>
-
-             </form>
-             <!-- submit form -->
           </div>
         </div>
       </div>
