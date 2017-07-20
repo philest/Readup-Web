@@ -44,5 +44,5 @@ const store = createStore(
 
 export default {
   store,
-  runSaga: () => console.log('todo'),
+  runSaga: sagaMiddleware.run
 }

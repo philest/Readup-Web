@@ -14,26 +14,23 @@ import Recorder from './recorder'
 import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
 
 
-const DEV_DISABLE_VOICE_INSTRUCTIONS = false
+export const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
 
+export const PAGE_INCREMENT = 'PAGE_INCREMENT'
+export const PAGE_DECREMENT = 'PAGE_DECREMENT'
 
-const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
-
-const PAGE_INCREMENT = 'PAGE_INCREMENT'
-const PAGE_DECREMENT = 'PAGE_DECREMENT'
-
-const RECORDING_COUNTDOWN_TO_START = 'RECORDING_COUNTDOWN_TO_START'
-const RECORDING_START = 'RECORDING_START'
-const RECORDING_STOP = 'RECORDING_STOP'
-const RECORDING_PAUSE = 'RECORDING_PAUSE'
-const RECORDING_RESUME = 'RECORDING_RESUME'
-const RECORDING_SUBMIT = 'RECORDING_SUBMIT'
-const RECORDING_RESTART = 'RECORDING_RESTART'
-const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
+export const RECORDING_COUNTDOWN_TO_START = 'RECORDING_COUNTDOWN_TO_START'
+export const RECORDING_START = 'RECORDING_START'
+export const RECORDING_STOP = 'RECORDING_STOP'
+export const RECORDING_PAUSE = 'RECORDING_PAUSE'
+export const RECORDING_RESUME = 'RECORDING_RESUME'
+export const RECORDING_SUBMIT = 'RECORDING_SUBMIT'
+export const RECORDING_RESTART = 'RECORDING_RESTART'
+export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 
 
 
-const PERMIMSSIONS_ARROW_CLICKED = 'PERMIMSSIONS_ARROW_CLICKED'
+export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
 
 
 export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
@@ -108,7 +105,7 @@ export function playbackRecording() {
 
 export function clickedPermissionsArrow() {
   return {
-    type: PERMIMSSIONS_ARROW_CLICKED,
+    type: PERMISSIONS_ARROW_CLICKED,
   }
 }
 
@@ -170,27 +167,6 @@ const initialState = {
 }
 
 
-// Should move this to a saga
-
-let audio = null
-
-function playSound(file) {
-  if (DEV_DISABLE_VOICE_INSTRUCTIONS) {
-    return
-  }
-
-  if (!!audio) {
-    audio.pause()
-  }
-
-  audio = new Audio(file);
-
-  audio.addEventListener('ended', function() {
-      audio = null
-  });
-
-  audio.play();
-}
 
 
 // any way to do this other than writing a custom reducer for each?
@@ -200,6 +176,8 @@ function playSound(file) {
 
 function reducer(state = initialState, action = {}) {
   const { payload, type } = action
+
+
   switch (type) {
 
     case MIC_SET_PERMISSIONS: {
@@ -208,8 +186,6 @@ function reducer(state = initialState, action = {}) {
         // I don't think I actually need micPermissionStatus here, because it's encapsulated in ReaderStateOptions
         // ^ Is that good or bad...?
         case MicPermissionsStatusOptions.granted: {
-          state.recorder.initialize() // do in a saga
-          playSound('/audio/book_intro.m4a')
           return { ...state, readerState: ReaderStateOptions.awaitingStart, micPermissionsStatus: payload.micPermissionsStatus }
         }
         case MicPermissionsStatusOptions.awaiting: {
@@ -225,26 +201,27 @@ function reducer(state = initialState, action = {}) {
 
 
     case PAGE_INCREMENT: {
+      history.pushState({}, 'Readup', '#/story/STORY_ID/page/' + (state.pageNumber+1))
       return { ...state, pageNumber: state.pageNumber + 1}
     }
     case PAGE_DECREMENT: {
+      history.pushState({}, 'Readup', '#/story/STORY_ID/page/' + (state.pageNumber-1))
       return { ...state, pageNumber: state.pageNumber - 1}
     }
     case RECORDING_COUNTDOWN_TO_START: {
+      history.pushState({}, 'Readup', '#/story/STORY_ID/page/' + (state.pageNumber+1))
       return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
     }
     case RECORDING_START: {
       state.recorder.startRecording()
-      return { ...state, readerState: ReaderStateOptions.inProgress, pageNumber: 1 }
+      return { ...state, readerState: ReaderStateOptions.inProgress}
     }
     case RECORDING_STOP: {
       state.recorder.stopRecording()
-      playSound('/audio/done.m4a')
       return { ...state, readerState: ReaderStateOptions.done}
     }
     case RECORDING_PAUSE: {
       state.recorder.pauseRecording()
-      playSound('/audio/paused.m4a')
       return { ...state, readerState: ReaderStateOptions.paused }
     }
     case RECORDING_RESUME: {
@@ -266,8 +243,8 @@ function reducer(state = initialState, action = {}) {
     }
 
 
-    case PERMIMSSIONS_ARROW_CLICKED: {
-      playSound('/audio/click_allow_button.m4a')
+    case PERMISSIONS_ARROW_CLICKED: {
+      return state
     }
 
     default: return state;

@@ -39,6 +39,7 @@ export default class Reader extends React.Component {
     showPauseButton: PropTypes.bool,
     isFirstPage: PropTypes.bool,
     isLastPage: PropTypes.bool,
+    disabled: PropTypes.bool,
 
     // Callback functions
     // not required because not all functions needed for every page
@@ -56,6 +57,7 @@ export default class Reader extends React.Component {
     isFirstPage: false,
     isLastPage: false,
     showPauseButton: true,
+    disabled: false,
   }
 
   constructor(props, _railsContext) {
@@ -118,6 +120,7 @@ export default class Reader extends React.Component {
         title='Next'
         subtitle='page'
         style={{ backgroundColor: 'green' }}
+        disabled={this.props.disabled}
         onClick={this.props.onNextPageClicked}
       />
     );

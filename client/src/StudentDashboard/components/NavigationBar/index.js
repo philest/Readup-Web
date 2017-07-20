@@ -35,7 +35,6 @@ export default class NavigationBar extends React.Component {
 
 
   render() {
-    console.log('**** show pause??  ' + this.props.showPauseButton)
     return (
       <div className={css.navContainer}>
         <div className={css.subContainer}>

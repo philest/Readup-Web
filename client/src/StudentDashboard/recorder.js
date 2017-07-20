@@ -34,7 +34,7 @@ export default class Recorder {
 
 	initialize(callback) {
 
-    if (this.rtcRecorder) {
+    if (!!this.rtcRecorder) {
       console.log('Attempted to initialize an already initialized recorder but that\'s expected')
       return
     }

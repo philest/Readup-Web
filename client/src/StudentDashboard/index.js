@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import React from 'react'
 import storeConfig from './createStore'
+import rootSaga from './sagas'
 
 import ReaderManager from './ReaderManager'
 
@@ -12,7 +13,7 @@ import {
 } from 'react-router-dom'
 
 
-
+storeConfig.runSaga(rootSaga)
 
 function Root ({ store, rorProps }) {
   console.log(store)

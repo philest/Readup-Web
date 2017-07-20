@@ -196,7 +196,6 @@ class StudentDashboard extends React.Component {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
-        
         onStartClicked: this.onStartClicked,
       }
     }
@@ -210,6 +209,7 @@ class StudentDashboard extends React.Component {
         showPauseButton: this.props.readerState === ReaderStateOptions.inProgress,
         isFirstPage: (this.props.pageNumber == 1),
         isLastPage: (this.props.pageNumber == this.props.numPages),
+        disabled: (this.props.readerState === ReaderStateOptions.countdownToStart),
         onPreviousPageClicked: this.onPreviousPageClicked,
         onPauseClicked: this.onPauseClicked,
         onNextPageClicked: (this.props.pageNumber == this.props.numPages) ? null : this.onNextPageClicked,
