@@ -105,8 +105,6 @@ class StudentDashboard extends React.Component {
       }
     });
 
-    console.log(this.props)
-
   }
 
   componentDidUpdate(nextProps) {
