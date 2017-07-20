@@ -16,7 +16,15 @@ class RegistrationController < ApplicationController
     puts 'classroom options:'
     puts classroom_options
 
-    if Classroom.create_with_teacher_and_students(classroom_options)
+    if @new_classroom = Classroom.create_with_teacher_and_students(classroom_options)
+
+      # set the student id as session so that the demo can work properly
+      t = @new_classroom.teachers.first
+      teacher_dummy_student = @new_classroom.students.find_by(last_name: t.user.last_name)
+      if teacher_dummy_student
+        session[:student_id] = teacher_dummy_student.id
+      end
+
     	head :ok
     else
       head 404
