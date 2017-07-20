@@ -28,7 +28,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    puts "\n\n\n\n\n#{user_params}\n\n\n\n"
     @user = User.new(user_params)
     @user.name = user_params[:first_name] + ' ' + user_params[:last_name]
 
@@ -39,11 +38,9 @@ class UsersController < ApplicationController
         # partial signup complete, now redirect to finish
         session[:user_id] = @user.id
 
-
         format.html do
           redirect_to '/auth/complete_signup'
         end
-
 
       else
         render json: @user.errors, status: :unprocessable_entity

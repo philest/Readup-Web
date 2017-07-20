@@ -100,6 +100,7 @@ CREATE TABLE assessments (
     id bigint NOT NULL,
     student_id integer,
     story_id character varying,
+    completed boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

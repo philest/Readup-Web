@@ -13,4 +13,5 @@ class StudentDashboardController < ApplicationController
       render inline: "Uh oh... Something went wrong..."
     end
   end
+
 end

@@ -3,6 +3,7 @@ class CreateAssessments < ActiveRecord::Migration[5.1]
     create_table :assessments do |t|
       t.integer :student_id
       t.string :story_id
+      t.boolean :completed, default: false
 
       t.timestamps
     end
