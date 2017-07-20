@@ -26,7 +26,6 @@ class StaticPagesController < ActionController::Base
     render 'static_pages/pages/terms'
   end
 
-
   def team
     render 'static_pages/pages/team'
   end
