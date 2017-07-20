@@ -10,6 +10,7 @@ import {
   HashRouter,
   Route,
   Switch,
+  Redirect,
 } from 'react-router-dom'
 
 
@@ -29,6 +30,13 @@ function Root ({ store, rorProps }) {
           }}
         />
 
+        <Route
+          path="/story/:story_id/"
+          render={(props) => {
+            const url = '/story/' + props.match.params.story_id + '/page/0'
+            return <Redirect to={url} />
+          }}
+        />
 
         <Route render={(props) => {
           // default catchall
