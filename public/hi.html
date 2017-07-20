@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+  <title></title>
+</head>
+ <body class="container">
+    <h1>file upload</h1>
+
+    <form role="form" class="form" onsubmit="return false;">
+      <div class="form-group">
+        <label for="file">File</label>
+        <input id="file" type="file" class="form-control"/>
+      </div>
+      <button id="upload" type="button" class="btn btn-primary">Upload</button>
+    </form>
+
+    <button id="piss">Piss</button>
+
+    <div id="output" class="container"></div>
+
+    <script>
+      (function () {
+
+
+        var output = document.getElementById('output');
+        document.getElementById('upload').onclick = function () {
+            var da2 = new FormData();
+            var theFile = document.getElementById('file').files[0]
+            console.log(theFile.name);
+            console.log(document.getElementById('pee'));
+            da2.append('file', theFile);
+            var extension = theFile.name.match(/(\.\w+)?$/)[0]
+
+            var options = {
+              extension: extension, // set extension
+              _: Date.now(),                                       // prevent caching
+            }
+
+            // "id": "43kewit94.jpg",
+            // "storage": "cache",
+            // "metadata": {
+            //   "size": 384393,
+            //   "filename": "nature.jpg",
+            //   "mime_type": "image/jpeg"
+            // }
+
+          axios.get('/recording/cache/presign', {params: options})
+          .then(function (res) {
+            console.log(res)
+            // da2.append ('formData',);
+            da2.append('url', res.data.url);
+            da2.append('paramName', 'file');
+
+            var tkn = {"X-CSRF-TOKEN": document.getElementById('pee')._csrf.value}
+
+            var piss = axios.post('/recording/cache/upload', da2, {
+              headers: Object.assign({}, tkn, res.data.fields),
+              params: Object.assign({url: res.data.url, paramName: 'file'}, {})
+            })
+            .then( function(data) {
+                console.log(data)
+                var image = {
+                  id: data.data.id, // we have to remove the prefix part
+                  storage: 'cache',
+                  metadata: {
+                    size:      theFile.size,
+                    filename:  theFile.name.match(/[^\/\\]+$/)[0], // IE returns full path
+                    mime_type: theFile.type
+                  }
+                }
+
+                var params = {
+                  photo: {image: JSON.stringify(image)},
+                  _csrf: $("input[name=_csrf]").val(),
+                }
+                console.log(image, params)
+
+                // $.ajax("/album/photos", {method: 'POST', data: params})
+            })
+            .catch(function (err) {
+              console.log("bleh", err, err.request);
+            })
+          }) 
+        };
+      })();
+    </script>
+  </body>
+
+</html>

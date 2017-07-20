@@ -223,6 +223,38 @@ ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
 
 
 --
+-- Name: recordings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE recordings (
+    id bigint NOT NULL,
+    name character varying,
+    audio_data text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: recordings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE recordings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: recordings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE recordings_id_seq OWNED BY recordings.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -408,6 +440,13 @@ ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_sea
 
 
 --
+-- Name: recordings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recordings ALTER COLUMN id SET DEFAULT nextval('recordings_id_seq'::regclass);
+
+
+--
 -- Name: schools id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -473,6 +512,14 @@ ALTER TABLE ONLY classrooms_teachers
 
 ALTER TABLE ONLY pg_search_documents
     ADD CONSTRAINT pg_search_documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recordings recordings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recordings
+    ADD CONSTRAINT recordings_pkey PRIMARY KEY (id);
 
 
 --
@@ -595,6 +642,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170712203906'),
 ('20170712204938'),
 ('20170715172257'),
-('20170717172846');
+('20170717172846'),
+('20170719203307');
 
 

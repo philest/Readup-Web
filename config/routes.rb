@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   resources :schools
+  resources :recordings
+
   root 'static_pages#index'
 
   get 'hello', to: 'hello_world#index'
@@ -46,7 +48,7 @@ Rails.application.routes.draw do
   post '/audio_process/save_file', to: 'audio_process#save_file'
   get '/audio_process', to: 'audio_process#index'
 
-  mount AudioUploader::UploadEndpoint => "/audio"
+  mount AudioUploader::UploadEndpoint => "/recording"
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
