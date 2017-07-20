@@ -73,33 +73,28 @@
   function sendWaveToPost(blob) {
         var data = new FormData();
 
-            data.append("audio", blob, (new Date()).getTime() + ".wav");
+        var fileName = (new Date()).getTime() + ".wav";
 
+        <% @s3_direct_post.fields.map do |(name, value)| %> 
+          data.set('<%= name %>', "<%= value %>");
+        <% end %>
 
-            // $.ajax({
-            //  url: '/home/save_file',
-            //  data: data,
-            // error: function() {
-            //   console.log("Error occurred uploading your file.");
-            // },
-            // success: function(data) {
-            //   console.log("Uploaded");
-            // },
-            // type: 'POST'
-            // });
+        data.append("file", blob, fileName);
 
-            var oReq = new XMLHttpRequest();
-            oReq.open("POST", "/audio_process/save_file");
-            token = $('meta[name=csrf-token]').attr('content');
-            oReq.setRequestHeader('X-CSRF-Token', token);
-            oReq.send(data);
-            oReq.onload = function(oEvent) {
-                if (oReq.status == 200) {
-                    console.log("Uploaded");
-                } else {
-                    console.log("Error " + oReq.status + " occurred uploading your file.");
-                }
-            };
+        var oReq = new XMLHttpRequest();
+        oReq.open("POST", "<%= @s3_direct_post.url %>");
+        // token = $('meta[name=csrf-token]').attr('content');
+        // oReq.setRequestHeader('X-CSRF-Token', token);
+        // oReq.setRequestHeader("Content-type", "audio/wav");  
+        oReq.setRequestHeader("processData", false); 
+        oReq.send(data);
+        oReq.onload = function(oEvent) {
+            if (oReq.status == 200) {
+                console.log("Uploaded");
+            } else {
+                console.log("Error " + oReq.status + " occurred uploading your file.");
+            }
+        };
   }
 
 
