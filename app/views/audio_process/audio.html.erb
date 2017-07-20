@@ -89,8 +89,8 @@
         oReq.setRequestHeader("processData", false); 
         oReq.send(data);
         oReq.onload = function(oEvent) {
-            if (oReq.status == 200) {
-                console.log("Uploaded");
+            if (oReq.status == 201) {
+                console.log("Uploaded." + oReq.response);
             } else {
                 console.log("Error " + oReq.status + " occurred uploading your file.");
             }
