@@ -34,6 +34,7 @@ class Classroom < ApplicationRecord
               .teachers
               .create(signature: teacher_signature)
       s = School.find_by(id: school_id)
+
       cl = Classroom.new(
         name: classroom_name,
         grade_level: grade_level
@@ -56,7 +57,5 @@ class Classroom < ApplicationRecord
       return false
     end
   end
-
-
 
 end

@@ -1,0 +1,40 @@
+
+.readerContentContainer {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	border: 2px solid #826E5A;
+	/*padding: 5px;*/
+	display: flex;
+	flex-flow: column;
+}
+
+.readerImage {
+	width: 100%;
+	height: auto;
+	/*min-height: 200px;*/
+}
+
+.readerTextContainer {
+	margin-top: 10px;
+	flex: 1;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+}
+
+.textParagraph {
+	font-family: 'Arial';
+	font-size: 1.4em;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.pageNumber {
+	text-align: center;
+	font-weight: bold;
+	font-family: 'Arial';
+	font-size: 1.2em;
+	padding: 10px;
+	height: 40px;
+}

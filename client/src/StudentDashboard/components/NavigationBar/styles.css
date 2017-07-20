@@ -1,0 +1,67 @@
+
+
+/*  NAVIGATION BAR  */
+
+.navContainer {
+	display: flex;
+	height: 60px;
+	background-color: #3C8FCA;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Arial';
+	z-index: 100;
+}
+
+.subContainer {
+	flex: 1;
+	align-items: center;
+}
+
+.brandText {
+	color: white;
+	font-size: 1.5em;
+	margin-left: 60px;
+	/*background-color: red;*/
+	margin-right: auto;
+}
+
+.centerDisplayContainer {
+	width: 250px;
+	height: 90px;
+	background-color: #2C6D9C;
+	margin-right: auto;
+	margin-left: auto;
+	z-index: 100;
+
+}
+
+.rightDisplayContainer {
+	margin-left: 30px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	color: white;
+	font-size: 1.05em;
+	/*background-color: green;*/
+}
+
+
+
+.userNameLabel {
+	font-style: italic;
+}
+
+.logoutButton {
+	margin-left: 40px;
+	margin-right: 80px;
+}
+
+.logoutLabel {
+	font-weight: bold;
+}
+
+.logoutIcon {
+	width: 30px;
+	height: 30px;
+}

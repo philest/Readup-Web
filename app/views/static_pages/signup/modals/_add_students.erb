@@ -10,7 +10,6 @@
     background-size: 30px;
   }
   .add-student-dropdown {
-    width: 48%;
     background-color: #E6F6FD;
   }
   .add-student-dropdown a:hover {
@@ -33,7 +32,6 @@
     border-bottom: 1px solid #F5F5F5;
     height: 40px;
     text-align: left;
-
   }
   .student-row .glyphicon {
     color: #A5A5A5;
@@ -70,6 +68,7 @@
 
                 <form id="add-students" class="signup-form" style="position: relative">
 
+
                   <div class="signup-setup">
                       <div class="field" id="signup-field">
                          <label class="label">Start typing to add students</label>
@@ -78,7 +77,8 @@
                   </div>
 
                   <!-- create the dropdown menu here -->
-                  <div class="dropdown-menu add-student-dropdown" style="display: none; width: 48%;">
+                  <div class="dropdown-menu add-student-dropdown" style="display: none;">
+
                     <a id="add-student-button" class="disabled" href="#"><p>Add students</p></a>
                   </div>
 
@@ -96,6 +96,7 @@
                     data-transition="fade"
                     style="font-size: 1.3em;"
                   >
+
                     Done adding students
                   </a>
 
@@ -115,6 +116,7 @@
                     $(function() {
                       // honestly have no idea why this should be necessary.... but it is, trust me
                       // $('#submitUserCreationForm').attr('href', '#page6-success');
+
                       var studentNames = []
                       function renderStudentRow(studentName) {
                         return '<div class="student-row"><span>' + studentName + '</span><a id="remove-row" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>';
@@ -151,6 +153,7 @@
                         $('.add-student-dropdown').css('display', 'none');
                         $('.header-row label').text(studentNames.length + ' students');
                         $('#submitUserCreationForm').removeClass('submit-button-disabled');
+
                       });
 
 
@@ -162,6 +165,7 @@
                         if (studentNames.length == 0) {
                           $('.no-students-added').css('display', 'block');
                           $('#submitUserCreationForm').addClass('submit-button-disabled');
+
                         }
                         $('.header-row label').text(studentNames.length + ' students');
                       });
@@ -183,6 +187,7 @@
 
 
                       $(document).on('click', '#page5-add-students .submitUserCreationForm',function(event){
+
                         var ValidStatus = $("#page5-add-students #add-students").valid() && (studentNames.length > 0);
                         // console.log(ValidStatus);
                         if (ValidStatus == false) {
@@ -203,6 +208,7 @@
                           'classroom_name': $('form#add-students').find('input[name=classroom_name]').val(),
                           'student_names': studentNames,
                           'authenticity_token': $('form#add-students').find('input[name=authenticity_token]').val(),
+
                         };
 
                         console.log("signup post data  " + postData);
@@ -229,15 +235,14 @@
                         mixpanel.people.set(data);
                         mixpanel.track('finished freemium signup');
 
-
                       }); // END $(document).on('click', '#page5-add-students .submitUserCreationForm'
-
 
                     });
 
 
                   </script>
                 </form>
+
               </div>
           </div> <%# container %>
         </div>

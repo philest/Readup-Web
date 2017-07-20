@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :schools
+
   root 'static_pages#index'
 
   get 'hello', to: 'hello_world#index'
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   # get 'go', to: 'static_pages#go'
   # get 'doc', to: 'static_pages#doc'
   # get 'read', to: 'static_pages#read'
+
   get 'error', to: 'static_pages#error'
   get 'privacy', to: 'static_pages#privacy'
   get 'terms', to: 'static_pages#terms'
@@ -40,7 +42,9 @@ Rails.application.routes.draw do
   get 'auth/search_school', to: 'registration#search_school'
 
 
-  get 'hello_world', to: 'hello_world#index'
+  get 'student_dashboard', to: 'student_dashboard#index'
+  get 'student_dashboard/', to: 'student_dashboard#index' # with added route info tacked on with hash, i.e. student_dashboard/#/story/:story_id/page/:page_id, handled by ReactRouter
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

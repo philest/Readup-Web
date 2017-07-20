@@ -1,0 +1,89 @@
+
+.rectangleButtonContainer {
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+	color: white;
+	border-radius: 3px;
+
+	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.rectangleButtonContainer:hover {
+	color: lightgray;
+}
+
+.rectangleButtonContainer:active {
+	opacity: 0.8;
+}
+
+.disabledButtonContainer {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+	color: white;
+	border-radius: 5px;
+
+	opacity: 0.4;
+
+	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.rectangleButtonTitle {
+	font-size: 1.6em;
+}
+
+.rectangleButtonSubtitle {
+	margin-top: 3px;
+	font-size: 1.1em;
+}
+
+@keyframes pulse-right {
+	from {
+		transform: translateX(0.1em) 
+		scale(1.1)
+	}
+	to {
+		transform: translateX(-0.1em)
+	}
+}
+
+.pulsatingArrow {
+	position: relative;
+	left: -15px;
+	animation: pulse-right 800ms infinite alternate;
+}
+
+
+
+
+
+
+
+
+
+
+

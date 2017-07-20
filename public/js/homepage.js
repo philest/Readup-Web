@@ -214,6 +214,7 @@ $( document ).ready(function() {
   $('#signup-name-password').submit(function(event) {
     var username = $('#signup-email input[name=username]').val();
 
+
     var usernameFieldName = 'user[email]';
     var input = $('<input>')
                       .attr('type', 'hidden')
