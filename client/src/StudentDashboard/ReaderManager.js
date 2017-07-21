@@ -45,13 +45,6 @@ import {
 const PRELOAD_IMAGES_ADVANCE = 3
 
 
-
-const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-                        navigator.mozGetUserMedia || navigator.msGetUserMedia);
-
-
-
-
 function mapStateToProps (state) {
   return {
     // micEnabled: state.reader.micEnabled,
@@ -92,25 +85,7 @@ class StudentDashboard extends React.Component {
     }
 
     // This stuff kicks off the process, gets state out of initializing
-    Recorder.hasRecordingPermissions((hasPermissions) => {
-      console.log("We have permissions? " + hasPermissions)
-      if (hasPermissions) {
-        this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
-      }
-      else {
-        this.props.actions.setMicPermissions(MicPermissionsStatusOptions.awaiting)
-        this.props.recorder.initialize((error) => {
-          // User responded to permissions request
-          if (error) {
-            this.props.actions.setMicPermissions(MicPermissionsStatusOptions.blocked)
-          }
-          else {
-            this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
-          }
-
-        })
-      }
-    });
+    
 
   }
 
