@@ -14,4 +14,28 @@ class StudentDashboardController < ApplicationController
     end
   end
 
+  def create_assessment
+    stu_id = session[:student_id]
+    book_key = params["book_key"]
+
+    if stu_id && book_key
+      a = Assessment.new(book_key: book_key)
+      Student.find_by(id: stu_id).assessments << a
+      a.save!
+      render json: { assessment_id: a.id }
+    else
+      render status: 401, json: { error: "You're not logged in or you didn't supply a book_key" }
+    end
+  end
+
+  def confirm_assessment_completion
+    assessment_id = params["assessment_id"]
+    if assessment_id
+      Assessment.find_by(id: assessment_id).update!(completed: true)
+    else
+      render status: 401, json: { error: "Please supply and assessment id!" }
+    end
+
+  end
+
 end

@@ -33,9 +33,9 @@ class AudioProcessController < ApplicationController
 
   def aws_presign
     if @s3_direct_post
-      render json: {fields: @s3_direct_post.fields, url: @s3_direct_post.url}
+      render json: { fields: @s3_direct_post.fields, url: @s3_direct_post.url }
     else
-      render status: 404, json: { error: "You're not logged in!"}
+      render status: 404, json: { error: "You're not logged in!" }
     end
   end
 
@@ -45,7 +45,7 @@ class AudioProcessController < ApplicationController
 
     if session[:student_id] && params["book_key"]
       @s3_direct_post = S3_BUCKET.presigned_post(
-        key: "assessments/#{session[:student_id]}/#{params["book_key"]}/${filename}",
+        key: "assessments/#{session[:student_id]}/#{params['book_key']}/${filename}",
         success_action_status: '201',
         acl: 'public-read',
       )
