@@ -48,7 +48,7 @@
       var tkn = {"X-CSRF-TOKEN": document.getElementsByName("csrf-token")[0].content}
 
       console.log(tkn)
-      return axios.post('/aws_presign', null, {
+      return axios.get('/aws_presign', null, {
         params: params,
         headers: tkn,
       })

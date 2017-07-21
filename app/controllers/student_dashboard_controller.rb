@@ -35,7 +35,6 @@ class StudentDashboardController < ApplicationController
     else
       render status: 401, json: { error: "Please supply and assessment id!" }
     end
-
   end
 
 end
