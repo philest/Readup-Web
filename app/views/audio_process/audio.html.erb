@@ -4,6 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Live input record and playback</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <style type='text/css'>
     ul { list-style: none; }
@@ -70,6 +71,25 @@
     recorder.clear();
   }
 
+  function sendLinkToServer(xmlRes){
+    var raw = xmlRes.responseXML;
+    var resData = new FormData();
+    resData.set("awsRes", new XMLSerializer().serializeToString(raw.documentElement));
+
+    var oReq2 = new XMLHttpRequest();
+    oReq2.open("POST", "audio_process/save_link");
+    token = $('meta[name=csrf-token]').attr('content');
+    oReq2.setRequestHeader('X-CSRF-Token', token);
+    oReq2.send(resData);
+    oReq2.onload = function(oEvent) {
+        if (oReq2.status == 201) {
+            console.log("Sent awsRes data to server.");
+        } else {
+            console.log("Error " + oReq2.status + " occurred.");
+        }
+    };
+  }
+
   function sendWaveToPost(blob) {
         var data = new FormData();
 
@@ -91,7 +111,6 @@
 
         oReq.open("POST", "<%= @s3_direct_post.url %>");
 
-        oReq.setRequestHeader("processData", false);
         oReq.send(data);
         var awsRes;
         oReq.onload = function(oEvent) {
@@ -102,24 +121,7 @@
             }
         };
 
-        function sendLinkToServer(xmlRes){
-          var raw = xmlRes.responseXML;
-          var resData = new FormData();
-          resData.set("awsRes", new XMLSerializer().serializeToString(raw.documentElement));
 
-          var oReq2 = new XMLHttpRequest();
-          oReq2.open("POST", "audio_process/save_link");
-          token = $('meta[name=csrf-token]').attr('content');
-          oReq2.setRequestHeader('X-CSRF-Token', token);
-          oReq2.send(resData);
-          oReq2.onload = function(oEvent) {
-              if (oReq2.status == 201) {
-                  console.log("Sent awsRes data to server.");
-              } else {
-                  console.log("Error " + oReq2.status + " occurred.");
-              }
-          };
-        }
   }
 
 
