@@ -35,7 +35,7 @@ class AudioProcessController < ApplicationController
     if @s3_direct_post
       render json: { fields: @s3_direct_post.fields, url: @s3_direct_post.url }
     else
-      render status: 404, json: { error: "You're not logged in!" }
+      render status: 404, json: { error: "You're not logged in or you didn't supply an assessment_id!" }
     end
   end
 
@@ -43,9 +43,9 @@ class AudioProcessController < ApplicationController
 
   def set_s3_direct_post
 
-    if session[:student_id] && params["book_key"]
+    if session[:student_id] && params["assessment_id"]
       @s3_direct_post = S3_BUCKET.presigned_post(
-        key: "assessments/#{session[:student_id]}/#{params['book_key']}/${filename}",
+        key: "assessments/#{session[:student_id]}/#{params["assessment_id"]}/${filename}",
         success_action_status: '201',
         acl: 'public-read',
       )
