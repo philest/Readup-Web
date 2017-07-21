@@ -26,140 +26,156 @@
 
   <h2>Log</h2>
   <pre id="log"></pre>
+  <%= csrf_meta_tags %>
+
 
   <script>
-  function __log(e, data) {
-    log.innerHTML += "\n" + e + " " + (data || '');
-  }
-  var audio_context;
-  var recorder;
 
 
-
-  function startUserMedia(stream) {
-    var input = audio_context.createMediaStreamSource(stream);
-    __log('Media stream created.');
-    // Uncomment if you want the audio to feedback directly
-    //input.connect(audio_context.destination);
-    //__log('Input connected to audio context destination.');
-
-    recorder = new Recorder(input);
-    __log('Recorder initialised.');
-  }
-  function startRecording(button) {
-    recorder && recorder.record();
-    button.disabled = true;
-    button.nextElementSibling.disabled = false;
-    __log('Recording...');
-  }
-  function stopRecording(button) {
-    var time = new Date();
-    console.log(time.getTime());
-
-    recorder && recorder.stop();
-    button.disabled = true;
-    button.previousElementSibling.disabled = false;
-    __log('Stopped recording.');
-
-    // create WAV download link using audio data blob
-    createDownloadLink();
-    recorder.exportWAV(function(s) {
-        // audio.src = window.URL.createObjectURL(s);
-        sendWaveToPost(s);
-    });
-
-    recorder.clear();
-  }
-
-  function sendLinkToServer(xmlRes){
-    var raw = xmlRes.responseXML;
-    var resData = new FormData();
-    resData.set("awsRes", new XMLSerializer().serializeToString(raw.documentElement));
-
-    var oReq2 = new XMLHttpRequest();
-    oReq2.open("POST", "audio_process/save_link");
-    token = $('meta[name=csrf-token]').attr('content');
-    oReq2.setRequestHeader('X-CSRF-Token', token);
-    oReq2.send(resData);
-    oReq2.onload = function(oEvent) {
-        if (oReq2.status == 201) {
-            console.log("Sent awsRes data to server.");
-        } else {
-            console.log("Error " + oReq2.status + " occurred.");
-        }
-    };
-  }
-
-  function sendWaveToPost(blob) {
-        var data = new FormData();
-
-        var fileName = (new Date()).getTime() + ".wav";
-
-        <% @s3_direct_post.fields.map do |(name, value)| %>
-          data.set('<%= name %>', "<%= value %>");
-        <% end %>
-
-        data.append("file", blob, fileName);
-
-        var oReq = new XMLHttpRequest();
-
-        oReq.onreadystatechange = function() {
-           if (this.readyState == 4 && this.status == 201) {
-               sendLinkToServer(this);
-           }
-        };
-
-        oReq.open("POST", "<%= @s3_direct_post.url %>");
-
-        oReq.send(data);
-        var awsRes;
-        oReq.onload = function(oEvent) {
-            if (oReq.status == 201) {
-                console.log("Uploaded.");
-            } else {
-                console.log("Error " + oReq.status + " occurred uploading your file.");
-            }
-        };
+    function __log(e, data) {
+      log.innerHTML += "\n" + e + " " + (data || '');
+    }
+    var audio_context;
+    var recorder;
 
 
-  }
+    function presign(){
+      var params = {
+        _: Date.now(),
+        book_id: "demo",
+      }
 
+      var tkn = {"X-CSRF-TOKEN": document.getElementsByName("csrf-token")[0].content}
 
-  function createDownloadLink() {
-    recorder && recorder.exportWAV(function(blob) {
-      var url = URL.createObjectURL(blob);
-      var li = document.createElement('li');
-      var au = document.createElement('audio');
-      var hf = document.createElement('a');
-
-      au.controls = true;
-      au.src = url;
-      hf.href = url;
-      hf.download = new Date().toISOString() + '.wav';
-      hf.innerHTML = hf.download;
-      li.appendChild(au);
-      li.appendChild(hf);
-      recordingslist.appendChild(li);
-    });
-  }
-  window.onload = function init() {
-    try {
-      // webkit shim
-      window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-      window.URL = window.URL || window.webkitURL;
-
-      audio_context = new AudioContext;
-      __log('Audio context set up.');
-      __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-    } catch (e) {
-      alert('No web audio support in this browser!');
+      console.log(tkn)
+      return axios.post('/aws_presign', null, {
+        params: params,
+        headers: tkn,
+      })
+      .then(function(res){
+        console.log(res);
+        console.log("got presign.");
+        return res.data
+      })
+      .catch(function (err) {
+        throw err
+      })
     }
 
-    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-      __log('No live audio input: ' + e);
-    });
-  };
+
+    function stopRecording(button) {
+      var time = new Date();
+      console.log(time.getTime());
+
+      recorder && recorder.stop();
+      button.disabled = true;
+      button.previousElementSibling.disabled = false;
+      __log('Stopped recording.');
+
+      // create WAV download link using audio data blob
+      createDownloadLink();
+      recorder.exportWAV(function(s) {
+          presign()
+          .then( function(awsPresign) {
+            sendWavToS3(s, awsPresign.url, awsPresign.fields);
+          })
+          .catch(function (err) {
+            console.log("upload fail...", err, err.request);
+            return false
+          })
+      });
+      recorder.clear();
+    }
+
+
+
+    function sendWavToS3(blob, url, fields) {
+      var data = new FormData();
+
+      var fileName = ("hello_there.wav");
+
+      console.log(url, fields)
+      for (var key in fields) {
+        // skip loop if the property is from prototype
+        if (!fields.hasOwnProperty(key)) continue;
+
+        var obj = fields[key];
+        for (var prop in obj) {
+          if(!obj.hasOwnProperty(prop)) continue;
+          data.set(key, obj)
+        }
+      }
+
+      data.append("file", blob, fileName);
+
+      axios.post(url, data)
+      .then(function(res){
+        console.log(res);
+        console.log("yay!");
+      })
+      .catch(function (err) {
+        throw err
+      })
+    }
+ 
+
+
+
+
+    function startUserMedia(stream) {
+      var input = audio_context.createMediaStreamSource(stream);
+      __log('Media stream created.');
+      // Uncomment if you want the audio to feedback directly
+      //input.connect(audio_context.destination);
+      //__log('Input connected to audio context destination.');
+
+      recorder = new Recorder(input);
+      __log('Recorder initialised.');
+    }
+
+    function startRecording(button) {
+      recorder && recorder.record();
+      button.disabled = true;
+      button.nextElementSibling.disabled = false;
+      __log('Recording...');
+    }
+
+
+    function createDownloadLink() {
+      recorder && recorder.exportWAV(function(blob) {
+        var url = URL.createObjectURL(blob);
+        var li = document.createElement('li');
+        var au = document.createElement('audio');
+        var hf = document.createElement('a');
+
+        au.controls = true;
+        au.src = url;
+        hf.href = url;
+        hf.download = new Date().toISOString() + '.wav';
+        hf.innerHTML = hf.download;
+        li.appendChild(au);
+        li.appendChild(hf);
+        recordingslist.appendChild(li);
+      });
+    }
+    window.onload = function init() {
+      try {
+        // webkit shim
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+        window.URL = window.URL || window.webkitURL;
+
+        audio_context = new AudioContext;
+        __log('Audio context set up.');
+        __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+      } catch (e) {
+        alert('No web audio support in this browser!');
+      }
+
+      navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+        __log('No live audio input: ' + e);
+      });
+    };
   </script>
 
 <%= javascript_include_tag( 'recorder' ) %>

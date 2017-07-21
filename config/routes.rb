@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   # process audio
   post '/audio_process/save_file', to: 'audio_process#save_file'
   post '/audio_process/save_link', to: 'audio_process#save_link'
+  post 'aws_presign', to: 'audio_process#aws_presign'
 
   get '/audio_process', to: 'audio_process#index'
 
