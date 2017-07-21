@@ -9,6 +9,7 @@ export default class NavigationBar extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired,
     onPauseClicked: PropTypes.func,
+    onExitClicked: PropTypes.func,
 
     // cover related stuff
     isCoverPage: PropTypes.bool,
@@ -29,6 +30,7 @@ export default class NavigationBar extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
+
 
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
@@ -77,7 +79,7 @@ export default class NavigationBar extends React.Component {
           <div className={css.rightDisplayContainer}>
             <span className={css.userNameLabel}>{this.props.studentName}</span>
             <span className={css.logoutButton}>
-              <span className={css.logoutLabel}>Exit</span>
+              <a className={css.logoutLabel} onClick={this.props.onExitClicked}>Exit</a>
             </span>
           </div>
         </div>

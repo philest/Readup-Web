@@ -11,7 +11,7 @@
 // TODO REMOVE, put recorder logic in saga
 import Recorder from './recorder' 
 
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
+import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
 
 
 export const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
@@ -74,9 +74,12 @@ export function stopRecording() {
   }
 }
 
-export function pauseRecording() {
+export function pauseRecording(pauseType: PauseType = PauseTypeOptions.fromPauseButton) {
   return {
     type: RECORDING_PAUSE,
+    payload: {
+      pauseType,
+    }
   }
 }
 
@@ -179,6 +182,8 @@ const initialState = {
   pageNumber: 0,
   book: sampleBook,
   readerState:  ReaderStateOptions.initializing,
+  pauseType: PauseTypeOptions.noPause,
+  hasRecordedSomething: false,
   recorder: new Recorder(),
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
 }
@@ -233,19 +238,15 @@ function reducer(state = initialState, action = {}) {
       return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
     }
     case RECORDING_START: {
-      state.recorder.startRecording()
-      return { ...state, readerState: ReaderStateOptions.inProgress}
+      return { ...state, readerState: ReaderStateOptions.inProgress, hasRecordedSomething: true }
     }
     case RECORDING_STOP: {
-      state.recorder.stopRecording()
       return { ...state, readerState: ReaderStateOptions.done}
     }
     case RECORDING_PAUSE: {
-      state.recorder.pauseRecording()
-      return { ...state, readerState: ReaderStateOptions.paused }
+      return { ...state, readerState: ReaderStateOptions.paused, pauseType: payload.pauseType }
     }
     case RECORDING_RESUME: {
-      state.recorder.resumeRecording()
       return { ...state, readerState: ReaderStateOptions.inProgress }
     }
     case RECORDING_SUBMIT: {
@@ -257,8 +258,7 @@ function reducer(state = initialState, action = {}) {
       return { ...state, readerState: ReaderStateOptions.submitted }
     }
     case RECORDING_RESTART: {
-      state.recorder.reset()
-      return { ...state, pageNumber: 0, readerState: ReaderStateOptions.inProgress }
+      return { ...state, pageNumber: 0, readerState: ReaderStateOptions.inProgress, hasRecordedSomething: false }
     }
     case RECORDING_PLAYBACK: {
       return { ...state, readerState: ReaderStateOptions.doneDisplayingPlayback }

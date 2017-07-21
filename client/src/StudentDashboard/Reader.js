@@ -51,6 +51,7 @@ export default class Reader extends React.Component {
     onStartClicked: PropTypes.func,
     onNextPageClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
+    onExitClicked: PropTypes.func,
   };
 
   static defaultProps = {
@@ -172,6 +173,7 @@ export default class Reader extends React.Component {
       bookAuthor: this.props.bookAuthor,
       isCoverPage: this.props.showCover,
       onPauseClicked: this.props.onPauseClicked,
+      onExitClicked: this.props.onExitClicked,
     }
 
     return <NavigationBar {...navProps} />

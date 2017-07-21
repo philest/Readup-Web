@@ -13,8 +13,14 @@ export const ReaderStateOptions = {
   doneDisplayingPlayback: 'READER_STATE_PLAYBACK',
   submitted: 'READER_STATE_SUBMITTED',
 }
-export type ReaderState = Keys<typeof ReaderStateTypes>;
+export type ReaderState = Keys<typeof ReaderStateOptions>;
 
+export const PauseTypeOptions = {
+  noPause: 'PAUSE_TYPE_NOT_PAUSED',
+  fromPauseButton: 'PAUSE_TYPE_PAUSE_BUTTON',
+  contemplatingExit: 'PAUSE_TYPE_MAY_EXIT'
+}
+export type PauseType = Keys<typeof PauseTypeOptions>;
 
 export const MicPermissionsStatusOptions = {
 	granted: 'MIC_PERMISSIONS_STATUS_GRANTED',

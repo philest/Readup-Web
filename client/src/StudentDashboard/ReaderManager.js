@@ -12,12 +12,13 @@ import { bindActionCreators } from 'redux'
 import Reader from './Reader'
 import Recorder from './recorder' 
 
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
+import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
 
 import styles from './styles.css'
 
 import DoneModal from './modals/DoneModal'
 import PausedModal from './modals/PausedModal'
+import ExitModal from './modals/ExitModal'
 import MicModal from './modals/MicModal'
 import PlaybackModal from './modals/PlaybackModal'
 
@@ -56,6 +57,8 @@ function mapStateToProps (state) {
     // micEnabled: state.reader.micEnabled,
     pageNumber: state.reader.pageNumber,
     readerState: state.reader.readerState,
+    pauseType: state.reader.pauseType,
+    hasRecordedSomething: state.reader.hasRecordedSomething,
     numPages: state.reader.book.numPages,
     book: state.reader.book,
     recorder: state.reader.recorder, // TODO probably shouldn't have access
@@ -120,7 +123,7 @@ class StudentDashboard extends React.Component {
 
   onPauseClicked = () => {
     console.log('PAUSE CLICKED')
-    this.props.actions.pauseRecording()
+    this.props.actions.pauseRecording(PauseTypeOptions.fromPauseButton)
   }
 
   onUnpauseClicked = () => {
@@ -166,13 +169,30 @@ class StudentDashboard extends React.Component {
 
   /* Rando other callbacks */
 
-  onPermisionsArrowClicked = () => {
-    // TODO stop double playing
-    this.props.actions.clickedPermissionsArrow()
-    // or actually maybe do dispatch PLAY_SOUND
-    // that was can take advantage of take_first / take_latest to prevent double play
+  onExitClicked = () => {
+    console.log('EXIT CLICKED')
+
+    if (this.props.readerState === ReaderStateOptions.submitted) {
+      // pressed exit on teacher demo page
+      window.location.href = "/"
+    }
+    else {
+      this.props.actions.pauseRecording(PauseTypeOptions.contemplatingExit)
+    }
+    
   }
 
+  onPermisionsArrowClicked = () => {
+    this.props.actions.clickedPermissionsArrow()
+  }
+
+  exitAndUploadRecording = () => {
+
+  }
+
+  exitAbandonState = () => {
+
+  }
 
 
   /* Rendering */
@@ -197,6 +217,7 @@ class StudentDashboard extends React.Component {
       bookAuthor: this.props.book.author,
       showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
+      onExitClicked: this.onExitClicked,
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
@@ -234,12 +255,21 @@ class StudentDashboard extends React.Component {
   renderModalComponentOrNullBasedOnState = () => {
 
     let ModalContentComponent = null;
-    if (this.props.readerState === ReaderStateOptions.paused) {
+    if (this.props.readerState === ReaderStateOptions.paused && this.props.pauseType === PauseTypeOptions.fromPauseButton) {
       ModalContentComponent =
         <PausedModal
           onContinueClicked={this.onUnpauseClicked}
           onStartOverClicked={this.onStartOverClicked}
           onTurnInClicked={this.onTurnInClicked}
+        />
+    }
+    else if (this.props.readerState === ReaderStateOptions.paused && this.props.pauseType === PauseTypeOptions.contemplatingExit) {
+      ModalContentComponent =
+        <ExitModal
+          startedRecording={this.props.hasRecordedSomething}
+          onContinueClicked={this.onUnpauseClicked}
+          onExitAndUploadClicked={this.exitAndUploadRecording}
+          onExitNoUploadClicked={this.exitAbandonState}
         />
     }
     else if (this.props.readerState === ReaderStateOptions.doneDisplayingPlayback) {

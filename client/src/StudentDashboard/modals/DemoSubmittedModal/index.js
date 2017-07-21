@@ -34,6 +34,7 @@ export default class DemoSubmittedModal extends React.Component {
           className={indexStyles.navBar}
           studentName={this.props.studentName}
           showPauseButton={false}
+          onExitClicked={this.props.onLogoutClicked}
         />
 
         <div className={styles.submittedContainer}>
