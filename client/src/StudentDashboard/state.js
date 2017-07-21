@@ -32,6 +32,7 @@ export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 
 
 export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
+export const IS_DEMO_SET = 'IS_DEMO_SET'
 
 
 export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
@@ -113,6 +114,15 @@ export function bookIntroRecordingEnded() {
 export function clickedPermissionsArrow() {
   return {
     type: PERMISSIONS_ARROW_CLICKED,
+  }
+}
+
+export function setIsDemo(isDemo) {
+  return {
+    type: IS_DEMO_SET,
+    payload: {
+      isDemo,
+    }
   }
 }
 
@@ -239,9 +249,11 @@ function reducer(state = initialState, action = {}) {
       return { ...state, readerState: ReaderStateOptions.inProgress }
     }
     case RECORDING_SUBMIT: {
-      setTimeout(() => {
-        window.location.href = "/" // TODO where to redirect?
-      }, 5000)
+      if (!state.isDemo) {
+        setTimeout(() => {
+          window.location.href = "/" // TODO where to redirect?
+        }, 5000)
+      }
       return { ...state, readerState: ReaderStateOptions.submitted }
     }
     case RECORDING_RESTART: {
@@ -255,6 +267,10 @@ function reducer(state = initialState, action = {}) {
 
     case PERMISSIONS_ARROW_CLICKED: {
       return state
+    }
+
+    case IS_DEMO_SET: {
+      return { ...state, isDemo: payload.isDemo }
     }
 
     default: return state;

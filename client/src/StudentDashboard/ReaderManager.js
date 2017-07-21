@@ -24,6 +24,7 @@ import PlaybackModal from './modals/PlaybackModal'
 // these are really overlays
 // should probably rename in the future
 import SubmittedModal from './modals/SubmittedModal'
+import DemoSubmittedModal from './modals/DemoSubmittedModal'
 import PermissionsModal from './modals/PermissionsModal'
 import CountdownModal from './modals/CountdownModal'
 
@@ -69,6 +70,7 @@ function mapDispatchToProps (dispatch) {
 class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
+    isDemo: PropTypes.bool,
   };
 
   constructor(props, _railsContext) {
@@ -78,6 +80,8 @@ class StudentDashboard extends React.Component {
 
 
   componentWillMount() {
+
+    this.props.actions.setIsDemo(this.props.isDemo)
 
     if (!Recorder.browserSupportsRecording()) {
       alert("Your browser cannot record audio. Please switch to Chrome or Firefox.")
@@ -175,14 +179,23 @@ class StudentDashboard extends React.Component {
 
   // Returns a Reader component with /prop/er props based on page number
   renderReaderComponentWithProps = () => {
+
+
+    if (this.props.readerState === ReaderStateOptions.submitted) {
+      return <DemoSubmittedModal />
+    }
+
+
+
     const basicReaderProps = {
       // stuff that doesn't change with page number
       studentName: this.props.studentName,
       pathname: this.props.location.pathname,
-      isDemo: (this.props.match.params.story_id === 'demo'),
+      isDemo: this.props.isDemo,
       coverImageURL: this.props.book.coverImage,
       bookTitle: this.props.book.title,
       bookAuthor: this.props.book.author,
+      showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
     }
 
@@ -263,7 +276,7 @@ class StudentDashboard extends React.Component {
   }
 
   renderOverlayOrNullBasedOnState = () => {
-    if (this.props.readerState === ReaderStateOptions.submitted) {
+    if (this.props.readerState === ReaderStateOptions.submitted && !this.props.isDemo) {
       return <SubmittedModal />
     }
     else if (this.props.readerState === ReaderStateOptions.awaitingPermissions) {
@@ -313,6 +326,12 @@ class StudentDashboard extends React.Component {
 
     if (this.props.readerState === ReaderStateOptions.initializing) {
       return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
+    }
+
+    if (this.props.readerState === ReaderStateOptions.submitted && this.props.isDemo) {
+      return <DemoSubmittedModal studentName={this.props.studentName} onLogoutClicked={() => {
+        window.location.href = "/" // ** TODO **
+      }} />
     }
 
     if (this.props.readerState === ReaderStateOptions.permissionsBlocked) {

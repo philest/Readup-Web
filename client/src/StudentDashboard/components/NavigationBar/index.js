@@ -13,12 +13,14 @@ export default class NavigationBar extends React.Component {
     // cover related stuff
     isCoverPage: PropTypes.bool,
     showPauseButton: PropTypes.bool,
+    showBookInfo: PropTypes.bool,
     bookTitle: PropTypes.string,
     bookAuthor: PropTypes.string,
   };
   static defaultProps = {
-    isCoverPage: false,
     showPauseButton: true,
+    isCoverPage: false,
+    showBookInfo: false,
   }
 
   /**
@@ -40,29 +42,37 @@ export default class NavigationBar extends React.Component {
         <div className={css.subContainer}>
           <span className={css.brandText}>ReadUp</span>
         </div>
-        <div className={css.subContainer}>
-          <div className={css.centerDisplayContainer}>
+        
+        { this.props.showPauseButton && 
 
-          { this.props.showPauseButton && 
-            <RectangleButton
-              title={'Pause'}
-              subtitle={'recording'}
-              style={{ marginTop: 20, backgroundColor: '#9D2C28' }}
-              id="navigation-button"
-              onClick={this.props.onPauseClicked}
-            />
-          }
-
-          { !this.props.showPauseButton && 
-            <BookInfoHeader
-              title={this.props.bookTitle}
-              subtitle={( 'by ' + this.props.bookAuthor)}
-              style={{ marginTop: 20 }}
-            />
-          }
-            
+          <div className={css.subContainer}>
+            <div className={css.centerDisplayContainer}>
+              <RectangleButton
+                title={'Pause'}
+                subtitle={'recording'}
+                style={{ marginTop: 20, backgroundColor: '#9D2C28' }}
+                id="navigation-button"
+                onClick={this.props.onPauseClicked}
+              />
+            </div>
           </div>
-        </div>
+
+        }
+
+        { (this.props.isCoverPage || this.props.showBookInfo) && 
+
+          <div className={css.subContainer}>
+            <div className={css.centerDisplayContainer}>
+              <BookInfoHeader
+                title={this.props.bookTitle}
+                subtitle={( 'by ' + this.props.bookAuthor)}
+                style={{ marginTop: 20 }}
+              />
+            </div>
+          </div>
+
+        }
+            
         <div className={css.subContainer}>
           <div className={css.rightDisplayContainer}>
             <span className={css.userNameLabel}>{this.props.studentName}</span>
