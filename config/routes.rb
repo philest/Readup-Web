@@ -46,5 +46,11 @@ Rails.application.routes.draw do
   get 'student_dashboard/', to: 'student_dashboard#index' # with added route info tacked on with hash, i.e. student_dashboard/#/story/:story_id/page/:page_id, handled by ReactRouter
 
 
+  # process audio
+  post '/audio_process/save_file', to: 'audio_process#save_file'
+  post '/audio_process/save_link', to: 'audio_process#save_link'
+
+  get '/audio_process', to: 'audio_process#index'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
