@@ -4,11 +4,15 @@ import { fork, call, take, takeLatest, takeEvery, cancel, put, select, apply } f
 import recorderSaga from './recorderSaga'
 import audioEffectsSaga from './audioEffectsSaga'
 
-import Recorder from '../recorder' 
+import Recorder from '../recorder'
 
-import { playSound, stopAudio } from '../audioPlayer'
 
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, PauseTypeOptions } from '../types'
+import {
+  ReaderStateOptions,
+  ReaderState,
+  MicPermissionsStatusOptions,
+  PauseTypeOptions
+} from '../types'
 
 
 // selectors
@@ -17,8 +21,51 @@ const getIsDemo = state => state.reader.isDemo
 
 
 // actions
+import {
+  // not currently used
+  MIC_SET_PERMISSIONS,
+  startRecording,
+  RECORDING_COUNTDOWN_TO_START,
+  RECORDING_START,
+  RECORDING_STOP,
+  RECORDING_PAUSE,
+  RECORDING_RESUME,
+  RECORDING_SUBMIT,
+  RECORDING_RESTART,
+  RECORDING_PLAYBACK,
+  PERMISSIONS_ARROW_CLICKED,
 
-import { MIC_SET_PERMISSIONS, START_RECORDING_CLICKED, STOP_RECORDING_CLICKED, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED, BOOK_INTRO_RECORDING_ENDED, NEXT_PAGE_CLICKED, PREVIOUS_PAGE_CLICKED, PAUSE_CLICKED, RESUME_CLICKED, RESTART_RECORDING_CLICKED, HEAR_RECORDING_CLICKED, TURN_IN_CLICKED, startCountdownToStart, setMicPermissions, startRecording, COUNTDOWN_ENDED, EXIT_CLICKED, setReaderState, setPageNumber, setHasRecordedSomething, setCurrentSound, setRecordingURL, setCurrentModal, setCurrentOverlay } from '../state'
+  // currently being used
+
+  START_RECORDING_CLICKED,
+  STOP_RECORDING_CLICKED,
+
+  PAGE_INCREMENT,
+  PAGE_DECREMENT,
+
+
+  BOOK_INTRO_RECORDING_ENDED,
+  NEXT_PAGE_CLICKED,
+  PREVIOUS_PAGE_CLICKED,
+  PAUSE_CLICKED,
+  RESUME_CLICKED,
+  RESTART_RECORDING_CLICKED,
+  HEAR_RECORDING_CLICKED,
+  TURN_IN_CLICKED,
+
+  COUNTDOWN_ENDED,
+  EXIT_CLICKED,
+
+  startCountdownToStart,
+  setMicPermissions,
+  setReaderState,
+  setPageNumber,
+  setHasRecordedSomething,
+  setCurrentSound,
+  setRecordingURL,
+  setCurrentModal,
+  setCurrentOverlay,
+} from '../state'
 
 
 
@@ -36,7 +83,7 @@ function getPermission(recorder) {
         resolve(true)
       }
 
-    })  
+    })
   });
 
 }
@@ -58,26 +105,19 @@ function* getMicPermissions() {
     yield put(setMicPermissions(MicPermissionsStatusOptions.granted))
     return true
   }
-  else {
-    yield put(setMicPermissions(MicPermissionsStatusOptions.awaiting))
-    yield put(setCurrentOverlay('overlay-permissions'))
 
-    // initialize
-    const recorder = yield select(getRecorder)
-    const getPermissionSuccess = yield call(getPermission, recorder)
+  yield put(setMicPermissions(MicPermissionsStatusOptions.awaiting))
+  yield put(setCurrentOverlay('overlay-permissions'))
 
-    yield put(setCurrentOverlay('no-overlay'))
-    
-    if (getPermissionSuccess) {
-      yield put(setMicPermissions(MicPermissionsStatusOptions.granted))
-      return true
-    }
-    else {
-      yield put(setMicPermissions(MicPermissionsStatusOptions.blocked))
-      return false
-    }
-  }
+  // initialize
+  const recorder = yield select(getRecorder)
+  const getPermissionSuccess = yield call(getPermission, recorder)
 
+  yield put(setCurrentOverlay('no-overlay'))
+
+  const micPermissions = getPermissionSuccess ? MicPermissionsStatusOptions.granted : MicPermissionsStatusOptions.blocked
+  yield put(setMicPermissions(micPermissions))
+  return micPermissions
 }
 
 function* onExit() {
@@ -103,7 +143,7 @@ export default function* rootSaga() {
 
   let recorder = yield select(getRecorder)
 
-  const permissionsGranted = yield getMicPermissions() // blocks
+  const permissionsGranted = yield* getMicPermissions() // blocks
 
   if (!permissionsGranted) {
     return
@@ -148,7 +188,7 @@ export default function* rootSaga() {
 
 
     // TODO submit the recording
-    
+
     yield put(setReaderState(ReaderStateOptions.submitted))
 
     const isDemo = yield select(getIsDemo)
@@ -161,7 +201,7 @@ export default function* rootSaga() {
         window.location.href = "/" // TODO where to redirect?
       }, 5000)
     }
-    
+
   })
 
 
@@ -204,21 +244,21 @@ export default function* rootSaga() {
   yield put(setReaderState(ReaderStateOptions.done))
   recorder = yield select(getRecorder)
   const blobURL = yield stopRecorderAndGetBlobURL(recorder)
-  
+
   yield put(setRecordingURL(blobURL))
   yield put(setCurrentModal('modal-done'))
   // yield apply(recorder, recorder.forceDownloadRecording, ['_test_.wav'])
-  
+
   yield takeEvery(HEAR_RECORDING_CLICKED, function* (action) {
     yield put(setCurrentModal('modal-playback'))
   })
 
-  
-  
 
 
 
-  
+
+
+
 
 }
 

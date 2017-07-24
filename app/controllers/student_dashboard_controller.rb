@@ -4,6 +4,14 @@ class StudentDashboardController < ApplicationController
 
   def index
     stu = Student.find_by(id: session[:student_id])
+
+    session[:student_id] = 100
+   return @student_dashboard_props = {
+      studentName: "Demo Student",
+      teacherName: "Sum Dum Teachum",
+    }
+
+
     if stu
       @student_dashboard_props = {
         studentName: "#{stu.first_name} #{stu.last_name}",
