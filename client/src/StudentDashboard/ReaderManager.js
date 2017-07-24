@@ -12,20 +12,22 @@ import { bindActionCreators } from 'redux'
 import Reader from './Reader'
 import Recorder from './recorder' 
 
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
+import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
 
 import styles from './styles.css'
 
 import DoneModal from './modals/DoneModal'
 import PausedModal from './modals/PausedModal'
+import ExitModal from './modals/ExitModal'
 import MicModal from './modals/MicModal'
 import PlaybackModal from './modals/PlaybackModal'
 
 // these are really overlays
 // should probably rename in the future
-import SubmittedModal from './modals/SubmittedModal'
-import PermissionsModal from './modals/PermissionsModal'
-import CountdownModal from './modals/CountdownModal'
+import SubmittedOverlay from './overlays/SubmittedOverlay'
+import DemoSubmittedOverlay from './overlays/DemoSubmittedOverlay'
+import PermissionsOverlay from './overlays/PermissionsOverlay'
+import CountdownOverlay from './overlays/CountdownOverlay'
 
 import { Modal } from 'react-bootstrap'
 
@@ -43,21 +45,19 @@ import {
 const PRELOAD_IMAGES_ADVANCE = 3
 
 
-
-const hasGetUserMedia = !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-                        navigator.mozGetUserMedia || navigator.msGetUserMedia);
-
-
-
-
 function mapStateToProps (state) {
   return {
     // micEnabled: state.reader.micEnabled,
     pageNumber: state.reader.pageNumber,
     readerState: state.reader.readerState,
+    pauseType: state.reader.pauseType,
+    hasRecordedSomething: state.reader.hasRecordedSomething,
     numPages: state.reader.book.numPages,
     book: state.reader.book,
     recorder: state.reader.recorder, // TODO probably shouldn't have access
+    recordingURL: state.reader.recordingURL,
+    currentShowModal: state.reader.currentModalId,
+    currentShowOverlay: state.reader.currentOverlayId,
   }
 }
 
@@ -65,10 +65,11 @@ function mapDispatchToProps (dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) }
 }
 
-
+//todo
 class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
+    isDemo: PropTypes.bool,
   };
 
   constructor(props, _railsContext) {
@@ -79,31 +80,15 @@ class StudentDashboard extends React.Component {
 
   componentWillMount() {
 
+    this.props.actions.setIsDemo(this.props.isDemo)
+
     if (!Recorder.browserSupportsRecording()) {
       alert("Your browser cannot record audio. Please switch to Chrome or Firefox.")
       return
     }
 
     // This stuff kicks off the process, gets state out of initializing
-    Recorder.hasRecordingPermissions((hasPermissions) => {
-      console.log("We have permissions? " + hasPermissions)
-      if (hasPermissions) {
-        this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
-      }
-      else {
-        this.props.actions.setMicPermissions(MicPermissionsStatusOptions.awaiting)
-        this.props.recorder.initialize((error) => {
-          // User responded to permissions request
-          if (error) {
-            this.props.actions.setMicPermissions(MicPermissionsStatusOptions.blocked)
-          }
-          else {
-            this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
-          }
-
-        })
-      }
-    });
+    
 
   }
 
@@ -111,79 +96,44 @@ class StudentDashboard extends React.Component {
     console.log('ReaderManager updated to pageNumber:  ' + this.props.pageNumber)
   }
 
-
-  /* Main State Callbacks */
-
-  onPauseClicked = () => {
-    console.log('PAUSE CLICKED')
-    this.props.actions.pauseRecording()
-  }
-
-  onUnpauseClicked = () => {
-    console.log('UNPAUSE CLICKED')
-    this.props.actions.resumeRecording()
-  }
-
-  onStopClicked = () => {
-    console.log("STOP CLICKED")
-    this.props.actions.stopRecording()
-  }
-
-  onTurnInClicked = () => {
-    console.log('TURN IN CLICKED')
-    this.props.actions.submitRecording()
-  }
-
-  onStartClicked = () => {
-    console.log('START CLICKED')
-    this.props.actions.startCountdownToStart()
-  }
-
-  onStartOverClicked = () => {
-    console.log('START OVER CLICKED')
-    this.props.actions.restartRecording()
-  }
-
-  onHearRecordingClicked = () => {
-    console.log('HEAR RECORDING CLICKED')
-    this.props.actions.playbackRecording()
-  }
-
-  onNextPageClicked = () => {
-    console.log('NEXT PAGE CLICKED')
-    this.props.actions.incrementPage()
-  }
-
-  onPreviousPageClicked = () => {
-    console.log('PREVIOUS PAGE CLICKED')
-    this.props.actions.decrementPage()
-  }
-
-
-  /* Rando other callbacks */
+ 
 
   onPermisionsArrowClicked = () => {
-    // TODO stop double playing
     this.props.actions.clickedPermissionsArrow()
-    // or actually maybe do dispatch PLAY_SOUND
-    // that was can take advantage of take_first / take_latest to prevent double play
   }
 
+  exitAndUploadRecording = () => {
+
+  }
+
+  exitAbandonState = () => {
+
+  }
 
 
   /* Rendering */
 
   // Returns a Reader component with /prop/er props based on page number
   renderReaderComponentWithProps = () => {
+
+
+    // if (this.props.readerState === ReaderStateOptions.submitted) {
+    //   return <DemoSubmittedModal />
+    // }
+
+
+
     const basicReaderProps = {
       // stuff that doesn't change with page number
       studentName: this.props.studentName,
       pathname: this.props.location.pathname,
-      isDemo: (this.props.match.params.story_id === 'demo'),
+      isDemo: this.props.isDemo,
       coverImageURL: this.props.book.coverImage,
       bookTitle: this.props.book.title,
       bookAuthor: this.props.book.author,
+      showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
+      onExitClicked: this.props.actions.exitClicked,
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
@@ -194,7 +144,7 @@ class StudentDashboard extends React.Component {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
-        onStartClicked: this.onStartClicked,
+        onStartClicked: this.props.actions.startRecordingClicked,
       }
     }
     else { // any other page... 
@@ -207,10 +157,10 @@ class StudentDashboard extends React.Component {
         showPauseButton: this.props.readerState === ReaderStateOptions.inProgress,
         isFirstPage: (this.props.pageNumber == 1),
         isLastPage: (this.props.pageNumber == this.props.numPages),
-        onPreviousPageClicked: this.onPreviousPageClicked,
-        onPauseClicked: this.onPauseClicked,
-        onNextPageClicked: (this.props.pageNumber == this.props.numPages) ? null : this.onNextPageClicked,
-        onStopClicked: (this.props.pageNumber == this.props.numPages) ? this.onStopClicked : null,
+        onPreviousPageClicked: this.props.actions.previousPageClicked,
+        onPauseClicked: this.props.actions.pauseClicked,
+        onNextPageClicked: this.props.actions.nextPageClicked,
+        onStopClicked: this.props.actions.stopRecordingClicked,
       }
     }
 
@@ -220,61 +170,59 @@ class StudentDashboard extends React.Component {
 
   renderModalComponentOrNullBasedOnState = () => {
 
-    let ModalContentComponent = null;
-    if (this.props.readerState === ReaderStateOptions.paused) {
-      ModalContentComponent =
-        <PausedModal
-          onContinueClicked={this.onUnpauseClicked}
-          onStartOverClicked={this.onStartOverClicked}
-          onTurnInClicked={this.onTurnInClicked}
-        />
-    }
-    else if (this.props.readerState === ReaderStateOptions.doneDisplayingPlayback) {
-      ModalContentComponent =
-        <PlaybackModal
-          audioSrc={this.props.recorder.getBlobURL()}
-          onStartOverClicked={this.onStartOverClicked}
-          onTurnInClicked={this.onTurnInClicked}
-        />
-    }
-    else if (this.props.readerState === ReaderStateOptions.done) {
-      ModalContentComponent =
-        <DoneModal
-          onHearRecordingClicked={this.onHearRecordingClicked}
-          onTurnInClicked={this.onTurnInClicked}
-        />
-    }
-    else {
-      return null
-    }
-
-
     return (
-      <Modal
-        dialogClassName={styles.doneModalDialog}
-        className={styles.doneModal}
-        show={true}
-        onHide={this.close}
-        animation={true}
-      >
-        { ModalContentComponent }
-      </Modal>
+
+      <div>
+        <PausedModal
+          onContinueClicked={this.props.actions.resumeClicked}
+          onStartOverClicked={this.props.actions.restartRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
+        />
+    
+        <ExitModal
+          startedRecording={this.props.hasRecordedSomething}
+          onContinueClicked={this.props.actions.resumeClicked}
+          onExitAndUploadClicked={this.exitAndUploadRecording}
+          onExitNoUploadClicked={this.exitAbandonState}
+          currentShowModal={this.props.currentShowModal}
+        />
+    
+        <PlaybackModal
+          audioSrc={this.props.recordingURL}
+          onStartOverClicked={this.props.actions.restartRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
+        />
+    
+        <DoneModal
+          onHearRecordingClicked={this.props.actions.hearRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
+        />
+      </div>
     );
+
   }
 
   renderOverlayOrNullBasedOnState = () => {
-    if (this.props.readerState === ReaderStateOptions.submitted) {
-      return <SubmittedModal />
-    }
-    else if (this.props.readerState === ReaderStateOptions.awaitingPermissions) {
-      return <PermissionsModal onArrowClicked={this.onPermisionsArrowClicked} />
-    }
-    else if (this.props.readerState === ReaderStateOptions.countdownToStart) {
-      return <CountdownModal countdownDuration={3} onCountdownFinished={() => {
-        this.props.actions.startRecording()
-      }} />
-    }
-    return null
+    return (
+      <div>
+        <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
+        <PermissionsOverlay currentShowOverlay={this.props.currentShowOverlay} onArrowClicked={this.onPermisionsArrowClicked} />
+        <DemoSubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} studentName={this.props.studentName} onLogoutClicked={() => {
+          window.location.href = "/" // ** TODO **
+        }} />
+
+        {
+          (this.props.readerState === ReaderStateOptions.countdownToStart) &&
+          <CountdownOverlay countdownDuration={3} onCountdownFinished={() => {
+            this.props.actions.countdownEnded()
+          }} />
+        }
+      </div>
+    );
+
   }
 
 
@@ -320,7 +268,6 @@ class StudentDashboard extends React.Component {
         <div>You blocked us!</div>
       );
     }
-
 
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()

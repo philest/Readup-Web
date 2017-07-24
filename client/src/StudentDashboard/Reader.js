@@ -40,6 +40,7 @@ export default class Reader extends React.Component {
     showPauseButton: PropTypes.bool,
     isFirstPage: PropTypes.bool,
     isLastPage: PropTypes.bool,
+    showBookInfo: PropTypes.bool,
     disabled: PropTypes.bool,
 
     // Callback functions
@@ -50,12 +51,14 @@ export default class Reader extends React.Component {
     onStartClicked: PropTypes.func,
     onNextPageClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
+    onExitClicked: PropTypes.func,
   };
 
   static defaultProps = {
     isDemo: false,
     // Default to showing a regular page (neither cover nor first nor last)
     showCover: false,
+    showBookInfo: false,
     isFirstPage: false,
     isLastPage: false,
     showPauseButton: true,
@@ -165,10 +168,12 @@ export default class Reader extends React.Component {
       className: styles.navBar,
       studentName: this.props.studentName,
       showPauseButton: this.props.showPauseButton,
+      showBookInfo: this.props.showBookInfo,
       bookTitle: this.props.bookTitle,
       bookAuthor: this.props.bookAuthor,
       isCoverPage: this.props.showCover,
       onPauseClicked: this.props.onPauseClicked,
+      onExitClicked: this.props.onExitClicked,
     }
 
     return <NavigationBar {...navProps} />

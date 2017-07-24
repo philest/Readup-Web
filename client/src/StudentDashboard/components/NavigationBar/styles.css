@@ -59,6 +59,18 @@
 
 .logoutLabel {
 	font-weight: bold;
+	color: white;
+	cursor: pointer;
+}
+
+.logoutLabel:visited {
+	color: white;
+}
+
+.logoutLabel:hover {
+	color: white;
+	background-color: transparent;
+	text-decoration: none;
 }
 
 .logoutIcon {

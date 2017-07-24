@@ -2,16 +2,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import styles from './styles.css'
-import commonStyles from '../commonstyles.css'
+import commonStyles from '../../modals/commonstyles.css'
 
-import ModalHeader from '../subcomponents/ModalHeader'
-import RectangleButton from 'StudentDashboard/components/RectangleButton'
-import ButtonArray from '../subcomponents/ButtonArray'
+const THIS_OVERLAY_ID = 'overlay-submitted'
 
 export default class SubmittedModal extends React.Component {
   static propTypes = {
     onStartOverClicked: PropTypes.func,  // TODO required?
     onTurnInClicked: PropTypes.func,
+
+    currentShowOverlay: PropTypes.string,
   };
 
   /**
@@ -24,6 +24,11 @@ export default class SubmittedModal extends React.Component {
   }
 
   render() {
+
+    if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {
+      return null
+    }
+    
     return (
       <div className={commonStyles.fill}>
         <div className={styles.submittedContainer}>

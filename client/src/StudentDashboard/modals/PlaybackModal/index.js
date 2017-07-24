@@ -8,11 +8,17 @@ import ModalHeader from '../subcomponents/ModalHeader'
 import RectangleButton from 'StudentDashboard/components/RectangleButton'
 import ButtonArray from '../subcomponents/ButtonArray'
 
+import BaseModal from '../BaseModal'
+
+const THIS_MODAL_ID = 'modal-playback'
+
 export default class PlaybackModal extends React.Component {
   static propTypes = {
-    audioSrc: PropTypes.string.isRequired,
+    audioSrc: PropTypes.string,
     onStartOverClicked: PropTypes.func,  // TODO required?
     onTurnInClicked: PropTypes.func,
+
+    currentShowModal: PropTypes.string,
   };
 
   /**
@@ -26,10 +32,7 @@ export default class PlaybackModal extends React.Component {
 
   render() {
     return (
-      <div className={commonStyles.modalContainer}>
-        <div className={commonStyles.modalHeaderWrapper}>
-          <ModalHeader title="Your Recording" />
-        </div>
+      <BaseModal title='Your Recording' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
 
         <div className={styles.playbackContainer}>
           <h4 style={{ fontWeight: 'bold', marginTop: 20 }}>Hear it</h4>
@@ -48,7 +51,7 @@ export default class PlaybackModal extends React.Component {
         </div>
 
 
-      </div>
+      </BaseModal>
 
 
     );

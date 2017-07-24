@@ -5,10 +5,16 @@ import styles from './styles.css'
 import ModalHeader from '../subcomponents/ModalHeader'
 import ButtonArray from '../subcomponents/ButtonArray'
 
+import BaseModal from '../BaseModal'
+
+const THIS_MODAL_ID = 'modal-done'
+
 export default class DoneModal extends React.Component {
   static propTypes = {
     onHearRecordingClicked: PropTypes.func,
     onTurnInClicked: PropTypes.func,
+
+    currentShowModal: PropTypes.string,
   };
 
   /**
@@ -22,10 +28,7 @@ export default class DoneModal extends React.Component {
 
   render() {
     return (
-      <div className={styles.doneModalContainer}>
-        <div className={styles.doneModalHeaderWrapper}>
-          <ModalHeader title="You're Done!" />
-        </div>
+       <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
 
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
@@ -36,7 +39,7 @@ export default class DoneModal extends React.Component {
         </div>
 
 
-      </div>
+      </BaseModal>
 
 
     );

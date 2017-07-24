@@ -11,11 +11,36 @@
 // TODO REMOVE, put recorder logic in saga
 import Recorder from './recorder' 
 
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus } from './types'
+import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
 
+
+export const READER_STATE_SET = 'READER_STATE_SET'
+
+export const COUNTDOWN_ENDED = 'COUNTDOWN_ENDED'
+export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
+
+
+export const START_RECORDING_CLICKED = 'CLICK_START_READING'
+export const STOP_RECORDING_CLICKED = 'CLICK_STOP_RECORDING'
+export const PAUSE_CLICKED = 'PAUSE_CLICKED'
+export const RESUME_CLICKED = 'RESUME_CLICKED'
+export const NEXT_PAGE_CLICKED = 'NEXT_PAGE_CLICKED'
+export const PREVIOUS_PAGE_CLICKED = 'PREVIOUS_PAGE_CLICKED'
+export const EXIT_CLICKED = 'EXIT_CLICKED'
+export const RESTART_RECORDING_CLICKED = 'RESTART_RECORDING_CLICKED'
+export const TURN_IN_CLICKED = 'TURN_IN_CLICKED'
+export const HEAR_RECORDING_CLICKED = 'HEAR_RECORDING_CLICKED'
+export const RECORDING_URL_SET = 'RECORDING_URL_SET'
+
+
+
+export const CURRENT_SOUND_SET = 'CURRENT_SOUND_SET'
+export const CURRENT_MODAL_SET = 'CURRENT_MODAL_SET'
+export const CURRENT_OVERLAY_SET = 'CURRENT_OVERLAY_SET'
 
 export const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
 export const BOOK_INTRO_RECORDING_ENDED = 'BOOK_INTRO_RECORDING_ENDED'
+export const PAGE_NUMBER_SET = 'PAGE_NUMBER_SET'
 
 export const PAGE_INCREMENT = 'PAGE_INCREMENT'
 export const PAGE_DECREMENT = 'PAGE_DECREMENT'
@@ -26,13 +51,88 @@ export const RECORDING_STOP = 'RECORDING_STOP'
 export const RECORDING_PAUSE = 'RECORDING_PAUSE'
 export const RECORDING_RESUME = 'RECORDING_RESUME'
 export const RECORDING_SUBMIT = 'RECORDING_SUBMIT'
+export const RECORDING_SUBMITTED = 'RECORDING_SUBMITTED'
 export const RECORDING_RESTART = 'RECORDING_RESTART'
 export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 
 
 
 export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
+export const IS_DEMO_SET = 'IS_DEMO_SET'
 
+
+export function setReaderState(readerState: ReaderState) {
+  return {
+    type: READER_STATE_SET,
+    payload: {
+      readerState,
+    }
+  }
+}
+
+export function setPageNumber(pageNumber: number) {
+  return {
+    type: PAGE_NUMBER_SET,
+    payload: {
+      pageNumber,
+    }
+  }
+}
+
+export function setHasRecordedSomething(hasRecordedSomething: bool) {
+  return {
+    type: HAS_RECORDED_SOMETHING_SET,
+    payload: {
+      hasRecordedSomething,
+    }
+  }
+}
+
+
+export function startRecordingClicked() {
+  return {
+    type: START_RECORDING_CLICKED,
+  }
+}
+
+export function stopRecordingClicked() {
+  return {
+    type: STOP_RECORDING_CLICKED,
+  }
+}
+
+export function countdownEnded() {
+  return {
+    type: COUNTDOWN_ENDED,
+  }
+}
+
+export function setCurrentSound(currentSoundId: string) {
+  return {
+    type: CURRENT_SOUND_SET,
+    payload: {
+      currentSoundId,
+    }
+  }
+}
+
+export function setCurrentModal(currentModalId: string) {
+  return {
+    type: CURRENT_MODAL_SET,
+    payload: {
+      currentModalId,
+    }
+  }
+}
+
+export function setCurrentOverlay(currentOverlayId: string) {
+  return {
+    type: CURRENT_OVERLAY_SET,
+    payload: {
+      currentOverlayId,
+    }
+  }
+}
 
 export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
   return {
@@ -42,6 +142,75 @@ export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
     },
   }
 }
+
+export function pauseClicked() {
+  return {
+    type: PAUSE_CLICKED,
+  }
+}
+
+export function resumeClicked() {
+  return {
+    type: RESUME_CLICKED,
+  }
+}
+
+
+export function nextPageClicked() {
+  return {
+    type: NEXT_PAGE_CLICKED,
+  }
+}
+
+export function previousPageClicked() {
+  return {
+    type: PREVIOUS_PAGE_CLICKED,
+  }
+}
+
+export function exitClicked() {
+  return {
+    type: EXIT_CLICKED,
+  }
+}
+
+export function restartRecordingClicked() {
+  return {
+    type: RESTART_RECORDING_CLICKED,
+  }
+}
+
+
+export function turnInClicked() {
+  return {
+    type: TURN_IN_CLICKED,
+  }
+}
+
+
+export function hearRecordingClicked() {
+  return {
+    type: HEAR_RECORDING_CLICKED,
+  }
+}
+
+export function setRecordingURL(recordingURL: string) {
+  return {
+    type: RECORDING_URL_SET,
+    payload: {
+      recordingURL,
+    }
+  }
+}
+
+
+/* stil using these */
+
+
+
+
+
+
 
 export function incrementPage() {
   return {
@@ -73,9 +242,12 @@ export function stopRecording() {
   }
 }
 
-export function pauseRecording() {
+export function pauseRecording(pauseType: PauseType = PauseTypeOptions.fromPauseButton) {
   return {
     type: RECORDING_PAUSE,
+    payload: {
+      pauseType,
+    }
   }
 }
 
@@ -88,6 +260,12 @@ export function resumeRecording() {
 export function submitRecording() {
   return {
     type: RECORDING_SUBMIT,
+  }
+}
+
+export function recordingSubmitted() {
+  return {
+    type: RECORDING_SUBMITTED,
   }
 }
 
@@ -113,6 +291,15 @@ export function bookIntroRecordingEnded() {
 export function clickedPermissionsArrow() {
   return {
     type: PERMISSIONS_ARROW_CLICKED,
+  }
+}
+
+export function setIsDemo(isDemo) {
+  return {
+    type: IS_DEMO_SET,
+    payload: {
+      isDemo,
+    }
   }
 }
 
@@ -169,8 +356,14 @@ const initialState = {
   pageNumber: 0,
   book: sampleBook,
   readerState:  ReaderStateOptions.initializing,
+  pauseType: PauseTypeOptions.fromPauseButton,
+  hasRecordedSomething: false,
   recorder: new Recorder(),
+  recordingURL: null,
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
+  currentSoundId: 'no-sound',
+  currentModalId: 'no-modal',
+  currentOverlayId: 'no-overlay'
 }
 
 
@@ -186,6 +379,32 @@ function reducer(state = initialState, action = {}) {
 
 
   switch (type) {
+
+
+    case READER_STATE_SET: {
+      console.log('SET READER STATE:: ' + payload.readerState)
+      return { ...state, readerState: payload.readerState }
+    }
+
+    case PAGE_NUMBER_SET: {
+      return { ...state, pageNumber: payload.pageNumber }
+    }
+
+    case HAS_RECORDED_SOMETHING_SET: {
+      return { ...state, hasRecordedSomething: payload.hasRecordedSomething }
+    }
+
+    case CURRENT_SOUND_SET: {
+      return { ...state, currentSoundId: payload.currentSoundId }
+    }
+
+    case CURRENT_MODAL_SET: {
+      return { ...state, currentModalId: payload.currentModalId }
+    }
+
+    case CURRENT_OVERLAY_SET: {
+      return { ...state, currentOverlayId: payload.currentOverlayId }
+    }
 
     case MIC_SET_PERMISSIONS: {
 
@@ -206,9 +425,13 @@ function reducer(state = initialState, action = {}) {
       
     }
 
-    case BOOK_INTRO_RECORDING_ENDED: {
-      return { ...state, readerState: ReaderStateOptions.awaitingStart }
+    case RECORDING_URL_SET: {
+      return { ...state, recordingURL: payload.recordingURL}
     }
+
+    // case BOOK_INTRO_RECORDING_ENDED: {
+    //   return { ...state, readerState: ReaderStateOptions.awaitingStart }
+    // }
 
     case PAGE_INCREMENT: {
       history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
@@ -218,35 +441,37 @@ function reducer(state = initialState, action = {}) {
       history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber-1))
       return { ...state, pageNumber: state.pageNumber - 1}
     }
-    case RECORDING_COUNTDOWN_TO_START: {
-      history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
-      return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
-    }
-    case RECORDING_START: {
-      state.recorder.startRecording()
-      return { ...state, readerState: ReaderStateOptions.inProgress}
-    }
-    case RECORDING_STOP: {
-      state.recorder.stopRecording()
-      return { ...state, readerState: ReaderStateOptions.done}
-    }
-    case RECORDING_PAUSE: {
-      state.recorder.pauseRecording()
-      return { ...state, readerState: ReaderStateOptions.paused }
-    }
-    case RECORDING_RESUME: {
-      state.recorder.resumeRecording()
-      return { ...state, readerState: ReaderStateOptions.inProgress }
-    }
-    case RECORDING_SUBMIT: {
-      setTimeout(() => {
-        window.location.href = "/" // TODO where to redirect?
-      }, 5000)
+    // case RECORDING_COUNTDOWN_TO_START: {
+    //   history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
+    //   return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
+    // }
+    // case RECORDING_START: {
+    //   return { ...state, readerState: ReaderStateOptions.inProgress, hasRecordedSomething: true }
+    // }
+    // case RECORDING_STOP: {
+    //   return { ...state, readerState: ReaderStateOptions.done}
+    // }
+    // case RECORDING_PAUSE: {
+    //   return { ...state, readerState: ReaderStateOptions.paused, pauseType: payload.pauseType }
+    // }
+    // case RECORDING_RESUME: {
+    //   return { ...state, readerState: ReaderStateOptions.inProgress }
+    // }
+    // case RECORDING_SUBMIT: {
+    //   return { ...state }
+    // }
+
+
+    case RECORDING_SUBMITTED: {
+      if (!state.isDemo) {
+        setTimeout(() => {
+          window.location.href = "/" // TODO where to redirect?
+        }, 5000)
+      }
       return { ...state, readerState: ReaderStateOptions.submitted }
     }
     case RECORDING_RESTART: {
-      state.recorder.reset()
-      return { ...state, pageNumber: 0, readerState: ReaderStateOptions.inProgress }
+      return { ...state, pageNumber: 0, readerState: ReaderStateOptions.inProgress, hasRecordedSomething: false }
     }
     case RECORDING_PLAYBACK: {
       return { ...state, readerState: ReaderStateOptions.doneDisplayingPlayback }
@@ -255,6 +480,10 @@ function reducer(state = initialState, action = {}) {
 
     case PERMISSIONS_ARROW_CLICKED: {
       return state
+    }
+
+    case IS_DEMO_SET: {
+      return { ...state, isDemo: payload.isDemo }
     }
 
     default: return state;
