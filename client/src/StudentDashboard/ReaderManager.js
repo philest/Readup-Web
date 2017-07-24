@@ -24,10 +24,10 @@ import PlaybackModal from './modals/PlaybackModal'
 
 // these are really overlays
 // should probably rename in the future
-import SubmittedModal from './modals/SubmittedModal'
-import DemoSubmittedModal from './modals/DemoSubmittedModal'
-import PermissionsModal from './modals/PermissionsModal'
-import CountdownModal from './modals/CountdownModal'
+import SubmittedOverlay from './overlays/SubmittedOverlay'
+import DemoSubmittedOverlay from './overlays/DemoSubmittedOverlay'
+import PermissionsOverlay from './overlays/PermissionsOverlay'
+import CountdownOverlay from './overlays/CountdownOverlay'
 
 import { Modal } from 'react-bootstrap'
 
@@ -206,13 +206,13 @@ class StudentDashboard extends React.Component {
 
   renderOverlayOrNullBasedOnState = () => {
     if (this.props.readerState === ReaderStateOptions.submitted && !this.props.isDemo) {
-      return <SubmittedModal />
+      return <SubmittedOverlay />
     }
     else if (this.props.readerState === ReaderStateOptions.awaitingPermissions) {
-      return <PermissionsModal onArrowClicked={this.onPermisionsArrowClicked} />
+      return <PermissionsOverlay onArrowClicked={this.onPermisionsArrowClicked} />
     }
     else if (this.props.readerState === ReaderStateOptions.countdownToStart) {
-      return <CountdownModal countdownDuration={3} onCountdownFinished={() => {
+      return <CountdownOverlay countdownDuration={3} onCountdownFinished={() => {
         this.props.actions.countdownEnded()
       }} />
     }
@@ -258,7 +258,7 @@ class StudentDashboard extends React.Component {
     }
 
     if (this.props.readerState === ReaderStateOptions.submitted && this.props.isDemo) {
-      return <DemoSubmittedModal studentName={this.props.studentName} onLogoutClicked={() => {
+      return <DemoSubmittedOverlay studentName={this.props.studentName} onLogoutClicked={() => {
         window.location.href = "/" // ** TODO **
       }} />
     }

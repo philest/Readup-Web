@@ -2,11 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import styles from './styles.css'
-import commonStyles from '../commonstyles.css'
-
-import ModalHeader from '../subcomponents/ModalHeader'
-import RectangleButton from 'StudentDashboard/components/RectangleButton'
-import ButtonArray from '../subcomponents/ButtonArray'
+import commonStyles from '../../modals/commonstyles.css'
 
 export default class SubmittedModal extends React.Component {
   static propTypes = {

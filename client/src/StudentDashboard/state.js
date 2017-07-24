@@ -36,6 +36,7 @@ export const RECORDING_URL_SET = 'RECORDING_URL_SET'
 
 export const CURRENT_SOUND_SET = 'CURRENT_SOUND_SET'
 export const CURRENT_MODAL_SET = 'CURRENT_MODAL_SET'
+export const CURRENT_OVERLAY_SET = 'CURRENT_OVERLAY_SET'
 
 export const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
 export const BOOK_INTRO_RECORDING_ENDED = 'BOOK_INTRO_RECORDING_ENDED'
@@ -120,6 +121,15 @@ export function setCurrentModal(currentModalId: string) {
     type: CURRENT_MODAL_SET,
     payload: {
       currentModalId,
+    }
+  }
+}
+
+export function setCurrentOverlay(currentOverlayId: string) {
+  return {
+    type: CURRENT_OVERLAY_SET,
+    payload: {
+      currentOverlayId,
     }
   }
 }
@@ -351,8 +361,9 @@ const initialState = {
   recorder: new Recorder(),
   recordingURL: null,
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
-  currentSoundId: null,
-  currentModalId: null,
+  currentSoundId: 'no-sound',
+  currentModalId: 'no-modal',
+  currentOverlayId: 'no-overlay'
 }
 
 
@@ -389,6 +400,10 @@ function reducer(state = initialState, action = {}) {
 
     case CURRENT_MODAL_SET: {
       return { ...state, currentModalId: payload.currentModalId }
+    }
+
+    case CURRENT_OVERLAY_SET: {
+      return { ...state, currentOverlayId: payload.currentOverlayId }
     }
 
     case MIC_SET_PERMISSIONS: {
