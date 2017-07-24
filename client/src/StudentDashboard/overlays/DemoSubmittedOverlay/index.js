@@ -45,11 +45,14 @@ export default class DemoSubmittedModal extends React.Component {
 
         <div className={styles.submittedContainer}>
 
-        <div>
-          <img className={styles.submittedImage} src="/images/dashboard/paper-pen.png" />
-          <h4 className={styles.title}>Great, we're grading it now!</h4>
-          <p className={styles.subtitle}>We'll email you a full running record tonight.</p>
-        </div>
+          <div>
+            <div className={styles.images}>
+              <img className={styles.submittedImage} src="/images/dashboard/paper-pen.png" />
+              <img className={styles.loadingGif} src="/images/dashboard/rolling-small.gif" />
+            </div>
+            <h4 className={styles.title}>Great, we're grading it now!</h4>
+            <p className={styles.subtitle}>We'll email you a full running record tonight.</p>
+          </div>
 
         <div>
           <Button 

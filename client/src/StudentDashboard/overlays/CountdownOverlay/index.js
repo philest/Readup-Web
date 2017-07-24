@@ -24,7 +24,7 @@ export default class CountdownModal extends React.Component {
 
   countdownTick = () => {
     const newTimerValue = this.state.curTimerValue - 1
-    if (newTimerValue < 0) {
+    if (newTimerValue < 1) {
       return this.props.onCountdownFinished && this.props.onCountdownFinished()
     }
 

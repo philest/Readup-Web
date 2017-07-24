@@ -53,6 +53,7 @@ function checkPermission() {
 
 function* getMicPermissions() {
 
+
   const hasPermissions = yield call(checkPermission)
   if (hasPermissions) {
     yield put(setMicPermissions(MicPermissionsStatusOptions.granted))
