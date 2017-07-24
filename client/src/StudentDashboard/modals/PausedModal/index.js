@@ -8,11 +8,17 @@ import ModalHeader from '../subcomponents/ModalHeader'
 import RectangleButton from 'StudentDashboard/components/RectangleButton'
 import ButtonArray from '../subcomponents/ButtonArray'
 
+import BaseModal from '../BaseModal'
+
+const THIS_MODAL_ID = 'modal-paused'
+
 export default class PausedModal extends React.Component {
   static propTypes = {
     onContinueClicked: PropTypes.func.isRequired,
     onStartOverClicked: PropTypes.func,  // TODO required?
     onTurnInClicked: PropTypes.func,
+
+    currentShowModal: PropTypes.string,
   };
 
   /**
@@ -26,10 +32,7 @@ export default class PausedModal extends React.Component {
 
   render() {
     return (
-      <div className={commonStyles.modalContainer}>
-        <div className={commonStyles.modalHeaderWrapper}>
-          <ModalHeader title="Paused" />
-        </div>
+      <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
 
         <div className={styles.pausedModalContinueButtonWrapper}>
           <RectangleButton
@@ -49,7 +52,7 @@ export default class PausedModal extends React.Component {
         </div>
 
 
-      </div>
+      </BaseModal>
 
 
     );

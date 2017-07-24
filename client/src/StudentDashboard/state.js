@@ -26,14 +26,16 @@ export const PAUSE_CLICKED = 'PAUSE_CLICKED'
 export const RESUME_CLICKED = 'RESUME_CLICKED'
 export const NEXT_PAGE_CLICKED = 'NEXT_PAGE_CLICKED'
 export const PREVIOUS_PAGE_CLICKED = 'PREVIOUS_PAGE_CLICKED'
+export const EXIT_CLICKED = 'EXIT_CLICKED'
 export const RESTART_RECORDING_CLICKED = 'RESTART_RECORDING_CLICKED'
 export const TURN_IN_CLICKED = 'TURN_IN_CLICKED'
 export const HEAR_RECORDING_CLICKED = 'HEAR_RECORDING_CLICKED'
+export const RECORDING_URL_SET = 'RECORDING_URL_SET'
 
 
 
 export const CURRENT_SOUND_SET = 'CURRENT_SOUND_SET'
-export const CURRENT_MODAL_SET = 'CURRENT_SOUND_SET'
+export const CURRENT_MODAL_SET = 'CURRENT_MODAL_SET'
 
 export const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
 export const BOOK_INTRO_RECORDING_ENDED = 'BOOK_INTRO_RECORDING_ENDED'
@@ -152,7 +154,13 @@ export function nextPageClicked() {
 
 export function previousPageClicked() {
   return {
-    type: previousPageClicked,
+    type: PREVIOUS_PAGE_CLICKED,
+  }
+}
+
+export function exitClicked() {
+  return {
+    type: EXIT_CLICKED,
   }
 }
 
@@ -176,8 +184,17 @@ export function hearRecordingClicked() {
   }
 }
 
+export function setRecordingURL(recordingURL: string) {
+  return {
+    type: RECORDING_URL_SET,
+    payload: {
+      recordingURL,
+    }
+  }
+}
 
 
+/* stil using these */
 
 
 
@@ -332,6 +349,7 @@ const initialState = {
   pauseType: PauseTypeOptions.fromPauseButton,
   hasRecordedSomething: false,
   recorder: new Recorder(),
+  recordingURL: null,
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
   currentSoundId: null,
   currentModalId: null,
@@ -390,6 +408,10 @@ function reducer(state = initialState, action = {}) {
         default: return state
       }
       
+    }
+
+    case RECORDING_URL_SET: {
+      return { ...state, recordingURL: payload.recordingURL}
     }
 
     // case BOOK_INTRO_RECORDING_ENDED: {

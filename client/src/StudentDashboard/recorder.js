@@ -86,6 +86,10 @@ export default class Recorder {
     this.recording = true
 	}
 
+  isRecording() {
+    return this.recording
+  }
+
 	getBlob() {
     return this.rtcRecorder.getBlob()
 	}

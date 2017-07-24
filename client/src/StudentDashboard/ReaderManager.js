@@ -55,6 +55,8 @@ function mapStateToProps (state) {
     numPages: state.reader.book.numPages,
     book: state.reader.book,
     recorder: state.reader.recorder, // TODO probably shouldn't have access
+    recordingURL: state.reader.recordingURL,
+    currentShowModal: state.reader.currentModalId,
   }
 }
 
@@ -95,21 +97,6 @@ class StudentDashboard extends React.Component {
 
  
 
-  /* Rando other callbacks */
-
-  onExitClicked = () => {
-    console.log('EXIT CLICKED')
-
-    if (this.props.readerState === ReaderStateOptions.submitted) {
-      // pressed exit on teacher demo page
-      window.location.href = "/"
-    }
-    else {
-      this.props.actions.pauseRecording(PauseTypeOptions.contemplatingExit)
-    }
-    
-  }
-
   onPermisionsArrowClicked = () => {
     this.props.actions.clickedPermissionsArrow()
   }
@@ -145,7 +132,7 @@ class StudentDashboard extends React.Component {
       bookAuthor: this.props.book.author,
       showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
-      onExitClicked: this.onExitClicked,
+      onExitClicked: this.props.actions.exitClicked,
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
@@ -182,55 +169,39 @@ class StudentDashboard extends React.Component {
 
   renderModalComponentOrNullBasedOnState = () => {
 
-    let ModalContentComponent = null;
-    if (this.props.readerState === ReaderStateOptions.paused && this.props.pauseType === PauseTypeOptions.fromPauseButton) {
-      ModalContentComponent =
+    return (
+
+      <div>
         <PausedModal
           onContinueClicked={this.props.actions.resumeClicked}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
         />
-    }
-    else if (this.props.readerState === ReaderStateOptions.paused && this.props.pauseType === PauseTypeOptions.contemplatingExit) {
-      ModalContentComponent =
+    
         <ExitModal
           startedRecording={this.props.hasRecordedSomething}
           onContinueClicked={this.props.actions.resumeClicked}
           onExitAndUploadClicked={this.exitAndUploadRecording}
           onExitNoUploadClicked={this.exitAbandonState}
+          currentShowModal={this.props.currentShowModal}
         />
-    }
-    else if (this.props.readerState === ReaderStateOptions.doneDisplayingPlayback) {
-      ModalContentComponent =
+    
         <PlaybackModal
-          audioSrc={this.props.recorder.getBlobURL()}
-          onStartOverClicked={this.onStartOverClicked}
-          onTurnInClicked={this.onTurnInClicked}
+          audioSrc={this.props.recordingURL}
+          onStartOverClicked={this.props.actions.restartRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
         />
-    }
-    else if (this.props.readerState === ReaderStateOptions.done) {
-      ModalContentComponent =
+    
         <DoneModal
-          onHearRecordingClicked={this.onHearRecordingClicked}
-          onTurnInClicked={this.onTurnInClicked}
+          onHearRecordingClicked={this.props.actions.hearRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
         />
-    }
-    else {
-      return null
-    }
-
-
-    return (
-      <Modal
-        dialogClassName={styles.doneModalDialog}
-        className={styles.doneModal}
-        show={true}
-        onHide={this.close}
-        animation={true}
-      >
-        { ModalContentComponent }
-      </Modal>
+      </div>
     );
+
   }
 
   renderOverlayOrNullBasedOnState = () => {

@@ -17,7 +17,7 @@ const getRecorder = state => state.reader.recorder
 
 // actions
 
-import { MIC_SET_PERMISSIONS, START_RECORDING_CLICKED, STOP_RECORDING_CLICKED, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED, BOOK_INTRO_RECORDING_ENDED, NEXT_PAGE_CLICKED, PREVIOUS_PAGE_CLICKED, PAUSE_CLICKED, RESUME_CLICKED, RESTART_RECORDING_CLICKED, startCountdownToStart, setMicPermissions, startRecording, COUNTDOWN_ENDED, setReaderState, setPageNumber, setHasRecordedSomething, setCurrentSound } from '../state'
+import { MIC_SET_PERMISSIONS, START_RECORDING_CLICKED, STOP_RECORDING_CLICKED, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED, BOOK_INTRO_RECORDING_ENDED, NEXT_PAGE_CLICKED, PREVIOUS_PAGE_CLICKED, PAUSE_CLICKED, RESUME_CLICKED, RESTART_RECORDING_CLICKED, HEAR_RECORDING_CLICKED, TURN_IN_CLICKED, startCountdownToStart, setMicPermissions, startRecording, COUNTDOWN_ENDED, EXIT_CLICKED, setReaderState, setPageNumber, setHasRecordedSomething, setCurrentSound, setRecordingURL, setCurrentModal } from '../state'
 
 
 
@@ -75,6 +75,12 @@ function* getMicPermissions() {
 
 }
 
+function* onExit() {
+  yield takeLatest(EXIT_CLICKED, function* (payload) {
+    window.location.href = "/"
+  })
+}
+
 function stopRecorderAndGetBlobURL(recorder) {
   return new Promise(function(resolve, reject) {
     recorder.stopRecording((blobUrl) => {
@@ -97,6 +103,8 @@ export default function* rootSaga() {
   if (!permissionsGranted) {
     return
   }
+
+  const exitTask = yield fork(onExit)
 
   recorder = yield select(getRecorder)
   yield apply(recorder, recorder.initialize)
@@ -121,6 +129,20 @@ export default function* rootSaga() {
   yield put(setHasRecordedSomething(true))
 
 
+  yield cancel(exitTask)
+
+  yield takeLatest(EXIT_CLICKED, function* (payload) {
+    recorder = yield select(getRecorder)
+    yield apply(recorder, recorder.pauseRecording)
+    yield put(setReaderState(ReaderStateOptions.paused))
+    yield put(setCurrentModal('modal-exit'))
+  })
+
+  yield takeLatest(TURN_IN_CLICKED, function* (payload) {
+    // submit the recording
+    // need to put this up here because might turn in from paused view
+    yield put(setReaderState(ReaderStateOptions.submitted))
+  })
 
 
   yield takeEvery(PAUSE_CLICKED, function* (payload) {
@@ -128,6 +150,7 @@ export default function* rootSaga() {
     yield apply(recorder, recorder.pauseRecording)
     yield put(setReaderState(ReaderStateOptions.paused))
     yield put(setCurrentSound('/audio/paused.m4a'))
+    yield put(setCurrentModal('modal-paused'))
     // directly show modal here
   })
 
@@ -135,6 +158,7 @@ export default function* rootSaga() {
     recorder = yield select(getRecorder)
     yield apply(recorder, recorder.resumeRecording)
     yield put(setReaderState(ReaderStateOptions.inProgress))
+    yield put(setCurrentModal('no-modal'))
   })
 
   yield takeEvery(NEXT_PAGE_CLICKED, function* (payload) {
@@ -148,6 +172,9 @@ export default function* rootSaga() {
   yield takeEvery(RESTART_RECORDING_CLICKED, function* (action) {
     recorder = yield select(getRecorder)
     yield apply(recorder, recorder.reset)
+    yield put(setCurrentModal('no-modal'))
+    yield put(setReaderState(ReaderStateOptions.awaitingStart))
+    yield put(setPageNumber(0))
   })
 
 
@@ -158,16 +185,16 @@ export default function* rootSaga() {
   recorder = yield select(getRecorder)
   const blobURL = yield stopRecorderAndGetBlobURL(recorder)
   
-  yield apply(recorder, recorder.forceDownloadRecording, ['_test_.wav'])
-  const url = yield apply(recorder, recorder.getBlobURL)
-  yield call(console.log, '!!!!!!!!!')
-  yield call(console.log, url)
-
+  yield put(setRecordingURL(blobURL))
+  yield put(setCurrentModal('modal-done'))
+  // yield apply(recorder, recorder.forceDownloadRecording, ['_test_.wav'])
+  
+  yield takeEvery(HEAR_RECORDING_CLICKED, function* (action) {
+    yield put(setCurrentModal('modal-playback'))
+  })
 
   
-  yield takeLatest(RECORDING_SUBMIT, function* (payload) {
-    // submit the recording
-  })
+  
 
 
 

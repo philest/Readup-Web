@@ -8,12 +8,18 @@ import ModalHeader from '../subcomponents/ModalHeader'
 import RectangleButton from 'StudentDashboard/components/RectangleButton'
 import ButtonArray from '../subcomponents/ButtonArray'
 
+import BaseModal from '../BaseModal'
+
+const THIS_MODAL_ID = 'modal-exit'
+
 export default class ExitModal extends React.Component {
   static propTypes = {
     onContinueClicked: PropTypes.func,
     onExitAndUploadClicked: PropTypes.func,
     onExitNoUploadClicked: PropTypes.func,
     startedRecording: PropTypes.bool,
+
+    currentShowModal: PropTypes.string,
   };
   static defaultProps = {
     startedRecording: false,
@@ -29,11 +35,8 @@ export default class ExitModal extends React.Component {
 
   render() {
     return (
-      <div className={commonStyles.modalContainer}>
-        <div className={commonStyles.modalHeaderWrapper}>
+      <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
 
-          <ModalHeader title="Paused" />
-        </div>
 
         <div className={styles.exitModalTextWrapper}>
 
@@ -72,7 +75,7 @@ export default class ExitModal extends React.Component {
         </div>
 
 
-      </div>
+      </BaseModal>
 
 
     );
