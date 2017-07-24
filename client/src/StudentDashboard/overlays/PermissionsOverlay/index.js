@@ -3,9 +3,14 @@ import React from 'react';
 
 import styles from './styles.css'
 import commonStyles from '../../modals/commonstyles.css'
+
+const THIS_OVERLAY_ID = 'overlay-permissions'
+
 export default class PermissionsModal extends React.Component {
   static propTypes = {
     onArrowClicked: PropTypes.func,
+
+    currentShowOverlay: PropTypes.string,
   };
 
   /**
@@ -18,6 +23,11 @@ export default class PermissionsModal extends React.Component {
   }
 
   render() {
+
+    if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {
+      return null
+    }
+
     return (
       <div className={styles.permissionsContainer}>
         <h1 style={{ color: 'white', fontSize: '2.5em' }}>

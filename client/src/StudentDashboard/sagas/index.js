@@ -13,6 +13,7 @@ import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, PauseType
 
 // selectors
 const getRecorder = state => state.reader.recorder
+const getIsDemo = state => state.reader.isDemo
 
 
 // actions
@@ -59,10 +60,14 @@ function* getMicPermissions() {
   }
   else {
     yield put(setMicPermissions(MicPermissionsStatusOptions.awaiting))
+    yield put(setCurrentOverlay('overlay-permissions'))
 
     // initialize
     const recorder = yield select(getRecorder)
     const getPermissionSuccess = yield call(getPermission, recorder)
+
+    yield put(setCurrentOverlay('no-overlay'))
+    
     if (getPermissionSuccess) {
       yield put(setMicPermissions(MicPermissionsStatusOptions.granted))
       return true
@@ -139,9 +144,24 @@ export default function* rootSaga() {
   })
 
   yield takeLatest(TURN_IN_CLICKED, function* (payload) {
-    // submit the recording
     // need to put this up here because might turn in from paused view
+
+
+    // TODO submit the recording
+    
     yield put(setReaderState(ReaderStateOptions.submitted))
+
+    const isDemo = yield select(getIsDemo)
+    if (isDemo) {
+      yield put(setCurrentOverlay('overlay-demo-submitted'))
+    }
+    else {
+      yield put(setCurrentOverlay('overlay-submitted'))
+      setTimeout(() => {
+        window.location.href = "/" // TODO where to redirect?
+      }, 5000)
+    }
+    
   })
 
 

@@ -57,6 +57,7 @@ function mapStateToProps (state) {
     recorder: state.reader.recorder, // TODO probably shouldn't have access
     recordingURL: state.reader.recordingURL,
     currentShowModal: state.reader.currentModalId,
+    currentShowOverlay: state.reader.currentOverlayId,
   }
 }
 
@@ -116,9 +117,9 @@ class StudentDashboard extends React.Component {
   renderReaderComponentWithProps = () => {
 
 
-    if (this.props.readerState === ReaderStateOptions.submitted) {
-      return <DemoSubmittedModal />
-    }
+    // if (this.props.readerState === ReaderStateOptions.submitted) {
+    //   return <DemoSubmittedModal />
+    // }
 
 
 
@@ -205,18 +206,23 @@ class StudentDashboard extends React.Component {
   }
 
   renderOverlayOrNullBasedOnState = () => {
-    if (this.props.readerState === ReaderStateOptions.submitted && !this.props.isDemo) {
-      return <SubmittedOverlay />
-    }
-    else if (this.props.readerState === ReaderStateOptions.awaitingPermissions) {
-      return <PermissionsOverlay onArrowClicked={this.onPermisionsArrowClicked} />
-    }
-    else if (this.props.readerState === ReaderStateOptions.countdownToStart) {
-      return <CountdownOverlay countdownDuration={3} onCountdownFinished={() => {
-        this.props.actions.countdownEnded()
-      }} />
-    }
-    return null
+    return (
+      <div>
+        <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
+        <PermissionsOverlay currentShowOverlay={this.props.currentShowOverlay} onArrowClicked={this.onPermisionsArrowClicked} />
+        <DemoSubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} studentName={this.props.studentName} onLogoutClicked={() => {
+          window.location.href = "/" // ** TODO **
+        }} />
+
+        {
+          (this.props.readerState === ReaderStateOptions.countdownToStart) &&
+          <CountdownOverlay countdownDuration={3} onCountdownFinished={() => {
+            this.props.actions.countdownEnded()
+          }} />
+        }
+      </div>
+    );
+
   }
 
 
@@ -257,18 +263,11 @@ class StudentDashboard extends React.Component {
       return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
     }
 
-    if (this.props.readerState === ReaderStateOptions.submitted && this.props.isDemo) {
-      return <DemoSubmittedOverlay studentName={this.props.studentName} onLogoutClicked={() => {
-        window.location.href = "/" // ** TODO **
-      }} />
-    }
-
     if (this.props.readerState === ReaderStateOptions.permissionsBlocked) {
       return (
         <div>You blocked us!</div>
       );
     }
-
 
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()

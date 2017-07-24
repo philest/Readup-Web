@@ -9,10 +9,14 @@ import NavigationBar from '../../components/NavigationBar'
 
 import { Button } from 'react-bootstrap'
 
+const THIS_OVERLAY_ID = 'overlay-demo-submitted'
+
 export default class DemoSubmittedModal extends React.Component {
   static propTypes = {
     onLogoutClicked: PropTypes.func,
     studentName: PropTypes.string,
+
+    currentShowOverlay: PropTypes.string,
   };
 
   /**
@@ -25,6 +29,11 @@ export default class DemoSubmittedModal extends React.Component {
   }
 
   render() {
+
+    if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {
+      return null
+    }
+    
     return (
       <div className={styles.wrapper}>
         <NavigationBar 
