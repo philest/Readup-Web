@@ -26,10 +26,12 @@ export default class ExitModal extends React.Component {
     super(props);
   }
 
+
   render() {
     return (
       <div className={commonStyles.modalContainer}>
         <div className={commonStyles.modalHeaderWrapper}>
+
           <ModalHeader title="Paused" />
         </div>
 

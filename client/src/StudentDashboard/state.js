@@ -14,8 +14,30 @@ import Recorder from './recorder'
 import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
 
 
+export const READER_STATE_SET = 'READER_STATE_SET'
+
+export const COUNTDOWN_ENDED = 'COUNTDOWN_ENDED'
+export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
+
+
+export const START_RECORDING_CLICKED = 'CLICK_START_READING'
+export const STOP_RECORDING_CLICKED = 'CLICK_STOP_RECORDING'
+export const PAUSE_CLICKED = 'PAUSE_CLICKED'
+export const RESUME_CLICKED = 'RESUME_CLICKED'
+export const NEXT_PAGE_CLICKED = 'NEXT_PAGE_CLICKED'
+export const PREVIOUS_PAGE_CLICKED = 'PREVIOUS_PAGE_CLICKED'
+export const RESTART_RECORDING_CLICKED = 'RESTART_RECORDING_CLICKED'
+export const TURN_IN_CLICKED = 'TURN_IN_CLICKED'
+export const HEAR_RECORDING_CLICKED = 'HEAR_RECORDING_CLICKED'
+
+
+
+export const CURRENT_SOUND_SET = 'CURRENT_SOUND_SET'
+export const CURRENT_MODAL_SET = 'CURRENT_SOUND_SET'
+
 export const MIC_SET_PERMISSIONS = 'MIC_SET_PERMISSION'
 export const BOOK_INTRO_RECORDING_ENDED = 'BOOK_INTRO_RECORDING_ENDED'
+export const PAGE_NUMBER_SET = 'PAGE_NUMBER_SET'
 
 export const PAGE_INCREMENT = 'PAGE_INCREMENT'
 export const PAGE_DECREMENT = 'PAGE_DECREMENT'
@@ -26,6 +48,7 @@ export const RECORDING_STOP = 'RECORDING_STOP'
 export const RECORDING_PAUSE = 'RECORDING_PAUSE'
 export const RECORDING_RESUME = 'RECORDING_RESUME'
 export const RECORDING_SUBMIT = 'RECORDING_SUBMIT'
+export const RECORDING_SUBMITTED = 'RECORDING_SUBMITTED'
 export const RECORDING_RESTART = 'RECORDING_RESTART'
 export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 
@@ -35,6 +58,70 @@ export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
 export const IS_DEMO_SET = 'IS_DEMO_SET'
 
 
+export function setReaderState(readerState: ReaderState) {
+  return {
+    type: READER_STATE_SET,
+    payload: {
+      readerState,
+    }
+  }
+}
+
+export function setPageNumber(pageNumber: number) {
+  return {
+    type: PAGE_NUMBER_SET,
+    payload: {
+      pageNumber,
+    }
+  }
+}
+
+export function setHasRecordedSomething(hasRecordedSomething: bool) {
+  return {
+    type: HAS_RECORDED_SOMETHING_SET,
+    payload: {
+      hasRecordedSomething,
+    }
+  }
+}
+
+
+export function startRecordingClicked() {
+  return {
+    type: START_RECORDING_CLICKED,
+  }
+}
+
+export function stopRecordingClicked() {
+  return {
+    type: STOP_RECORDING_CLICKED,
+  }
+}
+
+export function countdownEnded() {
+  return {
+    type: COUNTDOWN_ENDED,
+  }
+}
+
+export function setCurrentSound(currentSoundId: string) {
+  return {
+    type: CURRENT_SOUND_SET,
+    payload: {
+      currentSoundId,
+    }
+  }
+}
+
+export function setCurrentModal(currentModalId: string) {
+  return {
+    type: CURRENT_MODAL_SET,
+    payload: {
+      currentModalId,
+    }
+  }
+}
+
 export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
   return {
     type: MIC_SET_PERMISSIONS,
@@ -43,6 +130,60 @@ export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
     },
   }
 }
+
+export function pauseClicked() {
+  return {
+    type: PAUSE_CLICKED,
+  }
+}
+
+export function resumeClicked() {
+  return {
+    type: RESUME_CLICKED,
+  }
+}
+
+
+export function nextPageClicked() {
+  return {
+    type: NEXT_PAGE_CLICKED,
+  }
+}
+
+export function previousPageClicked() {
+  return {
+    type: previousPageClicked,
+  }
+}
+
+export function restartRecordingClicked() {
+  return {
+    type: RESTART_RECORDING_CLICKED,
+  }
+}
+
+
+export function turnInClicked() {
+  return {
+    type: TURN_IN_CLICKED,
+  }
+}
+
+
+export function hearRecordingClicked() {
+  return {
+    type: HEAR_RECORDING_CLICKED,
+  }
+}
+
+
+
+
+
+
+
+
+
 
 export function incrementPage() {
   return {
@@ -92,6 +233,12 @@ export function resumeRecording() {
 export function submitRecording() {
   return {
     type: RECORDING_SUBMIT,
+  }
+}
+
+export function recordingSubmitted() {
+  return {
+    type: RECORDING_SUBMITTED,
   }
 }
 
@@ -182,10 +329,12 @@ const initialState = {
   pageNumber: 0,
   book: sampleBook,
   readerState:  ReaderStateOptions.initializing,
-  pauseType: PauseTypeOptions.noPause,
+  pauseType: PauseTypeOptions.fromPauseButton,
   hasRecordedSomething: false,
   recorder: new Recorder(),
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
+  currentSoundId: null,
+  currentModalId: null,
 }
 
 
@@ -201,6 +350,28 @@ function reducer(state = initialState, action = {}) {
 
 
   switch (type) {
+
+
+    case READER_STATE_SET: {
+      console.log('SET READER STATE:: ' + payload.readerState)
+      return { ...state, readerState: payload.readerState }
+    }
+
+    case PAGE_NUMBER_SET: {
+      return { ...state, pageNumber: payload.pageNumber }
+    }
+
+    case HAS_RECORDED_SOMETHING_SET: {
+      return { ...state, hasRecordedSomething: payload.hasRecordedSomething }
+    }
+
+    case CURRENT_SOUND_SET: {
+      return { ...state, currentSoundId: payload.currentSoundId }
+    }
+
+    case CURRENT_MODAL_SET: {
+      return { ...state, currentModalId: payload.currentModalId }
+    }
 
     case MIC_SET_PERMISSIONS: {
 
@@ -221,9 +392,9 @@ function reducer(state = initialState, action = {}) {
       
     }
 
-    case BOOK_INTRO_RECORDING_ENDED: {
-      return { ...state, readerState: ReaderStateOptions.awaitingStart }
-    }
+    // case BOOK_INTRO_RECORDING_ENDED: {
+    //   return { ...state, readerState: ReaderStateOptions.awaitingStart }
+    // }
 
     case PAGE_INCREMENT: {
       history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
@@ -233,23 +404,28 @@ function reducer(state = initialState, action = {}) {
       history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber-1))
       return { ...state, pageNumber: state.pageNumber - 1}
     }
-    case RECORDING_COUNTDOWN_TO_START: {
-      history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
-      return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
-    }
-    case RECORDING_START: {
-      return { ...state, readerState: ReaderStateOptions.inProgress, hasRecordedSomething: true }
-    }
-    case RECORDING_STOP: {
-      return { ...state, readerState: ReaderStateOptions.done}
-    }
-    case RECORDING_PAUSE: {
-      return { ...state, readerState: ReaderStateOptions.paused, pauseType: payload.pauseType }
-    }
-    case RECORDING_RESUME: {
-      return { ...state, readerState: ReaderStateOptions.inProgress }
-    }
-    case RECORDING_SUBMIT: {
+    // case RECORDING_COUNTDOWN_TO_START: {
+    //   history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
+    //   return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
+    // }
+    // case RECORDING_START: {
+    //   return { ...state, readerState: ReaderStateOptions.inProgress, hasRecordedSomething: true }
+    // }
+    // case RECORDING_STOP: {
+    //   return { ...state, readerState: ReaderStateOptions.done}
+    // }
+    // case RECORDING_PAUSE: {
+    //   return { ...state, readerState: ReaderStateOptions.paused, pauseType: payload.pauseType }
+    // }
+    // case RECORDING_RESUME: {
+    //   return { ...state, readerState: ReaderStateOptions.inProgress }
+    // }
+    // case RECORDING_SUBMIT: {
+    //   return { ...state }
+    // }
+
+
+    case RECORDING_SUBMITTED: {
       if (!state.isDemo) {
         setTimeout(() => {
           window.location.href = "/" // TODO where to redirect?

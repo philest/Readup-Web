@@ -62,7 +62,7 @@ function mapDispatchToProps (dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) }
 }
 
-
+//todo
 class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
@@ -93,54 +93,7 @@ class StudentDashboard extends React.Component {
     console.log('ReaderManager updated to pageNumber:  ' + this.props.pageNumber)
   }
 
-
-  /* Main State Callbacks */
-
-  onPauseClicked = () => {
-    console.log('PAUSE CLICKED')
-    this.props.actions.pauseRecording(PauseTypeOptions.fromPauseButton)
-  }
-
-  onUnpauseClicked = () => {
-    console.log('UNPAUSE CLICKED')
-    this.props.actions.resumeRecording()
-  }
-
-  onStopClicked = () => {
-    console.log("STOP CLICKED")
-    this.props.actions.stopRecording()
-  }
-
-  onTurnInClicked = () => {
-    console.log('TURN IN CLICKED')
-    this.props.actions.submitRecording()
-  }
-
-  onStartClicked = () => {
-    console.log('START CLICKED')
-    this.props.actions.startCountdownToStart()
-  }
-
-  onStartOverClicked = () => {
-    console.log('START OVER CLICKED')
-    this.props.actions.restartRecording()
-  }
-
-  onHearRecordingClicked = () => {
-    console.log('HEAR RECORDING CLICKED')
-    this.props.actions.playbackRecording()
-  }
-
-  onNextPageClicked = () => {
-    console.log('NEXT PAGE CLICKED')
-    this.props.actions.incrementPage()
-  }
-
-  onPreviousPageClicked = () => {
-    console.log('PREVIOUS PAGE CLICKED')
-    this.props.actions.decrementPage()
-  }
-
+ 
 
   /* Rando other callbacks */
 
@@ -203,7 +156,7 @@ class StudentDashboard extends React.Component {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
-        onStartClicked: this.onStartClicked,
+        onStartClicked: this.props.actions.startRecordingClicked,
       }
     }
     else { // any other page... 
@@ -216,10 +169,10 @@ class StudentDashboard extends React.Component {
         showPauseButton: this.props.readerState === ReaderStateOptions.inProgress,
         isFirstPage: (this.props.pageNumber == 1),
         isLastPage: (this.props.pageNumber == this.props.numPages),
-        onPreviousPageClicked: this.onPreviousPageClicked,
-        onPauseClicked: this.onPauseClicked,
-        onNextPageClicked: (this.props.pageNumber == this.props.numPages) ? null : this.onNextPageClicked,
-        onStopClicked: (this.props.pageNumber == this.props.numPages) ? this.onStopClicked : null,
+        onPreviousPageClicked: this.props.actions.previousPageClicked,
+        onPauseClicked: this.props.actions.pauseClicked,
+        onNextPageClicked: this.props.actions.nextPageClicked,
+        onStopClicked: this.props.actions.stopRecordingClicked,
       }
     }
 
@@ -233,16 +186,16 @@ class StudentDashboard extends React.Component {
     if (this.props.readerState === ReaderStateOptions.paused && this.props.pauseType === PauseTypeOptions.fromPauseButton) {
       ModalContentComponent =
         <PausedModal
-          onContinueClicked={this.onUnpauseClicked}
-          onStartOverClicked={this.onStartOverClicked}
-          onTurnInClicked={this.onTurnInClicked}
+          onContinueClicked={this.props.actions.resumeClicked}
+          onStartOverClicked={this.props.actions.restartRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
         />
     }
     else if (this.props.readerState === ReaderStateOptions.paused && this.props.pauseType === PauseTypeOptions.contemplatingExit) {
       ModalContentComponent =
         <ExitModal
           startedRecording={this.props.hasRecordedSomething}
-          onContinueClicked={this.onUnpauseClicked}
+          onContinueClicked={this.props.actions.resumeClicked}
           onExitAndUploadClicked={this.exitAndUploadRecording}
           onExitNoUploadClicked={this.exitAbandonState}
         />
@@ -289,7 +242,7 @@ class StudentDashboard extends React.Component {
     }
     else if (this.props.readerState === ReaderStateOptions.countdownToStart) {
       return <CountdownModal countdownDuration={3} onCountdownFinished={() => {
-        this.props.actions.startRecording()
+        this.props.actions.countdownEnded()
       }} />
     }
     return null

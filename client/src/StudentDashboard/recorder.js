@@ -68,10 +68,11 @@ export default class Recorder {
     });
 	}
 
-	stopRecording() {
+	stopRecording(callback) {
 		this.rtcRecorder.stopRecording(() => {
       this.recording = false
       this.blobURL = URL.createObjectURL(this.rtcRecorder.getBlob())
+      callback && callback(this.blobURL)
 		})
 	}
 
@@ -94,6 +95,7 @@ export default class Recorder {
 	}
 
   forceDownloadRecording(filename) {
+    console.log(this.getBlobURL())
     var anchor = document.createElement('a')
     anchor.href = this.blobURL
     anchor.target = '_blank';
