@@ -1,0 +1,29 @@
+<nav class="navbar navbar-mobile" role="navigation">
+  <div class="container">
+    <a href="/" id="navbar-title">
+      <div>
+        ReadUp
+      </div>
+    </a>
+    <ul class="navbar-right">
+
+      <li class="navbar-button-item">
+        <a>
+          <% if session['educator'].nil? %>
+            <!-- <button id="top-button" class="pure-button-primary pure-button signup-button" data-toggle="modal" data-target="#chooseRoleModal"> -->
+            <button id="top-button" class="signup-button logger-in log-in-fake-button">
+              Log in
+            </button>
+          <% else %>
+            <form action="signup" method="get">
+              <button id="top-button" type="submit" class="signup-button logger-in log-in-fake-button">
+                 Log in
+              </button>
+            </form>
+         <% end %>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
