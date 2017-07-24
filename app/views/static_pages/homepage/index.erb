@@ -4,33 +4,34 @@
 
 
   <%= render 'static_pages/components/headers' %>
-
   <%= render 'static_pages/homepage/headers/mixpanel', locals: {mixpanel_homepage_key: @mixpanel_homepage_key} %>
-
   <%= render 'static_pages/homepage/headers/libraries' %>
-
   <%= render 'static_pages/components/favicon' %>
 
-  <!-- our stylesheets -->
-  <link rel="stylesheet" href="stylesheets/alert.css" type="text/css" />
-  <link rel="stylesheet" href="stylesheets/teacher-form-input.css" type="text/css" />
-  <link rel="stylesheet" href="stylesheets/homepage.css" type="text/css" />
-  <link rel="stylesheet" href="stylesheets/fonts.css" type="text/css">
-  <!-- This is only needed for below-the-fold content. -->
-  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" />
+
+  <%= stylesheet_link_tag "homepage/index" %>
+  <%= stylesheet_link_tag "alert" %>
+  <%= stylesheet_link_tag "teacher-form-input" %>
+  <%= stylesheet_link_tag "fonts" %>
+  <%= stylesheet_link_tag "main" %>
+
 
   <!-- our scripts -->
   <script type="text/javascript" src="/js/validations.js"></script>
-  <script type="text/javascript" src="/js/homepage.js"></script>
   <script type="text/javascript" src="/js/videoModal.js"></script>
   <script type="text/javascript" src="/js/helpers.js"></script>
+  <script type="text/javascript" src="/js/homepage.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function(){
 
       $(window).scroll(function (event) {
+        var scrollTarget = 125
+        if (isMobileDevice()) {
+          scrollTarget = 200
+        }
         var scroll = $(window).scrollTop();
-        if (scroll < 645) {
+        if (scroll < scrollTarget) {
           $('.navbar').removeClass('highlighted');
         } else {
           $('.navbar').addClass('highlighted');
@@ -39,17 +40,18 @@
       $('.modal input').on('click', function () {
         $(this).focus();
       })
-      if (isMobileDevice()) {
-        $('body').addClass('isMobile');
-      } else {
-        $('body').addClass('isDesktop');
-      }
+      // if (isMobileDevice()) {
+      //   $('body').addClass('isMobile');
+      // } else {
+        // $('body').addClass('isDesktop');
+      // }
     });
   </script>
 
 </head>
 
 <body id="override">
+
 
   <!-- Notify about form submission -->
   <% if flash[:notice] %>
@@ -86,38 +88,37 @@
     <%= render 'static_pages/homepage/modals/demo' %>
     <%= render 'static_pages/homepage/modals/signup-email' %>
     <%= render 'static_pages/homepage/modals/congrats-modal' %>
-  <%= render 'static_pages/homepage/modals/mobile-signup' %>
   </div>
   <!-- modals end -->
 
 
 
 
-  <%= render 'static_pages/homepage/navbar' %>
-
-
-
+  <%= render 'static_pages/homepage/navbar_desktop' %>
+  <%= render 'static_pages/homepage/navbar_mobile' %>
 
 
 <div class="splash-new">
-  <div class="splash-container">
-    <div class="title" style="width:40em;">
-      <h1 id="pitch">ReadUp does running records for you.</h1>
+  <div
+    class="splash-container"
+    style="background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/landing-page-hero-student-reading.jpg')
+          center
+          top/cover
+          no-repeat
+          #ba9e70;"
+  >
+    <div class="title";">
+      <h1 id="pitch">
+        ReadUp does running records for you.
+      </h1>
       <center>
-        <h4 id="sub-pitch" style="width:35em">
+        <h4 id="sub-pitch">
           ReadUp listens to students read and creates a full running record for you.
         </h4>
       </center>
-      <button
-        type="button"
-        data-toggle="modal"
-        data-target="#signupEmail"
-        class="btn btn-primary btn-lg pure-button pure-button-primary get_update dialog-button"
-        id="main-signup-button"
-        onclick="mixpanel.track('splash signup button clicked', {'location': 'splash'});"
-      >
-        Sign up
-      </button>
+
+      <%= render 'static_pages/homepage/signup_form' %>
+
     </div>
   </div>
 </div>
