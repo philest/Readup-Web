@@ -2,7 +2,7 @@
 import { fork, call, take, takeLatest, takeEvery, cancel, put, select } from 'redux-saga/effects'
 
 
-import { playSound, stopAudio } from '../audioPlayer'
+import { playSound, stopAudio as stopAudioRef } from '../audioPlayer'
 
 import {
   ReaderStateOptions,
@@ -34,7 +34,7 @@ import {
 
 
 function* stopAudioSaga() {
-  yield call(stopAudio)
+  yield call(stopAudioRef)
 }
 
 

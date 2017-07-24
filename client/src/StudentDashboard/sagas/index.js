@@ -43,7 +43,6 @@ import {
   PAGE_INCREMENT,
   PAGE_DECREMENT,
 
-
   BOOK_INTRO_RECORDING_ENDED,
   NEXT_PAGE_CLICKED,
   PREVIOUS_PAGE_CLICKED,
@@ -74,15 +73,7 @@ function getPermission(recorder) {
   return new Promise(function(resolve, reject) {
     recorder.initialize((error) => {
       // User responded to permissions request
-      if (error) {
-        // this.props.actions.setMicPermissions(MicPermissionsStatusOptions.blocked)
-        resolve(false)
-      }
-      else {
-        // this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
-        resolve(true)
-      }
-
+      resolve(error)
     })
   });
 
@@ -110,8 +101,8 @@ function* getMicPermissions() {
   yield put(setCurrentOverlay('overlay-permissions'))
 
   // initialize
-  const recorder = yield select(getRecorder)
-  const getPermissionSuccess = yield call(getPermission, recorder)
+  const recorder =              yield select(getRecorder)
+  const getPermissionSuccess =  yield call(getPermission, recorder)
 
   yield put(setCurrentOverlay('no-overlay'))
 
@@ -152,7 +143,11 @@ export default function* rootSaga() {
   const exitTask = yield fork(onExit)
 
   recorder = yield select(getRecorder)
-  yield apply(recorder, recorder.initialize)
+
+  // apply used instead of call because apply binds function to recorder object
+  // soure: ???
+  yield call(recorder.initialize)
+
   yield put(setCurrentSound('/audio/book_intro.m4a'))
 
 
@@ -170,7 +165,7 @@ export default function* rootSaga() {
 
   yield put(setReaderState(ReaderStateOptions.inProgress))
   recorder = yield select(getRecorder)
-  yield apply(recorder, recorder.startRecording)
+  yield call(recorder.startRecording)
   yield put(setHasRecordedSomething(true))
 
 
@@ -178,7 +173,7 @@ export default function* rootSaga() {
 
   yield takeLatest(EXIT_CLICKED, function* (payload) {
     recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.pauseRecording)
+    yield call(recorder.pauseRecording)
     yield put(setReaderState(ReaderStateOptions.paused))
     yield put(setCurrentModal('modal-exit'))
   })
@@ -207,7 +202,7 @@ export default function* rootSaga() {
 
   yield takeEvery(PAUSE_CLICKED, function* (payload) {
     recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.pauseRecording)
+    yield call(recorder.pauseRecording)
     yield put(setReaderState(ReaderStateOptions.paused))
     yield put(setCurrentSound('/audio/paused.m4a'))
     yield put(setCurrentModal('modal-paused'))
@@ -216,7 +211,7 @@ export default function* rootSaga() {
 
   yield takeEvery(RESUME_CLICKED, function* (payload) {
     recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.resumeRecording)
+    yield call(recorder.resumeRecording)
     yield put(setReaderState(ReaderStateOptions.inProgress))
     yield put(setCurrentModal('no-modal'))
   })
@@ -231,7 +226,7 @@ export default function* rootSaga() {
 
   yield takeEvery(RESTART_RECORDING_CLICKED, function* (action) {
     recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.reset)
+    yield call(recorder.reset)
     yield put(setCurrentModal('no-modal'))
     yield put(setReaderState(ReaderStateOptions.awaitingStart))
     yield put(setPageNumber(0))
@@ -247,7 +242,7 @@ export default function* rootSaga() {
 
   yield put(setRecordingURL(blobURL))
   yield put(setCurrentModal('modal-done'))
-  // yield apply(recorder, recorder.forceDownloadRecording, ['_test_.wav'])
+  // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
 
   yield takeEvery(HEAR_RECORDING_CLICKED, function* (action) {
     yield put(setCurrentModal('modal-playback'))
