@@ -149,7 +149,7 @@ export default class Reader extends React.Component {
       <ForwardArrowButton
         title='Next'
         subtitle='page'
-        style={{ width: 160, height: 130 }}
+        style={{ width: 145, height: 120 }}
         disabled={this.props.disabled}
         onClick={this.props.onNextPageClicked}
       />

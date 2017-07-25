@@ -394,7 +394,7 @@ const sampleBook = {
     6: {
       lines: [
         "We walk back to the home.\nI hold Daddy's hand tight.",
-        "I ask him \"Will tomorrow be a firefly night\"."
+        "I ask him \"Will tomorrow be a firefly night\"?"
       ],
       img: '/images/dashboard/sample-book-assets/firefly-7.png'
     }
