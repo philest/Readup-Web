@@ -44,7 +44,6 @@
 }
 
 .textParagraph {
-	font-family: 'Arial';
 	font-size: 1.4em;
 	margin-left: 40px;
 	margin-right: 40px;
@@ -53,7 +52,6 @@
 .pageNumber {
 	text-align: center;
 	font-weight: bold;
-	font-family: 'Arial';
 	font-size: 1.2em;
 	padding: 10px;
 	height: 40px;

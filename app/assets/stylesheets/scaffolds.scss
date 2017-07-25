@@ -1,3 +1,28 @@
+
+@font-face {
+    font-family: 'Conv_proximanova-bold-webfont';
+    src: url('/fonts/proximanova-bold-webfont.eot');
+    src: url('/fonts/proximanova-bold-webfont.woff') format('woff'), url('/fonts/proximanova-bold-webfont.ttf') format('truetype'), url('/fonts/proximanova-bold-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Conv_proximanova-regular-webfont';
+    src: url('/fonts/proximanova-regular-webfont.eot');
+    src: url('/fonts/proximanova-regular-webfont.woff') format('woff'), url('/fonts/proximanova-regular-webfont.ttf') format('truetype'), url('/fonts/proximanova-regular-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Conv_proximanova-semibold-webfont';
+    src: url('/fonts/Proxima-Nova-Semibold.eot');
+    src: url('/fonts/Proxima-Nova-Semibold.woff') format('woff'), url('/fonts/Proxima-Nova-Semibold.ttf') format('truetype'), url('/fonts/Proxima-Nova-Semibold.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
   background-color: #fff;
   color: #333;
@@ -7,8 +32,9 @@ body {
   line-height: 18px;
 }
 
-#fullHeight {
+#studentDashboardContainer {
   height: 100%;
+  font-family: Conv_proximanova-regular-webfont;
 }
 
 p, ol, ul, td {
