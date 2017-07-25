@@ -304,49 +304,100 @@ export function setIsDemo(isDemo) {
 }
 
 
+// const sampleBook = {
+//   title: "Cezar Chavez",
+//   author: "Ginger Wordsworth",
+//   s3Key: 'rocket',
+//   description: "Mom gets to come along on a space adventure",
+//   numPages: 2,
+//   coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
+//   pages: {
+//     1: {
+//       lines: [
+//           "This is the first line of the first page.",
+//           "This is the second line of the first page."
+//       ],
+//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-1-610x381.jpg',
+//     },
+//     2: {
+//       lines: [
+//         "This is the first line of the second page.",
+//         "This is the second line of the second page."
+//       ],
+//       img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
+//     },
+//     3: {
+//       lines: [
+//         "This is the first line of the third page.",
+//         "This is the second line of the third page."
+//       ],
+//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
+//     },
+//     4: {
+//       lines: [
+//         "This is the first line of the fourth page.",
+//         "This is the second line of the fourth page."
+//       ],
+//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
+//     },
+//     5: {
+//       lines: [
+//         "This is the first line of the fifth page.",
+//         "The end."
+//       ],
+//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
+//     },
+//   },
+// };
+
 const sampleBook = {
-  title: "Cezar Chavez",
-  author: "Ginger Wordsworth",
-  s3Key: 'rocket',
-  description: "Mom gets to come along on a space adventure",
-  numPages: 2,
-  coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
+  title: "Firefly Night",
+  author: 'Dianne Ochiltree',
+  numPages: 6,
+  coverImage: 'https://photos-4.dropbox.com/t/2/AADUA7lLeCuwKC5c4zA5EuyuFZKGW-uVXZNhw40E50ZAzw/12/92033675/png/32x32/3/1500962400/0/2/firefly-cover.png/EOyM8u0DGPd3IAcoBw/3aJqAcMaH0BkgRaPYp2dw2STwq734yfpLry3VMxoxao?dl=0&size=1024x768&size_mode=3',
   pages: {
     1: {
       lines: [
-          "This is the first line of the first page.",
-          "This is the second line of the first page."
+        "When the moon is high\nand the stars are bright,",
+        "Daddy tells me,\n\"It's a firefly night!\"",
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-1-610x381.jpg',
+      img: 'https://photos-3.dropbox.com/t/2/AADtbVXvWOa3WRGLv0OMhu3LioGQOjX9DG7o3s-6dTV5EA/12/92033675/png/32x32/3/1500962400/0/2/firefly-2.png/EOyM8u0DGPd3IAcoBw/1DYP0ooIBuiL_pb-sXyRUZG6XmGFZ33nVLtyzXNu9es?dl=0&size=1024x768&size_mode=3',
     },
     2: {
       lines: [
-        "This is the first line of the second page.",
-        "This is the second line of the second page."
+        "I hop off the porch.\nI feel the air",
+        "It warms my legs and tosses my hair."
       ],
-      img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
+      img: 'https://photos-1.dropbox.com/t/2/AAA1zOdWetjMhGLrNTRV4Fy12aGA2MG3xMUmOmiN_MzS4A/12/92033675/png/32x32/3/1500962400/0/2/firefly-3.png/EOyM8u0DGPd3IAcoBw/4l3wgung5DQx6hEwCcQe5TT6lCUR2r-NFdCUjLQi8Wc?dl=0&size=1024x768&size_mode=3',
     },
     3: {
       lines: [
-        "This is the first line of the third page.",
-        "This is the second line of the third page."
+        "Grass tickles my toes.\nI run through the yard.",
+        "I chase fireflies to put in my jar."
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
+      img: 'https://photos-4.dropbox.com/t/2/AAAECad8iXVKdzTlAgnUvAqQWCH2WICQwVp52sUA7iHSJg/12/92033675/png/32x32/3/1500962400/0/2/firefly-4.png/EOyM8u0DGPd3IAcoBw/DjvimtWfs5djQa18SPKXGXPH-Od9uhlMZUXRUQarqOc?dl=0&size=1024x768&size_mode=3',
     },
     4: {
       lines: [
-        "This is the first line of the fourth page.",
-        "This is the second line of the fourth page."
+        "Fireflies shine.\nAll of them glow.",
+        "I race to show Daddy\ntheir dancing light show."
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
+      img: 'https://photos-3.dropbox.com/t/2/AAAIwO_BpY7Fc5V_-riIRyQskFp48bCxYvd3-7IcamFiJg/12/92033675/png/32x32/3/1500962400/0/2/firefly-5.png/EOyM8u0DGPd3IAcoBw/pGeTN12_idbWuvhFMwYRBiLUL9eveipMfts92FzRacY?dl=0&size=1024x768&size_mode=3',
     },
     5: {
       lines: [
-        "This is the first line of the fifth page.",
-        "The end."
+        "They fly away quickly.\nThey sparkle and shine.",
+        "I love catching fireflies, but they are not mine."
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
+      img: 'https://photos-6.dropbox.com/t/2/AAAyL5ZPo65WAQr5Zkz_MEhgSAgFn7maYpkEAXElHC1ofw/12/92033675/png/32x32/3/1500962400/0/2/firefly-6.png/EOyM8u0DGPd3IAcoBw/8MOUdBGlRmDuBH32gvF8YbuNPJCdNVlYr2JbmcXG9rc?dl=0&size=1024x768&size_mode=3'
     },
+    6: {
+      lines: [
+        "We walk back to the home.\nI hold Daddy's hand tight.",
+        "I ask him \"Will tomorrow be a firefly night\"."
+      ],
+      img: 'https://photos-1.dropbox.com/t/2/AABSyKEH6nTYcXehI4EU48aH5Npk249h8SxEbrtocoFUdA/12/92033675/png/32x32/3/1500962400/0/2/firefly-7.png/EOyM8u0DGPd3IAcoBw/Y6dbVnA5OjoueSsW6dbV-OygdpHawIifxLJFcBg8ySs?dl=0&size=1024x768&size_mode=3'
+    }
   },
 };
 
@@ -354,6 +405,7 @@ const sampleBook = {
 
 const initialState = {
   pageNumber: 0,
+  numPages: sampleBook.numPages,
   book: sampleBook,
   readerState:  ReaderStateOptions.initializing,
   pauseType: PauseTypeOptions.fromPauseButton,
