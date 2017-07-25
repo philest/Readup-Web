@@ -657,12 +657,12 @@ a#more_team:hover p{
 /*****************************************************************************************/
 
 body {
-	font-family: 'Conv_proximanova-bold-webfont'; 
+	font-family: 'Conv_proximanova-regular-webfont'; 
 	background-color: rgba(255,255,254,1)
 }
 
 p {
-    font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+    font-family: 'Conv_proximanova-regular-webfont', sans-serif;
     font-weight: 200;
 /*    font-size: 1.12em;
 */    line-height: 1.6;

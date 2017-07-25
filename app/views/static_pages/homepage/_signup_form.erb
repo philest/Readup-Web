@@ -2,13 +2,13 @@
   <form id="signup-homepage" class="signup-form">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div class="signup-setup" id="signup-homepage-email">
-      <div class="field form-control" id="signup-field">
+      <div class="field" id="signup-field">
         <span>Email:</span>
         <input
           name="user[username]"
           id='suh'
           placeholder="Your email address"
-          class="input"
+          class="input form-control"
         >
       </div>
 
@@ -32,7 +32,7 @@
               name="user[first_name]"
               autocomplete="off"
               placeholder="First name"
-              class="input"
+              class="input form-control"
               required
             >
           </div>
@@ -43,7 +43,7 @@
               name="user[last_name]"
               autocomplete="off"
               placeholder="Last name"
-              class="input"
+              class="input form-control"
               required
             >
           </div>
@@ -55,7 +55,7 @@
               autocomplete="off"
               placeholder="Create a password"
               type="password"
-              class="input"
+              class="input form-control"
               pattern=".{6,}"
               title="Password must be at least 6 characters long"
               required
@@ -112,12 +112,24 @@
 
   /* this is meant to apply to jquery validator errors!*/
   form#signup-homepage label {
-    display: block;
+/*    display: block;
     font-size: 12px;
     text-align: right;
     position: absolute;
     width: 98%;
-    bottom: -3px;
+    bottom: -13px;
+    font-family: 'Conv_proximanova-bold-webfont';
+*/
+
+    display: block;
+    font-size: 13px;
+    text-align: left;
+    position: absolute;
+    width: 98%;
+    bottom: -13px;
+    font-family: 'Conv_proximanova-bold-webfont';
+
+
   }
 
   form#signup-homepage input::placeholder {
