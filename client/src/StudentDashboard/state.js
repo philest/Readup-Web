@@ -19,7 +19,7 @@ export const READER_STATE_SET = 'READER_STATE_SET'
 export const COUNTDOWN_ENDED = 'COUNTDOWN_ENDED'
 export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
 
-
+export const INTRO_CONTINUE_CLICKED = 'INTRO_CONTINUE_CLICKED'
 export const START_RECORDING_CLICKED = 'CLICK_START_READING'
 export const STOP_RECORDING_CLICKED = 'CLICK_STOP_RECORDING'
 export const PAUSE_CLICKED = 'PAUSE_CLICKED'
@@ -85,6 +85,12 @@ export function setHasRecordedSomething(hasRecordedSomething: bool) {
     payload: {
       hasRecordedSomething,
     }
+  }
+}
+
+export function introContinueClicked() {
+  return {
+    type: INTRO_CONTINUE_CLICKED,
   }
 }
 

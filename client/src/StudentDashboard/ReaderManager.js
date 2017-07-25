@@ -22,8 +22,7 @@ import ExitModal from './modals/ExitModal'
 import MicModal from './modals/MicModal'
 import PlaybackModal from './modals/PlaybackModal'
 
-// these are really overlays
-// should probably rename in the future
+import IntroOverlay from './overlays/IntroOverlay'
 import SubmittedOverlay from './overlays/SubmittedOverlay'
 import DemoSubmittedOverlay from './overlays/DemoSubmittedOverlay'
 import PermissionsOverlay from './overlays/PermissionsOverlay'
@@ -208,6 +207,7 @@ class StudentDashboard extends React.Component {
   renderOverlayOrNullBasedOnState = () => {
     return (
       <div>
+        <IntroOverlay currentShowOverlay={this.props.currentShowOverlay} onContinueClicked={this.props.actions.introContinueClicked} />
         <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
         <PermissionsOverlay currentShowOverlay={this.props.currentShowOverlay} onArrowClicked={this.onPermisionsArrowClicked} />
         <DemoSubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} studentName={this.props.studentName} onLogoutClicked={() => {
@@ -259,9 +259,9 @@ class StudentDashboard extends React.Component {
     console.log('Rendering ReaderManager with ReaderState: ' + this.props.readerState)
 
 
-    if (this.props.readerState === ReaderStateOptions.initializing) {
-      return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
-    }
+    // if (this.props.readerState === ReaderStateOptions.initializing) {
+    //   return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
+    // }
 
     if (this.props.readerState === ReaderStateOptions.permissionsBlocked) {
       return (
