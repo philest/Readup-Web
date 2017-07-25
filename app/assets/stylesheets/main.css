@@ -5,6 +5,9 @@ body {
   font-size: 1em;
 }
 
+ul b {
+	font-family: 'Conv_proximanova-bold-webfont'
+}
 
 /* BELOW FOLD */
 label.error {

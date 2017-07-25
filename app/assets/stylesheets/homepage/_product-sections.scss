@@ -13,7 +13,7 @@
    color:white;
    font-family:'Conv_CircularStd-Bold';
    font-size:2em;
-   margin-top: 0.3em;
+   // margin-top: 0.3em;
    float: left;
    div  {
 
@@ -31,8 +31,9 @@
    padding-left: 0.7em;
  }
 
+ // Added to get standard spacing on the expanded form 
  .signup-name-password {
-  margin-top: -13px;
+    margin-top: -13px;
  }
 
  .signup-name-password-mobile {
