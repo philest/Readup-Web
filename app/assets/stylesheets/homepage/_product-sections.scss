@@ -57,6 +57,7 @@
    font-size: 18px;
    margin-bottom: 45px;
    font-family: 'Conv_Proxima-Nova-Semibold';
+   color: white;
  }
 
  h1#pitch {
@@ -80,6 +81,7 @@
    margin-bottom: 1em;
    margin-left: 2em;
    margin-right: 2em;
+   color: #4a4a4a;
    // #end-no-reading & {
    //   padding-top: 0.2em;
    // }
@@ -203,6 +205,40 @@
     padding-top: 100px;
     min-height: 500px; // 720px
   }
+
+  div.title { 
+    width: 90%;
+    margin: 0 auto; 
+
+      h1#pitch {
+        font-size: 1.5em;
+      }
+      h4#sub-pitch {
+        font-size: 17px; 
+        line-height: 1.5;
+        font-family: 'Conv_Proxima-Nova-Semibold';
+      }
+
+      // Form stuff
+      .signup-setup {
+      width: 90%;
+      margin: 0 auto;
+      }
+
+  }
+
+  h1.section-banner {
+    margin-top: -1em;
+    color: #4a4a4a; 
+  }
+
+
+  button#top-button { 
+    margin-top: 8px;
+  }
+
+
+
 }
 
  // aubrey: i believe this comment was left by the previous coder. I find it confusing. idk.
@@ -225,8 +261,6 @@
          margin: 0 auto;
          font-size: 1.5em;
 
-         font-weight: bold;
-
          h1 {
            font-size: 2em;
          }
@@ -244,6 +278,10 @@
      }
 
    }
+
+
+
+
  }
 
 
