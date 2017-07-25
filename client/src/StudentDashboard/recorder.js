@@ -10,7 +10,7 @@ export default class Recorder {
     this.recording = false
   }
 
-  /*eslint-disable */
+  /* eslint-disable */
   static browserSupportsRecording() {
     return !!(
       navigator.getUserMedia ||

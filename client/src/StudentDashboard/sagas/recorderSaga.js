@@ -33,9 +33,9 @@ import {
   PERMISSIONS_ARROW_CLICKED,
 } from '../state'
 
-
-const getRecorder = state => state.reader.recorder
-
+import {
+  getRecorder,
+} from './selectors'
 
 export default function* recorderSaga() {
 
