@@ -15,6 +15,7 @@ import { delay } from 'redux-saga'
 
 import audioEffectsSaga from './audioEffectsSaga'
 import Recorder from '../recorder'
+import { playSound } from '../audioPlayer'
 
 
 
@@ -104,15 +105,6 @@ function* getMicPermissions() {
 
 
 
-function* onClickExit() {
-  yield takeLatest(EXIT_CLICKED, function* (action) {
-    window.location.href = "/"
-  })
-}
-
-
-
-
 
 function* haltRecordingAndGenerateBlobSaga(recorder) {
   yield put.resolve(setReaderState(ReaderStateOptions.done))
@@ -126,24 +118,21 @@ function* haltRecordingAndGenerateBlobSaga(recorder) {
   return yield blobURL
 }
 
-
-
-function* assessmentThenSubmitSaga() {
-  const results = yield* assessmentSaga()
-
-
-  return results
+function* redirectToHomepage () {
+  yield window.location.href = "/"
 }
 
 
-export default function* rootSaga() {
+function* clog(...args) {
+  yield call(console.log, 'SAGA CLOG: ', ...args)
+}
 
-  yield call(console.log, 'ROOT SAGA')
+function* assessThenSubmitSaga() {
 
-  // start saga
-  yield fork(audioEffectsSaga)
-
-  let recorder = yield select(getRecorder)
+  // TODO: convert this into a batched action
+  yield put.resolve(setPageNumber(0))
+  yield put.resolve(setHasRecordedSomething(false))
+  yield put.resolve(setCurrentModal('no-modal'))
 
   const permissionsGranted = yield* getMicPermissions() // blocks
 
@@ -151,41 +140,30 @@ export default function* rootSaga() {
     return
   }
 
-  // at first, exit clicking redirects to homepage. This changed after assessment has started.
-  const exitClickedTask = yield fork(onClickExit)
-
-  recorder = yield select(getRecorder)
-
+  let recorder = yield select(getRecorder)
   yield call(recorder.initialize)
 
-  // yield put(setCurrentSound('/audio/book_intro.m4a'))
 
-
-  // yield take(BOOK_INTRO_RECORDING_ENDED)
-
+  // TODO: D. Ernst pls fix dis tx
+  yield put(setCurrentSound('/audio/book_intro.m4a'))
+  yield take(BOOK_INTRO_RECORDING_ENDED)
   yield put.resolve(setReaderState(
     ReaderStateOptions.awaitingStart,
   ))
 
-  yield take(START_RECORDING_CLICKED)
+  // before assessment has started, clicking exit immediately quits app
+  // I guess. We will probably change this
+  const { exit } = yield race({
+    exit: take(EXIT_CLICKED),
+    startAssessment: take(START_RECORDING_CLICKED),
+  })
 
+  // the app will end :O
+  if (exit) {
+    yield* redirectToHomepage()
+  }
 
-  // TODO: convert the countdown to saga!!!!
-  yield put(startCountdownToStart())
-  yield put.resolve(setPageNumber(1))
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.countdownToStart,
-  ))
-
-  // WAIT for the countdown sequence to end
-  yield take(COUNTDOWN_ENDED)
-
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.inProgress,
-  ))
-
-  // assign a new saga for exit-clicking henceforth
-  yield cancel(exitClickedTask)
+  // now we start the assessment for real
   yield takeLatest(EXIT_CLICKED, function* (payload) {
     recorder = yield select(getRecorder)
     yield call(recorder.pauseRecording)
@@ -195,75 +173,88 @@ export default function* rootSaga() {
     yield put(setCurrentModal('modal-exit'))
   })
 
-  while (true) {
-    yield call(console.log, '\n\n\n\n\nstart race!@!!!!!\n\n\n\n\n')
-    const {
-      resu,
-      st,
-      restartAssessment,
-    } = yield race({
-      resu: call(function*(){
-        yield* assessmentSaga()
 
-        yield put.resolve(setCurrentModal('modal-done'))
-        // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
-
-        yield takeEvery(HEAR_RECORDING_CLICKED, function* (action) {
-          yield put.resolve(setCurrentModal('modal-playback'))
-        })
-
-        const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(yield select(getRecorder));
-        yield call(console.log, 'url for recording!!!', recordingBlob)
-
-        yield take(TURN_IN_CLICKED)
-
-        yield call(console.log, 'turning it in!!!!', recordingBlob)
+  // TODO: convert the countdown to saga!!!!
+  yield put.resolve(setPageNumber(1))
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.countdownToStart,
+  ))
+  yield call(playSound, '/audio/recording_countdown.m4a')
 
 
-        const isDemo = yield select(getIsDemo)
-        if (isDemo) {
-          yield put.resolve(setCurrentOverlay('overlay-demo-submitted'))
+  // WAIT for the countdown sequence to end
+  yield take(COUNTDOWN_ENDED)
 
-        } else {
-          yield put.resolve(setCurrentOverlay('overlay-submitted'))
-          setTimeout(() => {
-            window.location.href = "/" // TODO where to redirect?
-          }, 5000)
-        }
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.inProgress,
+  ))
 
-        // need to put this up here because might turn in from paused view
-        // TODO submit the recording
-        yield put.resolve(setReaderState(
-          ReaderStateOptions.submitted,
-        ))
-      }),
-      restartAssessment: take(RESTART_RECORDING_CLICKED),
-      // restartAssessment: delay(2000),
-    })
+  // starts the recording assessment flow
+  yield* assessmentSaga()
 
-      yield call(console.log, 'woah race done')
+  yield put.resolve(setCurrentModal('modal-done'))
+  // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
 
+  yield takeEvery(HEAR_RECORDING_CLICKED, function* (action) {
+    yield put.resolve(setCurrentModal('modal-playback'))
+  })
 
-    // restart assessment
-    if (restartAssessment) {
-      yield call(console.log, 'hi')
-      recorder = yield select(getRecorder)
-      yield call(recorder.reset)
-      yield put.resolve(setHasRecordedSomething(false))
-      yield put.resolve(setCurrentModal('no-modal'))
-      yield put.resolve(setReaderState(
-        ReaderStateOptions.awaitingStart,
-      ))
-      yield put.resolve(setPageNumber(0))
-
-    } else if (st) {
-
-    } else {
-      yield call(console.log, 'woot did assessment')
-      yield take('TURN_IN_SUCCESS')
-    }
-  }
-
+  const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(yield select(getRecorder));
+  yield* clog('url for recording!!!', recordingBlob)
+  yield recordingBlob
 }
 
+
+function* rootSaga() {
+  yield* clog('Root Saga Started')
+
+  yield fork(audioEffectsSaga)
+
+  yield* clog('Race About To Start')
+  while (true) {
+    const {
+      restartAssessment,
+      recordingBlob,
+    } = yield race({
+      restartAssessment: take(RESTART_RECORDING_CLICKED),
+      recordingBlob: call(assessThenSubmitSaga),
+    })
+
+    yield* clog('Race Finished')
+
+
+    // restart!
+    if (restartAssessment) {
+      const recorder = yield select(getRecorder)
+      yield call(recorder.reset)
+
+
+    // turn it in!
+    } else {
+      yield take(TURN_IN_CLICKED)
+
+      
+
+
+      yield take('TURN_IN_SUCCESS')
+
+      const isDemo = yield select(getIsDemo)
+      if (isDemo) {
+        yield put.resolve(setCurrentOverlay('overlay-demo-submitted'))
+
+      } else {
+        yield put.resolve(setCurrentOverlay('overlay-submitted'))
+        setTimeout(() => {
+          window.location.href = "/" // TODO where to redirect?
+        }, 5000)
+      }
+
+      yield put(setReaderState(
+        ReaderStateOptions.submitted,
+      ))
+    } // END if (restartAssessment)
+  } // END while (true)
+} // END function* rootSaga()
+
+export default rootSaga
 

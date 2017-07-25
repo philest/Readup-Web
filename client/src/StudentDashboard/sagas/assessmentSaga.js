@@ -78,11 +78,10 @@ export default function* assessmentSaga() {
   yield call(recorder.startRecording)
   yield put.resolve(setHasRecordedSomething(true))
 
-  yield call(console.log, 'hiiiiiii')
   yield take(STOP_RECORDING_CLICKED) // TODO: better name
 
+  // NOTE: do not get rid fo this yield. shit will break if you do
   return yield { some: 'sick results' }
-
 
 }
 

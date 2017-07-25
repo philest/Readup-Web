@@ -56,9 +56,6 @@ export default function* audioEffectsSaga() {
 
   yield takeEvery(PAGE_DECREMENT, stopAudioSaga)
 
-  yield takeEvery(RECORDING_COUNTDOWN_TO_START, function* (action) {
-    yield call(playSound, '/audio/recording_countdown.m4a')
-  })
 
   yield takeEvery(RECORDING_START, stopAudioSaga)
 
