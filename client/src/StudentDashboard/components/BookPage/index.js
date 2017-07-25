@@ -32,10 +32,13 @@ export default class BookPage extends React.Component {
       </div>
     );
 
+    const pageTearURL = '/images/dashboard/paper-tear-' + ((this.props.pageNumber % 3) + 1) + '.png' 
+
     return (
       <div className={styles.readerContentContainer}>
 
         <img src={this.props.imageURL} className={styles.readerImage} />
+        <img src={pageTearURL} className={styles.paperTearImage} />
         <FormattedText textLines={this.props.textLines} />
         <div className={styles.pageNumber}>{this.props.pageNumber}</div>
 

@@ -79,16 +79,8 @@ export default class Reader extends React.Component {
     }
 
     if (this.props.isDemo) { // disabled previous button
-      const previousHoverPopover = (
-        <Popover id="popover-trigger-hover-focus" title="Popover bottom">
-          <div style={{ backgroundColor: 'white' }}>
-            Previous button is disabled in demo
-          </div>
-        </Popover>
-      );
-
       return (
-        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Previous button is disabled in this demo</Popover>}>
+        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Back button is disabled in this demo</Popover>}>
           <div className={styles.fullWidthHeight}>
             <BackArrowButton
               title='Back'

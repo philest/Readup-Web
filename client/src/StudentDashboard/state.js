@@ -353,7 +353,7 @@ export function setIsDemo(isDemo) {
 const sampleBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
-  numPages: 6,
+  numPages: 6, // if you want a shorter book for testing purposes just change this
   coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
   pages: {
     1: {

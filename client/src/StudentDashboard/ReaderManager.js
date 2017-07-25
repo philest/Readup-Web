@@ -216,7 +216,7 @@ class StudentDashboard extends React.Component {
 
         {
           (this.props.readerState === ReaderStateOptions.countdownToStart) &&
-          <CountdownOverlay countdownDuration={3} onCountdownFinished={() => {
+          <CountdownOverlay countdownDuration={0} onCountdownFinished={() => {
             this.props.actions.countdownEnded()
           }} />
         }
