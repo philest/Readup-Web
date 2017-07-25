@@ -699,6 +699,7 @@ fieldset input {
 button.get_update{
 	background-color: #61c242; 
 	font-family: 'Conv_Proxima-Nova-Semibold', sans-serif;
+	margin-top: 10px;
 }
 
 section.progress h4 {
