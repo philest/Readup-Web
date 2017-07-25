@@ -22,15 +22,17 @@
 }
 
 .leftButtonContainer {
-	width: 200px;
-	height: 70px;
+	min-width: 200px;
+	/*width: 200px;
+	height: 70px;*/
 	margin: 30px;
 
 }
 
 .rightButtonContainer {
-	width: 200px;
-	height: 70px;
+	min-width: 200px;
+	/*width: 200px;
+	height: 70px;*/
 	margin: 30px;
 
 }
