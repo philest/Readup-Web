@@ -354,49 +354,49 @@ const sampleBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
   numPages: 6,
-  coverImage: 'https://photos-4.dropbox.com/t/2/AADUA7lLeCuwKC5c4zA5EuyuFZKGW-uVXZNhw40E50ZAzw/12/92033675/png/32x32/3/1500962400/0/2/firefly-cover.png/EOyM8u0DGPd3IAcoBw/3aJqAcMaH0BkgRaPYp2dw2STwq734yfpLry3VMxoxao?dl=0&size=1024x768&size_mode=3',
+  coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
   pages: {
     1: {
       lines: [
         "When the moon is high\nand the stars are bright,",
         "Daddy tells me,\n\"It's a firefly night!\"",
       ],
-      img: 'https://photos-3.dropbox.com/t/2/AADtbVXvWOa3WRGLv0OMhu3LioGQOjX9DG7o3s-6dTV5EA/12/92033675/png/32x32/3/1500962400/0/2/firefly-2.png/EOyM8u0DGPd3IAcoBw/1DYP0ooIBuiL_pb-sXyRUZG6XmGFZ33nVLtyzXNu9es?dl=0&size=1024x768&size_mode=3',
+      img: '/images/dashboard/sample-book-assets/firefly-1.png',
     },
     2: {
       lines: [
         "I hop off the porch.\nI feel the air",
         "It warms my legs and tosses my hair."
       ],
-      img: 'https://photos-1.dropbox.com/t/2/AAA1zOdWetjMhGLrNTRV4Fy12aGA2MG3xMUmOmiN_MzS4A/12/92033675/png/32x32/3/1500962400/0/2/firefly-3.png/EOyM8u0DGPd3IAcoBw/4l3wgung5DQx6hEwCcQe5TT6lCUR2r-NFdCUjLQi8Wc?dl=0&size=1024x768&size_mode=3',
+      img: '/images/dashboard/sample-book-assets/firefly-2.png',
     },
     3: {
       lines: [
         "Grass tickles my toes.\nI run through the yard.",
         "I chase fireflies to put in my jar."
       ],
-      img: 'https://photos-4.dropbox.com/t/2/AAAECad8iXVKdzTlAgnUvAqQWCH2WICQwVp52sUA7iHSJg/12/92033675/png/32x32/3/1500962400/0/2/firefly-4.png/EOyM8u0DGPd3IAcoBw/DjvimtWfs5djQa18SPKXGXPH-Od9uhlMZUXRUQarqOc?dl=0&size=1024x768&size_mode=3',
+      img: '/images/dashboard/sample-book-assets/firefly-3.png',
     },
     4: {
       lines: [
         "Fireflies shine.\nAll of them glow.",
         "I race to show Daddy\ntheir dancing light show."
       ],
-      img: 'https://photos-3.dropbox.com/t/2/AAAIwO_BpY7Fc5V_-riIRyQskFp48bCxYvd3-7IcamFiJg/12/92033675/png/32x32/3/1500962400/0/2/firefly-5.png/EOyM8u0DGPd3IAcoBw/pGeTN12_idbWuvhFMwYRBiLUL9eveipMfts92FzRacY?dl=0&size=1024x768&size_mode=3',
+      img: '/images/dashboard/sample-book-assets/firefly-4.png',
     },
     5: {
       lines: [
         "They fly away quickly.\nThey sparkle and shine.",
         "I love catching fireflies, but they are not mine."
       ],
-      img: 'https://photos-6.dropbox.com/t/2/AAAyL5ZPo65WAQr5Zkz_MEhgSAgFn7maYpkEAXElHC1ofw/12/92033675/png/32x32/3/1500962400/0/2/firefly-6.png/EOyM8u0DGPd3IAcoBw/8MOUdBGlRmDuBH32gvF8YbuNPJCdNVlYr2JbmcXG9rc?dl=0&size=1024x768&size_mode=3'
+      img: '/images/dashboard/sample-book-assets/firefly-6.png'
     },
     6: {
       lines: [
         "We walk back to the home.\nI hold Daddy's hand tight.",
         "I ask him \"Will tomorrow be a firefly night\"."
       ],
-      img: 'https://photos-1.dropbox.com/t/2/AABSyKEH6nTYcXehI4EU48aH5Npk249h8SxEbrtocoFUdA/12/92033675/png/32x32/3/1500962400/0/2/firefly-7.png/EOyM8u0DGPd3IAcoBw/Y6dbVnA5OjoueSsW6dbV-OygdpHawIifxLJFcBg8ySs?dl=0&size=1024x768&size_mode=3'
+      img: '/images/dashboard/sample-book-assets/firefly-7.png'
     }
   },
 };

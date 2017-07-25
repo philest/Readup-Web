@@ -25,6 +25,8 @@ export default class BookPage extends React.Component {
     const FormattedText = ({textLines}) => (
       <div className={styles.readerTextContainer}>
         {textLines.map(text => (
+          // note: can uncomment below instead so that <br />'s in the text are interepreted as html elements
+          // <div className={styles.textParagraph} key={text} dangerouslySetInnerHTML={{__html: text}}></div>
           <div className={styles.textParagraph} key={text}>{text}</div>
         ))}
       </div>
