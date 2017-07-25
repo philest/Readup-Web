@@ -37,13 +37,19 @@
        box-shadow: 0 0 1px 1px #dcdee2;
      background-color: white;
      a#navbar-title div {
-       color: #ed7844;
+       color: #2C6D9C;
      }
 
      li a {
        text-decoration: none;
        color: #2C6D9C;
      }
+
+     button#top-button {
+      background-color: #2C6D9C;
+      color: white; 
+     }
+
    }
 
    &.navbar-mobile {
@@ -77,7 +83,6 @@ button.signup-button {
   font-weight: 900;
   font-size: 16px;
   padding: 12px 12px 8px;
-  text-transform: uppercase;
 
 }
 
