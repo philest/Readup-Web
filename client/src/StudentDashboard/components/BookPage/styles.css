@@ -4,7 +4,9 @@
 	height: 100%;
 	display: flex;
 	flex-flow: row;
-	border: 2px solid #826E5A;
+	border: 3px solid #937050;
+	box-shadow: -5px 2px 73px 2px rgba(0,0,0,0.65);
+
 }
 
 .bookEdge {
