@@ -2,12 +2,12 @@
   <form id="signup-homepage" class="signup-form">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div class="signup-setup" id="signup-homepage-email">
-      <div class="field" id="signup-field">
+      <div class="field form-control" id="signup-field">
         <span>Email:</span>
         <input
           name="user[username]"
           id='suh'
-          placeholder="email address"
+          placeholder="Your email address"
           class="input"
         >
       </div>
@@ -18,7 +18,7 @@
         id="signup-homepage-continue-button"
         class="signup-form-button pure-button pure-button-primary get_update dialog-button"
       >
-        Continue
+        Get started
       </button>
     </div>
 
@@ -37,7 +37,7 @@
             >
           </div>
 
-          <div class="field">
+          <div class="field ">
             <span>Last name:</span>
             <input
               name="user[last_name]"
@@ -106,7 +106,9 @@
   form#signup-homepage span {
     font-size: 14px;
     color: #80858D;
+    font-family: 'Conv_Proxima-Nova-Semibold';
   }
+
 
   /* this is meant to apply to jquery validator errors!*/
   form#signup-homepage label {
@@ -119,7 +121,9 @@
   }
 
   form#signup-homepage input::placeholder {
-    color: #A6A8AB;
+    color: #ACACAC;
+    font-family: 'Conv_proximanova-regular-webfont';
+
   }
 
   @media (max-width: 35.5em) {
@@ -132,7 +136,7 @@
   @media (min-width: 35.5em) {
     #signup-homepage {
       margin: auto;
-      width: 50%;
+      width: 41.66%;
       padding: 0.5em;
     }
   }
