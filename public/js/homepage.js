@@ -34,11 +34,11 @@ $( document ).ready(function() {
 
   function transitionToNamePassword() {
     $('#signup-email-mobile').validate({ // initialize the plugin
-        rules: {
-            usernameDisplay: {
-                validateContactId: true
-            }
+      rules: {
+        usernameDisplay: {
+            validateContactId: true
         }
+      }
     }).form();
 
     var ValidStatus = $("#signup-email-mobile").valid();
@@ -155,7 +155,9 @@ $( document ).ready(function() {
     var target = '#signup-name-password-mobile';
     var keyCode = e.keyCode || e.which;
     if (keyCode === 13) {
+      e.preventDefault();
       if (triggeredMobileForm) {
+        console.log('my name is')
         registerUser(event, target, 'mobile');
       } else {
         transitionToNamePassword();
@@ -165,6 +167,7 @@ $( document ).ready(function() {
 
   // handle enter button on signup form
   $('#signup-name-password-mobile').on('keyup keypress', function(e) {
+    console.log('hi')
     var target = '#signup-name-password-mobile';
     var keyCode = e.keyCode || e.which;
     if (keyCode === 13) {
@@ -175,6 +178,7 @@ $( document ).ready(function() {
 
 
   $('#signup-name-password-button').click(function(event) {
+
     var target = '#signup-name-password';
     registerUser(event, target, 'desktop');
   });
