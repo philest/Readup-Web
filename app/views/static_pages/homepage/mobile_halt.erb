@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset='utf-8'>
+
+  <%= render 'static_pages/components/headers' %>
+  <%= render 'static_pages/homepage/headers/mixpanel', locals: {mixpanel_homepage_key: @mixpanel_homepage_key} %>
+  <%= render 'static_pages/homepage/headers/libraries' %>
+  <%= render 'static_pages/components/favicon' %>
+
+  <%= stylesheet_link_tag "fonts" %>
+
+
+<style>
+
+body {
+	background-color: #39393A;
+	color: white;
+	text-align: center;
+
+}
+
+div.cta {
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 150px;
+}
+
+h1.celebration { 
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-size: 28px;
+	margin-bottom: 50px;
+}
+
+h2.mobile-cta { 
+	font-family: 'Conv_proximanova-regular-webfont';
+	font-size: 21px;
+	line-height: 1.4;
+}
+
+span.explanatory-text {
+	font-family: 'Conv_proximanova-bold-webfont';	
+}
+
+
+</style>
+
+
+
+
+</head>
+<body>
+	<div class="cta">
+		<h1 class="celebration">Great! 🙌🏽</h1>
+		<h2 class="mobile-cta">Now just sign in on a <span class="explanatory-text">desktop computer</span></h2>
+	</div>
+</body>
