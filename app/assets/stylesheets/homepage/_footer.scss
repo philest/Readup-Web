@@ -37,6 +37,7 @@
 
  .footer--nav{
    margin: 0 0 40px 0px;
+   // font-family: "Conv_proximanova-bold-webfont";
 
    @media (min-width: 666px) {
      margin-right: 40px;
@@ -51,6 +52,7 @@
  .footer--nav--link {
    display: inline-block;
    padding: 12px 0;
+   color: #2C6D9C;
 
    @media (min-width: 35.5em) { // 568px
      margin-bottom: 8px;

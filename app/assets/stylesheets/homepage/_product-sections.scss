@@ -11,9 +11,9 @@
 
  a#navbar-title {
    color:white;
-   font-family:'Conv_proximanova-bold-webfont';
+   font-family:'Conv_CircularStd-Bold';
    font-size:2em;
-   margin-top: 0.3em;
+   // margin-top: 0.3em;
    float: left;
    div  {
 
@@ -29,6 +29,11 @@
    max-width: 100%;
    margin: 0 auto;
    padding-left: 0.7em;
+ }
+
+ // Added to get standard spacing on the expanded form 
+ .signup-name-password {
+    margin-top: -13px;
  }
 
  .signup-name-password-mobile {
@@ -50,6 +55,9 @@
  h4#sub-pitch {
    margin-top: 15px;
    font-size: 18px;
+   margin-bottom: 45px;
+   font-family: 'Conv_Proxima-Nova-Semibold';
+   color: white;
  }
 
  h1#pitch {
@@ -73,6 +81,7 @@
    margin-bottom: 1em;
    margin-left: 2em;
    margin-right: 2em;
+   color: #4a4a4a;
    // #end-no-reading & {
    //   padding-top: 0.2em;
    // }
@@ -196,6 +205,49 @@
     padding-top: 100px;
     min-height: 500px; // 720px
   }
+
+  div.title { 
+    width: 90%;
+    margin: 0 auto; 
+
+      h1#pitch {
+        font-size: 1.5em;
+        margin-top: 0.9em;
+      }
+      h4#sub-pitch {
+        font-size: 17px; 
+        line-height: 1.5;
+        font-family: 'Conv_Proxima-Nova-Semibold';
+      }
+
+      // Form stuff
+      .signup-setup {
+      width: 90%;
+      margin: 0 auto;
+      }
+
+  }
+
+  h1.section-banner {
+    margin-top: -1em;
+    color: #4a4a4a; 
+  }
+
+
+  button#top-button { 
+    margin-top: 8px;
+  }
+
+  // have a different resized background on mobile
+  div.splash-container {
+  background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/student-hero-mobile.jpg')
+          center
+          top/cover
+          no-repeat
+          #3C8FCA !important;
+  }
+
+
 }
 
  // aubrey: i believe this comment was left by the previous coder. I find it confusing. idk.
@@ -218,8 +270,6 @@
          margin: 0 auto;
          font-size: 1.5em;
 
-         font-weight: bold;
-
          h1 {
            font-size: 2em;
          }
@@ -237,6 +287,10 @@
      }
 
    }
+
+
+
+
  }
 
 

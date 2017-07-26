@@ -37,13 +37,19 @@
        box-shadow: 0 0 1px 1px #dcdee2;
      background-color: white;
      a#navbar-title div {
-       color: #ed7844;
+       color: #2C6D9C;
      }
 
      li a {
        text-decoration: none;
-       color: #ed7844;
+       color: #2C6D9C;
      }
+
+     button#top-button {
+      background-color: #2C6D9C;
+      color: white; 
+     }
+
    }
 
    &.navbar-mobile {
@@ -62,17 +68,21 @@
 
 }
 
+.navbar-right li a{
+  font-family: 'Conv_proximanova-regular-webfont';
+}
+
 
 button#top-button {
-  background-color: #ed7844;
-  font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+  background-color: white;
+  font-family: 'Conv_Proxima-Nova-Semibold', sans-serif;
+  color: #2C6D9C;
 }
 
 button.signup-button {
   font-weight: 900;
   font-size: 16px;
   padding: 12px 12px 8px;
-  text-transform: uppercase;
 
 }
 
@@ -82,6 +92,12 @@ button.log-in-fake-button {
    margin-top: 0px;
    border: none;
    padding-top: 7px;
+   color: white !important; 
+}
+
+.highlighted button.log-in-fake-button {
+   color: #2C6D9C !important; 
+
 }
 
 .navbar-logo {

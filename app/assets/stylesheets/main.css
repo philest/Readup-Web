@@ -5,6 +5,9 @@ body {
   font-size: 1em;
 }
 
+ul b {
+	font-family: 'Conv_proximanova-bold-webfont'
+}
 
 /* BELOW FOLD */
 label.error {
@@ -109,7 +112,7 @@ h1 {
 	line-height: 1.3em;
 /*	color: #4a4a4a;
 */
-	color: #4a4a4a;
+	color: white;
 	text-align: center;
 	font-size: 1.7em;
 }
@@ -657,12 +660,12 @@ a#more_team:hover p{
 /*****************************************************************************************/
 
 body {
-	font-family: 'Conv_proximanova-bold-webfont'; 
+	font-family: 'Conv_proximanova-regular-webfont'; 
 	background-color: rgba(255,255,254,1)
 }
 
 p {
-    font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+    font-family: 'Conv_proximanova-regular-webfont', sans-serif;
     font-weight: 200;
 /*    font-size: 1.12em;
 */    line-height: 1.6;
@@ -694,8 +697,9 @@ fieldset input {
 
 
 button.get_update{
-	background-color: #ed7844; 
-	font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+	background-color: #61c242; 
+	font-family: 'Conv_Proxima-Nova-Semibold', sans-serif;
+	margin-top: 10px;
 }
 
 section.progress h4 {

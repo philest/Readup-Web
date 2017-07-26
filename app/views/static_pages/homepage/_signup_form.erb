@@ -7,8 +7,8 @@
         <input
           name="user[username]"
           id='suh'
-          placeholder="email address"
-          class="input"
+          placeholder="Your email address"
+          class="input form-control"
         >
       </div>
 
@@ -18,7 +18,7 @@
         id="signup-homepage-continue-button"
         class="signup-form-button pure-button pure-button-primary get_update dialog-button"
       >
-        Continue
+        Get started
       </button>
     </div>
 
@@ -32,18 +32,18 @@
               name="user[first_name]"
               autocomplete="off"
               placeholder="First name"
-              class="input"
+              class="input form-control"
               required
             >
           </div>
 
-          <div class="field">
+          <div class="field ">
             <span>Last name:</span>
             <input
               name="user[last_name]"
               autocomplete="off"
               placeholder="Last name"
-              class="input"
+              class="input form-control"
               required
             >
           </div>
@@ -55,9 +55,9 @@
               autocomplete="off"
               placeholder="Create a password"
               type="password"
-              class="input"
+              class="input form-control"
               pattern=".{6,}"
-              title="Password must be at least 6 characters long"
+              title="Must be at least 6 characters long."
               required
             >
           </div>
@@ -80,13 +80,18 @@
 <style type="text/css">
 
   form#signup-homepage {
-    background-color: rgba(238, 237, 236, 0.9);
+    background-color: #FAFBFC;
     margin: auto;
     border-radius: 0.2em;
     -webkit-box-shadow: -2px 2px 9px -2px rgba(0,0,0,0.75);
     -moz-box-shadow: -2px 2px 9px -2px rgba(0,0,0,0.75);
     box-shadow: -2px 2px 9px -2px rgba(0,0,0,0.75);
     margin-bottom: 50px;
+  }
+
+  .signup-setup {
+    width: 90%;
+    margin: 0 auto;
   }
 
 
@@ -106,20 +111,25 @@
   form#signup-homepage span {
     font-size: 14px;
     color: #80858D;
+    font-family: 'Conv_Proxima-Nova-Semibold';
   }
+
 
   /* this is meant to apply to jquery validator errors!*/
   form#signup-homepage label {
     display: block;
-    font-size: 12px;
+    font-size: 13px;
     text-align: right;
     position: absolute;
     width: 98%;
-    bottom: -3px;
+    bottom: -13px;
+    font-family: 'Conv_proximanova-bold-webfont';
   }
 
   form#signup-homepage input::placeholder {
-    color: #A6A8AB;
+    color: #ACACAC;
+    font-family: 'Conv_proximanova-regular-webfont';
+
   }
 
   @media (max-width: 35.5em) {
@@ -132,7 +142,7 @@
   @media (min-width: 35.5em) {
     #signup-homepage {
       margin: auto;
-      width: 50%;
+      width: 41.66%;
       padding: 0.5em;
     }
   }
