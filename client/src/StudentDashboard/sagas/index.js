@@ -111,6 +111,7 @@ export default function* rootSaga() {
   const permissionsGranted = yield getMicPermissions() // blocks
 
   if (!permissionsGranted) {
+    yield put(setCurrentOverlay('overlay-blocked-mic'))
     return
   }
 

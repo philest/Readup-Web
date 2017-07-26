@@ -23,6 +23,7 @@ import MicModal from './modals/MicModal'
 import PlaybackModal from './modals/PlaybackModal'
 
 import IntroOverlay from './overlays/IntroOverlay'
+import BlockedMicOverlay from './overlays/BlockedMicOverlay'
 import SubmittedOverlay from './overlays/SubmittedOverlay'
 import DemoSubmittedOverlay from './overlays/DemoSubmittedOverlay'
 import PermissionsOverlay from './overlays/PermissionsOverlay'
@@ -208,6 +209,7 @@ class StudentDashboard extends React.Component {
     return (
       <div>
         <IntroOverlay currentShowOverlay={this.props.currentShowOverlay} onContinueClicked={this.props.actions.introContinueClicked} />
+        <BlockedMicOverlay currentShowOverlay={this.props.currentShowOverlay} />
         <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
         <PermissionsOverlay currentShowOverlay={this.props.currentShowOverlay} onArrowClicked={this.onPermisionsArrowClicked} />
         <DemoSubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} studentName={this.props.studentName} onLogoutClicked={() => {
@@ -258,16 +260,6 @@ class StudentDashboard extends React.Component {
 
     console.log('Rendering ReaderManager with ReaderState: ' + this.props.readerState)
 
-
-    // if (this.props.readerState === ReaderStateOptions.initializing) {
-    //   return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
-    // }
-
-    if (this.props.readerState === ReaderStateOptions.permissionsBlocked) {
-      return (
-        <div>You blocked us!</div>
-      );
-    }
 
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()
