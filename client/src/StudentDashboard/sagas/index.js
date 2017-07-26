@@ -1,3 +1,4 @@
+// @flow
 import {
   fork,
   call,
@@ -7,20 +8,23 @@ import {
   cancel,
   put,
   select,
-  apply,
   race,
 } from 'redux-saga/effects'
-
 import { delay } from 'redux-saga'
+
+import {
+  getS3Presign,
+  sendAudioToS3,
+  requestNewAssessment,
+} from './networkingHelpers'
+
+import {
+  clog,
+} from './helpers'
 
 import audioEffectsSaga from './audioEffectsSaga'
 import Recorder from '../recorder'
 import { playSound } from '../audioPlayer'
-
-
-
-
-
 
 // actions
 import {
@@ -34,9 +38,7 @@ import {
   EXIT_CLICKED,
   RESTART_RECORDING_CLICKED,
   TURN_IN_CLICKED,
-  NEXT_PAGE_CLICKED,
-  PAUSE_CLICKED,
-
+  IS_DEMO_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -62,14 +64,18 @@ import {
 import assessmentSaga from './assessmentSaga'
 
 
+
+
 function getPermission(recorder) {
   return new Promise(function(resolve, reject) {
     recorder.initialize((error) => {
       resolve(error)
     })
   });
-
 }
+
+
+
 
 function checkPermission() {
   return new Promise(function(resolve, reject) {
@@ -81,9 +87,21 @@ function checkPermission() {
 }
 
 
-function* getMicPermissions() {
 
-  const hasPermissions = yield call(checkPermission)
+
+
+function* playSoundAsync(sound) {
+  yield call(playSound, sound)
+  return
+}
+
+
+
+
+
+function* getMicPermissionsSaga() {
+
+  const hasPermissions = yield checkPermission()
   if (hasPermissions) {
     yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.granted))
     return true
@@ -118,23 +136,59 @@ function* haltRecordingAndGenerateBlobSaga(recorder) {
   return yield blobURL
 }
 
+
+
+
 function* redirectToHomepage () {
   yield window.location.href = "/"
 }
 
 
-function* clog(...args) {
-  yield call(console.log, 'SAGA CLOG: ', ...args)
+
+
+
+
+function* turnInAudio(blob, assessmentId: number) {
+  for (let i = 0; i < 3; i++) {
+    try {
+      const presign = yield getS3Presign(assessmentId)
+      const res = yield sendAudioToS3(blob, presign)
+      yield call(clog, 'yay response!', res)
+      return yield res
+    } catch (err) {
+      yield call(clog, "ERR:", err, err.request)
+    }
+  }
+  return yield false // TODO: this is pretty meh
 }
 
+
+
+
+function* exitClick() {
+  const recorder = yield select(getRecorder)
+  yield call(recorder.pauseRecording)
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.paused,
+  ))
+  yield put(setCurrentModal('modal-exit'))
+}
+
+
+
+
+
+
 function* assessThenSubmitSaga() {
+
+  const effects = []
 
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
-  const permissionsGranted = yield* getMicPermissions() // blocks
+  const permissionsGranted = yield* getMicPermissionsSaga() // blocks
 
   if (!permissionsGranted) {
     return
@@ -146,7 +200,7 @@ function* assessThenSubmitSaga() {
 
   // TODO: D. Ernst pls fix dis tx
   yield put(setCurrentSound('/audio/book_intro.m4a'))
-  yield take(BOOK_INTRO_RECORDING_ENDED)
+  // yield take(BOOK_INTRO_RECORDING_ENDED)
   yield put.resolve(setReaderState(
     ReaderStateOptions.awaitingStart,
   ))
@@ -164,22 +218,16 @@ function* assessThenSubmitSaga() {
   }
 
   // now we start the assessment for real
-  yield takeLatest(EXIT_CLICKED, function* (payload) {
-    recorder = yield select(getRecorder)
-    yield call(recorder.pauseRecording)
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.paused,
-    ))
-    yield put(setCurrentModal('modal-exit'))
-  })
-
+  effects.push(
+    yield takeLatest(EXIT_CLICKED, exitClick),
+  )
 
   // TODO: convert the countdown to saga!!!!
   yield put.resolve(setPageNumber(1))
   yield put.resolve(setReaderState(
     ReaderStateOptions.countdownToStart,
   ))
-  yield call(playSound, '/audio/recording_countdown.m4a')
+  yield playSoundAsync('/audio/recording_countdown.m4a')
 
 
   // WAIT for the countdown sequence to end
@@ -189,28 +237,69 @@ function* assessThenSubmitSaga() {
     ReaderStateOptions.inProgress,
   ))
 
+  // this ensures that effects are canceleld
+  // while (true) {
+  //   const {exit} = yield race({
+  //     exit:             take(EXIT_CLICKED),
+  //     assessmentResult: call(assessmentSaga),
+  //   })
+
+  //   if (exit) {
+  //     yield call(exitClick)
+  //   } else {
+
+  //   }
+  // }
   // starts the recording assessment flow
-  yield* assessmentSaga()
+  effects.push(
+    yield fork(assessmentSaga)
+  )
+  yield take(STOP_RECORDING_CLICKED) // TODO: better name
 
   yield put.resolve(setCurrentModal('modal-done'))
   // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
 
-  yield takeEvery(HEAR_RECORDING_CLICKED, function* (action) {
-    yield put.resolve(setCurrentModal('modal-playback'))
-  })
+  recorder = yield select(getRecorder)
+  const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
+  yield call(clog, 'url for recording!!!', recordingBlob)
 
-  const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(yield select(getRecorder));
-  yield* clog('url for recording!!!', recordingBlob)
-  yield recordingBlob
+  yield take(TURN_IN_CLICKED)
+
+  yield cancel(...effects)
+  return recorder.getBlob()
 }
 
 
+
 function* rootSaga() {
-  yield* clog('Root Saga Started')
+  const { payload: { isDemo } } = yield take(IS_DEMO_SET)
 
-  yield fork(audioEffectsSaga)
+  yield clog('Root Saga Started')
 
-  yield* clog('Race About To Start')
+  yield call(clog, 'Generating assessment...')
+
+  yield clog(isDemo)
+
+  const bookKey = isDemo ? 'demo' : 'unclear'
+
+  const assessmentId = yield requestNewAssessment(bookKey)
+    .catch(e => e.request)
+
+  yield clog(assessmentId)
+
+
+
+  // watchers
+  yield* audioEffectsSaga()
+  yield takeLatest(HEAR_RECORDING_CLICKED, function* (action) {
+    yield put.resolve(setCurrentModal('modal-playback'))
+  })
+
+
+
+  yield call(clog, 'Race About To Start')
+
+  // race between clicking 'TURN IN RECORDING' and 'RESTART THE RECORDING'
   while (true) {
     const {
       restartAssessment,
@@ -219,8 +308,7 @@ function* rootSaga() {
       restartAssessment: take(RESTART_RECORDING_CLICKED),
       recordingBlob: call(assessThenSubmitSaga),
     })
-
-    yield* clog('Race Finished')
+    yield call(clog, 'Race Finished')
 
 
     // restart!
@@ -231,27 +319,33 @@ function* rootSaga() {
 
     // turn it in!
     } else {
-      yield take(TURN_IN_CLICKED)
 
-      
+      const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
 
+      // success!
+      if (turnedIn) {
+        yield call(clog,'turned it in!')
 
-      yield take('TURN_IN_SUCCESS')
+        if (isDemo) {
+          yield put.resolve(setCurrentOverlay('overlay-demo-submitted'))
 
-      const isDemo = yield select(getIsDemo)
-      if (isDemo) {
-        yield put.resolve(setCurrentOverlay('overlay-demo-submitted'))
+        } else {
+          yield put.resolve(setCurrentOverlay('overlay-submitted'))
+          setTimeout(() => {
+            window.location.href = "/" // TODO where to redirect?
+          }, 5000)
+        }
 
+        yield put(setReaderState(
+          ReaderStateOptions.submitted,
+        ))
+
+      // fail! allow option to turn in again?
       } else {
-        yield put.resolve(setCurrentOverlay('overlay-submitted'))
-        setTimeout(() => {
-          window.location.href = "/" // TODO where to redirect?
-        }, 5000)
+        yield call(clog, 'could not turn it in :/')
       }
 
-      yield put(setReaderState(
-        ReaderStateOptions.submitted,
-      ))
+
     } // END if (restartAssessment)
   } // END while (true)
 } // END function* rootSaga()

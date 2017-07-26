@@ -13,7 +13,6 @@ import {
   Redirect,
 } from 'react-router-dom'
 
-
 storeConfig.runSaga(rootSaga)
 
 function Root ({ store, rorProps }) {

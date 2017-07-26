@@ -3,7 +3,7 @@ import {
   call,
   take,
   takeLatest,
-  takeEvery,
+  takeLatest,
   cancel,
   put,
   select,
@@ -41,60 +41,56 @@ export default function* recorderSaga() {
 
   yield call(console.log, 'Loading Recorder Saga')
 
-
-  yield takeEvery(MIC_SET_PERMISSIONS, function* (action) {
+  yield takeLatest(MIC_SET_PERMISSIONS, function* (action) {
     if (action.payload.micPermissionsStatus === MicPermissionsStatusOptions.granted) {
       const recorder = yield select(getRecorder)
       yield call(recorder.initialize)
     }
   })
 
-  yield takeEvery(PAGE_INCREMENT, function* (action) {
-
-  })
-
-  yield takeEvery(PAGE_DECREMENT, function* (action) {
-  })
-
-  yield takeEvery(RECORDING_COUNTDOWN_TO_START, function* (action) {
-  })
-
-  yield takeEvery(RECORDING_START, function* (action) {
+  yield takeLatest(RECORDING_START, function* (action) {
     const recorder = yield select(getRecorder)
     yield call(recorder.startRecording)
   })
 
-  yield takeEvery(RECORDING_STOP, function* (action) {
+  yield takeLatest(RECORDING_STOP, function* (action) {
     const recorder = yield select(getRecorder)
     yield call(recorder.stopRecording)
   })
 
-  yield takeEvery(RECORDING_PAUSE, function* (action) {
+  yield takeLatest(RECORDING_PAUSE, function* (action) {
     const recorder = yield select(getRecorder)
     yield call(recorder.pauseRecording)
   })
 
-  yield takeEvery(RECORDING_RESUME, function* (action) {
+  yield takeLatest(RECORDING_RESUME, function* (action) {
     const recorder = yield select(getRecorder)
     yield call(recorder.resumeRecording)
   })
 
-  yield takeEvery(RECORDING_SUBMIT, function* (action) {
-  })
 
-  yield takeEvery(RECORDING_RESTART, function* (action) {
+  yield takeLatest(RECORDING_RESTART, function* (action) {
     const recorder = yield select(getRecorder)
     yield call(recorder.reset)
   })
 
-  yield takeEvery(RECORDING_PLAYBACK, function* (action) {
+  // yield takeLatest(RECORDING_SUBMIT, function* (action) {
+  // })
 
-  })
+  // yield takeLatest(RECORDING_PLAYBACK, function* (action) {
+  // })
 
-  yield takeEvery(PERMISSIONS_ARROW_CLICKED, function* (action) {
+  // yield takeLatest(PERMISSIONS_ARROW_CLICKED, function* (action) {
+  // })
 
-  })
+  // yield takeLatest(PAGE_INCREMENT, function* (action) {
+  // })
 
+  // yield takeLatest(PAGE_DECREMENT, function* (action) {
+  // })
+
+  // yield takeLatest(RECORDING_COUNTDOWN_TO_START, function* (action) {
+  // })
 }
 
 

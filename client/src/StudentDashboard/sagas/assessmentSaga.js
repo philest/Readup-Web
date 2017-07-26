@@ -4,12 +4,13 @@ import {
   call,
   take,
   takeLatest,
-  takeEvery,
   cancel,
   put,
   select,
   apply,
 } from 'redux-saga/effects'
+
+import {delay} from 'redux-saga'
 
 // actions
 import {
@@ -44,6 +45,7 @@ function* pauseAssessmentSaga (action) {
   ))
   yield put.resolve(setCurrentSound('/audio/paused.m4a'))
   yield put.resolve(setCurrentModal('modal-paused'))
+  return
   // directly show modal here
 }
 
@@ -63,26 +65,22 @@ export default function* assessmentSaga() {
 
   // watchers!
   // TODO: refactor this into saga for referential integrity of recorder
-  yield takeEvery(PAUSE_CLICKED, pauseAssessmentSaga)
-  yield takeEvery(RESUME_CLICKED, resumeAssessmentSaga)
+  yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga)
+  yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga)
 
-  yield takeEvery(NEXT_PAGE_CLICKED, function* (payload) {
+  yield takeLatest(NEXT_PAGE_CLICKED, function* (payload) {
     yield put({ type: PAGE_INCREMENT })
   })
 
-  yield takeEvery(PREVIOUS_PAGE_CLICKED, function* (payload) {
-    yield put.resolve({ type: PAGE_DECREMENT })
+  yield takeLatest(PREVIOUS_PAGE_CLICKED, function* (payload) {
+    yield put({ type: PAGE_DECREMENT })
   })
   // start recording the assessment audio
   const recorder = yield select(getRecorder)
   yield call(recorder.startRecording)
   yield put.resolve(setHasRecordedSomething(true))
 
-  yield take(STOP_RECORDING_CLICKED) // TODO: better name
-
-  // NOTE: do not get rid fo this yield. shit will break if you do
-  return yield { some: 'sick results' }
-
+  return { some: 'sick results' }
 }
 
 
