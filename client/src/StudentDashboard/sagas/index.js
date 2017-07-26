@@ -18,7 +18,7 @@ const getIsDemo = state => state.reader.isDemo
 
 // actions
 
-import { MIC_SET_PERMISSIONS, START_RECORDING_CLICKED, STOP_RECORDING_CLICKED, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED, BOOK_INTRO_RECORDING_ENDED, NEXT_PAGE_CLICKED, PREVIOUS_PAGE_CLICKED, PAUSE_CLICKED, RESUME_CLICKED, RESTART_RECORDING_CLICKED, HEAR_RECORDING_CLICKED, TURN_IN_CLICKED, startCountdownToStart, setMicPermissions, startRecording, COUNTDOWN_ENDED, EXIT_CLICKED, setReaderState, setPageNumber, setHasRecordedSomething, setCurrentSound, setRecordingURL, setCurrentModal, setCurrentOverlay } from '../state'
+import { MIC_SET_PERMISSIONS, START_RECORDING_CLICKED, STOP_RECORDING_CLICKED, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED, BOOK_INTRO_RECORDING_ENDED, NEXT_PAGE_CLICKED, PREVIOUS_PAGE_CLICKED, PAUSE_CLICKED, RESUME_CLICKED, RESTART_RECORDING_CLICKED, HEAR_RECORDING_CLICKED, TURN_IN_CLICKED, INTRO_CONTINUE_CLICKED, startCountdownToStart, setMicPermissions, startRecording, COUNTDOWN_ENDED, EXIT_CLICKED, setReaderState, setPageNumber, setHasRecordedSomething, setCurrentSound, setRecordingURL, setCurrentModal, setCurrentOverlay } from '../state'
 
 
 
@@ -52,6 +52,7 @@ function checkPermission() {
 
 
 function* getMicPermissions() {
+
 
   const hasPermissions = yield call(checkPermission)
   if (hasPermissions) {
@@ -101,11 +102,16 @@ export default function* rootSaga() {
   yield fork(audioEffectsSaga)
   // yield fork(recorderSaga)
 
+  yield put(setCurrentOverlay('overlay-intro'))
+  yield take(INTRO_CONTINUE_CLICKED)
+  yield put(setCurrentOverlay('no-overlay'))
+
   let recorder = yield select(getRecorder)
 
   const permissionsGranted = yield getMicPermissions() // blocks
 
   if (!permissionsGranted) {
+    yield put(setCurrentOverlay('overlay-blocked-mic'))
     return
   }
 

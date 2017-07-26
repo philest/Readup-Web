@@ -48,14 +48,17 @@ export default class NavigationBar extends React.Component {
         { this.props.showPauseButton && 
 
           <div className={css.subContainer}>
-            <div className={css.centerDisplayContainer}>
+            <div className={[css.centerDisplayContainer, css.headerTabRed].join(' ')}>
               <RectangleButton
                 title={'Pause'}
                 subtitle={'recording'}
-                style={{ marginTop: 20, backgroundColor: '#9D2C28' }}
+                style={{ marginTop: 20 }}
                 id="navigation-button"
                 onClick={this.props.onPauseClicked}
               />
+
+              <div className={css.pulsatingCircle}>
+              </div>
             </div>
           </div>
 
@@ -64,7 +67,7 @@ export default class NavigationBar extends React.Component {
         { (this.props.isCoverPage || this.props.showBookInfo) && 
 
           <div className={css.subContainer}>
-            <div className={css.centerDisplayContainer}>
+            <div className={[css.centerDisplayContainer, css.headerTabBlue].join(' ')}>
               <BookInfoHeader
                 title={this.props.bookTitle}
                 subtitle={( 'by ' + this.props.bookAuthor)}
@@ -80,6 +83,7 @@ export default class NavigationBar extends React.Component {
             <span className={css.userNameLabel}>{this.props.studentName}</span>
             <span className={css.logoutButton}>
               <a className={css.logoutLabel} onClick={this.props.onExitClicked}>Exit</a>
+              <img src='/images/dashboard/logout-icon.png' className={css.logoutIcon} />
             </span>
           </div>
         </div>

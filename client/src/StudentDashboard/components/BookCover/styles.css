@@ -1,4 +1,5 @@
 .coverImage {
 	width: 100%;
 	height: 100%;
+	box-shadow: -5px 2px 73px 2px rgba(0,0,0,0.55);
 }

@@ -23,10 +23,25 @@
 	
 }
 
+.images {
+	position: relative;
+}
+
 .submittedImage {
 	width: 70px;
 	margin-bottom: 10px;
 	background-color: transparent;
+}
+
+.loadingGif {
+	width: 30px;
+	background-color: transparent;
+	position: absolute;
+	top: 20px;
+	/* yes this is very hacky but it's just for the demo and it works as long as the screen isn't super super narrow */
+	right: 190px; 
+
+
 }
 
 .title {

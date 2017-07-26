@@ -25,7 +25,7 @@ export default function* audioEffectsSaga() {
     yield call(stopAudio)
 
     if (action.payload.micPermissionsStatus === MicPermissionsStatusOptions.granted) {
-      const error = yield call(playSound, '/audio/sample.m4a')
+      const error = yield call(playSound, '/audio/book_intro.m4a')
       yield put({ type: BOOK_INTRO_RECORDING_ENDED })
     }
         

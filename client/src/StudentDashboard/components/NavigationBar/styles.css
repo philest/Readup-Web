@@ -9,7 +9,6 @@
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	font-family: 'Arial';
 	z-index: 100;
 }
 
@@ -24,16 +23,25 @@
 	margin-left: 60px;
 	/*background-color: red;*/
 	margin-right: auto;
+	font-family: 'Conv_proximanova-semibold-webfont'
 }
 
 .centerDisplayContainer {
 	width: 250px;
 	height: 90px;
-	background-color: #2C6D9C;
+	background-color: transparent;
 	margin-right: auto;
 	margin-left: auto;
 	z-index: 100;
+}
 
+.headerTabBlue {
+	background: url(/images/dashboard/header-tab-blue.svg);
+	background-size: 250px 90px;
+}
+.headerTabRed {
+	background: url(/images/dashboard/header-tab-red.svg);
+	background-size: 250px 90px;
 }
 
 .rightDisplayContainer {
@@ -55,12 +63,12 @@
 .logoutButton {
 	margin-left: 40px;
 	margin-right: 80px;
+	cursor: pointer;
 }
 
 .logoutLabel {
 	font-weight: bold;
 	color: white;
-	cursor: pointer;
 }
 
 .logoutLabel:visited {
@@ -74,6 +82,42 @@
 }
 
 .logoutIcon {
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
+	margin-left: 8px;
+	background-color: transparent;
 }
+
+@keyframes pulseOut {
+	0% {
+		transform: scale(1.0)
+	}
+	40% {
+		transform: scale(1.5)
+	}
+	50% {
+		transform: scale(1.5)
+	}
+	90% {
+		transform: scale(1.0)
+	}
+	100% {
+		transform: scale(1.0)
+	}	
+}
+
+.pulsatingCircle {
+	/*background-color: green;*/
+	color: white;
+	height: 14px;
+	width: 14px;
+	position: relative;
+	top: -55px;
+	right: -40px;
+	border-radius: 7px;
+	background-color: white;
+	animation: pulseOut 2s infinite;
+}
+
+
+
