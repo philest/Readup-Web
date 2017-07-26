@@ -44,8 +44,8 @@ export default class NavigationBar extends React.Component {
         <div className={css.subContainer}>
           <span className={css.brandText}>ReadUp</span>
         </div>
-        
-        { this.props.showPauseButton && 
+
+        { this.props.showPauseButton &&
 
           <div className={css.subContainer}>
             <div className={[css.centerDisplayContainer, css.headerTabRed].join(' ')}>
@@ -55,21 +55,20 @@ export default class NavigationBar extends React.Component {
                 style={{ marginTop: 20 }}
                 id="navigation-button"
                 onClick={this.props.onPauseClicked}
-              /
-              <div className={css.pulsatingCircle}>
-              </div>
+              />
+              <div className={css.pulsatingCircle}> </div>
             </div>
           </div>
 
         }
 
-        { (this.props.isCoverPage || this.props.showBookInfo) && 
+        { (this.props.isCoverPage || this.props.showBookInfo) &&
 
           <div className={css.subContainer}>
             <div className={[css.centerDisplayContainer, css.headerTabBlue].join(' ')}>
               <BookInfoHeader
                 title={this.props.bookTitle}
-                subtitle={( 'by ' + this.props.bookAuthor)}
+                subtitle={('by ' + this.props.bookAuthor)}
                 style={{ marginTop: 20 }}
               />
             </div>
@@ -77,7 +76,7 @@ export default class NavigationBar extends React.Component {
 
         }
 
-            
+
         <div className={css.subContainer}>
           <div className={css.rightDisplayContainer}>
             <span className={css.userNameLabel}>{this.props.studentName}</span>

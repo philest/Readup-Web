@@ -168,14 +168,6 @@ function* turnInAudio(blob, assessmentId: number) {
 
 
 
-  const hasPermissions = yield call(checkPermission)
-  if (hasPermissions) {
-    yield put(setMicPermissions(MicPermissionsStatusOptions.granted))
-    return true
-  }
-  else {
-    yield put(setMicPermissions(MicPermissionsStatusOptions.awaiting))
-    yield put(setCurrentOverlay('overlay-permissions'))
 
 
 function* exitClick() {
@@ -199,15 +191,14 @@ function* assessThenSubmitSaga() {
   yield put(setCurrentOverlay('overlay-intro'))
   yield take(INTRO_CONTINUE_CLICKED)
   yield put(setCurrentOverlay('no-overlay'))
-  
-  
+
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
   const permissionsGranted = yield* getMicPermissionsSaga() // blocks
-  
+
   yield put(setCurrentOverlay('no-overlay'))
 
   if (!permissionsGranted) {
