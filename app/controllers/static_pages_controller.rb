@@ -5,14 +5,14 @@
 class StaticPagesController < ActionController::Base
 
   @mixpanel_homepage_key = ENV['MIXPANEL_HOMEPAGE']
-  
+
   def index
     render 'static_pages/homepage/index'
   end
 
-  def app
-    render 'static_pages/pages/get-the-app'
-  end
+  # def app
+  #   render 'static_pages/pages/get-the-app'
+  # end
 
   def error
     render 'static_pages/register/error'
@@ -24,10 +24,6 @@ class StaticPagesController < ActionController::Base
 
   def terms
     render 'static_pages/pages/terms'
-  end
-
-  def doc
-    redirect_to '/doc/'
   end
 
   def team
@@ -66,6 +62,9 @@ class StaticPagesController < ActionController::Base
     render 'static_pages/pages/jobs/design'
   end
 
+  def signup_success
+    render 'static_pages/signup/success'
+  end
 
 
 end

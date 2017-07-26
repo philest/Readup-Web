@@ -11,7 +11,7 @@
     background-size: 30px;
   }
 
-  ul.ui-autocomplete.ui-menu { 
+  ul.ui-autocomplete.ui-menu {
     overflow-y: scroll;
     max-height: 250px;
     overflow-x: hidden;
@@ -52,16 +52,18 @@
 
       <div data-role="page" class="wrapper" id="page4-find-school">
         <%= render 'static_pages/components/navbar' %>
-     
+
         <div data-role="main" class="body invite-teacher">
 
           <div class="container" style="padding-top:0em;">
             <div class="content-wrapper">
-            
+
                 <h2 class="modal-signup-heading" id="modal-signup-heading">Add your school</h2>
                 <!-- <h3 class="modal-signup-heading">to add your class</h3> -->
 
-                <form id="school-info" class="signup-form"> 
+                <form id="school-info" class="signup-form">
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
                   <div class="signup-setup">
                       <div class="field" id="signup-field">
                          <label class="label">School</label>
@@ -73,7 +75,7 @@
                   <div class="dropdown-menu" style="display: none;">
                     <div id="just-to-append">
                       <div id="status-text">
-                        <p><i>Suggested schools for you</i></p>
+                        <p></p>
                       </div>
                     </div>
 
@@ -82,23 +84,10 @@
                     </div>
                   </div>
 
+                  <!-- grade selection -->
+                  <%= render 'static_pages/signup/modals/partials/grade_level' %>
 
-                      <label class="label">Grade level</label>
-                      <select class="form-control" id="classroom_grade" name="classroom_grade" required>
-                        <option value="">Select your grade</option>
-                        <option value="-3">Infant</option>
-                        <option value="-2">Toddler</option>
-                        <option value="-1">Preschool</option>
-                        <option value="0">Kindergarten</option>
-                        <option value="1">1st Grade</option>
-                        <option value="2">2nd Grade</option>
-                        <option value="3">3rd Grade</option>
-                        <option value="4">4th Grade</option>
-                        <option value="5">5th Grade</option>
-                        <option value="6">6th Grade</option>
-                        <option value="7">7th Grade or above</option>
 
-                      </select>
 
                   <input type="hidden" name="school_id" value="">
                   <input type="hidden" name="school_name" value="">
@@ -106,21 +95,35 @@
                   <input type="hidden" name="school_state" value="">
                   <input type="hidden" name="signature" value="">
 
-                  <a id="page4link" class="transition-link ui-btn web-mobile-signup-button" href="#" data-transition="fade">
-                    Continue
+                  <a
+                    id="page4link"
+                    class="transition-link ui-btn web-mobile-signup-button"
+                    href="#page3-signature"
+                    data-transition="fade">
+                    Take Me To Demo
+                    <!-- Continue -->
                   </a>
-        
+
                   <script>
                     var last_selected = '';
 
-                    $(function() {  
+                    function setFormValues(ui) {
+                      $('#page4-find-school input[name=school_name]').blur();
+                      $('#page4-find-school input[name=school_id]').val(ui.item.id);
+                      $('#page4-find-school input[name=school_name]').val(ui.item.label);
+                      $('#page4-find-school input[name=school_city]').val(ui.item.city);
+                      $('#page4-find-school input[name=school_state]').val(ui.item.state);
+                      $("#page4-find-school input[name=school_name]").autocomplete('close');
+                      return ui.item.label || '';
+                    };
+
+                    $(function() {
 
                       var availableSchools = [];
-                        
+
                         $( "#page4-find-school input[name=school_name]" ).autocomplete({
-
-                          source: 'https://www.joinstorytime.com/auth/list-of-schools',
-
+                          delay: 400,
+                          source: '/auth/search_school',
                           minLength: 2,
                           appendTo: "#just-to-append",
                           position: { my: "left top", at: "left bottom", of: "#status-text" },
@@ -139,36 +142,12 @@
                           focus: function(event, ui) {
                             $('#page4-find-school input[name=school_name]').val(ui.item.label);
                             if (isMobileDevice()){
-                              $('#page4-find-school input[name=school_name]').blur();
-                              last_selected = ui.item.label;
-
-                              $('#page4-find-school input[name=school_id]').val(ui.item.value);
-
-                              $('#page4-find-school input[name=school_name]').val(ui.item.label);
-
-                              $('#page4-find-school input[name=school_city]').val(ui.item.city);
-
-                              $('#page4-find-school input[name=school_state]').val(ui.item.state); 
-
-                              $("#page4-find-school input[name=school_name]").autocomplete('close');
-
+                              last_selected = setFormValues(ui);
                             }
                             return false;
                           },
                           select: function(event, ui) {
-                            $('#page4-find-school input[name=school_name]').blur();
-                            last_selected = ui.item.label;
-
-                            $('#page4-find-school input[name=school_id]').val(ui.item.value);
-
-                            $('#page4-find-school input[name=school_name]').val(ui.item.label);
-
-                            $('#page4-find-school input[name=school_city]').val(ui.item.city);
-
-                            $('#page4-find-school input[name=school_state]').val(ui.item.state); 
-
-                            $("#page4-find-school input[name=school_name]").autocomplete('close');
-                            
+                            last_selected = setFormValues(ui);
                             return false;
                           }
                         }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
@@ -182,44 +161,28 @@
                            .appendTo( ul );
                         };
                       });
-                    // });
 
-                      
+
+
                     $('#page4-find-school input[name=school_name]').click(function() {
                       $('.dropdown-menu').css('display', 'block');
                     });
 
                     $('#page4link-add-school').on('mousedown', function(event) {
                       // event.stopImmediatePropagation();
-                      event.preventDefault(); 
+                      event.preventDefault();
                     });
-                    
+
 
                     $('#page4-find-school input[name=school_name]').blur(function() {
                       // check to see if we selected something nice
                       var input_val = $('#page4-find-school input[name=school_name]').val();
-                      
+
                       $('#page4-find-school input[name=school_name]').val(last_selected);
                       $("#page4-find-school input[name=school_name]").autocomplete('close');
                       $('.dropdown-menu').css('display', 'none');
                     });
 
-                    $('#page4-find-school select[name=classroom_grade]').change(function(event){
-
-
-                      // Here's a good place to change the next page based on the inputted grade
-                      // i.e. if grade too old, show we don't support it, don't let user advance
-
-                      // var grade = $('#page4-find-school select[name=classroom_grade]').val();
-                      // grade = parseInt(grade); 
-                      // if (grade... ) {
-                      //   $('#page4link').attr('href', '#');
-                      // }
-                          
-                      // for now default to going to the next page 
-                      $('#page4link').attr('href', '#page3-signature');
-                      
-                    });
 
 
                     $(document).on('click', '#page4-find-school #page4link',function(event){
@@ -238,45 +201,46 @@
                       $('#page5-add-students form#add-students').find('input[name=school_state]').val($('#page4-find-school input[name=school_state]').val());
                       $('#page5-add-students form#add-students').find('input[name=classroom_grade]').val($('#page4-find-school select[name=classroom_grade]').val());
 
-                      
-                      
+
+                        var postData = {
+                          'user_id': $('form#add-students').find('input[name=user_id]').val(),
+                          'school_id': $('form#add-students').find('input[name=school_id]').val(),
+                          'school_name': $('form#add-students').find('input[name=school_name]').val(),
+                          'school_city': $('form#add-students').find('input[name=school_city]').val(),
+                          'school_state': $('form#add-students').find('input[name=school_state]').val(),
+                          'student_names': ['Demo Student'],
+                          'authenticity_token': $('form#add-students').find('input[name=authenticity_token]').val(),
+                          'classroom_grade': $('form#add-students').find('input[name=classroom_grade]').val(),
+                          'classroom_name': 'Demo Classroom',
+                          'signature': "Demo Teacher",
+                        };
+
+                        console.log("signup post data  " + postData);
+
+                        $.ajax({
+                          url: 'create_classroom',
+                          type: 'post',
+                          data: postData
+                        }).done(function(data, statusText, xhr) {
+                          var cur = window.location.hostname
+                          location.href= "/student_dashboard/#/story/demo/page/1"
+                        }).fail(function(){
+
+                          }
+                        );
+
+                        var formdata = $("form#add-students").serializeArray();
+                        console.log(formdata);
+                        var data = {};
+                        $(formdata).each(function(index, obj){
+                            data[obj.name] = obj.value;
+                        });
+                        console.log(data);
+
                     });
-
-
-
 
                   </script>
                 </form>
-
-                <!-- submit form -->
-                <form id='log-into-dat-account' action='/auth/signin' method='post' data-ajax="false" style="display: none;">
-                  <input type="hidden" name='username' value='<%= session[:username] %>'>
-                  <input type="hidden" name='signature' value=''>
-                  <input type="hidden" name='password' value='<%= session[:password] %>'>
-                  <input type="hidden" name='role' value=''>
-
-                  <!-- HERE IS THE LOCUS OF PRODUCTION -->
- <!--                  <button id="go-to-dashboard" data-ajax="false" style="font-size: 1.2em;" type="submit">
-                      Log in
-                  </button> -->
-
-                  <script>
-                    $('#page4-find-school form#log-into-dat-account').on('submit', function(event) {
-                      var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                      $('form#log-into-dat-account').find('input[name=role]').val(role);
-
-                      var sig = $('form#educator-signature-form').find('input[name=signature]').val();
-
-                      $('form#log-into-dat-account').find('input[name=signature]').val(sig);
-
-
-                      // $('form#log-into-dat-account').submit();
-                    });
-                  </script>
-
-                </form>
-                <!-- submit form -->
-
 
               </div>
           </div> <%# container %>

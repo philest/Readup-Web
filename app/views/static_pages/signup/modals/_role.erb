@@ -1,6 +1,6 @@
 <style>
   .container.choose-educator-role {
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
   }
 </style>
@@ -10,7 +10,7 @@
   <%= render 'static_pages/components/navbar' %>
       <div data-role="main" class="body" style="display: block;">
         <div class="pure-g">
-          
+
           <div class="pure-u-1 class-information password-text">
                   <h1 style="font-size:20px;margin-top:29px;"><%= "Tell us about yourself" %></h1>
                 </div>
@@ -19,7 +19,7 @@
         <form class="role" id="choose-educator-role-form" style="display: none;">
           <input type="hidden" name="role" value="">
         </form>
-          
+
         <div class="pure-g all-roles">
           <!-- redirect to page3: the teacher signature modal -->
             <a class="transition-link pure-u-1 pure-u-md-1-3" href="#page3-signature" data-transition="fade">
@@ -38,7 +38,7 @@
 
             <!-- fades to page2, which is the teacher invite modal -->
             <a class="transition-link pure-u-1 pure-u-md-1-3" href="#page4-find-school" data-transition="fade">
-              
+
               <div class="container choose-educator-role" id="parent">
                 <div class="pure-g">
                   <div class="pure-u-1 role-form">
@@ -52,7 +52,7 @@
                 </div> <%# end pure-g %>
               </div>
             </a>
-            
+
 
 
             <!-- redirect to page3: the teacher signature modal -->
@@ -72,7 +72,7 @@
             </a>
 
         </div>
-        
+
       </div> <%# body class %>
 
   </div> <%# wrapper %>
@@ -88,7 +88,7 @@
           $('form#log-into-dat-account').find('input[name=role]').val(role);
 
           mixpanel.track('role ' + role + ' chosen');
-          
+
         });
       });
 </script>

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-  has_many :teachers
+  has_many :teachers, inverse_of: :user
 
   after_initialize :set_defaults, unless: :persisted?
 
@@ -32,7 +32,7 @@ class User < ApplicationRecord
     end
   end
 
-   # custom validation
+
   validate :full_name_present
   def full_name_present
     if name.nil? || name == "" || name.split(" ").size < 2
@@ -43,6 +43,9 @@ class User < ApplicationRecord
 
   before_save {
     self.email = email.downcase if email.present?
+    name_arr = name.split
+    self.first_name = name_arr[0, name_arr.size - 1].join(" ")
+    self.last_name  = name_arr[-1]
   }
 
   has_secure_password

@@ -2,7 +2,35 @@
  * JS for all homepage modals, forms, and validations.
  */
 
- $( document ).ready(function() {
+
+function registerUser (event, target, platform) {
+    event.preventDefault();
+    event.stopPropagation();
+    $(target).validate({ // initialize the plugin
+        rules: {
+            first_name: {
+                required: true
+            },
+            last_name: {
+              required: true
+            },
+            password: {
+                required: true
+            }
+        }
+    }).form();
+
+    var ValidStatus = $(target).valid();
+    if (ValidStatus == false) {
+        mixpanel.track('invalid name-password given', {'platform': platform});
+        return false;
+    }
+    $(target).submit();
+}
+
+var triggeredMobileForm = false;
+
+$( document ).ready(function() {
 
   function transitionToNamePassword() {
     $('#signup-email-mobile').validate({ // initialize the plugin
@@ -19,22 +47,23 @@
         mixpanel.track('invalid username given', {"platform": "mobile"});
     } else {
       var username = $('form#signup-email-mobile input[name=usernameDisplay]').val();
-      if (validatePhone(username)) {
-        console.log(validatePhone(username));
-        var phone = username; 
-
-        phone = phone.replace(/[\(\)\.\-\ ]/g, '');
 
 
-        $('form#signup-email-mobile input[name=username]').val(phone);
-
-      }
-
-
-      $('#signup-email-mobile').slideUp();
+      $('#signup-email-button-mobile').slideUp();
       $('.signup-name-password-mobile').slideDown();
       mixpanel.track('email given', {"platform": "mobile"});
     }
+
+    var username = $('#signup-email-mobile input[name=usernameDisplay]').val();
+
+    var usernameFieldName = 'user[email]';
+    var input = $('<input>')
+                      .attr('type', 'hidden')
+                      .attr('name', usernameFieldName)
+                      .val(username);
+    $('#signup-name-password-mobile').append($(input));
+
+
   }
 
   $('#signup-email-button-mobile').click(function(event) {
@@ -63,51 +92,39 @@
   });
 
 
-  $('#signup-email-button').click(function(event) {
+  $('#signup-email-button-desktop').click(function(event) {
     event.preventDefault();
 
     $('#signup-email').validate({ // initialize the plugin
         rules: {
             usernameDisplay: {
-                validateContactId: true
+                email: true,
+                required: true
             }
         }
     }).form();
 
-    var ValidStatus = $("#signup-email").valid();
-    if (ValidStatus == false) {
+    if (!$("#signup-email").valid()) {
         mixpanel.track('invalid email given', {'platform':'desktop'});
         return false;
     }
 
+    triggeredMobileForm = true;
+
     var username = $('form#signup-email input[name=usernameDisplay]').val();
     var usernameDisplay = username;
-    if (validatePhone(username)) {
-      console.log(validatePhone(username));
-      var phone = username; 
-
-      phone = phone.replace(/[\(\)\.\-\ ]/g, '');
-
-
-      $('form#signup-email input[name=username]').val(phone);
-
-      username = phone;
-
-    }
 
     $.ajax({
       url: 'auth/user_exists',
       type: 'get',
       data: {
-
         email: username
-
       },
       success: function(data) {
         // a user already exists with this username/phone, so log that user in
         $('#teacher-info input[name=usernameDisplay]').val(usernameDisplay);
         $('#teacher-info input[name=username]').val(username);
-        $('#myModal').modal('toggle'); 
+        $('#myModal').modal('toggle');
       },
       error: function (xhr, ajaxOptions, thrownError){
           if(xhr.status==404) {
@@ -122,109 +139,47 @@
 
     mixpanel.track('email given', {'platform':'desktop'});
 
-    // $("body").addClass("modal-open");
   });
 
 
 
 
   $('#signup-name-password-button-mobile').click(function(event) {
-    event.preventDefault();
-    $('#signup-name-password-mobile').validate({ // initialize the plugin
-        rules: {
-            first_name: {
-                required: true
-            },
-            last_name: {
-              required: true
-            },
-            password: {
-                required: true
-            }
-        }
-    }).form();
+    var target = '#signup-name-password-mobile';
+    registerUser(event, target, 'mobile');
+  });
 
-    var ValidStatus = $("#signup-name-password-mobile").valid();
-    if (ValidStatus == false) {
-        mixpanel.track('invalid name-password given', {'platform':'mobile'});
-        return false;
+
+  // handle enter button on signup form
+  $('#signup-email-mobile').on('keyup keypress', function(e) {
+    var target = '#signup-name-password-mobile';
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+      if (triggeredMobileForm) {
+        registerUser(event, target, 'mobile');
+      } else {
+        transitionToNamePassword();
+      }
     }
+  });
 
-     // we want to POST this, clear the first-signup-form, the move on to the next modal
-    $('#signup-name-password-mobile').submit();
-
+  // handle enter button on signup form
+  $('#signup-name-password-mobile').on('keyup keypress', function(e) {
+    var target = '#signup-name-password-mobile';
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+      registerUser(event, target, 'mobile');
+    }
   });
 
 
 
   $('#signup-name-password-button').click(function(event) {
-    event.preventDefault();
-    $('#signup-name-password').validate({ // initialize the plugin
-        rules: {
-            first_name: {
-                required: true
-            },
-            last_name: {
-              required: true
-            },
-            password: {
-                required: true
-            }
-        }
-    }).form();
-
-    var ValidStatus = $("#signup-name-password").valid();
-    if (ValidStatus == false) {
-        mixpanel.track('invalid name-password given', {'platform':'desktop'});
-        return false;
-    }
-    // we want to POST this, clear the first-signup-form, the move on to the next modal
-    $('#signup-name-password').submit();
-
+    var target = '#signup-name-password';
+    registerUser(event, target, 'desktop');
   });
 
 
-  $('#signup-signature-button').click(function(event) {
-    event.preventDefault();
-    $('#signup-signature').validate({ // initialize the plugin
-        rules: {
-            signature: {
-                required: true
-            }
-        }
-    }).form();
-
-    var ValidStatus = $("#signup-signature").valid();
-    if (ValidStatus == false) {
-        return false;
-    }
-    $('body').addClass('modalTransition');
-    $('#schoolInfo').modal('toggle');
-    // $("body").addClass("modal-open");
-  });
-
-
-
-  $('#school-info-button').click(function(event) {
-    // gather all form fields + submit
-    event.preventDefault();
-    $('#school-info').validate({ // initialize the plugin
-        rules: {
-            school_name:  {required:true},
-            school_city:  {required:true},
-            school_state: {required:true}
-        }
-    }).form();
-
-    var ValidStatus = $("#school-info").valid();
-    if (ValidStatus == false) {
-        return false;
-    }
-
-    // otherwise, gather everything from the forms!
-    $('body').addClass('modalTransition');
-    $('#main-signup-form').submit();
-  });
 
 
   $('button.demo-form-button').click(function(){
@@ -251,7 +206,7 @@
     console.log(data);
     mixpanel.people.set(data);
 
-    mixpanel.track('freemium registration submitted', {'platform':'mobile'}); 
+    mixpanel.track('freemium registration submitted', {'platform':'mobile'});
 
   });
 
@@ -259,7 +214,8 @@
   $('#signup-name-password').submit(function(event) {
     var username = $('#signup-email input[name=username]').val();
 
-    var usernameFieldName = (validatePhone(username)) ? 'user[phone]' : 'user[email]';
+
+    var usernameFieldName = 'user[email]';
     var input = $('<input>')
                       .attr('type', 'hidden')
                       .attr('name', usernameFieldName)
@@ -275,7 +231,7 @@
     console.log(data);
     mixpanel.people.set(data);
 
-    mixpanel.track('freemium registration submitted', {'platform':'desktop'}); 
+    mixpanel.track('freemium registration submitted', {'platform':'desktop'});
 
   });
 
@@ -328,48 +284,6 @@
   });
 
 
-  
-  // might also belong to a different page...
-  $('#admin-login').submit(function(event) {
-
-    var adminInfo = $('#teacher-info').serializeArray();
-
-    for (var i = 0; i < adminInfo.length; i++) {
-      var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', adminInfo[i]['name']).val(adminInfo[i]['value']);
-      $('#admin-login').append($(input));
-    }
-
-    var first_name = $("#admin-login").find("input[name=first_name]").val();
-    var last_name = $("#admin-login").find("input[name=last_name]").val();
-
-    var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'first_name')
-                    .val(first_name);
-    $('#admin-login').append($(input));
-
-    var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'last_name')
-                    .val(first_name);
-    $('#admin-login').append($(input));
-
-    var signature = first_name + " " + last_name;
-    var input = $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'signature')
-                    .val(signature);
-    $('#admin-login').append($(input));
-
-    var role = $('<input>')
-                  .attr('type', 'hidden')
-                  .attr('name', 'role')
-                  .val('admin');
-    $('#admin-login').append($(role));
-
-  });
 
 
   $('.modal').on('hidden.bs.modal', function(event) {
@@ -397,10 +311,10 @@
     $('body').css("padding-right", '0px');
     $("body").addClass("my-modal-open");
   });
-  
 
-  // 
-  // 
+
+  //
+  //
   // YUP, SIGNUP FLOW, RIGHT ABOVE ME!!!!!
 
   $('.logger-in.signup-button#top-button').click(function(event) {

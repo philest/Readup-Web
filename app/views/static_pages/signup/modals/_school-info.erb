@@ -8,23 +8,37 @@
       <!-- Modal Signup -->
       <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
       <div data-role="page" class="wrapper" id="page6-school-info">
+
         <%= render 'static_pages/components/navbar' %>
-     
+
         <div data-role="main" class="body invite-teacher">
 
           <div class="container" style="padding-top:0em;">
-              <h2 class="modal-signup-heading" id="modal-signup-heading">Add your school</h2>
-              <!-- <h3 class="modal-signup-heading">to add your class</h3> -->
 
-              <form id="school-info" class="signup-form"> 
+              <h2 class="modal-signup-heading" id="modal-signup-heading">
+                Add your school
+              </h2>
+
+              <form id="add-school" class="signup-form">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
                 <div class="signup-setup">
                   <div class="field" id="signup-field">
-                     <label class="label">School name</label>
-                    <input name="school_name" autocomplete="off" placeholder="" class="input" required>
-                      <label class="label">City</label>
-                    <input name="school_city" autocomplete="off" placeholder="" class="input" required>
-                    <label class="label">State</label>
-                    <select class="form-control" id="state" name="school_state" required>
+
+                    <label class="label">
+                      School name
+                    </label>
+                    <input name="school[name]" autocomplete="off" placeholder="" class="input" required>
+
+                    <label class="label">
+                      City
+                    </label>
+                    <input name="school[city]" id="ct" autocomplete="off" placeholder="" class="input" required>
+
+                    <label class="label">
+                      State
+                    </label>
+                    <select class="form-control" id="state" name="school[state]" required>
                         <option value="">Select your state</option>
                         <option value="International">International</option>
                         <option value="AK">Alaska</option>
@@ -81,22 +95,9 @@
                         <option value="WY">Wyoming</option>
                       </select>
 
-                      <label class="label">Grade level</label>
-                      <select class="form-control" id="classroom_grade" name="classroom_grade" required>
-                        <option value="">Select your grade</option>
-                        <option value="-3">Infant</option>
-                        <option value="-2">Toddler</option>
-                        <option value="-1">Preschool</option>
-                        <option value="0">Kindergarten</option>
-                        <option value="1">1st Grade</option>
-                        <option value="2">2nd Grade</option>
-                        <option value="3">3rd Grade</option>
-                        <option value="4">4th Grade</option>
-                        <option value="5">5th Grade</option>
-                        <option value="6">6th Grade</option>
-                        <option value="7">7th Grade or above</option>
+                    <!-- grade selection -->
+                    <%= render 'static_pages/signup/modals/partials/grade_level' %>
 
-                      </select>
                     </div>
                     <!-- <button id="join" data-dismiss='modal' data-toggle='modal' data-target="#modalSig"  class="signup-form-button pure-button pure-button-prry get_update dialog-button">Log in</button> -->
                 </div>
@@ -104,46 +105,17 @@
                 <input type="hidden" name="role" value="">
                 <input type="hidden" name="signature" value="">
 
-                <a id="page6link" class="transition-link ui-btn web-mobile-signup-button" href="#" data-transition="fade">
+                <a id="page6link" class="transition-link ui-btn web-mobile-signup-button" href="#page3-signature" data-transition="fade">
                   Continue
                 </a>
-                
+
                 <script>
 
-                  $('#page6-school-info select[name=classroom_grade]').change(function(event){
-                    // get the grade
-                    var grade = $('#page6-school-info select[name=classroom_grade]').val();
-                    grade = parseInt(grade); 
-
-                    var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-
-                    // Allow up to (and including) 1st grade teachers!  
-                    if (grade <= 1) {
-                      if (role == "parent") {
-                        $('#page4link').attr('href', '#page2-invite-teacher');
-                      }
-                      else if (isMobileDevice()){
-                        $('#page4link').attr('href', '#page7');
-                      }
-                      else {
-                        $('#page4link').attr('href', '#');
-                      }
-                    } else {
-                      $('#page4link').attr('href', '#page8-go-to-dashboard');
-                      // change the page5 text maybe?
-                      // or maybe just have a separated page with that text
-                    }
-                    // check which one
-
-
-                    // change link based on that
-
-                  });
 
                   $(document).on('click', '#page6link',function(event){
+                    var ValidStatus = $("form#add-school").valid();
 
-                    var ValidStatus = $("#page6-school-info #school-info").valid();
-                    
+
                     if (ValidStatus == false) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -152,79 +124,37 @@
                     }
 
                     var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                    $('form#school-info').find('input[name=role]').val(role);
+                    $('form#add-school').find('input[name=role]').val(role);
 
                     var sig = $('form#educator-signature-form').find('input[name=signature]').val();
 
-                    $('form#school-info').find('input[name=signature]').val(sig);    
+                    $('form#add-school').find('input[name=signature]').val(sig);
+                        console.log()
 
-                    // $.post('/freemium-signup', $('form#school-info').serialize());
+                    var formData = $('form#add-school').serialize();
+                    console.log(formData);
 
-                    if (role != parent) {
-                      $.ajax({
-                        url: '/auth/freemium-signup',
-                        type: 'post',
-                        data: $('#page6-school-info form#school-info').serialize()
-                      }).done(function(data, statusText, xhr) {
-                          console.log(data);
-                          console.log('statusText is:');
-                          console.log(statusText);
-                          console.log(xhr);
-
-                          var grade = $('#page6-school-info select[name=classroom_grade]').val();
-                          grade = parseInt(grade); 
-
-                          if (grade <= 1) {
-                            console.log('yup, gonna submit');
-                            $('#page6-school-info form#log-into-dat-account').submit();
-                            // we're going to go to the dashboard.
-                          }
-
-
-                          // $('form#log-into-dat-account input[name=password]').val(data);
-                      });
-
-
-                      var formdata = $("form#school-info").serializeArray();
-                      var data = {};
-                      $(formdata).each(function(index, obj){
-                          data[obj.name] = obj.value;
-                      });
-                      console.log(data);
-                      mixpanel.people.set(data);
-                      mixpanel.track('finished freemium signup');
-                    }
-
+                    $.ajax({
+                      url: '/schools',
+                      dataType: "json",
+                      type: 'post',
+                      data: formData,
+                    }).done(function(data, statusText, xhr) {
+                      var gradeLevel = $('form#add-school :input.grade-level')
+                      $('form#add-students').find('input[name=school_id]').val(data.id);
+                      $('form#add-students').find('input[name=classroom_grade]').val(gradeLevel);
+                    }).fail(function(data, statusText, xhr) {
+                      alert('Please try again!')
+                      event.preventDefault();
+                      event.stopPropagation();
+                      // TODO: mixpanel
+                      return false;
+                    })
 
                   });
 
                 </script>
               </form>
-
-             <!-- submit form -->
-             <form id='log-into-dat-account' action='/auth/signin' method='post' data-ajax="false" style="display: none;">
-               <input type="hidden" name='username' value='<%= session[:username] %>'>
-               <input type="hidden" name='signature' value=''>
-               <input type="hidden" name='password' value='<%= session[:password] %>'>
-               <input type="hidden" name='role' value=''>
-
-
-               <script>
-                 $('#page6-school-info form#log-into-dat-account').on('submit', function(event) {
-                  console.log('submitting this form...');
-                   var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                   $(this).find('input[name=role]').val(role);
-
-                   var sig = $('form#educator-signature-form').find('input[name=signature]').val();
-
-                   $(this).find('input[name=signature]').val(sig);
-
-                   // $('form#log-into-dat-account').submit();
-                 });
-               </script>
-
-             </form>
-             <!-- submit form -->
           </div>
         </div>
       </div>

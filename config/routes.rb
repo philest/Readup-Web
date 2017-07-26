@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :schools
+
   root 'static_pages#index'
 
   get 'hello', to: 'hello_world#index'
@@ -7,15 +9,16 @@ Rails.application.routes.draw do
 
   # static pages
 
-  get 'app', to: 'static_pages#app'
-  get 'class', to: 'static_pages#class'
+  # get 'app', to: 'static_pages#app'
+  # get 'class', to: 'static_pages#class'
+  # get 'start', to: 'static_pages#start'
+  # get 'go', to: 'static_pages#go'
+  # get 'doc', to: 'static_pages#doc'
+  # get 'read', to: 'static_pages#read'
+
   get 'error', to: 'static_pages#error'
   get 'privacy', to: 'static_pages#privacy'
   get 'terms', to: 'static_pages#terms'
-  get 'read', to: 'static_pages#read'
-  get 'start', to: 'static_pages#start'
-  get 'go', to: 'static_pages#go'
-  get 'doc', to: 'static_pages#doc'
   get 'team', to: 'static_pages#team'
   get 'case_study', to: 'static_pages#case_study'
   get 'join', to: 'static_pages#join'
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
   get 'schools', to: 'static_pages#schools'
   get 'illustrator', to: 'static_pages#illustrator'
   get 'design', to: 'static_pages#design'
+  get 'success', to: 'static_pages#signup_success'
 
   # user stuff including auth
 
@@ -33,13 +37,22 @@ Rails.application.routes.draw do
   get 'auth/user_exists', to: 'users#exists'
   get 'auth/complete_signup', to: 'users#show_complete_signup'
 
+  post 'auth/add_school', to: 'registration#add_school'
   post 'auth/create_classroom', to: 'registration#create_classroom'
+  get 'auth/search_school', to: 'registration#search_school'
 
-  # React Pages
-  get 'hello_world', to: 'hello_world#index'
 
   get 'student_dashboard', to: 'student_dashboard#index'
   get 'student_dashboard/', to: 'student_dashboard#index' # with added route info tacked on with hash, i.e. student_dashboard/#/story/:story_id/page/:page_id, handled by ReactRouter
+  get 'student_dashboard/assessment', to: 'student_dashboard#create_assessment'
+  post 'student_dashboard/assessment', to: 'student_dashboard#confirm_assessment_completion'
+
+  # process audio
+  post '/audio_process/save_file', to: 'audio_process#save_file'
+  post '/audio_process/save_link', to: 'audio_process#save_link'
+  get 'aws_presign', to: 'audio_process#aws_presign'
+
+  get '/audio_process', to: 'audio_process#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

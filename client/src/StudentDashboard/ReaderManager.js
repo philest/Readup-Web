@@ -10,7 +10,7 @@ import * as actionCreators from './state'
 import { bindActionCreators } from 'redux'
 
 import Reader from './Reader'
-import Recorder from './recorder' 
+import Recorder from './recorder'
 
 import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
 
@@ -88,7 +88,7 @@ class StudentDashboard extends React.Component {
     }
 
     // This stuff kicks off the process, gets state out of initializing
-    
+
 
   }
 
@@ -147,7 +147,7 @@ class StudentDashboard extends React.Component {
         onStartClicked: this.props.actions.startRecordingClicked,
       }
     }
-    else { // any other page... 
+    else { // any other page...
 
       readerProps = {
         ...readerProps,
@@ -179,7 +179,7 @@ class StudentDashboard extends React.Component {
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
         />
-    
+
         <ExitModal
           startedRecording={this.props.hasRecordedSomething}
           onContinueClicked={this.props.actions.resumeClicked}
@@ -187,14 +187,14 @@ class StudentDashboard extends React.Component {
           onExitNoUploadClicked={this.exitAbandonState}
           currentShowModal={this.props.currentShowModal}
         />
-    
+
         <PlaybackModal
           audioSrc={this.props.recordingURL}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
         />
-    
+
         <DoneModal
           onHearRecordingClicked={this.props.actions.hearRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
@@ -208,6 +208,7 @@ class StudentDashboard extends React.Component {
   renderOverlayOrNullBasedOnState = () => {
     return (
       <div>
+
         <IntroOverlay currentShowOverlay={this.props.currentShowOverlay} onContinueClicked={this.props.actions.introContinueClicked} />
         <BlockedMicOverlay currentShowOverlay={this.props.currentShowOverlay} />
         <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
@@ -259,7 +260,6 @@ class StudentDashboard extends React.Component {
   render()  {
 
     console.log('Rendering ReaderManager with ReaderState: ' + this.props.readerState)
-
 
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()

@@ -1,10 +1,18 @@
 class Classroom < ApplicationRecord
-  has_many :teacher_classrooms
-	has_many :student_classrooms
-	has_many :teachers, through: :teacher_classrooms
-	has_many :students, through: :student_classrooms
+  has_and_belongs_to_many :teachers
+  has_and_belongs_to_many :students
 
-  def self.create_classroom_with_teacher_and_students(options = {})
+  belongs_to :school
+  validates :school, presence: true
+  validate :at_least_one_student
+  def at_least_one_student
+    if students.empty?
+      errors.add(:base, "need at least one student to init classroom")
+    end
+  end
+
+
+  def self.create_with_teacher_and_students(options = {})
 
     # destructure the options
     classroom_name,
@@ -21,22 +29,33 @@ class Classroom < ApplicationRecord
       :student_list
     )
 
-    puts 'student_list'
-    puts student_list
-
     ActiveRecord::Base.transaction do
-      t = User.find_by(id: user_id).teachers.create()
+      t = User.find_by(id: user_id)
+              .teachers
+              .create(signature: teacher_signature)
+      s = School.find_by(id: school_id)
+
       cl = Classroom.new(
         name: classroom_name,
         grade_level: grade_level
       )
-      t.classrooms = cl
+      cl.school = s
+      cl.teachers << t
+
       student_list.each do |stu|
-        cl.students.create(
-          first_name: stu[:first_name],
-          last_name: stu[:last_name]
-        )
+        name_hash = Student.split_name(stu)
+        if name_hash
+          cl.students.new(name_hash)
+        end
       end
+
+      if cl.save!
+        return cl
+      else
+        raise "failed to create classroom #{classroom_name}"
+      end
+      return false
     end
   end
+
 end

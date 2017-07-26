@@ -18,7 +18,7 @@
         <div data-role="main" class="body invite-teacher pure-g">
           <div class="container">
             <div class="pure-u-1">
-           
+
                 <div id="monday">
                   <h1 style="margin-bottom: 0px;">Congrats!</h1>
                   <h2 style="margin-bottom:0.5em;margin-top:0.5em;font-family:'Karla';font-size:1em;font-weight:normal;line-height: 1.3em;" class="purple-subtitle">We'll let you know soon when your invite is ready.</h2>
@@ -28,15 +28,29 @@
                   <img src="https://s3.amazonaws.com/st-webpage/assets/logo/logo-large.png"  alt="">
                 </div>
 
-
-                <a id="backToHome" data-ajax="false" class="transition-link ui-btn web-mobile-signup-button" href="/" style="font-size: 1.2em;">
-                    Back to HomePage
+                <a
+                  id="backToHome"
+                  data-ajax="false"
+                  class="transition-link ui-btn web-mobile-signup-button"
+                  style="font-size: 1.2em;"
+                  href="#"
+                >
+                  Back to HomePage
                 </a>
-               
+
             </div>
           </div>
         </div> <%# end pure-g %>
 
-
+        <script type="text/javascript">
+          $('#backToHome').click(function() {
+            $.ajax({
+              url: 'auth/pring',
+              type: 'get',
+            }).done(function(data, statusText, xhr) {
+              console.log('piss');
+            })
+          });
+        </script>
 
 </div> <%# wrapper %>

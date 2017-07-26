@@ -37,14 +37,13 @@ class UsersController < ApplicationController
         # format.json { render :show, status: :created, location: @user }
         # partial signup complete, now redirect to finish
         session[:user_id] = @user.id
-        
+
         format.html do
           redirect_to '/auth/complete_signup'
         end
-        
+
       else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render json: @user.errors, status: :unprocessable_entity
       end
     end
   end

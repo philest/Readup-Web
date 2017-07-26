@@ -29,7 +29,6 @@ export default class DoneModal extends React.Component {
   render() {
     return (
        <BaseModal title="You're Done!" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
-
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
             titles={['Finish', 'Hear it']}
@@ -37,11 +36,7 @@ export default class DoneModal extends React.Component {
             actions={[this.props.onTurnInClicked, this.props.onHearRecordingClicked]}
           />
         </div>
-
-
       </BaseModal>
-
-
     );
   }
 }

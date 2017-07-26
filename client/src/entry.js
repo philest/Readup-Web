@@ -11,6 +11,7 @@ import ReactOnRails from 'react-on-rails'
 import HelloWorld from './HelloWorld'
 import StudentDashboard from './StudentDashboard'
 
+
 const history = createBrowserHistory()
 
 // const configureStore = (props) => {
@@ -29,6 +30,7 @@ consoleErrorReporter.propTypes = {
 
 function createHotModule(Komponent) {
   return (props, railsContext, domNodeId) => {
+
     console.log('creating module props: ' + JSON.stringify(props))
     console.log('creating module context: ' + JSON.stringify(railsContext))
     console.log('creating module domNodeId: ' + JSON.stringify(domNodeId))
@@ -44,6 +46,7 @@ function createHotModule(Komponent) {
     }
     renderApp(HelloWorld)
     if (module.hot) {
+
       module.hot.accept(['./HelloWorld', './StudentDashboard'], () => {
         // store.replaceReducer(reducer)
         renderApp(StudentDashboard)

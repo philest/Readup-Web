@@ -33,6 +33,7 @@
 	background-color: transparent;
 }
 
+
 .loadingGif {
 	width: 30px;
 	background-color: transparent;
@@ -40,8 +41,6 @@
 	top: 20px;
 	/* yes this is very hacky but it's just for the demo and it works as long as the screen isn't super super narrow */
 	right: 190px; 
-
-
 }
 
 .title {

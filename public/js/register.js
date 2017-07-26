@@ -1,5 +1,5 @@
 /**
- * JS for the user registration page. 
+ * JS for the user registration page.
  */
 
 $(document).ready(function () {
@@ -34,7 +34,7 @@ $(document).ready(function () {
   }
 
    // Trigger on first sign up button tap
-   function IdentifyUser() { 
+   function IdentifyUser() {
        // TODO: phone_num = grab the user's phone number (string)
        // TDOO: full_name = grab the user's full name
       // TODO: teacher_name = grab the teacher name
@@ -56,13 +56,13 @@ $(document).ready(function () {
    }
 
 
-   // Trigger when the first signup button is Tapped. 
+   // Trigger when the first signup button is Tapped.
    function SignupButtonClicked() {
      console.log('signup button clicked');
      mixpanel.track("Signup Button Clicked");
    }
 
-   // Trigger when the Password button is tapped. 
+   // Trigger when the Password button is tapped.
    function PasswordButtonClicked() {
      console.log('password button clicked');
      mixpanel.track("Password Button Clicked");
@@ -110,7 +110,7 @@ $(document).ready(function () {
        rules: {
          usernameDisplay: {
            required: true,
-           validateContactId: true 
+           validateContactId: true
          }
        }
      });
@@ -128,7 +128,7 @@ $(document).ready(function () {
      var username = $('form#register input[name=usernameDisplay]').val();
      if (validatePhone(username)) {
        console.log(validatePhone(username));
-       var phone = username; 
+       var phone = username;
 
        phone = phone.replace(/[\(\)\.\-\ ]/g, '');
 
@@ -159,7 +159,7 @@ $(document).ready(function () {
          return false;
      }
    });
-   
+
    function SignupPageVisited() {
        var teacher_name = $('#hidden-inputs input[name=teacher_sig]').val();
        var class_code = $('#hidden-inputs input[name=class_code]').val();

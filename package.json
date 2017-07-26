@@ -1,4 +1,8 @@
 {
+  "engines": {
+    "node": "7.9.0",
+    "npm": "4.2.0"
+  },
   "scripts": {
     "postinstall": "cd client && yarn install",
     "build:test": "cd client && yarn run build:test",
@@ -8,7 +12,5 @@
     "node_modules",
     "client/node_modules"
   ],
-  "name": "birdup",
-  "private": true,
-  "dependencies": {}
+  "name": "birdup"
 }

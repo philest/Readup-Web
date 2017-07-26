@@ -55,8 +55,7 @@ export default class NavigationBar extends React.Component {
                 style={{ marginTop: 20 }}
                 id="navigation-button"
                 onClick={this.props.onPauseClicked}
-              />
-
+              /
               <div className={css.pulsatingCircle}>
               </div>
             </div>
@@ -77,6 +76,7 @@ export default class NavigationBar extends React.Component {
           </div>
 
         }
+
             
         <div className={css.subContainer}>
           <div className={css.rightDisplayContainer}>

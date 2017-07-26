@@ -5,15 +5,15 @@
           <div class="modal-content">
             <div class="modal-body">
               <h2 class="modal-signup-heading" style="margin-bottom: 0em;">Log in</h2>
-              <form id="teacher-info" action='auth/signin' method="post"> 
+              <form id="teacher-info" action='auth/signin' method="post">
                 <div class="signup-setup">
                   <div class="field" id="signup-field">
                      <label class="label">Email address or phone number</label>
-                    <input name="usernameDisplay" placeholder="Email address or phone number" class="input" required>
+                    <input name="usernameDisplay" placeholder="Email address" class="input" required>
                       <label class="label">Password</label>
                     <input name="password" type="password" placeholder="password" class="input" required>
                     <input type="hidden" name='username'>
-                    
+
                     </div>
                     <!-- <button id="join" data-dismiss='modal' data-toggle='modal' data-target="#modalSig"  class="signup-form-button pure-button pure-button-prry get_update dialog-button">Log in</button> -->
 
@@ -69,7 +69,7 @@
                     var username = $('form#teacher-info input[name=usernameDisplay]').val();
                     if (validatePhone(username)) {
                       console.log(validatePhone(username));
-                      var phone = username; 
+                      var phone = username;
 
                       phone = phone.replace(/[\(\)\.\-\ ]/g, '');
 
@@ -77,7 +77,7 @@
                       $('form#teacher-info input[name=username]').val(phone);
 
                     }
-                    
+
                   });
                 </script>
 

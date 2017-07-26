@@ -1,45 +1,83 @@
-import { fork, call, take, takeLatest, takeEvery, cancel, put, select, apply } from 'redux-saga/effects'
+// @flow
+import {
+  fork,
+  call,
+  take,
+  takeLatest,
+  takeEvery,
+  cancel,
+  put,
+  select,
+  race,
+} from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 
 
-import recorderSaga from './recorderSaga'
+import {
+  getS3Presign,
+  sendAudioToS3,
+  requestNewAssessment,
+} from './networkingHelpers'
+
+import {
+  clog,
+} from './helpers'
+
 import audioEffectsSaga from './audioEffectsSaga'
-
-import Recorder from '../recorder' 
-
-import { playSound, stopAudio } from '../audioPlayer'
-
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, PauseTypeOptions } from '../types'
-
-
-// selectors
-const getRecorder = state => state.reader.recorder
-const getIsDemo = state => state.reader.isDemo
-
+import Recorder from '../recorder'
+import { playSound } from '../audioPlayer'
 
 // actions
+import {
+  // currently being used
 
-import { MIC_SET_PERMISSIONS, START_RECORDING_CLICKED, STOP_RECORDING_CLICKED, PAGE_INCREMENT, PAGE_DECREMENT, RECORDING_COUNTDOWN_TO_START, RECORDING_START, RECORDING_STOP, RECORDING_PAUSE, RECORDING_RESUME, RECORDING_SUBMIT, RECORDING_RESTART, RECORDING_PLAYBACK, PERMISSIONS_ARROW_CLICKED, BOOK_INTRO_RECORDING_ENDED, NEXT_PAGE_CLICKED, PREVIOUS_PAGE_CLICKED, PAUSE_CLICKED, RESUME_CLICKED, RESTART_RECORDING_CLICKED, HEAR_RECORDING_CLICKED, TURN_IN_CLICKED, INTRO_CONTINUE_CLICKED, startCountdownToStart, setMicPermissions, startRecording, COUNTDOWN_ENDED, EXIT_CLICKED, setReaderState, setPageNumber, setHasRecordedSomething, setCurrentSound, setRecordingURL, setCurrentModal, setCurrentOverlay } from '../state'
+
+  START_RECORDING_CLICKED,
+  STOP_RECORDING_CLICKED,
+  BOOK_INTRO_RECORDING_ENDED,
+  HEAR_RECORDING_CLICKED,
+  COUNTDOWN_ENDED,
+  EXIT_CLICKED,
+  RESTART_RECORDING_CLICKED,
+  TURN_IN_CLICKED,
+  IS_DEMO_SET,
+  startCountdownToStart,
+  setMicPermissions,
+  setHasRecordedSomething,
+  setReaderState,
+  setPageNumber,
+  setCurrentSound,
+  setRecordingURL,
+  setCurrentModal,
+  setCurrentOverlay,
+} from '../state'
+
+
+import {
+  ReaderStateOptions,
+  MicPermissionsStatusOptions,
+} from '../types'
+
+import {
+  getRecorder,
+  getIsDemo,
+} from './selectors'
+
+import assessmentSaga from './assessmentSaga'
+
 
 
 
 function getPermission(recorder) {
-
   return new Promise(function(resolve, reject) {
     recorder.initialize((error) => {
-      // User responded to permissions request
-      if (error) {
-        // this.props.actions.setMicPermissions(MicPermissionsStatusOptions.blocked)
-        resolve(false)
-      }
-      else {
-        // this.props.actions.setMicPermissions(MicPermissionsStatusOptions.granted)
-        resolve(true)
-      }
-
-    })  
+      resolve(error)
+    })
   });
-
 }
+
+
+
 
 function checkPermission() {
   return new Promise(function(resolve, reject) {
@@ -51,7 +89,83 @@ function checkPermission() {
 }
 
 
-function* getMicPermissions() {
+
+
+
+function* playSoundAsync(sound) {
+  yield call(playSound, sound)
+  return
+}
+
+
+
+
+
+function* getMicPermissionsSaga() {
+
+  const hasPermissions = yield checkPermission()
+  if (hasPermissions) {
+    yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.granted))
+    return true
+  }
+
+  yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.awaiting))
+  yield put.resolve(setCurrentOverlay('overlay-permissions'))
+
+  // initialize
+  const recorder =              yield select(getRecorder)
+  const getPermissionSuccess =  yield call(getPermission, recorder)
+
+  yield put.resolve(setCurrentOverlay('no-overlay'))
+
+  const micPermissions = getPermissionSuccess ? MicPermissionsStatusOptions.granted : MicPermissionsStatusOptions.blocked
+  yield put.resolve(setMicPermissions(micPermissions))
+  return micPermissions
+}
+
+
+
+
+function* haltRecordingAndGenerateBlobSaga(recorder) {
+  yield put.resolve(setReaderState(ReaderStateOptions.done))
+  const blobURL = yield new Promise(function(resolve, reject) {
+    recorder.stopRecording((blobUrl) => {
+      resolve(blobUrl)
+    })
+  });
+  // this is done in the Store because PlaybackModal takes this is a prop
+  yield put.resolve(setRecordingURL(blobURL))
+  return yield blobURL
+}
+
+
+
+
+function* redirectToHomepage () {
+  yield window.location.href = "/"
+}
+
+
+
+
+
+
+function* turnInAudio(blob, assessmentId: number) {
+  for (let i = 0; i < 3; i++) {
+    try {
+      const presign = yield getS3Presign(assessmentId)
+      const res = yield sendAudioToS3(blob, presign)
+      yield call(clog, 'yay response!', res)
+      return yield res
+    } catch (err) {
+      yield call(clog, "ERR:", err, err.request)
+    }
+  }
+  return yield false // TODO: this is pretty meh
+}
+
+
+
 
 
   const hasPermissions = yield call(checkPermission)
@@ -63,169 +177,203 @@ function* getMicPermissions() {
     yield put(setMicPermissions(MicPermissionsStatusOptions.awaiting))
     yield put(setCurrentOverlay('overlay-permissions'))
 
-    // initialize
-    const recorder = yield select(getRecorder)
-    const getPermissionSuccess = yield call(getPermission, recorder)
 
-    yield put(setCurrentOverlay('no-overlay'))
-    
-    if (getPermissionSuccess) {
-      yield put(setMicPermissions(MicPermissionsStatusOptions.granted))
-      return true
-    }
-    else {
-      yield put(setMicPermissions(MicPermissionsStatusOptions.blocked))
-      return false
-    }
-  }
-
+function* exitClick() {
+  const recorder = yield select(getRecorder)
+  yield call(recorder.pauseRecording)
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.paused,
+  ))
+  yield put(setCurrentModal('modal-exit'))
 }
 
-function* onExit() {
-  yield takeLatest(EXIT_CLICKED, function* (payload) {
-    window.location.href = "/"
-  })
-}
 
-function stopRecorderAndGetBlobURL(recorder) {
-  return new Promise(function(resolve, reject) {
-    recorder.stopRecording((blobUrl) => {
-      resolve(blobUrl)
-    })
-  });
-}
 
-export default function* rootSaga() {
 
-  yield call(console.log, 'ROOT SAGA')
 
-  yield fork(audioEffectsSaga)
-  // yield fork(recorderSaga)
+
+function* assessThenSubmitSaga() {
+
+  const effects = []
 
   yield put(setCurrentOverlay('overlay-intro'))
   yield take(INTRO_CONTINUE_CLICKED)
   yield put(setCurrentOverlay('no-overlay'))
+  
+  
+  // TODO: convert this into a batched action
+  yield put.resolve(setPageNumber(0))
+  yield put.resolve(setHasRecordedSomething(false))
+  yield put.resolve(setCurrentModal('no-modal'))
 
-  let recorder = yield select(getRecorder)
-
-  const permissionsGranted = yield getMicPermissions() // blocks
+  const permissionsGranted = yield* getMicPermissionsSaga() // blocks
+  
+  yield put(setCurrentOverlay('no-overlay'))
 
   if (!permissionsGranted) {
     yield put(setCurrentOverlay('overlay-blocked-mic'))
+    // TODO asap as possible
     return
   }
 
-  const exitTask = yield fork(onExit)
+  let recorder = yield select(getRecorder)
+  yield call(recorder.initialize)
 
-  recorder = yield select(getRecorder)
-  yield apply(recorder, recorder.initialize)
+
+  // TODO: D. Ernst pls fix dis tx
   yield put(setCurrentSound('/audio/book_intro.m4a'))
+  // yield take(BOOK_INTRO_RECORDING_ENDED)
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.awaitingStart,
+  ))
 
 
-  yield take(BOOK_INTRO_RECORDING_ENDED)
+  // before assessment has started, clicking exit immediately quits app
+  // I guess. We will probably change this
+  const { exit } = yield race({
+    exit: take(EXIT_CLICKED),
+    startAssessment: take(START_RECORDING_CLICKED),
+  })
 
-  yield put(setReaderState(ReaderStateOptions.awaitingStart))
+  // the app will end :O
+  if (exit) {
+    yield* redirectToHomepage()
+  }
 
-  yield take(START_RECORDING_CLICKED)
 
-  yield put(startCountdownToStart())
-  yield put(setPageNumber(1))
-  yield put(setReaderState(ReaderStateOptions.countdownToStart))
+  // now we start the assessment for real
+  effects.push(
+    yield takeLatest(EXIT_CLICKED, exitClick),
+  )
 
+
+  // TODO: convert the countdown to saga!!!!
+  yield put.resolve(setPageNumber(1))
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.countdownToStart,
+  ))
+  yield playSoundAsync('/audio/recording_countdown.m4a')
+
+
+  // WAIT for the countdown sequence to end
   yield take(COUNTDOWN_ENDED)
 
-  yield put(setReaderState(ReaderStateOptions.inProgress))
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.inProgress,
+  ))
+
+  // this ensures that effects are canceleld
+  // while (true) {
+  //   const {exit} = yield race({
+  //     exit:             take(EXIT_CLICKED),
+  //     assessmentResult: call(assessmentSaga),
+  //   })
+
+  //   if (exit) {
+  //     yield call(exitClick)
+  //   } else {
+
+  //   }
+  // }
+  // starts the recording assessment flow
+  effects.push(
+    yield fork(assessmentSaga)
+  )
+  yield take(STOP_RECORDING_CLICKED) // TODO: better name
+
+  yield put.resolve(setCurrentModal('modal-done'))
+  // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
+
   recorder = yield select(getRecorder)
-  yield apply(recorder, recorder.startRecording)
-  yield put(setHasRecordedSomething(true))
+  const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
+  yield call(clog, 'url for recording!!!', recordingBlob)
 
+  yield take(TURN_IN_CLICKED)
 
-  yield cancel(exitTask)
-
-  yield takeLatest(EXIT_CLICKED, function* (payload) {
-    recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.pauseRecording)
-    yield put(setReaderState(ReaderStateOptions.paused))
-    yield put(setCurrentModal('modal-exit'))
-  })
-
-  yield takeLatest(TURN_IN_CLICKED, function* (payload) {
-    // need to put this up here because might turn in from paused view
-
-
-    // TODO submit the recording
-    
-    yield put(setReaderState(ReaderStateOptions.submitted))
-
-    const isDemo = yield select(getIsDemo)
-    if (isDemo) {
-      yield put(setCurrentOverlay('overlay-demo-submitted'))
-    }
-    else {
-      yield put(setCurrentOverlay('overlay-submitted'))
-      setTimeout(() => {
-        window.location.href = "/" // TODO where to redirect?
-      }, 5000)
-    }
-    
-  })
-
-
-  yield takeEvery(PAUSE_CLICKED, function* (payload) {
-    recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.pauseRecording)
-    yield put(setReaderState(ReaderStateOptions.paused))
-    yield put(setCurrentSound('/audio/paused.m4a'))
-    yield put(setCurrentModal('modal-paused'))
-    // directly show modal here
-  })
-
-  yield takeEvery(RESUME_CLICKED, function* (payload) {
-    recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.resumeRecording)
-    yield put(setReaderState(ReaderStateOptions.inProgress))
-    yield put(setCurrentModal('no-modal'))
-  })
-
-  yield takeEvery(NEXT_PAGE_CLICKED, function* (payload) {
-    yield put({ type: PAGE_INCREMENT })
-  })
-
-  yield takeEvery(PREVIOUS_PAGE_CLICKED, function* (payload) {
-    yield put({ type: PAGE_DECREMENT })
-  })
-
-  yield takeEvery(RESTART_RECORDING_CLICKED, function* (action) {
-    recorder = yield select(getRecorder)
-    yield apply(recorder, recorder.reset)
-    yield put(setCurrentModal('no-modal'))
-    yield put(setReaderState(ReaderStateOptions.awaitingStart))
-    yield put(setPageNumber(0))
-  })
-
-
-
-  yield take(STOP_RECORDING_CLICKED)
-
-  yield put(setReaderState(ReaderStateOptions.done))
-  recorder = yield select(getRecorder)
-  const blobURL = yield stopRecorderAndGetBlobURL(recorder)
-  
-  yield put(setRecordingURL(blobURL))
-  yield put(setCurrentModal('modal-done'))
-  // yield apply(recorder, recorder.forceDownloadRecording, ['_test_.wav'])
-  
-  yield takeEvery(HEAR_RECORDING_CLICKED, function* (action) {
-    yield put(setCurrentModal('modal-playback'))
-  })
-
-  
-  
-
-
-
-  
-
+  yield cancel(...effects)
+  return recorder.getBlob()
 }
 
+
+
+function* rootSaga() {
+  const { payload: { isDemo } } = yield take(IS_DEMO_SET)
+
+  yield clog('Root Saga Started')
+
+  yield call(clog, 'Generating assessment...')
+
+  yield clog(isDemo)
+
+  const bookKey = isDemo ? 'demo' : 'unclear'
+
+  const assessmentId = yield requestNewAssessment(bookKey)
+    .catch(e => e.request)
+
+  yield clog(assessmentId)
+
+
+
+  // watchers
+  yield* audioEffectsSaga()
+  yield takeLatest(HEAR_RECORDING_CLICKED, function* (action) {
+    yield put.resolve(setCurrentModal('modal-playback'))
+  })
+
+
+
+  yield call(clog, 'Race About To Start')
+
+  // race between clicking 'TURN IN RECORDING' and 'RESTART THE RECORDING'
+  while (true) {
+    const {
+      restartAssessment,
+      recordingBlob,
+    } = yield race({
+      restartAssessment: take(RESTART_RECORDING_CLICKED),
+      recordingBlob: call(assessThenSubmitSaga),
+    })
+    yield call(clog, 'Race Finished')
+
+
+    // restart!
+    if (restartAssessment) {
+      const recorder = yield select(getRecorder)
+      yield call(recorder.reset)
+
+
+    // turn it in!
+    } else {
+
+      const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
+
+      // success!
+      if (turnedIn) {
+        yield call(clog,'turned it in!')
+
+        if (isDemo) {
+          yield put.resolve(setCurrentOverlay('overlay-demo-submitted'))
+
+        } else {
+          yield put.resolve(setCurrentOverlay('overlay-submitted'))
+          setTimeout(() => {
+            window.location.href = "/" // TODO where to redirect?
+          }, 5000)
+        }
+
+        yield put(setReaderState(
+          ReaderStateOptions.submitted,
+        ))
+
+      // fail! allow option to turn in again?
+      } else {
+        yield call(clog, 'could not turn it in :/')
+      }
+
+
+    } // END if (restartAssessment)
+  } // END while (true)
+} // END function* rootSaga()
+
+export default rootSaga
 

@@ -69,6 +69,7 @@
 .logoutLabel {
 	font-weight: bold;
 	color: white;
+	cursor: pointer;
 }
 
 .logoutLabel:visited {

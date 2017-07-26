@@ -32,7 +32,6 @@
     border-bottom: 1px solid #F5F5F5;
     height: 40px;
     text-align: left;
-    
   }
   .student-row .glyphicon {
     color: #A5A5A5;
@@ -40,6 +39,7 @@
     margin-top: 10px;
   }
   .header-row {
+    padding-top: 10px;
     color: #A5A5A5;
     text-decoration: bold;
   }
@@ -57,16 +57,18 @@
 
       <div data-role="page" class="wrapper" id="page5-add-students">
         <%= render 'static_pages/components/navbar' %>
-     
+
         <div data-role="main" class="body invite-teacher">
 
-          <div class="container" style="padding-top:0em;">
+          <div class="container" style="padding-top:0em; margin: auto;">
             <div class="content-wrapper">
-            
+
                 <h2 class="modal-signup-heading" id="modal-signup-heading">Add Students</h2>
                 <!-- <h3 class="modal-signup-heading">to add your class</h3> -->
 
-                <form id="add-students" class="signup-form" style="position: relative"> 
+                <form id="add-students" class="signup-form" style="position: relative">
+
+
                   <div class="signup-setup">
                       <div class="field" id="signup-field">
                          <label class="label">Start typing to add students</label>
@@ -76,6 +78,7 @@
 
                   <!-- create the dropdown menu here -->
                   <div class="dropdown-menu add-student-dropdown" style="display: none;">
+
                     <a id="add-student-button" class="disabled" href="#"><p>Add students</p></a>
                   </div>
 
@@ -87,7 +90,13 @@
                     <p class="no-students-added">No students added yet</p>
                   </div>
 
-                  <a id="page5link" class="transition-link ui-btn web-mobile-signup-button submit-button-disabled" href="#page6-successs" data-transition="fade">
+                  <a
+                    class="transition-link ui-btn web-mobile-signup-button submit-button-disabled submitUserCreationForm"
+                    href="#"
+                    data-transition="fade"
+                    style="font-size: 1.3em;"
+                  >
+
                     Done adding students
                   </a>
 
@@ -102,11 +111,12 @@
                   <input type="hidden" name="signature" value="">
 
                   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        
+
                   <script>
                     $(function() {
                       // honestly have no idea why this should be necessary.... but it is, trust me
-                      $('#page5link').attr('href', '#page6-success');
+                      // $('#submitUserCreationForm').attr('href', '#page6-success');
+
                       var studentNames = []
                       function renderStudentRow(studentName) {
                         return '<div class="student-row"><span>' + studentName + '</span><a id="remove-row" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>';
@@ -124,7 +134,7 @@
                           $('.add-student-dropdown a p').text('Add "' + studentName + '"');
                           $('.add-student-dropdown').css('display', 'block');
                         }
-                        
+
                       });
 
 
@@ -142,18 +152,20 @@
                         $('input[name="student_name"]').val('');
                         $('.add-student-dropdown').css('display', 'none');
                         $('.header-row label').text(studentNames.length + ' students');
-                        $('#page5link').removeClass('submit-button-disabled');
+                        $('#submitUserCreationForm').removeClass('submit-button-disabled');
+
                       });
 
 
                       $(document).on('click', '#remove-row', function() {
                         var nameToRemove = $(this).prev().text();
                         $(this).parent().remove(); // remove the row
-                        var index = studentNames.indexOf(nameToRemove); 
+                        var index = studentNames.indexOf(nameToRemove);
                         studentNames.splice(index, 1);
                         if (studentNames.length == 0) {
                           $('.no-students-added').css('display', 'block');
-                          $('#page5link').addClass('submit-button-disabled');
+                          $('#submitUserCreationForm').addClass('submit-button-disabled');
+
                         }
                         $('.header-row label').text(studentNames.length + ' students');
                       });
@@ -174,7 +186,8 @@
                       });
 
 
-                      $(document).on('click', '#page5-add-students #page5link',function(event){
+                      $(document).on('click', '#page5-add-students .submitUserCreationForm',function(event){
+
                         var ValidStatus = $("#page5-add-students #add-students").valid() && (studentNames.length > 0);
                         // console.log(ValidStatus);
                         if (ValidStatus == false) {
@@ -185,16 +198,17 @@
                         }
 
                         var postData = {
-                          'user_id': $('#page5-add-students form#add-students').find('input[name=user_id]').val(),
-                          'school_id': $('#page5-add-students form#add-students').find('input[name=school_id]').val(),
-                          'school_name': $('#page5-add-students form#add-students').find('input[name=school_name]').val(),
-                          'school_city': $('#page5-add-students form#add-students').find('input[name=school_city]').val(),
-                          'school_state': $('#page5-add-students form#add-students').find('input[name=school_state]').val(),
-                          'signature': $('#page5-add-students form#add-students').find('input[name=signature]').val(),
-                          'classroom_grade': $('#page5-add-students form#add-students').find('input[name=classroom_grade]').val(),
-                          'classroom_name': $('#page5-add-students form#add-students').find('input[name=classroom_name]').val(),
+                          'user_id': $('form#add-students').find('input[name=user_id]').val(),
+                          'school_id': $('form#add-students').find('input[name=school_id]').val(),
+                          'school_name': $('form#add-students').find('input[name=school_name]').val(),
+                          'school_city': $('form#add-students').find('input[name=school_city]').val(),
+                          'school_state': $('form#add-students').find('input[name=school_state]').val(),
+                          'signature': $('form#add-students').find('input[name=signature]').val(),
+                          'classroom_grade': $('form#add-students').find('input[name=classroom_grade]').val(),
+                          'classroom_name': $('form#add-students').find('input[name=classroom_name]').val(),
                           'student_names': studentNames,
-                          'authenticity_token': $('#page5-add-students form#add-students').find('input[name=authenticity_token]').val(),
+                          'authenticity_token': $('form#add-students').find('input[name=authenticity_token]').val(),
+
                         };
 
                         console.log("signup post data  " + postData);
@@ -204,15 +218,14 @@
                           type: 'post',
                           data: postData
                         }).done(function(data, statusText, xhr) {
-                            console.log(data);
-                            console.log('statusText is:');
-                            console.log(statusText);
-                            console.log(xhr);
+                          var cur = window.location.hostname
+                          location.href= "/success"
+                        }).fail(function(){
+                            alert("something went wrong, please try again!")
+                          }
+                        );
 
-
-                        });
-
-                        var formdata = $("#page5-add-students form#add-students").serializeArray();
+                        var formdata = $("form#add-students").serializeArray();
                         console.log(formdata);
                         var data = {};
                         $(formdata).each(function(index, obj){
@@ -222,40 +235,13 @@
                         mixpanel.people.set(data);
                         mixpanel.track('finished freemium signup');
 
+                      }); // END $(document).on('click', '#page5-add-students .submitUserCreationForm'
 
-                      });
                     });
 
 
                   </script>
                 </form>
-
-                <!-- submit form -->
-                <form id='log-into-dat-account' action='/auth/signin' method='post' data-ajax="false" style="display: none;">
-                  <input type="hidden" name='username' value='<%= session[:username] %>'>
-                  <input type="hidden" name='signature' value=''>
-                  <input type="hidden" name='password' value='<%= session[:password] %>'>
-                  <input type="hidden" name='role' value=''>
-
-                  <!-- HERE IS THE LOCUS OF PRODUCTION -->
- <!--                  <button id="go-to-dashboard" data-ajax="false" style="font-size: 1.2em;" type="submit">
-                      Log in
-                  </button> -->
-
-                  <script>
-                    // I think we can uncomment this once we have a logged in interface
-                    // $('#page4-find-school form#log-into-dat-account').on('submit', function(event) {
-                    //   var role = $('form#choose-educator-role-form').find('input[name=role]').val();
-                    //   $('form#log-into-dat-account').find('input[name=role]').val(role);
-                    //   var sig = $('form#educator-signature-form').find('input[name=signature]').val();
-                    //   $('form#log-into-dat-account').find('input[name=signature]').val(sig);
-                    //   $('form#log-into-dat-account').submit();
-                    // });
-                  </script>
-
-                </form>
-                <!-- submit form -->
-
 
               </div>
           </div> <%# container %>

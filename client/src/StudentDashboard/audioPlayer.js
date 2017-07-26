@@ -1,11 +1,9 @@
 const DEV_DISABLE_VOICE_INSTRUCTIONS = false
 
-
-
 let audio = null
 
 export function playSound(file, onEnd) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     if (DEV_DISABLE_VOICE_INSTRUCTIONS) {
       resolve()
       return

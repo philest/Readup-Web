@@ -1,0 +1,11 @@
+generic_web_user:
+  id: 2
+  password_digest: some_crazy_hash
+  email: test@example.com
+  name: 'Generic Web User'
+
+based_god:
+  password_digest: some_crazy_hash
+  email: example@example.com
+  name: 'Bobry Wahl'
+

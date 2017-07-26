@@ -19,6 +19,7 @@ export const READER_STATE_SET = 'READER_STATE_SET'
 export const COUNTDOWN_ENDED = 'COUNTDOWN_ENDED'
 export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
 
+
 export const INTRO_CONTINUE_CLICKED = 'INTRO_CONTINUE_CLICKED'
 export const START_RECORDING_CLICKED = 'CLICK_START_READING'
 export const STOP_RECORDING_CLICKED = 'CLICK_STOP_RECORDING'
@@ -88,6 +89,7 @@ export function setHasRecordedSomething(hasRecordedSomething: bool) {
   }
 }
 
+
 export function introContinueClicked() {
   return {
     type: INTRO_CONTINUE_CLICKED,
@@ -107,11 +109,13 @@ export function stopRecordingClicked() {
   }
 }
 
+
 export function countdownEnded() {
   return {
     type: COUNTDOWN_ENDED,
   }
 }
+
 
 export function setCurrentSound(currentSoundId: string) {
   return {
@@ -309,52 +313,6 @@ export function setIsDemo(isDemo) {
   }
 }
 
-
-// const sampleBook = {
-//   title: "Cezar Chavez",
-//   author: "Ginger Wordsworth",
-//   s3Key: 'rocket',
-//   description: "Mom gets to come along on a space adventure",
-//   numPages: 2,
-//   coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
-//   pages: {
-//     1: {
-//       lines: [
-//           "This is the first line of the first page.",
-//           "This is the second line of the first page."
-//       ],
-//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-1-610x381.jpg',
-//     },
-//     2: {
-//       lines: [
-//         "This is the first line of the second page.",
-//         "This is the second line of the second page."
-//       ],
-//       img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
-//     },
-//     3: {
-//       lines: [
-//         "This is the first line of the third page.",
-//         "This is the second line of the third page."
-//       ],
-//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
-//     },
-//     4: {
-//       lines: [
-//         "This is the first line of the fourth page.",
-//         "This is the second line of the fourth page."
-//       ],
-//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
-//     },
-//     5: {
-//       lines: [
-//         "This is the first line of the fifth page.",
-//         "The end."
-//       ],
-//       img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
-//     },
-//   },
-// };
 
 const sampleBook = {
   title: "Firefly Night",

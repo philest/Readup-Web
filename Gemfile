@@ -34,16 +34,20 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'airbrake', '~> 6.1'
 gem 'newrelic_rpm'
 
+gem 'pg_search'
+
 
 # authentication
 gem 'devise'
 
+gem 'aws-sdk', '~> 2'
+gem 'sidekiq'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
-
+group :development, :test do 
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.6'
   gem "rspec-retry"
 

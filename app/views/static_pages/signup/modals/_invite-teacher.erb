@@ -27,9 +27,9 @@
                           // $("#schoolText").html("hi");
 
                       $(document).on('click', '#page4link', function(){
-                        console.log($('#page4-find-school form#school-info input[name=school_name]').val());
+                        console.log($('#page4-find-school form#find-school input[name=school_name]').val());
 
-                        $("#schoolText").html("<span style='color:#A9A9A9;'>" + $('#page4-find-school form#school-info input[name=school_name]').val() + "</span>");
+                        $("#schoolText").html("<span style='color:#A9A9A9;'>" + $('#page4-find-school form#find-school input[name=school_name]').val() + "</span>");
 
                       });
 
@@ -48,7 +48,7 @@
                         $.ajax({
                           url: '/auth/freemium-signup', 
                           type: 'post',
-                          data: $('#invite-teacher-form').serialize() + '&' + $('#page4-find-school form#school-info').serialize(),
+                          data: $('#invite-teacher-form').serialize() + '&' + $('#page4-find-school form#find-school').serialize(),
                           statusCode: {
                               404: function() {
                                 // window.location.href = "/app";
