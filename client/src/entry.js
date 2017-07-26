@@ -9,6 +9,8 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import { render } from 'react-dom'
 import ReactOnRails from 'react-on-rails'
 import HelloWorld from './HelloWorld'
+import StudentDashboard from './StudentDashboard'
+
 
 const history = createBrowserHistory()
 
@@ -28,20 +30,26 @@ consoleErrorReporter.propTypes = {
 
 function createHotModule(Komponent) {
   return (props, railsContext, domNodeId) => {
+
+    console.log('creating module props: ' + JSON.stringify(props))
+    console.log('creating module context: ' + JSON.stringify(railsContext))
+    console.log('creating module domNodeId: ' + JSON.stringify(domNodeId))
     // const store = ReactOnRails.getStore('store')
     const renderApp = () => {
+      const fullProps = { ...props, history: history }
       const element = (
         <AppContainer errorReporter={consoleErrorReporter}>
-          <Komponent {...{ history }} />
+          <Komponent {...fullProps} />
         </AppContainer>
       )
       render(element, document.getElementById(domNodeId))
     }
     renderApp(HelloWorld)
     if (module.hot) {
-      module.hot.accept(['./HelloWorld'], () => {
+
+      module.hot.accept(['./HelloWorld', './StudentDashboard'], () => {
         // store.replaceReducer(reducer)
-        renderApp(HelloWorld)
+        renderApp(StudentDashboard)
       })
     }
   }
@@ -51,4 +59,5 @@ function createHotModule(Komponent) {
 // ReactOnRails.registerStore({ store: configureStore })
 ReactOnRails.register({
   HelloWorld: createHotModule(HelloWorld),
+  StudentDashboard: createHotModule(StudentDashboard),
 })

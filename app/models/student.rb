@@ -2,6 +2,8 @@ class Student < ApplicationRecord
 
   # need to keep this format so that timestamps are auto-gen'd
   has_and_belongs_to_many :classrooms
+  has_many :teachers, through: :classrooms
+  has_many :assessments
 
   # validates :grade, numericality: { only_integer: true }
 

@@ -1,0 +1,60 @@
+
+.fullContainer {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: row;
+	border: 3px solid #937050;
+	box-shadow: -5px 2px 73px 2px rgba(0,0,0,0.65);
+
+}
+
+.bookEdge {
+	width: 7px;
+	height: 100%;
+	background-image: url(/images/dashboard/read_edgie.png)
+}
+
+.readerContentContainer {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	/*padding: 5px;*/
+	display: flex;
+	flex-flow: column;
+}
+
+.readerImage {
+	width: 100%;
+	height: auto;
+	/*min-height: 200px;*/
+}
+
+.paperTearImage {
+	width: 100%;
+	height: 10px;
+	position: relative;
+	top: -10px;
+}
+
+.readerTextContainer {
+	margin-top: 10px;
+	flex: 1;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+}
+
+.textParagraph {
+	font-size: 1.4em;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.pageNumber {
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.2em;
+	padding: 10px;
+	height: 40px;
+}

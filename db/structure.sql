@@ -93,6 +93,39 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: assessments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE assessments (
+    id bigint NOT NULL,
+    student_id integer,
+    book_key character varying,
+    completed boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: assessments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE assessments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE assessments_id_seq OWNED BY assessments.id;
+
+
+--
 -- Name: classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -220,6 +253,38 @@ CREATE SEQUENCE pg_search_documents_id_seq
 --
 
 ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
+
+
+--
+-- Name: recordings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE recordings (
+    id bigint NOT NULL,
+    name character varying,
+    audio_data text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: recordings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE recordings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: recordings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE recordings_id_seq OWNED BY recordings.id;
 
 
 --
@@ -380,6 +445,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: assessments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY assessments ALTER COLUMN id SET DEFAULT nextval('assessments_id_seq'::regclass);
+
+
+--
 -- Name: classrooms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -405,6 +477,13 @@ ALTER TABLE ONLY classrooms_teachers ALTER COLUMN id SET DEFAULT nextval('classr
 --
 
 ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_search_documents_id_seq'::regclass);
+
+
+--
+-- Name: recordings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recordings ALTER COLUMN id SET DEFAULT nextval('recordings_id_seq'::regclass);
 
 
 --
@@ -444,6 +523,14 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
+-- Name: assessments assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY assessments
+    ADD CONSTRAINT assessments_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: classrooms classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -473,6 +560,14 @@ ALTER TABLE ONLY classrooms_teachers
 
 ALTER TABLE ONLY pg_search_documents
     ADD CONSTRAINT pg_search_documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recordings recordings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recordings
+    ADD CONSTRAINT recordings_pkey PRIMARY KEY (id);
 
 
 --
@@ -558,6 +653,14 @@ CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON schools FOR EACH ROW EX
 
 
 --
+-- Name: assessments fk_rails_8cc1118a64; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY assessments
+    ADD CONSTRAINT fk_rails_8cc1118a64 FOREIGN KEY (student_id) REFERENCES students(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -595,6 +698,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170712203906'),
 ('20170712204938'),
 ('20170715172257'),
-('20170717172846');
+('20170717172846'),
+('20170719203307'),
+('20170720183554');
 
 

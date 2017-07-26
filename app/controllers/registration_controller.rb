@@ -13,16 +13,25 @@ class RegistrationController < ApplicationController
       student_list: params["student_names"]
     }
 
+
     puts 'classroom options:'
     puts classroom_options
 
-    if Classroom.create_with_teacher_and_students(classroom_options)
+    if @new_classroom = Classroom.create_with_teacher_and_students(classroom_options)
+
+      # set the student id as session so that the demo can work properly
+      t = @new_classroom.teachers.first
+      demo_student = @new_classroom.students.find_by(last_name: "Student", first_name: "Demo")
+
+      session[:student_id] = demo_student.id || 'totes not set'
+
     	head :ok
     else
       head 404
     end
 
   end
+
 
   def search_school
     puts params.inspect

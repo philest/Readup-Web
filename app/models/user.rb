@@ -32,7 +32,7 @@ class User < ApplicationRecord
     end
   end
 
-  # custom validation
+
   validate :full_name_present
   def full_name_present
     if name.nil? || name == "" || name.split(" ").size < 2

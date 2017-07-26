@@ -1,0 +1,35 @@
+
+.submittedContainer {
+	background-color: black;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+	text-align: center;
+	/*opacity: 0.95;*/
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 3333;
+	
+}
+
+.submittedImage {
+	width: 360px;
+	height: 300px;
+	margin: 50px;
+	background-color: transparent;
+}
+
+.title {
+	font-size: 1.9em;
+}
+
+.subtitle {
+	font-size: 1.5em;
+	font-style: italic;
+}
