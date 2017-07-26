@@ -15,7 +15,7 @@ export default class CountdownModal extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    
+
     this.state = {
       curTimerValue: this.props.countdownDuration,
     };
@@ -39,14 +39,14 @@ export default class CountdownModal extends React.Component {
       <div className={styles.countdownWrapper}>
         <div className={styles.countdownContentCountainer}>
           <div className={styles.countdownTitle}>
-      
+
             Recording in...
-      
+
           </div>
           <div className={styles.countdownNumber}>
-      
+
             {this.state.curTimerValue}
-      
+
           </div>
         </div>
       </div>

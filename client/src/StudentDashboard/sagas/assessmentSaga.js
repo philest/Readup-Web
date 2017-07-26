@@ -10,7 +10,7 @@ import {
   apply,
 } from 'redux-saga/effects'
 
-import {delay} from 'redux-saga'
+import { delay } from 'redux-saga'
 
 // actions
 import {
@@ -36,20 +36,28 @@ import {
   getIsDemo,
 } from './selectors'
 
+import { playSoundAsync, stopAudio } from '../audioPlayer'
+
+// import { 
+//   clog
+// } from './helpers'
 
 function* pauseAssessmentSaga (action) {
   const recorder = yield select(getRecorder)
   yield call(recorder.pauseRecording)
+  yield delay(300) // delay to prevent phil's voice from getting pick up :/
+  yield call(playSoundAsync, '/audio/paused.m4a')
   yield put.resolve(setReaderState(
     ReaderStateOptions.paused,
   ))
-  yield put.resolve(setCurrentSound('/audio/paused.m4a'))
+  // yield put.resolve(setCurrentSound('/audio/paused.m4a'))
   yield put.resolve(setCurrentModal('modal-paused'))
   return
   // directly show modal here
 }
 
 function* resumeAssessmentSaga (action) {
+  yield call(stopAudio)
   const recorder = yield select(getRecorder)
   yield call(recorder.resumeRecording)
   yield put.resolve(setReaderState(

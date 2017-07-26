@@ -25,16 +25,16 @@ import {
 
 import audioEffectsSaga from './audioEffectsSaga'
 import Recorder from '../recorder'
-import { playSound } from '../audioPlayer'
+import { playSound, stopAudio, playSoundAsync as _pSA } from '../audioPlayer'
 
 // actions
 import {
-  // currently being used
-
-
+  PERMISSIONS_ARROW_CLICKED,
+  PAUSE_CLICKED,
   START_RECORDING_CLICKED,
   STOP_RECORDING_CLICKED,
   BOOK_INTRO_RECORDING_ENDED,
+  INTRO_CONTINUE_CLICKED,
   HEAR_RECORDING_CLICKED,
   COUNTDOWN_ENDED,
   EXIT_CLICKED,
@@ -79,21 +79,10 @@ function getPermission(recorder) {
 
 
 
-function checkPermission() {
-  return new Promise(function(resolve, reject) {
-    Recorder.hasRecordingPermissions((hasPermissions) => {
-      console.log("We have permissions? " + hasPermissions)
-      resolve(hasPermissions)
-    });
-  });
-}
-
-
-
 
 
 function* playSoundAsync(sound) {
-  yield call(playSound, sound)
+  yield call(_pSA, sound)
   return
 }
 
@@ -103,7 +92,13 @@ function* playSoundAsync(sound) {
 
 function* getMicPermissionsSaga() {
 
-  const hasPermissions = yield checkPermission()
+  const hasPermissions = yield new Promise((resolve, reject) => {
+    Recorder.hasRecordingPermissions((permissions) => {
+      console.log("We have permissions? " + permissions)
+      resolve(permissions)
+    })
+  })
+
   if (hasPermissions) {
     yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.granted))
     return true
@@ -155,10 +150,10 @@ function* turnInAudio(blob, assessmentId: number) {
     try {
       const presign = yield getS3Presign(assessmentId)
       const res = yield sendAudioToS3(blob, presign)
-      yield call(clog, 'yay response!', res)
+      yield clog('yay response!', res)
       return yield res
     } catch (err) {
-      yield call(clog, "ERR:", err, err.request)
+      yield clog("ERR:", err, err.request)
     }
   }
   return yield false // TODO: this is pretty meh
@@ -188,32 +183,34 @@ function* assessThenSubmitSaga() {
 
   const effects = []
 
-  yield put(setCurrentOverlay('overlay-intro'))
-  yield take(INTRO_CONTINUE_CLICKED)
-  yield put(setCurrentOverlay('no-overlay'))
 
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
-  const permissionsGranted = yield* getMicPermissionsSaga() // blocks
-
+  yield put(setCurrentOverlay('overlay-intro'))
+  yield take(INTRO_CONTINUE_CLICKED)
   yield put(setCurrentOverlay('no-overlay'))
 
+  const permissionsGranted = yield* getMicPermissionsSaga() // blocks
+
+  // TODO asap as possible
+  // TODO: some loop here :)
   if (!permissionsGranted) {
+    yield clog('hiiii')
     yield put(setCurrentOverlay('overlay-blocked-mic'))
-    // TODO asap as possible
+
     return
   }
+
+  // permission was granted!!!!
+  yield playSoundAsync('/audio/sample.m4a')
+
 
   let recorder = yield select(getRecorder)
   yield call(recorder.initialize)
 
-
-  // TODO: D. Ernst pls fix dis tx
-  yield put(setCurrentSound('/audio/book_intro.m4a'))
-  // yield take(BOOK_INTRO_RECORDING_ENDED)
   yield put.resolve(setReaderState(
     ReaderStateOptions.awaitingStart,
   ))
@@ -225,6 +222,8 @@ function* assessThenSubmitSaga() {
     exit: take(EXIT_CLICKED),
     startAssessment: take(START_RECORDING_CLICKED),
   })
+
+  yield call(stopAudio)
 
   // the app will end :O
   if (exit) {
@@ -246,8 +245,12 @@ function* assessThenSubmitSaga() {
   yield playSoundAsync('/audio/recording_countdown.m4a')
 
 
-  // WAIT for the countdown sequence to end
+  // yield put(setCurrentSound('/audio/book_intro.m4a'))
+
+  // TODO: D. Ernst pls fix dis tx
   yield take(COUNTDOWN_ENDED)
+  yield put.resolve(setCurrentModal('no-modal'))
+
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
@@ -268,16 +271,19 @@ function* assessThenSubmitSaga() {
   // }
   // starts the recording assessment flow
   effects.push(
-    yield fork(assessmentSaga)
+    yield fork(assessmentSaga),
   )
+
   yield take(STOP_RECORDING_CLICKED) // TODO: better name
+  yield playSoundAsync('/audio/done.m4a')
+
 
   yield put.resolve(setCurrentModal('modal-done'))
   // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
 
   recorder = yield select(getRecorder)
   const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
-  yield call(clog, 'url for recording!!!', recordingBlob)
+  yield clog('url for recording!!!', recordingBlob)
 
   yield take(TURN_IN_CLICKED)
 
@@ -292,30 +298,40 @@ function* rootSaga() {
 
   yield clog('Root Saga Started')
 
-  yield call(clog, 'Generating assessment...')
-
-  yield clog(isDemo)
 
   const bookKey = isDemo ? 'demo' : 'unclear'
-
+  yield clog('Generating assessment... bookKey:', bookKey)
   const assessmentId = yield requestNewAssessment(bookKey)
-    .catch(e => e.request)
+    .catch(e => e.request) // TODO
 
-  yield clog(assessmentId)
+  yield clog('Assessment ID:', assessmentId)
 
 
-
-  // watchers
+  /*
+   ****************
+   * watchers
+   *****************
+   */
   yield* audioEffectsSaga()
-  yield takeLatest(HEAR_RECORDING_CLICKED, function* (action) {
-    yield put.resolve(setCurrentModal('modal-playback'))
+
+  yield takeLatest(HEAR_RECORDING_CLICKED, function* () {
+    yield put(setCurrentModal('modal-playback'))
+    yield call(stopAudio)
+  })
+
+
+  yield takeLatest(PERMISSIONS_ARROW_CLICKED, function* () {
+    yield call(playSound, '/audio/click_allow_button.m4a')
   })
 
 
 
-  yield call(clog, 'Race About To Start')
-
-  // race between clicking 'TURN IN RECORDING' and 'RESTART THE RECORDING'
+  /*
+   ****************
+   * main race
+   *****************
+   */
+  yield clog('Race About To Start')
   while (true) {
     const {
       restartAssessment,
@@ -324,23 +340,20 @@ function* rootSaga() {
       restartAssessment: take(RESTART_RECORDING_CLICKED),
       recordingBlob: call(assessThenSubmitSaga),
     })
-    yield call(clog, 'Race Finished')
+    yield clog('Race Finished')
 
 
-    // restart!
     if (restartAssessment) {
       const recorder = yield select(getRecorder)
       yield call(recorder.reset)
 
-
-    // turn it in!
     } else {
 
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
 
       // success!
       if (turnedIn) {
-        yield call(clog,'turned it in!')
+        yield clog('turned it in!')
 
         if (isDemo) {
           yield put.resolve(setCurrentOverlay('overlay-demo-submitted'))
@@ -348,7 +361,8 @@ function* rootSaga() {
         } else {
           yield put.resolve(setCurrentOverlay('overlay-submitted'))
           setTimeout(() => {
-            window.location.href = "/" // TODO where to redirect?
+            // TODO where to redirect?
+            window.location.href = "/" // eslint-disable-line
           }, 5000)
         }
 
@@ -358,9 +372,8 @@ function* rootSaga() {
 
       // fail! allow option to turn in again?
       } else {
-        yield call(clog, 'could not turn it in :/')
+        yield clog('could not turn it in :/')
       }
-
 
     } // END if (restartAssessment)
   } // END while (true)

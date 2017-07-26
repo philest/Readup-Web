@@ -2,6 +2,7 @@ const DEV_DISABLE_VOICE_INSTRUCTIONS = false
 
 let audio = null
 
+// TODO: Daniel fix this pls
 export function playSound(file, onEnd) {
   return new Promise((resolve, reject) => {
     if (DEV_DISABLE_VOICE_INSTRUCTIONS) {
@@ -27,6 +28,17 @@ export function playSound(file, onEnd) {
     })
     audio.play();
   })
+}
+
+
+export function playSoundAsync(file) {
+
+    if (!!audio) {
+      audio.pause()
+    }
+    console.log('Playing Sound: ' + file)
+    audio = new Audio(file);
+    audio.play();
 
 }
 
