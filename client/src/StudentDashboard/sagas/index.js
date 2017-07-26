@@ -184,12 +184,12 @@ function* assessThenSubmitSaga() {
   const effects = []
 
 
+  yield put(setCurrentOverlay('overlay-intro'))
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
-  yield put(setCurrentOverlay('overlay-intro'))
   yield take(INTRO_CONTINUE_CLICKED)
   yield put(setCurrentOverlay('no-overlay'))
 
@@ -198,9 +198,7 @@ function* assessThenSubmitSaga() {
   // TODO asap as possible
   // TODO: some loop here :)
   if (!permissionsGranted) {
-    yield clog('hiiii')
     yield put(setCurrentOverlay('overlay-blocked-mic'))
-
     return
   }
 
@@ -346,6 +344,8 @@ function* rootSaga() {
     if (restartAssessment) {
       const recorder = yield select(getRecorder)
       yield call(recorder.reset)
+      yield put.resolve(setCurrentModal('no-modal'))
+      yield put(setCurrentOverlay('no-overlay'))
 
     } else {
 

@@ -1,11 +1,15 @@
 <!-- mobile splash -->
-  <form id="signup-homepage" class="signup-form">
+  <form
+    id="signup-homepage"
+    class="signup-form"
+  >
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
     <div class="signup-setup" id="signup-homepage-email">
       <div class="field" id="signup-field">
         <span>Email:</span>
         <input
-          name="user[username]"
+          name="user[email]"
           id='suh'
           placeholder="Your email address"
           class="input form-control"
@@ -15,7 +19,7 @@
       <!-- this button will hide itself when clicked -->
       <button
         type="button"
-        id="signup-homepage-continue-button"
+        id="signup-homepage-get-started-button"
         class="signup-form-button pure-button pure-button-primary get_update dialog-button"
       >
         Get started
@@ -63,11 +67,12 @@
           </div>
         </div>
         <button
-          id="signup-name-password-button"
+          id="signup-homepage-demo-button"
           type="submit"
           class="signup-form-button pure-button pure-button-primary get_update dialog-button"
         >
           Complete sign up
+          <div id="signup-spinner" class="spinner"></div>
         </button>
       </div>
     </div>
@@ -141,6 +146,29 @@
     }
   }
 
+  .spinner-container {
+    background: red;
+  }
+
+  .spinner {
+    border: 3px solid #f3f3f3; /* Light grey */
+    border-top: 3px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 0.5s linear infinite;
+    left: 50%;
+    right: 50%;
+    margin: 0 auto;
+    display: none;
+    margin-top: 4px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
 </style>
 
 
@@ -150,16 +178,41 @@
   var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   var triggeredMobileForm = false;
 
-  function registerUser (event, form) {
-    event.preventDefault();
-    event.stopPropagation();
+  function registerUser (e, form) {
+    e.preventDefault();
+    e.stopPropagation();
 
     var ValidStatus = form.valid();
     if (ValidStatus == false) {
       // mixpanel.track('invalid name-password given', {'platform': platform});
       return false;
     }
-    form.submit();
+
+    // TODO: fix this!!!
+    // $.ajax({
+    //   url: 'auth/user_exists',
+    //   type: 'post',
+    //   data: {
+    //     email: email
+    //   },
+    //   success: function(data) {
+    //     // a user already exists with this username/phone, so log that user in
+    //     $('#teacher-info input[name=usernameDisplay]').val(usernameDisplay);
+    //     $('#teacher-info input[name=username]').val(username);
+    //     $('#myModal').modal('toggle');
+    //   },
+    //   error: function (xhr, ajaxOptions, thrownError){
+    //       if(xhr.status==404) {
+    //         // a user doesn't exist with this phone/username
+    //         $('body').addClass('modalTransition');
+    //         $('#signupNamePassword').modal('toggle');
+    //           // alert(thrownError);
+    //       }
+    //   }
+
+    // });
+
+    createUserAndDemoStuff(form.serialize())
   }
 
 
@@ -168,24 +221,48 @@
       return false;
       // mixpanel.track('invalid username given', {"platform": "mobile"});
     } else {
-      var username = $('form#signup-homepage input[name=usernameDisplay]').val();
-
-      $('#signup-homepage-continue-button').slideUp();
+      $('#signup-homepage-get-started-button').slideUp();
       $('.signup-name-password').slideDown();
       // mixpanel.track('email given', {"platform": "mobile"});
     }
-
-    var username = $('#signup-homepage input[name=usernameDisplay]').val();
-
-    var usernameFieldName = 'user[email]';
-    var input = $('<input>')
-                      .attr('type', 'hidden')
-                      .attr('name', usernameFieldName)
-                      .val(username);
-    $('#signup-name-password').append($(input));
     triggeredMobileForm = true;
   }
 
+  function createUserAndDemoStuff (formData) {
+    var spinner = $('.spinner')
+    spinner.fadeIn();
+    $.ajax({
+      url: '/users',
+      type: 'post',
+      dataType: "json",
+      data: formData,
+
+    }).done(function (d) {
+
+      var classroomData = {
+        user_id: d.id,
+        user_name: d.name,
+        authenticity_token: $("form#signup-homepage #authenticity_token").val(),
+      }
+
+      $.ajax({
+        url: '/auth/create_demo_classroom',
+        type: 'post',
+        dataType: "json",
+        data: classroomData,
+      }).done(function() {
+        if (isMobileDevice()) {
+          window.location.replace("/mobile_halt");
+        } else {
+          window.location.replace("/student_dashboard/#/story/demo");
+        }
+      }).fail(function(xhr, status, err) {
+        console.log(err)
+      })
+
+    }).always(function() { spinner.fadeOut() })
+
+  };
 
 
 
@@ -196,12 +273,12 @@
     // use our advanced next-level proprietary email validation regex
     $.validator.methods.email = function( value, element ) {
       return this.optional( element ) || emailRegex.test( value );
-    }
+    };
 
     // initialize validator plugin once document is ready
     signupForm.validate({
       rules: {
-        'user[username]': {
+        'user[email]': {
           email: true,
           required: true
         },
@@ -215,17 +292,19 @@
           required: true
         }
       }
-    })
+    });
 
 
-    $('#signup-homepage-continue-button').click(function(event) {
+    $('#signup-homepage-get-started-button').click(function(e) {
       // checkIfUserExists();
+      // e.preventDefault();
+      // e.stopPropagation();
       revealRestOfForm(signupForm);
     });
 
 
-    $('#signup-homepage-name-password-button').click(function(event) {
-      registerUser(event, signupForm);
+    $('#signup-homepage-demo-button').click(function(e) {
+      registerUser(e, signupForm);
     });
 
 
@@ -234,8 +313,9 @@
       var keyCode = e.keyCode || e.which;
       if (keyCode === 13) {
         e.preventDefault();
+
         if (triggeredMobileForm) {
-          registerUser(event, signupForm);
+          registerUser(e, signupForm);
         } else {
           revealRestOfForm(signupForm);
         }
