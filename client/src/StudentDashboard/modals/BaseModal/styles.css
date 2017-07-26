@@ -2,4 +2,5 @@
 
 .baseModal > div {
 	width: 450px; /* sets the width of the modal */
+	font-family: Conv_proximanova-regular-webfont;
 }

@@ -12,6 +12,7 @@ import {
 } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
+
 import {
   getS3Presign,
   sendAudioToS3,
@@ -29,6 +30,7 @@ import { playSound } from '../audioPlayer'
 // actions
 import {
   // currently being used
+
 
   START_RECORDING_CLICKED,
   STOP_RECORDING_CLICKED,
@@ -165,6 +167,17 @@ function* turnInAudio(blob, assessmentId: number) {
 
 
 
+
+  const hasPermissions = yield call(checkPermission)
+  if (hasPermissions) {
+    yield put(setMicPermissions(MicPermissionsStatusOptions.granted))
+    return true
+  }
+  else {
+    yield put(setMicPermissions(MicPermissionsStatusOptions.awaiting))
+    yield put(setCurrentOverlay('overlay-permissions'))
+
+
 function* exitClick() {
   const recorder = yield select(getRecorder)
   yield call(recorder.pauseRecording)
@@ -183,14 +196,23 @@ function* assessThenSubmitSaga() {
 
   const effects = []
 
+  yield put(setCurrentOverlay('overlay-intro'))
+  yield take(INTRO_CONTINUE_CLICKED)
+  yield put(setCurrentOverlay('no-overlay'))
+  
+  
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
   const permissionsGranted = yield* getMicPermissionsSaga() // blocks
+  
+  yield put(setCurrentOverlay('no-overlay'))
 
   if (!permissionsGranted) {
+    yield put(setCurrentOverlay('overlay-blocked-mic'))
+    // TODO asap as possible
     return
   }
 
@@ -205,6 +227,7 @@ function* assessThenSubmitSaga() {
     ReaderStateOptions.awaitingStart,
   ))
 
+
   // before assessment has started, clicking exit immediately quits app
   // I guess. We will probably change this
   const { exit } = yield race({
@@ -217,10 +240,12 @@ function* assessThenSubmitSaga() {
     yield* redirectToHomepage()
   }
 
+
   // now we start the assessment for real
   effects.push(
     yield takeLatest(EXIT_CLICKED, exitClick),
   )
+
 
   // TODO: convert the countdown to saga!!!!
   yield put.resolve(setPageNumber(1))

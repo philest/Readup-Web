@@ -20,6 +20,7 @@ export const COUNTDOWN_ENDED = 'COUNTDOWN_ENDED'
 export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
 
 
+export const INTRO_CONTINUE_CLICKED = 'INTRO_CONTINUE_CLICKED'
 export const START_RECORDING_CLICKED = 'CLICK_START_READING'
 export const STOP_RECORDING_CLICKED = 'CLICK_STOP_RECORDING'
 export const PAUSE_CLICKED = 'PAUSE_CLICKED'
@@ -89,6 +90,13 @@ export function setHasRecordedSomething(hasRecordedSomething: bool) {
 }
 
 
+export function introContinueClicked() {
+  return {
+    type: INTRO_CONTINUE_CLICKED,
+  }
+}
+
+
 export function startRecordingClicked() {
   return {
     type: START_RECORDING_CLICKED,
@@ -101,11 +109,13 @@ export function stopRecordingClicked() {
   }
 }
 
+
 export function countdownEnded() {
   return {
     type: COUNTDOWN_ENDED,
   }
 }
+
 
 export function setCurrentSound(currentSoundId: string) {
   return {
@@ -305,48 +315,53 @@ export function setIsDemo(isDemo) {
 
 
 const sampleBook = {
-  title: "Cezar Chavez",
-  author: "Ginger Wordsworth",
-  s3Key: 'rocket',
-  description: "Mom gets to come along on a space adventure",
-  numPages: 2,
-  coverImage: 'https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg',
+  title: "Firefly Night",
+  author: 'Dianne Ochiltree',
+  numPages: 6, // if you want a shorter book for testing purposes just change this
+  coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
   pages: {
     1: {
       lines: [
-          "This is the first line of the first page.",
-          "This is the second line of the first page."
+        "When the moon is high\nand the stars are bright,",
+        "Daddy tells me,\n\"It's a firefly night!\"",
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-1-610x381.jpg',
+      img: '/images/dashboard/sample-book-assets/firefly-1.png',
     },
     2: {
       lines: [
-        "This is the first line of the second page.",
-        "This is the second line of the second page."
+        "I hop off the porch.\nI feel the air",
+        "It warms my legs and tosses my hair."
       ],
-      img: 'http://mediad.publicbroadcasting.net/p/shared/npr/201405/306846592.jpg',
+      img: '/images/dashboard/sample-book-assets/firefly-2.png',
     },
     3: {
       lines: [
-        "This is the first line of the third page.",
-        "This is the second line of the third page."
+        "Grass tickles my toes.\nI run through the yard.",
+        "I chase fireflies to put in my jar."
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-3-610x457.jpg',
+      img: '/images/dashboard/sample-book-assets/firefly-3.png',
     },
     4: {
       lines: [
-        "This is the first line of the fourth page.",
-        "This is the second line of the fourth page."
+        "Fireflies shine.\nAll of them glow.",
+        "I race to show Daddy\ntheir dancing light show."
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-5-610x343.jpg',
+      img: '/images/dashboard/sample-book-assets/firefly-4.png',
     },
     5: {
       lines: [
-        "This is the first line of the fifth page.",
-        "The end."
+        "They fly away quickly.\nThey sparkle and shine.",
+        "I love catching fireflies, but they are not mine."
       ],
-      img: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/03/high-resolution-wallpapers-6-610x381.jpg',
+      img: '/images/dashboard/sample-book-assets/firefly-6.png'
     },
+    6: {
+      lines: [
+        "We walk back to the home.\nI hold Daddy's hand tight.",
+        "I ask him \"Will tomorrow be a firefly night\"?"
+      ],
+      img: '/images/dashboard/sample-book-assets/firefly-7.png'
+    }
   },
 };
 
@@ -354,6 +369,7 @@ const sampleBook = {
 
 const initialState = {
   pageNumber: 0,
+  numPages: sampleBook.numPages,
   book: sampleBook,
   readerState:  ReaderStateOptions.initializing,
   pauseType: PauseTypeOptions.fromPauseButton,

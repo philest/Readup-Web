@@ -5,6 +5,8 @@ import NavigationBar from './components/NavigationBar'
 import BookPage from './components/BookPage'
 import BookCover from './components/BookCover'
 import RectangleButton from './components/RectangleButton'
+import ForwardArrowButton from './components/ForwardArrowButton'
+import BackArrowButton from './components/BackArrowButton'
 
 
 import styles from './styles.css'
@@ -77,21 +79,13 @@ export default class Reader extends React.Component {
     }
 
     if (this.props.isDemo) { // disabled previous button
-      const previousHoverPopover = (
-        <Popover id="popover-trigger-hover-focus" title="Popover bottom">
-          <div style={{ backgroundColor: 'white' }}>
-            Previous button is disabled in demo
-          </div>
-        </Popover>
-      );
-
       return (
-        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Previous button is disabled in this demo</Popover>}>
+        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Back button is disabled in this demo</Popover>}>
           <div className={styles.fullWidthHeight}>
-            <RectangleButton
-              title='Previous'
+            <BackArrowButton
+              title='Back'
               subtitle='page'
-              style={{ backgroundColor: '#2C6D9C' }}
+              style={{ width: 120, height: 95 }}
               disabled={true}
               onClick={this.props.onPreviousPageClicked}
             />
@@ -101,10 +95,10 @@ export default class Reader extends React.Component {
     }
 
     return (
-      <RectangleButton
-        title='Previous'
+      <BackArrowButton
+        title='Back'
         subtitle='page'
-        style={{ backgroundColor: '#2C6D9C' }}
+        style={{ width: 120, height: 95 }}
         onClick={this.props.onPreviousPageClicked}
       />
     )
@@ -130,7 +124,7 @@ export default class Reader extends React.Component {
         <RectangleButton
           title='Stop'
           subtitle='recording'
-          style={{ backgroundColor: '#982E2B' }}
+          style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onStopClicked}
@@ -142,7 +136,7 @@ export default class Reader extends React.Component {
         <RectangleButton
           title='Start'
           subtitle='read and record'
-          style={{ backgroundColor: 'green' }}
+          style={{ width: 200, height: 70, backgroundColor: '#249C44' }}
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onStartClicked}
@@ -151,10 +145,10 @@ export default class Reader extends React.Component {
     }
 
     return (
-      <RectangleButton
+      <ForwardArrowButton
         title='Next'
         subtitle='page'
-        style={{ backgroundColor: 'green' }}
+        style={{ width: 145, height: 120 }}
         disabled={this.props.disabled}
         onClick={this.props.onNextPageClicked}
       />

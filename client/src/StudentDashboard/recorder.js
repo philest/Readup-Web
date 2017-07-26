@@ -81,6 +81,7 @@ export default class Recorder {
     })
   }
 
+
   pauseRecording = () => {
     this.rtcRecorder.pauseRecording()
     this.recording = false
