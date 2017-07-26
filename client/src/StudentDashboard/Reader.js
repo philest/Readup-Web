@@ -69,7 +69,7 @@ export default class Reader extends React.Component {
     super(props);
   }
 
-  
+
 
   renderLeftButton = () => {
     if (this.props.showCover || this.props.isFirstPage) {
@@ -108,7 +108,6 @@ export default class Reader extends React.Component {
         onClick={this.props.onPreviousPageClicked}
       />
     )
-    
   }
 
   renderCenterDisplay = () => {

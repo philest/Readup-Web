@@ -4,6 +4,14 @@ class StudentDashboardController < ApplicationController
 
   def index
     stu = Student.find_by(id: session[:student_id])
+
+    session[:student_id] = 1
+   return @student_dashboard_props = {
+      studentName: "Demo Student",
+      teacherName: "Sum Dum Teachum",
+    }
+
+
     if stu
       @student_dashboard_props = {
         studentName: "#{stu.first_name} #{stu.last_name}",
@@ -24,7 +32,7 @@ class StudentDashboardController < ApplicationController
       a.save!
       render json: { assessment_id: a.id }
     else
-      render status: 401, json: { error: "You're not logged in or you didn't supply a book_key" }
+      render status: 401, json: { error: "You're not logged in or you didn't supply a book_key", student_id: stu_id, book_key: book_key }
     end
   end
 
