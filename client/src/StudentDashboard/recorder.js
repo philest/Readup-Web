@@ -36,7 +36,7 @@ export default class Recorder {
       console.log('USER MEDIA ERROR::   ' + JSON.stringify(error))
       callback(null, error)
     });
-  }
+  };
 
   initialize = (callback) => {
 
@@ -58,9 +58,9 @@ export default class Recorder {
       // this.rtcRecorder = RecordRTC(stream, { recorderType: RecordRTC.StereoAudioRecorder, mimeType: 'audio/wav' });
       this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm' });
       callback && callback(null)
-
+      return true
     });
-  }
+  };
 
   reset = () => {
     if (this.recording) {

@@ -11,11 +11,6 @@ import Recorder from './recorder'
 
 import {
   ReaderStateOptions,
-  ReaderState,
-  MicPermissionsStatusOptions,
-  MicPermissionsStatus,
-  PauseType,
-  PauseTypeOptions,
 } from './types'
 
 import styles from './styles.css'

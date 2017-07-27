@@ -72,11 +72,22 @@ import assessmentSaga from './assessmentSaga'
 
 
 function getPermission(recorder) {
-  return new Promise(function(resolve, reject) {
-    recorder.initialize((error) => {
-      resolve(error)
-    })
+
+  return navigator.mediaDevices.getUserMedia({audio: true})
+  .then(function(yay) {
+    recorder.initialize()
+    return true
+  }).catch(function(err) {
+    return false
   });
+  // return new Promise(function(resolve, reject) {
+  //   console.log('hihihih');
+
+  //   const result = recorder.initialize((error) => {
+  //     resolve(error)
+  //   })
+  //   console.log('CLOG', result);
+  // });
 }
 
 
@@ -110,15 +121,13 @@ function* getMicPermissionsSaga() {
   yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.awaiting))
   yield put.resolve(setCurrentOverlay('overlay-permissions'))
 
-  // initialize
   const recorder =              yield select(getRecorder)
-  const getPermissionSuccess =  yield call(getPermission, recorder)
+  const getPermissionSuccess =  yield getPermission(recorder)
 
-
-  yield clog(getPermissionSuccess)
   const micPermissions = getPermissionSuccess ? MicPermissionsStatusOptions.granted : MicPermissionsStatusOptions.blocked
   yield put.resolve(setMicPermissions(micPermissions))
-  return false
+
+  return getPermissionSuccess
 }
 
 
@@ -206,6 +215,9 @@ function* assessThenSubmitSaga() {
     return
   }
 
+  yield put(setCurrentOverlay('no-overlay'))
+
+
   // permission was granted!!!!
   yield playSoundAsync('https://s3-us-west-2.amazonaws.com/readup-now/website/firefly-intro.mp3')
 
@@ -286,6 +298,9 @@ function* assessThenSubmitSaga() {
     endRecording: take(STOP_RECORDING_CLICKED),
   })
 
+  recorder = yield select(getRecorder)
+  const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
+  yield clog('url for recording!!!', recordingBlob)
 
   yield put.resolve(setCurrentModal('modal-done'))
   // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
@@ -295,9 +310,6 @@ function* assessThenSubmitSaga() {
     yield take(TURN_IN_CLICKED)
   }
 
-  recorder = yield select(getRecorder)
-  const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
-  yield clog('url for recording!!!', recordingBlob)
 
   yield cancel(...effects)
 
