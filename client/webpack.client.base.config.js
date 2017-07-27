@@ -39,9 +39,10 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       libs: resolve(__dirname, 'app/libs'),
+      StudentDashboard: resolve(__dirname, 'src/StudentDashboard/'),
     },
     modules: [
-      'client/app',
+      'client/src',
       'client/node_modules',
     ],
   },
