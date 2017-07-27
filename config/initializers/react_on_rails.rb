@@ -81,5 +81,5 @@ ReactOnRails.configure do |config|
   # If you want to use webpack for CSS and images, and still use the asset pipeline,
   # see https://github.com/shakacode/react_on_rails/blob/master/docs/additional-reading/rails-assets.md
   # And you will use a setting like this.
-  # config.symlink_non_digested_assets_regex = /\.(png|jpg|jpeg|gif|tiff|woff|ttf|eot|svg|map)/
+  config.symlink_non_digested_assets_regex = /\.(png|jpg|jpeg|gif|tiff|woff|ttf|eot|svg|map)/
 end
