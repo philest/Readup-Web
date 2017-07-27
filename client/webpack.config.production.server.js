@@ -36,9 +36,20 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      libs: resolve(__dirname, 'app', 'libs'),
+      libs: resolve(__dirname, 'app/libs'),
+      StudentDashboard: resolve(__dirname, 'src/StudentDashboard/'),
     },
+    modules: [
+      'client/src',
+      'client/node_modules',
+    ],
   },
+  // resolve: {
+  //   extensions: ['.js', '.jsx'],
+  //   alias: {
+  //     libs: resolve(__dirname, 'app', 'libs'),
+  //   },
+  // },
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
