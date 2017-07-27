@@ -46,7 +46,7 @@ export function sendAudioToS3(blob, presign: PresignObject) {
 
   const { fields, url } = presign
   const data = new FormData(); // eslint-disable-line
-  const fileName = "hello_there.wav";
+  const fileName = "recording.webm";
 
   console.log('sendAudio', presign, blob)
 

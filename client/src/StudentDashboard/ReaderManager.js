@@ -1,7 +1,4 @@
-//@flow
-
-
-
+// @flow
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux'
@@ -12,7 +9,14 @@ import { bindActionCreators } from 'redux'
 import Reader from './Reader'
 import Recorder from './recorder'
 
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
+import {
+  ReaderStateOptions,
+  ReaderState,
+  MicPermissionsStatusOptions,
+  MicPermissionsStatus,
+  PauseType,
+  PauseTypeOptions,
+} from './types'
 
 import styles from './styles.css'
 
@@ -63,11 +67,19 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return { actions: bindActionCreators(actionCreators, dispatch) }
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actionCreators, dispatch),
+    exitAndUploadRecording() {
+      dispatch(actionCreators.turnInClicked())
+    },
+    quitAssessment() {
+      dispatch({ type: 'QUIT_ASSESSMENT_AND_DESTROY' })
+    },
+  }
 }
 
-//todo
+// todo
 class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
@@ -76,12 +88,10 @@ class StudentDashboard extends React.Component {
 
   constructor(props, _railsContext) {
     super(props);
-
   }
 
 
   componentWillMount() {
-
     this.props.actions.setIsDemo(this.props.isDemo)
 
     if (!Recorder.browserSupportsRecording()) {
@@ -90,31 +100,16 @@ class StudentDashboard extends React.Component {
     }
 
     // This stuff kicks off the process, gets state out of initializing
-
-
   }
+
 
   componentDidUpdate(nextProps) {
     console.log('ReaderManager updated to pageNumber:  ' + this.props.pageNumber)
   }
 
- 
-
-  onPermisionsArrowClicked = () => {
-    this.props.actions.clickedPermissionsArrow()
-  }
-
-  exitAndUploadRecording = () => {
-
-  }
-
-  exitAbandonState = () => {
-
-  }
 
 
   /* Rendering */
-
   // Returns a Reader component with /prop/er props based on page number
   renderReaderComponentWithProps = () => {
 
@@ -185,8 +180,8 @@ class StudentDashboard extends React.Component {
         <ExitModal
           startedRecording={this.props.hasRecordedSomething}
           onContinueClicked={this.props.actions.resumeClicked}
-          onExitAndUploadClicked={this.exitAndUploadRecording}
-          onExitNoUploadClicked={this.exitAbandonState}
+          onExitAndUploadClicked={this.props.exitAndUploadRecording}
+          onExitNoUploadClicked={this.props.quitAssessment}
           currentShowModal={this.props.currentShowModal}
         />
 
@@ -210,24 +205,43 @@ class StudentDashboard extends React.Component {
   renderOverlayOrNullBasedOnState = () => {
     return (
       <div>
+        <IntroOverlay
+          currentShowOverlay={this.props.currentShowOverlay}
+          onContinueClicked={this.props.actions.introContinueClicked}
+        />
 
-        <IntroOverlay currentShowOverlay={this.props.currentShowOverlay} onContinueClicked={this.props.actions.introContinueClicked} />
-        <BlockedMicOverlay currentShowOverlay={this.props.currentShowOverlay} />
-        <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
-        <PermissionsOverlay currentShowOverlay={this.props.currentShowOverlay} onArrowClicked={this.onPermisionsArrowClicked} />
-        <DemoSubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} studentName={this.props.studentName} onLogoutClicked={this.props.actions.demoSubmittedLogoutClicked} />
+        <BlockedMicOverlay
+          currentShowOverlay={this.props.currentShowOverlay}
+        />
+
+        <SubmittedOverlay
+          currentShowOverlay={this.props.currentShowOverlay}
+        />
+
+        <PermissionsOverlay
+          currentShowOverlay={this.props.currentShowOverlay}
+          onArrowClicked={this.props.onPermisionsArrowClicked}
+        />
+
+        <DemoSubmittedOverlay
+          currentShowOverlay={this.props.currentShowOverlay}
+          studentName={this.props.studentName}
+          onLogoutClicked={this.props.actions.demoSubmittedLogoutClicked}
+        />
 
         {
           (this.props.readerState === ReaderStateOptions.countdownToStart) &&
-          <CountdownOverlay countdownDuration={3} onCountdownFinished={() => {
-
-            this.props.actions.countdownEnded()
-          }} />
+          <CountdownOverlay
+            countdownDuration={3}
+            onCountdownFinished={() => {
+              this.props.actions.countdownEnded()
+            }}
+          />
         }
+
       </div>
     );
-
-  }
+  } // END renderOverlayOrNullBasedOnState = () => {
 
 
   // The best way to preload images is just to render hidden img components, with src set to the url we want to load
@@ -247,12 +261,10 @@ class StudentDashboard extends React.Component {
     }
 
     return (
-      <div style={{'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden'}}>
-        {preloadImageURLs.map((preloadImage) => {
-          return (
-            <img key={preloadImage} src={preloadImage} />
-          );
-        })}
+      <div style={{ 'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden' }}>
+        {preloadImageURLs.map((preloadImage) => (
+          <img key={preloadImage} src={preloadImage} />
+        ))}
       </div>
     );
   }
@@ -278,15 +290,12 @@ class StudentDashboard extends React.Component {
         { OverlayOrNull }
         { this.renderHiddenPreloadImages() }
 
-        { this.props.showSpinner && 
+        { this.props.showSpinner &&
           <SpinnerOverlay />
         }
 
       </div>
-
-
     );
-
   }
 }
 

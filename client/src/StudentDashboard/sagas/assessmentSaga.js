@@ -46,11 +46,11 @@ function* pauseAssessmentSaga (action) {
   const recorder = yield select(getRecorder)
   yield call(recorder.pauseRecording)
   yield delay(300) // delay to prevent phil's voice from getting pick up :/
-  yield call(playSoundAsync, '/audio/paused.m4a')
+  // yield call(playSoundAsync, '/audio/paused.mp3')
   yield put.resolve(setReaderState(
     ReaderStateOptions.paused,
   ))
-  // yield put.resolve(setCurrentSound('/audio/paused.m4a'))
+  // yield put.resolve(setCurrentSound('/audio/paused.mp3'))
   yield put.resolve(setCurrentModal('modal-paused'))
   return
   // directly show modal here

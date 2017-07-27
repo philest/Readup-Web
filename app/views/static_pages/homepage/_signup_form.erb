@@ -141,7 +141,7 @@
   @media (min-width: 35.5em) {
     #signup-homepage {
       margin: auto;
-      width: 41.66%;
+      width: 55%;
       padding: 0.5em;
     }
   }
@@ -223,6 +223,7 @@
     } else {
       $('#signup-homepage-get-started-button').slideUp();
       $('.signup-name-password').slideDown();
+      $('.section-buffer').slideDown();
       // mixpanel.track('email given', {"platform": "mobile"});
     }
     triggeredMobileForm = true;
@@ -295,6 +296,7 @@
     });
 
 
+
     $('#signup-homepage-get-started-button').click(function(e) {
       // checkIfUserExists();
       // e.preventDefault();
@@ -322,5 +324,9 @@
       }
     });
 
+
+    $('form#signup-homepage #suh').on('focus', function(e) {
+      this.scrollIntoView(false);
+    });
   });
 </script>

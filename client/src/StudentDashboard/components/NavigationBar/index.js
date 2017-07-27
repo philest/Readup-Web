@@ -80,8 +80,10 @@ export default class NavigationBar extends React.Component {
         <div className={css.subContainer}>
           <div className={css.rightDisplayContainer}>
             <span className={css.userNameLabel}>{this.props.studentName}</span>
-            <span className={css.logoutButton}>
-              <a className={css.logoutLabel} onClick={this.props.onExitClicked}>Exit</a>
+            <span className={css.logoutButton} onClick={this.props.onExitClicked}>
+              <a className={css.logoutLabel} >
+                Exit
+              </a>
               <img src='/images/dashboard/logout-icon.png' className={css.logoutIcon} />
             </span>
           </div>
