@@ -41,6 +41,9 @@ import {
   RESTART_RECORDING_CLICKED,
   TURN_IN_CLICKED,
   IS_DEMO_SET,
+  SPINNER_SHOW,
+  SPINNER_HIDE,
+  DEMO_SUBMITTED_LOGOUT_CLICKED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -349,9 +352,9 @@ function* rootSaga() {
 
     } else {
 
-      yield put({type: LOADING_PINNER})
+      yield put({ type: SPINNER_SHOW })
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
-      yield put({type: LOADING_PINNER})
+      yield put({ type: SPINNER_HIDE })
 
       // success!
       if (turnedIn) {
@@ -360,8 +363,9 @@ function* rootSaga() {
         if (isDemo) {
           yield clog('oh hey you r done')
           yield put(setCurrentOverlay('overlay-demo-submitted'))
-          // yield take("CLICK LOGOUT")
-          // yield REDIRECT
+          yield take(DEMO_SUBMITTED_LOGOUT_CLICKED)
+          // TODO where to redirect?
+          window.location.href = "/" 
 
         } else {
           yield put(setCurrentOverlay('overlay-submitted'))

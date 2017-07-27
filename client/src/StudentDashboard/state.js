@@ -33,7 +33,9 @@ export const TURN_IN_CLICKED = 'TURN_IN_CLICKED'
 export const HEAR_RECORDING_CLICKED = 'HEAR_RECORDING_CLICKED'
 export const RECORDING_URL_SET = 'RECORDING_URL_SET'
 
-
+export const DEMO_SUBMITTED_LOGOUT_CLICKED = 'DEMO_SUBMITTED_LOGOUT_CLICKED'
+export const SPINNER_SHOW = 'SPINNER_SHOW'
+export const SPINNER_HIDE = 'SPINNER_HIDE'
 
 export const CURRENT_SOUND_SET = 'CURRENT_SOUND_SET'
 export const CURRENT_MODAL_SET = 'CURRENT_MODAL_SET'
@@ -213,6 +215,12 @@ export function setRecordingURL(recordingURL: string) {
   }
 }
 
+export function demoSubmittedLogoutClicked() {
+  return {
+    type: DEMO_SUBMITTED_LOGOUT_CLICKED,
+  }
+}
+
 
 /* stil using these */
 
@@ -379,7 +387,8 @@ const initialState = {
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
   currentSoundId: 'no-sound',
   currentModalId: 'no-modal',
-  currentOverlayId: 'no-overlay'
+  currentOverlayId: 'no-overlay',
+  showSpinner: false,
 }
 
 
@@ -443,6 +452,14 @@ function reducer(state = initialState, action = {}) {
 
     case RECORDING_URL_SET: {
       return { ...state, recordingURL: payload.recordingURL}
+    }
+
+    case SPINNER_SHOW: {
+      return { ...state, showSpinner: true }
+    }
+
+    case SPINNER_HIDE: {
+      return { ...state, showSpinner: false }
     }
 
     // case BOOK_INTRO_RECORDING_ENDED: {

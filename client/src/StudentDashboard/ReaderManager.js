@@ -28,6 +28,7 @@ import SubmittedOverlay from './overlays/SubmittedOverlay'
 import DemoSubmittedOverlay from './overlays/DemoSubmittedOverlay'
 import PermissionsOverlay from './overlays/PermissionsOverlay'
 import CountdownOverlay from './overlays/CountdownOverlay'
+import SpinnerOverlay from './overlays/SpinnerOverlay'
 
 import { Modal } from 'react-bootstrap'
 
@@ -58,6 +59,7 @@ function mapStateToProps (state) {
     recordingURL: state.reader.recordingURL,
     currentShowModal: state.reader.currentModalId,
     currentShowOverlay: state.reader.currentOverlayId,
+    showSpinner: state.reader.showSpinner,
   }
 }
 
@@ -213,9 +215,7 @@ class StudentDashboard extends React.Component {
         <BlockedMicOverlay currentShowOverlay={this.props.currentShowOverlay} />
         <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
         <PermissionsOverlay currentShowOverlay={this.props.currentShowOverlay} onArrowClicked={this.onPermisionsArrowClicked} />
-        <DemoSubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} studentName={this.props.studentName} onLogoutClicked={() => {
-          window.location.href = "/" // ** TODO **
-        }} />
+        <DemoSubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} studentName={this.props.studentName} onLogoutClicked={this.props.actions.demoSubmittedLogoutClicked} />
 
         {
           (this.props.readerState === ReaderStateOptions.countdownToStart) &&
@@ -262,16 +262,26 @@ class StudentDashboard extends React.Component {
 
     console.log('Rendering ReaderManager with ReaderState: ' + this.props.readerState)
 
+    // if (this.props.readerState === ReaderStateOptions.initializing) {
+    //   return <div className={styles.fill} style={{ backgroundColor: 'black' }} />
+    // }
+
     const ReaderComponent = this.renderReaderComponentWithProps()
     const ModalComponentOrNull = this.renderModalComponentOrNullBasedOnState()
     const OverlayOrNull = this.renderOverlayOrNullBasedOnState()
 
     return (
       <div className={styles.fill}>
+
         { ReaderComponent }
         { ModalComponentOrNull }
         { OverlayOrNull }
         { this.renderHiddenPreloadImages() }
+
+        { this.props.showSpinner && 
+          <SpinnerOverlay />
+        }
+
       </div>
 
 
