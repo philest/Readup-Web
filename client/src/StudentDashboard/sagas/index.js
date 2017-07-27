@@ -206,7 +206,7 @@ function* assessThenSubmitSaga() {
   }
 
   // permission was granted!!!!
-  yield playSoundAsync('/audio/sample.m4a')
+  yield playSoundAsync('https://s3-us-west-2.amazonaws.com/readup-now/website/firefly-intro.mp3')
 
 
   let recorder = yield select(getRecorder)
@@ -243,10 +243,10 @@ function* assessThenSubmitSaga() {
   yield put.resolve(setReaderState(
     ReaderStateOptions.countdownToStart,
   ))
-  yield playSoundAsync('/audio/recording_countdown.m4a')
+  yield playSoundAsync('/audio/recording_countdown.mp3')
 
 
-  // yield put(setCurrentSound('/audio/book_intro.m4a'))
+  // yield put(setCurrentSound('/audio/book_intro.mp3'))
 
   // TODO: D. Ernst pls fix dis tx
   yield take(COUNTDOWN_ENDED)
@@ -276,7 +276,7 @@ function* assessThenSubmitSaga() {
   )
 
   yield take(STOP_RECORDING_CLICKED) // TODO: better name
-  yield playSoundAsync('/audio/done.m4a')
+  // yield playSoundAsync('/audio/done.mp3')
 
 
   yield put.resolve(setCurrentModal('modal-done'))
@@ -286,9 +286,9 @@ function* assessThenSubmitSaga() {
   const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
   yield clog('url for recording!!!', recordingBlob)
 
-  yield take(TURN_IN_CLICKED)
-
   yield cancel(...effects)
+
+  yield take(TURN_IN_CLICKED)
   return recorder.getBlob()
 }
 
@@ -313,7 +313,7 @@ function* rootSaga() {
    * watchers
    *****************
    */
-  yield* audioEffectsSaga()
+  // yield* audioEffectsSaga()
 
   yield takeLatest(HEAR_RECORDING_CLICKED, function* () {
     yield put(setCurrentModal('modal-playback'))
@@ -321,9 +321,9 @@ function* rootSaga() {
   })
 
 
-  yield takeLatest(PERMISSIONS_ARROW_CLICKED, function* () {
-    yield call(playSound, '/audio/click_allow_button.m4a')
-  })
+  // yield takeLatest(PERMISSIONS_ARROW_CLICKED, function* () {
+  //   yield call(playSound, '/audio/click_allow_button.mp3')
+  // })
 
 
 
@@ -337,9 +337,13 @@ function* rootSaga() {
     const {
       restartAssessment,
       recordingBlob,
+      turnItIn,
+      quit,
     } = yield race({
       restartAssessment: take(RESTART_RECORDING_CLICKED),
       recordingBlob: call(assessThenSubmitSaga),
+      turnItIn: take(TURN_IN_CLICKED),
+      quit: take('QUIT_ASSESSMENT_AND_DESTROY'),
     })
     yield clog('Race Finished')
 
@@ -351,6 +355,12 @@ function* rootSaga() {
       yield put(setCurrentOverlay('no-overlay'))
 
     } else {
+
+      if (quit) {
+        window.location.href = "/" // eslint-disable-line
+        return
+      }
+
 
       yield put({ type: SPINNER_SHOW })
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
@@ -365,7 +375,7 @@ function* rootSaga() {
           yield put(setCurrentOverlay('overlay-demo-submitted'))
           yield take(DEMO_SUBMITTED_LOGOUT_CLICKED)
           // TODO where to redirect?
-          window.location.href = "/" 
+          window.location.href = "/"
 
         } else {
           yield put(setCurrentOverlay('overlay-submitted'))
@@ -373,6 +383,7 @@ function* rootSaga() {
             // TODO where to redirect?
             window.location.href = "/" // eslint-disable-line
           }, 5000)
+          return
         }
 
         yield put(setReaderState(

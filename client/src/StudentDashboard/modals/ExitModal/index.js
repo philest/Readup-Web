@@ -40,11 +40,11 @@ export default class ExitModal extends React.Component {
 
         <div className={styles.exitModalTextWrapper}>
 
-        {this.props.startedRecording && 
+        {this.props.startedRecording &&
           <p className={styles.exitModalText}>Are you sure you want to quit? You can resume the demo, exit and upload your recording to be scored, or exit without uploading your recording.</p>
         }
 
-        {!this.props.startedRecording && 
+        {!this.props.startedRecording &&
           <p className={styles.exitModalText}>Are you sure you want to quit? We can't show you how we score running records if you don't give us one! Press continue to start the demo.</p>
         }
 
@@ -58,7 +58,7 @@ export default class ExitModal extends React.Component {
             onClick={this.props.onContinueClicked}
           />
 
-          {this.props.startedRecording && 
+          {this.props.startedRecording &&
             <RectangleButton
               className={styles.exitModalButton}
               title="Exit & Upload"

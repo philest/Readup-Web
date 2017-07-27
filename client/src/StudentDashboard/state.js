@@ -9,7 +9,7 @@
 
 
 // TODO REMOVE, put recorder logic in saga
-import Recorder from './recorder' 
+import Recorder from './recorder'
 
 import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
 
@@ -447,7 +447,7 @@ function reducer(state = initialState, action = {}) {
         }
         default: return state
       }
-      
+
     }
 
     case RECORDING_URL_SET: {
