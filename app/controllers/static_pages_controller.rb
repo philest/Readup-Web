@@ -15,6 +15,11 @@ class StaticPagesController < ActionController::Base
     render 'static_pages/homepage/mobile_halt'
   end
 
+  # add just to test school selection
+  # def school
+  #   render 'static_pages/signup/index'
+  # end
+
   # def app
   #   render 'static_pages/pages/get-the-app'
   # end

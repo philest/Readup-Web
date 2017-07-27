@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   get 'design', to: 'static_pages#design'
   get 'success', to: 'static_pages#signup_success'
 
+  # for testing add school
+  # get 'school', to: 'static_pages#school'
+
   # user stuff including auth
 
   resources :users

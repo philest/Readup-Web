@@ -1,10 +1,22 @@
 
+<!-- <div style="display: inline-block;"> -->
 
 <ul data-role="header" id="navbar-header">
   <li><a class="active" id="home" href="">ReadUp</a></li>
 
+  
+  <li class="navbar-right logout"><a href="#" id="logout">Log Out <img src="/images/dashboard/logout-icon.png" class="logout-image" /></a></li>
+  <li class="navbar-right student-name"><a>David Jones</a></li>
+
   <!-- <li><a href="#app" id="app">Get the app</a></li> -->
 </ul>
+<!-- 
+<ul id="navbar-right">
+  <li>David Jones</li>
+  <li>Log Out</li>
+</ul>
+ -->
+
 
 
 <style>
@@ -16,6 +28,9 @@ ul#navbar-header {
     padding: 0;
     overflow: hidden;
     line-height: 2em;
+    background-color: #3C8FCA;
+    font-family: Arial;
+    text-shadow: none;
     /*background-color: #59567F;*/
     /*background: url('http://d2yudi7y1eei74.cloudfront.net/assets/new-logo/logo-no-circle.png');
     background-size: 70px 50px;
@@ -23,9 +38,18 @@ ul#navbar-header {
     background-repeat: no-repeat;*/
 }
 
+ul#navbar-header li a#home {
+  font-weight: normal !important;
+}
+
+ul#navbar-header li {
+  font-weight: normal !important;
+}
+
 #navbar-header li #home {
-  font-size: 19px;
-  font-family: 'dk_cool_crayon'; 
+  font-size: 1.1em;
+  /*font-family: 'dk_cool_crayon'; */
+  margin-left: 40px;
   color: white;
 }
 
@@ -50,4 +74,31 @@ ul#navbar-header {
 #navbar-header li a:hover {
     /*background-color: #111;*/
 }
+
+li.navbar-right {
+  float: right;
+  margin-right: 20px;
+  /*margin-top: 15px;*/
+  color: white;
+  font-size: 0.9em;
+
+  
+}
+
+li.student-name a {
+  font-style: italic;
+  font-weight: normal !important;
+}
+
+ul#navbar-header li.logout {
+  font-weight: bold !important;
+  margin-right: 50px;
+}
+
+img.logout-image {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
 </style>

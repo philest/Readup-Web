@@ -1,4 +1,14 @@
 <style>
+
+  .body {
+    background-color: #F2F3F5;
+  }
+
+  .container {
+    /*box-shadow: -10px -10px 5px 20px black;*/
+    border: 2px solid #DEDEDF;
+  }
+
   #state {
     border: 0.5px solid gray;
     width: 100%;
@@ -46,6 +56,10 @@
     font-size: 12px;
   }
 
+  .ui-btn.transition-link {
+    background-color: #3C8FCA !important;
+  }
+
 
 
 </style>
@@ -67,16 +81,18 @@
                   <div class="signup-setup">
                       <div class="field" id="signup-field">
                          <label class="label">School</label>
-                        <input name="school_name" autocomplete="off" placeholder="Search for a school" class="input" required>
+                        <input name="school_name" autocomplete="off" placeholder="Search for a school" class="input" id="school-input" required>
                       </div>
                   </div>
 
                   <!-- create the dropdown menu here -->
                   <div class="dropdown-menu" style="display: none;">
+                    <div id="#anchor"></div>
                     <div id="just-to-append">
-                      <div id="status-text">
-                        <p></p>
-                      </div>
+                      
+                    </div>
+                    <div id="status-text">
+                      <p></p>
                     </div>
 
                     <div id="add-your-school-link">
@@ -89,19 +105,8 @@
 
 
 
-                  <input type="hidden" name="school_id" value="">
-                  <input type="hidden" name="school_name" value="">
-                  <input type="hidden" name="school_city" value="">
-                  <input type="hidden" name="school_state" value="">
-                  <input type="hidden" name="signature" value="">
-
-                  <a
-                    id="page4link"
-                    class="transition-link ui-btn web-mobile-signup-button"
-                    href="#page3-signature"
-                    data-transition="fade">
-                    Take Me To Demo
-                    <!-- Continue -->
+                  <a id="page4link" class="transition-link ui-btn web-mobile-signup-button" href="#page3-signature" data-transition="fade">
+                    Continue
                   </a>
 
                   <script>
@@ -117,130 +122,141 @@
                       return ui.item.label || '';
                     };
 
-                    $(function() {
+                    $(function(ready) {
 
                       var availableSchools = [];
 
-                        $( "#page4-find-school input[name=school_name]" ).autocomplete({
-                          delay: 400,
-                          source: '/auth/search_school',
-                          minLength: 2,
-                          appendTo: "#just-to-append",
-                          position: { my: "left top", at: "left bottom", of: "#status-text" },
-                          response: function(event, ui) {
-                            var len = ui.content.length;
+                      var autoSearch = $( "#page4-find-school input[name=school_name]" ).autocomplete({
+                        delay: 400,
+                        source: '/auth/search_school',
 
-                            if (len >= 1) {
-                              console.log('some results!');
-                              $('#status-text p i').text('Suggested schools for you');
-                            } else {
+                        minLength: 2,
+                        appendTo: "#just-to-append",
+                        position: { my: "left top", at: "left bottom", of: "#status-text" },
+                        response: function(event, ui) {
+                          var len = ui.content.length;
 
-                              $('#status-text p i').text('No results found.');
-                            }
-                            // return false;
-                          },
-                          focus: function(event, ui) {
-                            $('#page4-find-school input[name=school_name]').val(ui.item.label);
-                            if (isMobileDevice()){
-                              last_selected = setFormValues(ui);
-                            }
-                            return false;
-                          },
-                          select: function(event, ui) {
-                            last_selected = setFormValues(ui);
-                            return false;
+                          if (len >= 1) {
+                            var suggestAdd = '<p>Can\'t find your school below? <a id="page4link-add-school" href="#page6-school-info" data-transition="fade">Add one now.</a></p>'
+                            $('#status-text').html(suggestAdd);
+                          } else {
+                            console.log('no resultss')
+
+                            $('#status-text').html('<p><i>No results found.</p></i>');
                           }
-                        }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-                          return $( "<li>", {
-                              class: 'school-selector',
-                              click: function(event) {
-                                  $('#page4-find-school input[name=school_name]').blur();
-                              }
-                           })
-                           .append( "<a>" + item.label + "<br><span class='city'>" + item.desc + "</span></a>" )
-                           .appendTo( ul );
-                        };
+                          // return false;
+                        },
+                        focus: function(event, ui) {
+                          $('#page4-find-school input[name=school_name]').val(ui.item.label);
+                          if (isMobileDevice()){
+                            last_selected = setFormValues(ui);
+                          }
+                          return false;
+                        },
+
+                        select: function(event, ui) {
+                          last_selected = setFormValues(ui);
+                          return false;
+                        },
+                        open: function(event, ui) {
+                          // $('#just-to-append').append('<div class="list-header">HEADER</div>');
+                          // $('#status-text').position({ my: "left top", at: "left bottom", of: ".ui-autocomplete" });
+                          return false;
+                        },
+                      }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                        return $( "<li>", {
+                            class: 'school-selector',
+                            click: function(event) {
+                                $('#page4-find-school input[name=school_name]').blur();
+                            }
+                         })
+                         .append( "<a>" + item.label + "<br><span class='city'>" + item.desc + "</span></a>" )
+                         .appendTo( ul );
+                      };
+                      
+                  
+                      $('#school-input').on('input', function() {
+                        var len = $('#school-input').val().length;
+                        if (len < 2) {
+                          $('#status-text').css('display', 'none');
+                          return;
+                        }
+                        $('#status-text').css('display', 'block');
+
+                      });
+
+                      $('#page4-find-school input[name=school_name]').click(function() {
+                        $('.dropdown-menu').css('display', 'block');
+                      });
+
+                      $('#page4link-add-school').on('mousedown', function(event) {
+                        // event.stopImmediatePropagation();
+                        // event.preventDefault();
                       });
 
 
+                      $('#page4-find-school input[name=school_name]').blur(function() {
+                        // check to see if we selected something nice
+                        var input_val = $('#page4-find-school input[name=school_name]').val();
+                        $('#status-text').css('display', 'none');
 
-                    $('#page4-find-school input[name=school_name]').click(function() {
-                      $('.dropdown-menu').css('display', 'block');
-                    });
+                      //   var postData = {
+                      //     'user_id': $('form#add-students').find('input[name=user_id]').val(),
+                      //     'school_id': $('form#add-students').find('input[name=school_id]').val(),
+                      //     'school_name': $('form#add-students').find('input[name=school_name]').val(),
+                      //     'school_city': $('form#add-students').find('input[name=school_city]').val(),
+                      //     'school_state': $('form#add-students').find('input[name=school_state]').val(),
+                      //     'student_names': ['Demo Student'],
+                      //     'authenticity_token': $('form#add-students').find('input[name=authenticity_token]').val(),
+                      //     'classroom_grade': $('form#add-students').find('input[name=classroom_grade]').val(),
+                      //     'classroom_name': 'Demo Classroom',
+                      //     'signature': "Demo Teacher",
+                      //   };
 
-                    $('#page4link-add-school').on('mousedown', function(event) {
-                      // event.stopImmediatePropagation();
-                      event.preventDefault();
-                    });
+                      //   console.log("signup post data  " + postData);
 
+                      //   $.ajax({
+                      //     url: 'create_classroom',
+                      //     type: 'post',
+                      //     data: postData
+                      //   }).done(function(data, statusText, xhr) {
+                      //     var cur = window.location.hostname
+                      //     location.href= "/student_dashboard/#/story/demo/page/1"
+                      //   }).fail(function(){
 
-                    $('#page4-find-school input[name=school_name]').blur(function() {
-                      // check to see if we selected something nice
-                      var input_val = $('#page4-find-school input[name=school_name]').val();
+                      //     }
+                      //   );
 
-                      $('#page4-find-school input[name=school_name]').val(last_selected);
-                      $("#page4-find-school input[name=school_name]").autocomplete('close');
-                      $('.dropdown-menu').css('display', 'none');
-                    });
-
-
-
-                    $(document).on('click', '#page4-find-school #page4link',function(event){
-                      var ValidStatus = $("#page4-find-school #school-info").valid();
-                      // console.log(ValidStatus);
-                      if (ValidStatus == false) {
-                          event.preventDefault();
-                          event.stopPropagation();
-                          mixpanel.track('invalid school info given');
-                          return false;
-                      }
-
-                      $('#page5-add-students form#add-students').find('input[name=school_id]').val($('#page4-find-school input[name=school_id]').val());
-                      $('#page5-add-students form#add-students').find('input[name=school_name]').val($('#page4-find-school input[name=school_name]').val());
-                      $('#page5-add-students form#add-students').find('input[name=school_city]').val($('#page4-find-school input[name=school_city]').val());
-                      $('#page5-add-students form#add-students').find('input[name=school_state]').val($('#page4-find-school input[name=school_state]').val());
-                      $('#page5-add-students form#add-students').find('input[name=classroom_grade]').val($('#page4-find-school select[name=classroom_grade]').val());
-
-
-                        var postData = {
-                          'user_id': $('form#add-students').find('input[name=user_id]').val(),
-                          'school_id': $('form#add-students').find('input[name=school_id]').val(),
-                          'school_name': $('form#add-students').find('input[name=school_name]').val(),
-                          'school_city': $('form#add-students').find('input[name=school_city]').val(),
-                          'school_state': $('form#add-students').find('input[name=school_state]').val(),
-                          'student_names': ['Demo Student'],
-                          'authenticity_token': $('form#add-students').find('input[name=authenticity_token]').val(),
-                          'classroom_grade': $('form#add-students').find('input[name=classroom_grade]').val(),
-                          'classroom_name': 'Demo Classroom',
-                          'signature': "Demo Teacher",
-                        };
-
-                        console.log("signup post data  " + postData);
-
-                        $.ajax({
-                          url: 'create_classroom',
-                          type: 'post',
-                          data: postData
-                        }).done(function(data, statusText, xhr) {
-                          var cur = window.location.hostname
-                          location.href= "/student_dashboard/#/story/demo/page/1"
-                        }).fail(function(){
-
-                          }
-                        );
-
-                        var formdata = $("form#add-students").serializeArray();
-                        console.log(formdata);
-                        var data = {};
-                        $(formdata).each(function(index, obj){
-                            data[obj.name] = obj.value;
-                        });
-                        console.log(data);
+                      //   $('#page4-find-school input[name=school_name]').val(last_selected);
+                      //   $("#page4-find-school input[name=school_name]").autocomplete('close');
+                      //   $('.dropdown-menu').css('display', 'none');
+                      });
 
                     });
+
+
+
+                    // $(document).on('click', '#page4-find-school #page4link',function(event){
+                    //   var ValidStatus = $("#page4-find-school #school-info").valid();
+                    //   // console.log(ValidStatus);
+                    //   if (ValidStatus == false) {
+                    //       event.preventDefault();
+                    //       event.stopPropagation();
+                    //       mixpanel.track('invalid school info given');
+                    //       return false;
+                    //   }
+
+                    //   return false; // for now so we don't advance to the next page
+
+
+                    // });
+
+
 
                   </script>
                 </form>
+
+
 
               </div>
           </div> <%# container %>
