@@ -114,11 +114,11 @@ function* getMicPermissionsSaga() {
   const recorder =              yield select(getRecorder)
   const getPermissionSuccess =  yield call(getPermission, recorder)
 
-  yield put.resolve(setCurrentOverlay('no-overlay'))
 
+  yield clog(getPermissionSuccess)
   const micPermissions = getPermissionSuccess ? MicPermissionsStatusOptions.granted : MicPermissionsStatusOptions.blocked
   yield put.resolve(setMicPermissions(micPermissions))
-  return micPermissions
+  return false
 }
 
 
@@ -200,8 +200,9 @@ function* assessThenSubmitSaga() {
 
   // TODO asap as possible
   // TODO: some loop here :)
-  if (!permissionsGranted) {
+  while (!permissionsGranted) {
     yield put(setCurrentOverlay('overlay-blocked-mic'))
+    yield take('ickkkkk')
     return
   }
 
