@@ -349,17 +349,22 @@ function* rootSaga() {
 
     } else {
 
+      yield put({type: LOADING_PINNER})
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
+      yield put({type: LOADING_PINNER})
 
       // success!
       if (turnedIn) {
         yield clog('turned it in!')
 
         if (isDemo) {
-          yield put.resolve(setCurrentOverlay('overlay-demo-submitted'))
+          yield clog('oh hey you r done')
+          yield put(setCurrentOverlay('overlay-demo-submitted'))
+          // yield take("CLICK LOGOUT")
+          // yield REDIRECT
 
         } else {
-          yield put.resolve(setCurrentOverlay('overlay-submitted'))
+          yield put(setCurrentOverlay('overlay-submitted'))
           setTimeout(() => {
             // TODO where to redirect?
             window.location.href = "/" // eslint-disable-line

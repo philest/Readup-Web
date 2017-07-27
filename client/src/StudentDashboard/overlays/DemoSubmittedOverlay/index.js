@@ -15,7 +15,6 @@ export default class DemoSubmittedModal extends React.Component {
   static propTypes = {
     onLogoutClicked: PropTypes.func,
     studentName: PropTypes.string,
-
     currentShowOverlay: PropTypes.string,
   };
 
@@ -33,10 +32,10 @@ export default class DemoSubmittedModal extends React.Component {
     if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {
       return null
     }
-    
+
     return (
       <div className={styles.wrapper}>
-        <NavigationBar 
+        <NavigationBar
           className={indexStyles.navBar}
           studentName={this.props.studentName}
           showPauseButton={false}
@@ -55,7 +54,7 @@ export default class DemoSubmittedModal extends React.Component {
           </div>
 
         <div>
-          <Button 
+          <Button
             className={styles.endButton}
             bsStyle={'primary'}
             bsSize={'large'}
