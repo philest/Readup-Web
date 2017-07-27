@@ -275,12 +275,24 @@ function* assessThenSubmitSaga() {
     yield fork(assessmentSaga),
   )
 
-  yield take(STOP_RECORDING_CLICKED) // TODO: better name
   // yield playSoundAsync('/audio/done.mp3')
+
+
+
+
+  const { endRecording } = yield race({
+    turnItIn: take(TURN_IN_CLICKED),
+    endRecording: take(STOP_RECORDING_CLICKED),
+  })
 
 
   yield put.resolve(setCurrentModal('modal-done'))
   // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
+
+  // do not delete, this is import :)
+  if (endRecording) {
+    yield take(TURN_IN_CLICKED)
+  }
 
   recorder = yield select(getRecorder)
   const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
@@ -288,7 +300,6 @@ function* assessThenSubmitSaga() {
 
   yield cancel(...effects)
 
-  yield take(TURN_IN_CLICKED)
   return recorder.getBlob()
 }
 
@@ -337,16 +348,18 @@ function* rootSaga() {
     const {
       restartAssessment,
       recordingBlob,
-      turnItIn,
       quit,
     } = yield race({
       restartAssessment: take(RESTART_RECORDING_CLICKED),
       recordingBlob: call(assessThenSubmitSaga),
-      turnItIn: take(TURN_IN_CLICKED),
       quit: take('QUIT_ASSESSMENT_AND_DESTROY'),
     })
     yield clog('Race Finished')
 
+    if (quit) {
+      window.location.href = "/" // eslint-disable-line
+      return
+    }
 
     if (restartAssessment) {
       const recorder = yield select(getRecorder)
@@ -355,12 +368,6 @@ function* rootSaga() {
       yield put(setCurrentOverlay('no-overlay'))
 
     } else {
-
-      if (quit) {
-        window.location.href = "/" // eslint-disable-line
-        return
-      }
-
 
       yield put({ type: SPINNER_SHOW })
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
