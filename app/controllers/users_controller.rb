@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    puts "\n\n\n\n\n#{user_params}\n\n\n\n"
+    puts user_params
     @user = User.new(user_params)
     @user.name = user_params[:first_name] + ' ' + user_params[:last_name]
 
@@ -39,9 +39,8 @@ class UsersController < ApplicationController
         # partial signup complete, now redirect to finish
         session[:user_id] = @user.id
 
-        format.html do
-          redirect_to '/auth/complete_signup'
-        end
+        # TODO: location ?? what is this option...
+        format.json { render json: @user , status: :ok, location: @user }
 
       else
         render json: @user.errors, status: :unprocessable_entity
@@ -102,6 +101,18 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :phone, :password, :password_confirmation, :default_locale, :default_signature, :default_propic, :name, :first_name, :last_name)
+      params.require(:user).permit(
+        :authenticity_token,
+        :email,
+        :phone,
+        :password,
+        :password_confirmation,
+        :default_locale,
+        :default_signature,
+        :default_propic,
+        :name,
+        :first_name,
+        :last_name,
+      )
     end
 end

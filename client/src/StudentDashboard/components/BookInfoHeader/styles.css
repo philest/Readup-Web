@@ -1,0 +1,24 @@
+
+.bookInfoHeaderContainer {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+	color: white;
+	border-radius: 3px;
+}
+
+
+.bookInfoHeaderContainerTitle {
+	font-size: 1.6em;
+	font-family: 'Conv_proximanova-semibold-webfont';
+}
+
+.bookInfoHeaderContainerSubtitle {
+	margin-top: 3px;
+	font-size: 1.1em;
+}
+

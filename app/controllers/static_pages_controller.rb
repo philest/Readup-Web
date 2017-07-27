@@ -10,6 +10,11 @@ class StaticPagesController < ActionController::Base
     render 'static_pages/homepage/index'
   end
 
+  # This was just added to test the halting page for mobile. 
+  def mobile_halt 
+    render 'static_pages/homepage/mobile_halt'
+  end
+
   # def app
   #   render 'static_pages/pages/get-the-app'
   # end
@@ -25,7 +30,6 @@ class StaticPagesController < ActionController::Base
   def terms
     render 'static_pages/pages/terms'
   end
-
 
   def team
     render 'static_pages/pages/team'

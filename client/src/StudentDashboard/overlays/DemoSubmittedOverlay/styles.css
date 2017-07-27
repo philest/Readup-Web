@@ -1,0 +1,54 @@
+
+.wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	display: flex;
+	flex-flow: column;
+	z-index: 3333;
+}
+
+.submittedContainer {
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-flow: column;
+	text-align: center;
+	/*opacity: 0.95;*/
+	flex: 1;
+	
+}
+
+.images {
+	position: relative;
+}
+
+.submittedImage {
+	width: 70px;
+	margin-bottom: 10px;
+	background-color: transparent;
+}
+
+
+.loadingGif {
+	width: 30px;
+	background-color: transparent;
+	position: absolute;
+	top: 20px;
+	/* yes this is very hacky but it's just for the demo and it works as long as the screen isn't super super narrow */
+	right: 190px; 
+}
+
+.title {
+	font-size: 2.3em;
+	font-weight: bold;
+}
+
+.subtitle {
+	margin-top: 20px;
+	font-size: 1.4em;
+}

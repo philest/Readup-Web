@@ -1,0 +1,38 @@
+.countdownWrapper {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 3333;
+}
+
+.countdownContentCountainer {
+	width: 200px;
+	height: 200px;
+	background-color: white;
+	border-radius: 10px;
+	color: #9D2C28;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+	box-shadow: 0px 0px 10px 2px #5B5B5B;
+}
+
+.countdownTitle {
+	margin-top: 20px;
+	font-size: 1.4em;
+	font-family: Conv_proximanova-bold-webfont;
+}
+
+.countdownNumber {
+	font-size: 6.5em;
+	margin-bottom: 20px;
+	font-weight: bold;
+}

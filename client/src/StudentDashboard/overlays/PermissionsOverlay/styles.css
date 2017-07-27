@@ -1,0 +1,26 @@
+.permissionsContainer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: black;
+	opacity: 0.95;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 3333;
+}
+
+@keyframes upAndDown {
+    0% { top: 120px; }
+    100% { top: 140px; }
+}
+
+.upArrow {
+	position: fixed;
+	top: 120px;
+	left: 318px;
+	width: 60px;
+	animation: upAndDown 1s infinite alternate;
+}

@@ -110,7 +110,7 @@ RSpec.describe "homepage", type: :view do
     expect(page).to have_content('Add your school')
   end
 
-  it 'allows the user to choose their school, requires valid input, then advances to signature page' do
+  xit 'allows the user to choose their school, requires valid input, then advances to signature page' do
     visit '/'
     find('#main-signup-button').click
     page.execute_script("document.getElementById('signup-email-input').value = 'capybara-test-new-user@readupapp.com'")

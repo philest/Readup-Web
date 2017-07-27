@@ -1,0 +1,124 @@
+
+
+/*  NAVIGATION BAR  */
+
+.navContainer {
+	display: flex;
+	height: 60px;
+	background-color: #3C8FCA;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+.subContainer {
+	flex: 1;
+	align-items: center;
+}
+
+.brandText {
+	color: white;
+	font-size: 1.5em;
+	margin-left: 60px;
+	/*background-color: red;*/
+	margin-right: auto;
+	font-family: 'Conv_proximanova-semibold-webfont'
+}
+
+.centerDisplayContainer {
+	width: 250px;
+	height: 90px;
+	background-color: transparent;
+	margin-right: auto;
+	margin-left: auto;
+	z-index: 100;
+}
+
+.headerTabBlue {
+	background: url(/images/dashboard/header-tab-blue.svg);
+	background-size: 250px 90px;
+}
+.headerTabRed {
+	background: url(/images/dashboard/header-tab-red.svg);
+	background-size: 250px 90px;
+}
+
+.rightDisplayContainer {
+	margin-left: 30px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	color: white;
+	font-size: 1.05em;
+	/*background-color: green;*/
+}
+
+
+
+.userNameLabel {
+	font-style: italic;
+}
+
+.logoutButton {
+	margin-left: 40px;
+	margin-right: 80px;
+	cursor: pointer;
+}
+
+.logoutLabel {
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+}
+
+.logoutLabel:visited {
+	color: white;
+}
+
+.logoutLabel:hover {
+	color: white;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.logoutIcon {
+	width: 20px;
+	height: 20px;
+	margin-left: 8px;
+	background-color: transparent;
+}
+
+@keyframes pulseOut {
+	0% {
+		transform: scale(1.0)
+	}
+	40% {
+		transform: scale(1.5)
+	}
+	50% {
+		transform: scale(1.5)
+	}
+	90% {
+		transform: scale(1.0)
+	}
+	100% {
+		transform: scale(1.0)
+	}	
+}
+
+.pulsatingCircle {
+	/*background-color: green;*/
+	color: white;
+	height: 14px;
+	width: 14px;
+	position: relative;
+	top: -55px;
+	right: -40px;
+	border-radius: 7px;
+	background-color: white;
+	animation: pulseOut 2s infinite;
+}
+
+
+

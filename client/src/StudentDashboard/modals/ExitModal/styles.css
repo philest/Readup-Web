@@ -1,0 +1,36 @@
+
+
+
+
+.exitModalTextWrapper {
+	width: 100%;
+	/*height: 130px;*/
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-bottom: 0.1px solid lightgray;
+}
+
+.exitModalText {
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-size: 1.1em;
+}
+
+.exitModalButtonArrayWrapper {
+	/*height: 200px;*/
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+.exitModalButton {
+	
+}

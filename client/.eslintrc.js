@@ -25,6 +25,7 @@ module.exports = {
       "react/jsx-filename-extension": 0,
       "no-constant-condition": ["error", { "checkLoops": false }],
       "no-multi-str": 0,
+      "quotes": 0,
       "react/sort-comp": ["warn", {
         order: [
           'type-annotations',

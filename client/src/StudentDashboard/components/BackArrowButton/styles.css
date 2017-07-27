@@ -1,0 +1,107 @@
+
+.arrowButtonContainer {
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: row;
+	justify-content: flex-end;
+	align-items: center;
+	z-index: 100;
+	color: white;
+	border-radius: 3px;
+
+	background-image: url(/images/dashboard/blue-arrow.svg);
+	background-size: 100% 100%;
+	-webkit-filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.76));
+	filter:         drop-shadow(0px 0px 5px rgba(0,0,0,0.76)); 
+
+	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.arrowButtonContainer:hover {
+	color: lightgray;
+}
+
+.arrowButtonContainer:active {
+	opacity: 0.8;
+}
+
+.disabledButtonContainer {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: row;
+	justify-content: flex-end;
+	align-items: center;
+	z-index: 100;
+	color: white;
+	border-radius: 5px;
+	background-image: url(/images/dashboard/blue-arrow.svg);
+	background-size: 100% 100%;
+
+	opacity: 0.4;
+
+	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.arrowButtonTextContainer {
+	float: left;
+	margin-right: 5px;
+	height: 50%;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+	align-items: flex-start;
+	width: 50%;
+}
+
+.arrowButtonTitle {
+	font-size: 1.2em;
+}
+
+.arrowButtonSubtitle {
+	margin-top: 3px;
+	font-size: 1.0em;
+}
+
+@keyframes pulse-right {
+	from {
+		transform: translateX(0.1em) 
+		scale(1.1)
+	}
+	to {
+		transform: translateX(-0.1em)
+	}
+}
+
+.pulsatingArrow {
+	position: relative;
+	left: -15px;
+	animation: pulse-right 800ms infinite alternate;
+}
+
+
+
+
+
+
+
+
+
+
+
