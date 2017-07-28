@@ -38,9 +38,9 @@
 }
 
 .readerTextContainer {
-	margin-top: 10px;
-	flex: 1;
-	display: flex;
+	flex: .875;
+    line-height: 1.6;
+    display: flex;
 	flex-flow: column;
 	justify-content: space-around;
 }
