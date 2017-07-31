@@ -1,0 +1,61 @@
+
+.transcriberContainer {
+	/*padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: 50px;*/
+	padding: 50px;
+}
+
+.nameHeading {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 1.9em;
+}
+
+.emailHeading {
+	font-style: italic;
+	font-size: 1.1em;
+	margin-top: 5px;
+
+}
+
+.audioElement {
+	width: 500px;
+	margin-top: 20px;
+}
+
+.markupContainer {
+	margin-top: 40px;
+}
+
+.bookInfo {
+	margin-left: 10px;
+}
+
+.bookTitleHeading {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.bookLevelHeading {
+	font-size: 1.2em;
+	font-style: italic;
+	margin-left: 20px;
+}
+
+.textContainer {
+	font-size: 1.15em;
+	width: 300px;
+	margin-top: 30px;
+
+	line-height: 2;
+}
+
+.textParagraph {
+	margin-bottom: 30px;
+}
+
+.textWord:hover {
+	background-color: lightgray;
+}
