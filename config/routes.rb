@@ -50,6 +50,8 @@ Rails.application.routes.draw do
   get 'student_dashboard/assessment', to: 'student_dashboard#create_assessment'
   post 'student_dashboard/assessment', to: 'student_dashboard#confirm_assessment_completion'
 
+  get 'transcribe/:teacher_id', to: 'transcriber_interface#index'
+
   # process audio
   post '/audio_process/save_file', to: 'audio_process#save_file'
   post '/audio_process/save_link', to: 'audio_process#save_link'
