@@ -2,6 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
+import { sampleEvaluationText } from './sampleText'
+
+
+
+
 export default class TranscriberInterface extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
@@ -17,6 +22,8 @@ export default class TranscriberInterface extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     this.state = { name: this.props.name };
+
+    console.log(sampleEvaluationText)
   }
 
   componentWillMount() {
@@ -45,6 +52,8 @@ export default class TranscriberInterface extends React.Component {
   }
 
   _handleKeyDown = (event) => {
+
+    // audio playback keys
     if (event.code === 'Space') {
       console.log(this.refs)
       if (this.refs.audioPlayer.paused) {
@@ -72,10 +81,51 @@ export default class TranscriberInterface extends React.Component {
         this.refs.audioPlayer.currentTime += 2;
       }
     }
+
+    // grading keys
+    else if (event.code === 'KeyA') {
+
+    }
+    else if (event.code === 'KeyS') {
+      
+    }
+    else if (event.code === 'KeyD') {
+      
+    }
+    else if (event.code === 'KeyE') {
+      
+    }
+
     
   }
 
   render() {
+
+    const FormattedWord = ({wordDict}) => (
+      <span>
+        <span className={styles.textWord}>{wordDict.word}</span>
+        <span className={styles.textWord}>&nbsp;&nbsp;&nbsp;</span>
+      </span>
+    );
+
+
+    const FormattedText = ({paragraphs}) => (
+      <div className={styles.textContainer}>
+
+        {paragraphs.map(paragraph => (
+          <div className={styles.textParagraph} key={paragraph.key}>
+
+            {paragraph.words.map((wordDict, index) => (
+              <FormattedWord wordDict={wordDict} key={paragraph.key + index} />
+            ))}
+            
+          </div>
+        ))}
+      </div>
+    );
+
+
+
     return (
       <div className={styles.transcriberContainer}>
 
@@ -105,17 +155,7 @@ export default class TranscriberInterface extends React.Component {
           </div>
 
 
-          <div className={styles.textContainer}>
-
-            <div className={styles.textParagraph}>
-              <span className={styles.textWord}>When</span>&nbsp;<span className={styles.textWord}>the</span> <span className={styles.textWord}>moon</span> <span className={styles.textWord}>is</span> <span className={styles.textWord}>high</span> <span className={styles.textWord}>and</span> <span className={styles.textWord}>the</span> <span onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>stars</span> <span className={styles.textWord}>are</span> <span className={styles.textWord}>bright,</span> <span className={styles.textWord}>Daddy</span> <span className={styles.textWord}>tells</span> <span className={styles.textWord}>me,</span> <span className={styles.textWord}>"It's</span> <span className={styles.textWord}>a</span> <span className={styles.textWord}>firefly</span> <span className={styles.textWord}>night!"</span>
-            </div>
-
-            <div className={styles.textParagraph}>
-              I hop off the porch. I feel the air. It warms my legs and tosses my hair.
-            </div>
-
-          </div>
+          <FormattedText paragraphs={sampleEvaluationText.paragraphs} />
 
 
 

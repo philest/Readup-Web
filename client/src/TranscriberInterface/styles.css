@@ -48,12 +48,16 @@
 	font-size: 1.15em;
 	width: 300px;
 	margin-top: 30px;
-
+	cursor: default;
 	line-height: 2;
 }
 
 .textParagraph {
 	margin-bottom: 30px;
+}
+
+.textWord {
+	display: inline-block;
 }
 
 .textWord:hover {
