@@ -1,27 +1,24 @@
 
-		<title>ReadUp | Our Team</title>
+		<title style=>ReadUp | Our Team</title>
 
 		<meta property="og:image" content="https://www.joinstorytime.com/images/modules/st-og-image.png">
+
 
 		<link href='https://fonts.googleapis.com/css?family=Karla:400,400italic,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="/stylesheets/imports/pure-min.css">
 		<link rel="stylesheet" href="/stylesheets/imports/grids-responsive-min.css">
-
-		<link rel="stylesheet" href="/stylesheets/job_board.css" type="text/css" />
-
-		<link rel="stylesheet" href="/stylesheets/team.css" type="text/css" />
-
 		<link rel="stylesheet" href="/stylesheets/pure-push-pull.css" type="text/css" />
 
+		<%= stylesheet_link_tag 'team', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 
 		<!-- Notify about form submission -->
 
-		<%= render 'homepage/components/nav' %>
+		<%= render 'homepage/partials/navbar' %>
 
 
 		<br class="mobile_only">
-		<div id="jobs">
+		<div id="jobs" style="margin-top: 100px">
 			<h2 class="our_team">Our Team</h2>
 		</div>
 

@@ -22,7 +22,7 @@ body {
   font-weight: bold;
 }
 
-
+// Aubrey: why these containers stylings were set will forever ellude me
 .container {
     margin-right: auto;
     margin-left: auto;
@@ -49,40 +49,6 @@ body {
     @media (min-width: 80em) {
       width: 92%;
     }
-
-}
-
-
-
-#logo-new {
-  width: 13em;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  margin-top: 0px;
-
-  @media (min-width: 28.125em) {
-    width: 14em;
-  }
-
-  @media (min-width: 666px) {
-    width: 16em;
-  }
-
-  @media (min-width: 48em) { // 768px
-    width: 18em;
-    z-index: 200;
-    margin-left: 0px;
-    margin-top: 7em;
-  }
-
-  @media (min-width: 48em) { // 768px
-
-  }
-
-  @media (min-width: 820px) {
-    width: 20em;
-  }
 
 }
 

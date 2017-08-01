@@ -14,8 +14,8 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w(
   homepage/index.scss
   alert
-  teacher-form-input
   main
+  team
 
 
   homepage/*.js
