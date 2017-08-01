@@ -8,7 +8,9 @@
   "scripts": {
     "build:development": "webpack-dev-server --config webpack.config.dev --progress",
     "build:test": "webpack-dev-server --config webpack.config --progress",
-    "build:production": "echo 'pee'"
+    "build:production:client": "NODE_ENV=production webpack --config webpack.config.production.client.js",
+    "build:production:server": "NODE_ENV=production webpack --config webpack.config.production.server.js",
+    "build:production": "rm -rf ../public/webpack/production && NODE_ENV=production yarn run build:production:client && yarn run build:production:server"
   },
   "dependencies": {
     "actioncable": "^5.1.2",
