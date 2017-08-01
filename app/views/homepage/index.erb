@@ -1,37 +1,3 @@
-<script type="text/javascript">
-
-  var scroll = new SmoothScroll('a[href*="#"]');
-
-  var scrollTarget =  isMobileDevice() ? 50 : 160;
-
-  function highlightNav () {
-    var scroll = $(window).scrollTop();
-    if (scroll < scrollTarget) {
-      $('.navbar').removeClass('highlighted');
-    } else {
-      $('.navbar').addClass('highlighted');
-    }
-  }
-
-  $(document).ready(function(){
-    highlightNav();
-    $(window).scroll(function (event) {
-      highlightNav();
-    });
-    $('.modal input').on('click', function () {
-      $(this).focus();
-    })
-    // if (isMobileDevice()) {
-    //   $('body').addClass('isMobile');
-    // } else {
-      // $('body').addClass('isDesktop');
-    // }
-  });
-</script>
-
-
-
-
 <style type="text/css">
   .form-container {
     position: absolute;
@@ -44,18 +10,14 @@
     height: 130px;
   }
 
-  #end-no-reading {
-    padding-top: 60px;
-  }
-
   /* mobile */
   @media (max-width: 35.5em) {
     .section-buffer {
       height: 235px;
     }
-
-    #end-no-reading {
-      padding-top: 0px;
+    #pitch h1 {
+      font-size: 27px;
+      padding-top: 45px;
     }
   }
 </style>

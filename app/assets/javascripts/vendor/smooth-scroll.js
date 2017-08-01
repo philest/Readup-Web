@@ -16,7 +16,6 @@
 })(typeof global !== 'undefined' ? global : this.window || this.global, (function (window) {
 
 	'use strict';
-	console.log("fuckckk")
 
 	//
 	// Feature Test

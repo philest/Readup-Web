@@ -42,53 +42,68 @@
 
 
 
+
+    <!-- start Mixpanel -->
+    <script type="text/javascript">
+      (function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+      0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+      for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+      mixpanel.init(<%= ENV['MIXPANEL_TOKEN'] %>);
+    </script>
+    <!-- end Mixpanel -->
+
+
     <!-- begin olark code -->
     <script type="text/javascript" async>
-    ;(function(o,l,a,r,k,y){if(o.olark)return;
-    r="script";y=l.createElement(r);r=l.getElementsByTagName(r)[0];
-    y.async=1;y.src="//"+a;r.parentNode.insertBefore(y,r);
-    y=o.olark=function(){k.s.push(arguments);k.t.push(+new Date)};
-    y.extend=function(i,j){y("extend",i,j)};
-    y.identify=function(i){y("identify",k.i=i)};
-    y.configure=function(i,j){y("configure",i,j);k.c[i]=j};
-    k=y._={s:[],t:[+new Date],c:{},l:a};
-    })(window,document,"static.olark.com/jsclient/loader.js");
-    /* Add configuration calls below this comment */
-    olark.identify('9084-375-10-8744');
+      ;(function(o,l,a,r,k,y){if(o.olark)return;
+      r="script";y=l.createElement(r);r=l.getElementsByTagName(r)[0];
+      y.async=1;y.src="//"+a;r.parentNode.insertBefore(y,r);
+      y=o.olark=function(){k.s.push(arguments);k.t.push(+new Date)};
+      y.extend=function(i,j){y("extend",i,j)};
+      y.identify=function(i){y("identify",k.i=i)};
+      y.configure=function(i,j){y("configure",i,j);k.c[i]=j};
+      k=y._={s:[],t:[+new Date],c:{},l:a};
+      })(window,document,"static.olark.com/jsclient/loader.js");
+      /* Add configuration calls below this comment */
+      olark.identify('9084-375-10-8744');
     </script>
     <!-- end olark code -->
+
+
+
+    <!-- smooth scroll init! -->
+    <script type="text/javascript">
+      var scroll = new SmoothScroll('a[href*="#"]');
+      console.log(scroll);
+    </script>
 
   </head>
 
   <body>
 
-    <!-- Notify about form submission -->
+    <!-- note: these flashes were left over from the birdv days. idk if we really want them -->
     <% if flash[:notice] %>
-    <div id="alert">
-      <a class="alert" href="#alert">Great! Someone from our outreach team will be in touch soon.</a>
-    </div>
+      <div id="alert">
+        <a class="alert" href="#alert">Great! Someone from our outreach team will be in touch soon.</a>
+      </div>
     <% end %>
 
-    <!-- Notify about form submission -->
     <% if flash[:signin_error] %>
-    <div id="alert">
-      <a class="alert" href="#alert">Incorrect login info.</a>
-    </div>
+      <div id="alert">
+        <a class="alert" href="#alert">Incorrect login info.</a>
+      </div>
     <% end %>
-
 
     <% if flash[:freemium_permission_error] %>
-    <div id="alert">
-      <a class="alert" href="#alert">Your free ReadUp trial is almost ready! We'll let you know when you're off the waitlist.</a>
-    </div>
+      <div id="alert">
+        <a class="alert" href="#alert">Your free ReadUp trial is almost ready! We'll let you know when you're off the waitlist.</a>
+      </div>
     <% end %>
 
-
+    <!-- hi! main content injected here :) -->
     <%= yield %>
 
   </body>
-
-
 
 
   <footer class="footer">
