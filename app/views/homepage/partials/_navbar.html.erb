@@ -32,7 +32,7 @@
     width: 100%;
   }
 
-  .nav-buttons {
+  nav .nav-buttons {
     float: right;
     height: 100%;
     display: flex;
@@ -41,7 +41,7 @@
 
   }
 
-  .nav-buttons a {
+  .nav-buttons > a {
     padding-right: 12px;
   }
 
@@ -59,13 +59,24 @@
 
   .nav-pad {
     height: 100%;
-    width: 90%;
+    width: 100%;
     margin: auto;
   }
 
+  .logo-container > .rulogo {
+    font-family: 'CircularStd';
+    font-size: 32px;
+    padding-left: 12px;
+  }
+
   @media only screen and (min-width: 768px) {
-    .how {
-      display: inline;
+    .nav-buttons > a {
+      padding-right: 0px;
+    }
+
+
+    nav .nav-pad {
+      width: 90%;
     }
   }
 </style>
@@ -74,7 +85,7 @@
   <div class="nav-pad">
 
     <div class="logo-container">
-      <a href="/" class='logo'>
+      <a href="/" class='rulogo'>
           ReadUp
       </a>
     </div>
