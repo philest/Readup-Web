@@ -1,8 +1,7 @@
-body {
+/*body {
     padding: 0;
 }
 
-/* Alert */
 
 #alert {
     position: relative;
@@ -108,4 +107,4 @@ body {
     0% { opacity: 0; }
     50% { opacity: 1; }
     100% { top: 0; }
-}
+}*/
