@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
- <meta charset='utf-8'>
 
-  <%= render 'homepage/components/headers' %>
-  <%= render 'homepage/homepage/headers/mixpanel', locals: {mixpanel_homepage_key: @mixpanel_homepage_key} %>
-  <%= render 'homepage/homepage/headers/libraries' %>
-  <%= render 'homepage/components/favicon' %>
-
-  <%= stylesheet_link_tag "fonts" %>
 
 
 <style>
@@ -22,8 +12,10 @@ body {
 
 div.cta {
 	width: 80%;
+  height: 80%;
 	margin: 0 auto;
 	margin-top: 150px;
+  margin-bottom: 150px;
 }
 
 h1.celebration {
@@ -48,12 +40,7 @@ span.explanatory-text {
 </style>
 
 
-
-
-</head>
-<body>
-	<div class="cta">
-		<h1 class="celebration">Great! 🙌🏽</h1>
-		<h2 class="mobile-cta">Now just sign in on a <span class="explanatory-text">desktop computer</span></h2>
-	</div>
-</body>
+<div class="cta">
+	<h1 class="celebration">Great! 🙌🏽</h1>
+	<h2 class="mobile-cta">Now just sign in on a <span class="explanatory-text">desktop computer</span></h2>
+</div>

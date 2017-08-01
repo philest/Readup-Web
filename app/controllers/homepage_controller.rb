@@ -12,12 +12,9 @@ class HomepageController < ActionController::Base
 
   # This was just added to test the halting page for mobile.
   def mobile_halt
-    render 'homepage/mobile_halt'
+    render 'mobile_halt'
   end
 
-  # def app
-  #   render 'homepage/pages/get-the-app'
-  # end
 
   def error
     render 'homepage/register/error'
@@ -32,16 +29,9 @@ class HomepageController < ActionController::Base
   end
 
   def team
-    render 'homepage/pages/team'
+    render 'team'
   end
 
-  def case_study
-    render 'homepage/pages/case_study'
-  end
-
-  def join
-    render 'homepage/pages/job_board'
-  end
 
   def product_lead
     redirect_to 'homepage/pages/product'
