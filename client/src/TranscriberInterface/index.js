@@ -9,11 +9,18 @@ class TextWord extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
     isSpace: PropTypes.bool,
+    strikethrough: PropTypes.bool,
+    wordAbove: PropTypes.string,
     paragraphIndex: PropTypes.number,
     wordIndex: PropTypes.number,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
   };
+  static defaultProps = {
+    isSpace: false,
+    strikethrough: false,
+    wordAbove: null,
+  }
 
   constructor(props) {
     super(props)
@@ -35,15 +42,25 @@ class TextWord extends React.Component {
 
   render() {
 
-    if (this.props.isSpace) {
-      return (
-        <span className={this.state.highlighted ? styles.highlightedTextWord : styles.textWord} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>&nbsp;&nbsp;</span>
-      );
-    }
+    const wordClassNameString = this.props.strikethrough ? [styles.textWord, styles.strikethrough].join(' ') : styles.textWord
 
-    // console.log('rendering: ' + this.props.paragraphIndex + ' - ' + this.props.wordIndex)
     return (
-      <span className={this.state.highlighted ? styles.highlightedTextWord : styles.textWord} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>{this.props.text}</span>
+      <span className={styles.wordWrapper}>
+        
+        <span className={wordClassNameString} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>
+          {this.props.isSpace && '\u00A0\u00A0\u00A0'}
+          {!this.props.isSpace && this.props.text}
+        </span>
+
+        {this.props.wordAbove && this.props.wordAbove !== '' &&
+          <span className={this.props.isSpace ? styles.wordAboveSpace : styles.wordAbove}>
+            {this.props.wordAbove}
+            {this.props.isSpace &&
+              <i className={["fa fa-chevron-up", styles.addChevron].join(' ')} aria-hidden={"true"}></i>
+            }
+          </span>
+        }
+      </span>
     );
   }
 }
@@ -78,7 +95,6 @@ export default class TranscriberInterface extends React.Component {
 
     // audio playback keys
     if (event.code === 'Space') {
-      console.log(this.refs)
       if (this.refs.audioPlayer.paused) {
         this.refs.audioPlayer.play()
       }
@@ -120,8 +136,8 @@ export default class TranscriberInterface extends React.Component {
 
       const addText = window.prompt('Enter the added word')
 
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].correctionType = 'CORRECTION_TYPE_ADD_AFTER'
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].word = addText
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].addAfterWord = addText
+
 
       this.setState({evaluationTextData: evaluationTextData})
     }
@@ -129,14 +145,15 @@ export default class TranscriberInterface extends React.Component {
 
       const subText = window.prompt('Enter the added word')
 
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].correctionType = 'CORRECTION_TYPE_SUBSTITUTE'
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].word = subText
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].substituteWord = subText
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = true
 
       this.setState({evaluationTextData: evaluationTextData})
     }
     else if (event.code === 'KeyD' && !this.state.highlightedIsSpace) {
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].correctionType = 'CORRECTION_TYPE_DELETE'
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].word = 'DELETED'
+      // toggle
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted
+
       
       this.setState({evaluationTextData: evaluationTextData})
     }
@@ -152,7 +169,6 @@ export default class TranscriberInterface extends React.Component {
 
 
   _onMouseEnterWord = (paragraphIndex, wordIndex, isSpace) => {
-    console.log(paragraphIndex + ' ' + wordIndex)
 
     this.setState({
       highlightedParagraphIndex: paragraphIndex,
@@ -163,8 +179,6 @@ export default class TranscriberInterface extends React.Component {
   }
 
   _onMouseLeaveWord = (paragraphIndex, wordIndex, isSpace) => {
-    console.log(paragraphIndex + ' ' + wordIndex)
-
     // TODO
     // is it possible for there to be a race condition where onMouseEnter of the target element is called before onMouseLeave of the previous element?
     // In that case, we'd accidentally null out the just selected here
@@ -187,6 +201,7 @@ export default class TranscriberInterface extends React.Component {
 
 
     const FormattedText = ({paragraphs}) => (
+
       <div className={styles.textContainer}>
 
         {paragraphs.map((paragraph, pIndex) => (
@@ -195,15 +210,16 @@ export default class TranscriberInterface extends React.Component {
             {paragraph.words.map((wordDict, wIndex) => (
 
               <span key={paragraph.key + wIndex}>
-                <TextWord text={wordDict.word} isSpace={false} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex} />
+                <TextWord text={wordDict.word} isSpace={false} strikethrough={wordDict.wordDeleted} wordAbove={wordDict.substituteWord} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex} />
 
-                <TextWord text={'SPACE'} isSpace={true} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex + '_space'} />
+                <TextWord text={'SPACE'} isSpace={true} wordAbove={wordDict.addAfterWord} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex + '_space'} />
               </span>
             ))}
             
           </div>
         ))}
       </div>
+
     );
 
 

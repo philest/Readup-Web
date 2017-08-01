@@ -49,20 +49,64 @@
 	width: 300px;
 	margin-top: 30px;
 	cursor: default;
-	line-height: 2;
+	line-height: 2.2;
 }
 
 .textParagraph {
 	margin-bottom: 30px;
 }
 
+.wordWrapper {
+	position: relative;
+	color: green;
+	text-decoration: line-through;
+}
+
 .textWord {
 	display: inline-block;
+	color: black;
 }
 
 .textWord:hover {
 	background-color: lightgray;
 }
+
+.wordAbove {
+	position: absolute;
+	top: -25px;
+	left: 2px;
+
+	color: #982E2B;
+	font-size: 0.9em;
+	font-family: 'Comic Sans MS';
+	text-decoration: none;
+}
+
+.wordAboveSpace {
+	position: absolute;
+	top: -25px;
+	left: -10px;
+
+	color: #982E2B;
+	font-size: 0.9em;
+	font-family: 'Comic Sans MS';
+	text-decoration: none;
+}
+
+.addChevron {
+	position: relative;
+	top: -20px;
+	left: 10px;
+	width: 4px;
+	height: 4px;
+	font-size: 0.6em;
+}
+
+.strikethrough {
+	text-decoration: #982E2B line-through;
+}
+
+
 
 /*.highlightedTextWord {
 	display: inline-block;
