@@ -58,8 +58,6 @@
 
 .wordWrapper {
 	position: relative;
-	color: green;
-	text-decoration: line-through;
 }
 
 .textWord {
@@ -85,21 +83,38 @@
 .wordAboveSpace {
 	position: absolute;
 	top: -25px;
-	left: -10px;
 
 	color: #982E2B;
 	font-size: 0.9em;
 	font-family: 'Comic Sans MS';
 	text-decoration: none;
+
+	text-align: center;
+
+	/*width: 200px;
+	margin-left: -100px;*/
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+
+	/* The two lines below are both hacky solutions to getting the added text on the same line
+	not sure why necessary, but without one of them I couldn't get this to work. Not sure
+	if one is less hacky than the other */
+	/*width: 500px;*/
+	display: table;
+
 }
 
 .addChevron {
-	position: relative;
-	top: -20px;
+	position: absolute;
+	top: 25px;
 	left: 10px;
-	width: 4px;
-	height: 4px;
 	font-size: 0.6em;
+
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-51%)
+
 }
 
 .strikethrough {

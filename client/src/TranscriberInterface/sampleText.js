@@ -38,7 +38,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -47,7 +46,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -55,8 +53,7 @@ export var sampleEvaluationText = {
           word: 'moon',
           wordDeleted: false,
           substituteWord: null,
-          addAfterWord: 'added',
-          correctionValue: '',
+          addAfterWord: 'added to',
           isEnd: false,
         },
         {
@@ -65,7 +62,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -74,7 +70,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -82,8 +77,7 @@ export var sampleEvaluationText = {
           word: 'and',
           wordDeleted: false,
           substituteWord: null,
-          addAfterWord: null,
-          correctionValue: '',
+          addAfterWord: 'very long here',
           isEnd: false,
         },
         {
@@ -92,7 +86,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -100,8 +93,7 @@ export var sampleEvaluationText = {
           word: 'stars',
           wordDeleted: false,
           substituteWord: null,
-          addAfterWord: null,
-          correctionValue: '',
+          addAfterWord: 'ABC DE',
           isEnd: false,
         },
         {
@@ -110,7 +102,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -118,8 +109,7 @@ export var sampleEvaluationText = {
           word: 'bright,',
           wordDeleted: false,
           substituteWord: null,
-          addAfterWord: null,
-          correctionValue: '',
+          addAfterWord: 'ABC DE',
           isEnd: false,
         },
         {
@@ -128,7 +118,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -136,8 +125,7 @@ export var sampleEvaluationText = {
           word: 'tells',
           wordDeleted: false,
           substituteWord: null,
-          addAfterWord: null,
-          correctionValue: '',
+          addAfterWord: 'ABC DE',
           isEnd: false,
         },
         {
@@ -146,7 +134,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -154,8 +141,7 @@ export var sampleEvaluationText = {
           word: '"It\'s',
           wordDeleted: false,
           substituteWord: null,
-          addAfterWord: null,
-          correctionValue: '',
+          addAfterWord: 'ABC DE',
           isEnd: false,
         },
         {
@@ -164,7 +150,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -172,8 +157,7 @@ export var sampleEvaluationText = {
           word: 'firefly',
           wordDeleted: false,
           substituteWord: null,
-          addAfterWord: null,
-          correctionValue: '',
+          addAfterWord: 'a',
           isEnd: false,
         },
         {
@@ -182,7 +166,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
       ],
@@ -197,7 +180,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -206,7 +188,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -215,7 +196,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -224,7 +204,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -233,7 +212,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -242,7 +220,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -251,7 +228,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -260,7 +236,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -269,7 +244,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -278,7 +252,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -287,7 +260,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -296,7 +268,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: 'is',
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -305,7 +276,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -314,7 +284,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -323,7 +292,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -332,7 +300,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -341,7 +308,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
       ],
@@ -356,7 +322,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -365,7 +330,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -374,7 +338,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -383,7 +346,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -392,7 +354,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -401,7 +362,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -410,7 +370,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -419,7 +378,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -428,7 +386,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -437,7 +394,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -446,7 +402,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -455,7 +410,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -464,7 +418,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -473,7 +426,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -482,7 +434,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -491,7 +442,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -500,7 +450,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
       ],
@@ -515,7 +464,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -524,7 +472,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -533,7 +480,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -542,7 +488,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -551,7 +496,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -560,7 +504,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -569,7 +512,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -578,7 +520,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -587,7 +528,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -596,7 +536,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -605,7 +544,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -614,7 +552,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -623,7 +560,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -632,7 +568,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -641,7 +576,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
       ],
@@ -656,7 +590,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -665,7 +598,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -674,7 +606,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -683,7 +614,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -692,7 +622,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -701,7 +630,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -710,7 +638,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -719,7 +646,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -728,7 +654,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -737,7 +662,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -746,7 +670,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -755,7 +678,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -764,7 +686,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -773,7 +694,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -782,7 +702,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -791,7 +710,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -800,7 +718,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
       ],
@@ -815,7 +732,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -824,7 +740,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -833,7 +748,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -842,7 +756,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -851,7 +764,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -860,7 +772,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -869,7 +780,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -878,7 +788,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -887,7 +796,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -896,7 +804,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -905,7 +812,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -914,7 +820,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -923,7 +828,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -932,7 +836,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -941,7 +844,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -950,7 +852,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -959,7 +860,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -968,7 +868,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -977,7 +876,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
         {
@@ -986,7 +884,6 @@ export var sampleEvaluationText = {
           wordDeleted: false,
           substituteWord: null,
           addAfterWord: null,
-          correctionValue: '',
           isEnd: false,
         },
       ],
