@@ -14,7 +14,6 @@ body {
     color: #f6f6f6;
     content: 'Click to dismiss';
     font: bold 12px/30px 'Proximanova';
-    font-weight: bold;
     height: 30px;
     left: 50%;
     margin-left: -60px;
