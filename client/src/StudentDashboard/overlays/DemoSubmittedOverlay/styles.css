@@ -40,12 +40,13 @@
 	position: absolute;
 	top: 20px;
 	/* yes this is very hacky but it's just for the demo and it works as long as the screen isn't super super narrow */
-	right: 190px; 
+	right: 194px; 
 }
 
 .title {
 	font-size: 2.3em;
 	font-weight: bold;
+	font-family: 'Conv_proximanova-bold-webfont';
 }
 
 .subtitle {
