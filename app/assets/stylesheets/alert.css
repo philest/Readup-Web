@@ -81,7 +81,7 @@
             animation: alert 1s ease forwards;
 }
 
-/* Animation */
+*/
 
 @-webkit-keyframes alert {
     0% { opacity: 0; }
@@ -107,4 +107,4 @@
     0% { opacity: 0; }
     50% { opacity: 1; }
     100% { top: 0; }
-}*/
+}
