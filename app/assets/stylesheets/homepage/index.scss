@@ -1,202 +1,202 @@
-// /**
-//  * ..scss
-//  *
-//  * All styling for the . (and other static pages)
-//  */
+/**
+ * ..scss
+ *
+ * All styling for the . (and other static pages)
+ */
 
-// @import './navbar';
-// @import './main-splash';
-// @import './product-sections';
-// @import './footer';
-// @import './modals';
+@import './navbar';
+@import './main-splash';
+@import './product-sections';
+@import './footer';
+@import './modals';
 
-// html {
-//   overflow-y: scroll;
-//   font-size:100%;
-// }
-
-
-// body {
-//   font-size: 1em;
-//   font-family: 'Proximanova', sans-serif;
-//   font-weight: bold;
-// }
-
-// // Aubrey: why these containers stylings were set will forever ellude me
-// .container {
-//     margin-right: auto;
-//     margin-left: auto;
-//     padding-left: 4.0619%;
-//     padding-right: 4.0619%;
+html {
+  overflow-y: scroll;
+  font-size:100%;
+}
 
 
-//     @media (min-width: 35.5em) { // 568px
-//       margin-right: auto;
-//       margin-left: auto;
-//       padding-left: 4.0619%;
-//       padding-right: 4.0619%;
-//     }
+body {
+  font-size: 1em;
+  font-family: 'Proximanova', sans-serif;
+  font-weight: bold;
+}
 
-//     @media (min-width: 48em) { // 768px
-//       width: 92%;
-//     }
-
-//     @media (min-width: 992px) {
-//       width: 92%;
-//     }
+// Aubrey: why these containers stylings were set will forever ellude me
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 4.0619%;
+    padding-right: 4.0619%;
 
 
-//     @media (min-width: 80em) {
-//       width: 92%;
-//     }
+    @media (min-width: 35.5em) { // 568px
+      margin-right: auto;
+      margin-left: auto;
+      padding-left: 4.0619%;
+      padding-right: 4.0619%;
+    }
 
-// }
+    @media (min-width: 48em) { // 768px
+      width: 92%;
+    }
+
+    @media (min-width: 992px) {
+      width: 92%;
+    }
 
 
+    @media (min-width: 80em) {
+      width: 92%;
+    }
 
-// h1 br.subheading-br {
-//   display: inline-block;
-
-//   @media (min-width: 28.125em) {
-//     display: none;
-//   }
-// }
-
-// h2 {
-//   font-size: 21px;
-//   margin-bottom: 20px;
-
-//   @media (min-width: 35.5em) { // 568px
-//     font-size: 24px;
-//   }
-// }
+}
 
 
 
-// /*BELOW THE FOLD*/
+h1 br.subheading-br {
+  display: inline-block;
 
-// .text p {
-//   font-size: 1.1em;
-// }
+  @media (min-width: 28.125em) {
+    display: none;
+  }
+}
 
+h2 {
+  font-size: 21px;
+  margin-bottom: 20px;
 
-// div.text {
-//   padding-top: 0px;
-//   text-align: center;
-//   display: block;
-//   margin: auto;
-//   max-width: 270px;
-
-//   @media (min-width: 48em) { // 768px
-//     padding-top: 200px;
-//     text-align: left;
-//   }
-
-// }
-
-
-// curriculum
-// .the-product .phone img {
-//   width: 65%;
-
-//   @media (min-width: 35.5em) { // 568px
-//     width: 100%;
-//     max-width: 370px;
-//   }
-
-// }
-
-
-// h3.call-to-action-text {
-//   text-align: center;
-//   margin-top: 3em;
-//   font-weight: 100;
-//   margin-left: 20px;
-//   margin-right: 20px;
-
-// }
-
-// h1.banner#call-to-action{
-//   font-size: 21px;
-//   margin-bottom: 1em;
-//   padding-top: 1em;
-//   margin-top: 35px; /*added b/c axed trio*/
-
-//   @media (min-width: 48em) { // 768px
-//     font-size: 26px;
-//   }
-// }
+  @media (min-width: 35.5em) { // 568px
+    font-size: 24px;
+  }
+}
 
 
 
+/*BELOW THE FOLD*/
 
-// div.home--features {
-//   max-width: 1024px;
-//   margin: auto;
-// }
-
-// div#divider-mobile {
-//   padding-bottom: 2em;
-// }
-
-// div.divider {
-//   padding-bottom: 2em;
-// }
+.text p {
+  font-size: 1.1em;
+}
 
 
-// #padded-img{
-//   padding-top: 1.4em;
+div.text {
+  padding-top: 0px;
+  text-align: center;
+  display: block;
+  margin: auto;
+  max-width: 270px;
 
-//   @media (min-width: 48em) { // 768px
-//     padding-top: 4.4em;
-//   }
-// }
+  @media (min-width: 48em) { // 768px
+    padding-top: 200px;
+    text-align: left;
+  }
 
-
-
-// @media (min-width: 520px) {
-
-//   button#join.dialog-button.signup-form-button {
-//     display: block;
-//     margin-left: auto;
-//     margin-right: auto;
-//     width: 90%;
-
-//   }
-
-//   button.signup-form-button {
-//     display: block;
-//     margin-left: auto;
-//     margin-right: auto;
-//     width: 90%;
-//     margin-top: 0em;
-
-//   }
-
-// }
+}
 
 
-// /***** Large tablet ******/
-// @media (min-width: 48em) { // 768px
+curriculum
+.the-product .phone img {
+  width: 65%;
 
-//   div.splash-text {
-//     z-index: 10;
-//   }
+  @media (min-width: 35.5em) { // 568px
+    width: 100%;
+    max-width: 370px;
+  }
 
-//   .call-to-action-image {
-//     margin-left: auto;
-//     margin-right: auto;
-//   }
+}
 
-//   img#email-image.call-to-action-email-image {
-//     margin-bottom: 50px;
-//   }
 
-//   h1.banner#call-to-action{
-//     font-size: 26px;
-//   }
+h3.call-to-action-text {
+  text-align: center;
+  margin-top: 3em;
+  font-weight: 100;
+  margin-left: 20px;
+  margin-right: 20px;
 
-// }
+}
+
+h1.banner#call-to-action{
+  font-size: 21px;
+  margin-bottom: 1em;
+  padding-top: 1em;
+  margin-top: 35px; /*added b/c axed trio*/
+
+  @media (min-width: 48em) { // 768px
+    font-size: 26px;
+  }
+}
+
+
+
+
+div.home--features {
+  max-width: 1024px;
+  margin: auto;
+}
+
+div#divider-mobile {
+  padding-bottom: 2em;
+}
+
+div.divider {
+  padding-bottom: 2em;
+}
+
+
+#padded-img{
+  padding-top: 1.4em;
+
+  @media (min-width: 48em) { // 768px
+    padding-top: 4.4em;
+  }
+}
+
+
+
+@media (min-width: 520px) {
+
+  button#join.dialog-button.signup-form-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+
+  }
+
+  button.signup-form-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    margin-top: 0em;
+
+  }
+
+}
+
+
+/***** Large tablet ******/
+@media (min-width: 48em) { // 768px
+
+  div.splash-text {
+    z-index: 10;
+  }
+
+  .call-to-action-image {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  img#email-image.call-to-action-email-image {
+    margin-bottom: 50px;
+  }
+
+  h1.banner#call-to-action{
+    font-size: 26px;
+  }
+
+}
 
 
 
