@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <%= render 'homepage/components/headers' %>
+
+    <%= render 'homepage/signup/headers/mixpanel', locals: {mixpanel_homepage_key: @mixpanel_homepage_key} %>
+
+    <%= render 'homepage/signup/headers/libraries' %>
+
+    <%= render 'homepage/components/favicon' %>
+
+    <!-- our scripts -->
+    <script type="text/javascript" src="/js/validations.js"></script>
+    <script type="text/javascript" src="/js/helpers.js"></script>
+    <script type="text/javascript" src="/js/signup.js"></script>
+
+
+    <style>
+        ul#navbar-header {
+            background-color: #59567F;
+        }
+    </style>
+
+</head>
+
+<body id="override">
+  <!-- navbar -->
+
+  <%= render 'homepage/signup/modals/find-school' %>
+  <%= render 'homepage/signup/modals/school-info' %>
+  <%= render 'homepage/signup/modals/signature' %>
+  <%= render 'homepage/signup/modals/add_students' %>
+  <%= render 'homepage/signup/modals/success' %>
+  <%= render 'homepage/signup/modals/invite' %>
+  <%= render 'homepage/signup/modals/go-to-dashboard' %>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,120 @@
+<script type="text/javascript">
+  var scrollTarget =  isMobileDevice() ? 50 : 160;
+
+
+  function highlightNav () {
+    // note that the stylings for highlight stuff is SASS!!!
+    var scroll = $(window).scrollTop();
+    if (scroll < scrollTarget) {
+      $('.readup-nav').removeClass('highlighted');
+    } else {
+      $('.readup-nav').addClass('highlighted');
+    }
+  }
+
+  $(document).ready(function(){
+    highlightNav();
+    $(window).scroll(function (event) {
+      highlightNav();
+    });
+    $('.modal input').on('click', function () {
+      $(this).focus();
+    })
+  });
+</script>
+
+<style type="text/css">
+
+
+  .readup-nav {
+    position:fixed;
+    height: 60px;
+    width: 100%;
+  }
+
+  nav .nav-buttons {
+    float: right;
+    height: 100%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+  }
+
+  .nav-buttons > a {
+    padding-right: 12px;
+  }
+
+  .logo-container {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+    float: left;
+  }
+
+  .how {
+    display: none;
+  }
+
+  .nav-pad {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+  }
+
+  .logo-container > .rulogo {
+    font-family: 'CircularStd';
+    font-size: 32px;
+    padding-left: 12px;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .nav-buttons > a {
+      padding-right: 0px;
+      padding-left: 16px;
+    }
+
+    .how {
+      display: block;
+    }
+
+
+    nav .nav-pad {
+      width: 90%;
+    }
+  }
+</style>
+<!-- must set data-turbolinks false for smooth scroll to work -->
+<nav class="readup-nav" role="navigation">
+  <div class="nav-pad">
+
+    <div class="logo-container">
+      <a href="/" class='rulogo'>
+          ReadUp
+      </a>
+    </div>
+
+    <div class="nav-buttons">
+
+      <a class="how" href="#end-no-reading" data-turbolinks="false">
+        How it works
+      </a>
+
+
+      <a href="#pitch" data-turbolinks="false">
+        <button
+          id="top-button"
+          onclick="mixpanel.track('navbar signup button clicked', {'location': 'navbar'});"
+          class="pure-button-primary pure-button signup-button"
+        >
+          Get started
+        </button>
+      </a>
+    </div>
+
+  </div>
+
+
+
+</nav>

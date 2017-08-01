@@ -35,8 +35,8 @@ export default class IntroOverlay extends React.Component {
         <div className={styles.readupLogo}>ReadUp</div>
         <div className={styles.introTitle}>See how it works</div>
         <div className={styles.introSubtitle}>Get a sample running record, right now.</div>
-        
-        <Button 
+
+        <Button
           className={styles.continueButton}
           bsStyle={'primary'}
           bsSize={'large'}

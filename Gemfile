@@ -6,6 +6,9 @@ git_source(:github) do |repo_name|
 end
 
 
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'jquery-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use postgresql as the database for Active Record
@@ -46,7 +49,7 @@ gem 'sidekiq'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do 
+group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.6'
   gem "rspec-retry"
@@ -61,14 +64,14 @@ group :development, :test do
   gem 'selenium-webdriver'
 
   gem "coveralls", require: false
- 
+
   gem 'rubocop'
 
   # security vulnerability testing
-  gem 'brakeman', :require => false 
-  
+  gem 'brakeman', :require => false
+
   # colorful console
-  gem 'rainbow' 
+  gem 'rainbow'
 
 
 

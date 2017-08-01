@@ -28,7 +28,8 @@
 .countdownTitle {
 	margin-top: 20px;
 	font-size: 1.4em;
-	font-family: Conv_proximanova-bold-webfont;
+	font-family: Proximanova;
+	font-weight: bold;
 }
 
 .countdownNumber {
