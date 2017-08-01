@@ -5,6 +5,48 @@ import styles from './styles.css'
 import { sampleEvaluationText } from './sampleText'
 
 
+class TextWord extends React.Component {
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    isSpace: PropTypes.bool,
+    paragraphIndex: PropTypes.number,
+    wordIndex: PropTypes.number,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+  };
+
+  constructor(props) {
+    super(props)
+    this.state = { highlighted: false }
+    // console.log('CONSTRUCT')
+  }
+
+  _onMouseEnter = () => {
+    // this.setState({ highlighted: true })
+    // console.log('highlighted: ' + this.props.paragraphIndex + ' - ' + this.props.wordIndex)
+    this.props.onMouseEnter(this.props.paragraphIndex, this.props.wordIndex, this.props.isSpace)
+  }
+
+  _onMouseLeave = () => {
+    // this.setState({ highlighted: false })
+    // console.log('unhighlighted: ' + this.props.paragraphIndex + ' - ' + this.props.wordIndex)
+    this.props.onMouseLeave(this.props.paragraphIndex, this.props.wordIndex, this.props.isSpace)
+  }
+
+  render() {
+
+    if (this.props.isSpace) {
+      return (
+        <span className={this.state.highlighted ? styles.highlightedTextWord : styles.textWord} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>&nbsp;&nbsp;</span>
+      );
+    }
+
+    // console.log('rendering: ' + this.props.paragraphIndex + ' - ' + this.props.wordIndex)
+    return (
+      <span className={this.state.highlighted ? styles.highlightedTextWord : styles.textWord} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>{this.props.text}</span>
+    );
+  }
+}
 
 
 export default class TranscriberInterface extends React.Component {
@@ -12,18 +54,15 @@ export default class TranscriberInterface extends React.Component {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
   };
 
-  /**
-   * @param props - Comes from your rails view.
-   * @param _railsContext - Comes from React on Rails
-   */
+
   constructor(props, _railsContext) {
     super(props);
-
-    // How to set initial state in ES6 class syntax
-    // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
-    this.state = { name: this.props.name };
-
-    console.log(sampleEvaluationText)
+    this.state = { 
+      evaluationTextData: sampleEvaluationText,
+      highlightedParagraphIndex: null,
+      highlightedWordIndex: null,
+      highlightedIsSpace: null,
+    }
   }
 
   componentWillMount() {
@@ -33,22 +72,6 @@ export default class TranscriberInterface extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
-  }
-
-
-
-  updateName = (name) => {
-    this.setState({ name });
-  };
-
-  mouseEnter = (event) => {
-    console.log('enter')
-    console.log(event.target)
-    console.log(event.currentTarget)
-  }
-
-  mouseLeave = (event) => {
-    console.log('leave')
   }
 
   _handleKeyDown = (event) => {
@@ -83,20 +106,74 @@ export default class TranscriberInterface extends React.Component {
     }
 
     // grading keys
-    else if (event.code === 'KeyA') {
+    // first ensure we have selected indices
+    if (this.state.highlightedParagraphIndex == null || this.state.highlightedWordIndex == null) {
+      return
+    }
 
+    var evaluationTextData = this.state.evaluationTextData
+
+
+    if (event.code === 'KeyA' && this.state.highlightedIsSpace) {
+
+
+
+      const addText = window.prompt('Enter the added word')
+
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].correctionType = 'CORRECTION_TYPE_ADD_AFTER'
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].word = addText
+
+      this.setState({evaluationTextData: evaluationTextData})
     }
-    else if (event.code === 'KeyS') {
-      
+    else if (event.code === 'KeyS' && !this.state.highlightedIsSpace) {
+
+      const subText = window.prompt('Enter the added word')
+
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].correctionType = 'CORRECTION_TYPE_SUBSTITUTE'
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].word = subText
+
+      this.setState({evaluationTextData: evaluationTextData})
     }
-    else if (event.code === 'KeyD') {
+    else if (event.code === 'KeyD' && !this.state.highlightedIsSpace) {
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].correctionType = 'CORRECTION_TYPE_DELETE'
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].word = 'DELETED'
       
+      this.setState({evaluationTextData: evaluationTextData})
     }
     else if (event.code === 'KeyE') {
-      
+      // toggle
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].isEnd = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].isEnd
+     
+     this.setState({evaluationTextData: text})
     }
 
     
+  }
+
+
+  _onMouseEnterWord = (paragraphIndex, wordIndex, isSpace) => {
+    console.log(paragraphIndex + ' ' + wordIndex)
+
+    this.setState({
+      highlightedParagraphIndex: paragraphIndex,
+      highlightedWordIndex: wordIndex,
+      highlightedIsSpace: isSpace,
+    })
+
+  }
+
+  _onMouseLeaveWord = (paragraphIndex, wordIndex, isSpace) => {
+    console.log(paragraphIndex + ' ' + wordIndex)
+
+    // TODO
+    // is it possible for there to be a race condition where onMouseEnter of the target element is called before onMouseLeave of the previous element?
+    // In that case, we'd accidentally null out the just selected here
+    // Haven't observed that, but could eliminate below just to be safe
+    this.setState({
+      highlightedParagraphIndex: null,
+      highlightedWordIndex: null,
+      highlightedIsSpace: null,
+    })
   }
 
   render() {
@@ -112,11 +189,16 @@ export default class TranscriberInterface extends React.Component {
     const FormattedText = ({paragraphs}) => (
       <div className={styles.textContainer}>
 
-        {paragraphs.map(paragraph => (
+        {paragraphs.map((paragraph, pIndex) => (
           <div className={styles.textParagraph} key={paragraph.key}>
 
-            {paragraph.words.map((wordDict, index) => (
-              <FormattedWord wordDict={wordDict} key={paragraph.key + index} />
+            {paragraph.words.map((wordDict, wIndex) => (
+
+              <span key={paragraph.key + wIndex}>
+                <TextWord text={wordDict.word} isSpace={false} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex} />
+
+                <TextWord text={'SPACE'} isSpace={true} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex + '_space'} />
+              </span>
             ))}
             
           </div>
@@ -155,7 +237,7 @@ export default class TranscriberInterface extends React.Component {
           </div>
 
 
-          <FormattedText paragraphs={sampleEvaluationText.paragraphs} />
+          <FormattedText paragraphs={this.state.evaluationTextData.paragraphs} />
 
 
 

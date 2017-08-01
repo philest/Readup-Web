@@ -27,7 +27,7 @@
 //   ],
 // }
 
-export const sampleEvaluationText = {
+export var sampleEvaluationText = {
   paragraphs: [
     {
       key: 'sViGwBGcDZ',
