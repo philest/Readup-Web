@@ -1,0 +1,161 @@
+<script type="text/javascript">
+
+  var scroll = new SmoothScroll('a[href*="#"]');
+
+  var scrollTarget =  isMobileDevice() ? 50 : 160;
+
+  function highlightNav () {
+    var scroll = $(window).scrollTop();
+    if (scroll < scrollTarget) {
+      $('.navbar').removeClass('highlighted');
+    } else {
+      $('.navbar').addClass('highlighted');
+    }
+  }
+
+  $(document).ready(function(){
+    highlightNav();
+    $(window).scroll(function (event) {
+      highlightNav();
+    });
+    $('.modal input').on('click', function () {
+      $(this).focus();
+    })
+    // if (isMobileDevice()) {
+    //   $('body').addClass('isMobile');
+    // } else {
+      // $('body').addClass('isDesktop');
+    // }
+  });
+</script>
+
+
+
+
+<style type="text/css">
+  .form-container {
+    position: absolute;
+    margin: 0 auto;
+  }
+
+  .section-buffer {
+    display: none;
+    width: 100%;
+    height: 130px;
+  }
+
+  #end-no-reading {
+    padding-top: 60px;
+  }
+
+  /* mobile */
+  @media (max-width: 35.5em) {
+    .section-buffer {
+      height: 235px;
+    }
+
+    #end-no-reading {
+      padding-top: 0px;
+    }
+  }
+</style>
+
+
+
+<%= render 'homepage/partials/navbar' %>
+
+
+<div class="splash-new">
+  <div
+    class="splash-container"
+    style="background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/student-hero-resized.jpg')
+          center
+          top/cover
+          no-repeat
+          #3C8FCA;"
+  >
+    <div class="title">
+      <div id="pitch" class="form-container">
+        <h1>
+          ReadUp grades running records for you.
+        </h1>
+        <center>
+          <h4 id="sub-pitch">
+            ReadUp listens and grades reading so you can spend your time teaching.
+          </h4>
+        </center>
+        <%= render 'homepage/partials/signup_form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class='section-buffer'></div>
+
+<section class="product-display" id="end-no-reading">
+  <h1 class="section-banner">The end of scoring running records.</h1>
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-push-md-1-2 pure-u-md-1-2">
+      <div class="product-img">
+        <img src="/images/ipad-1.png" alt="">
+      </div>
+    </div>
+
+
+    <div class="pure-u-1 pure-pull-md-1-2 pure-u-md-1-2">
+      <div class="product-text">
+        <h2>Running records scored for you</h2>
+        <ul>
+          <p><b>Save hundreds of hours</b> to spend teaching, not testing. </p>
+          <p><b>See miscue analyses</b> to know the type of errors students make.</p>
+          <p><b>Hear recordings</b> played back at anytime. </p>
+        </ul>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<section class="product-display" id="support-families" style="background-color: #676487; color:#ffffff;">
+  <div class="pure-g" style="padding-top: 6em;">
+
+    <div class="pure-u-1 pure-u-md-1-2">
+      <div class="product-img">
+        <img src="/images/ipad-2.png" alt="">
+      </div>
+    </div>
+
+    <div class="pure-u-1 pure-u-md-1-2">
+      <div class="product-text">
+        <h2>Hassle-free data collection</h2>
+        <ul>
+          <p style="color:#ffffff;"><b>Track student progress</b> over the year and see reading growth. </p>
+          <p style="color:#ffffff;"><b>Share with parents</b> to celebrate student gains.</p>
+          <p style="color:#ffffff;"><b>See reading weaknesses</b> and get strategies to target those. </p>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<h1 class="banner" id="call-to-action">Spend your time teaching, not testing.</h1>
+
+<p><center><b>Learn more about using ReadUp across your school.</b></center></p>
+
+
+
+<img class="contact-image call-to-action-image" src="https://d2yudi7y1eei74.cloudfront.net/assets/phone.png">
+<p><center><b>
+  <a style="text-align: center;" href="mailto:team@readupnow.com?&subject=Storytime">
+  team@readupnow.com
+  </a>
+</b></center></p>
+

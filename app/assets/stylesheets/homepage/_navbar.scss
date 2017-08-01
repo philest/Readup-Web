@@ -69,13 +69,13 @@
 }
 
 .navbar-right li a{
-  font-family: 'Conv_proximanova-regular-webfont';
+  font-family: 'Proximanova';
 }
 
 
 button#top-button {
   background-color: white;
-  font-family: 'Conv_Proxima-Nova-Semibold', sans-serif;
+  font-family: 'Proximanova Semibold', sans-serif;
   color: #2C6D9C;
 }
 
@@ -112,7 +112,8 @@ button.log-in-fake-button {
 
 #override h1.navbar-title {
   text-align: left;
-  font-family: 'Conv_proximanova-bold-webfont'
+  font-family: 'Proximanova';
+  font-weight: bold;
 }
 
 .navbar li {

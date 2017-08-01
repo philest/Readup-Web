@@ -11,5 +11,14 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 
-Rails.application.config.assets.precompile += %w( homepage/index.scss alert teacher-form-input fonts main )
+Rails.application.config.assets.precompile += %w(
+  homepage/index.scss
+  alert
+  teacher-form-input
+  main
+
+
+  homepage/*.js
+  vendor/*.js
+)
 

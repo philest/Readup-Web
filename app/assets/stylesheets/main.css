@@ -8,7 +8,8 @@ body {
 }
 
 ul b {
-	font-family: 'Conv_proximanova-bold-webfont'
+	font-family: 'Proximanova'
+	font-weight: bold;
 }
 
 /* BELOW FOLD */
@@ -20,12 +21,14 @@ label.error {
 .the-problem .text h2, .the-product .text h2, .join-us .text h2 {
 	font-size: 24px;
 	color: #ed7a44;
-	font-family: 'Conv_proximanova-bold-webfont'
+	font-family: 'Proximanova'
+	font-weight: bold;
 }
 
 @media screen and (max-width: 35.5em) {
 	h2 {
-	    font-family: "Conv_proximanova-bold-webfont";
+	    font-family: "Proximanova";
+	    font-weight: bold;
 	}
 }
 
@@ -95,8 +98,8 @@ label.error {
 
 
 .nav > li {
-	position: relative; 
-    display: block; 
+	position: relative;
+    display: block;
 }
 
 
@@ -108,8 +111,8 @@ label.error {
 
 
 h1 {
-	font-family: 'Conv_proximanova-bold-webfont';
-	font-weight: 100;
+	font-family: 'Proximanova';
+	font-weight: bold;
 	margin-top: -.1em;
 	line-height: 1.3em;
 /*	color: #4a4a4a;
@@ -139,7 +142,7 @@ h1.banner {
     margin-bottom: -2em;
     margin-left: 15px;
     margin-right: 15px;
-    font-family: Conv_proximanova-bold-webfont;
+    font-family: 'Proximanova';
     font-weight: bold;
     color: #4a4a4a;
 
@@ -237,7 +240,7 @@ a .bottom button#join {
 
 
 @media screen and (min-width: 583px)	{
-	
+
 
 
 	#splash {
@@ -338,7 +341,7 @@ a .bottom button#join {
 	h1.banner#call-to-action{
 		font-size: 28px;
 	}
-	
+
 	#logo-new {
 		margin-right: 0;
 		margin-left: 0;
@@ -401,7 +404,7 @@ a .bottom button#join {
 
 
 
-	
+
 
 /* header ******************************************************** */
 
@@ -410,8 +413,8 @@ a .bottom button#join {
 	margin: 2.3em 0px;
 }
 
-.catch_phrase h2 { 
-    font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+.catch_phrase h2 {
+    font-family: 'Proximanova', sans-serif;
     font-weight: bold;
     margin-top: -1.5em;
     color: rgba(0,0,0,0.75); /*dark grey*/
@@ -433,7 +436,7 @@ a .bottom button#join {
 	display: table;
 	height: 100%;
 	width: 100%;
-	text-align: center; 
+	text-align: center;
 }
 
 .wrapper .footer .bottom {
@@ -512,7 +515,7 @@ a .bottom button#join {
 
 /* video  ********************************************************************** */
 
-section.video iframe { 
+section.video iframe {
 	display: block;
 	margin: 0 auto;
 	margin-top: 100px;
@@ -535,9 +538,9 @@ h2 {
 }
 
 .divider {
-	width: 100%; 
+	width: 100%;
 	padding-top: 2em;
-	
+
 }
 
 #divider-mobile {
@@ -545,7 +548,7 @@ h2 {
 }
 
 .divider div {
-	display: block; 
+	display: block;
 	width: 15%;
 	margin: 0 auto;
 	border-bottom: 1px solid #AAAAAA;
@@ -554,16 +557,16 @@ h2 {
 span a {
 	text-decoration: none;
 	color: #ed7844;
-	
+
 }
 
 .divider-mini {
-	width: 100%; 
-	
+	width: 100%;
+
 }
 
 .divider-mini div {
-	display: block; 
+	display: block;
 	width: 10%;
 	margin: 0 auto;
 	border-bottom: 1px solid #AAAAAA;
@@ -585,7 +588,8 @@ span a {
 
 
 .the-problem .text h2, .the-product .text h2, .join-us .text h2 {
-	font-family: 'Conv_proximanova-bold-webfont'; 
+	font-family: 'Proximanova';
+	font-weight: bold;
 	color: #ed7844;
 	font-size: 24px;
 }
@@ -611,11 +615,11 @@ span a {
 
 div.section-header {
 	width: 100%;
-	visibility: hidden; 
+	visibility: hidden;
 	text-align: center;
 	font-size: 1.8em;
 	color: #ed7844;
-}	
+}
 
 
 section {
@@ -650,7 +654,7 @@ a#more_team:hover p{
 	margin: 0 auto;
 	text-align: center;
 	font-family: sans-serif;
-	min-height: 15em; 
+	min-height: 15em;
 	padding-top: 3.5em;
 	font-size: 1.3em;
 
@@ -662,12 +666,12 @@ a#more_team:hover p{
 /*****************************************************************************************/
 
 body {
-	font-family: 'Conv_proximanova-regular-webfont'; 
+	font-family: 'Proximanova';
 	background-color: rgba(255,255,254,1)
 }
 
 p {
-    font-family: 'Conv_proximanova-regular-webfont', sans-serif;
+    font-family: 'Proximanova', sans-serif;
     font-weight: 200;
 /*    font-size: 1.12em;
 */    line-height: 1.6;
@@ -700,14 +704,14 @@ fieldset input {
 
 button.get_update{
 	background-color: #61c242;
-	font-family: 'Conv_Proxima-Nova-Semibold', sans-serif;
+	font-family: 'Proximanova Semibold', sans-serif;
 	margin-top: 10px;
 }
 
 section.progress h4 {
-	font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+	font-family: 'Proximanova', sans-serif;
 	font-size: 1.4em;
-	font-weight: 200;
+	font-weight: bold;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -729,13 +733,13 @@ span.italic {
 }
 
 h4 span a{
-	font-family: 'Conv_proximanova-bold-webfont'; 
+	font-family: 'Proximanova';
+	font-weight: bold;
 	color: #ed7844;
-
 }
 
-.partners img { 
-	
+.partners img {
+
 	padding-top: 1.5em;
 	min-width: 150px;
 	max-width: 330px;
@@ -751,8 +755,8 @@ h4 span a{
     padding-left: 10%;
 }
 
-.globe  img { 
-	
+.globe  img {
+
 	min-width: 13em;
 	max-width: 15em;
 	display: inline-block;
@@ -764,7 +768,7 @@ h4 span a{
 }
 
 .v-align .text {
-	display:table-cell; 
+	display:table-cell;
 	vertical-align:middle;
 }
 
@@ -781,9 +785,9 @@ h4 span a{
 	}
 	.partners img {
 		width: 80%;
-	}	
-	
-	.dash img { 
+	}
+
+	.dash img {
 		width: 88%;
  	}
 
@@ -803,7 +807,7 @@ h4 span a{
 
 
 	.divider div {
-		display: block; 
+		display: block;
 		width: 25%;
 		margin: 0 auto;
 		border-bottom: 1px solid #AAAAAA;
@@ -843,12 +847,12 @@ h4 span a{
 	}
 
 	.partner-loops {
-		display: none; 	
+		display: none;
 	}
-	
+
 
 	.banner {
-		font-size: 2em; /*added for Conv_proximanova-bold-webfont*/
+		font-size: 2em; /*added for Proximanova*/
 		padding-left: .15em;
 		padding-right: .15em;
 		margin-top: 35px; /*added because trio section was cut*/
@@ -859,7 +863,7 @@ h4 span a{
 	}
 
 	.txt_inner {
-		/* TEMPORARY SOLUTION. Next step: vertically align */ 
+		/* TEMPORARY SOLUTION. Next step: vertically align */
 		padding-top: 3em;
 	}
 
@@ -873,7 +877,8 @@ h4 span a{
 	}
 
 	h2 {
-		font-family: "Conv_proximanova-bold-webfont";
+		font-family: "Proximanova";
+		font-weight: bold;
 	}
 
 	.the-problem .text, .the-product .text {
@@ -882,7 +887,7 @@ h4 span a{
 		width: 90%;
 		display: block;
 		margin: 0 auto;
-		
+
 		padding-right: 0em;
 		line-height: 1.5em;
 	}
@@ -907,7 +912,7 @@ h4 span a{
 		width: 90%;
 		display: block;
 		margin: 0 auto;
-		
+
 		padding-right: 0em;
 		line-height: 1.5em;
 	}
@@ -954,8 +959,8 @@ h4 span a{
 	}
 
 
-	.partners img, .prize img { 
-	
+	.partners img, .prize img {
+
 		padding-top: 0px;
 		min-width: 10em;
 		max-width: 18em;
@@ -977,9 +982,9 @@ h4 span a{
 	}
 
 	section.progress h4 {
-		font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+		font-family: 'Proximanova', sans-serif;
 		font-size: 1.1em;
-		font-weight: 200;
+		font-weight: bold;
 	}
 
 
@@ -1038,7 +1043,7 @@ h4 span a{
 	    margin-right: 0px;
 	}
 
-	
+
 
 	#splash .hero-splash-text-container {
 		margin-left: auto;
@@ -1047,7 +1052,7 @@ h4 span a{
 }
 
 @media screen and (min-width: 768px)	{
-	
+
 
 }
 
@@ -1058,14 +1063,14 @@ h4 span a{
    		margin-right: 0px;
 
 	}
-		
+
 		/*change it from off-center*/
 	#splash .globe-text {
 		padding-left: 5%;
 	    width: 45%;
 	}
-	
-	
+
+
 }
 
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Birdup</title>
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'homepage/index', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "teacher-form-input" %>
+    <%= stylesheet_link_tag    'main', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'homepage/helpers', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'vendor/smooth-scroll', 'data-turbolinks-track': 'reload' %>
+
+
+
+     <!-- Load jQuery and  validtions plugin -->
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
+    <%= javascript_include_tag 'homepage/validations', 'data-turbolinks-track': 'reload' %>
+
+    <!-- pure -->
+    <!-- <link rel="stylesheet" href="/stylesheets/imports/pure-min.css"> -->
+    <link rel="stylesheet" href="/stylesheets/imports/pure-min.css">
+
+
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
+    <!--<![endif]-->
+
+
+    <link rel="stylesheet" href="/stylesheets/pure-push-pull.css" type="text/css" />
+
+
+    <%= render 'homepage/components/favicon' %>
+
+
+
+    <!-- begin olark code -->
+    <script type="text/javascript" async>
+    ;(function(o,l,a,r,k,y){if(o.olark)return;
+    r="script";y=l.createElement(r);r=l.getElementsByTagName(r)[0];
+    y.async=1;y.src="//"+a;r.parentNode.insertBefore(y,r);
+    y=o.olark=function(){k.s.push(arguments);k.t.push(+new Date)};
+    y.extend=function(i,j){y("extend",i,j)};
+    y.identify=function(i){y("identify",k.i=i)};
+    y.configure=function(i,j){y("configure",i,j);k.c[i]=j};
+    k=y._={s:[],t:[+new Date],c:{},l:a};
+    })(window,document,"static.olark.com/jsclient/loader.js");
+    /* Add configuration calls below this comment */
+    olark.identify('9084-375-10-8744');
+    </script>
+    <!-- end olark code -->
+
+  </head>
+
+  <body>
+
+    <!-- Notify about form submission -->
+    <% if flash[:notice] %>
+    <div id="alert">
+      <a class="alert" href="#alert">Great! Someone from our outreach team will be in touch soon.</a>
+    </div>
+    <% end %>
+
+    <!-- Notify about form submission -->
+    <% if flash[:signin_error] %>
+    <div id="alert">
+      <a class="alert" href="#alert">Incorrect login info.</a>
+    </div>
+    <% end %>
+
+
+    <% if flash[:freemium_permission_error] %>
+    <div id="alert">
+      <a class="alert" href="#alert">Your free ReadUp trial is almost ready! We'll let you know when you're off the waitlist.</a>
+    </div>
+    <% end %>
+
+
+    <%= yield %>
+
+  </body>
+
+
+
+
+  <footer class="footer">
+    <div class="footer--container  container---full">
+      <nav class="footer--nav">
+        <a class="footer--nav--link footer--nav--link---terms-privacy" href="/privacy">
+          Terms &amp; Privacy </a>
+        <a class="footer--nav--link" href="case_study" target="_blank">
+          Learn More
+        </a>
+        <a class="footer--nav--link" href="mailto:team@readupnow.com">
+          Email Us
+        </a>
+        <a class="footer--nav--link" href="/team">
+          Our Team
+        </a>
+        <a class="footer--nav--link" href="mailto:team@readupnow.com">
+          Request Demo
+        </a>
+        <a class="footer--nav--link" href="mailto:careers@readupnow.com">
+          Careers
+        </a>
+        <a class="footer--nav--link" href="/privacy">
+          Trust &amp; Safety
+        </a>
+        <a class="footer--nav--link" href="mailto:team@readupnow.com" target="_blank">
+          Support
+        </a>
+      </nav>
+    </div>
+  </footer>
+</html>

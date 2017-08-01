@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 .teacher-info-box {
 	padding: 0px 40px 0px 40px;
 	max-width: 480px;
@@ -42,7 +36,7 @@ select.input  {
     border-radius: 3px;
     width: 100%;
     color: #282c31;
-    font-family: 'Conv_proximanova-regular-webfont',sans-serif;
+    font-family: 'Proximanova',sans-serif;
     font-size: 14px;
     padding: 12px;
     line-height: normal;
