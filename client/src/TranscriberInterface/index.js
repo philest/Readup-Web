@@ -13,14 +13,18 @@ class TextWord extends React.Component {
     wordAbove: PropTypes.string,
     paragraphIndex: PropTypes.number,
     wordIndex: PropTypes.number,
+    isEndWord: PropTypes.bool,
+    grayedOut: PropTypes.bool,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
   };
   static defaultProps = {
     isSpace: false,
+    isEndWord: false,
     strikethrough: false,
+    grayedOut: false,
     wordAbove: null,
-  }
+  };
 
   constructor(props) {
     super(props)
@@ -42,7 +46,10 @@ class TextWord extends React.Component {
 
   render() {
 
-    const wordClassNameString = this.props.strikethrough ? [styles.textWord, styles.strikethrough].join(' ') : styles.textWord
+    let wordClassNameString = this.props.strikethrough ? [styles.textWord, styles.strikethrough].join(' ') : styles.textWord
+    if (this.props.grayedOut) {
+      wordClassNameString += (' ' + styles.grayedOut)
+    }
 
     return (
       <span className={styles.wordWrapper}>
@@ -60,6 +67,13 @@ class TextWord extends React.Component {
             }
           </span>
         }
+
+        {this.props.isEndWord &&
+          <span className={styles.endingSlashes}>
+            //
+          </span>
+        }
+
       </span>
     );
   }
@@ -132,8 +146,6 @@ export default class TranscriberInterface extends React.Component {
 
     if (event.code === 'KeyA' && this.state.highlightedIsSpace) {
 
-
-
       const addText = window.prompt('Enter the added word')
 
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].addAfterWord = addText
@@ -143,10 +155,10 @@ export default class TranscriberInterface extends React.Component {
     }
     else if (event.code === 'KeyS' && !this.state.highlightedIsSpace) {
 
-      const subText = window.prompt('Enter the added word')
+      const subText = window.prompt('Enter the substituted word')
 
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].substituteWord = subText
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = true
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = (subText != '')
 
       this.setState({evaluationTextData: evaluationTextData})
     }
@@ -159,9 +171,10 @@ export default class TranscriberInterface extends React.Component {
     }
     else if (event.code === 'KeyE') {
       // toggle
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].isEnd = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].isEnd
+      evaluationTextData.readingEndIndex.paragraphIndex = this.state.highlightedParagraphIndex
+      evaluationTextData.readingEndIndex.wordIndex = this.state.highlightedWordIndex
      
-     this.setState({evaluationTextData: text})
+     this.setState({evaluationTextData: evaluationTextData})
     }
 
     
@@ -200,6 +213,10 @@ export default class TranscriberInterface extends React.Component {
     );
 
 
+    const endPindex = this.state.evaluationTextData.readingEndIndex.paragraphIndex
+    const endWindex = this.state.evaluationTextData.readingEndIndex.wordIndex
+
+
     const FormattedText = ({paragraphs}) => (
 
       <div className={styles.textContainer}>
@@ -210,7 +227,19 @@ export default class TranscriberInterface extends React.Component {
             {paragraph.words.map((wordDict, wIndex) => (
 
               <span key={paragraph.key + wIndex}>
-                <TextWord text={wordDict.word} isSpace={false} strikethrough={wordDict.wordDeleted} wordAbove={wordDict.substituteWord} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex} />
+                <TextWord 
+                  text={wordDict.word}
+                  isSpace={false}
+                  isEndWord={(pIndex == endPindex && wIndex == endWindex)}
+                  grayedOut={(pIndex > endPindex || (pIndex == endPindex && wIndex > endWindex))}
+                  strikethrough={wordDict.wordDeleted}
+                  wordAbove={wordDict.substituteWord}
+                  paragraphIndex={pIndex}
+                  wordIndex={wIndex}
+                  onMouseEnter={this._onMouseEnterWord}
+                  onMouseLeave={this._onMouseLeaveWord}
+                  key={paragraph.key + '_' + pIndex + '_' + wIndex}
+                />
 
                 <TextWord text={'SPACE'} isSpace={true} wordAbove={wordDict.addAfterWord} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex + '_space'} />
               </span>

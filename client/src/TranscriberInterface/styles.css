@@ -121,6 +121,16 @@
 	text-decoration: #982E2B line-through;
 }
 
+.endingSlashes {
+	color: #982E2B;
+	font-size: 1.2em;
+	margin-left: 5px;
+}
+
+.grayedOut {
+	color: #B7B7B7;
+}
+
 
 
 /*.highlightedTextWord {
