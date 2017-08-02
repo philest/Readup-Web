@@ -27,7 +27,7 @@
 //   ],
 // }
 
-export var sampleEvaluationText = {
+export const sampleEvaluationText = {
   readingEndIndex: {
     paragraphIndex: 2, // -1
     wordIndex: 5, // -1

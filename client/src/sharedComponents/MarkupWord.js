@@ -13,7 +13,6 @@ export default class MarkupWord extends React.Component {
     wordIndex: PropTypes.number,
     isEndWord: PropTypes.bool,
     grayedOut: PropTypes.bool,
-
     isInteractive: PropTypes.bool,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -35,15 +34,15 @@ export default class MarkupWord extends React.Component {
 
   _onMouseEnter = () => {
     if (!this.props.isInteractive) {
-    	return
+      return
     }
     this.props.onMouseEnter(this.props.paragraphIndex, this.props.wordIndex, this.props.isSpace)
   }
 
   _onMouseLeave = () => {
-  	if (!this.props.isInteractive) {
-    	return
-  }
+    if (!this.props.isInteractive) {
+      return
+    }
     this.props.onMouseLeave(this.props.paragraphIndex, this.props.wordIndex, this.props.isSpace)
   }
 
@@ -62,7 +61,11 @@ export default class MarkupWord extends React.Component {
       <span className={styles.wordWrapper}>
 
         { this.props.isInteractive &&
-          <span className={wordClassNameString} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>
+          <span
+            className={wordClassNameString}
+            onMouseEnter={this._onMouseEnter}
+            onMouseLeave={this._onMouseLeave}
+          >
             {this.props.isSpace && '\u00A0\u00A0\u00A0'}
             {!this.props.isSpace && this.props.text}
           </span>

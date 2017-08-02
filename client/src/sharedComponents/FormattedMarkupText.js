@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styles from './styles.css'
 
+import styles from './styles.css'
 import MarkupWord from '../sharedComponents/MarkupWord'
 
 
