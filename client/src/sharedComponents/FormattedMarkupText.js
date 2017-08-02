@@ -10,11 +10,11 @@ export default class FormattedMarkupText extends React.Component {
     paragraphs: PropTypes.arrayOf(PropTypes.string).isRequired,
     endParagraphIndex: PropTypes.number,
     endWordIndex: PropTypes.number,
-    
     isInteractive: PropTypes.bool,
     onMouseEnterWord: PropTypes.func,
     onMouseLeaveWord: PropTypes.func,
   };
+
   static defaultProps = {
     isInteractive: false,
   };
@@ -41,10 +41,10 @@ export default class FormattedMarkupText extends React.Component {
             {paragraph.words.map((wordDict, wIndex) => (
 
               <span key={paragraph.key + wIndex} className={styles.wordAndSpaceWrapper}>
-                <MarkupWord 
+                <MarkupWord
                   text={wordDict.word}
                   isSpace={false}
-                  isEndWord={(pIndex == endPindex && wIndex == endWindex)}
+                  isEndWord={(pIndex === endPindex && wIndex === endWindex)}
                   grayedOut={(pIndex > endPindex || (pIndex == endPindex && wIndex > endWindex))}
                   strikethrough={wordDict.wordDeleted}
                   wordAbove={wordDict.substituteWord}
@@ -69,7 +69,7 @@ export default class FormattedMarkupText extends React.Component {
                 />
               </span>
             ))}
-            
+
           </div>
         ))}
       </div>

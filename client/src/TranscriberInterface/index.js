@@ -19,7 +19,7 @@ export default class TranscriberInterface extends React.Component {
 
   constructor(props, _railsContext) {
     super(props);
-    this.state = { 
+    this.state = {
       evaluationTextData: sampleEvaluationText,
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
@@ -46,7 +46,7 @@ export default class TranscriberInterface extends React.Component {
       else {
         this.refs.audioPlayer.pause()
       }
-      
+
       event.preventDefault();
     }
     else if (event.code === 'ArrowLeft') {
@@ -97,18 +97,18 @@ export default class TranscriberInterface extends React.Component {
       // toggle
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted
 
-      
+
       this.setState({evaluationTextData: evaluationTextData})
     }
     else if (event.code === 'KeyE') {
       // toggle
       evaluationTextData.readingEndIndex.paragraphIndex = this.state.highlightedParagraphIndex
       evaluationTextData.readingEndIndex.wordIndex = this.state.highlightedWordIndex
-     
+
      this.setState({evaluationTextData: evaluationTextData})
     }
 
-    
+
   }
 
 
@@ -135,12 +135,12 @@ export default class TranscriberInterface extends React.Component {
   }
 
   onSubmitClicked = () => {
-    
+
   }
 
   render() {
 
-    
+
 
 
 
@@ -158,8 +158,8 @@ export default class TranscriberInterface extends React.Component {
           <source src={this.props.recordingURL} />
           <p>Playback not supported</p>
         </audio>
-        
-        
+
+
 
 
         <div className={styles.markupContainer}>
@@ -187,7 +187,7 @@ export default class TranscriberInterface extends React.Component {
         </div>
 
 
-        <Button 
+        <Button
           className={styles.submitButton}
           bsStyle={'primary'}
           bsSize={'large'}

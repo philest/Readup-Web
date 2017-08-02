@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Button } from 'react-bootstrap'
+
 import styles from './styles.css'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
-import { Button } from 'react-bootstrap'
-
 import { sampleEvaluationText } from '../sharedComponents/sampleMarkup'
-
 
 
 export default class ReportsInterface extends React.Component {
@@ -28,7 +27,7 @@ export default class ReportsInterface extends React.Component {
   onPlayRecordingClicked = () => {
     this.setState({ showAudioPlayback: true })
   }
-  
+
 
   render() {
 
@@ -71,7 +70,7 @@ export default class ReportsInterface extends React.Component {
 
             </div>
           </div>
-          
+
 
           <div className={styles.bookInfoHeader}>
 
@@ -83,7 +82,7 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.audioWrapper}>
 
               { !this.state.showAudioPlayback &&
-                <Button 
+                <Button
                   className={styles.submitButton}
                   bsStyle={'primary'}
                   bsSize={'large'}
