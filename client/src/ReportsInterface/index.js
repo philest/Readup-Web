@@ -65,7 +65,7 @@ export default class ReportsInterface extends React.Component {
 
               <div className={styles.levelInfoWrapper}>
                 <div className={styles.levelRectangle}>Level G</div>
-                <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
+                <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"} /></div>
               </div>
 
             </div>
@@ -88,7 +88,7 @@ export default class ReportsInterface extends React.Component {
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
                 >
-                  Play Recording &nbsp;&nbsp;<i className={"fa fa-play"} aria-hidden={"true"}></i>
+                  Play Recording &nbsp;&nbsp;<i className={"fa fa-play"} aria-hidden={"true"} />
                 </Button>
               }
 

@@ -22,25 +22,25 @@ export default class Recorder {
   /*eslint-enable */
 
   static hasRecordingPermissions(callback) {
-    DetectRTC.load(function() {
+    DetectRTC.load(() => {
       const hasPermissions = DetectRTC.isWebsiteHasMicrophonePermissions
       callback(hasPermissions)
     })
   }
 
   captureUserMedia(callback) {
-    var params = { audio: true, video: false };
+    const params = { audio: true, video: false };
 
     navigator.getUserMedia(params, callback, (error) => {
       // alert(JSON.stringify(error));
-      console.log('USER MEDIA ERROR::   ' + JSON.stringify(error))
+      console.log(`USER MEDIA ERROR::   ${JSON.stringify(error)}`)
       callback(null, error)
     });
-  };
+  }
 
   initialize = (callback) => {
 
-    if (!!this.rtcRecorder) {
+    if (this.rtcRecorder) {
       console.log('Attempted to initialize an already initialized recorder but that\'s expected')
       return
     }
@@ -95,21 +95,15 @@ export default class Recorder {
     this.recording = true
   }
 
-  isRecording = () => {
-    return this.recording
-  }
+  isRecording = () => this.recording
 
-  getBlob = () => {
-    return this.rtcRecorder.getBlob()
-  };
+  getBlob = () => this.rtcRecorder.getBlob();
 
-  getBlobURL = () => {
-    return this.blobURL
-  }
+  getBlobURL = () => this.blobURL
 
   forceDownloadRecording(filename) {
     console.log(this.getBlobURL())
-    var anchor = document.createElement('a')
+    const anchor = document.createElement('a')
     anchor.href = this.blobURL
     anchor.target = '_blank';
     anchor.download = filename || 'output.wav';

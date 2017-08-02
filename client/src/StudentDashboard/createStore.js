@@ -44,5 +44,5 @@ const store = createStore(
 
 export default {
   store,
-  runSaga: sagaMiddleware.run
+  runSaga: sagaMiddleware.run,
 }

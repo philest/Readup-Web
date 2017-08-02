@@ -33,12 +33,12 @@ consoleErrorReporter.propTypes = {
 function createHotModule(Komponent) {
   return (props, railsContext, domNodeId) => {
 
-    console.log('creating module props: ' + JSON.stringify(props))
-    console.log('creating module context: ' + JSON.stringify(railsContext))
-    console.log('creating module domNodeId: ' + JSON.stringify(domNodeId))
+    console.log(`creating module props: ${JSON.stringify(props)}`)
+    console.log(`creating module context: ${JSON.stringify(railsContext)}`)
+    console.log(`creating module domNodeId: ${JSON.stringify(domNodeId)}`)
     // const store = ReactOnRails.getStore('store')
     const renderApp = () => {
-      const fullProps = { ...props, history: history }
+      const fullProps = { ...props, history }
       const element = (
         <AppContainer errorReporter={consoleErrorReporter}>
           <Komponent {...fullProps} />

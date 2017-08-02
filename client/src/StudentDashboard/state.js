@@ -69,7 +69,7 @@ export function setReaderState(readerState: ReaderState) {
     type: READER_STATE_SET,
     payload: {
       readerState,
-    }
+    },
   }
 }
 
@@ -78,16 +78,16 @@ export function setPageNumber(pageNumber: number) {
     type: PAGE_NUMBER_SET,
     payload: {
       pageNumber,
-    }
+    },
   }
 }
 
-export function setHasRecordedSomething(hasRecordedSomething: bool) {
+export function setHasRecordedSomething(hasRecordedSomething: boolean) {
   return {
     type: HAS_RECORDED_SOMETHING_SET,
     payload: {
       hasRecordedSomething,
-    }
+    },
   }
 }
 
@@ -124,7 +124,7 @@ export function setCurrentSound(currentSoundId: string) {
     type: CURRENT_SOUND_SET,
     payload: {
       currentSoundId,
-    }
+    },
   }
 }
 
@@ -133,7 +133,7 @@ export function setCurrentModal(currentModalId: string) {
     type: CURRENT_MODAL_SET,
     payload: {
       currentModalId,
-    }
+    },
   }
 }
 
@@ -142,7 +142,7 @@ export function setCurrentOverlay(currentOverlayId: string) {
     type: CURRENT_OVERLAY_SET,
     payload: {
       currentOverlayId,
-    }
+    },
   }
 }
 
@@ -211,7 +211,7 @@ export function setRecordingURL(recordingURL: string) {
     type: RECORDING_URL_SET,
     payload: {
       recordingURL,
-    }
+    },
   }
 }
 
@@ -265,7 +265,7 @@ export function pauseRecording(pauseType: PauseType = PauseTypeOptions.fromPause
     type: RECORDING_PAUSE,
     payload: {
       pauseType,
-    }
+    },
   }
 }
 
@@ -317,7 +317,7 @@ export function setIsDemo(isDemo) {
     type: IS_DEMO_SET,
     payload: {
       isDemo,
-    }
+    },
   }
 }
 
@@ -338,38 +338,38 @@ const sampleBook = {
     2: {
       lines: [
         "I hop off the porch.\nI feel the air",
-        "It warms my legs and tosses my hair."
+        "It warms my legs and tosses my hair.",
       ],
       img: '/images/dashboard/sample-book-assets/firefly-2.png',
     },
     3: {
       lines: [
         "Grass tickles my toes.\nI run through the yard.",
-        "I chase fireflies to put in my jar."
+        "I chase fireflies to put in my jar.",
       ],
       img: '/images/dashboard/sample-book-assets/firefly-3.png',
     },
     4: {
       lines: [
         "Fireflies shine.\nAll of them glow.",
-        "I race to show Daddy\ntheir dancing light show."
+        "I race to show Daddy\ntheir dancing light show.",
       ],
       img: '/images/dashboard/sample-book-assets/firefly-4.png',
     },
     5: {
       lines: [
         "They fly away quickly.\nThey sparkle and shine.",
-        "I love catching fireflies, but they are not mine."
+        "I love catching fireflies, but they are not mine.",
       ],
-      img: '/images/dashboard/sample-book-assets/firefly-6.png'
+      img: '/images/dashboard/sample-book-assets/firefly-6.png',
     },
     6: {
       lines: [
         "We walk back to the home.\nI hold Daddy's hand tight.",
-        "I ask him \"Will tomorrow be a firefly night\"?"
+        "I ask him \"Will tomorrow be a firefly night\"?",
       ],
-      img: '/images/dashboard/sample-book-assets/firefly-7.png'
-    }
+      img: '/images/dashboard/sample-book-assets/firefly-7.png',
+    },
   },
 };
 
@@ -379,7 +379,7 @@ const initialState = {
   pageNumber: 0,
   numPages: sampleBook.numPages,
   book: sampleBook,
-  readerState:  ReaderStateOptions.initializing,
+  readerState: ReaderStateOptions.initializing,
   pauseType: PauseTypeOptions.fromPauseButton,
   hasRecordedSomething: false,
   recorder: new Recorder(),
@@ -407,7 +407,7 @@ function reducer(state = initialState, action = {}) {
 
 
     case READER_STATE_SET: {
-      console.log('SET READER STATE:: ' + payload.readerState)
+      console.log(`SET READER STATE:: ${payload.readerState}`)
       return { ...state, readerState: payload.readerState }
     }
 
@@ -451,7 +451,7 @@ function reducer(state = initialState, action = {}) {
     }
 
     case RECORDING_URL_SET: {
-      return { ...state, recordingURL: payload.recordingURL}
+      return { ...state, recordingURL: payload.recordingURL }
     }
 
     case SPINNER_SHOW: {
@@ -467,12 +467,12 @@ function reducer(state = initialState, action = {}) {
     // }
 
     case PAGE_INCREMENT: {
-      history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
-      return { ...state, pageNumber: state.pageNumber + 1}
+      history.pushState({}, 'Readup', `#/story/demo/page/${state.pageNumber + 1}`)
+      return { ...state, pageNumber: state.pageNumber + 1 }
     }
     case PAGE_DECREMENT: {
-      history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber-1))
-      return { ...state, pageNumber: state.pageNumber - 1}
+      history.pushState({}, 'Readup', `#/story/demo/page/${state.pageNumber - 1}`)
+      return { ...state, pageNumber: state.pageNumber - 1 }
     }
     // case RECORDING_COUNTDOWN_TO_START: {
     //   history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))

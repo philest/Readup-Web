@@ -9,18 +9,18 @@ type props = {
   style: {},
 };
 
-function BookInfoHeader ({
+function BookInfoHeader({
   title = "",
   subtitle = "",
   style = {},
-} : props) {
+}: props) {
   return (
     <div
       className={styles.bookInfoHeaderContainer}
       style={style}
     >
 
-      
+
       <div className={styles.bookInfoHeaderContainerTitle}>
         {title}
       </div>

@@ -32,7 +32,7 @@ export default class PausedModal extends React.Component {
 
   render() {
     return (
-      <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
+      <BaseModal title="Paused" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
 
         <div className={styles.pausedModalContinueButtonWrapper}>
           <RectangleButton
@@ -46,7 +46,7 @@ export default class PausedModal extends React.Component {
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
             titles={['Start over', 'Turn it in']}
-            images={['/images/dashboard/record-again-icon.png', '/images/dashboard/finish-icon-blue.png']} 
+            images={['/images/dashboard/record-again-icon.png', '/images/dashboard/finish-icon-blue.png']}
             actions={[this.props.onStartOverClicked, this.props.onTurnInClicked]}
           />
         </div>

@@ -28,7 +28,7 @@ export default class FormattedMarkupText extends React.Component {
 
   render() {
 
-    const endPindex = this.props.endParagraphIndex //shorthands for ease
+    const endPindex = this.props.endParagraphIndex // shorthands for ease
     const endWindex = this.props.endWordIndex
 
 
@@ -53,19 +53,19 @@ export default class FormattedMarkupText extends React.Component {
                   isInteractive={this.props.isInteractive}
                   onMouseEnter={this.props.onMouseEnterWord}
                   onMouseLeave={this.props.onMouseLeaveWord}
-                  key={paragraph.key + '_' + pIndex + '_' + wIndex}
+                  key={`${paragraph.key}_${pIndex}_${wIndex}`}
                 />
 
                 <MarkupWord
                   text={'SPACE'}
-                  isSpace={true}
+                  isSpace
                   wordAbove={wordDict.addAfterWord}
                   paragraphIndex={pIndex}
                   wordIndex={wIndex}
                   isInteractive={this.props.isInteractive}
                   onMouseEnter={this.props.onMouseEnterWord}
                   onMouseLeave={this.props.onMouseLeaveWord}
-                  key={paragraph.key + '_' + pIndex + '_' + wIndex + '_space'}
+                  key={`${paragraph.key}_${pIndex}_${wIndex}_space`}
                 />
               </span>
             ))}

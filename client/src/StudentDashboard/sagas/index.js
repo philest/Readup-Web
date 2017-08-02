@@ -73,13 +73,11 @@ import assessmentSaga from './assessmentSaga'
 
 function getPermission(recorder) {
 
-  return navigator.mediaDevices.getUserMedia({audio: true})
-  .then(function(yay) {
+  return navigator.mediaDevices.getUserMedia({ audio: true })
+  .then((yay) => {
     recorder.initialize()
     return true
-  }).catch(function(err) {
-    return false
-  });
+  }).catch((err) => false);
   // return new Promise(function(resolve, reject) {
   //   console.log('hihihih');
 
@@ -97,7 +95,7 @@ function getPermission(recorder) {
 
 function* playSoundAsync(sound) {
   yield call(_pSA, sound)
-  return
+
 }
 
 
@@ -108,7 +106,7 @@ function* getMicPermissionsSaga() {
 
   const hasPermissions = yield new Promise((resolve, reject) => {
     Recorder.hasRecordingPermissions((permissions) => {
-      console.log("We have permissions? " + permissions)
+      console.log(`We have permissions? ${permissions}`)
       resolve(permissions)
     })
   })
@@ -135,7 +133,7 @@ function* getMicPermissionsSaga() {
 
 function* haltRecordingAndGenerateBlobSaga(recorder) {
   yield put.resolve(setReaderState(ReaderStateOptions.done))
-  const blobURL = yield new Promise(function(resolve, reject) {
+  const blobURL = yield new Promise((resolve, reject) => {
     recorder.stopRecording((blobUrl) => {
       resolve(blobUrl)
     })
@@ -148,7 +146,7 @@ function* haltRecordingAndGenerateBlobSaga(recorder) {
 
 
 
-function* redirectToHomepage () {
+function* redirectToHomepage() {
   yield window.location.href = "/"
 }
 

@@ -32,7 +32,7 @@ export default class PlaybackModal extends React.Component {
 
   render() {
     return (
-      <BaseModal title='Your Recording' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
+      <BaseModal title="Your Recording" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
 
         <div className={styles.playbackContainer}>
           <h4 style={{ fontWeight: 'bold', marginTop: 20 }}>Hear it</h4>

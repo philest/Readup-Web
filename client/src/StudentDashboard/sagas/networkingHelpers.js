@@ -18,9 +18,7 @@ export function requestNewAssessment(bookKey: string): AssessmentId {
     },
     headers: RctOnR.authenticityHeaders(),
   })
-    .then(res => {
-      return res.data.assessment_id
-    })
+    .then(res => res.data.assessment_id)
 }
 
 export function getS3Presign(assessmentId: number): PresignObject {
