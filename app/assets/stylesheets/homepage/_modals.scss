@@ -62,7 +62,8 @@ body.modal-open {
   margin-right: auto;
   padding: 11px 30px;
   background-color: #2C6D9C;
-  font-family: 'Conv_proximanova-bold-webfont', sans-serif;
+  font-family: 'Proximanova', sans-serif;
+  font-weight: bold;
 
   margin-bottom: 30px;
 
@@ -103,7 +104,8 @@ h3.modal-subheading {
     border-radius: 3px;
     width: 100%;
     color: #282c31;
-    font-family: 'Conv_proximanova-bold-webfont',sans-serif;
+    font-family: 'Proximanova',sans-serif;
+    font-weight: bold;
     font-size: 14px;
     padding: 12px;
     line-height: normal;
@@ -119,7 +121,8 @@ h2.modal-signup-heading{
   text-align: center;
   line-height: 1.2em;
   color: #4a4a4a;
-  font-family: 'Conv_proximanova-bold-webfont';
+  font-family: 'Proximanova';
+  font-weight: bold;
 }
 
 h3.modal-signup-heading{
@@ -127,8 +130,8 @@ h3.modal-signup-heading{
   text-align: center;
   line-height: 0.5em;
   color: #4a4a4a;
-  font-family: 'Conv_proximanova-bold-webfont';
-  font-weight: 100;
+  font-family: 'Proximanova';
+  font-weight: bold;
 }
 
 div#modal-logo {

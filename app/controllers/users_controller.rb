@@ -89,7 +89,7 @@ class UsersController < ApplicationController
   end
 
   def show_complete_signup
-    render 'static_pages/signup/index'
+    render 'homepage/signup/index'
   end
 
 
