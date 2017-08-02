@@ -1,0 +1,131 @@
+
+.reportsContainer {
+
+}
+
+.navBar {
+	height: 60px;
+	z-index: 100;
+}
+
+
+.contentWrapper {
+	padding: 70px;
+
+}
+
+.evaluationInfoHeader {
+	display: flex;
+	flex-flow: row;
+}
+
+.mainHeadingContainer {
+
+}
+
+.studentNameHeading {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 1.9em;
+	
+}
+
+.bookInfoSubheading {
+	font-size: 1.2em;
+	font-style: italic;
+	margin-top: 10px;
+}
+
+.metricsHeadingContainer {
+	flex: 1;
+	display: flex;
+	flex-flow: row;
+	justify-content: flex-end;
+}
+
+.metricWrapper {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.metricFigureLabel {
+	color: green;
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-size: 1.8em;
+}
+
+.metricDescriptionLabel {
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-size: 1.3em;
+	margin-top: 10px;
+}
+
+.levelInfoWrapper {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	margin-left: 50px;
+}
+
+.levelRectangle {
+	background-color: green;
+	color: white;
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-size: 1.4em;
+	width: 140px;
+	padding: 8px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.levelLabel {
+	margin-top: 7px;
+	/*font-family: 'Conv_Proxima-Nova-Semibold';*/
+	font-size: 1.2em;
+}
+
+
+.bookInfoHeader {
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	margin-top: 100px;
+	margin-bottom: 60px;
+}
+
+.bookInfoWrapper {
+
+}
+
+.bookInfoTitle {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 1.6em;
+}
+
+.bookInfoLevel {
+	font-size: 1.2em;
+	font-style: italic;
+	margin-top: 5px;
+}
+
+.audioWrapper {
+	margin-left: 50px;
+}
+
+.audioElement {
+	width: 400px;
+}
+
+
+
+
+
+
+

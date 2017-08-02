@@ -2,82 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-import { sampleEvaluationText } from './sampleText'
+import { Button } from 'react-bootstrap'
+
+import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
+import { sampleEvaluationText } from '../sharedComponents/sampleMarkup'
 
 
-class TextWord extends React.Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    isSpace: PropTypes.bool,
-    strikethrough: PropTypes.bool,
-    wordAbove: PropTypes.string,
-    paragraphIndex: PropTypes.number,
-    wordIndex: PropTypes.number,
-    isEndWord: PropTypes.bool,
-    grayedOut: PropTypes.bool,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-  };
-  static defaultProps = {
-    isSpace: false,
-    isEndWord: false,
-    strikethrough: false,
-    grayedOut: false,
-    wordAbove: null,
-  };
 
-  constructor(props) {
-    super(props)
-    this.state = { highlighted: false }
-    // console.log('CONSTRUCT')
-  }
-
-  _onMouseEnter = () => {
-    // this.setState({ highlighted: true })
-    // console.log('highlighted: ' + this.props.paragraphIndex + ' - ' + this.props.wordIndex)
-    this.props.onMouseEnter(this.props.paragraphIndex, this.props.wordIndex, this.props.isSpace)
-  }
-
-  _onMouseLeave = () => {
-    // this.setState({ highlighted: false })
-    // console.log('unhighlighted: ' + this.props.paragraphIndex + ' - ' + this.props.wordIndex)
-    this.props.onMouseLeave(this.props.paragraphIndex, this.props.wordIndex, this.props.isSpace)
-  }
-
-  render() {
-
-    let wordClassNameString = this.props.strikethrough ? [styles.textWord, styles.strikethrough].join(' ') : styles.textWord
-    if (this.props.grayedOut) {
-      wordClassNameString += (' ' + styles.grayedOut)
-    }
-
-    return (
-      <span className={styles.wordWrapper}>
-        
-        <span className={wordClassNameString} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>
-          {this.props.isSpace && '\u00A0\u00A0\u00A0'}
-          {!this.props.isSpace && this.props.text}
-        </span>
-
-        {this.props.wordAbove && this.props.wordAbove !== '' &&
-          <span className={this.props.isSpace ? styles.wordAboveSpace : styles.wordAbove}>
-            {this.props.wordAbove}
-            {this.props.isSpace &&
-              <i className={["fa fa-chevron-up", styles.addChevron].join(' ')} aria-hidden={"true"}></i>
-            }
-          </span>
-        }
-
-        {this.props.isEndWord &&
-          <span className={styles.endingSlashes}>
-            //
-          </span>
-        }
-
-      </span>
-    );
-  }
-}
 
 
 export default class TranscriberInterface extends React.Component {
@@ -203,53 +134,13 @@ export default class TranscriberInterface extends React.Component {
     })
   }
 
+  onSubmitClicked = () => {
+    
+  }
+
   render() {
 
-    const FormattedWord = ({wordDict}) => (
-      <span>
-        <span className={styles.textWord}>{wordDict.word}</span>
-        <span className={styles.textWord}>&nbsp;&nbsp;&nbsp;</span>
-      </span>
-    );
-
-
-    const endPindex = this.state.evaluationTextData.readingEndIndex.paragraphIndex
-    const endWindex = this.state.evaluationTextData.readingEndIndex.wordIndex
-
-
-    const FormattedText = ({paragraphs}) => (
-
-      <div className={styles.textContainer}>
-
-        {paragraphs.map((paragraph, pIndex) => (
-          <div className={styles.textParagraph} key={paragraph.key}>
-
-            {paragraph.words.map((wordDict, wIndex) => (
-
-              <span key={paragraph.key + wIndex}>
-                <TextWord 
-                  text={wordDict.word}
-                  isSpace={false}
-                  isEndWord={(pIndex == endPindex && wIndex == endWindex)}
-                  grayedOut={(pIndex > endPindex || (pIndex == endPindex && wIndex > endWindex))}
-                  strikethrough={wordDict.wordDeleted}
-                  wordAbove={wordDict.substituteWord}
-                  paragraphIndex={pIndex}
-                  wordIndex={wIndex}
-                  onMouseEnter={this._onMouseEnterWord}
-                  onMouseLeave={this._onMouseLeaveWord}
-                  key={paragraph.key + '_' + pIndex + '_' + wIndex}
-                />
-
-                <TextWord text={'SPACE'} isSpace={true} wordAbove={wordDict.addAfterWord} paragraphIndex={pIndex} wordIndex={wIndex} onMouseEnter={this._onMouseEnterWord} onMouseLeave={this._onMouseLeaveWord} key={paragraph.key + '_' + pIndex + '_' + wIndex + '_space'} />
-              </span>
-            ))}
-            
-          </div>
-        ))}
-      </div>
-
-    );
+    
 
 
 
@@ -282,12 +173,26 @@ export default class TranscriberInterface extends React.Component {
           </div>
 
 
-          <FormattedText paragraphs={this.state.evaluationTextData.paragraphs} />
+          <FormattedMarkupText
+            paragraphs={this.state.evaluationTextData.paragraphs}
+            isInteractive={true}
+            onMouseEnterWord={this._onMouseEnterWord}
+            onMouseLeaveWord={this._onMouseLeaveWord}
+          />
 
 
 
         </div>
 
+
+        <Button 
+          className={styles.submitButton}
+          bsStyle={'primary'}
+          bsSize={'large'}
+          onClick={this.props.onSubmitClicked}
+        >
+          Submit
+        </Button>
 
 
 
