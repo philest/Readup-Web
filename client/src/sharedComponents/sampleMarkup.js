@@ -30,7 +30,7 @@
 export var sampleEvaluationText = {
   readingEndIndex: {
     paragraphIndex: 2, // -1
-    wordIndex: 16, // -1
+    wordIndex: 5, // -1
   },
   paragraphs: [
     {

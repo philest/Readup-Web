@@ -11,6 +11,10 @@
 	margin-bottom: 30px;
 }
 
+.wordAndSpaceWrapper {
+	display: inline-block;
+}
+
 .wordWrapper {
 	position: relative;
 }
@@ -58,10 +62,9 @@
 	transform: translateX(-50%);
 
 	/* The two lines below are both hacky solutions to getting the added text on the same line
-	not sure why necessary, but without one of them I couldn't get this to work. Not sure
-	if one is less hacky than the other */
-	/*width: 500px;*/
-	display: table;
+	not sure why necessary, but without one of them I couldn't get this to work. */
+	width: 500px;
+	/*display: table;*/
 
 }
 

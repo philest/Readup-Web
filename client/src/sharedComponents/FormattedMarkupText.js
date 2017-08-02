@@ -40,7 +40,7 @@ export default class FormattedMarkupText extends React.Component {
 
             {paragraph.words.map((wordDict, wIndex) => (
 
-              <span key={paragraph.key + wIndex}>
+              <span key={paragraph.key + wIndex} className={styles.wordAndSpaceWrapper}>
                 <MarkupWord 
                   text={wordDict.word}
                   isSpace={false}

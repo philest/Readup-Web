@@ -107,6 +107,8 @@ export default class ReportsInterface extends React.Component {
           <FormattedMarkupText
             paragraphs={sampleEvaluationText.paragraphs}
             isInteractive={false}
+            endParagraphIndex={sampleEvaluationText.readingEndIndex.paragraphIndex}
+            endWordIndex={sampleEvaluationText.readingEndIndex.wordIndex}
           />
 
 

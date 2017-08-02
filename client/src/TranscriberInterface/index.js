@@ -175,6 +175,8 @@ export default class TranscriberInterface extends React.Component {
 
           <FormattedMarkupText
             paragraphs={this.state.evaluationTextData.paragraphs}
+            endParagraphIndex={this.state.evaluationTextData.readingEndIndex.paragraphIndex}
+            endWordIndex={this.state.evaluationTextData.readingEndIndex.wordIndex}
             isInteractive={true}
             onMouseEnterWord={this._onMouseEnterWord}
             onMouseLeaveWord={this._onMouseLeaveWord}
