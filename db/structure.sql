@@ -379,7 +379,6 @@ ALTER SEQUENCE teachers_id_seq OWNED BY teachers.id;
 
 CREATE TABLE users (
     id bigint NOT NULL,
-    email character varying,
     phone character varying,
     password_digest character varying,
     default_locale character varying,
@@ -388,6 +387,16 @@ CREATE TABLE users (
     name character varying,
     first_name character varying,
     last_name character varying,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying,
+    last_sign_in_ip character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -599,6 +608,13 @@ CREATE UNIQUE INDEX index_users_on_phone ON users USING btree (phone);
 
 
 --
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
 -- Name: schools tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -652,6 +668,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170712204938'),
 ('20170715172257'),
 ('20170717172846'),
-('20170720183554');
+('20170720183554'),
+('20170725191958'),
+('20170725194440'),
+('20170725221320'),
+('20170725221832');
 
 

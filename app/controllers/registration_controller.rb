@@ -4,12 +4,13 @@ class RegistrationController < ApplicationController
   # todo: write a before-action for getting demo classroom
 
   def create_demo_classroom
+
     classroom_options = {
       classroom_name: "Demo Homeroom",
-      user_id: params["user_id"].to_i,
+      user_id: current_user.id.to_i,
       school_id: School.find_by(name: 'Demo School'),
       grade: 5,
-      teacher_signature: params["user_name"],
+      teacher_signature: current_user.first_name + current_user.last_name,
       student_list: ["Demo Student"]
     }
 
@@ -21,7 +22,9 @@ class RegistrationController < ApplicationController
 
       session[:student_id] = demo_student.id || nil
 
-      render json: { ok: true }, status: :ok, location: @user
+      # render json: { ok: true }, status: :ok, location: @user
+
+      redirect_to "/student_dashboard/#/story/demo"
 
 
     else

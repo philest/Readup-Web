@@ -1,5 +1,10 @@
 class User < ApplicationRecord
 
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
   has_many :teachers, inverse_of: :user
 
   after_initialize :set_defaults, unless: :persisted?
@@ -12,7 +17,7 @@ class User < ApplicationRecord
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validates :name, presence: true, length: { maximum: 50 }
+  # validates :name, presence: true, length: { maximum: 50 }
   validates :email, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { allow_blank: true,
@@ -33,20 +38,21 @@ class User < ApplicationRecord
   end
 
 
-  validate :full_name_present
-  def full_name_present
-    if name.nil? || name == "" || name.split(" ").size < 2
-      errors.add(:name, 'Full name must be entered.')
-    end
-  end
+  # validate :full_name_present
+  # def full_name_present
+  #   if name.nil? || name == "" || name.split(" ").size < 2
+  #     errors.add(:name, 'Full name must be entered.')
+  #   end
+  # end
 
 
   before_save {
     self.email = email.downcase if email.present?
-    name_arr = name.split
-    self.first_name = name_arr[0, name_arr.size - 1].join(" ")
-    self.last_name  = name_arr[-1]
+    # name_arr = name.split
+    # self.first_name = name_arr[0, name_arr.size - 1].join(" ")
+    # self.last_name  = name_arr[-1]
   }
 
-  has_secure_password
+  # This breaks devise.
+  # has_secure_password
 end

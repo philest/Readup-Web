@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'hello', to: 'hello_world#index'
 
+  devise_for :users, :controllers => { registrations: 'devisemethods' }
 
   # static pages
 
@@ -34,14 +35,14 @@ Rails.application.routes.draw do
 
   # user stuff including auth
 
-  resources :users
+  # resources :users
 
   get 'auth/user_exists', to: 'users#exists'
   get 'auth/complete_signup', to: 'users#show_complete_signup'
 
   post 'auth/add_school', to: 'registration#add_school'
   post 'auth/create_classroom', to: 'registration#create_classroom'
-  post 'auth/create_demo_classroom', to: 'registration#create_demo_classroom'
+  get 'auth/create_demo_classroom', to: 'registration#create_demo_classroom'
   get 'auth/search_school', to: 'registration#search_school'
 
 
