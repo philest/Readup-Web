@@ -53,6 +53,7 @@ import {
   setRecordingURL,
   setCurrentModal,
   setCurrentOverlay,
+  setCountdownValue,
 } from '../state'
 
 
@@ -258,11 +259,16 @@ function* assessThenSubmitSaga() {
   ))
   yield playSoundAsync('/audio/recording_countdown.mp3')
 
+  let countdown = 3
+  while (countdown > 0) {
+    yield put(setCountdownValue(countdown))
+    yield call(delay, 1000)
+    countdown--
+  }
+
 
   // yield put(setCurrentSound('/audio/book_intro.mp3'))
 
-  // TODO: D. Ernst pls fix dis tx
-  yield take(COUNTDOWN_ENDED)
   yield put.resolve(setCurrentModal('no-modal'))
 
 

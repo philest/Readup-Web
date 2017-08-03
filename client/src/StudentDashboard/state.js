@@ -16,6 +16,7 @@ import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermis
 
 export const READER_STATE_SET = 'READER_STATE_SET'
 
+export const COUNTDOWN_VALUE_SET = 'COUNTDOWN_VALUE_SET'
 export const COUNTDOWN_ENDED = 'COUNTDOWN_ENDED'
 export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
 
@@ -111,6 +112,14 @@ export function stopRecordingClicked() {
   }
 }
 
+export function setCountdownValue(countdownValue: number) {
+  return {
+    type: COUNTDOWN_VALUE_SET,
+    payload: {
+      countdownValue,
+    }
+  }
+}
 
 export function countdownEnded() {
   return {
@@ -368,6 +377,7 @@ const initialState = {
   currentModalId: 'no-modal',
   currentOverlayId: 'no-overlay',
   showSpinner: false,
+  countdownValue: -1,
 }
 
 
@@ -439,6 +449,10 @@ function reducer(state = initialState, action = {}) {
 
     case SPINNER_HIDE: {
       return { ...state, showSpinner: false }
+    }
+
+    case COUNTDOWN_VALUE_SET: {
+      return { ...state, countdownValue: payload.countdownValue}
     }
 
     // case BOOK_INTRO_RECORDING_ENDED: {
