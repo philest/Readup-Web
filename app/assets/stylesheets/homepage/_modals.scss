@@ -105,7 +105,7 @@ h3.modal-subheading {
     width: 100%;
     color: #282c31;
     font-family: 'Proximanova',sans-serif;
-    font-weight: bold;
+    font-weight: 100;
     font-size: 14px;
     padding: 12px;
     line-height: normal;
@@ -123,6 +123,10 @@ h2.modal-signup-heading{
   color: #4a4a4a;
   font-family: 'Proximanova';
   font-weight: bold;
+}
+
+.modal-header h2.modal-signup-heading {
+  margin-bottom: 15px;
 }
 
 h3.modal-signup-heading{
