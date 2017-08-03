@@ -38,6 +38,8 @@ import {
 
 import { playSoundAsync, stopAudio } from '../audioPlayer'
 
+const PAGE_CHANGE_DEBOUNCE_TIME_MS = 200
+
 // import {
 //   clog
 // } from './helpers'
@@ -66,6 +68,16 @@ function* resumeAssessmentSaga (action) {
   yield put.resolve(setCurrentModal('no-modal'))
 }
 
+function* pageIncrementSaga (action) {
+  yield call(delay, PAGE_CHANGE_DEBOUNCE_TIME_MS)
+  yield put({ type: PAGE_INCREMENT })
+}
+
+function* pageDecrementSaga (action) {
+  yield call(delay, PAGE_CHANGE_DEBOUNCE_TIME_MS)
+  yield put({ type: PAGE_DECREMENT })
+}
+
 
 
 // TODO: flowtype the assessment results as return value
@@ -76,13 +88,9 @@ export default function* assessmentSaga() {
   yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga)
   yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga)
 
-  yield takeLatest(NEXT_PAGE_CLICKED, function* (payload) {
-    yield put({ type: PAGE_INCREMENT })
-  })
+  yield takeLatest(NEXT_PAGE_CLICKED, pageIncrementSaga)
 
-  yield takeLatest(PREVIOUS_PAGE_CLICKED, function* (payload) {
-    yield put({ type: PAGE_DECREMENT })
-  })
+  yield takeLatest(PREVIOUS_PAGE_CLICKED, pageDecrementSaga)
   // start recording the assessment audio
   const recorder = yield select(getRecorder)
   yield call(recorder.startRecording)
