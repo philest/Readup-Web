@@ -86,6 +86,13 @@ production:
   username: birdup
   password: <%= ENV['BIRDUP_DATABASE_PASSWORD'] %>
 
+# instead of `heroku run 'rails c -s'`, we can now run
+# rails c -s production_db locally
+production_db:
+  <<: *default
+  url: <%= ENV['BIRDUP_PRODUCTION_URL'] %>
+
+
 birdup_production:
   <<: *default
   url: <%= ENV['BIRDUP_PRODUCTION_URL'] %>

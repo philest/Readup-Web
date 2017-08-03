@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'react_on_rails', '~> 8.0.3'
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', groups: [:development, :test, :production_db]
 
 gem 'airbrake', '~> 6.1'
 gem 'newrelic_rpm'

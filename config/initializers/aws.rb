@@ -4,6 +4,8 @@ Aws.config = {
   region: ENV['AWS_BUCKET_REGION'],
 }
 
+puts "Hi, my name is #{ENV['AWS_REGION']}"
+
 Aws.eager_autoload!
 
 # S3_BUCKET =  Aws::S3::Client.new.buckets[ENV['S3_BUCKET']]
