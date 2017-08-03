@@ -325,51 +325,30 @@ export function setIsDemo(isDemo) {
 const sampleBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
-  numPages: 6, // if you want a shorter book for testing purposes just change this
+  numPages: 3, // if you want a shorter book for testing purposes just change this
   coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
   pages: {
     1: {
       lines: [
-        "When the moon is high\nand the stars are bright,",
+        "The moon is high\nand the stars are bright.",
         "Daddy tells me,\n\"It's a firefly night!\"",
-      ],
-      img: '/images/dashboard/sample-book-assets/firefly-1.png',
-    },
-    2: {
-      lines: [
-        "I hop off the porch.\nI feel the air",
-        "It warms my legs and tosses my hair."
       ],
       img: '/images/dashboard/sample-book-assets/firefly-2.png',
     },
-    3: {
-      lines: [
-        "Grass tickles my toes.\nI run through the yard.",
-        "I chase fireflies to put in my jar."
-      ],
-      img: '/images/dashboard/sample-book-assets/firefly-3.png',
-    },
-    4: {
+    2: {
       lines: [
         "Fireflies shine.\nAll of them glow.",
         "I race to show Daddy\ntheir dancing light show."
       ],
       img: '/images/dashboard/sample-book-assets/firefly-4.png',
     },
-    5: {
+    3: {
       lines: [
-        "They fly away quickly.\nThey sparkle and shine.",
+        "I open my jar. They fly away quickly and shine. ",
         "I love catching fireflies, but they are not mine."
       ],
-      img: '/images/dashboard/sample-book-assets/firefly-6.png'
+      img: '/images/dashboard/sample-book-assets/firefly-3.png'
     },
-    6: {
-      lines: [
-        "We walk back to the home.\nI hold Daddy's hand tight.",
-        "I ask him \"Will tomorrow be a firefly night\"?"
-      ],
-      img: '/images/dashboard/sample-book-assets/firefly-7.png'
-    }
   },
 };
 

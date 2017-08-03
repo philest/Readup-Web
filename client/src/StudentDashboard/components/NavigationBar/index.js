@@ -50,7 +50,7 @@ export default class NavigationBar extends React.Component {
           <div className={css.subContainer}>
             <div className={[css.centerDisplayContainer, css.headerTabRed].join(' ')}>
               <RectangleButton
-                title={'Pause'}
+                title={'Stop'}
                 subtitle={'recording'}
                 style={{ marginTop: 20 }}
                 id="navigation-button"

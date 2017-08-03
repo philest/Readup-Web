@@ -34,20 +34,12 @@ export default class PausedModal extends React.Component {
     return (
       <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
 
-        <div className={styles.pausedModalContinueButtonWrapper}>
-          <RectangleButton
-            className={styles.pausedModalContinueButton}
-            title="Go on!"
-            style={{ width: 200, height: 65, backgroundColor: 'green' }}
-            onClick={this.props.onContinueClicked}
-          />
-        </div>
-
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Start over', 'Turn it in']}
-            images={['/images/dashboard/record-again-icon.png', '/images/dashboard/finish-icon-blue.png']} 
-            actions={[this.props.onStartOverClicked, this.props.onTurnInClicked]}
+            titles={['Done', 'Go on', 'Start over']}
+            images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/go-on-icon.png', '/images/dashboard/record-again-icon.png' ]}
+            actions={[this.props.onTurnInClicked, this.props.onContinueClicked, this.props.onStartOverClicked ]}
+            enlargeFirst={true}
           />
         </div>
 
