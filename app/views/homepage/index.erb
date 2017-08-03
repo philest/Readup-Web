@@ -10,8 +10,107 @@
     height: 130px;
   }
 
+  .product-text {
+    margin-top: 10px;
+  }
+
+  .product-text h2 {
+    font-weight: bold;
+    font-size: 1.4em;
+    position: relative;
+    z-index: 2;
+  }
+
+  .product-text ul {
+     margin-left: 20px;
+     width: 80%;
+     text-align: left;
+     position: relative;
+  }
+
+  .product-text ul p {
+    margin-bottom: 20px;
+    z-index: 2;
+  }
+
+  .product-display {
+
+  }
+
+  #get-started h1 {
+    font-family: 'Proximanova Semibold';
+    font-size: 1.8em;
+    color: white;
+  }
+
+  #get-started p {
+    font-weight: normal;
+    color: white;
+    font-size: 1.0em;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  #get-started a {
+    width: 200px;
+    height: 75px;
+    margin: 0 auto;
+  }
+
+  .step-2 {
+    padding-top: 5em;
+  }
+
+  #hero-button {
+    width: 150px;
+    height: 50px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0.8em;
+    display: block;
+    font-family: 'Proximanova Semibold';
+  }
+
+  .how-it-works {
+    font-size: 0.5em;
+    margin-top: 20px;
+    font-weight: 100;
+  }
+
+  .step-number-label-left {
+    position: absolute;
+    top: -35px;
+    right: 40px;
+
+    font-size: 4.0em;
+    color: #EDF2F5;
+    z-index: 1;
+
+
+  }
+
+  .step-number-label-right {
+    position: absolute;
+    top: -30px;
+    left: -10px;
+
+    font-size: 4.0em;
+    color: #EDF2F5;
+    z-index: 1;
+
+
+  }
+
   /* mobile */
   @media (max-width: 35.5em) {
+    .how-it-works {
+      display: none;
+    }
+  }
+
+  /* when columns collapse */
+  @media (max-width: 48em) {
     .section-buffer {
       height: 235px;
     }
@@ -19,18 +118,52 @@
       font-size: 27px;
       padding-top: 45px;
     }
+    .product-text {
+      margin-top: 20px;
+    }
+    .product-text ul {
+      margin: 0 auto;
+      text-align: center;
+      width: 100%;
+    }
+    .product-text h2 {
+      text-align: center;
+    }
+    .product-text ul p {
+      text-align: center;
+    }
+    .step-2 {
+      padding-top: 1em;
+    }
+
+    .step-number-label-right {
+      left: -30px;
+    }
+    .step-number-label-left {
+      right: -30px;
+    }
+
+    #demoButton2 {
+      display: block;
+      margin: 0 auto;
+    }
   }
+
+  
 </style>
 
 
 
 <%= render 'homepage/partials/navbar' %>
+<%= render 'homepage/modals/signup_form_modal' %>
+
+
 
 
 <div class="splash-new">
   <div
     class="splash-container"
-    style="background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/student-hero-resized.jpg')
+    style="background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero-desktop.jpg')
           center
           top/cover
           no-repeat
@@ -46,7 +179,10 @@
             ReadUp listens and grades reading so you can spend your time teaching.
           </h4>
         </center>
-        <%= render 'homepage/partials/signup_form' %>
+        <button type="button" class="btn btn-primary" id="hero-button" data-toggle="modal" data-target="#signupFormModal">Try a Demo</button>
+
+        <div class="how-it-works">HOW IT WORKS <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/down-arrow.png" style="margin-top: -3px;"></div>
+        
       </div>
     </div>
   </div>
@@ -57,23 +193,72 @@
 <div class='section-buffer'></div>
 
 <section class="product-display" id="end-no-reading">
-  <h1 class="section-banner">The end of scoring running records.</h1>
+  <h1 class="section-banner">Save hundreds of instructional hours</h1>
   <div class="pure-g">
 
     <div class="pure-u-1 pure-push-md-1-2 pure-u-md-1-2">
       <div class="product-img">
-        <img src="/images/ipad-1.png" alt="">
+        <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/step-1.jpg" alt="">
+      </div>
+    </div>
+
+
+    <div class="pure-u-1 pure-pull-md-1-2 pure-u-md-1-2">
+      <div class="product-text" style="position: relative;">
+        <div class='step-number-label-left'>01</div>
+        <h2>Students read on their own</h2>
+        <ul>
+          <p>F&amp;P-leveled books that are chosen by Yale professors </p>
+          <p>Readup records their reading</p>
+        </ul>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<section class="product-display" id="support-families">
+  <div class="pure-g step-2">
+
+    <div class="pure-u-1 pure-u-md-1-2">
+      <div class="product-img">
+        <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/step-2.jpg" alt="">
+      </div>
+    </div>
+
+    <div class="pure-u-1 pure-u-md-1-2">
+      <div class="product-text" style="position: relative;">
+        <div class='step-number-label-right'>02</div>
+        <h2 >You get a running record</h2>
+        <ul>
+          <p>Scored by a trained teacher</p>
+          <p>Emailed to you in under 1 hour</p>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="product-display" id="support-families" style="margin-top: 2em; background-color: #EDF2F5;">
+  <div class="pure-g" style="padding-top: 3em;">
+
+    <div class="pure-u-1 pure-push-md-1-2 pure-u-md-1-2">
+      <div class="product-img">
+        <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/running-record-report-large.jpg" alt="">
       </div>
     </div>
 
 
     <div class="pure-u-1 pure-pull-md-1-2 pure-u-md-1-2">
       <div class="product-text">
-        <h2>Running records scored for you</h2>
-        <ul>
-          <p><b>Save hundreds of hours</b> to spend teaching, not testing. </p>
-          <p><b>See miscue analyses</b> to know the type of errors students make.</p>
-          <p><b>Hear recordings</b> played back at anytime. </p>
+        <h2>Know where your students are – instantly</h2>
+        <ul style="margin: 0;">
+          <p><b>Save hours</b> of administering, grading, and documenting</p>
+          <p><b>See Weaknesses</b> to know what each students needs</p>
+          <p><b>Show parents</b> to share student growth and success</p>
+          <button type="button" class="btn btn-success" id="demoButton2" style="width: 150px; height: 50px; margin-top: 30px; text-align: center; font-size: 1.1em; display: block" data-toggle="modal" data-target="#signupFormModal">Try a Demo</button>
         </ul>
       </div>
     </div>
@@ -83,41 +268,14 @@
 </section>
 
 
-<section class="product-display" id="support-families" style="background-color: #676487; color:#ffffff;">
-  <div class="pure-g" style="padding-top: 6em;">
+<div id="get-started" style="padding: 20px; padding-top: 50px; padding-bottom: 70px; background-color: #3E8EC8; color: white;">
 
-    <div class="pure-u-1 pure-u-md-1-2">
-      <div class="product-img">
-        <img src="/images/ipad-2.png" alt="">
-      </div>
-    </div>
+  <h1 id="call-to-action" style="color: white;">Ready to get started with Readup?</h1>
 
-    <div class="pure-u-1 pure-u-md-1-2">
-      <div class="product-text">
-        <h2>Hassle-free data collection</h2>
-        <ul>
-          <p style="color:#ffffff;"><b>Track student progress</b> over the year and see reading growth. </p>
-          <p style="color:#ffffff;"><b>Share with parents</b> to celebrate student gains.</p>
-          <p style="color:#ffffff;"><b>See reading weaknesses</b> and get strategies to target those. </p>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+  <p>Join thousands of educators that trust Readup to save instructional time</p>
 
 
+  <button type="button" class="btn btn-success" style="width: 150px; height: 50px; margin: 0 auto; text-align: center; font-size: 1.1em; display: block" data-toggle="modal" data-target="#signupFormModal">Try a Demo</button>
 
-
-<h1 class="banner" id="call-to-action">Spend your time teaching, not testing.</h1>
-
-<p><center><b>Learn more about using ReadUp across your school.</b></center></p>
-
-
-
-<img class="contact-image call-to-action-image" src="https://d2yudi7y1eei74.cloudfront.net/assets/phone.png">
-<p><center><b>
-  <a style="text-align: center;" href="mailto:team@readupnow.com?&subject=Storytime">
-    team@readupnow.com
-  </a>
-</b></center></p>
+</div>
 
