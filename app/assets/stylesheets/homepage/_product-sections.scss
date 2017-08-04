@@ -44,10 +44,12 @@
 
  h4#sub-pitch {
    margin-top: 15px;
-   font-size: 18px;
+   font-size: 20px;
    margin-bottom: 45px;
-   font-family: 'Proximanova Semibold';
+   font-family: 'Proximanova';
    color: white;
+   width: 700px; 
+   line-height: 1.5;
  }
 
  h1#pitch {
@@ -208,7 +210,8 @@
       h4#sub-pitch {
         font-size: 17px;
         line-height: 1.5;
-        font-family: 'Proximanova Semibold';
+        width: 100%;
+        line-height: 1.75
       }
 
       // Form stuff
