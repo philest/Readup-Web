@@ -39,7 +39,7 @@
 
   #get-started h1 {
     font-family: 'Proximanova Semibold';
-    font-size: 1.8em;
+    font-size: 2.2em;
     color: white;
   }
 
@@ -107,11 +107,80 @@
 
   }
 
+  .skew-up {
+    transform: skewY(-2deg);
+  }
+
+  .skew-down-container {
+    transform: skewY(2deg);
+  }  
+
+  .extra-padding {
+    padding: 4.25rem;
+    position: relative;
+    padding-top: 5.9375rem;
+    padding-bottom: 5.9375rem;
+    padding-left: 4.25rem;
+    padding-right: 4.25rem;
+  }
+
+  .content--max--width {
+    position: relative;
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+  }
+
+  .content--max--width:before {
+      display: table;
+    line-height: 0;
+    content: "";
+  }
+
+  .quote-image {
+    width: 195px;
+    height: 195px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .quote-content-left {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 205px);
+    padding-left: 5.625rem;
+  }
+
+  .quote-content {
+    display: inline-block;
+  }
+
+  .quote-title {
+    font-size: 2.0rem;
+    line-height: 2.875rem;
+    margin-bottom: 2.25rem;
+    letter-spacing: -0.6px;
+    color: #337ab7;
+    font-weight: 100;
+    display: inline-block;
+  }
+
+
+
   /* mobile */
   @media (max-width: 35.5em) {
     .how-it-works {
       display: none;
     }
+
+
+    #get-started h1 {
+      font-size: 1.8em;
+    }
+
+
   }
 
   /* when columns collapse */
@@ -158,6 +227,35 @@
       display: block;
       margin: 0 auto;
     }
+
+    .quote-image { 
+      margin-bottom: 1rem;
+      display: block;
+      width: 150px;
+      height: 150px; 
+    }
+
+    [class*="quote-content"] {
+      display: block;
+      width: 100%;
+      padding-left: 0;
+    }
+
+    .quote-title {
+      font-size: 1.575rem;
+      line-height: 2rem;
+      margin-bottom: 1.0625rem;
+    }
+
+
+    .extra-padding {
+    padding-top: 4.25rem;
+    padding-bottom: 4.25rem;
+    padding-left: 2.8125rem;
+    padding-right: 2.8125rem; 
+    }
+
+
   }
 
   
@@ -187,7 +285,7 @@
         </h1>
         <center>
           <h4 id="sub-pitch">
-            ReadUp listens to students read and creates a full running record with fluency, accuracy, comprehension, and miscue analysis. 
+            ReadUp listens to students read and creates a full running record with fluency, accuracy, comprehension, and miscue analysis 
            </h4>
         </center>
         <button type="button" class="btn btn-primary" id="hero-button" data-toggle="modal" data-target="#signupFormModal">Try a Demo</button>
@@ -252,8 +350,8 @@
   </div>
 </section>
 
-<section class="product-display" id="support-families" style="margin-top: 2em; background-color: #EDF2F5;">
-  <div class="pure-g" style="padding-top: 3em;">
+<section class="product-display skew-up" id="support-families" style="margin-top: 2em; background-color: #EDF2F5;">
+  <div class="pure-g skew-down-container" style="padding-top: 3em;">
 
     <div class="pure-u-1 pure-push-md-1-2 pure-u-md-1-2">
       <div class="product-img">
@@ -275,6 +373,19 @@
     </div>
 
 
+  </div>
+</section>
+
+
+<section class="product-display extra-padding" id="testimonial"> 
+  <div class="content--max--width">
+    <img  class="quote-image" src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/testimonial-photo.jpg">
+    <div class="quote-content-left"> 
+      <div class="quote-content">
+        <h3 class="quote-title">The best service is one that does not require our teachers to worry or stress, and ReadUp provides this for Loma Park.</h3>
+        <p>Maria Contreras, Loma Park Elementary</p>
+      </div>
+    </div>
   </div>
 </section>
 
