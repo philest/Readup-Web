@@ -9,6 +9,10 @@ export default class ButtonArray extends React.Component {
     titles: PropTypes.arrayOf(PropTypes.string).isRequired,
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
     actions: PropTypes.arrayOf(PropTypes.func),
+    enlargeFirst: PropTypes.bool,
+  };
+  static defaultProps = {
+    enlargeFirst: false,
   };
 
   render() {
@@ -18,10 +22,10 @@ export default class ButtonArray extends React.Component {
     return (
       <div className={styles.buttonArrayWrapper}>
 
-        {zipped.map(buttonInfoArray => (
+        {zipped.map((buttonInfoArray, index) => (
           <div className={styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
-            <img className={styles.buttonImage} src={buttonInfoArray[1]} />
-            <div className={styles.buttonText}>{buttonInfoArray[2]}</div>
+            <img className={(this.props.enlargeFirst && index == 0) ? styles.largeButtonImage : styles.buttonImage} src={buttonInfoArray[1]} />
+            <div className={(this.props.enlargeFirst && index == 0) ? styles.largeButtonText : styles.buttonText}>{buttonInfoArray[2]}</div>
           </div>
         ))}
 

@@ -59,6 +59,7 @@ function mapStateToProps (state) {
     currentShowModal: state.reader.currentModalId,
     currentShowOverlay: state.reader.currentOverlayId,
     showSpinner: state.reader.showSpinner,
+    countdownValue: state.reader.countdownValue,
   }
 }
 
@@ -226,12 +227,7 @@ class StudentDashboard extends React.Component {
 
         {
           (this.props.readerState === ReaderStateOptions.countdownToStart) &&
-          <CountdownOverlay
-            countdownDuration={3}
-            onCountdownFinished={() => {
-              this.props.actions.countdownEnded()
-            }}
-          />
+          <CountdownOverlay countdownValue={this.props.countdownValue} />
         }
 
       </div>
