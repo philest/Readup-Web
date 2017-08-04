@@ -60,5 +60,13 @@ Rails.application.routes.draw do
 
   get '/audio_process', to: 'audio_process#index'
 
+
+  scope '/admin' do
+    root to: "admin/assessment#teachers_list"
+    get 'teacher/:id', to: 'admin/assessment#classrooms_by_teacher', as: 'classrooms_by_teacher'
+    get 'err', to: 'admin/assessment#pls_login', as: 'pls_login'
+  end
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

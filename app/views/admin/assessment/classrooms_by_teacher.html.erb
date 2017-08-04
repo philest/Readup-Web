@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Assessments Portal </title>
+</head>
+<body style="margin: 20px;">
+  <h1>
+    <%= "#{@teacher.signature}'s classrooms" %>
+  </h1>
+  <table width="100%">
+    <thead>
+      <tr>
+        <th> Name </th>
+        <th> Grade </th>
+        <th> School </th>
+        <th> Created </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @teacher.classrooms.each do |c| %>
+        <tr>
+          <td><%= c.name %></td>
+          <td><%= c.grade_level %></td>
+          <td><%= c.school.name %></td>
+          <td><%= c.created_at %></td>
+        </tr>
+        <tr>
+          <td>
+
+
+        <ul>
+          <% c.students.each do |s| %>
+            <li><%= s.first_name %> <%= s.last_name %></li>
+          <% end %>
+        </ul>
+        </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>

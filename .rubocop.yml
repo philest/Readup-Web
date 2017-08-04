@@ -10,3 +10,7 @@ Style/IndentationConsistency:
   Enabled: false
 Style/Tab:
   Enabled: false
+Style/EmptyLines:
+  Enabled: false
+Style/EmptyLineBetweenDefs:
+  Enabled: false
