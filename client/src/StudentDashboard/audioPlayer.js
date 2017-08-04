@@ -10,19 +10,19 @@ export function playSound(file, onEnd) {
       return
     }
 
-    if (!!audio) {
+    if (audio) {
       audio.pause()
     }
 
-    console.log('Playing Sound: ' + file)
+    console.log(`Playing Sound: ${file}`)
 
     audio = new Audio(file);
-    audio.addEventListener('ended', function() {
+    audio.addEventListener('ended', () => {
       audio = null
       console.log("audio ended")
       resolve()
     });
-    audio.addEventListener('error', function(error) {
+    audio.addEventListener('error', (error) => {
       console.log("audio error")
       reject(error)
     })
@@ -33,17 +33,17 @@ export function playSound(file, onEnd) {
 
 export function playSoundAsync(file) {
 
-    if (!!audio) {
-      audio.pause()
-    }
-    console.log('Playing Sound: ' + file)
-    audio = new Audio(file);
-    audio.play();
+  if (audio) {
+    audio.pause()
+  }
+  console.log(`Playing Sound: ${file}`)
+  audio = new Audio(file);
+  audio.play();
 
 }
 
 export function stopAudio() {
-  if (!!audio) {
+  if (audio) {
     audio.pause()
     audio = null
   }

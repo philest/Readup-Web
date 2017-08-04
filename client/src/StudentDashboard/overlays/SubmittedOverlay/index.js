@@ -28,7 +28,7 @@ export default class SubmittedModal extends React.Component {
     if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {
       return null
     }
-    
+
     return (
       <div className={commonStyles.fill}>
         <div className={styles.submittedContainer}>

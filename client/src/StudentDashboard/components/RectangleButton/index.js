@@ -12,14 +12,14 @@ type props = {
   style: {},
 };
 
-function RectangleButton ({
+function RectangleButton({
   title = "",
   subtitle = "",
   onClick = function () { return null },
   disabled = false,
   pulsatingArrow = false,
   style = {},
-} : props) {
+}: props) {
   return (
     <div
       className={disabled ? styles.disabledButtonContainer : styles.rectangleButtonContainer}
@@ -27,14 +27,14 @@ function RectangleButton ({
       onClick={() => (!disabled && onClick())}
     >
 
-      
+
       <div className={styles.rectangleButtonTitle}>
-        { pulsatingArrow 
+        { pulsatingArrow
           && !disabled
-          && <i className={['fa fa-angle-right', styles.pulsatingArrow].join(' ')}></i>
+          && <i className={['fa fa-angle-right', styles.pulsatingArrow].join(' ')} />
         }
         {title}
-        
+
       </div>
 
       {

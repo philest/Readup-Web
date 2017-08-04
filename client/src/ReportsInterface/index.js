@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Button } from 'react-bootstrap'
+
 import styles from './styles.css'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
+<<<<<<< HEAD
 import { Button, Modal } from 'react-bootstrap'
 
+=======
+>>>>>>> ad3eaae5512d46ff7c9f2952613d005453ac5cc8
 import { sampleEvaluationText } from '../sharedComponents/sampleMarkup'
-
 
 
 export default class ReportsInterface extends React.Component {
@@ -72,7 +76,6 @@ export default class ReportsInterface extends React.Component {
     // TODO do something with the data
 
   }
-  
 
   render() {
 
@@ -119,12 +122,12 @@ export default class ReportsInterface extends React.Component {
 
               <div className={styles.levelInfoWrapper}>
                 <div className={styles.levelRectangle}>Level G</div>
-                <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
+                <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"} /></div>
               </div>
 
             </div>
           </div>
-          
+
 
           <div className={styles.bookInfoHeader}>
 
@@ -142,7 +145,7 @@ export default class ReportsInterface extends React.Component {
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
                 >
-                  Play Recording &nbsp;&nbsp;<i className={"fa fa-play"} aria-hidden={"true"}></i>
+                  Play Recording &nbsp;&nbsp;<i className={"fa fa-play"} aria-hidden={"true"} />
                 </Button>
               }
 
@@ -236,5 +239,4 @@ export default class ReportsInterface extends React.Component {
     );
   }
 }
-
 

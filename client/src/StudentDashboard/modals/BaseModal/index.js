@@ -13,7 +13,7 @@ export default class PausedModal extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     show: PropTypes.bool,
-    animation: PropTypes.bool
+    animation: PropTypes.bool,
   };
 
   static defaultProps = {

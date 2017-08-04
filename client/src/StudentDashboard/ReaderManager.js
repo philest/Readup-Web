@@ -34,7 +34,7 @@ import { Modal } from 'react-bootstrap'
 import {
   HashRouter,
   Route,
-  Redirect
+  Redirect,
 } from 'react-router-dom'
 
 
@@ -45,7 +45,7 @@ import {
 const PRELOAD_IMAGES_ADVANCE = 3
 
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     // micEnabled: state.reader.micEnabled,
     pageNumber: state.reader.pageNumber,
@@ -91,7 +91,7 @@ class StudentDashboard extends React.Component {
 
     if (!Recorder.browserSupportsRecording()) {
       alert("Your browser cannot record audio. Please switch to Chrome or Firefox.")
-      return
+
     }
 
     // This stuff kicks off the process, gets state out of initializing
@@ -99,7 +99,7 @@ class StudentDashboard extends React.Component {
 
 
   componentDidUpdate(nextProps) {
-    console.log('ReaderManager updated to pageNumber:  ' + this.props.pageNumber)
+    console.log(`ReaderManager updated to pageNumber:  ${this.props.pageNumber}`)
   }
 
 
@@ -138,8 +138,7 @@ class StudentDashboard extends React.Component {
         showPauseButton: false,
         onStartClicked: this.props.actions.startRecordingClicked,
       }
-    }
-    else { // any other page...
+    }    else { // any other page...
 
       readerProps = {
         ...readerProps,
@@ -160,71 +159,66 @@ class StudentDashboard extends React.Component {
   }
 
 
-  renderModalComponentOrNullBasedOnState = () => {
+  renderModalComponentOrNullBasedOnState = () => (
 
-    return (
+    <div>
+      <PausedModal
+        onContinueClicked={this.props.actions.resumeClicked}
+        onStartOverClicked={this.props.actions.restartRecordingClicked}
+        onTurnInClicked={this.props.actions.turnInClicked}
+        currentShowModal={this.props.currentShowModal}
+      />
 
-      <div>
-        <PausedModal
-          onContinueClicked={this.props.actions.resumeClicked}
-          onStartOverClicked={this.props.actions.restartRecordingClicked}
-          onTurnInClicked={this.props.actions.turnInClicked}
-          currentShowModal={this.props.currentShowModal}
-        />
+      <ExitModal
+        startedRecording={this.props.hasRecordedSomething}
+        onContinueClicked={this.props.actions.resumeClicked}
+        onExitAndUploadClicked={this.props.exitAndUploadRecording}
+        onExitNoUploadClicked={this.props.quitAssessment}
+        currentShowModal={this.props.currentShowModal}
+      />
 
-        <ExitModal
-          startedRecording={this.props.hasRecordedSomething}
-          onContinueClicked={this.props.actions.resumeClicked}
-          onExitAndUploadClicked={this.props.exitAndUploadRecording}
-          onExitNoUploadClicked={this.props.quitAssessment}
-          currentShowModal={this.props.currentShowModal}
-        />
+      <PlaybackModal
+        audioSrc={this.props.recordingURL}
+        onStartOverClicked={this.props.actions.restartRecordingClicked}
+        onTurnInClicked={this.props.actions.turnInClicked}
+        currentShowModal={this.props.currentShowModal}
+      />
 
-        <PlaybackModal
-          audioSrc={this.props.recordingURL}
-          onStartOverClicked={this.props.actions.restartRecordingClicked}
-          onTurnInClicked={this.props.actions.turnInClicked}
-          currentShowModal={this.props.currentShowModal}
-        />
+      <DoneModal
+        onHearRecordingClicked={this.props.actions.hearRecordingClicked}
+        onTurnInClicked={this.props.actions.turnInClicked}
+        currentShowModal={this.props.currentShowModal}
+      />
+    </div>
+    )
 
-        <DoneModal
-          onHearRecordingClicked={this.props.actions.hearRecordingClicked}
-          onTurnInClicked={this.props.actions.turnInClicked}
-          currentShowModal={this.props.currentShowModal}
-        />
-      </div>
-    );
+  renderOverlayOrNullBasedOnState = () => (
+    <div>
+      <IntroOverlay
+        currentShowOverlay={this.props.currentShowOverlay}
+        onContinueClicked={this.props.actions.introContinueClicked}
+      />
 
-  }
+      <BlockedMicOverlay
+        currentShowOverlay={this.props.currentShowOverlay}
+      />
 
-  renderOverlayOrNullBasedOnState = () => {
-    return (
-      <div>
-        <IntroOverlay
-          currentShowOverlay={this.props.currentShowOverlay}
-          onContinueClicked={this.props.actions.introContinueClicked}
-        />
+      <SubmittedOverlay
+        currentShowOverlay={this.props.currentShowOverlay}
+      />
 
-        <BlockedMicOverlay
-          currentShowOverlay={this.props.currentShowOverlay}
-        />
+      <PermissionsOverlay
+        currentShowOverlay={this.props.currentShowOverlay}
+        onArrowClicked={this.props.onPermisionsArrowClicked}
+      />
 
-        <SubmittedOverlay
-          currentShowOverlay={this.props.currentShowOverlay}
-        />
+      <DemoSubmittedOverlay
+        currentShowOverlay={this.props.currentShowOverlay}
+        studentName={this.props.studentName}
+        onLogoutClicked={this.props.actions.demoSubmittedLogoutClicked}
+      />
 
-        <PermissionsOverlay
-          currentShowOverlay={this.props.currentShowOverlay}
-          onArrowClicked={this.props.onPermisionsArrowClicked}
-        />
-
-        <DemoSubmittedOverlay
-          currentShowOverlay={this.props.currentShowOverlay}
-          studentName={this.props.studentName}
-          onLogoutClicked={this.props.actions.demoSubmittedLogoutClicked}
-        />
-
-        {
+      {
           (this.props.readerState === ReaderStateOptions.countdownToStart) &&
           <CountdownOverlay
             countdownDuration={3}
@@ -234,9 +228,8 @@ class StudentDashboard extends React.Component {
           />
         }
 
-      </div>
-    );
-  } // END renderOverlayOrNullBasedOnState = () => {
+    </div>
+    ) // END renderOverlayOrNullBasedOnState = () => {
 
 
   // The best way to preload images is just to render hidden img components, with src set to the url we want to load
@@ -250,13 +243,13 @@ class StudentDashboard extends React.Component {
       return null
     }
 
-    let preloadImageURLs = []
+    const preloadImageURLs = []
     for (let i = this.props.pageNumber + 1; i <= this.props.numPages && i <= this.props.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
       preloadImageURLs.push(this.props.book.pages[i].img)
     }
 
     return (
-      <div style={{ 'visibility': 'hidden', 'width': 0, 'height': 0, 'overflow': 'hidden' }}>
+      <div style={{ visibility: 'hidden', width: 0, height: 0, overflow: 'hidden' }}>
         {preloadImageURLs.map((preloadImage) => (
           <img key={preloadImage} src={preloadImage} />
         ))}
@@ -267,7 +260,7 @@ class StudentDashboard extends React.Component {
 
   render()  {
 
-    console.log('Rendering ReaderManager with ReaderState: ' + this.props.readerState)
+    console.log(`Rendering ReaderManager with ReaderState: ${this.props.readerState}`)
 
     // if (this.props.readerState === ReaderStateOptions.initializing) {
     //   return <div className={styles.fill} style={{ backgroundColor: 'black' }} />

@@ -53,16 +53,16 @@ export default class DemoSubmittedModal extends React.Component {
             <p className={styles.subtitle}>We'll email you a full running record tonight.</p>
           </div>
 
-        <div>
-          <Button
-            className={styles.endButton}
-            bsStyle={'primary'}
-            bsSize={'large'}
-            onClick={this.props.onLogoutClicked}
-          >
+          <div>
+            <Button
+              className={styles.endButton}
+              bsStyle={'primary'}
+              bsSize={'large'}
+              onClick={this.props.onLogoutClicked}
+            >
             End demo and logout
           </Button>
-        </div>
+          </div>
         </div>
       </div>
 

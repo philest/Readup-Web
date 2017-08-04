@@ -56,7 +56,7 @@ export default class NavigationBar extends React.Component {
                 id="navigation-button"
                 onClick={this.props.onPauseClicked}
               />
-              <div className={css.pulsatingCircle}> </div>
+              <div className={css.pulsatingCircle} />
             </div>
           </div>
 
@@ -68,7 +68,7 @@ export default class NavigationBar extends React.Component {
             <div className={[css.centerDisplayContainer, css.headerTabBlue].join(' ')}>
               <BookInfoHeader
                 title={this.props.bookTitle}
-                subtitle={('by ' + this.props.bookAuthor)}
+                subtitle={(`by ${this.props.bookAuthor}`)}
                 style={{ marginTop: 20 }}
               />
             </div>
@@ -84,7 +84,7 @@ export default class NavigationBar extends React.Component {
               <a className={css.logoutLabel} >
                 Exit
               </a>
-              <img src='/images/dashboard/logout-icon.png' className={css.logoutIcon} />
+              <img src="/images/dashboard/logout-icon.png" className={css.logoutIcon} />
             </span>
           </div>
         </div>

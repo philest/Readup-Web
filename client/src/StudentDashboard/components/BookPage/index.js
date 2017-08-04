@@ -22,7 +22,7 @@ export default class BookPage extends React.Component {
 
   render() {
 
-    const FormattedText = ({textLines}) => (
+    const FormattedText = ({ textLines }) => (
       <div className={styles.readerTextContainer}>
         {textLines.map(text => (
           // note: can uncomment below instead so that <br />'s in the text are interepreted as html elements
@@ -32,13 +32,13 @@ export default class BookPage extends React.Component {
       </div>
     );
 
-    const pageTearURL = '/images/dashboard/paper-tear-' + ((this.props.pageNumber % 3) + 1) + '.png' 
+    const pageTearURL = `/images/dashboard/paper-tear-${(this.props.pageNumber % 3) + 1}.png`
 
     return (
 
       <div className={styles.fullContainer}>
 
-        <div className={styles.bookEdge}></div>
+        <div className={styles.bookEdge} />
 
         <div className={styles.readerContentContainer}>
           <img src={this.props.imageURL} className={styles.readerImage} />
@@ -46,7 +46,7 @@ export default class BookPage extends React.Component {
           <FormattedText textLines={this.props.textLines} />
           <div className={styles.pageNumber}>{this.props.pageNumber}</div>
         </div>
-        
+
       </div>
     );
   }

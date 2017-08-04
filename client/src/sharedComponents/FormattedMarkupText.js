@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styles from './styles.css'
 
+import styles from './styles.css'
 import MarkupWord from '../sharedComponents/MarkupWord'
 
 
@@ -10,11 +10,11 @@ export default class FormattedMarkupText extends React.Component {
     paragraphs: PropTypes.arrayOf(PropTypes.object).isRequired,
     endParagraphIndex: PropTypes.number,
     endWordIndex: PropTypes.number,
-    
     isInteractive: PropTypes.bool,
     onMouseEnterWord: PropTypes.func,
     onMouseLeaveWord: PropTypes.func,
   };
+
   static defaultProps = {
     isInteractive: false,
   };
@@ -28,7 +28,7 @@ export default class FormattedMarkupText extends React.Component {
 
   render() {
 
-    const endPindex = this.props.endParagraphIndex //shorthands for ease
+    const endPindex = this.props.endParagraphIndex // shorthands for ease
     const endWindex = this.props.endWordIndex
 
 
@@ -41,10 +41,10 @@ export default class FormattedMarkupText extends React.Component {
             {paragraph.words.map((wordDict, wIndex) => (
 
               <span key={paragraph.key + wIndex} className={styles.wordAndSpaceWrapper}>
-                <MarkupWord 
+                <MarkupWord
                   text={wordDict.word}
                   isSpace={false}
-                  isEndWord={(pIndex == endPindex && wIndex == endWindex)}
+                  isEndWord={(pIndex === endPindex && wIndex === endWindex)}
                   grayedOut={(pIndex > endPindex || (pIndex == endPindex && wIndex > endWindex))}
                   strikethrough={wordDict.wordDeleted}
                   wordAbove={wordDict.substituteWord}
@@ -53,23 +53,23 @@ export default class FormattedMarkupText extends React.Component {
                   isInteractive={this.props.isInteractive}
                   onMouseEnter={this.props.onMouseEnterWord}
                   onMouseLeave={this.props.onMouseLeaveWord}
-                  key={paragraph.key + '_' + pIndex + '_' + wIndex}
+                  key={`${paragraph.key}_${pIndex}_${wIndex}`}
                 />
 
                 <MarkupWord
                   text={'SPACE'}
-                  isSpace={true}
+                  isSpace
                   wordAbove={wordDict.addAfterWord}
                   paragraphIndex={pIndex}
                   wordIndex={wIndex}
                   isInteractive={this.props.isInteractive}
                   onMouseEnter={this.props.onMouseEnterWord}
                   onMouseLeave={this.props.onMouseLeaveWord}
-                  key={paragraph.key + '_' + pIndex + '_' + wIndex + '_space'}
+                  key={`${paragraph.key}_${pIndex}_${wIndex}_space`}
                 />
               </span>
             ))}
-            
+
           </div>
         ))}
       </div>

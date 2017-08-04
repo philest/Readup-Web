@@ -33,10 +33,9 @@
 }
 
 .studentNameHeading {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'Proximanova';
 	font-weight: bold;
 	font-size: 1.9em;
-	
 }
 
 .bookInfoSubheading {
@@ -64,12 +63,13 @@
 
 .metricFigureLabel {
 	color: green;
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'Proximanova';
+	font-weight: bold;
 	font-size: 1.8em;
 }
 
 .metricDescriptionLabel {
-	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-family: 'Proximanova Semibold';
 	font-size: 1.3em;
 	margin-top: 10px;
 }
@@ -85,7 +85,7 @@
 .levelRectangle {
 	background-color: green;
 	color: white;
-	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-family: 'Proximanova Semibold';
 	font-size: 1.4em;
 	width: 140px;
 	padding: 8px;
@@ -95,7 +95,6 @@
 
 .levelLabel {
 	margin-top: 7px;
-	/*font-family: 'Conv_Proxima-Nova-Semibold';*/
 	font-size: 1.2em;
 }
 
@@ -113,7 +112,7 @@
 }
 
 .bookInfoTitle {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'Proximanova';
 	font-weight: bold;
 	font-size: 1.6em;
 }

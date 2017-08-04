@@ -42,7 +42,7 @@ import { playSoundAsync, stopAudio } from '../audioPlayer'
 //   clog
 // } from './helpers'
 
-function* pauseAssessmentSaga (action) {
+function* pauseAssessmentSaga(action) {
   const recorder = yield select(getRecorder)
   yield call(recorder.pauseRecording)
   yield delay(300) // delay to prevent phil's voice from getting pick up :/
@@ -52,11 +52,11 @@ function* pauseAssessmentSaga (action) {
   ))
   // yield put.resolve(setCurrentSound('/audio/paused.mp3'))
   yield put.resolve(setCurrentModal('modal-paused'))
-  return
+
   // directly show modal here
 }
 
-function* resumeAssessmentSaga (action) {
+function* resumeAssessmentSaga(action) {
   yield call(stopAudio)
   const recorder = yield select(getRecorder)
   yield call(recorder.resumeRecording)

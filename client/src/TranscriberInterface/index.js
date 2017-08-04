@@ -19,7 +19,7 @@ export default class TranscriberInterface extends React.Component {
 
   constructor(props, _railsContext) {
     super(props);
-    this.state = { 
+    this.state = {
       evaluationTextData: sampleEvaluationText,
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
@@ -40,29 +40,26 @@ export default class TranscriberInterface extends React.Component {
 
     // audio playback keys
     if (event.code === 'Space') {
-      if (this.refs.audioPlayer.paused) {
-        this.refs.audioPlayer.play()
+      if (this.audioPlayer.paused) {
+        this.audioPlayer.play()
+      }      else {
+        this.audioPlayer.pause()
       }
-      else {
-        this.refs.audioPlayer.pause()
-      }
-      
+
       event.preventDefault();
-    }
-    else if (event.code === 'ArrowLeft') {
-      if (this.refs.audioPlayer.currentTime < 2) {
-        this.refs.audioPlayer.currentTime = 0;
+
+    } else if (event.code === 'ArrowLeft') {
+      if (this.audioPlayer.currentTime < 2) {
+        this.audioPlayer.currentTime = 0;
+      }      else {
+        this.audioPlayer.currentTime -= 2;
       }
-      else {
-        this.refs.audioPlayer.currentTime -= 2;
-      }
-    }
-    else if (event.code === 'ArrowRight') {
-      if (this.refs.audioPlayer.currentTime > this.refs.audioPlayer.duration - 2) {
-        this.refs.audioPlayer.currentTime = this.refs.audioPlayer.duration
-      }
-      else {
-        this.refs.audioPlayer.currentTime += 2;
+
+    } else if (event.code === 'ArrowRight') {
+      if (this.audioPlayer.currentTime > this.audioPlayer.duration - 2) {
+        this.audioPlayer.currentTime = this.audioPlayer.duration
+      }      else {
+        this.audioPlayer.currentTime += 2;
       }
     }
 
@@ -72,7 +69,7 @@ export default class TranscriberInterface extends React.Component {
       return
     }
 
-    var evaluationTextData = this.state.evaluationTextData
+    const evaluationTextData = this.state.evaluationTextData
 
 
     if (event.code === 'KeyA') {
@@ -82,25 +79,24 @@ export default class TranscriberInterface extends React.Component {
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].addAfterWord = addText
 
 
-      this.setState({evaluationTextData: evaluationTextData})
-    }
-    else if (event.code === 'KeyS' && !this.state.highlightedIsSpace) {
+      this.setState({ evaluationTextData })
+
+    } else if (event.code === 'KeyS' && !this.state.highlightedIsSpace) {
 
       const subText = window.prompt('Enter the substituted word')
 
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].substituteWord = subText
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = (subText != '')
 
-      this.setState({evaluationTextData: evaluationTextData})
-    }
-    else if (event.code === 'KeyD' && !this.state.highlightedIsSpace) {
-      // toggle
-      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted
+      this.setState({ evaluationTextData })
 
-      
-      this.setState({evaluationTextData: evaluationTextData})
+    } else if (event.code === 'KeyD' && !this.state.highlightedIsSpace) {
+      // toggle
+      // TODO: convert to idx
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted
+      this.setState({ evaluationTextData })
     }
-    else if (event.code === 'KeyE') {
+     else if (event.code === 'KeyE') {
       // toggle
       if (this.state.highlightedParagraphIndex == evaluationTextData.readingEndIndex.paragraphIndex && this.state.highlightedWordIndex == evaluationTextData.readingEndIndex.wordIndex) {
         evaluationTextData.readingEndIndex.paragraphIndex = 9999
@@ -115,7 +111,7 @@ export default class TranscriberInterface extends React.Component {
      this.setState({evaluationTextData: evaluationTextData})
     }
 
-    
+
   }
 
 
@@ -142,14 +138,14 @@ export default class TranscriberInterface extends React.Component {
   }
 
   onSubmitClicked = () => {
-    
+
+  }
+
+  setAudioPlayerRef = (ref) => {
+    this.audioPlayer = ref
   }
 
   render() {
-
-    
-
-
 
     return (
       <div className={styles.transcriberContainer}>
@@ -163,12 +159,16 @@ export default class TranscriberInterface extends React.Component {
           {this.props.email}
         </div>
 
-        <audio controls ref={"audioPlayer"} className={styles.audioElement}>
+        <audio
+          ref={this.setAudioPlayerRef}
+          className={styles.audioElement}
+          controls
+        >
           <source src={this.props.recordingURL} />
           <p>Playback not supported</p>
         </audio>
-        
-        
+
+
 
 
         <div className={styles.markupContainer}>
@@ -186,7 +186,7 @@ export default class TranscriberInterface extends React.Component {
             paragraphs={this.state.evaluationTextData.paragraphs}
             endParagraphIndex={this.state.evaluationTextData.readingEndIndex.paragraphIndex}
             endWordIndex={this.state.evaluationTextData.readingEndIndex.wordIndex}
-            isInteractive={true}
+            isInteractive
             onMouseEnterWord={this._onMouseEnterWord}
             onMouseLeaveWord={this._onMouseLeaveWord}
           />
@@ -196,7 +196,7 @@ export default class TranscriberInterface extends React.Component {
         </div>
 
 
-        <Button 
+        <Button
           className={styles.submitButton}
           bsStyle={'primary'}
           bsSize={'large'}

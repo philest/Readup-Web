@@ -9,16 +9,6 @@
    margin: 0 auto;
  }
 
- a#navbar-title {
-   color:white;
-   font-family:'Conv_CircularStd-Bold';
-   font-size:2em;
-   // margin-top: 0.3em;
-   float: left;
-   div  {
-
-   }
- }
 
  div#log-in-modal.modal-dialog {
    margin-top: 10%;
@@ -31,7 +21,7 @@
    padding-left: 0.7em;
  }
 
- // Added to get standard spacing on the expanded form 
+ // Added to get standard spacing on the expanded form
  .signup-name-password {
     margin-top: -13px;
  }
@@ -56,7 +46,7 @@
    margin-top: 15px;
    font-size: 18px;
    margin-bottom: 45px;
-   font-family: 'Conv_Proxima-Nova-Semibold';
+   font-family: 'Proximanova Semibold';
    color: white;
  }
 
@@ -160,7 +150,8 @@
 
  .product-text {
    font-size: 1em;
-   font-family: 'Conv_proximanova-bold-webfont';
+   font-family: 'Proximanova';
+   font-weight: bold;
    text-align: center;
    margin-top: 1em;
    margin-bottom: 4em;
@@ -206,18 +197,18 @@
     min-height: 500px; // 720px
   }
 
-  div.title { 
+  div.title {
     width: 90%;
-    margin: 0 auto; 
+    margin: 0 auto;
 
       h1#pitch {
         font-size: 1.5em;
         margin-top: 0.9em;
       }
       h4#sub-pitch {
-        font-size: 17px; 
+        font-size: 17px;
         line-height: 1.5;
-        font-family: 'Conv_Proxima-Nova-Semibold';
+        font-family: 'Proximanova Semibold';
       }
 
       // Form stuff
@@ -230,13 +221,10 @@
 
   h1.section-banner {
     margin-top: -1em;
-    color: #4a4a4a; 
+    color: #4a4a4a;
   }
 
 
-  button#top-button { 
-    margin-top: 8px;
-  }
 
   // have a different resized background on mobile
   div.splash-container {
@@ -390,7 +378,8 @@
 
    .product-text {
      font-size: 1em;
-     font-family: 'Conv_proximanova-bold-webfont';
+     font-family: 'Proximanova';
+     font-weight: bold;
      text-align: left;
      margin-top: 6em;
 
@@ -516,7 +505,8 @@
 
    .product-text {
      font-size: 1em;
-     font-family: 'Conv_proximanova-bold-webfont';
+     font-family: 'Proximanova';
+     font-weight: bold;
      text-align: left;
      margin-top: 6em;
 
@@ -635,7 +625,8 @@
 
    .product-text {
      font-size: 1em;
-     font-family: 'Conv_proximanova-bold-webfont';
+     font-family: 'Proximanova';
+     font-weight: bold;
      text-align: left;
      margin-top: 6em;
 

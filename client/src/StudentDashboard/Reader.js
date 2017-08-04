@@ -80,13 +80,13 @@ export default class Reader extends React.Component {
 
     if (this.props.isDemo) { // disabled previous button
       return (
-        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Back button is disabled in this demo</Popover>}>
+        <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={<Popover id="back">Back button is disabled in this demo</Popover>}>
           <div className={styles.fullWidthHeight}>
             <BackArrowButton
-              title='Back'
-              subtitle='page'
+              title="Back"
+              subtitle="page"
               style={{ width: 120, height: 95 }}
-              disabled={true}
+              disabled
               onClick={this.props.onPreviousPageClicked}
             />
           </div>
@@ -96,8 +96,8 @@ export default class Reader extends React.Component {
 
     return (
       <BackArrowButton
-        title='Back'
-        subtitle='page'
+        title="Back"
+        subtitle="page"
         style={{ width: 120, height: 95 }}
         onClick={this.props.onPreviousPageClicked}
       />
@@ -122,22 +122,21 @@ export default class Reader extends React.Component {
     if (this.props.isLastPage) {
       return (
         <RectangleButton
-          title='Stop'
-          subtitle='recording'
+          title="Stop"
+          subtitle="recording"
           style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
-          pulsatingArrow={true}
+          pulsatingArrow
           disabled={this.props.disabled}
           onClick={this.props.onStopClicked}
         />
       );
-    }
-    else if (this.props.showCover) {
+    }    else if (this.props.showCover) {
       return (
         <RectangleButton
-          title='Start'
-          subtitle='read and record'
+          title="Start"
+          subtitle="read and record"
           style={{ width: 200, height: 70, backgroundColor: '#249C44' }}
-          pulsatingArrow={true}
+          pulsatingArrow
           disabled={this.props.disabled}
           onClick={this.props.onStartClicked}
         />
@@ -146,8 +145,8 @@ export default class Reader extends React.Component {
 
     return (
       <ForwardArrowButton
-        title='Next'
-        subtitle='page'
+        title="Next"
+        subtitle="page"
         style={{ width: 145, height: 120 }}
         disabled={this.props.disabled}
         onClick={this.props.onNextPageClicked}
@@ -174,11 +173,11 @@ export default class Reader extends React.Component {
 
   render() {
 
-    console.log('Rerendering Reader, pageNumber is: ' + this.props.pageNumber)
+    console.log(`Rerendering Reader, pageNumber is: ${this.props.pageNumber}`)
 
 
     // const transitionPreset = this.props.location.action === 'POP' ? presets.slideLeft : presets.slideRight;
-    const transitionProps = {...presets.pop, pathname: this.props.pathname, className: styles.routeTransition}
+    const transitionProps = { ...presets.pop, pathname: this.props.pathname, className: styles.routeTransition }
 
     return (
 

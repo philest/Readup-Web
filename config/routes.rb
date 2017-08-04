@@ -2,35 +2,35 @@ Rails.application.routes.draw do
 
   resources :schools
 
-  root 'static_pages#index'
+  root 'homepage#index'
 
   get 'hello', to: 'hello_world#index'
 
 
   # static pages
 
-  # get 'app', to: 'static_pages#app'
-  # get 'class', to: 'static_pages#class'
-  # get 'start', to: 'static_pages#start'
-  # get 'go', to: 'static_pages#go'
-  # get 'doc', to: 'static_pages#doc'
-  # get 'read', to: 'static_pages#read'
+  # get 'app', to: 'homepage#app'
+  # get 'class', to: 'homepage#class'
+  # get 'start', to: 'homepage#start'
+  # get 'go', to: 'homepage#go'
+  # get 'doc', to: 'homepage#doc'
+  # get 'read', to: 'homepage#read'
 
 
-  get 'mobile_halt', to: "static_pages#mobile_halt"
-  get 'error', to: 'static_pages#error'
-  get 'privacy', to: 'static_pages#privacy'
-  get 'terms', to: 'static_pages#terms'
-  get 'team', to: 'static_pages#team'
-  get 'case_study', to: 'static_pages#case_study'
-  get 'join', to: 'static_pages#join'
-  get 'product_lead', to: 'static_pages#product_lead'
-  get 'developer', to: 'static_pages#developer'
-  get 'pilots', to: 'static_pages#pilots'
-  get 'schools', to: 'static_pages#schools'
-  get 'illustrator', to: 'static_pages#illustrator'
-  get 'design', to: 'static_pages#design'
-  get 'success', to: 'static_pages#signup_success'
+  get 'mobile_halt', to: "homepage#mobile_halt"
+  get 'error', to: 'homepage#error'
+  get 'privacy', to: 'homepage#privacy'
+  get 'terms', to: 'homepage#terms'
+  get 'team', to: 'homepage#team'
+  get 'case_study', to: 'homepage#case_study'
+  get 'join', to: 'homepage#join'
+  get 'product_lead', to: 'homepage#product_lead'
+  get 'developer', to: 'homepage#developer'
+  get 'pilots', to: 'homepage#pilots'
+  get 'schools', to: 'homepage#schools'
+  get 'illustrator', to: 'homepage#illustrator'
+  get 'design', to: 'homepage#design'
+  get 'success', to: 'homepage#signup_success'
 
   # user stuff including auth
 
