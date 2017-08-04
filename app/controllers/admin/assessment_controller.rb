@@ -16,7 +16,6 @@ class Admin::AssessmentController < ApplicationController
 
 
 
-
   def classrooms_by_teacher
     @teacher = Teacher.find(params[:id])
   end
