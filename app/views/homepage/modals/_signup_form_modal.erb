@@ -16,21 +16,10 @@
       >
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
-        <div class="signup-setup" id="signup-homepage-email">
-          <div class="field" id="signup-field">
-            <span>Email:</span>
-            <input
-              name="user[email]"
-              id='suh'
-              placeholder="Your email address"
-              class="input form-control"
-            >
-          </div>
+        
 
-        </div>
-
-        <!-- this is hidden at first :) -->
-        <div class="signup-name-password">
+        
+        <div class="signup-name">
           <div class="signup-setup">
             <div class="field" id="signup-field">
               <div class="field">
@@ -40,6 +29,7 @@
                   autocomplete="off"
                   placeholder="First name"
                   class="input form-control"
+                  id="first-name"
                   required
                 >
               </div>
@@ -51,24 +41,56 @@
                   autocomplete="off"
                   placeholder="Last name"
                   class="input form-control"
-                  required
-                >
-              </div>
-
-              <div class="field">
-              <span>Password:</span>
-                <input
-                  name="user[password]"
-                  autocomplete="off"
-                  placeholder="Create a password"
-                  type="password"
-                  class="input form-control"
-                  pattern=".{6,}"
-                  title="Must be at least 6 characters long."
+                  id="last-name"
                   required
                 >
               </div>
             </div>
+
+            <button
+              id="signup-homepage-continue-button"
+              type="button"
+              class="signup-form-button pure-button pure-button-primary get_update dialog-button"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+
+
+        <!-- Hidden at first -->
+        <div class="signup-email-password" style="display: none">
+          <div class="signup-setup">
+            <!-- <div class="field" id="signup-field"> -->
+
+              <div class="signup-setup" id="signup-homepage-email">
+                <div class="field" id="signup-field">
+                  <span>Email:</span>
+                  <input
+                    name="user[email]"
+                    id='suh'
+                    placeholder="Your email address"
+                    class="input form-control"
+                  >
+                </div>
+
+              </div>
+
+              <div class="field" id="signup-field">
+                <span>Password:</span>
+                  <input
+                    name="user[password]"
+                    autocomplete="off"
+                    placeholder="Create a password"
+                    type="password"
+                    class="input form-control"
+                    pattern=".{6,}"
+                    title="Must be at least 6 characters long."
+                    required
+                  >
+              </div>
+            </div>
+
             <button
               id="signup-homepage-demo-button"
               type="submit"
@@ -77,6 +99,7 @@
               Complete sign up
               <div id="signup-spinner" class="spinner"></div>
             </button>
+
           </div>
         </div>
       </form>
@@ -184,7 +207,7 @@
 <script type="text/javascript">
 
   var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  var triggeredMobileForm = false;
+  var triggeredFormPageTwo = false;
 
   function registerUser (e, form) {
     e.preventDefault();
@@ -262,6 +285,25 @@
   };
 
 
+  function revealPageTwoOfForm() {
+
+    if (!$('#first-name').valid() || !$('#last-name').valid()) {
+      return false;
+      // mixpanel.track('invalid username given', {"platform": "mobile"});
+    }
+
+    $('.signup-name').slideUp();
+    $('.signup-email-password').slideDown();
+
+    triggeredFormPageTwo = true
+  }
+
+  function resetForm() {
+    $('.signup-name').slideDown();
+    $('.signup-email-password').slideUp();
+    triggeredFormPageTwo = false
+  }
+
 
   $( document ).ready(function() {
 
@@ -291,6 +333,9 @@
       }
     });
 
+    $('#signup-homepage-continue-button').click(function(e) {
+          revealPageTwoOfForm();
+        });
 
     $('#signup-homepage-demo-button').click(function(e) {
       registerUser(e, signupForm);
@@ -302,7 +347,13 @@
       var keyCode = e.keyCode || e.which;
       if (keyCode === 13) {
         e.preventDefault();
-        registerUser(e, signupForm);
+
+        if (triggeredFormPageTwo) {
+          registerUser(e, signupForm);
+        }
+        else {
+          revealPageTwoOfForm()
+        }
       }
     });
 
@@ -310,5 +361,10 @@
     $('form#signup-homepage #suh').on('focus', function(e) {
       this.scrollIntoView(false);
     });
+
+    $('#signupFormModal').on('hidden.bs.modal', function () {
+      resetForm()
+    })
+
   });
 </script>
