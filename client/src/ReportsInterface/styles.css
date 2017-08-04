@@ -8,6 +8,15 @@
 	z-index: 100;
 }
 
+.stickyPricingButton {
+	position: fixed;
+	right: 85px;
+	top: 300px;
+	width: 150px;
+	height: 40px;
+	border-radius: 3px;
+}
+
 
 .contentWrapper {
 	padding: 70px;
@@ -124,8 +133,68 @@
 }
 
 
+.pricingFooter {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	width: 100%;
+	display/*: flex;
+	flex-flow: column;
+	justify*/-content: center;
+}
 
+.pricingFooterLabel {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 1.6em;
+	text-align: center;
+	margin-bottom: 20px;
+}
 
+.pricingFooterButton {
+	width: 200px;
+	height: 50px;
+	margin: 0 auto;
+	display: block;
+	border-radius: 3px;
+}
 
+.pricingModalTitle {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-size: 1.4em;
+	text-align: center;
+}
+
+.pricingFormWrapper {
+	width: 55%;
+	margin: 0 auto;
+}
+
+.pricingFormField {
+	padding-bottom: 15px;
+	font-family: Conv_proximanova-regular-webfont;
+}
+
+.pricingFormFieldLabel {
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-size: 1.1em;
+	margin-bottom: 5px;
+}
+
+.pricingFormFieldInput {
+	width: 100%;
+	height: 35px;
+	background: #fff;
+    border: 1px solid #c5c7cb;
+	border-radius: 4px;
+	padding: 12px;
+	font-size: 1.0em;
+}
+
+.pricingFormButton {
+	width: 100%;
+	height: 40px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
 
 

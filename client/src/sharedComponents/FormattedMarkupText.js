@@ -7,7 +7,7 @@ import MarkupWord from '../sharedComponents/MarkupWord'
 
 export default class FormattedMarkupText extends React.Component {
   static propTypes = {
-    paragraphs: PropTypes.arrayOf(PropTypes.string).isRequired,
+    paragraphs: PropTypes.arrayOf(PropTypes.object).isRequired,
     endParagraphIndex: PropTypes.number,
     endWordIndex: PropTypes.number,
     
