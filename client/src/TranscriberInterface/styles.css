@@ -4,6 +4,16 @@
 	padding-top: 50px;
 	padding-bottom: 50px;*/
 	padding: 50px;
+	padding-top: 20px;
+}
+
+.gradingViewLabel {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 1.4em;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 40px;
 }
 
 .nameHeading {

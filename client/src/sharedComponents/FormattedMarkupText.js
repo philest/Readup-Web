@@ -36,7 +36,7 @@ export default class FormattedMarkupText extends React.Component {
       <div className={styles.textContainer}>
 
         {this.props.paragraphs.map((paragraph, pIndex) => (
-          <div className={styles.textParagraph} key={paragraph.key}>
+          <div className={(pIndex > endPindex) ? styles.textParagraphGrayedOut: styles.textParagraph} key={paragraph.key}>
 
             {paragraph.words.map((wordDict, wIndex) => (
 

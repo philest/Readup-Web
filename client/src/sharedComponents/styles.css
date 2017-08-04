@@ -4,11 +4,17 @@
 	width: 300px;
 	margin-top: 30px;
 	cursor: default;
-	line-height: 2.2;
+	font-family: 
 }
 
 .textParagraph {
 	margin-bottom: 30px;
+	line-height: 2.2;
+}
+
+.textParagraphGrayedOut {
+	margin-bottom: 20px;
+	line-height: 1.5;
 }
 
 .wordAndSpaceWrapper {
@@ -17,11 +23,13 @@
 
 .wordWrapper {
 	position: relative;
+	font-weight: normal;
 }
 
 .textWord {
 	display: inline-block;
 	color: black;
+	font-weight: normal;
 }
 
 .textWord:hover {
@@ -31,6 +39,7 @@
 .textWordNoHover {
 	display: inline-block;
 	color: black;
+	font-weight: normal;
 }
 
 .wordAbove {
@@ -42,6 +51,9 @@
 	font-size: 0.9em;
 	font-family: 'Comic Sans MS';
 	text-decoration: none;
+
+	width: 500px;
+
 }
 
 .wordAboveSpace {
@@ -81,7 +93,18 @@
 }
 
 .strikethrough {
-	text-decoration: #982E2B line-through;
+	
+}
+
+.strikethrough::after {
+  border-bottom: 2px solid #982E2B;
+  content: "";
+  left: 0;
+  line-height: 1em;
+  margin-top: calc(0.125em / 2 * -1);
+  position: absolute;
+  right: 0;
+  top: 50%;
 }
 
 .endingSlashes {

@@ -75,7 +75,7 @@ export default class TranscriberInterface extends React.Component {
     var evaluationTextData = this.state.evaluationTextData
 
 
-    if (event.code === 'KeyA' && this.state.highlightedIsSpace) {
+    if (event.code === 'KeyA') {
 
       const addText = window.prompt('Enter the added word')
 
@@ -102,8 +102,15 @@ export default class TranscriberInterface extends React.Component {
     }
     else if (event.code === 'KeyE') {
       // toggle
-      evaluationTextData.readingEndIndex.paragraphIndex = this.state.highlightedParagraphIndex
-      evaluationTextData.readingEndIndex.wordIndex = this.state.highlightedWordIndex
+      if (this.state.highlightedParagraphIndex == evaluationTextData.readingEndIndex.paragraphIndex && this.state.highlightedWordIndex == evaluationTextData.readingEndIndex.wordIndex) {
+        evaluationTextData.readingEndIndex.paragraphIndex = 9999
+        evaluationTextData.readingEndIndex.wordIndex = 9999
+      }
+      else {
+        evaluationTextData.readingEndIndex.paragraphIndex = this.state.highlightedParagraphIndex
+        evaluationTextData.readingEndIndex.wordIndex = this.state.highlightedWordIndex
+      }
+      
      
      this.setState({evaluationTextData: evaluationTextData})
     }
@@ -146,6 +153,8 @@ export default class TranscriberInterface extends React.Component {
 
     return (
       <div className={styles.transcriberContainer}>
+
+        <div className={styles.gradingViewLabel}>Grading View</div>
 
         <div className={styles.nameHeading}>
           {this.props.name}'s Demo
