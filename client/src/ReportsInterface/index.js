@@ -86,14 +86,6 @@ export default class ReportsInterface extends React.Component {
           onExitClicked={this.props.onLogoutClicked}
         />
 
-        <Button
-          className={styles.stickyPricingButton}
-          bsStyle={'primary'}
-          bsSize={'large'}
-          onClick={this.onPricingClicked}
-        >
-         Pricing
-        </Button>
 
 
         <div className={styles.contentWrapper}>
@@ -101,8 +93,10 @@ export default class ReportsInterface extends React.Component {
           <div className={styles.evaluationInfoHeader}>
 
             <div className={styles.mainHeadingContainer}>
-              <div className={styles.studentNameHeading}>Demo Student</div>
-              <div className={styles.bookInfoSubheading}>Firefly Night -- Level H</div>
+              <div className={styles.studentNameHeading}>Sofia Vergara</div>
+              <div className={styles.bookInfoSubheading}>
+                <p>Firefly Night <span>- Level H</span></p>
+              </div>
             </div>
 
             <div className={styles.metricsHeadingContainer}>
@@ -116,9 +110,15 @@ export default class ReportsInterface extends React.Component {
                 <div className={styles.metricDescriptionLabel}>wcpm</div>
               </div>
 
+              <div className={styles.metricWrapper}>
+                <div className={styles.metricFigureLabel}>4/5</div>
+                <div className={styles.metricDescriptionLabel}>Comp.</div>
+              </div>
+
+
 
               <div className={styles.levelInfoWrapper}>
-                <div className={styles.levelRectangle}>Level G</div>
+                <div className={styles.levelRectangle}>Level H</div>
                 <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
               </div>
 
