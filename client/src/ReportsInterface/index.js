@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './styles.css'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
+import InfoBar from './components/InfoBar'
+
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { Button, Modal } from 'react-bootstrap'
 
@@ -72,7 +74,7 @@ export default class ReportsInterface extends React.Component {
     // TODO do something with the data
 
   }
-  
+
 
   render() {
 
@@ -86,7 +88,9 @@ export default class ReportsInterface extends React.Component {
           onExitClicked={this.props.onLogoutClicked}
         />
 
-
+        <InfoBar
+          title={"fake"}
+        />
 
         <div className={styles.contentWrapper}>
 
@@ -124,7 +128,6 @@ export default class ReportsInterface extends React.Component {
 
             </div>
           </div>
-          
 
           <div className={styles.bookInfoHeader}>
 
