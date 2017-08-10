@@ -9,12 +9,12 @@
 
 .textParagraph {
 	margin-bottom: 30px;
-	line-height: 2.2;
+	line-height: 3.5em;
 }
 
 .textParagraphGrayedOut {
-	margin-bottom: 20px;
-	line-height: 1.5;
+	margin-bottom: 48px;
+    line-height: 1.5;
 }
 
 .wordAndSpaceWrapper {
@@ -28,8 +28,10 @@
 
 .textWord {
 	display: inline-block;
-	color: black;
+	color: #4a4a4a;
 	font-weight: normal;
+	font-size: 18px
+
 }
 
 .textWord:hover {
@@ -38,7 +40,9 @@
 
 .textWordNoHover {
 	display: inline-block;
-	color: black;
+	color: #4a4a4a;
+	font-weight: normal;
+	font-size: 17px;
 	font-weight: normal;
 }
 
@@ -59,10 +63,10 @@
 .wordAboveSpace {
 	position: absolute;
 	top: -25px;
-
+	line-height: 1.5em;
 	color: #982E2B;
 	font-size: 0.9em;
-	font-family: 'Comic Sans MS';
+	font-family: 'gochi-hand';
 	text-decoration: none;
 
 	text-align: center;

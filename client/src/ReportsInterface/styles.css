@@ -46,8 +46,9 @@
 
 .bookInfoSubheading p{
 	font-size: 1.4em;
-	font-style: italic;
+	font-family: 'Conv_Proxima-Nova-Regular-Italic';
 	margin-top: 15px;
+	color: #4a4a4a;
 }
 
 .bookInfoSubheading span {
@@ -117,7 +118,7 @@
 	display: flex;
 	flex-flow: row;
 	align-items: center;
-	margin-top: 100px;
+	margin-top: 115px;
 	margin-bottom: 60px;
 }
 
@@ -141,13 +142,21 @@
 	margin-left: 50px;
 }
 
+.audioWrapper button {
+	background-color: #2e6da4;
+	border-color: #275985;
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	padding: 8px 20px;
+
+}
+
 .audioElement {
 	width: 400px;
 }
 
 
 .pricingFooter {
-	margin-top: 40px;
+	margin-top: 100px;
 	margin-bottom: 40px;
 	width: 100%;
 	display/*: flex;
@@ -159,16 +168,21 @@
 	font-family: 'Conv_proximanova-bold-webfont';
 	font-weight: bold;
 	font-size: 1.6em;
-	text-align: center;
+	text-align: left;
 	margin-bottom: 20px;
 }
 
 .pricingFooterButton {
-	width: 200px;
-	height: 50px;
-	margin: 0 auto;
-	display: block;
-	border-radius: 3px;
+    width: 170px;
+    height: 50px;
+    margin-left: 60px;
+    display: block;
+    border-radius: 3px;
+    background-color: #2e6da4;
+    border-color: #275985;
+    font-family: 'Conv_Proxima-Nova-Semibold';
+    padding: 8px 20px;
+
 }
 
 .pricingModalTitle {
@@ -184,7 +198,7 @@
 
 .pricingFormField {
 	padding-bottom: 15px;
-	font-family: Conv_proximanova-regular-webfont;
+	font-family: 'Conv_proximanova-regular-webfont';
 }
 
 .pricingFormFieldLabel {

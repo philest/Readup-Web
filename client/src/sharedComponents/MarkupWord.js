@@ -70,7 +70,7 @@ export default class MarkupWord extends React.Component {
 
         { !this.props.isInteractive && 
           <span className={wordClassNameString}>
-            {this.props.isSpace && '\u00A0\u00A0\u00A0' }
+            {this.props.isSpace && '\u00A0' }
             {!this.props.isSpace && this.props.text }
           </span>
         }
