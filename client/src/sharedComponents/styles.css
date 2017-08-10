@@ -7,6 +7,10 @@
 	font-family: 
 }
 
+.textContainerLarge {
+	width: 600px;
+}
+
 .textParagraph {
 	margin-bottom: 30px;
 	line-height: 3.5em;
@@ -14,7 +18,7 @@
 
 .textParagraphGrayedOut {
 	margin-bottom: 48px;
-    line-height: 1.5;
+    line-height: 1.5em;
 }
 
 .wordAndSpaceWrapper {
@@ -52,8 +56,8 @@
 	left: 2px;
 
 	color: #982E2B;
-	font-size: 0.9em;
-	font-family: 'Comic Sans MS';
+	font-size: 1.1em;
+	font-family: 'gochi-hand';
 	text-decoration: none;
 
 	width: 500px;
@@ -65,7 +69,7 @@
 	top: -25px;
 	line-height: 1.5em;
 	color: #982E2B;
-	font-size: 0.9em;
+	font-size: 1.1em;
 	font-family: 'gochi-hand';
 	text-decoration: none;
 
@@ -86,11 +90,10 @@
 
 .addChevron {
 	position: absolute;
-	top: 25px;
-	left: 10px;
-	font-size: 0.6em;
-
-	left: 50%;
+    top: 18px;
+    left: 10px;
+    font-size: 0.5em;
+    left: 50%;
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-51%)
 

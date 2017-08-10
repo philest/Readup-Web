@@ -4,11 +4,11 @@ class ReportsController < ApplicationController
 
   def index
     @reports_interface_props = {
-      name: "Chanel Brown",
+      name: "Sofia Vergara",
       email: "testemail@gmail.com",
-      bookTitle: "Firefly Night",
-      bookLevel: "Level H",
-      recordingURL: "http://www.noiseaddicts.com/samples_1w72b820/142.mp3"
+      bookTitle: "No More Magic",
+      bookLevel: "Level R",
+      recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav"
     }
   end
 

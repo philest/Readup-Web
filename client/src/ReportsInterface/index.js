@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import InfoBar from './components/InfoBar'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { Button, Modal } from 'react-bootstrap'
 
-import { sampleEvaluationText } from '../sharedComponents/sampleMarkup'
+import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
 
 
@@ -96,30 +95,30 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.mainHeadingContainer}>
               <div className={styles.studentNameHeading}>Sofia Vergara</div>
               <div className={styles.bookInfoSubheading}>
-                <p>Firefly Night <span>- Level H</span></p>
+                <p>{this.props.bookTitle}<span> - {this.props.bookLevel}</span></p>
               </div>
             </div>
 
             <div className={styles.metricsHeadingContainer}>
               <div className={styles.metricWrapper}>
-                <div className={styles.metricFigureLabel}>94%</div>
+                <div className={[styles.metricFigureLabel, styles.poorMetric].join(' ')}>89%</div>
                 <div className={styles.metricDescriptionLabel}>Accuracy</div>
               </div>
 
               <div className={styles.metricWrapper}>
-                <div className={styles.metricFigureLabel}>33</div>
+                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>161</div>
                 <div className={styles.metricDescriptionLabel}>wcpm</div>
               </div>
 
               <div className={styles.metricWrapper}>
-                <div className={styles.metricFigureLabel}>4/5</div>
+                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>4/5</div>
                 <div className={styles.metricDescriptionLabel}>Comp.</div>
               </div>
 
 
 
               <div className={styles.levelInfoWrapper}>
-                <div className={styles.levelRectangle}>Level H</div>
+                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Level O</div>
                 <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
               </div>
 
@@ -129,8 +128,8 @@ export default class ReportsInterface extends React.Component {
           <div className={styles.bookInfoHeader}>
 
             <div className={styles.bookInfoWrapper}>
-              <div className={styles.bookInfoTitle}>Firefly Night</div>
-              <div className={styles.bookInfoLevel}>Level H</div>
+              <div className={styles.bookInfoTitle}>{this.props.bookTitle}</div>
+              <div className={styles.bookInfoLevel}>{this.props.bookLevel}</div>
             </div>
 
             <div className={styles.audioWrapper}>
@@ -158,10 +157,10 @@ export default class ReportsInterface extends React.Component {
 
 
           <FormattedMarkupText
-            paragraphs={sampleEvaluationText.paragraphs}
+            paragraphs={newSampleEvaluationText.paragraphs}
             isInteractive={false}
-            endParagraphIndex={sampleEvaluationText.readingEndIndex.paragraphIndex}
-            endWordIndex={sampleEvaluationText.readingEndIndex.wordIndex}
+            endParagraphIndex={newSampleEvaluationText.readingEndIndex.paragraphIndex}
+            endWordIndex={newSampleEvaluationText.readingEndIndex.wordIndex}
           />
 
           <div className={styles.pricingFooter}>

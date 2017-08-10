@@ -147,9 +147,6 @@ export default class TranscriberInterface extends React.Component {
 
   render() {
 
-    
-
-
 
     return (
       <div className={styles.transcriberContainer}>
