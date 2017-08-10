@@ -101,6 +101,9 @@ export default class ReportsInterface extends React.Component {
     const schoolName = this.state.schoolName
     const phoneNumber = this.state.phoneNumber
 
+    this.setState({ showPricingModal: false })
+
+
     // TODO do something with the data
 
   }
@@ -277,7 +280,7 @@ export default class ReportsInterface extends React.Component {
 
 
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.9; } '}</style>
-        <Modal show={this.state.showPricingModal} onHide={this.closePricingModal} dialogClassName={styles.modalMedium}>
+        <Modal show={this.state.showPricingModal} restoreFocus={false} onHide={this.closePricingModal} dialogClassName={styles.modalMedium}>
           <Modal.Header closeButton>
             <Modal.Title bsClass={styles.pricingModalTitle}>
               Get ReadUp at your School
