@@ -22,6 +22,10 @@ export default class ReportsInterface extends React.Component {
     this.state = {
       showAudioPlayback: false,
       showPricingModal: false,
+      showEmailModal: true,
+      showSampleInfoModal: false,
+      email: '',
+      name: '',
       schoolName: '',
       phoneNumber: '',
     }
@@ -48,8 +52,24 @@ export default class ReportsInterface extends React.Component {
     this.setState({ showPricingModal: true })
   }
 
+  onEmailFormSubmit = () => {
+    this.setState({ showEmailModal: false })
+    this.setState({ showSampleInfoModal: true })
+    const email = this.state.email
+
+    // TODO do something with the data
+  }
+
+  onSampleButtonClick = () => {
+    this.setState({ showSampleInfoModal: false })
+  }
+
   closePricingModal = () => {
     this.setState({ showPricingModal: false })
+  }
+
+  closeSampleInfoModal  = () => {
+    this.setState({ showSampleInfoModal: false })
   }
 
   _handleKeyDown = (event) => {
@@ -57,6 +77,16 @@ export default class ReportsInterface extends React.Component {
       this.onPricingFormSubmit()
     }
   }
+
+
+  handleEmailChange = (event) => {
+    this.setState({ email: event.target.value })
+  }
+
+  handleNameChange = (event) => {
+    this.setState({ name: event.target.value })
+  }
+
 
   handleSchoolNameChange = (event) => {
     this.setState({ schoolName: event.target.value })
@@ -67,6 +97,7 @@ export default class ReportsInterface extends React.Component {
   }
 
   onPricingFormSubmit = () => {
+    const name = this.state.name
     const schoolName = this.state.schoolName
     const phoneNumber = this.state.phoneNumber
 
@@ -84,7 +115,6 @@ export default class ReportsInterface extends React.Component {
 
         <InfoBar
           title={"Example Report"}
-          subtitle={"Sofia Vergara"}
           extraInfo={"Your actual report will come tonight"}
         />
 
@@ -180,17 +210,99 @@ export default class ReportsInterface extends React.Component {
 
         </div>
 
-        
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.9; } '}</style>
-        <Modal show={this.state.showPricingModal} onHide={this.closePricingModal}>
+        <Modal show={this.state.showEmailModal} dialogClassName={styles.modalMedium}>
+          <Modal.Header>
+            <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
+            <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
+            <Modal.Title bsClass={styles.pricingModalTitle}>
+              Get your scored running record
+            </Modal.Title>
+            <h4 className={styles.modalSubtitle}>It will come by email tonight</h4>
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className={styles.pricingFormWrapper}>
+
+              <div className={styles.pricingFormField}>
+                <div className={styles.pricingFormFieldLabel}>
+                  Email
+                </div>
+                <input
+                  className={styles.pricingFormFieldInput}
+                  placeholder={"Email"}
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
+                />
+              </div>
+
+
+              <Button
+                className={styles.pricingFormButton}
+                bsStyle={'primary'}
+                onClick={this.onEmailFormSubmit}
+              >
+                Get it
+              </Button>
+
+            </div>
+
+          </Modal.Body>
+        </Modal>
+
+
+        <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+        <Modal show={this.state.showSampleInfoModal}  onHide={this.closeSampleInfoModal} dialogClassName={styles.modalMedium}>
           <Modal.Header closeButton>
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              Request Pricing
+              Great, here's an example of one first
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            
+
             <div className={styles.pricingFormWrapper}>
+
+              <Button
+                className={styles.pricingFormButton}
+                bsStyle={'primary'}
+                onClick={this.onSampleButtonClick}
+              >
+                See sample
+              </Button>
+
+            </div>
+
+          </Modal.Body>
+        </Modal>
+
+
+        <style type="text/css">{'.modal-backdrop.in { opacity: 0.9; } '}</style>
+        <Modal show={this.state.showPricingModal} onHide={this.closePricingModal} dialogClassName={styles.modalMedium}>
+          <Modal.Header closeButton>
+            <Modal.Title bsClass={styles.pricingModalTitle}>
+              Get ReadUp at your School
+            </Modal.Title>
+            <h4 className={[styles.modalSubtitle, styles.modalSubtitleLong].join(' ')}>Save thousands of hours of intstructional time so you can focus on student learning</h4>
+
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className={styles.pricingFormWrapper}>
+
+              <div className={styles.pricingFormField}>
+                <div className={styles.pricingFormFieldLabel}>
+                  Name
+                </div>
+                <input
+                  className={styles.pricingFormFieldInput}
+                  placeholder={"Name"}
+                  value={this.state.name}
+                  onChange={this.handleNameChange}
+                />
+              </div>
+
+
+
 
               <div className={styles.pricingFormField}>
                 <div className={styles.pricingFormFieldLabel}>

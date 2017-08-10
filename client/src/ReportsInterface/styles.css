@@ -184,6 +184,64 @@
 }
 
 
+.modalSubtitle {
+	color: grey;
+    font-size: 13px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 1.5em;
+    font-family: 'Conv_proximanova-regular-webfont'
+}
+
+.modalSubtitleLong {
+    margin: 0 auto;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+
+.paperImage {
+	width: 70px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    display: block;
+    margin: 0px auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+}
+
+.paperImageOverlay {
+	width: 30px;
+    background-color: transparent;
+    position: absolute;
+    top: 40px;
+    right: 222px;  
+    display: none;  
+}
+
+@media (min-width: 768px) {
+	.modalMedium {
+		width: 460px;
+	}
+
+	.paperImageOverlay {
+		display: block;
+	}
+
+	.modalSubtitleLong {
+		width: 310px;
+	}
+
+}
+
+
+.mbi {
+	background-color: black;
+	opacity: 0.9;
+}
+
+
 .pricingFooter {
 	margin-top: 100px;
 	margin-bottom: 40px;
@@ -221,7 +279,8 @@
 }
 
 .pricingFormWrapper {
-	width: 55%;
+	padding-top:10px;
+	width: 65%;
 	margin: 0 auto;
 }
 
@@ -232,7 +291,7 @@
 
 .pricingFormFieldLabel {
 	font-family: 'Conv_Proxima-Nova-Semibold';
-	font-size: 1.1em;
+	font-size: .9em;
 	margin-bottom: 5px;
 }
 
@@ -243,14 +302,15 @@
     border: 1px solid #c5c7cb;
 	border-radius: 4px;
 	padding: 12px;
-	font-size: 1.0em;
+	font-size: 0.85em;
 }
 
 .pricingFormButton {
 	width: 100%;
 	height: 40px;
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-bottom: 20px;
+	font-family: 'Conv_Proxima-Nova-Semibold'
 }
 
 
