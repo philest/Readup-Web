@@ -22,17 +22,11 @@
 .contentWrapper {
 	padding: 70px 110px;
 	padding-right: 35px;
+	padding-top: 130px;
+
 	max-width: 1025px;
-/*	margin: 0 auto;
-*/
 }
 
-@media (max-width: 1100px) {
-	.contentWrapper {
-/*		padding: 70px 70px;
-*/
-	}
-}
 
 .evaluationInfoHeader {
 	display: flex;
@@ -82,7 +76,7 @@
 }
 
 .metricFigureLabel {
-	color: green;
+	color: #249C44;
 	font-family: 'Conv_proximanova-bold-webfont';
 	font-size: 1.9em;
 }
@@ -102,7 +96,7 @@
 }
 
 .levelRectangle {
-	background-color: green;
+	background-color: #249C44;
 	color: white;
 	font-family: 'Conv_Proxima-Nova-Semibold';
 	font-size: 1.4em;
@@ -139,7 +133,7 @@
 
 .bookInfoLevel {
 	font-size: 1.2em;
-	font-style: italic;
+	font-family: 'Conv_Proxima-Nova-Regular-Italic';
 	margin-top: 5px;
 }
 

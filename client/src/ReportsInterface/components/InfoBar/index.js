@@ -32,8 +32,17 @@ export default class InfoBar extends React.Component {
 
   render() {
     return (
-      <p>this is a test</p>
+      <div className={css.InfoContainer}>
+        <div className={css.InfoTextContainer}>
+          <h2 className={css.InfoTitle}>{this.props.title}
+            <span className={css.InfoSubtitle}>{", " + this.props.subtitle}</span>
+          </h2>
+          <div className={css.InfoExtraInfoContainer}>
+            <p className={css.InfoExtraInfo}>{this.props.extraInfo}</p>
+          </div>
+        </div>
 
+      </div>
     );
   }
 }

@@ -81,15 +81,12 @@ export default class ReportsInterface extends React.Component {
     return (
       <div className={styles.reportsContainer}>
 
-        <NavigationBar
-          className={styles.navBar}
-          studentName={this.props.name}
-          showPauseButton={false}
-          onExitClicked={this.props.onLogoutClicked}
-        />
+
 
         <InfoBar
-          title={"fake"}
+          title={"Example Report"}
+          subtitle={"Sofia Vergara"}
+          extraInfo={"Your actual report will come tonight"}
         />
 
         <div className={styles.contentWrapper}>
