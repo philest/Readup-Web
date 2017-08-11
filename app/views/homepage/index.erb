@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
 <!--<![endif]-->
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.min.css">
+
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" type="text/css" >
 </head>
@@ -101,7 +103,7 @@
 
   #get-started h1 {
     font-family: 'Proximanova Semibold';
-    font-size: 2.1em;
+    font-size: 2.2em;
     color: white;
   }
 
@@ -124,8 +126,52 @@
     padding-top: 5em;
   }
 
-  #hero-button {
+  button.primary-btn {
+    vertical-align: top; */
+    /* padding: 4px; */
     text-align: center;
+    /* width: 200px; */
+    /* height: 55px; */
+    font-size: 1em;
+    display: block;
+    font-family: 'Proximanova Semibold';
+    background-color: #FF4242;
+    /* color: #ffffff; */
+    border-radius: 5px;
+    padding: 12px;
+    /* border-color: #a80101; */
+    border-width: 0px;
+  }
+
+  button i {
+    margin-right: .3em;
+  }
+
+  button.primary-btn a {
+        color: white;
+
+  }
+
+
+
+
+  #hero-button {
+    /* padding: 4px; */
+    text-align: center;
+    /* width: 200px; */
+    /* height: 55px; */
+    font-size: 1em;
+    display: block;
+    font-family: 'Proximanova Semibold';
+    background-color: #FF4242;
+    /* color: #ffffff; */
+    border-radius: 5px;
+    padding: 12px;
+    /* border-color: #a80101; */
+    border-width: 0px;
+
+
+/*    text-align: center;
     width: 200px;
     height: 55px;
     font-size: 1em;
@@ -134,7 +180,7 @@
     background-color: #FF4242;
     color: white;
     border-radius: 5px;
-    padding: 12px;
+    padding: 12px*/;
 
 /*    text-align: center;
     width: 150px;
@@ -493,7 +539,12 @@
           <h4 id="sub-pitch">
             ReadUp listens to students read and then it scores a full running record for you with fluency, accuracy, comprehension, miscue analysis, and a recording 
            </h4>
-        <a href="/student_dashboard/#/story/demo" id="hero-button">Try a Demo</a>
+
+        <button class="primary-btn"> 
+        <i class="fa fa-angle-right faa-pulse animated fa-1x"></i>
+        <a href="/student_dashboard/#/story/demo">Try a Demo</a>
+        </button>
+
       </div>
 
       <div id="ipadImgContainer">
