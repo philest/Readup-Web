@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'gochi-hand';
-    src: url('fonts/gochi-hand.eot');
-    src: local('☺'), url('fonts/gochi-hand.woff') format('woff'), url('fonts/gochi-hand.ttf') format('truetype'), url('fonts/gochi-hand.svg') format('svg');
+    src: font-url('gochi-hand.eot');
+    src: local('☺'), font-url('gochi-hand.woff') format('woff'), font-url('gochi-hand.ttf') format('truetype'), font-url('gochi-hand.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -118,8 +118,8 @@
 
 @font-face {
     font-family: 'Conv_proxima-nova-bold-italic';
-    src: url('fonts/proxima-nova-bold-italic.eot');
-    src: local('☺'), url('fonts/proxima-nova-bold-italic.woff') format('woff'), url('fonts/proxima-nova-bold-italic.ttf') format('truetype'), url('fonts/proxima-nova-bold-italic.svg') format('svg');
+    src: font-url('proxima-nova-bold-italic.eot');
+    src: local('☺'), font-url('proxima-nova-bold-italic.woff') format('woff'), font-url('proxima-nova-bold-italic.ttf') format('truetype'), font-url('proxima-nova-bold-italic.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
