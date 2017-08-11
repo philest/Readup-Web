@@ -40,6 +40,7 @@
   #myTitleText {
     width: 63%;
     display: inline-block;
+    min-width: 650px;
   }
 
   .content-container {
@@ -126,8 +127,7 @@
     padding-top: 5em;
   }
 
-  button.primary-btn {
-    vertical-align: top; */
+  button#new-hero-button.primary-btn {
     /* padding: 4px; */
     text-align: center;
     /* width: 200px; */
@@ -145,13 +145,19 @@
 
   button i {
     margin-right: .3em;
+    color: #690000;
   }
 
-  button.primary-btn a {
+  button#new-hero-button.primary-btn {
         color: white;
 
   }
 
+  button#new-hero-button.primary-btn:hover {
+        color: #f3f3f3;
+
+
+  }
 
 
 
@@ -303,7 +309,7 @@
     }
 
     .splash-new .splash-container {
-      background: url('/images/student-hero-blue.jpg')
+      background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-desktop.jpg')
           center
           top/cover
           no-repeat
@@ -335,6 +341,10 @@
 
     #ipadImg {
       width: 95%;
+    }
+
+    button#new-hero-button.primary-btn {
+      margin: 0 auto;
     }
 
     #hero-button {
@@ -445,20 +455,44 @@
 
   }
 
+/*  @media (min-width: 800px) and (max-width: 1025px){
+    
+    #myTitleText {
+      font-size: 2.13em;
+    }
 
-  @media (min-width: 600px) and (max-width: 1025px){
+
+  }*/
+
+  @media (min-width: 566px) and (max-width: 1025px){
 
     .splash-new .splash-container .title {
       text-align: center;
       width: 90% !important;
+
+    }
+
+    h4#sub-pitch {
+      width:  100%;
+    }
+
+    div.splash-container {
+        background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-tablet.jpg')
+          center
+          top/cover
+          no-repeat
+          #726241 !important;
+
     }
 
     #myTitleText {
-      width: 70%;
+      width: 90%;
       display: block;
       text-align: center;
       margin: 0 auto;
-    }
+      min-width: 0px;
+/*      font-size: .8em
+*/    }
 
     #ipadImgContainer {
       display: block;
@@ -470,7 +504,15 @@
     }
 
     #ipadImg {
-      width: 70%;
+/*      width: 70%;
+*/      display: block;
+      position: initial;
+      margin: 0 auto;
+      margin-left: -30px;
+    }
+
+    button#new-hero-button.primary-btn {  
+      margin: 0 auto;
     }
 
     #hero-button {
@@ -488,6 +530,8 @@
 
     #educatorTrustTitle {
       margin-top: 15%;
+      text-align: center;
+      margin-left: 0px;
     }
 
     .footer {
@@ -524,7 +568,7 @@
 <div class="splash-new">
   <div
     class="splash-container"
-    style="background: url('/images/student-hero-blue.jpg')
+    style="background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-desktop.jpg')
           center
           top/cover
           no-repeat
@@ -539,11 +583,12 @@
           <h4 id="sub-pitch">
             ReadUp listens to students read and then it scores a full running record for you with fluency, accuracy, comprehension, miscue analysis, and a recording 
            </h4>
-
-        <button class="primary-btn"> 
+      <a href="/student_dashboard/#/story/demo">
+        <button class="primary-btn" id="new-hero-button"> 
         <i class="fa fa-angle-right faa-pulse animated fa-1x"></i>
-        <a href="/student_dashboard/#/story/demo">Try a Demo</a>
+        Try a Demo
         </button>
+      </a>
 
       </div>
 

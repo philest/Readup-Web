@@ -231,7 +231,7 @@
 
   // have a different resized background on mobile
   div.splash-container {
-  background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero-mobile.jpg')
+  background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-mobile.jpg')
           center
           top/cover
           no-repeat
@@ -255,7 +255,6 @@
        min-height: 720px; // 720px <-- 720px
        display: block;
        margin: 0 auto;
-       height: 600px;
        .title {
          text-align: center;
          color: white;
@@ -440,6 +439,11 @@
     body#override .splash {
       background-color: #F5F5F3
     }
+
+   .splash-new .splash-container {
+    height: 600px;
+   }
+
 
     .splash-container {
        padding-top: 0px;
