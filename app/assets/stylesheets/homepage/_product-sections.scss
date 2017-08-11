@@ -49,7 +49,7 @@
    font-family: 'Proximanova';
    color: white;
    width: 700px; 
-   line-height: 1.5;
+   line-height: 1.85;
  }
 
  h1#pitch {
@@ -231,7 +231,7 @@
 
   // have a different resized background on mobile
   div.splash-container {
-  background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero-mobile.jpg')
+  background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-mobile.jpg')
           center
           top/cover
           no-repeat
@@ -264,7 +264,7 @@
          font-size: 1.5em;
 
          h1 {
-           font-size: 2em;
+           font-size: 2.13em;
          }
        }
 
@@ -439,6 +439,11 @@
     body#override .splash {
       background-color: #F5F5F3
     }
+
+   .splash-new .splash-container {
+    height: 600px;
+   }
+
 
     .splash-container {
        padding-top: 0px;

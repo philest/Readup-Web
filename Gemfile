@@ -47,7 +47,7 @@ gem 'aws-sdk', '~> 2'
 gem 'sidekiq'
 
 gem 'pony'
-
+gem 'font-awesome-sass'
 
 
 # Use Capistrano for deployment

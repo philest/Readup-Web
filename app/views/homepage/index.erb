@@ -1,7 +1,72 @@
+<head>
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+<!--<![endif]-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" type="text/css" >
+</head>
+
+
 <style type="text/css">
+
   .form-container {
     position: absolute;
     margin: 0 auto;
+  }
+
+  .block {
+    display: block;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  img#districts {
+    width: 65%;
+  }
+
+  .mainTitle {
+    width: 64%;
+    margin-right: 0px;
+  }
+
+  #myTitleText {
+    width: 63%;
+    display: inline-block;
+    min-width: 650px;
+  }
+
+  .content-container {
+    max-width: 1445px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  #educatorTrustTitle {
+    text-align: left;
+    color: #4a4a4a !important;
+    margin-left: 5%;
+    margin-top: 5%;
+    font-size: 2.3em;
+  }
+
+  #ipadImgContainer {
+    display: inline-block;
+    width: 25%;
+  }
+
+  #ipadImg {
+    position: relative;
+    top: -80px;
+    left: 60px;    
+    width: 340px;
   }
 
   .section-buffer {
@@ -62,14 +127,77 @@
     padding-top: 5em;
   }
 
+  button#new-hero-button.primary-btn {
+    /* padding: 4px; */
+    text-align: center;
+    /* width: 200px; */
+    /* height: 55px; */
+    font-size: 1em;
+    display: block;
+    font-family: 'Proximanova Semibold';
+    background-color: #FF4242;
+    /* color: #ffffff; */
+    border-radius: 5px;
+    padding: 12px;
+    /* border-color: #a80101; */
+    border-width: 0px;
+  }
+
+  button i {
+    margin-right: .3em;
+    color: #690000;
+  }
+
+  button#new-hero-button.primary-btn {
+        color: white;
+
+  }
+
+  button#new-hero-button.primary-btn:hover {
+        color: #f3f3f3;
+
+
+  }
+
+
+
   #hero-button {
+    /* padding: 4px; */
+    text-align: center;
+    /* width: 200px; */
+    /* height: 55px; */
+    font-size: 1em;
+    display: block;
+    font-family: 'Proximanova Semibold';
+    background-color: #FF4242;
+    /* color: #ffffff; */
+    border-radius: 5px;
+    padding: 12px;
+    /* border-color: #a80101; */
+    border-width: 0px;
+
+
+/*    text-align: center;
+    width: 200px;
+    height: 55px;
+    font-size: 1em;
+    display: block;
+    font-family: 'Proximanova Semibold';
+    background-color: #FF4242;
+    color: white;
+    border-radius: 5px;
+    padding: 12px*/;
+
+/*    text-align: center;
     width: 150px;
     height: 50px;
-    margin: 0 auto;
-    text-align: center;
     font-size: 0.8em;
     display: block;
     font-family: 'Proximanova Semibold';
+    background-color: #FF4242;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;*/
   }
 
   .how-it-works {
@@ -133,7 +261,7 @@
   }
 
   .content--max--width:before {
-      display: table;
+    display: table;
     line-height: 0;
     content: "";
   }
@@ -167,6 +295,11 @@
     display: inline-block;
   }
 
+  .district-section { 
+    margin-bottom: 2em;
+    width:100%;
+
+  }
 
 
   /* mobile */
@@ -175,9 +308,79 @@
       display: none;
     }
 
+    .splash-new .splash-container {
+      background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-desktop.jpg')
+          center
+          top/cover
+          no-repeat
+          #726241 !important;
+    }
 
     #get-started h1 {
+    }
+
+    .splash-new .splash-container .title {
+      text-align: center;
+      width: 88% !important;
+    }
+
+    #myTitleText {
+      width: 90%;
+      display: block;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    #ipadImgContainer {
+      display: block;
+      width: 80%;
+      margin: 0 auto;
+      position: relative;
+      top: 50px;
+    }
+
+    #ipadImg {
+      width: 100%;
+    }
+
+    button#new-hero-button.primary-btn {
+      margin: 0 auto;
+    }
+
+    #hero-button {
+      margin: 0 auto;
+      font-size: 1em;
+      width: 120px !important;
+      height: 40px !important;
+    }
+
+    #educatorTrustTitle {
       font-size: 1.8em;
+      text-align: center;
+      margin-top: 25%;
+      margin-left: 0px;
+    }
+
+    img#districts {
+      width: 95%;
+    }
+
+    .footer {
+      font-size: .6em !important;
+      text-align: center;
+      padding-bottom: 0px !important;
+      line-height: .3;
+    }
+    .footer--nav--link:not(:last-child) {
+      margin-right: 10px;
+    }
+
+    .splash-new .splash-container .title #myTitleText h4 {
+      font-size: 1em;
+    }
+
+    .splash-new .splash-container .title #myTitleText h1 {
+      font-size: 2.1em;
     }
 
 
@@ -196,7 +399,7 @@
     h4#sub-pitch {
       width: 100%;
       font-size: 17px;
-    }
+      }
 
     .product-text {
       margin-top: 20px;
@@ -256,9 +459,158 @@
     }
 
 
+
+    .splash-new .splash-container .title {
+      text-align: center;
+      width: 90% !important;
+
+    }
+
+    h4#sub-pitch {
+      width:  100%;
+    }
+
+    div.splash-container {
+        background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-tablet.jpg')
+          center
+          top/cover
+          no-repeat
+          #726241 !important;
+
+    }
+
+    #myTitleText {
+      width: 90%;
+      display: block;
+      text-align: center;
+      margin: 0 auto;
+      min-width: 0px;
+/*      font-size: .8em
+*/    }
+
+    #ipadImgContainer {
+      display: block;
+      width: 80%;
+      margin: 0 auto;
+      position: relative;
+      top: 70px;
+      left: 30px;
+    }
+
+    #ipadImg {
+/*      width: 70%;
+*/      display: block;
+      position: initial;
+      margin: 0 auto;
+    }
+
+    button#new-hero-button.primary-btn {  
+      margin: 0 auto;
+    }
+
+
+
   }
 
-  
+/*  @media (min-width: 800px) and (max-width: 1025px){
+    
+    #myTitleText {
+      font-size: 2.13em;
+    }
+
+
+  }*/
+
+  @media (min-width: 566px) and (max-width: 1025px){
+
+    .splash-new .splash-container .title {
+      text-align: center;
+      width: 90% !important;
+
+    }
+
+    h4#sub-pitch {
+      width:  100%;
+    }
+
+    div.splash-container {
+        background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-tablet.jpg')
+          center
+          top/cover
+          no-repeat
+          #726241 !important;
+
+    }
+
+    #myTitleText {
+      width: 90%;
+      display: block;
+      text-align: center;
+      margin: 0 auto;
+      min-width: 0px;
+/*      font-size: .8em
+*/    }
+
+    #ipadImgContainer {
+      display: block;
+      width: 60%;
+      margin: 0 auto;
+      position: relative;
+      top: 70px;
+      left: 30px;
+    }
+
+    #ipadImg {
+/*      width: 70%;
+*/      display: block;
+      position: initial;
+      margin: 0 auto;
+    }
+
+    button#new-hero-button.primary-btn {  
+      margin: 0 auto;
+    }
+
+    #hero-button {
+      margin: 0 auto;
+      font-size: .8em;
+    }
+
+    .splash-new .splash-container .title #myTitleText h1 {
+      text-align: center;
+    }
+
+    .splash-new .splash-container .title #myTitleText h4 {
+      text-align: center;
+    }
+
+    #educatorTrustTitle {
+      margin-top: 15%;
+      text-align: center;
+      margin-left: 0px;
+    }
+
+    .footer {
+      font-size: .7em !important;
+      text-align: center;
+    }
+
+  }
+
+  @media (min-width: 35.5em) {
+    .splash-new .splash-container h4 {
+      text-align: left;
+    }
+    .splash-new .splash-container h1 {
+      text-align: left;
+    }
+    .splash-new .splash-container .title {
+      text-align: left;
+      width: 88%;
+    }
+  }
+
+
 </style>
 
 
@@ -272,132 +624,78 @@
 <div class="splash-new">
   <div
     class="splash-container"
-    style="background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero-desktop.jpg')
+    style="background: url('https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/hero/student-hero-blue-desktop.jpg')
           center
           top/cover
           no-repeat
-          #726241;"
+          #416B83;"
   >
     <div class="title">
-      <div id="pitch" class="form-container">
+      <div id="myTitleText">
         <h1>
-          ReadUp scores running records for you
+          The easiest way to assess fluency and comprehension
         </h1>
-        <center>
+
           <h4 id="sub-pitch">
-            ReadUp listens to students read and creates a full running record with fluency, accuracy, comprehension, and miscue analysis 
+            ReadUp listens to students read and then it scores a full running record for you with fluency, accuracy, comprehension, miscue analysis, and a recording 
            </h4>
-        </center>
-        <button type="button" class="btn btn-primary" id="hero-button" data-toggle="modal" data-target="#signupFormModal">Try a Demo</button>
+      <a href="/student_dashboard/#/story/demo">
+        <button class="primary-btn" id="new-hero-button"> 
+        <i class="fa fa-angle-right faa-pulse animated fa-1x"></i>
+        Try a Demo
+        </button>
+      </a>
 
-        <a href="#end-no-reading"><div class="how-it-works">HOW IT WORKS <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/down-arrow.png" style="margin-top: -3px;"></div></a>
-        
+      </div>
+
+      <div id="ipadImgContainer">
+        <img id="ipadImg" src="/images/ipad-product.png" alt="">
       </div>
     </div>
-  </div>
+</div>
 </div>
 
 
 
-<div class='section-buffer'></div>
-
-<section class="product-display" id="end-no-reading">
-  <h1 class="section-banner">Save hundreds of instructional hours</h1>
-  <div class="pure-g">
-
-    <div class="pure-u-1 pure-push-md-1-2 pure-u-md-1-2">
-      <div class="product-img">
-        <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/step-1.jpg" alt="">
-      </div>
-    </div>
-
-
-    <div class="pure-u-1 pure-pull-md-1-2 pure-u-md-1-2">
-      <div class="product-text" style="position: relative;">
-        <div class='step-number-label-left'>01</div>
-        <h2>Students read on their own</h2>
-        <ul>
-          <p>F&amp;P-leveled books that are chosen by Yale professors </p>
-          <p>Readup records their reading</p>
-        </ul>
-      </div>
-    </div>
-
-
-  </div>
-</section>
-
-
-<section class="product-display" id="support-families">
-  <div class="pure-g step-2">
-
-    <div class="pure-u-1 pure-u-md-1-2">
-      <div class="product-img">
-        <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/step-2.jpg" alt="">
-      </div>
-    </div>
-
-    <div class="pure-u-1 pure-u-md-1-2">
-      <div class="product-text" style="position: relative;">
-        <div class='step-number-label-right'>02</div>
-        <h2 >You get a running record</h2>
-        <ul>
-          <p>Scored by a trained teacher</p>
-          <p>Emailed to you in under 1 hour</p>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="product-display skew-up" id="support-families" style="margin-top: 2em; background-color: #EDF2F5;">
-  <div class="pure-g skew-down-container" style="padding-top: 3em;">
-
-    <div class="pure-u-1 pure-push-md-1-2 pure-u-md-1-2">
-      <div class="product-img">
-        <img src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/running-record-report-large.jpg" alt="">
-      </div>
-    </div>
-
-
-    <div class="pure-u-1 pure-pull-md-1-2 pure-u-md-1-2">
-      <div class="product-text">
-        <h2>Know where your students are – instantly</h2>
-        <ul style="margin: 0;">
-          <p><b>Save hours</b> of administering, grading, and documenting</p>
-          <p><b>Stop disruptions.</b> No more leaving your class unsupervised</p>
-          <p><b>See weaknesses</b> to know what each students needs</p>
-          <button type="button" class="btn btn-success" id="demoButton2" style="width: 150px; height: 50px; margin-top: 30px; text-align: center; font-size: 1.1em; display: block" data-toggle="modal" data-target="#signupFormModal">Try a Demo</button>
-        </ul>
-      </div>
-    </div>
-
-
-  </div>
-</section>
-
-
-<section class="product-display extra-padding" id="testimonial"> 
-  <div class="content--max--width">
-    <img  class="quote-image" src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/testimonial-photo.jpg">
-    <div class="quote-content-left"> 
-      <div class="quote-content">
-        <h3 class="quote-title">The best service is one that does not require our teachers to worry or stress, and ReadUp provides this for Loma Park.</h3>
-        <p>Maria Contreras, Loma Park Elementary</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<div id="get-started" style="padding: 20px; padding-top: 50px; padding-bottom: 70px; background-color: #3E8EC8; color: white;">
-
-  <h1 id="call-to-action" style="color: white;">Ready to get started with Readup?</h1>
-
-  <p>Join thousands of educators that trust Readup to save instructional time</p>
-
-
-  <button type="button" class="btn btn-success" style="width: 150px; height: 50px; margin: 0 auto; text-align: center; font-size: 1.1em; display: block" data-toggle="modal" data-target="#signupFormModal">Try a Demo</button>
-
+<div class="content-container"> 
+  <div class='section-buffer'></div>
+  <h1 id="educatorTrustTitle"> Trusted by thousands of educators </h1>
 </div>
+
+<section class="district-section">
+  <div class="pure-g block text-center" style="padding-top: 1em;">
+
+    <div class="pure-u-1-3 pure-u-md-1-3 pure-u-lg-1-5">
+      <div>
+        <img src="/images/district-1.png" alt="" id="districts">
+      </div>
+    </div>
+
+    <div class="pure-u-1-3 pure-u-md-1-3 pure-u-lg-1-5">
+        <img src="/images/district-2.png" alt="" id="districts">
+    </div>
+
+    <div class="pure-u-1-3 pure-u-md-1-3 pure-u-lg-1-5">
+      <div>
+        <img src="/images/district-3.png" alt="" id="districts">
+      </div>
+    </div>
+
+    <div class="pure-u-1-3 pure-u-md-1-3 pure-u-lg-1-5">
+      <div>
+        <img src="/images/district-4.png" alt="" id="districts">
+      </div>
+    </div>
+
+    <div class="pure-u-1-3 pure-u-md-1-3 pure-u-lg-1-5">
+      <div>
+        <img src="/images/district-5.png" alt="" id="districts">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
 
