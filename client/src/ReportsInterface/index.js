@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './styles.css'
 
 import InfoBar from './components/InfoBar'
+import NavigationBar from '../StudentDashboard/components/NavigationBar'
+import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { Button, Modal } from 'react-bootstrap'
@@ -141,7 +143,6 @@ export default class ReportsInterface extends React.Component {
 
     return (
       <div className={styles.reportsContainer}>
-
 
 
         <InfoBar
