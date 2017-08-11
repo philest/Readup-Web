@@ -196,13 +196,11 @@ function* assessThenSubmitSaga() {
   const effects = []
 
 
-  yield put(setCurrentOverlay('overlay-intro'))
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
-  yield take(INTRO_CONTINUE_CLICKED)
   yield put(setCurrentOverlay('no-overlay'))
 
   const permissionsGranted = yield* getMicPermissionsSaga() // blocks
@@ -392,10 +390,8 @@ function* rootSaga() {
 
         if (isDemo) {
           yield clog('oh hey you r done')
-          yield put(setCurrentOverlay('overlay-demo-submitted'))
-          yield take(DEMO_SUBMITTED_LOGOUT_CLICKED)
           // TODO where to redirect?
-          window.location.href = "/"
+          window.location.href = "/reports/1"
 
         } else {
           yield put(setCurrentOverlay('overlay-submitted'))
