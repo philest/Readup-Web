@@ -9,7 +9,10 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
+import { sendEmail } from './emailHelpers'
 
+
+const ADMIN_EMAIL = "philesterman@gmail.com"
 
 export default class ReportsInterface extends React.Component {
   static propTypes = {
@@ -53,9 +56,17 @@ export default class ReportsInterface extends React.Component {
   }
 
   onEmailFormSubmit = () => {
+
     this.setState({ showEmailModal: false })
     this.setState({ showSampleInfoModal: true })
     const email = this.state.email
+
+    const subject = ["Demo submitted: ", email].join(' ')
+
+
+    const message = ["The user's email is ", email].join(' ')
+
+    sendEmail(subject, message, ADMIN_EMAIL)
 
     // TODO do something with the data
   }
@@ -76,6 +87,10 @@ export default class ReportsInterface extends React.Component {
     if (this.state.showPricingModal && event.code === 'Enter') {
       this.onPricingFormSubmit()
     }
+    if (this.state.showEmailModal && event.code === 'Enter') {
+      this.onEmailFormSubmit()
+    }
+
   }
 
 
@@ -100,13 +115,24 @@ export default class ReportsInterface extends React.Component {
     const name = this.state.name
     const schoolName = this.state.schoolName
     const phoneNumber = this.state.phoneNumber
+    const email = this.state.email
+
+    const subject = ["Pricing request: ", schoolName].join(' ')
 
     this.setState({ showPricingModal: false })
+
+    const message = ["Pricing just requested.\n\nEmail: ", email, "\nName: ", name, "\nSchool: ", schoolName, "\nPhone: ", phoneNumber].join(' ')
+
+    sendEmail(subject, message, ADMIN_EMAIL)
+
 
 
     // TODO do something with the data
 
   }
+
+
+
 
 
   render() {

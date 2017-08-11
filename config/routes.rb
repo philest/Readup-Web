@@ -52,6 +52,8 @@ Rails.application.routes.draw do
 
   get 'transcribe/:teacher_id', to: 'transcriber_interface#index'
   get 'reports/:teacher_id', to: 'reports#index'
+  get 'reports/email_submit', to: 'reports#email_submit'
+
 
   # process audio
   post '/audio_process/save_file', to: 'audio_process#save_file'
@@ -59,6 +61,7 @@ Rails.application.routes.draw do
   get 'aws_presign', to: 'audio_process#aws_presign'
 
   get '/audio_process', to: 'audio_process#index'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

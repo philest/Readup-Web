@@ -43,6 +43,10 @@ gem 'devise'
 gem 'aws-sdk', '~> 2'
 gem 'sidekiq'
 
+gem 'pony'
+
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
