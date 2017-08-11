@@ -49,7 +49,7 @@
    font-family: 'Proximanova';
    color: white;
    width: 700px; 
-   line-height: 1.5;
+   line-height: 1.85;
  }
 
  h1#pitch {
@@ -255,6 +255,7 @@
        min-height: 720px; // 720px <-- 720px
        display: block;
        margin: 0 auto;
+       height: 600px;
        .title {
          text-align: center;
          color: white;
@@ -264,7 +265,7 @@
          font-size: 1.5em;
 
          h1 {
-           font-size: 2em;
+           font-size: 2.2em;
          }
        }
 
