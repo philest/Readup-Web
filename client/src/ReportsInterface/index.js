@@ -20,6 +20,7 @@ export default class ReportsInterface extends React.Component {
   };
 
 
+
   constructor(props, _railsContext) {
     super(props);
     this.state = {
@@ -116,6 +117,7 @@ export default class ReportsInterface extends React.Component {
     const schoolName = this.state.schoolName
     const phoneNumber = this.state.phoneNumber
     const email = this.state.email
+
 
     const subject = ["Pricing request: ", schoolName].join(' ')
 
