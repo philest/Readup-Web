@@ -1,0 +1,134 @@
+
+.textContainer {
+	font-size: 1.15em;
+	width: 300px;
+	margin-top: 30px;
+	cursor: default;
+	font-family: 
+}
+
+.textContainerLarge {
+	width: 600px;
+}
+
+.textParagraph {
+	margin-bottom: 30px;
+	line-height: 3.5em;
+}
+
+.textParagraphGrayedOut {
+	margin-bottom: 48px;
+    line-height: 1.5em;
+}
+
+.wordAndSpaceWrapper {
+	display: inline-block;
+}
+
+.wordWrapper {
+	position: relative;
+	font-weight: normal;
+}
+
+.textWord {
+	display: inline-block;
+	color: #4a4a4a;
+	font-weight: normal;
+	font-size: 18px
+
+}
+
+.textWord:hover {
+	background-color: lightgray;
+}
+
+.textWordNoHover {
+	display: inline-block;
+	color: #4a4a4a;
+	font-weight: normal;
+	font-size: 17px;
+	font-weight: normal;
+}
+
+.wordAbove {
+	position: absolute;
+	top: -25px;
+	left: 2px;
+
+	color: #982E2B;
+	font-size: 1.1em;
+	font-family: 'gochi-hand';
+	text-decoration: none;
+
+	width: 500px;
+
+}
+
+.wordAboveSpace {
+	position: absolute;
+	top: -25px;
+	line-height: 1.5em;
+	color: #982E2B;
+	font-size: 1.1em;
+	font-family: 'gochi-hand';
+	text-decoration: none;
+
+	text-align: center;
+
+	/*width: 200px;
+	margin-left: -100px;*/
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+
+	/* The two lines below are both hacky solutions to getting the added text on the same line
+	not sure why necessary, but without one of them I couldn't get this to work. */
+	width: 500px;
+	/*display: table;*/
+
+}
+
+.addChevron {
+	position: absolute;
+    top: 18px;
+    left: 10px;
+    font-size: 0.5em;
+    left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-51%)
+
+}
+
+.strikethrough {
+	
+}
+
+.strikethrough::after {
+  border-bottom: 2px solid #982E2B;
+  content: "";
+  left: 0;
+  line-height: 1em;
+  margin-top: calc(0.125em / 2 * -1);
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+
+.endingSlashes {
+	color: #982E2B;
+	font-size: 1.2em;
+	margin-left: 5px;
+}
+
+.grayedOut {
+	color: #B7B7B7;
+}
+
+
+
+
+
+/*.highlightedTextWord {
+	display: inline-block;
+	background-color: lightgr;
+}*/

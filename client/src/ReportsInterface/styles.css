@@ -1,0 +1,317 @@
+
+
+.reportsContainer {
+	color: #4a4a4a;
+}
+
+.navBar {
+	height: 60px;
+	z-index: 100;
+}
+
+.stickyPricingButton {
+	position: fixed;
+	right: 85px;
+	top: 300px;
+	width: 150px;
+	height: 40px;
+	border-radius: 3px;
+}
+
+
+.contentWrapper {
+	font-family: 'ProximaNova';
+	padding: 70px 110px;
+	padding-right: 35px;
+	padding-top: 130px;
+
+	max-width: 1025px;
+}
+
+
+.evaluationInfoHeader {
+	display: flex;
+	flex-flow: row;
+}
+
+.mainHeadingContainer {
+
+}
+
+.studentNameHeading {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 2.5em;
+	
+}
+
+.bookInfoSubheading p{
+	font-size: 1.4em;
+	font-family: 'Conv_Proxima-Nova-Regular-Italic';
+	margin-top: 15px;
+	color: #4a4a4a;
+}
+
+.bookInfoSubheading span {
+	font-family: 'Conv_proxima-nova-bold-italic';
+	color: #4a4a4a;
+}
+
+
+.metricsHeadingContainer {
+	flex: 1;
+	display: flex;
+	flex-flow: row;
+	justify-content: flex-end;
+	margin-top: 19px; 
+	/*This aligns it with bottom of Student Heading.*/
+}
+
+.metricWrapper {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	padding: 6px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.metricFigureLabel {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-size: 1.9em;
+}
+
+.goodMetric {
+	color: #249C44;
+}
+
+.fairMetric {
+	color: #D97F0F;
+}
+
+.poorMetric { 
+	color: #982e2b;
+}
+
+
+
+.metricDescriptionLabel {
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-size: 1.3em;
+}
+
+.levelInfoWrapper {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	margin-left: 30px;
+	margin-top: -5px;
+}
+
+.levelRectangle {
+	background-color: #249C44;
+	color: white;
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-size: 1.4em;
+	width: 140px;
+	padding: 5px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+
+
+.goodLevelResult {
+	background-color: #249C44;
+}
+
+.fairLevelResult {
+	background-color: #D97F0F;
+}
+
+.poorLevelResult {
+	background-color: #982e2b;
+}
+
+
+
+.levelLabel {
+	margin-top: 10px;
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-size: 1.2em;
+}
+
+
+.bookInfoHeader {
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	margin-top: 115px;
+	margin-bottom: 60px;
+}
+
+.bookInfoWrapper {
+
+}
+
+.bookInfoTitle {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 1.6em;
+}
+
+.bookInfoLevel {
+	font-size: 1.2em;
+	font-family: 'Conv_Proxima-Nova-Regular-Italic';
+	margin-top: 5px;
+}
+
+.audioWrapper {
+	margin-left: 50px;
+}
+
+.audioWrapper button {
+	background-color: #2e6da4;
+	border-color: #275985;
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	padding: 8px 20px;
+
+}
+
+.audioElement {
+	width: 400px;
+}
+
+
+.modalSubtitle {
+	color: grey;
+    font-size: 13px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 1.5em;
+    font-family: 'Conv_proximanova-regular-webfont'
+}
+
+.modalSubtitleLong {
+    margin: 0 auto;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+
+.paperImage {
+	width: 70px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    display: block;
+    margin: 0px auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+}
+
+.paperImageOverlay {
+	width: 30px;
+    background-color: transparent;
+    position: absolute;
+    top: 40px;
+    right: 222px;  
+    display: none;  
+}
+
+@media (min-width: 768px) {
+	.modalMedium {
+		width: 460px;
+	}
+
+	.paperImageOverlay {
+		display: block;
+	}
+
+	.modalSubtitleLong {
+		width: 310px;
+	}
+
+}
+
+
+.mbi {
+	background-color: black;
+	opacity: 0.9;
+}
+
+
+.pricingFooter {
+	margin-top: 100px;
+	margin-bottom: 40px;
+	width: 100%;
+	display/*: flex;
+	flex-flow: column;
+	justify*/-content: center;
+}
+
+.pricingFooterLabel {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-weight: bold;
+	font-size: 1.6em;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.pricingFooterButton {
+    width: 170px;
+    height: 50px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 3px;
+    background-color: #2e6da4;
+    border-color: #275985;
+    font-family: 'Conv_Proxima-Nova-Semibold';
+    padding: 8px 20px;
+
+}
+
+.pricingModalTitle {
+	font-family: 'Conv_proximanova-bold-webfont';
+	font-size: 1.4em;
+	text-align: center;
+}
+
+.pricingFormWrapper {
+	padding-top:10px;
+	width: 65%;
+	margin: 0 auto;
+}
+
+.pricingFormField {
+	padding-bottom: 15px;
+	font-family: 'Conv_proximanova-regular-webfont';
+}
+
+.pricingFormFieldLabel {
+	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-size: .9em;
+	margin-bottom: 5px;
+}
+
+.pricingFormFieldInput {
+	width: 100%;
+	height: 35px;
+	background: #fff;
+    border: 1px solid #c5c7cb;
+	border-radius: 4px;
+	padding: 12px;
+	font-size: 0.85em;
+}
+
+.pricingFormButton {
+	width: 100%;
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	font-family: 'Conv_Proxima-Nova-Semibold'
+}
+
+

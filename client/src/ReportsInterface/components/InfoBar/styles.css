@@ -1,0 +1,58 @@
+body { 
+	letter-spacing: 0.2px;
+}
+
+.InfoContainer {
+	background-color: #232323;
+	color: white;
+	font-family: 'Conv_proximanova-regular-webfont';
+	letter-spacing: 0.6px;
+	-webkit-box-shadow: 1px 10px 19px -8px rgba(84,84,84,1);
+-moz-box-shadow: 1px 10px 19px -8px rgba(84,84,84,1);
+box-shadow: 1px 10px 19px -8px rgba(84,84,84,1);
+	position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+
+.InfoTextContainer {
+	padding-left: 90px;
+	padding-right: 35px;
+	max-width: 1025px;
+	
+	display: flex;
+    flex-flow: row;
+}
+
+.InfoTitle {
+	display: inline-block;
+	font-size: 26px;
+	font-family: 'Proximanova Semibold';
+	margin: 15px 0px;
+
+
+}
+
+.InfoSubtitle {
+	font-weight: 100;
+	font-size: 21px;
+	font-family: 'Conv_Proxima-Nova-Regular-Italic';
+
+
+}
+
+.InfoExtraInfo { 
+	display: inline-block;
+	text-align: right;
+	color: white; 
+	font-family: 'Conv_proximanova-regular-webfont';
+	margin-top: 24px;
+	font-size: 14px;
+}
+
+.InfoExtraInfoContainer {
+	flex: 1;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}

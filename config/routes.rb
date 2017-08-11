@@ -50,12 +50,18 @@ Rails.application.routes.draw do
   get 'student_dashboard/assessment', to: 'student_dashboard#create_assessment'
   post 'student_dashboard/assessment', to: 'student_dashboard#confirm_assessment_completion'
 
+  get 'transcribe/:teacher_id', to: 'transcriber_interface#index'
+  get 'reports/:teacher_id', to: 'reports#index'
+  get 'reports/email_submit', to: 'reports#email_submit'
+
+
   # process audio
   post '/audio_process/save_file', to: 'audio_process#save_file'
   post '/audio_process/save_link', to: 'audio_process#save_link'
   get 'aws_presign', to: 'audio_process#aws_presign'
 
   get '/audio_process', to: 'audio_process#index'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
