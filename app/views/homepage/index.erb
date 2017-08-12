@@ -627,10 +627,54 @@
 </style>
 
 
+<style> 
+
+
+.perspective-container{
+/*position: relative;
+-webkit-perspective: 766px;
+perspective: 766px;
+*/
+
+position: relative;
+-webkit-perspective: 766px;
+perspective: 1300px;
+transform: rotate(4deg);
+    perspective-origin: 30% 90%;
+
+}
+
+.ipad-device {
+  width: 340px;
+  margin: 100px auto; 
+  text-align: center;
+  display: block;
+/*
+    -webkit-transform: rotateX(2deg) rotateY(-16deg);
+    transform: rotateX(2deg) rotateY(-16deg);*/
+
+    -webkit-transform: rotateX(2deg) rotateY(-16deg);
+    transform: rotateX(-4deg) rotateY(-21deg);
+
+/*-webkit-transform: rotateX(2deg) rotateY(-25deg);
+transform: rotateX(2deg) rotateY(-25deg);*/
+}
+
+</style>
+
+
+<div class="perspective-container"> 
+  <img class="ipad-device" src="/images/ipad-bkg.png">
+  <img class="ipad-device" src="/images/ipad-full-writing.png">
+
+</div>
+<% 20.times do %>
+  <br> 
+<%end%>
+
 
 <%= render 'homepage/partials/navbar' %>
 <%= render 'homepage/modals/signup_form_modal' %>
-
 
 
 
