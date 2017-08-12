@@ -645,7 +645,7 @@ transform: rotate(4deg);
 }
 
 .ipad-device {
-  width: 340px;
+  width: 310px;
   margin: 100px auto; 
   text-align: center;
   display: block;
@@ -660,17 +660,29 @@ transform: rotate(4deg);
 transform: rotateX(2deg) rotateY(-25deg);*/
 }
 
+
+
+.the-dang-device { 
+    left: 76%;
+    margin-left: -155px;
+    position: absolute;
+    z-index: 999;
+}
+
+video.ipad-device {
+    height: 381px;
+    left: 76%;
+    margin-left: -156px;
+    position: absolute;
+    top: 38px;
+}
+}
+
+
+
 </style>
 
 
-<div class="perspective-container"> 
-  <img class="ipad-device" src="/images/ipad-bkg.png">
-  <img class="ipad-device" src="/images/ipad-full-writing.png">
-
-</div>
-<% 20.times do %>
-  <br> 
-<%end%>
 
 
 <%= render 'homepage/partials/navbar' %>
@@ -706,10 +718,25 @@ transform: rotateX(2deg) rotateY(-25deg);*/
 
       </div>
 
+
+
+<div class="perspective-container"> 
+
+  <img class="ipad-device the-dang-device" src="/images/ipad-bkg.png">
+
+
+  <video class="ipad-device" controls loop autoplay preload="1">
+            <source src="/images/proto-anim-1-crop-small.mp4" type="video/ogg">
+  </video>
+
+</div>
+<!-- 
       <div id="ipadImgContainer">
         <img id="ipadImg" src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/ipad-compressed-min.png" alt="">
       </div>
     </div>
+ -->
+    
 </div>
 </div>
 
