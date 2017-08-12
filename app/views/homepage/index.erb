@@ -128,24 +128,27 @@
   }
 
   button#new-hero-button.primary-btn {
-    /* padding: 4px; */
-    text-align: center;
-    /* width: 200px; */
-    /* height: 55px; */
-    font-size: 1em;
-    display: block;
-    font-family: 'Proximanova Semibold';
-    background-color: #FF4242;
-    /* color: #ffffff; */
+    border: 1px solid black;
+    border-color: #cccccc #a6a6a6 #737373;
+    border-color: rgba(0,0,0,0.2) rgba(0,0,0,0.35) rgba(0,0,0,0.55);
+    border-bottom-width: 2px;
+    font-size: inherit;
+    padding: .6em 1em;
     border-radius: 5px;
-    padding: 12px;
-    /* border-color: #a80101; */
-    border-width: 0px;
-  }
+    font-weight: 600;
+    /* color: #5876EF; */
+    background-color: #FF4242;
+    /* background-color: #f5f5f5; */
+    text-decoration: none;
+    display: inline-block;
+}
+
+
 
   button i {
-    margin-right: .3em;
+    margin-left: .2em;
     color: #690000;
+    font-size: 1.7em !important;
   }
 
   button#new-hero-button.primary-btn {
@@ -643,8 +646,9 @@
            </h4>
       <a href="/student_dashboard/#/story/demo">
         <button class="primary-btn" id="new-hero-button"> 
-        <i class="fa fa-angle-right faa-pulse animated fa-1x"></i>
         Try a Demo
+        <i class="fa fa-angle-right faa-pulse animated fa-lg"></i>
+
         </button>
       </a>
 
