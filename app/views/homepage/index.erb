@@ -682,7 +682,118 @@ video.ipad-device {
 
 }
 
+#ipadImgContainer, #ipadImg {
+  display: none;
+}
 
+
+
+/* Shrink title text to fit ipad */
+@media (min-width: 1024px) and (max-width: 1158px) {
+
+  #myTitleText {
+    width:55%;
+    min-width: 580px;
+  }
+
+  .splash-new .splash-container .title h1 {
+    font-size: 1.9em;
+  }
+
+  h4#sub-pitch {
+    font-size: 18px;
+    width: 578px;
+  }
+
+  .the-dang-device, video.ipad-device {  
+    margin-left: 5px;
+  }
+
+  .ipad-device {
+    width: 300px;
+  }
+
+  video.ipad-device {
+    height: 363px;
+  }
+
+}
+
+/* Tablet view*/
+@media (min-width: 566px) and (max-width: 1025px) {
+
+  .perspective-container {
+    display: block;
+  }
+
+  .the-dang-device { 
+    display: inline-block;
+    margin-top: 100px;
+    margin-left: 30%;
+  }
+
+  video.ipad-device {
+    height: 381px;
+    /* margin-left: 40px; */
+    position: absolute;
+    top: 28px;
+    display: inline-block;
+    display: block;
+    margin: 100px auto;
+    margin-left: 30%;
+  }
+
+  video.ipad-device, .the-dang-device, .ipad-device {
+    margin-bottom: 0px;
+  }
+
+
+}
+
+
+@media (min-width: 566px) and (max-width: 700px)
+{
+  .the-dang-device, video.ipad-device {
+    margin-left: 20%;
+  }
+}
+
+
+@media (max-width: 35.5em)
+{
+  .perspective-container {
+    display: block;
+  }
+
+  .the-dang-device { 
+    display: inline-block;
+    margin-top: 100px;
+    margin-left: 20%;
+  }
+
+  video.ipad-device {
+    height: 381px;
+    /* margin-left: 40px; */
+    position: absolute;
+    top: 28px;
+    display: inline-block;
+    display: block;
+    margin: 100px auto;
+    margin-left: 20%;
+  }
+
+ video.ipad-device, .the-dang-device, .ipad-device {
+    margin-bottom: 0px;
+    display: none;
+  }
+
+  #ipadImgContainer, #ipadImg {
+    display: block;
+  }
+
+
+
+}
 
 </style>
 
@@ -729,17 +840,17 @@ video.ipad-device {
   <img class="ipad-device the-dang-device" src="/images/ipad-bkg.png">
 
 
-  <video class="ipad-device" loop autoplay preload="1">
+  <video class="ipad-device" loop muted autoplay preload="1">
             <source src="/images/proto-anim-1-crop-small.mp4" type="video/ogg">
   </video>
 
 </div>
-<!-- 
+
       <div id="ipadImgContainer">
         <img id="ipadImg" src="https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/ipad-compressed-min.png" alt="">
       </div>
     </div>
- -->
+
 
 </div>
 </div>
