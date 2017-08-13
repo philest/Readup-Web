@@ -4,7 +4,7 @@
 
 class HomepageController < ActionController::Base
 
-  @mixpanel_homepage_key = ENV['MIXPANEL_HOMEPAGE']
+  @mixpanel_homepage_key = ENV['MIXPANEL_TOKEN']
 
   def index
     render 'homepage/index'
