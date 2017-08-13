@@ -824,7 +824,7 @@ video.ipad-device {
           <h4 id="sub-pitch">
             ReadUp listens to students read and then it scores a full running record for you with fluency, accuracy, comprehension, miscue analysis, and a recording 
            </h4>
-      <a href="/student_dashboard/#/story/demo">
+      <a class="demo-button" id="href="/student_dashboard/#/story/demo">
         <button class="primary-btn" id="new-hero-button"> 
         Try a Demo
         <i class="fa fa-angle-right faa-pulse animated fa-lg"></i>
@@ -898,6 +898,18 @@ video.ipad-device {
   </div>
 </section>
 
+<script type="text/javascript">
+
+// isMobileDevice()
+  $(".demo-button").click( function() { 
+    if (isMobileDevice()) {
+            window.location.replace("/mobile_halt");
+          } else {
+            window.location.replace("/student_dashboard/#/story/demo");
+          }
+  });
+
+</script>
 
 
 

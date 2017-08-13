@@ -21,6 +21,16 @@
       $(this).focus();
     })
   });
+
+  $("#demo-nav-button").click( function() { 
+    if (isMobileDevice()) {
+            window.location.replace("/mobile_halt");
+          } else {
+            window.location.replace("/student_dashboard/#/story/demo");
+          }
+  });
+
+
 </script>
 
 <style type="text/css">
@@ -98,7 +108,7 @@
     <div class="nav-buttons">
 
 
-      <a href="/student_dashboard/#/story/demo" data-turbolinks="false">
+      <a class="demo-button" id="demo-nav-button" href="/student_dashboard/#/story/demo">
         <button
           id="top-button"
           onclick="mixpanel.track('navbar signup button clicked', {'location': 'navbar'});"
