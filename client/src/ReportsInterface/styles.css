@@ -39,7 +39,8 @@
 }
 
 .studentNameHeading {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'ProximaNova';
+	font-weight: bold;
 	font-weight: bold;
 	font-size: 2.5em;
 	
@@ -47,7 +48,8 @@
 
 .bookInfoSubheading p{
 	font-size: 1.4em;
-	font-family: 'Conv_Proxima-Nova-Regular-Italic';
+	font-family: 'ProximaNova';
+	font-style: italic;
 	margin-top: 15px;
 	color: #4a4a4a;
 }
@@ -78,7 +80,8 @@
 }
 
 .metricFigureLabel {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'ProximaNova';
+	font-weight: bold;
 	font-size: 1.9em;
 }
 
@@ -97,7 +100,7 @@
 
 
 .metricDescriptionLabel {
-	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-family: 'ProximaNova Semibold';
 	font-size: 1.3em;
 }
 
@@ -113,7 +116,7 @@
 .levelRectangle {
 	background-color: #249C44;
 	color: white;
-	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-family: 'ProximaNova Semibold';
 	font-size: 1.4em;
 	width: 140px;
 	padding: 5px;
@@ -139,7 +142,7 @@
 
 .levelLabel {
 	margin-top: 10px;
-	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-family: 'ProximaNova Semibold';
 	font-size: 1.2em;
 }
 
@@ -157,14 +160,16 @@
 }
 
 .bookInfoTitle {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'ProximaNova';
+	font-weight: bold;
 	font-weight: bold;
 	font-size: 1.6em;
 }
 
 .bookInfoLevel {
 	font-size: 1.2em;
-	font-family: 'Conv_Proxima-Nova-Regular-Italic';
+	font-family: 'ProximaNova';
+	font-style: italic;
 	margin-top: 5px;
 }
 
@@ -175,7 +180,7 @@
 .audioWrapper button {
 	background-color: #2e6da4;
 	border-color: #275985;
-	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-family: 'ProximaNova Semibold';
 	padding: 8px 20px;
 
 }
@@ -191,7 +196,7 @@
     font-weight: 200;
     text-align: center;
     margin-top: 1.5em;
-    font-family: 'Conv_proximanova-regular-webfont'
+    font-family: 'ProximaNova';
 }
 
 .modalSubtitleLong {
@@ -253,7 +258,8 @@
 }
 
 .pricingFooterLabel {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'ProximaNova';
+	font-weight: bold;
 	font-weight: bold;
 	font-size: 1.6em;
 	text-align: center;
@@ -268,13 +274,14 @@
     border-radius: 3px;
     background-color: #2e6da4;
     border-color: #275985;
-    font-family: 'Conv_Proxima-Nova-Semibold';
+    font-family: 'ProximaNova Semibold';
     padding: 8px 20px;
 
 }
 
 .pricingModalTitle {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'ProximaNova';
+	font-weight: bold;
 	font-size: 1.4em;
 	text-align: center;
 }
@@ -287,11 +294,11 @@
 
 .pricingFormField {
 	padding-bottom: 15px;
-	font-family: 'Conv_proximanova-regular-webfont';
+	font-family: 'ProximaNova';
 }
 
 .pricingFormFieldLabel {
-	font-family: 'Conv_Proxima-Nova-Semibold';
+	font-family: 'ProximaNova Semibold';
 	font-size: .9em;
 	margin-bottom: 5px;
 }
@@ -311,7 +318,7 @@
 	height: 40px;
 	margin-top: 10px;
 	margin-bottom: 20px;
-	font-family: 'Conv_Proxima-Nova-Semibold'
+	font-family: 'ProximaNova Semibold';
 }
 
 

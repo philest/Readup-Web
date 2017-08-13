@@ -47,12 +47,23 @@ class AudioProcessController < ApplicationController
 
   def set_s3_direct_post
     puts "#{params["assessment_id"]}\n\n\n\n\n\n\n\n"
-    if session[:student_id] && params["assessment_id"]
+  
+
+    # NOTE: THIS IS A HACK SO NO USERS NEED TO BE CREATED.
+    # THE REAL IMPLEMENTATION IS COMMENTED OUT BELOW 
+    if true
       @s3_direct_post = S3_BUCKET.presigned_post(
-        key: "assessments/#{session[:student_id]}/#{params["assessment_id"]}/${filename}",
+        key: "fake-assessments/#{Time.now.to_s}/${filename}",
         success_action_status: '201',
         acl: 'public-read',
       )
+
+    # if session[:student_id] && params["assessment_id"]
+      # @s3_direct_post = S3_BUCKET.presigned_post(
+      #   key: "assessments/#{session[:student_id]}/#{params["assessment_id"]}/${filename}",
+      #   success_action_status: '201',
+      #   acl: 'public-read',
+      # )
     else
       @s3_direct_post = false
     end

@@ -36,7 +36,8 @@ box-shadow: 1px 10px 19px -8px rgba(84,84,84,1);
 .InfoSubtitle {
 	font-weight: 100;
 	font-size: 21px;
-	font-family: 'Conv_Proxima-Nova-Regular-Italic';
+	font-family: 'ProximaNova';
+	font-style: italic;
 
 
 }
@@ -45,7 +46,7 @@ box-shadow: 1px 10px 19px -8px rgba(84,84,84,1);
 	display: inline-block;
 	text-align: right;
 	color: white; 
-	font-family: 'Conv_proximanova-regular-webfont';
+	font-family: 'ProximaNova';
 	margin-top: 24px;
 	font-size: 14px;
 }
