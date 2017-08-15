@@ -952,7 +952,9 @@ video.ipad-device {
 
 <script type="text/javascript">
 
-// isMobileDevice()
+// TODO: DRY this up. 
+
+  $( document ).ready(function() {
   $(".demo-button").click( function() { 
     if (isMobileDevice()) {
             window.location.replace("/mobile_halt");
@@ -960,6 +962,19 @@ video.ipad-device {
             window.location.replace("/student_dashboard/#/story/demo");
           }
   });
+
+  $("#demo-nav-button").click( function() { 
+    if (isMobileDevice()) {
+            window.location.replace("/mobile_halt");
+          } else {
+            window.location.replace("/student_dashboard/#/story/demo");
+          }
+  });
+
+});
+
+
+
 
 </script>
 
