@@ -1,37 +1,3 @@
-<script type="text/javascript">
-  var scrollTarget =  isMobileDevice() ? 50 : 160;
-
-
-  function highlightNav () {
-    // note that the stylings for highlight stuff is SASS!!!
-    var scroll = $(window).scrollTop();
-    if (scroll < scrollTarget) {
-      $('.readup-nav').removeClass('highlighted');
-    } else {
-      $('.readup-nav').addClass('highlighted');
-    }
-  }
-
-  $(document).ready(function(){
-    highlightNav();
-    $(window).scroll(function (event) {
-      highlightNav();
-    });
-    $('.modal input').on('click', function () {
-      $(this).focus();
-    })
-  });
-
-  $("#demo-nav-button").click( function() { 
-    if (isMobileDevice()) {
-            window.location.replace("/mobile_halt");
-          } else {
-            window.location.replace("/student_dashboard/#/story/demo");
-          }
-  });
-
-
-</script>
 
 <style type="text/css">
 
@@ -95,6 +61,8 @@
     }
   }
 </style>
+
+
 <!-- must set data-turbolinks false for smooth scroll to work -->
 <nav class="readup-nav" role="navigation">
   <div class="nav-pad">
@@ -124,3 +92,39 @@
 
 
 </nav>
+
+<script type="text/javascript">
+  var scrollTarget =  isMobileDevice() ? 50 : 160;
+
+
+  function highlightNav () {
+    // note that the stylings for highlight stuff is SASS!!!
+    var scroll = $(window).scrollTop();
+    if (scroll < scrollTarget) {
+      $('.readup-nav').removeClass('highlighted');
+    } else {
+      $('.readup-nav').addClass('highlighted');
+    }
+  }
+
+  $(document).ready(function(){
+    highlightNav();
+    $(window).scroll(function (event) {
+      highlightNav();
+    });
+    $('.modal input').on('click', function () {
+      $(this).focus();
+    })
+  });
+
+  $("#demo-nav-button").click( function() { 
+    if (isMobileDevice()) {
+            window.location.replace("/mobile_halt");
+          } else {
+            window.location.replace("/student_dashboard/#/story/demo");
+          }
+  });
+
+
+</script>
+
