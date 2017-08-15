@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script asnyc type="text/javascript">
   var scrollTarget =  isMobileDevice() ? 50 : 160;
 
 
@@ -12,23 +12,50 @@
     }
   }
 
-  $(document).ready(function(){
+  // Same functionality as $(document).ready without the jQuery
+  document.addEventListener("DOMContentLoaded", function(event) { 
     highlightNav();
     $(window).scroll(function (event) {
       highlightNav();
     });
     $('.modal input').on('click', function () {
       $(this).focus();
-    })
-  });
+    });
 
-  $("#demo-nav-button").click( function() { 
+  document.getElementById('demo-nav-button').onclick=function(){
     if (isMobileDevice()) {
             window.location.replace("/mobile_halt");
           } else {
             window.location.replace("/student_dashboard/#/story/demo");
           }
+    }
+
   });
+
+
+  // $(document).ready(function(){
+  //   highlightNav();
+  //   $(window).scroll(function (event) {
+  //     highlightNav();
+  //   });
+  //   $('.modal input').on('click', function () {
+  //     $(this).focus();
+  //   })
+  // });
+
+
+
+
+  /* some code */
+
+
+  // $("#demo-nav-button").click( function() { 
+  //   if (isMobileDevice()) {
+  //           window.location.replace("/mobile_halt");
+  //         } else {
+  //           window.location.replace("/student_dashboard/#/story/demo");
+  //         }
+  // });
 
 
 </script>

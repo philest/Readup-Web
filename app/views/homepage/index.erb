@@ -948,16 +948,28 @@ video.ipad-device {
   </div>
 </section>
 
-<script async type="text/javascript">
+<script type="text/javascript">
 
-// isMobileDevice()
-  $(".demo-button").click( function() { 
-    if (isMobileDevice()) {
-            window.location.replace("/mobile_halt");
-          } else {
-            window.location.replace("/student_dashboard/#/story/demo");
-          }
+
+  document.addEventListener("DOMContentLoaded", function(event) { 
+
+    document.getElementsByClassName('demo-button').onclick=function(){
+      if (isMobileDevice()) {
+              window.location.replace("/mobile_halt");
+            } else {
+              window.location.replace("/student_dashboard/#/story/demo");
+            }
+      }
   });
+
+// // isMobileDevice()
+//   $(".demo-button").click( function() { 
+//     if (isMobileDevice()) {
+//             window.location.replace("/mobile_halt");
+//           } else {
+//             window.location.replace("/student_dashboard/#/story/demo");
+//           }
+//   });
 
 </script>
 
