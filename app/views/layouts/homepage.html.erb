@@ -16,7 +16,7 @@
 
     <!-- Loads JS asynchronously only in production -->
     <%= javascript_include_tag 'application', async: Rails.env.production? %>
-    <%= javascript_include_tag 'homepage/helpers', 'data-turbolinks-track': 'reload', async: Rails.env.production? %>
+    <%= javascript_include_tag 'homepage/helpers', 'data-turbolinks-track': 'reload', async: false %>
     <%= javascript_include_tag 'vendor/smooth-scroll', 'data-turbolinks-track': 'reload', async: Rails.env.production? %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
