@@ -126,5 +126,14 @@
   });
 
 
+  // Hotfix to not deal with the demo not working on mobile
+  $(document).ready(function(){
+        if (isMobileDevice()) {
+          $("#demo-nav-button").hide();
+        }
+  });
+  
+
+
 </script>
 
