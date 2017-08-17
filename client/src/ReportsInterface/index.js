@@ -177,7 +177,7 @@ export default class ReportsInterface extends React.Component {
               </div>
 
               <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>4/5</div>
+                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>3/5</div>
                 <div className={styles.metricDescriptionLabel}>Comp.</div>
               </div>
 
