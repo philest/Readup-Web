@@ -21,6 +21,10 @@
 }
 
 
+.submitButton:hover .pulse{
+	animation: none;
+}
+
 
 
 
