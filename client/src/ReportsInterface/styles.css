@@ -1,3 +1,27 @@
+@keyframes pulseOut {
+	0% {
+		transform: scale(1.0)
+	}
+	40% {
+		transform: scale(1.5)
+	}
+	50% {
+		transform: scale(1.5)
+	}
+	90% {
+		transform: scale(1.0)
+	}
+	100% {
+		transform: scale(1.0)
+	}	
+}
+
+.pulse {
+	animation: pulseOut 2s infinite;
+}
+
+
+
 
 
 .reportsContainer {

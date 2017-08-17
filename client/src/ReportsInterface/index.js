@@ -14,6 +14,7 @@ import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 import { sendEmail } from './emailHelpers'
 
 
+
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
 export default class ReportsInterface extends React.Component {
@@ -142,6 +143,8 @@ export default class ReportsInterface extends React.Component {
   render() {
 
     return (
+
+
       <div className={styles.reportsContainer}>
 
 
@@ -203,7 +206,7 @@ export default class ReportsInterface extends React.Component {
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
                 >
-                  Play Recording &nbsp;&nbsp;<i className={"fa fa-play faa-pulse animated"} aria-hidden={"true"}></i>
+                  Play Recording &nbsp;&nbsp;<i className={["fa", "fa-play", styles.pulse].join(" ")} aria-hidden={"true"} />
                 </Button>
               }
 
