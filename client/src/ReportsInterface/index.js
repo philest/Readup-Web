@@ -31,6 +31,7 @@ export default class ReportsInterface extends React.Component {
       showPricingModal: false,
       showEmailModal: true,
       showSampleInfoModal: false,
+      levelFound: false,
       email: '',
       name: '',
       schoolName: '',
@@ -183,8 +184,17 @@ export default class ReportsInterface extends React.Component {
 
 
               <div className={styles.levelInfoWrapper}>
-                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Level O</div>
-                <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
+                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Level S</div>
+                { this.state.levelFound &&
+                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
+                }
+                { !this.state.levelFound &&
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level S</div>
+                }
+
+
+
+
               </div>
 
             </div>
