@@ -261,9 +261,9 @@ export default class ReportsInterface extends React.Component {
             <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
             <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              Get your scored running record
+              Get your scored demo
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>It will come by email tonight</h4>
+            <h4 className={styles.modalSubtitle}>Your running record will come by email tonight</h4>
           </Modal.Header>
           <Modal.Body>
 
