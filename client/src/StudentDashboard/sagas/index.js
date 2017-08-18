@@ -69,6 +69,9 @@ import {
 
 import assessmentSaga from './assessmentSaga'
 
+import { sendEmail } from '../../ReportsInterface/emailHelpers'
+
+
 
 
 
@@ -256,6 +259,11 @@ function* assessThenSubmitSaga() {
     ReaderStateOptions.countdownToStart,
   ))
   yield playSoundAsync('/audio/recording_countdown.mp3')
+
+
+  // TODO: try sending text notification 
+  sendEmail("Demo started", "Demo was started", "philesterman@gmail.com")
+
 
   let countdown = 3
   while (countdown > 0) {
