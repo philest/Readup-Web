@@ -48,7 +48,7 @@ gem 'sidekiq'
 
 gem 'pony'
 gem 'font-awesome-sass'
-
+gem 'twilio-ruby'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

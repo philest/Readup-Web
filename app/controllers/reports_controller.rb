@@ -13,6 +13,10 @@ Pony.options = {
   }
 }
 
+require 'twilio-ruby'
+
+
+
 
 
 class ReportsController < ApplicationController
@@ -31,13 +35,31 @@ class ReportsController < ApplicationController
 
 
     # In case an email submit 
-    if params["message"] && (ENV['RAILS_ENV'] == 'production')
+#    if params["message"] && (ENV['RAILS_ENV'] == 'production')
+     if params["message"] 
       puts "Pony is sending this message....\n\n" + params["message"]
 
       Pony.mail(to: 'philesterman@gmail.com',
                  subject: "#{params["subject"]}",
                  body: "#{params["message"]}",
                  from: 'noreply@yoursammybird.com')
+
+
+
+      account_sid = ENV['TWILIO_ACCOUNT_SID'] # Your Account SID from www.twilio.com/console
+      auth_token = ENV['TWILIO_AUTH_TOKEN'] # Your Auth Token from www.twilio.com/console
+
+
+      @client = Twilio::REST::Client.new account_sid, auth_token
+      message = @client.messages.create(
+          body: "#{params["message"]}",
+          to: "+15612125831",    # Replace with your phone number
+          from: "+12033035711")  # Replace with your Twilio number
+
+      puts message.sid
+
+
+
     end
 
   end
