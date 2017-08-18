@@ -404,15 +404,20 @@ function* rootSaga() {
 
         if (isDemo) {
           yield clog('oh hey you r done')
-          // TODO where to redirect?
+
           window.location.href = "/reports/1"
+          yield put({ type: SPINNER_SHOW })
+
+
+          // TODO where to redirect?
+          // window.location.href = "/reports/1"
 
         } else {
           yield put(setCurrentOverlay('overlay-submitted'))
           setTimeout(() => {
             // TODO where to redirect?
             window.location.href = "/" // eslint-disable-line
-          }, 5000)
+          }, 10000)
           return
         }
 

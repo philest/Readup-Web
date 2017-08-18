@@ -848,6 +848,10 @@ video.ipad-device {
 
 }
 
+.disabled {
+  opacity: .75;
+}
+
 </style>
 
 
@@ -874,9 +878,9 @@ video.ipad-device {
             ReadUp listens to students read and then it scores a full running record for you with fluency, accuracy, comprehension, miscue analysis, and a recording 
            </h4>
       <a class="demo-button" href="/student_dashboard/#/story/demo">
-        <button class="primary-btn" id="new-hero-button"> 
+        <button class="primary-btn" id="new-hero-button" onclick="demoClicked()"> 
         Try a Demo
-        <i class="fa fa-angle-right faa-pulse animated fa-lg"></i>
+        <i class="fa fa-angle-right faa-pulse animated fa-lg" id="btn-icon"></i>
 
         </button>
       </a>
@@ -969,6 +973,19 @@ video.ipad-device {
       $(".demo-button").attr("href", "/mobile_halt");
     }
   });
+
+  function demoClicked() {
+    var btn =document.getElementById("new-hero-button");
+    btn.className += " disabled";
+
+    var icon = document.getElementById("btn-icon");
+    icon.className += " fa-spinner faa-spin";
+    icon.classList.remove("faa-pulse");
+
+
+
+  }
+
 
 
 
