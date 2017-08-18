@@ -38,9 +38,7 @@
   }
 
   #myTitleText {
-    width: 63%;
     display: inline-block;
-    min-width: 650px;
   }
 
   .content-container {
@@ -141,6 +139,7 @@
     /* background-color: #f5f5f5; */
     text-decoration: none;
     display: inline-block;
+    font-family: 'ProximaNova'
 }
 
 
@@ -322,10 +321,6 @@
     #get-started h1 {
     }
 
-    .splash-new .splash-container .title {
-      text-align: center;
-      width: 88% !important;
-    }
 
     #myTitleText {
       width: 90%;
@@ -464,11 +459,6 @@
 
 
 
-    .splash-new .splash-container .title {
-      text-align: center;
-      width: 90% !important;
-
-    }
 
     h4#sub-pitch {
       width:  100%;
@@ -483,14 +473,7 @@
 
     }
 
-    #myTitleText {
-      width: 90%;
-      display: block;
-      text-align: center;
-      margin: 0 auto;
-      min-width: 0px;
-/*      font-size: .8em
-*/    }
+
 
     #ipadImgContainer {
       display: block;
@@ -517,44 +500,18 @@
 
   }
 
-/*  @media (min-width: 800px) and (max-width: 1025px){
-    
-    #myTitleText {
-      font-size: 2.13em;
-    }
 
-
-  }*/
 
   @media (min-width: 566px) and (max-width: 1025px){
 
-    .splash-new .splash-container .title {
-      text-align: center;
-      width: 90% !important;
-
-    }
+  
 
     h4#sub-pitch {
       width:  100%;
     }
 
-    div.splash-container {
-        background: url('https://d39onmifexd5hc.cloudfront.net/website/homepage/hero/student-hero-blue-tablet-min.jpg')
-          center
-          top/cover
-          no-repeat
-          #416B83 !important;
 
-    }
 
-    #myTitleText {
-      width: 90%;
-      display: block;
-      text-align: center;
-      margin: 0 auto;
-      min-width: 0px;
-/*      font-size: .8em
-*/    }
 
     #ipadImgContainer {
       display: block;
@@ -581,13 +538,6 @@
       font-size: .8em;
     }
 
-    .splash-new .splash-container .title #myTitleText h1 {
-      text-align: center;
-    }
-
-    .splash-new .splash-container .title #myTitleText h4 {
-      text-align: center;
-    }
 
     #educatorTrustTitle {
       margin-top: 15%;
@@ -617,10 +567,7 @@
     .splash-new .splash-container h1 {
       text-align: left;
     }
-    .splash-new .splash-container .title {
-      text-align: left;
-      width: 88%;
-    }
+   
   }
 
 
@@ -631,61 +578,16 @@
 
 
 .perspective-container{
-/*position: relative;
--webkit-perspective: 766px;
-perspective: 766px;
-*/
 
-perspective: 1300px;
--webkit-perspective: 1300px;
-transform: rotate(4deg);
-perspective-origin: 30% 90%;
-display: inline-block;
+  perspective: 1300px;
+  -webkit-perspective: 1300px;
+  transform: rotate(4deg);
+  perspective-origin: 30% 90%;
+  -webkit-perspective-origin: 30% 90%;
+  display: inline-block;
 
 }
 
-.ipad-device {
-  width: 310px;
-  margin: 100px auto; 
-  text-align: center;
-  display: block;
-/*
-    -webkit-transform: rotateX(2deg) rotateY(-16deg);
-    transform: rotateX(2deg) rotateY(-16deg);*/
-
-    -webkit-transform: rotateX(2deg) rotateY(-16deg);
-    transform: rotateX(-4deg) rotateY(-21deg);
-
-/*-webkit-transform: rotateX(2deg) rotateY(-25deg);
-transform: rotateX(2deg) rotateY(-25deg);*/
-}
-
-
-
-.the-dang-device { 
-/*    left: 36%;
-*/  
-  margin-left: 40px;
-/*    z-index: 999;
-*/  
-    display: inline-block;
-    margin-top: -60px;
-}
-
-
-
-video.ipad-device {
-    height: 369px;
-    margin-left: 40px;
-    position: absolute;
-    top: -132px;
-    display: inline-block;
-    /* height: 478px; */
-    left: 50%;
-    margin-left: -135px;
-    position: absolute;
-    top: -124px;
-}
 
 #ipadImgContainer, #ipadImg {
   display: none;
@@ -696,10 +598,7 @@ video.ipad-device {
 /* Shrink title text to fit ipad */
 @media (min-width: 1024px) and (max-width: 1158px) {
 
-  #myTitleText {
-    width:55%;
-    min-width: 580px;
-  }
+
 
   .splash-new .splash-container .title h1 {
     font-size: 1.9em;
@@ -707,30 +606,6 @@ video.ipad-device {
 
   h4#sub-pitch {
     font-size: 18px;
-    width: 578px;
-  }
-
-  .the-dang-device, video.ipad-device {  
-/*    margin-left: 5px;
-*/  }
-
-  .ipad-device {
-    width: 300px;
-  }
-
-  video.ipad-device {
-    height: 368px;
-    left: 50%;
-    margin-left: -135px;
-    position: absolute;
-    top: -125px;
-
-
- /*   height: 363px;
-    left: 50%;
-    margin-left: -131px;
-    position: absolute;
-    top: -125px;    */
   }
 
 }
@@ -738,37 +613,9 @@ video.ipad-device {
 /* Tablet view*/
 @media (min-width: 566px) and (max-width: 1025px) {
 
-  .perspective-container {
-    display: block;
-  }
-
-  .the-dang-device { 
-    display: inline-block;
-    margin-top: 100px;
-    margin-left: 30%;
-  }
-
-  video.ipad-device {
-/*    height: 381px;
-    position: absolute;
-    top: 28px;
-    display: inline-block;
-    display: block;
-    margin: 100px auto;
-    margin-left: 30%;*/
-
-    height: 369px;
-    position: absolute;
-/*    top: -132px;
-*/    display: inline-block;
-    position: absolute;
-    top: 32px;
-    margin-left: 0px;
 
 
-    left:30%;
-
-  }
+ 
 
   video.ipad-device, .the-dang-device, .ipad-device {
     margin-bottom: 0px;
@@ -777,19 +624,6 @@ video.ipad-device {
 
 }
 
-
-@media (min-width: 1026px) and (max-width: 1055px) {
-
-  .ipad-device {
-      width: 275px;
-  }
-
-  video.ipad-device {
-    height: 331px;
-    margin-left: -120px;
-    top: -128px;
-  }
-}
 
 @media (min-width: 566px) and (max-width: 700px)
 {
@@ -809,6 +643,19 @@ video.ipad-device {
 
   }
   
+}
+
+
+@media (min-width: 48em) and (max-width: 64em)
+{
+  .splash-new .splash-container .title h1 {
+    font-size: 1.9em;
+  } 
+
+  h4#sub-pitch {
+    font-size: 19px;
+  }
+
 }
 
 
@@ -835,10 +682,7 @@ video.ipad-device {
     margin-left: 20%;
   }
 
- video.ipad-device, .the-dang-device, .ipad-device {
-    margin-bottom: 0px;
-    display: none;
-  }
+ 
 
   #ipadImgContainer, #ipadImg {
     display: block;
@@ -852,6 +696,132 @@ video.ipad-device {
   opacity: .75;
 }
 
+.animation-container {
+  position: relative;
+  height: 430px;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+
+.device-image {
+  left: 50%;
+  margin-left: -135px;
+  position: absolute;
+
+  width: 300px;
+  z-index: -1;
+
+}
+
+.animation-video {
+  height: 430px;
+  left: 50%;
+  margin-left: -121px;
+  position: absolute;
+  /* top: -23px; */
+  width: 270px;
+}
+
+.rotate {
+  -webkit-transform: rotateX(2deg) rotateY(-16deg);
+    transform: rotateX(-4deg) rotateY(-21deg);  
+}
+
+a.demo-button button#new-hero-button {
+  display: block;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+#myTitleText h1, #myTitleText h4 {
+  text-align: center;
+}
+
+
+
+
+
+@media (min-width: 35.5em)
+{
+  .device-image {
+    width: 300px;
+    z-index: -1;
+
+  }
+
+  .animation-video {
+    width: 275px;
+  }
+
+  .device-image {
+    left: 50%;
+    margin-left: -135px;
+    position: absolute;
+  }
+
+  .animation-video {
+    height: 430px;
+    left: 50%;
+    margin-left: -121px;
+    position: absolute;
+    /* top: -23px; */
+/*    width: 270px;
+*/  }
+
+
+
+}
+
+@media (min-width: 48em)
+{
+
+  .device-image {
+    margin-left: -65px;
+  }
+
+  .animation-video {
+    margin-left: -51px;
+  }
+  
+  a.demo-button button#new-hero-button {
+    display: inline-block;
+    text-align: left;
+  }
+
+  #myTitleText h1, #myTitleText h4 {
+  text-align: left;
+  }
+
+
+
+
+}
+
+@media (min-width: 60em)
+{
+
+}
+
+
+@media (max-width: 35.53em) {
+
+  a.demo-button button#new-hero-button {
+    margin-bottom: 0px;
+  }
+
+  .device-image, .animation-video, .animation-container {
+    margin-bottom: 0px;
+    display: none; 
+  }
+}
+
+
+
+
+
 </style>
 
 
@@ -861,7 +831,7 @@ video.ipad-device {
 
 <div class="splash-new">
   <div
-    class="splash-container"
+    class="splash-container pure-g"
     style="background: url('https://d39onmifexd5hc.cloudfront.net/website/homepage/hero/student-hero-blue-desktop-min.jpg')
           center
           top/cover
@@ -869,7 +839,7 @@ video.ipad-device {
           #416B83;"
   >
     <div class="title">
-      <div id="myTitleText">
+      <div id="myTitleText" class="pure-u-1 pure-u-md-3-5">
         <h1>
           The easiest way to assess fluency and comprehension
         </h1>
@@ -889,17 +859,21 @@ video.ipad-device {
 
 
 
-<div class="perspective-container"> 
+<div class="animation-container pure-u-1 pure-u-md-1-3"> 
+  <div class="perspective-container"> 
 
 
-  <img class="ipad-device the-dang-device" src="https://d39onmifexd5hc.cloudfront.net/website/homepage/ipad-bkg-and-placeholder.png">
+    <img class="device-image rotate" src="https://d39onmifexd5hc.cloudfront.net/website/homepage/ipad-bkg-and-placeholder.png">
 
 
-  <video class="ipad-device" loop muted autoplay preload="1">
-            <source src="https://d39onmifexd5hc.cloudfront.net/website/homepage/v1.mp4" type="video/mp4">
-  </video>
+    <video class="animation-video rotate" loop muted autoplay preload="1">
+              <source src="https://d39onmifexd5hc.cloudfront.net/website/homepage/v1.mp4" type="video/mp4">
+    </video>
 
+  </div>
 </div>
+
+
 
       <div id="ipadImgContainer">
         <img id="ipadImg" src="https://d39onmifexd5hc.cloudfront.net/website/homepage/ipad-compressed-min.png" alt="">
