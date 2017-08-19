@@ -22,6 +22,10 @@ class StudentDashboardController < ApplicationController
     stu_id = session[:student_id]
     book_key = params["book_key"]
 
+    # TODO PHIL: this is just a hack to save the assessment 
+    # a = Assessment.new(book_key: book_key)
+    # a.save! 
+
     if stu_id && book_key
       a = Assessment.new(book_key: book_key)
       Student.find_by(id: stu_id).assessments << a

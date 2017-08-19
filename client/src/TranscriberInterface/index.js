@@ -6,8 +6,10 @@ import { Button } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
+import { testData } from 'json-loader!../sharedComponents/test.json';
+const json = require('json-loader!../sharedComponents/test.json');
 
-
+console.log(json);
 
 
 
@@ -21,7 +23,7 @@ export default class TranscriberInterface extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = { 
-      evaluationTextData: newFireflyEvaluationText,
+      evaluationTextData: json,
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
@@ -143,8 +145,12 @@ export default class TranscriberInterface extends React.Component {
   }
 
   onSubmitClicked = () => {
+    console.log(json);
 
-    console.log(this.state.evaluationTextData);
+    // const testIt = JSON.parse(testData); 
+    // console.log(testIt);
+    // const JSONEvaluationTextData = JSON.stringify(this.state.evaluationTextData);
+    // console.log(JSONEvaluationTextData);
   }
 
   render() {
