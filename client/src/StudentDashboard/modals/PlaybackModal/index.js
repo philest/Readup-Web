@@ -44,7 +44,7 @@ export default class PlaybackModal extends React.Component {
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Finish', 'Read again']}
+            titles={['Turn it in', 'Read again']}
             images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/record-again-icon.png']}
             actions={[this.props.onTurnInClicked, this.props.onStartOverClicked]}
           />

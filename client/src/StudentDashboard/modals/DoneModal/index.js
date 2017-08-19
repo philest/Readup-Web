@@ -31,7 +31,7 @@ export default class DoneModal extends React.Component {
        <BaseModal title="You're Done!" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
-            titles={['Finish', 'Hear it']}
+            titles={['Turn it in', 'Hear it']}
             images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/hear-it-icon.png']}
             actions={[this.props.onTurnInClicked, this.props.onHearRecordingClicked]}
             enlargeFirst={true}

@@ -36,7 +36,7 @@ export default class PausedModal extends React.Component {
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Done', 'Go on', 'Start over']}
+            titles={['Turn it in', 'Go on', 'Start over']}
             images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/go-on-icon.png', '/images/dashboard/record-again-icon.png' ]}
             actions={[this.props.onTurnInClicked, this.props.onContinueClicked, this.props.onStartOverClicked ]}
             enlargeFirst={true}
