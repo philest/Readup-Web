@@ -1,3 +1,7 @@
+body {
+	font-family: 'ProximaNova';
+}
+
 
 .transcriberContainer {
 	/*padding-left: 50px;
@@ -17,7 +21,7 @@
 }
 
 .nameHeading {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'ProximaNova';
 	font-weight: bold;
 	font-size: 1.9em;
 }
@@ -43,7 +47,7 @@
 }
 
 .bookTitleHeading {
-	font-family: 'Conv_proximanova-bold-webfont';
+	font-family: 'ProximaNova';
 	font-weight: bold;
 	font-size: 1.5em;
 }

@@ -10,10 +10,10 @@ export default class FormattedMarkupText extends React.Component {
     paragraphs: PropTypes.arrayOf(PropTypes.object).isRequired,
     endParagraphIndex: PropTypes.number,
     endWordIndex: PropTypes.number,
-    
     isInteractive: PropTypes.bool,
     onMouseEnterWord: PropTypes.func,
     onMouseLeaveWord: PropTypes.func,
+    bookLevel: PropTypes.string,
   };
   static defaultProps = {
     isInteractive: false,
@@ -33,7 +33,9 @@ export default class FormattedMarkupText extends React.Component {
 
 
     return (
-      <div className={styles.textContainerLarge}>
+
+      // Make the text container larger for high-level books 
+      <div className={(this.props.bookLevel >= "I") ? styles.textContainerLarge : styles.textContainer}>
 
         {this.props.paragraphs.map((paragraph, pIndex) => (
           <div className={(pIndex > endPindex) ? styles.textParagraphGrayedOut: styles.textParagraph} key={paragraph.key}>

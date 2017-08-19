@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
       name: "Sofia Vergara",
       email: "testemail@gmail.com",
       bookTitle: "No More Magic",
-      bookLevel: "Level R",
+      bookLevel: "R",
       recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav"
     }
 

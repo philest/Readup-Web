@@ -4,11 +4,11 @@ class TranscriberInterfaceController < ApplicationController
 
   def index
     @transcriber_interface_props = {
-      name: "Chanel Brown",
+      name: "Demo Student",
       email: "testemail@gmail.com",
       bookTitle: "Firefly Night",
-      bookLevel: "Level H",
-      recordingURL: "http://www.noiseaddicts.com/samples_1w72b820/142.mp3"
+      bookLevel: "H",
+      recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/2017-08-16+19%3A36%3A30+%2B0000/recording.webm"
     }
   end
 

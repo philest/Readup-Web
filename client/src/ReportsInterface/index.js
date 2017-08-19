@@ -161,7 +161,7 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.mainHeadingContainer}>
               <div className={styles.studentNameHeading}>Sofia Vergara</div>
               <div className={styles.bookInfoSubheading}>
-                <p>{this.props.bookTitle}<span> - {this.props.bookLevel}</span></p>
+                <p>{this.props.bookTitle}<span> - Level {this.props.bookLevel}</span></p>
               </div>
             </div>
 
@@ -204,7 +204,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.bookInfoWrapper}>
               <div className={styles.bookInfoTitle}>{this.props.bookTitle}</div>
-              <div className={styles.bookInfoLevel}>{this.props.bookLevel}</div>
+              <div className={styles.bookInfoLevel}>Level {this.props.bookLevel}</div>
             </div>
 
             <div className={styles.audioWrapper}>
@@ -236,6 +236,7 @@ export default class ReportsInterface extends React.Component {
             isInteractive={false}
             endParagraphIndex={newSampleEvaluationText.readingEndIndex.paragraphIndex}
             endWordIndex={newSampleEvaluationText.readingEndIndex.wordIndex}
+            bookLevel={this.props.bookLevel}
           />
 
           <div className={styles.pricingFooter}>

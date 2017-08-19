@@ -5,7 +5,8 @@ import styles from './styles.css'
 import { Button } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
-import { sampleEvaluationText } from '../sharedComponents/sampleMarkup'
+import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
+
 
 
 
@@ -20,7 +21,7 @@ export default class TranscriberInterface extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = { 
-      evaluationTextData: sampleEvaluationText,
+      evaluationTextData: newFireflyEvaluationText,
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
@@ -142,7 +143,8 @@ export default class TranscriberInterface extends React.Component {
   }
 
   onSubmitClicked = () => {
-    
+
+    console.log(this.state.evaluationTextData);
   }
 
   render() {
@@ -174,7 +176,7 @@ export default class TranscriberInterface extends React.Component {
               {this.props.bookTitle}
             </span>
             <span className={styles.bookLevelHeading}>
-              {this.props.bookLevel}
+              {"Level" + this.props.bookLevel}
             </span>
           </div>
 
@@ -186,6 +188,7 @@ export default class TranscriberInterface extends React.Component {
             isInteractive={true}
             onMouseEnterWord={this._onMouseEnterWord}
             onMouseLeaveWord={this._onMouseLeaveWord}
+            bookLevel={this.props.bookLevel}
           />
 
 
@@ -197,7 +200,7 @@ export default class TranscriberInterface extends React.Component {
           className={styles.submitButton}
           bsStyle={'primary'}
           bsSize={'large'}
-          onClick={this.props.onSubmitClicked}
+          onClick={this.onSubmitClicked}
         >
           Submit
         </Button>
