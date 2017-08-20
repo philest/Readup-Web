@@ -57,3 +57,86 @@ export function getScoredText() {
     return res.data;
   })
 }
+
+
+
+
+// HELPERS FOR METRICS 
+
+export function getTotalWordsInText(evaluationTextData) {
+
+    let wordCount = 0
+    const numParagraphs = evaluationTextData.paragraphs.length
+    for (let i = 0; i < numParagraphs; i++) {
+      wordCount += evaluationTextData.paragraphs[i].words.length;
+    }
+
+    console.log(wordCount)
+    return wordCount
+}
+
+export function getTotalWordsRead(evaluationTextData) {
+
+    let wordCount = 0
+    const endPindex = evaluationTextData.readingEndIndex.paragraphIndex
+    const endWindex = evaluationTextData.readingEndIndex.wordIndex
+
+
+    const numParagraphs = evaluationTextData.paragraphs.length
+    for (let i = 0; i < numParagraphs; i++) {
+      if (i < endPindex) {
+        wordCount += evaluationTextData.paragraphs[i].words.length;
+      }
+      else if (i === endPindex){
+        wordCount += (endWindex + 1)
+      }
+    }
+
+    return wordCount
+}
+
+export function getTotalWordsReadCorrectly(evaluationTextData) {
+
+    let wordCount = 0
+    const endPindex = evaluationTextData.readingEndIndex.paragraphIndex
+    const endWindex = evaluationTextData.readingEndIndex.wordIndex
+
+
+    const numParagraphs = evaluationTextData.paragraphs.length
+    for (let i = 0; i < numParagraphs; i++) {
+      if (i < endPindex) {
+        let wordsArr =  evaluationTextData.paragraphs[i].words
+        for (let k = 0; k < wordsArr.length; k++) {
+          if (wordsArr[k].wordDeleted == false && !wordsArr[k].substituteWord){
+            wordCount++
+          }
+        }
+      }
+      else if (i === endPindex){
+        let wordsArr =  evaluationTextData.paragraphs[i].words
+        for (let k = 0; k < endWindex; k++) {
+          if (wordsArr[k].wordDeleted == false && !wordsArr[k].substituteWord){
+            wordCount++
+          }
+        }
+      }
+    }
+
+    return wordCount
+}
+
+export function getAccuracy(evaluationTextData) {
+  return Math.round(100 * (getTotalWordsReadCorrectly(evaluationTextData) / getTotalWordsRead(evaluationTextData)))
+}
+
+export function getWCPM(evaluationTextData) {
+  return 121
+}
+
+export function getColorOfAccuracy(accuracy) {
+  return "poorMetric"
+}
+
+
+
+

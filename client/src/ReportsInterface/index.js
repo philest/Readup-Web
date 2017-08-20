@@ -11,10 +11,21 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, getScoredText } from './emailHelpers'
+import { sendEmail, getScoredText, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
+
+//   var classNames = require('classnames');
+
+//   let groupClasses = classNames(
+//   'metricFigureLabel',
+//       'goodMetric',
+// );
+
+
+
+
 
 export default class ReportsInterface extends React.Component {
   static propTypes = {
@@ -35,15 +46,12 @@ export default class ReportsInterface extends React.Component {
       name: '',
       schoolName: '',
       phoneNumber: '',
-      gradedText: newSampleEvaluationText
+      gradedText: newSampleEvaluationText,
     }
 
-
-
-
-
-
   }
+
+
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
@@ -73,6 +81,8 @@ export default class ReportsInterface extends React.Component {
 
   onPricingClicked = () => {
     this.setState({ showPricingModal: true })
+
+    console.log(getTotalWordsReadCorrectly(this.state.gradedText))
   }
 
   onEmailFormSubmit = () => {
@@ -146,11 +156,10 @@ export default class ReportsInterface extends React.Component {
 
     sendEmail(subject, message, ADMIN_EMAIL)
 
-
-
     // TODO do something with the data
-
   }
+
+
 
 
 
@@ -159,6 +168,7 @@ export default class ReportsInterface extends React.Component {
   render() {
 
     return (
+
 
 
       <div className={styles.reportsContainer}>
@@ -181,23 +191,53 @@ export default class ReportsInterface extends React.Component {
             </div>
 
             <div className={styles.metricsHeadingContainer}>
+
+
+            { getAccuracy(this.state.gradedText) >= 90 &&
               <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.poorMetric].join(' ')}>89%</div>
+                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>{ getAccuracy(this.state.gradedText) }%</div>
                 <div className={styles.metricDescriptionLabel}>Accuracy</div>
               </div>
+            }
 
+            { getAccuracy(this.state.gradedText) < 90 &&
+              <div className={styles.metricWrapper}>
+                <div className={[styles.metricFigureLabel, styles.poorMetric].join(' ')}>{ getAccuracy(this.state.gradedText) }%</div>
+                <div className={styles.metricDescriptionLabel}>Accuracy</div>
+              </div>
+            }
+
+
+            { this.props.isSample &&
               <div className={styles.metricWrapper}>
                 <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>161</div>
                 <div className={styles.metricDescriptionLabel}>wcpm</div>
               </div>
+            }
 
+            { !this.props.isSample &&
+              <div className={styles.metricWrapper}>
+                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>118</div>
+                <div className={styles.metricDescriptionLabel}>wcpm</div>
+              </div>
+            }
+
+            { this.props.isSample &&
               <div className={styles.metricWrapper}>
                 <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>3/5</div>
                 <div className={styles.metricDescriptionLabel}>Comp.</div>
               </div>
+            }
 
 
+            { !this.props.isSample &&
+              <div className={styles.metricWrapper}>
+                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>N/A</div>
+                <div className={styles.metricDescriptionLabel}>Comp.</div>
+              </div>
+            }
 
+            { this.props.isSample &&
               <div className={styles.levelInfoWrapper}>
                 <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Level S</div>
                 { this.state.levelFound &&
@@ -206,11 +246,36 @@ export default class ReportsInterface extends React.Component {
                 { !this.state.levelFound &&
                   <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level S</div>
                 }
+              </div>
+            }
 
 
-
+            { (!this.props.isSample && (getAccuracy(this.state.gradedText) < 90)) &&
+              <div className={styles.levelInfoWrapper}>
+                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Level G</div>
+                { this.state.levelFound &&
+                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
+                }
+                { !this.state.levelFound &&
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level G</div>
+                }
 
               </div>
+ 
+            }
+
+            { (!this.props.isSample && (getAccuracy(this.state.gradedText) >= 90)) &&
+              <div className={styles.levelInfoWrapper}>
+                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Level I</div>
+                { this.state.levelFound &&
+                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
+                }
+                { !this.state.levelFound &&
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level I</div>
+                }
+              </div>
+ 
+            }
 
             </div>
           </div>
