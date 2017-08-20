@@ -31,6 +31,20 @@ export default class TranscriberInterface extends React.Component {
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
 
+    let test
+    const json = getScoredText();
+    console.log(json)
+    console.log(typeof json)
+    json.then(res => {
+      console.log(res)
+      console.log(typeof res)
+      console.log(res.paragraphs)
+      test = res
+      this.setState({evaluationTextData: res})
+
+    })
+
+
   }
 
   componentWillUnmount() {
@@ -144,23 +158,24 @@ export default class TranscriberInterface extends React.Component {
 
   onSubmitClicked = () => {
 
-    let test
-    const json = getScoredText();
-    console.log(json)
-    console.log(typeof json)
-    json.then(res => {
-      console.log(res)
-      console.log(typeof res)
-      console.log(res.paragraphs)
-      test = res
-      this.setState({gradedData: res})
+    // let test
+    // const json = getScoredText();
+    // console.log(json)
+    // console.log(typeof json)
+    // json.then(res => {
+    //   console.log(res)
+    //   console.log(typeof res)
+    //   console.log(res.paragraphs)
+    //   test = res
+    //   this.setState({gradedData: res})
 
-    })
+    // })
+
+    updateScoredText(this.state.evaluationTextData);
 
 
     // console.log(newFireflyEvaluationText);
     // console.log("Before entering updateText....");
-    // updateScoredText(newFireflyEvaluationText);
 
 
 
