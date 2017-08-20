@@ -32,7 +32,21 @@ class ReportsController < ApplicationController
       recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav"
     }
 
+    puts "inside index controller..."
 
+
+    # In case a scored text update
+    if params["json_scored_text"]
+      puts "okay, ready to update..."
+      Assessment.last.update(scored_text: params["json_scored_text"])
+    end 
+
+
+    # In case a scored text update
+    if params["get_scored_text"]
+      puts "okay, getting scored text..."
+      render json: Assessment.last.scored_text
+    end 
 
     # In case an email submit 
    if params["message"] && (ENV['RAILS_ENV'] == 'production')
@@ -56,10 +70,9 @@ class ReportsController < ApplicationController
           from: "+12033035711")  # Replace with your Twilio number
 
       puts message.sid
-
-
-
     end
+
+
 
   end
 

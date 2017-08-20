@@ -6,10 +6,7 @@ import { Button } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { testData } from 'json-loader!../sharedComponents/test.json';
-const json = require('json-loader!../sharedComponents/test.json');
-
-console.log(json);
+import { updateScoredText, getScoredText } from '../ReportsInterface/emailHelpers'
 
 
 
@@ -23,10 +20,11 @@ export default class TranscriberInterface extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = { 
-      evaluationTextData: json,
+      evaluationTextData: newFireflyEvaluationText,
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
+      gradedData: null,
     }
   }
 
@@ -145,7 +143,26 @@ export default class TranscriberInterface extends React.Component {
   }
 
   onSubmitClicked = () => {
-    console.log(json);
+
+    let test
+    const json = getScoredText();
+    console.log(json)
+    console.log(typeof json)
+    json.then(res => {
+      console.log(res)
+      console.log(typeof res)
+      console.log(res.paragraphs)
+      test = res
+      this.setState({gradedData: res})
+
+    })
+
+
+    // console.log(newFireflyEvaluationText);
+    // console.log("Before entering updateText....");
+    // updateScoredText(newFireflyEvaluationText);
+
+
 
     // const testIt = JSON.parse(testData); 
     // console.log(testIt);
@@ -191,7 +208,7 @@ export default class TranscriberInterface extends React.Component {
             paragraphs={this.state.evaluationTextData.paragraphs}
             endParagraphIndex={this.state.evaluationTextData.readingEndIndex.paragraphIndex}
             endWordIndex={this.state.evaluationTextData.readingEndIndex.wordIndex}
-            isInteractive={true}
+            isInteractive
             onMouseEnterWord={this._onMouseEnterWord}
             onMouseLeaveWord={this._onMouseLeaveWord}
             bookLevel={this.props.bookLevel}
@@ -202,7 +219,7 @@ export default class TranscriberInterface extends React.Component {
         </div>
 
 
-        <Button 
+        <Button
           className={styles.submitButton}
           bsStyle={'primary'}
           bsSize={'large'}

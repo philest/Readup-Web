@@ -76,7 +76,7 @@ group :development, :test do
 
   # colorful console
   gem 'rainbow'
-
+  gem 'pry'
 
 
 end

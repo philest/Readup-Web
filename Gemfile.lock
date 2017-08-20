@@ -80,6 +80,7 @@ GEM
     chromedriver-helper (1.1.0)
       archive-zip (~> 0.7.0)
       nokogiri (~> 1.6)
+    coderay (1.1.1)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     coveralls (0.8.21)
@@ -159,6 +160,10 @@ GEM
     pony (1.11)
       mail (>= 2.0)
     powerpack (0.1.1)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -258,6 +263,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.1)
+    slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -330,6 +336,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pg_search
   pony
+  pry
   puma (~> 3.7)
   rails (~> 5.1.2)
   rails-controller-testing

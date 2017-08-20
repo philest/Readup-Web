@@ -102,7 +102,8 @@ CREATE TABLE assessments (
     book_key character varying,
     completed boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    scored_text json
 );
 
 
@@ -652,6 +653,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170712204938'),
 ('20170715172257'),
 ('20170717172846'),
-('20170720183554');
+('20170720183554'),
+('20170819233547');
 
 
