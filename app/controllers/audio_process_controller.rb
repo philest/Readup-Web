@@ -49,14 +49,21 @@ class AudioProcessController < ApplicationController
     puts "#{params["assessment_id"]}\n\n\n\n\n\n\n\n"
   
 
-    # NOTE: THIS IS A HACK SO NO USERS NEED TO BE CREATED.
+    # TODO PHIL NOTE: THIS IS A HACK SO NO USERS NEED TO BE CREATED.
     # THE REAL IMPLEMENTATION IS COMMENTED OUT BELOW 
     if true
+      key = "fake-assessments/#{Time.now.to_s}/${filename}"
       @s3_direct_post = S3_BUCKET.presigned_post(
-        key: "fake-assessments/#{Time.now.to_s}/${filename}",
+        key: key,
         success_action_status: '201',
         acl: 'public-read',
       )
+
+      # TODO PHIL NOTE: An atrocious hack. Hijacking the book key to start AWS URL of recording
+      key = "fake-assessments/#{Time.now.to_s}/recording.webm"
+      start_url = "https://s3-us-west-2.amazonaws.com/readup-now/"
+      full_url = start_url + key
+      Assessment.last.update(book_key: full_url) 
 
     # if session[:student_id] && params["assessment_id"]
       # @s3_direct_post = S3_BUCKET.presigned_post(

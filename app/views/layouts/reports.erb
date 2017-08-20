@@ -5,9 +5,9 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', async: true %>
 
-    <%= javascript_include_tag "https://use.fontawesome.com/d79995f506.js" %>
+    <%= javascript_include_tag "https://use.fontawesome.com/d79995f506.js", async: true %>
 
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" %>
 
@@ -22,8 +22,8 @@
                               media: 'all',
                               'data-turbolinks-track': true) %>
 
-      <%= javascript_pack_tag('vendor-bundle', 'data-turbolinks-track': true) %>
-      <%= javascript_pack_tag('app-bundle', 'data-turbolinks-track': true) %>
+      <%= javascript_pack_tag('vendor-bundle', 'data-turbolinks-track': true, async:true) %>
+      <%= javascript_pack_tag('app-bundle', 'data-turbolinks-track': true, asnyc: true) %>
 
 
     <% end %>

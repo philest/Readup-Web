@@ -405,7 +405,7 @@ function* rootSaga() {
         if (isDemo) {
           yield clog('oh hey you r done')
 
-          window.location.href = "/reports/1"
+          window.location.href = "/reports/sample"
           yield put({ type: SPINNER_SHOW })
 
 

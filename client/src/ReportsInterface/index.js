@@ -11,8 +11,7 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail } from './emailHelpers'
-
+import { sendEmail, getScoredText } from './emailHelpers'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -36,11 +35,27 @@ export default class ReportsInterface extends React.Component {
       name: '',
       schoolName: '',
       phoneNumber: '',
+      gradedText: newSampleEvaluationText
     }
+
+
+
+
+
+
   }
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
+
+    if (!this.props.isSample) {
+      // Hide the email modal and render graded text
+      this.setState({ showEmailModal: false })
+      getScoredText().then(res => {
+        this.setState({ gradedText: res })
+      })
+    }
+
 
   }
 
@@ -150,8 +165,8 @@ export default class ReportsInterface extends React.Component {
 
 
         <InfoBar
-          title={"Example Report"}
-          extraInfo={"Your actual report will come tonight"}
+          title={ this.props.isSample ? "Example Report" : "Your Report"}
+          extraInfo={"Graded by our teaching team"}
         />
 
         <div className={styles.contentWrapper}>
@@ -159,7 +174,7 @@ export default class ReportsInterface extends React.Component {
           <div className={styles.evaluationInfoHeader}>
 
             <div className={styles.mainHeadingContainer}>
-              <div className={styles.studentNameHeading}>Sofia Vergara</div>
+              <div className={styles.studentNameHeading}>{this.props.name}</div>
               <div className={styles.bookInfoSubheading}>
                 <p>{this.props.bookTitle}<span> - Level {this.props.bookLevel}</span></p>
               </div>
@@ -232,10 +247,10 @@ export default class ReportsInterface extends React.Component {
 
 
           <FormattedMarkupText
-            paragraphs={newSampleEvaluationText.paragraphs}
+            paragraphs={this.state.gradedText.paragraphs}
             isInteractive={false}
-            endParagraphIndex={newSampleEvaluationText.readingEndIndex.paragraphIndex}
-            endWordIndex={newSampleEvaluationText.readingEndIndex.wordIndex}
+            endParagraphIndex={this.state.gradedText.readingEndIndex.paragraphIndex}
+            endWordIndex={this.state.gradedText.readingEndIndex.wordIndex}
             bookLevel={this.props.bookLevel}
           />
 
