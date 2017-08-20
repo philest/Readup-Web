@@ -16,12 +16,7 @@ import { sendEmail, getScoredText, getTotalWordsInText, getTotalWordsReadCorrect
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
-//   var classNames = require('classnames');
 
-//   let groupClasses = classNames(
-//   'metricFigureLabel',
-//       'goodMetric',
-// );
 
 
 
