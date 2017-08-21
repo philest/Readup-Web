@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
         name: "Demo Student",
         email: "demo@readup.com",
         bookTitle: "Firefly Night",
-        bookLevel: "H",
+        bookLevel: "E",
         recordingURL: Assessment.last.book_key,
         isSample: false 
       }

@@ -247,12 +247,12 @@ export default class ReportsInterface extends React.Component {
 
             { (!this.props.isSample && (getAccuracy(this.state.gradedText) < 90)) &&
               <div className={styles.levelInfoWrapper}>
-                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Level G</div>
+                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>{["Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) - 1)].join(' ')}</div>
                 { this.state.levelFound &&
                   <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
                 }
                 { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level G</div>
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> {["Assess at Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) - 1)].join(' ')}</div>
                 }
 
               </div>
@@ -261,12 +261,12 @@ export default class ReportsInterface extends React.Component {
 
             { (!this.props.isSample && (getAccuracy(this.state.gradedText) >= 90)) &&
               <div className={styles.levelInfoWrapper}>
-                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Level I</div>
+                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Level {String.fromCharCode(this.props.bookLevel.charCodeAt(0) + 1)}</div>
                 { this.state.levelFound &&
                   <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
                 }
                 { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level I</div>
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> {["Assess at Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) + 1)].join(' ')}</div>
                 }
               </div>
  
