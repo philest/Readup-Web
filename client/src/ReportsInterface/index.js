@@ -171,7 +171,7 @@ export default class ReportsInterface extends React.Component {
 
         <InfoBar
           title={ this.props.isSample ? "Example Report" : "Your Report"}
-          extraInfo={"Graded by our teaching team"}
+          extraInfo={this.props.isSample ? "Your actual report will come tonight" : "Graded by our teaching team"}
         />
 
         <div className={styles.contentWrapper}>
