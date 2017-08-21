@@ -24,23 +24,17 @@ export default class TranscriberInterface extends React.Component {
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
-      gradedData: null,
     }
   }
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
 
-    let test
     const json = getScoredText();
-    console.log(json)
-    console.log(typeof json)
     json.then(res => {
-      console.log(res)
-      console.log(typeof res)
-      console.log(res.paragraphs)
-      test = res
-      this.setState({evaluationTextData: res})
+      if (res.paragraphs) { // Only rely on a legitimate scored text
+        this.setState({ evaluationTextData: res }) 
+      }
 
     })
 
@@ -158,31 +152,9 @@ export default class TranscriberInterface extends React.Component {
 
   onSubmitClicked = () => {
 
-    // let test
-    // const json = getScoredText();
-    // console.log(json)
-    // console.log(typeof json)
-    // json.then(res => {
-    //   console.log(res)
-    //   console.log(typeof res)
-    //   console.log(res.paragraphs)
-    //   test = res
-    //   this.setState({gradedData: res})
-
-    // })
 
     updateScoredText(this.state.evaluationTextData);
 
-
-    // console.log(newFireflyEvaluationText);
-    // console.log("Before entering updateText....");
-
-
-
-    // const testIt = JSON.parse(testData); 
-    // console.log(testIt);
-    // const JSONEvaluationTextData = JSON.stringify(this.state.evaluationTextData);
-    // console.log(JSONEvaluationTextData);
   }
 
   render() {

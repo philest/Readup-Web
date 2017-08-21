@@ -212,7 +212,7 @@ export default class ReportsInterface extends React.Component {
 
             { !this.props.isSample &&
               <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>118</div>
+                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>{getWCPM(this.state.gradedText)}</div>
                 <div className={styles.metricDescriptionLabel}>wcpm</div>
               </div>
             }

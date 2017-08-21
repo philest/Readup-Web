@@ -130,7 +130,7 @@ export function getAccuracy(evaluationTextData) {
 }
 
 export function getWCPM(evaluationTextData) {
-  return 121
+  return 47
 }
 
 export function getColorOfAccuracy(accuracy) {
