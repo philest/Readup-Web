@@ -55,7 +55,7 @@ export default class Recorder {
       // TODO: detect if system can play webms
 
       // <-- smaller filesize
-      // this.rtcRecorder = RecordRTC(stream, { recorderType: RecordRTC.StereoAudioRecorder, mimeType: 'audio/wav' });
+      // this.rtcRecorder = RecordRTC(stream, { recorderType: RecordRTC.StereoAudioRecorder, bitsPerSecond: 30000, numberOfAudioChannels: 1, mimeType: 'audio/wav' });
       this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm' });
       callback && callback(null)
       return true

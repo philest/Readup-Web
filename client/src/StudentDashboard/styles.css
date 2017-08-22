@@ -41,6 +41,11 @@
 
 }
 
+
+.leftButtonContainer, .rightButtonContainer {
+	margin-top: 30%;
+}
+
 .bookpageContainer {
 	width: 400px;
 	height: 80%;

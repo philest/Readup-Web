@@ -25,7 +25,7 @@ class ReportsController < ApplicationController
 
   def index
 
-    if params['teacher_id'] == "sample"
+    if params['user_id'] == "sample"
       @reports_interface_props = {
         name: "Sofia Vergara",
         email: "testemail@gmail.com",
@@ -34,14 +34,20 @@ class ReportsController < ApplicationController
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav",
         isSample: true 
       }
-    else
+    elsif params['user_id'].to_i > 0 # Not the email_submit hack 
+
+      @user = User.find(params['user_id'])
+      @student = @user.teachers.last.classrooms.last.students.last
+      @assessment = @student.assessments.last
+
       @reports_interface_props = {
-        name: "Demo Student",
-        email: "demo@readup.com",
+        name: "#{@student.first_name} #{@student.last_name}",
+        email: "#{@user.email}",
         bookTitle: "Firefly Night",
         bookLevel: "E",
-        recordingURL: Assessment.last.book_key,
-        isSample: false 
+        recordingURL: @assessment.book_key,
+        scoredText: @assessment.scored_text,
+        isSample: false
       }
     end 
 
@@ -51,9 +57,14 @@ class ReportsController < ApplicationController
 
 
     # In case a scored text update
-    if params["json_scored_text"]
+    if params["JSONScoredText"]
       puts "okay, ready to update..."
-      Assessment.last.update(scored_text: params["json_scored_text"])
+
+      @user = User.find(params['userID'])
+      @student = @user.teachers.last.classrooms.last.students.last
+      @assessment = @student.assessments.last
+
+      @assessment.update(scored_text: params["JSONScoredText"])
     end 
 
 

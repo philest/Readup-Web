@@ -50,9 +50,9 @@ Rails.application.routes.draw do
   get 'student_dashboard/assessment', to: 'student_dashboard#create_assessment'
   post 'student_dashboard/assessment', to: 'student_dashboard#confirm_assessment_completion'
 
-  get 'transcribe/:teacher_id', to: 'transcriber_interface#index'
+  get 'transcribe/:user_id', to: 'transcriber_interface#index'
   get 'reports/demo/show', to: 'reports#index'
-  get 'reports/:teacher_id', to: 'reports#index'
+  get 'reports/:user_id', to: 'reports#index'
   get 'reports/email_submit', to: 'reports#email_submit'
 
 

@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateScoredText, getScoredText } from '../ReportsInterface/emailHelpers'
+import { updateScoredText } from '../ReportsInterface/emailHelpers'
 
 
 
@@ -20,7 +20,7 @@ export default class TranscriberInterface extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = { 
-      evaluationTextData: newFireflyEvaluationText,
+      evaluationTextData: JSON.parse(this.props.scoredText),
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
@@ -29,15 +29,6 @@ export default class TranscriberInterface extends React.Component {
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
-
-    const json = getScoredText();
-    json.then(res => {
-      if (res.paragraphs) { // Only rely on a legitimate scored text
-        this.setState({ evaluationTextData: res }) 
-      }
-
-    })
-
 
   }
 
@@ -153,7 +144,7 @@ export default class TranscriberInterface extends React.Component {
   onSubmitClicked = () => {
 
 
-    updateScoredText(this.state.evaluationTextData);
+    updateScoredText(this.state.evaluationTextData, this.props.userID);
 
   }
 
@@ -186,7 +177,7 @@ export default class TranscriberInterface extends React.Component {
               {this.props.bookTitle}
             </span>
             <span className={styles.bookLevelHeading}>
-              {"Level" + this.props.bookLevel}
+              {"Level " + this.props.bookLevel}
             </span>
           </div>
 

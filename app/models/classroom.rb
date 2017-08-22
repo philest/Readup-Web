@@ -2,14 +2,15 @@ class Classroom < ApplicationRecord
   has_and_belongs_to_many :teachers
   has_and_belongs_to_many :students
 
-  belongs_to :school
-  validates :school, presence: true
-  validate :at_least_one_student
-  def at_least_one_student
-    if students.empty?
-      errors.add(:base, "need at least one student to init classroom")
-    end
-  end
+  # TODO PHIL: Put this back in when dummy student is no longer a hack
+  # belongs_to :school
+  # validates :school, presence: true
+  # validate :at_least_one_student
+  # def at_least_one_student
+  #   if students.empty?
+  #     errors.add(:base, "need at least one student to init classroom")
+  #   end
+  # end
 
 
   def self.create_with_teacher_and_students(options = {})

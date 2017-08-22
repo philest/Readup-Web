@@ -11,7 +11,7 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, getScoredText, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { sendEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -54,10 +54,10 @@ export default class ReportsInterface extends React.Component {
     if (!this.props.isSample) {
       // Hide the email modal and render graded text
       this.setState({ showEmailModal: false })
-      getScoredText().then(res => {
-        this.setState({ gradedText: res })
-      })
+      this.setState({ gradedText: JSON.parse(this.props.scoredText) })
+
     }
+
 
 
   }
@@ -210,14 +210,25 @@ export default class ReportsInterface extends React.Component {
               </div>
             }
 
-            { !this.props.isSample &&
+            { (!this.props.isSample && (getWCPM(this.state.gradedText) < 25)) &&
               <div className={styles.metricWrapper}>
                 <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>{getWCPM(this.state.gradedText)}</div>
                 <div className={styles.metricDescriptionLabel}>wcpm</div>
               </div>
             }
 
-            { this.props.isSample &&
+
+            { (!this.props.isSample && (getWCPM(this.state.gradedText) >= 25))  &&
+              <div className={styles.metricWrapper}>
+                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>{getWCPM(this.state.gradedText)}</div>
+                <div className={styles.metricDescriptionLabel}>wcpm</div>
+              </div>
+            }
+
+
+
+
+            { this.props.isSample && // No comp if it's not a sample
               <div className={styles.metricWrapper}>
                 <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>3/5</div>
                 <div className={styles.metricDescriptionLabel}>Comp.</div>
@@ -225,12 +236,6 @@ export default class ReportsInterface extends React.Component {
             }
 
 
-            { !this.props.isSample &&
-              <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>N/A</div>
-                <div className={styles.metricDescriptionLabel}>Comp.</div>
-              </div>
-            }
 
             { this.props.isSample &&
               <div className={styles.levelInfoWrapper}>
@@ -296,7 +301,7 @@ export default class ReportsInterface extends React.Component {
               }
 
               { this.state.showAudioPlayback &&
-                <audio controls autoPlay className={styles.audioElement}>
+                <audio controls autoPlay preload="auto" className={styles.audioElement}>
                   <source src={this.props.recordingURL} />
                   <p>Playback not supported</p>
                 </audio>
