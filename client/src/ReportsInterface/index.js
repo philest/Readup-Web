@@ -124,7 +124,7 @@ export default class ReportsInterface extends React.Component {
 
     setTimeout(function () {
       window.location.href = loc
-    }, 1500);
+    }, 2500);
 
 
 
@@ -467,7 +467,6 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.pricingFormWrapper}>
               <img alt="" className={[styles.paperImage, styles.readyModalPaperImage].join(' ')} src="/images/checkmark-on-paper.jpg" />
-              <i class="fa fa-check" aria-hidden="true"></i>
             </div>
 
           </Modal.Body>
