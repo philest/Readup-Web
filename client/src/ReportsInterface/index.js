@@ -11,7 +11,7 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { sendEmail, updateUserEmail, assessmentUpdated, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -46,7 +46,13 @@ export default class ReportsInterface extends React.Component {
 
   }
 
-
+  tick() {
+    if (assessmentUpdated(1)) {
+      console.log("It's updated!")
+    } else {
+      console.log("NOT updated!")
+    }
+  }
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
@@ -57,14 +63,18 @@ export default class ReportsInterface extends React.Component {
       this.setState({ gradedText: JSON.parse(this.props.scoredText) })
 
     }
-
-
-
   }
+
+  componentDidMount() {
+    this.interval = setInterval(this.tick, 1000);
+  }
+
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
+    clearInterval(this.interval);
   }
+
 
   onLogoutClicked = () => {
 

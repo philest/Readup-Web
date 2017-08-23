@@ -62,7 +62,9 @@ export function updateUserEmail(email, id) {
   })
 }
 
-
+export function assessmentUpdated(id) {
+  return false
+}
 
 
 // HELPERS FOR METRICS 
