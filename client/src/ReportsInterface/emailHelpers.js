@@ -27,7 +27,7 @@ export function sendEmail(subject, message, recipient) {
 export function updateScoredText(JSONScoredText, userID) {
   console.log("Okay, updating the scored text...");
 
-  // TODO make the POST request to our server to send email
+  // PHIL TODO refactor to a POST request to our server to send email
   const params = {
     JSONScoredText: JSONScoredText,
     userID: userID,
@@ -44,8 +44,22 @@ export function updateScoredText(JSONScoredText, userID) {
 }
 
 
-export function updateEmailAddress(emailAddress, userID) {
-  
+export function updateUserEmail(email, id) {
+
+  // TODO make the POST request to our server to send email
+  const params = {
+    // email: email,
+      email: email,
+  }
+
+  return axios.patch(`/users/${id}`, {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      return res
+      console.log(res);
+      console.log("yay!");
+  })
 }
 
 

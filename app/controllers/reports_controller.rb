@@ -32,6 +32,7 @@ class ReportsController < ApplicationController
         bookTitle: "No More Magic",
         bookLevel: "R",
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav",
+        userID: User.last.id,
         isSample: true 
       }
     elsif params['user_id'].to_i > 0 # Not the email_submit hack 
@@ -47,6 +48,7 @@ class ReportsController < ApplicationController
         bookLevel: "E",
         recordingURL: @assessment.book_key,
         scoredText: @assessment.scored_text,
+        userID: @user.id,
         isSample: false
       }
     end 

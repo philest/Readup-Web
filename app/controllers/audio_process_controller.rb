@@ -54,7 +54,7 @@ class AudioProcessController < ApplicationController
     if true
 
       # Create the dummy user linked to the real assesment. Dummy user updated after email collected. 
-      User.create(first_name: "Dummy", last_name: "Teacher", name: "Dummy Teacher", password:"testtest", email:"dummy#{rand(1000000)}@gmail.com")
+      User.create(first_name: "Dummy", last_name: "Teacher", name: "Dummy Teacher", password: "12345678", email:"dummy#{rand(1000000)}@gmail.com")
 
       classroom_options = {
         classroom_name: "Demo Homeroom",

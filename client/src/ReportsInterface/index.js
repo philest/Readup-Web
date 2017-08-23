@@ -11,7 +11,7 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { sendEmail, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -85,13 +85,13 @@ export default class ReportsInterface extends React.Component {
     this.setState({ showEmailModal: false })
     this.setState({ showSampleInfoModal: true })
     const email = this.state.email
+    const id = this.props.userID
 
     const subject = ["Demo submitted: ", email].join(' ')
-
-
     const message = ["The user's email is ", email].join(' ')
 
     sendEmail(subject, message, ADMIN_EMAIL)
+    updateUserEmail(email, id)
 
     // TODO do something with the data
   }
