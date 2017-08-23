@@ -68,7 +68,7 @@ export default class ReportsInterface extends React.Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.tick, 5000);
+    this.interval = setInterval(this.tick, 2000);
   }
 
 
@@ -90,7 +90,7 @@ export default class ReportsInterface extends React.Component {
       this.deliverScoredReport()
     } else {
       console.log("don't show modal")
-      this.hideReportReadyModal()
+      // this.hideReportReadyModal()
     }
 
   }
@@ -117,12 +117,21 @@ export default class ReportsInterface extends React.Component {
   deliverScoredReport() {
 
     this.setState({ showReportReadyModal: true })
-    // modal 
 
-    // update all else 
-    getScoredText().then(res => {
-      this.setState({ gradedText: res })
-    })
+
+    let loc =  `/reports/${this.props.userID}`
+    console.log(loc)
+
+    setTimeout(function () {
+      window.location.href = loc
+    }, 2500);
+
+
+
+
+       // getScoredText().then(res => {
+    //   this.setState({ gradedText: res })
+    // })
 
 
 
