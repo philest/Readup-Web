@@ -43,6 +43,22 @@ export function updateScoredText(JSONScoredText, userID) {
   })
 }
 
+export function getScoredText() {
+  console.log("Okay, getting the scored text...");
+
+  // TODO make the POST request to our server to send email
+  const params = {
+    get_scored_text: true,
+  }
+
+  return axios.get('/reports/email_submit', {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+    return res.data;
+  })
+}
+
 
 export function updateUserEmail(email, id) {
 

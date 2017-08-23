@@ -11,7 +11,7 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { sendEmail, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -44,6 +44,7 @@ export default class ReportsInterface extends React.Component {
       gradedText: newSampleEvaluationText,
       lastUpdated: this.props.whenCreated,
       givenScoredReport: false,
+      showReportReadyModal: false,
     }
     this.tick = this.tick.bind(this);
 
@@ -67,8 +68,7 @@ export default class ReportsInterface extends React.Component {
   }
 
   componentDidMount() {
-    var self = this 
-    this.interval = setInterval(this.tick, 1000);
+    this.interval = setInterval(this.tick, 5000);
   }
 
 
@@ -87,8 +87,10 @@ export default class ReportsInterface extends React.Component {
     if (updated && !givenScoredReport) {
       console.log("SHOW modal")
       this.setState({ givenScoredReport: true })
+      this.deliverScoredReport()
     } else {
       console.log("don't show modal")
+      this.hideReportReadyModal()
     }
 
   }
@@ -112,20 +114,26 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  deliverScoredReport() {
+
+    this.setState({ showReportReadyModal: true })
+    // modal 
+
+    // update all else 
+    getScoredText().then(res => {
+      this.setState({ gradedText: res })
+    })
 
 
 
+  }
 
-  // assessmentUpdated(id) {
-  //     let res = getAssessmentUpdateTimestamp(id)
-  //     res.then(res => {
-  //       this.setState({ lastUpdated: res })
-  //     })
 
-  //     return false
 
-  //     // return getAssessmentUpdateTimestamp(id) === this.props.whenCreated
-  // }
+  hideReportReadyModal() {
+    this.setState({ showReportReadyModal: false })
+  }
+
 
   onLogoutClicked = () => {
 
@@ -168,6 +176,7 @@ export default class ReportsInterface extends React.Component {
   closeSampleInfoModal  = () => {
     this.setState({ showSampleInfoModal: false })
   }
+
 
   _handleKeyDown = (event) => {
     if (this.state.showPricingModal && event.code === 'Enter') {
@@ -439,6 +448,25 @@ export default class ReportsInterface extends React.Component {
 
 
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+        <Modal show={this.state.showReportReadyModal} dialogClassName={styles.modalMedium}>
+          <Modal.Header>
+            <Modal.Title bsClass={styles.pricingModalTitle}>
+              Yours is ready! 
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className={styles.pricingFormWrapper}>
+
+
+            </div>
+
+          </Modal.Body>
+        </Modal>
+
+
+
+       <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
         <Modal show={this.state.showSampleInfoModal}  onHide={this.closeSampleInfoModal} dialogClassName={styles.modalMedium}>
           <Modal.Header closeButton>
             <Modal.Title bsClass={styles.pricingModalTitle}>
@@ -461,6 +489,8 @@ export default class ReportsInterface extends React.Component {
 
           </Modal.Body>
         </Modal>
+
+
 
 
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.9; } '}</style>
