@@ -55,9 +55,24 @@ class AudioProcessController < ApplicationController
 
       # Create the dummy user linked to the real assesment. Dummy user updated after email collected. 
       User.create(first_name: "Dummy", last_name: "Teacher", name: "Dummy Teacher", password:"testtest", email:"dummy#{rand(1000000)}@gmail.com")
-      User.last.teachers.create(signature:"Ms. Demo")
-      Teacher.last.classrooms.create()
-      Classroom.last.students.create(first_name: "Demo", last_name: "Student")
+
+      classroom_options = {
+        classroom_name: "Demo Homeroom",
+        user_id: User.last.id,
+        school_id: School.find_by(name: 'Demo School'),
+        grade: 2,
+        teacher_signature: "Mrs. Demo",
+        student_list: ["Demo Student"]
+      }
+
+      if @new_classroom = Classroom.create_with_teacher_and_students(classroom_options)
+        # set the student id as session so that the demo can work properly
+        t = @new_classroom.teachers.first
+        demo_student = @new_classroom.students.find_by(last_name: "Student", first_name: "Demo")
+
+        session[:student_id] = demo_student.id || nil
+      end
+
       Student.last.assessments.create(book_key: "RECORDING_URL", scored_text: "BLANK_SCORED_TEXT")
 
       puts "Created this assessment:\n#{User.last.teachers.last.classrooms.last.students.last.assessments.last}"
