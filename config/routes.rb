@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   # user stuff including auth
 
   resources :users
+  resources :assessments
+
 
   get 'auth/user_exists', to: 'users#exists'
   get 'auth/complete_signup', to: 'users#show_complete_signup'

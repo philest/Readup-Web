@@ -26,13 +26,22 @@ class ReportsController < ApplicationController
   def index
 
     if params['user_id'] == "sample"
+
+      @user = User.last
+      @student = @user.teachers.last.classrooms.last.students.last
+      @assessment = @student.assessments.last
+
+
       @reports_interface_props = {
         name: "Sofia Vergara",
         email: "testemail@gmail.com",
         bookTitle: "No More Magic",
         bookLevel: "R",
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav",
-        userID: User.last.id,
+        userID: @user.id,
+        assessmentID: @assessment.id, 
+        whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
+        whenCreatedDate: @assessment.updated_at.to_s,
         isSample: true 
       }
     elsif params['user_id'].to_i > 0 # Not the email_submit hack 
@@ -49,6 +58,9 @@ class ReportsController < ApplicationController
         recordingURL: @assessment.book_key,
         scoredText: @assessment.scored_text,
         userID: @user.id,
+        assessmentID: @assessment.id, 
+        whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
+        whenCreatedDate: @assessment.updated_at.to_s,
         isSample: false
       }
     end 

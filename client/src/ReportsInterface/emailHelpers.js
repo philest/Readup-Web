@@ -62,9 +62,21 @@ export function updateUserEmail(email, id) {
   })
 }
 
-export function assessmentUpdated(id) {
-  return false
+export function getAssessmentUpdateTimestamp(id) {
+
+  return axios.get(`/assessments/${id}`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      let d 
+      d = res.data.updated_at
+      d = new Date(d)
+      d = d.getTime() // convert into ms since 1970 for equality with Rails date
+      return d
+  })
+
+
 }
+
 
 
 // HELPERS FOR METRICS 

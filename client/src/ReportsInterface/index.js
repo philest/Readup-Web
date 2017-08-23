@@ -11,7 +11,7 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, updateUserEmail, assessmentUpdated, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { sendEmail, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -42,17 +42,18 @@ export default class ReportsInterface extends React.Component {
       schoolName: '',
       phoneNumber: '',
       gradedText: newSampleEvaluationText,
+      lastUpdated: this.props.whenCreated,
+      givenScoredReport: false,
     }
+    this.tick = this.tick.bind(this);
+
 
   }
 
-  tick() {
-    if (assessmentUpdated(1)) {
-      console.log("It's updated!")
-    } else {
-      console.log("NOT updated!")
-    }
-  }
+
+
+
+
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
@@ -66,6 +67,7 @@ export default class ReportsInterface extends React.Component {
   }
 
   componentDidMount() {
+    var self = this 
     this.interval = setInterval(this.tick, 1000);
   }
 
@@ -75,6 +77,55 @@ export default class ReportsInterface extends React.Component {
     clearInterval(this.interval);
   }
 
+
+
+  tick() {
+
+    let updated = this.assessmentUpdated(this.props.assessmentID)
+    let givenScoredReport = this.state.givenScoredReport
+
+    if (updated && !givenScoredReport) {
+      console.log("SHOW modal")
+      this.setState({ givenScoredReport: true })
+    } else {
+      console.log("don't show modal")
+    }
+
+  }
+
+
+  assessmentUpdated(id) {
+
+    let res = getAssessmentUpdateTimestamp(id)
+    res.then(res => {
+      this.setState({ lastUpdated: res })
+    })
+
+    let whenCreated = this.props.whenCreated
+    let lastUpdated = this.state.lastUpdated
+
+    if (whenCreated !== lastUpdated) { // their timestamps are different
+      return true
+    } else {
+      return false
+    }
+  }
+
+
+
+
+
+
+  // assessmentUpdated(id) {
+  //     let res = getAssessmentUpdateTimestamp(id)
+  //     res.then(res => {
+  //       this.setState({ lastUpdated: res })
+  //     })
+
+  //     return false
+
+  //     // return getAssessmentUpdateTimestamp(id) === this.props.whenCreated
+  // }
 
   onLogoutClicked = () => {
 
