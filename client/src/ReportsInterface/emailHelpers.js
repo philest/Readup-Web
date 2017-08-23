@@ -44,6 +44,11 @@ export function updateScoredText(JSONScoredText, userID) {
 }
 
 
+export function updateEmailAddress(emailAddress, userID) {
+  
+}
+
+
 
 
 // HELPERS FOR METRICS 
@@ -109,6 +114,7 @@ export function getTotalWordsReadCorrectly(evaluationTextData) {
 
     return wordCount
 }
+
 
 export function getAccuracy(evaluationTextData) {
   return Math.round(100 * (getTotalWordsReadCorrectly(evaluationTextData) / getTotalWordsRead(evaluationTextData)))
