@@ -124,7 +124,7 @@ export default class ReportsInterface extends React.Component {
 
     setTimeout(function () {
       window.location.href = loc
-    }, 2500);
+    }, 1500);
 
 
 
@@ -457,17 +457,17 @@ export default class ReportsInterface extends React.Component {
 
 
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
-        <Modal show={this.state.showReportReadyModal} dialogClassName={styles.modalMedium}>
+        <Modal show={this.state.showReportReadyModal} dialogClassName={styles.modalSmall}>
           <Modal.Header>
-            <Modal.Title bsClass={styles.pricingModalTitle}>
+            <Modal.Title bsClass={[styles.pricingModalTitle, styles.readyModalTitle].join(' ')}>
               Yours is ready! 
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body bsClass={styles.readyModalBody}>
 
             <div className={styles.pricingFormWrapper}>
-
-
+              <img alt="" className={[styles.paperImage, styles.readyModalPaperImage].join(' ')} src="/images/checkmark-on-paper.jpg" />
+              <i class="fa fa-check" aria-hidden="true"></i>
             </div>
 
           </Modal.Body>

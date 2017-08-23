@@ -283,6 +283,11 @@
 		width: 310px;
 	}
 
+	.modalSmall {
+		width: 340px;
+	}
+
+
 }
 
 
@@ -328,6 +333,19 @@
 	font-weight: bold;
 	font-size: 1.4em;
 	text-align: center;
+}
+
+.readyModalTitle {
+	font-size: 1.7em;
+}
+
+.readyModalPaperImage {
+	width: 60px;
+}
+
+
+.readyModalBody {
+	padding: 0px;
 }
 
 .pricingFormWrapper {
