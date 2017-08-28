@@ -297,6 +297,59 @@
 }
 
 
+
+/*COMPREHENSION SECTION*/
+
+.comp {
+	color: #4a4a4a;
+	margin-top: 7em;
+}
+
+.compPart {
+	margin-bottom: 5em;
+}
+
+.compPartHeader { 
+	font-size: 1.8em;
+	margin-bottom: 20px;
+}
+
+.questionBlock {
+	margin: 25px 0px;
+	margin-top: 10px;
+}
+
+.questionText {
+	font-family: 'ProximaNova Semibold';
+    line-height: 1.6;
+
+}
+
+.questionText span {
+	font-weight: 100;
+	font-family: 'ProximaNova';
+}
+
+.studentResponse {
+    margin: 18px 0px;
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.6;
+ }
+
+.compCorrection {
+	color: #982e2b;
+}
+
+span.missed {
+	font-weight: 900; 
+	line-height: 1.6;
+	font-size: 1.05em;
+}
+
+
+/*END COMPREHENSION SECTION */
+
 .pricingFooter {
 	margin-top: 100px;
 	margin-bottom: 40px;
