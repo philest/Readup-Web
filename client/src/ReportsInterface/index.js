@@ -6,6 +6,8 @@ import InfoBar from './components/InfoBar'
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
 
+import sharedStyles from '../sharedComponents/styles.css'
+
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { Button, Modal } from 'react-bootstrap'
 
@@ -397,6 +399,55 @@ export default class ReportsInterface extends React.Component {
             endWordIndex={this.state.gradedText.readingEndIndex.wordIndex}
             bookLevel={this.props.bookLevel}
           />
+
+
+   
+          <div className={[styles.comp, sharedStyles.textContainerLarge].join(' ')}>
+
+            <div className={styles.compPart}>
+              <h2 className={styles.compPartHeader}>Retell</h2>
+                <div className={styles.compQuestionBlock}>
+                  <h4 className={styles.questionText}>Retell the most important parts of what you just read.<span className={styles.pointValue}> (3 pts)</span></h4>
+                  <p className={styles.studentResponse}>"Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike."</p> 
+                  <p className={styles.compCorrection}><span className={styles.missed}>Missed:</span> it's actually this</p> 
+                </div>
+            </div>
+
+            <div className={styles.compPart}>
+              <h2 className={styles.compPartHeader}>Within the Text</h2>
+                <div className={styles.compQuestionBlock}>
+                  <h4 className={styles.questionText}>1. How is the narrator's mom trying to make him feel better?<span className={styles.pointValue}> (1 pt)</span></h4>
+                  <p className={styles.studentResponse}>"Chris's mom is trying to make him feel better by buying him a new bike."</p> 
+                  <p className={styles.compCorrection}><span className={styles.missed}>Missed:</span> it's actually this</p> 
+                </div>
+                <div className={styles.compQuestionBlock}>
+                  <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (1 pt)</span></h4>
+                  <p className={styles.studentResponse}>"Chris will propably stop looking because he still hasn’t found it."</p> 
+                  <p className={styles.compCorrection}><span className={styles.missed}>Missed:</span> Chris will not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
+                </div>
+            </div>
+
+
+            <div className={styles.compPart}>
+              <h2 className={styles.compPartHeader}>Beyond the Text</h2>
+                <div className={styles.compQuestionBlock}>
+                  <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means by this?<span className={styles.pointValue}> (1 pt)</span></h4>
+                  <p className={styles.studentResponse}>"He thinks Mr. Podler once saw a ghost."</p> 
+                  <p className={styles.compCorrection}><span className={styles.missed}>Missed:</span> He thinks Mr. Podler believes things that aren’t true.</p> 
+                </div>
+                <div className={styles.compQuestionBlock}>
+                  <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 pt)</span></h4>
+                  <p className={styles.studentResponse}>"He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first."</p> 
+                  <p className={styles.compCorrection}><span className={styles.missed}>Missed:</span> it's actually this</p> 
+                </div>
+            </div>
+
+          </div>
+
+
+
+
+
 
           <div className={styles.pricingFooter}>
             <div className={styles.pricingFooterLabel}>

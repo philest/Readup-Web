@@ -89,7 +89,7 @@ class ReportsController < ApplicationController
     end 
 
     # In case an email submit 
-   if params["message"] && (ENV['RAILS_ENV'] == 'development')
+   if params["message"] && (ENV['RAILS_ENV'] == 'production')
       puts "Pony is sending this message....\n\n" + params["message"]
 
       Pony.mail(to: 'philesterman@gmail.com',
