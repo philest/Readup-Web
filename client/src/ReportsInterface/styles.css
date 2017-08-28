@@ -302,7 +302,7 @@
 
 .comp {
 	color: #4a4a4a;
-	margin-top: 7em;
+	margin-top: 5.5em;
 }
 
 .compPart {
@@ -312,6 +312,7 @@
 .compPartHeader { 
 	font-size: 1.8em;
 	margin-bottom: 20px;
+	font-weight: 900;
 }
 
 .questionBlock {
