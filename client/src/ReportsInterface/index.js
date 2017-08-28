@@ -400,7 +400,7 @@ export default class ReportsInterface extends React.Component {
             bookLevel={this.props.bookLevel}
           />
 
-
+        {this.props.isSample &&
    
           <div className={[styles.comp, sharedStyles.textContainerLarge].join(' ')}>
 
@@ -441,7 +441,7 @@ export default class ReportsInterface extends React.Component {
 
           </div>
 
-
+        }
 
 
 
