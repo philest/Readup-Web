@@ -126,7 +126,7 @@ export default class ReportsInterface extends React.Component {
 
     setTimeout(function () {
       window.location.href = loc
-    }, 2000);
+    }, 500);
 
 
 
@@ -320,12 +320,12 @@ export default class ReportsInterface extends React.Component {
 
             { this.props.isSample &&
               <div className={styles.levelInfoWrapper}>
-                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Level S</div>
+                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Hard</div>
                 { this.state.levelFound &&
                   <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
                 }
                 { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level S</div>
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level Q</div>
                 }
               </div>
             }
@@ -333,21 +333,36 @@ export default class ReportsInterface extends React.Component {
 
             { (!this.props.isSample && (getAccuracy(this.state.gradedText) < 90)) &&
               <div className={styles.levelInfoWrapper}>
-                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>{["Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) - 1)].join(' ')}</div>
+                <div className={[styles.poorLevelResult, styles.levelRectangle].join(' ')}>Hard</div>
                 { this.state.levelFound &&
                   <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
                 }
                 { !this.state.levelFound &&
                   <div className={styles.ReassessLevelLabel}><span>Next step:</span> {["Assess at Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) - 1)].join(' ')}</div>
                 }
-
               </div>
  
             }
 
-            { (!this.props.isSample && (getAccuracy(this.state.gradedText) >= 90)) &&
+
+            { ((!this.props.isSample && (getAccuracy(this.state.gradedText) >= 90)) && (getAccuracy(this.state.gradedText) <= 94)) &&
               <div className={styles.levelInfoWrapper}>
-                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Level {String.fromCharCode(this.props.bookLevel.charCodeAt(0) + 1)}</div>
+                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Instructional</div>
+                { this.state.levelFound &&
+                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
+                }
+                { !this.state.levelFound &&
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> {["Assess at Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) + 1)].join(' ')}</div>
+                }
+              </div>
+ 
+            }
+
+
+
+            { (!this.props.isSample && (getAccuracy(this.state.gradedText) >= 95)) &&
+              <div className={styles.levelInfoWrapper}>
+                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Independent</div>
                 { this.state.levelFound &&
                   <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
                 }

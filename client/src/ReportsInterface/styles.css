@@ -144,7 +144,7 @@
 .levelRectangle {
 	background-color: #249C44;
 	color: white;
-	font-family: 'ProximaNova Semibold';
+	font-family: 'ProximaNova';
 	font-size: 1.4em;
 	width: 140px;
 	padding: 5px;
@@ -170,7 +170,7 @@
 
 .levelLabel {
 	margin-top: 10px;
-	font-family: 'ProximaNova Semibold';
+	font-family: 'ProximaNova';
 	font-size: 1.2em;
 }
 
