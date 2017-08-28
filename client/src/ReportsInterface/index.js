@@ -421,7 +421,7 @@ export default class ReportsInterface extends React.Component {
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (1 pt)</span></h4>
                   <p className={styles.studentResponse}>"Chris will propably stop looking because he still hasn’t found it."</p> 
-                  <p className={styles.compCorrection}><span className={styles.missed}>Correct Answer:</span> Chris will not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
+                  <p className={styles.compCorrection}><span className={styles.missed}>Grader's Note:</span> Missed key point that Chris will not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
                 </div>
             </div>
 
@@ -431,7 +431,7 @@ export default class ReportsInterface extends React.Component {
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (1 pt)</span></h4>
                   <p className={styles.studentResponse}>"He thinks Mr. Podler once saw a ghost."</p> 
-                  <p className={styles.compCorrection}><span className={styles.missed}>Correct Answer:</span> He thinks Mr. Podler believes things that aren’t true.</p> 
+                  <p className={styles.compCorrection}><span className={styles.missed}>Grader's Note:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 pt)</span></h4>
