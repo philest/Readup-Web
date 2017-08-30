@@ -65,12 +65,20 @@ export default class ReportsInterface extends React.Component {
       // Hide the email modal and render graded text
       this.setState({ showEmailModal: false })
       this.setState({ gradedText: JSON.parse(this.props.scoredText) })
+    }
+
+    if (!this.props.fullPage) {
+      this.setState({ showEmailModal: false })
 
     }
+
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.tick, 2000);
+
+    if (this.props.fullPage) {
+      this.interval = setInterval(this.tick, 2000);
+    }
   }
 
 
@@ -250,10 +258,12 @@ export default class ReportsInterface extends React.Component {
       <div className={styles.reportsContainer}>
 
 
-        <InfoBar
-          title={ this.props.isSample ? "Example Report" : "Your Report"}
-          extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Graded by our teaching team"}
-        />
+        {this.props.fullPage &&
+          <InfoBar
+            title={ this.props.isSample ? "Example Report" : "Your Report"}
+            extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Graded by our teaching team"}
+          />
+        }
 
         <div className={styles.contentWrapper}>
 

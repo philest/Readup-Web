@@ -12,7 +12,7 @@ import HelloWorld from './HelloWorld'
 import StudentDashboard from './StudentDashboard'
 import TranscriberInterface from './TranscriberInterface'
 import ReportsInterface from './ReportsInterface'
-
+import ReportWithScorer from './ReportWithScorer'
 
 const history = createBrowserHistory()
 
@@ -49,7 +49,7 @@ function createHotModule(Komponent) {
     renderApp(Komponent)
     if (module.hot) {
 
-      module.hot.accept(['./HelloWorld', './StudentDashboard', './TranscriberInterface', './ReportsInterface'], () => {
+      module.hot.accept(['./HelloWorld', './StudentDashboard', './TranscriberInterface', './ReportsInterface', './ReportWithScorer'], () => {
         // store.replaceReducer(reducer)
         renderApp(Komponent)
       })
@@ -64,4 +64,5 @@ ReactOnRails.register({
   StudentDashboard: createHotModule(StudentDashboard),
   TranscriberInterface: createHotModule(TranscriberInterface),
   ReportsInterface: createHotModule(ReportsInterface),
+  ReportWithScorer: createHotModule(ReportWithScorer),
 })

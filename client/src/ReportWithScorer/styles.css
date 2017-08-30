@@ -1,0 +1,10 @@
+.container { 
+	float: right;
+    margin-right: 40px;
+    margin-top: 90px;
+    width: 75%;
+	height: 500px;
+	overflow: scroll;
+	border:2px solid #2f2f2f;
+
+}
