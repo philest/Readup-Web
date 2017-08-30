@@ -12,7 +12,7 @@ class TranscriberInterfaceController < ApplicationController
 
     if params['user_id'] == "sample"
      @transcriber_interface_props = {
-        name: "Sofia Vergara",
+        name: "Sarah Jones",
         email: "testemail@gmail.com",
         bookTitle: "No More Magic",
         bookLevel: "R",

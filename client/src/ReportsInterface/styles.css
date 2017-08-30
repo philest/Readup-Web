@@ -338,15 +338,24 @@
     line-height: 1.6;
  }
 
-.compCorrection {
+.compMissed {
 	color: #982e2b;
 }
 
-span.missed {
+.compCorrect {
+	color: green; 
+	/*Less contrast with white background than #249C44*/
+}
+
+span.missed, span.correct {
 	font-weight: 900; 
 	line-height: 1.6;
 	font-size: 1.05em;
 }
+
+
+
+
 
 
 /*END COMPREHENSION SECTION */
