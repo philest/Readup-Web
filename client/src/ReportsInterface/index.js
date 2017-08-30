@@ -64,6 +64,8 @@ export default class ReportsInterface extends React.Component {
     if (!this.props.isSample) {
       // Hide the email modal and render graded text
       this.setState({ showEmailModal: false })
+      console.log("graded text is this:")
+      console.log(this.state.gradedText)
       this.setState({ gradedText: JSON.parse(this.props.scoredText) })
     }
 
