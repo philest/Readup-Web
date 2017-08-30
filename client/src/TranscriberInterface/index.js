@@ -162,6 +162,11 @@ export default class TranscriberInterface extends React.Component {
         <div className={styles.emailHeading}>
           {this.props.email}
         </div>
+        <div className={styles.emailHeading}>
+          {this.props.createdAt}
+        </div>
+
+
 
         <audio controls ref={"audioPlayer"} className={styles.audioElement}>
           <source src={this.props.recordingURL} />

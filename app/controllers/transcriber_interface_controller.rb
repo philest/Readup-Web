@@ -21,9 +21,12 @@ class TranscriberInterfaceController < ApplicationController
     elsif params['user_id'].to_i > 0 || params['user_id'] == 'latest' # Not the email_submit hack 
       @student = @user.teachers.last.classrooms.last.students.last
       @assessment = @student.assessments.last
+      created_at = User.last.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')
+
 
       @transcriber_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",
+        createdAt: created_at,
         email: "#{@user.email}",
         bookTitle: "Firefly Night",
         bookLevel: "E",

@@ -44,7 +44,10 @@ Rails.application.routes.draw do
   post 'auth/add_school', to: 'registration#add_school'
   post 'auth/create_classroom', to: 'registration#create_classroom'
   post 'auth/create_demo_classroom', to: 'registration#create_demo_classroom'
+  post 'auth/phil_setup_demo', to: 'registration#phil_setup_demo'
+
   get 'auth/search_school', to: 'registration#search_school'
+
 
 
   get 'student_dashboard', to: 'student_dashboard#index'
