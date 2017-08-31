@@ -94,7 +94,7 @@
 	display: flex;
 	flex-flow: row;
 	justify-content: flex-end;
-	margin-top: 19px; 
+	margin-top: 5px; 
 	/*This aligns it with bottom of Student Heading.*/
 }
 
@@ -139,7 +139,7 @@
 	align-items: center;
 	justify-content: center;
 	margin-left: 30px;
-	margin-top: -5px;
+	margin-top: 15px;
 }
 
 .levelRectangle {
@@ -178,6 +178,7 @@
 .ReassessLevelLabel span, .ReassessLevelLabel {
 	margin-top: 8px;
 	font-size: 1.2em;
+	text-align: center;
 
 }
 

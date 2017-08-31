@@ -338,7 +338,7 @@ export default class ReportsInterface extends React.Component {
                   <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
                 }
                 { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span> Assess at Level Q</div>
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span><br/> Assess at Level Q</div>
                 }
               </div>
             }
