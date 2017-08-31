@@ -51,7 +51,10 @@ class ReportsController < ApplicationController
         scorerEducation: "M.Ed in Reading Education (CUNY)",
         scorerExperience: "14 years at Loma Park Elementary",
         scorerEmail: "maria@readupnow.com",
-        scorerFirstName: "Maria"
+        scorerFirstName: "Maria",
+        scorerLastName: "Contreras",
+        scorerFullName: "Maria Contreras"
+
       }
 
     elsif params['user_id'].to_i > 0 # Not the email_submit hack 
@@ -73,13 +76,15 @@ class ReportsController < ApplicationController
         whenCreatedDate: @assessment.updated_at.to_s,
         isSample: false,
 
-        scorerProfilePicURL: "/images/maria.png",
-        scorerSignature: "New, M.Ed",
+        scorerProfilePicURL: "/images/peter.png",
+        scorerSignature: "Peter Krason, M.A.",
         scorerJobTitle: "Reading Specialist",
-        scorerEducation: "M.Ed in Reading Education (CUNY)",
-        scorerExperience: "14 years at Loma Park Elementary",
-        scorerEmail: "maria@readupnow.com",
-        scorerFirstName: "Maria"
+        scorerEducation: "M.A. in Reading Instruction (DePaul)",
+        scorerExperience: "7 years at Chicago Ridge",
+        scorerEmail: "peter@readupnow.com",
+        scorerFirstName: "Peter",
+        scorerLastName: "Kranson",
+        scorerFullName: "Peter Kranson"
 
 
       }

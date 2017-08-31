@@ -263,7 +263,7 @@ export default class ReportWithScorer extends React.Component {
 
         <InfoBar
           title={ this.props.isSample ? "Example Report" : "Your Report"}
-          extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Graded by our teaching team"}
+          extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Scored by " + this.props.scorerFullName}
           withScorer={true}
 
         />
