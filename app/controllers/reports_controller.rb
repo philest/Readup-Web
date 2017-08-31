@@ -43,8 +43,17 @@ class ReportsController < ApplicationController
         assessmentID: @assessment.id, 
         whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
         whenCreatedDate: @assessment.updated_at.to_s,
-        isSample: true 
+        isSample: true,
+
+        scorerProfilePicURL: "/images/maria.png",
+        scorerSignature: "Maria Contreras, M.Ed",
+        scorerJobTitle: "Reading Specialist",
+        scorerEducation: "M.Ed in Reading Education (CUNY)",
+        scorerExperience: "14 years at Loma Park Elementary",
+        scorerEmail: "maria@readupnow.com",
+        scorerFirstName: "Maria"
       }
+
     elsif params['user_id'].to_i > 0 # Not the email_submit hack 
 
       @user = User.find(params['user_id'])
@@ -62,7 +71,17 @@ class ReportsController < ApplicationController
         assessmentID: @assessment.id, 
         whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
         whenCreatedDate: @assessment.updated_at.to_s,
-        isSample: false
+        isSample: false,
+
+        scorerProfilePicURL: "/images/maria.png",
+        scorerSignature: "New, M.Ed",
+        scorerJobTitle: "Reading Specialist",
+        scorerEducation: "M.Ed in Reading Education (CUNY)",
+        scorerExperience: "14 years at Loma Park Elementary",
+        scorerEmail: "maria@readupnow.com",
+        scorerFirstName: "Maria"
+
+
       }
     end 
 

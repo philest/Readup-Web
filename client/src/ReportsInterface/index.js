@@ -264,10 +264,11 @@ export default class ReportsInterface extends React.Component {
           <InfoBar
             title={ this.props.isSample ? "Example Report" : "Your Report"}
             extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Graded by our teaching team"}
+            withScorer={!this.props.fullPage}
           />
         }
 
-        <div className={styles.contentWrapper}>
+        <div className={styles.contentWrapper} style={{ paddingTop: this.props.fullPage ? 130 + "px" : 50 + "px" } }>
 
           <div className={styles.evaluationInfoHeader}>
 

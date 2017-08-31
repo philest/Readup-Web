@@ -264,7 +264,33 @@ export default class ReportWithScorer extends React.Component {
         <InfoBar
           title={ this.props.isSample ? "Example Report" : "Your Report"}
           extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Graded by our teaching team"}
+          withScorer={true}
+
         />
+
+
+        <div className={ReportWithScorerStyles.profileContainer}>
+          <h3>Scored by</h3>
+          <img src={this.props.scorerProfilePicURL}/>
+          <h4>{this.props.scorerSignature}</h4>
+          <h5>{this.props.scorerJobTitle}</h5>
+          <h5>{this.props.scorerEducation}</h5>
+          <h5>{this.props.scorerExperience}</h5>
+          <h5>{this.props.scorerEmail}</h5>
+
+          <a href="mailto:maria@readupnow.com?subject=Question%20about%20assessment" target="_blank">
+            <Button
+              className={[styles.pricingFormButton, ReportWithScorerStyles.scorerQuestionButton].join(' ')}
+              bsStyle={'primary'}
+              onClick={this.onAskQuestion}
+            >
+              Ask {this.props.scorerFirstName} a question
+            </Button>
+          </a>
+
+      
+
+        </div>
 
         <div className={ReportWithScorerStyles.container}>
           <ReportsInterface

@@ -33,7 +33,7 @@ export default class InfoBar extends React.Component {
   render() {
     return (
       <div className={css.InfoContainer}>
-        <div className={css.InfoTextContainer}>
+        <div className={css.InfoTextContainer} style={{ maxWidth: this.props.withScorer ? "none" : 1025 + "px", paddingRight: this.props.withScorer ? 115 + "px" : 35 + "px"}}>
           <h2 className={css.InfoTitle}>{this.props.title}
             {this.props.subtitle.length > 0 &&
               <span className={css.InfoSubtitle}>{", " + this.props.subtitle}</span>
