@@ -268,7 +268,7 @@ export default class ReportsInterface extends React.Component {
           />
         }
 
-        <div className={styles.contentWrapper} style={{ paddingTop: this.props.fullPage ? 130 + "px" : 50 + "px" } }>
+        <div className={styles.contentWrapper} style={{ paddingTop: this.props.fullPage ? 130 + "px" : 110 + "px", paddingLeft: this.props.fullPage ? 110 + "px" : 60 + "px"  } }>
 
           <div className={styles.evaluationInfoHeader}>
 
