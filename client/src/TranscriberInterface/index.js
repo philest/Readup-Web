@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-import { Button } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
 import { updateScoredText } from '../ReportsInterface/emailHelpers'
+
+import InfoBar from '../ReportsInterface/components/InfoBar'
 
 
 
@@ -24,6 +26,7 @@ export default class TranscriberInterface extends React.Component {
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
+      showSuccessAlert: false,
     }
   }
 
@@ -154,14 +157,29 @@ export default class TranscriberInterface extends React.Component {
 
 
     updateScoredText(this.state.evaluationTextData, this.props.userID);
+    this.setState({showSuccessAlert: true})
+  }
 
+  handleAlertDismiss = () => {
+    this.setState({showSuccessAlert: false})
   }
 
   render() {
 
 
     return (
+
+      <div>
+              <InfoBar
+          title={ "Grading view"}
+          extraInfo={"Your grading will be sent upon submit"}
+          withScorer={false}
+        />
+
+
       <div className={styles.transcriberContainer}>
+
+
 
         <div className={styles.gradingViewLabel}>Grading View</div>
 
@@ -219,9 +237,79 @@ export default class TranscriberInterface extends React.Component {
         >
           Submit
         </Button>
+       
+       {this.state.showSuccessAlert &&
+        <div className={styles.alertSuccess}>
+          <Alert bsStyle="success" onDismiss={this.handleAlertDismiss}>
+            <strong>Great!</strong> you can see the scored report <a target="_blank" href={`/reports/${this.props.userID}`}>here</a>.
+          </Alert>
+        </div>
+      }
 
 
+        <div className={styles.Instructions}> 
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <hr/>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div><strong style={{fontSize: 18 + "px"}}>Instructions</strong></div>
+          <div>&nbsp;</div>
+          <div>To control the audio, use the following shortcuts:</div>
+          <div>&nbsp;</div>
+          <div><strong>Space</strong>: &nbsp;Sstart or stop the playback</div>
+          <div><strong>Left Arrow</strong>: Go back 2 seconds&nbsp;</div>
+          <div><strong>Right arrow</strong>: Go forward 2 seconds&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>As you listen, change the text by hovering over a word or a space and using one of these shortcuts:</div>
+          <div>&nbsp;</div>
+          <div><strong>A</strong>: Add</div>
+          <div><strong>S</strong>:&nbsp;Substitute</div>
+          <div><strong>D</strong>: Delete</div>
+          <div><strong>E</strong>: End&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>In more detail&hellip;</div>
+          <div>&nbsp;</div>
+          <div><strong>A</strong>: add a word</div>
+          <div><strong>S</strong>:&nbsp;substitute a word that was misread</div>
+          <div><strong>D</strong>: delete a word that was never read (or delete a previous edit)</div>
+          <div><strong>E</strong>: end the grading where the student stopped reading.&nbsp;</div>
+          <div>&nbsp;</div> 
+          <div>&nbsp;</div> 
+          <div><span style={{fontSize: 18 + "px"}}><strong>How to transcribe non-words</strong></span></div>
+          <div>&nbsp;</div>
+          <div>
+          <div>When the reader says a non-word, you should transcribe the sounds phonetically. You may be unfamiliar with phonemes and phonetic transcription. A "phoneme" is the smallest unit of human speech - like "ch" or "b." All words are made up of phonemes. For example, the word "shin" has three phonemes: "sh" "i" and "n."</div>
+          <div>&nbsp;</div>
+          <div>We've adopted&nbsp;<a href="https://s3.amazonaws.com/literably-assets/Phonemes.pdf">the phoneme chart below</a>. You should study the phonemes and their spellings carefully. You may want to print the phoneme chart for reference. We've also prepared a&nbsp;<a href="https://www.youtube.com/watch?v=w4xn5JtUnGk&amp;feature=youtu.be">video below</a>&nbsp;to teach you the phoneme sounds and spellings.&nbsp;You must use these phonemes to transcribe non-words uttered; <strong>transcribing what you hear in a way that "looks right," but does not match the phonemes in the chart, is not acceptable.</strong></div>
+          <div>&nbsp;</div>
+          <div>When transcribing a non-word, you will simply string together the appropriate phoneme spellings. For example, if a child says "b" "l" "i-" "k," you should write "blik."</div>
+          <div>&nbsp;</div>
+          <div>Two clarifications:</div>
+          <div>&nbsp;</div>
+          <div>1. Sometimes, your phonetically transcribed non-word will coincidentally have the same spelling as a real word with a different pronunciation. In these case, just add a hyphen "-" to indicate that the spelling should be interpreted phonetically. For example, if you hear "i-" followed by "s," you should write "is-", "-is" or "i-s," because "is" will be interpreted as the word "is," which is pronounced "iz". Similarly, if you hear an "i-" phoneme all by itself, you should write "i-" not "i," because "i" will be interpreted as the word "I," which is pronounced "ie".</div>
+          <div>&nbsp;</div>
+          <div>2. Because there is some overlap between phonetic spellings (e.g. "e" and "ee"), there will be times when the same phonetic transcription could be interpreted in multiple ways. For example, the non-word "keer" could be interpreted as "k" "ee" "r" or as "k" "e" "e" "r." Our parser starts at the left and prioritizes two-letter phonemes ("ee") over one-letter phonemes ("e"), so "keer" will be interpreted as "k" "ee" "r." As a result, if you hear "k" "e" "e" "r," you should be sure to separate the&nbsp;e's&nbsp;using hyphens. You could write "k-e-e-r" "ke-er" "k-e-er" or "k-e-er." All that matters here is that the&nbsp;e's&nbsp;are separated.&nbsp;</div>
+          </div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <hr/>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>          
+          <embed src="https://s3.amazonaws.com/literably-assets/Phonemes.pdf" width="600" height="575" display="inlineBlock" type='application/pdf'/>
+          <iframe width="560" height="315" display="inlineBlock" src="https://www.youtube.com/embed/w4xn5JtUnGk?start=8" frameBorder="0" allowFullScreen></iframe>
+       </div>
 
+
+      </div>
       </div>
     );
   }
