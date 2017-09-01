@@ -43,18 +43,21 @@ body {
 }
 
 .scorerQuestionButton {
-	width: 180px;
 	height: 35px;
+    width: 70%;
+    max-width: 180px;
+    min-width: 150px;	
 }
 
 .reviewerContainer{
 	display: flex;
 	margin-top: 25px;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .reviewerInfo {
-	width: 180px;
-    margin-left: 30px;
+	width: 167px;
     text-align: left;
 }
 
