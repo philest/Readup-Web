@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'privacy', to: 'homepage#privacy'
   get 'terms', to: 'homepage#terms'
   get 'team', to: 'homepage#team'
+  get 'instructions', to: 'homepage#instructions'
   get 'case_study', to: 'homepage#case_study'
   get 'join', to: 'homepage#join'
   get 'product_lead', to: 'homepage#product_lead'

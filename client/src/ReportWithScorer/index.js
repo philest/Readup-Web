@@ -72,6 +72,11 @@ export default class ReportWithScorer extends React.Component {
       this.setState({ gradedText: JSON.parse(this.props.scoredText) })
 
     }
+
+    if (this.props.isSample && this.props.isDirectSample) {
+      this.setState({ showEmailModal: false })      
+    }
+    
   }
 
   componentDidMount() {

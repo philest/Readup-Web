@@ -25,12 +25,12 @@ class ReportsController < ApplicationController
 
   def index
 
-    if params['user_id'] == "sample"
+    if params['user_id'] == "sample" || params['user_id'] == "direct-sample"
 
       @user = User.last
       @student = @user.teachers.last.classrooms.last.students.last
       @assessment = @student.assessments.last
-
+      is_direct_sample = (params['user_id'] == "direct-sample")
 
       @reports_interface_props = {
         name: "Sarah Jones",
@@ -44,6 +44,7 @@ class ReportsController < ApplicationController
         whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
         whenCreatedDate: @assessment.updated_at.to_s,
         isSample: true,
+        isDirectSample: is_direct_sample, 
 
         scorerProfilePicURL: "/images/lakia.png",
         scorerSignature: "Lakia Kenan, M.Ed",
@@ -79,6 +80,7 @@ class ReportsController < ApplicationController
         whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
         whenCreatedDate: @assessment.updated_at.to_s,
         isSample: false,
+        isDirectSample: false, 
 
         scorerProfilePicURL: "/images/peter.png",
         scorerSignature: "Peter Krason, M.A.",

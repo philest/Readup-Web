@@ -32,6 +32,9 @@ class HomepageController < ActionController::Base
     render 'team'
   end
 
+  def instructions
+    render 'instructions'
+  end
 
   def product_lead
     redirect_to 'homepage/pages/product'
