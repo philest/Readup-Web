@@ -272,7 +272,13 @@ export default class ReportWithScorer extends React.Component {
         <div className={ReportWithScorerStyles.profileContainer}>
           <h3>Scored by</h3>
           <img src={this.props.scorerProfilePicURL}/>
-          <h4>{this.props.scorerSignature}</h4>
+          <h4>{this.props.scorerSignature}
+            <span style={{marginLeft: 10 +"px"}}>
+              <a href={this.props.scorerResumeURL} target="_blank">
+                <i className={["fa", "fa-linkedin-square", ReportWithScorerStyles.linkedin].join(" ")} />
+              </a>
+            </span> 
+          </h4>
           <h5>{this.props.scorerJobTitle}</h5>
           <h5>{this.props.scorerEducation}</h5>
           <h5>{this.props.scorerExperience}</h5>

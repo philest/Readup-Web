@@ -22,6 +22,9 @@ body {
 	width: 160px;
 }
 
+.profileContainer .linkedin {
+	font-size: 1.15em;
+}
 .profileContainer h4 { 
 	font-weight: 900;
 	font-size: 17px;

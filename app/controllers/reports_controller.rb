@@ -45,15 +45,16 @@ class ReportsController < ApplicationController
         whenCreatedDate: @assessment.updated_at.to_s,
         isSample: true,
 
-        scorerProfilePicURL: "/images/maria.png",
-        scorerSignature: "Maria Contreras, M.Ed",
+        scorerProfilePicURL: "/images/lakia.png",
+        scorerSignature: "Lakia Kenan, M.Ed",
+        scorerResumeURL: "https://dcps.dc.gov/page/lakia-kenan",
         scorerJobTitle: "Reading Specialist",
-        scorerEducation: "M.Ed in Reading Education (CUNY)",
-        scorerExperience: "14 years at Loma Park Elementary",
-        scorerEmail: "maria@readupnow.com",
-        scorerFirstName: "Maria",
-        scorerLastName: "Contreras",
-        scorerFullName: "Maria Contreras"
+        scorerEducation: "M.Ed in Reading Education (Trinity)",
+        scorerExperience: "9 years at Orr Elementary",
+        scorerEmail: "lakia@readupnow.com",
+        scorerFirstName: "Lakia",
+        scorerLastName: "Kenan",
+        scorerFullName: "Lakia Kenan"
 
       }
 
@@ -78,6 +79,7 @@ class ReportsController < ApplicationController
 
         scorerProfilePicURL: "/images/peter.png",
         scorerSignature: "Peter Krason, M.A.",
+        scorerResumeURL: "https://www.linkedin.com/in/peter-krason-a6726189/",
         scorerJobTitle: "Reading Specialist",
         scorerEducation: "M.A. in Reading Instruction (DePaul)",
         scorerExperience: "7 years at Chicago Ridge",
@@ -88,7 +90,20 @@ class ReportsController < ApplicationController
 
 
       }
-    end 
+    end
+
+
+        # BYE FOR NOW MARIA
+        # scorerProfilePicURL: "/images/maria.png",
+        # scorerSignature: "Maria Contreras, M.Ed",
+        # scorerJobTitle: "Reading Specialist",
+        # scorerEducation: "M.Ed in Reading Education (CUNY)",
+        # scorerExperience: "14 years at Loma Park Elementary",
+        # scorerEmail: "maria@readupnow.com",
+        # scorerFirstName: "Maria",
+        # scorerLastName: "Contreras",
+        # scorerFullName: "Maria Contreras"
+ 
 
 
     puts "inside index controller..."
