@@ -91,8 +91,8 @@ class ReportsController < ApplicationController
         scorerLastName: "Kranson",
         scorerFullName: "Peter Kranson",
 
-        reviewerSignature: "Ashley Brantley, M.A.",
-        reviewerProfilePicURL: "/images/ashley.png"
+        reviewerSignature: "Maria Contreras, M.Ed",
+        reviewerProfilePicURL: "/images/maria-small.png"
 
       }
     end
