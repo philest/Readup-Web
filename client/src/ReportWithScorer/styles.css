@@ -47,6 +47,43 @@ body {
 	height: 35px;
 }
 
+.reviewerContainer{
+	display: flex;
+	margin-top: 25px;
+}
+
+.reviewerInfo {
+	width: 180px;
+    margin-left: 30px;
+    text-align: left;
+}
+
+
+.reviewerInfo h4 {
+	font-size: 16px;
+}
+
+.reviewerInfo h5 {
+	margin-top: 10px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+
+}
+
+img.reviewerPic {
+	display: inline-block;
+	width: 50px;
+    height: 50px;
+    margin-top: 4px;
+
+}
 
 .container { 
 	float: right;

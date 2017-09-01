@@ -54,7 +54,10 @@ class ReportsController < ApplicationController
         scorerEmail: "lakia@readupnow.com",
         scorerFirstName: "Lakia",
         scorerLastName: "Kenan",
-        scorerFullName: "Lakia Kenan"
+        scorerFullName: "Lakia Kenan",
+
+        reviewerSignature: "Ashley Brantley, M.A.",
+        reviewerProfilePicURL: "/images/ashley.png"
 
       }
 
@@ -86,8 +89,10 @@ class ReportsController < ApplicationController
         scorerEmail: "peter@readupnow.com",
         scorerFirstName: "Peter",
         scorerLastName: "Kranson",
-        scorerFullName: "Peter Kranson"
+        scorerFullName: "Peter Kranson",
 
+        reviewerSignature: "Ashley Brantley, M.A.",
+        reviewerProfilePicURL: "/images/ashley.png"
 
       }
     end

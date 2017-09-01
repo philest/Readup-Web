@@ -293,8 +293,17 @@ export default class ReportWithScorer extends React.Component {
               Ask {this.props.scorerFirstName} a question
             </Button>
           </a>
+          
+          <hr/>
 
-      
+
+          <div className={ReportWithScorerStyles.reviewerContainer}>
+            <div className={ReportWithScorerStyles.reviewerInfo}>        
+              <h4>Scoring reviewed by</h4>
+              <h5>{this.props.reviewerSignature}</h5>
+            </div> 
+            <img className={ReportWithScorerStyles.reviewerPic} src={this.props.reviewerProfilePicURL}/>
+          </div>
 
         </div>
 
