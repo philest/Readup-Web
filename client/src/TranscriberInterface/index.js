@@ -97,9 +97,18 @@ export default class TranscriberInterface extends React.Component {
       // toggle
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted
 
+      // kill any substitutions
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].substituteWord = null
+
       
       this.setState({evaluationTextData: evaluationTextData})
     }
+    else if (event.code === 'KeyD' && this.state.highlightedIsSpace) {
+      // kill additions 
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].addAfterWord = null
+    }
+
+
     else if (event.code === 'KeyE') {
       // toggle
       if (this.state.highlightedParagraphIndex == evaluationTextData.readingEndIndex.paragraphIndex && this.state.highlightedWordIndex == evaluationTextData.readingEndIndex.wordIndex) {
