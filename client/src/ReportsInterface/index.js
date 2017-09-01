@@ -263,7 +263,7 @@ export default class ReportsInterface extends React.Component {
         {this.props.fullPage &&
           <InfoBar
             title={ this.props.isSample ? "Example Report" : "Your Report"}
-            extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Graded by our teaching team"}
+            extraInfo={this.props.isSample ? "Your actual report will come within 20 minutes" : "Graded by our teaching team"}
             withScorer={!this.props.fullPage}
           />
         }
@@ -503,7 +503,7 @@ export default class ReportsInterface extends React.Component {
             <Modal.Title bsClass={styles.pricingModalTitle}>
               Get your scored demo report
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>Your running record will come within one hour</h4>
+            <h4 className={styles.modalSubtitle}>Your running record will come within 20 minutes</h4>
           </Modal.Header>
           <Modal.Body>
 

@@ -263,7 +263,7 @@ export default class ReportWithScorer extends React.Component {
 
         <InfoBar
           title={ this.props.isSample ? "Example Report" : "Your Report"}
-          extraInfo={this.props.isSample ? "Your actual report will come within one hour" : "Scored by " + this.props.scorerFullName}
+          extraInfo={this.props.isSample ? "Your actual report will come within 20 min" : "Scored by " + this.props.scorerFullName}
           withScorer={true}
 
         />
@@ -335,7 +335,7 @@ export default class ReportWithScorer extends React.Component {
             <Modal.Title bsClass={styles.pricingModalTitle}>
               Get your scored demo report
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>Your running record will come within one hour</h4>
+            <h4 className={styles.modalSubtitle}>Your running record will come within 20 minutes</h4>
           </Modal.Header>
           <Modal.Body>
 

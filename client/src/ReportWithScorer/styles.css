@@ -3,6 +3,7 @@ body {
 }
 
 .profileContainer {
+	min-width: 173px;
 	width: 23%;
     display: inline-block;
     height: 100vh;
@@ -19,7 +20,8 @@ body {
 }
 
 .profileContainer img { 
-	width: 160px;
+	width: 80%;
+	max-width: 160px;
 }
 
 .profileContainer .linkedin {
