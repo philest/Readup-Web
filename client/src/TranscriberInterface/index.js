@@ -287,7 +287,7 @@ export default class TranscriberInterface extends React.Component {
           <div>
           <div>When the reader says a non-word, you should transcribe the sounds phonetically. You may be unfamiliar with phonemes and phonetic transcription. A "phoneme" is the smallest unit of human speech - like "ch" or "b." All words are made up of phonemes. For example, the word "shin" has three phonemes: "sh" "i" and "n."</div>
           <div>&nbsp;</div>
-          <div>We've adopted&nbsp;<a href="https://s3.amazonaws.com/literably-assets/Phonemes.pdf">the phoneme chart below</a>. You should study the phonemes and their spellings carefully. You may want to print the phoneme chart for reference. We've also prepared a&nbsp;<a href="https://www.youtube.com/watch?v=w4xn5JtUnGk&amp;feature=youtu.be">video below</a>&nbsp;to teach you the phoneme sounds and spellings.&nbsp;You must use these phonemes to transcribe non-words uttered; <strong>transcribing what you hear in a way that "looks right," but does not match the phonemes in the chart, is not acceptable.</strong></div>
+          <div>We've adopted&nbsp;the phoneme chart below. You should study the phonemes and their spellings carefully. You may want to print the phoneme chart for reference. We've also prepared a&nbsp;video below&nbsp;to teach you the phoneme sounds and spellings.&nbsp;You must use these phonemes to transcribe non-words uttered; <strong>transcribing what you hear in a way that "looks right," but does not match the phonemes in the chart, is not acceptable.</strong></div>
           <div>&nbsp;</div>
           <div>When transcribing a non-word, you will simply string together the appropriate phoneme spellings. For example, if a child says "b" "l" "i-" "k," you should write "blik."</div>
           <div>&nbsp;</div>
@@ -304,8 +304,8 @@ export default class TranscriberInterface extends React.Component {
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>          
-          <embed src="https://s3.amazonaws.com/literably-assets/Phonemes.pdf" width="600" height="575" display="inlineBlock" type='application/pdf'/>
-          <iframe width="560" height="315" display="inlineBlock" src="https://www.youtube.com/embed/w4xn5JtUnGk?start=8" frameBorder="0" allowFullScreen></iframe>
+          <embed src="https://s3-us-west-2.amazonaws.com/readup-now/website/Phonemes_Chart.pdf" width="600" height="575" display="inlineBlock" type='application/pdf'/>
+          <iframe width="560" height="315" display="inlineBlock" src="https://www.youtube.com/embed/ulQC7LlpfE8?start=8" frameBorder="0" allowFullScreen></iframe>
        </div>
 
 
