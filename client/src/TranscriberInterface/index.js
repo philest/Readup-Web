@@ -254,7 +254,13 @@ export default class TranscriberInterface extends React.Component {
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <hr/>
+
           <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div><strong style={{fontSize: 18 + "px"}}>Training</strong></div>
+          <div>&nbsp;</div>
+          <div>For practice, create a scorer account on Literably and use their transcription training <a target="_blank" href="https://www.google.com/search?q=literably+scorer+sign+up&oq=literably+scorer+sign+up&aqs=chrome..69i57j69i60.2508j0j7&sourceid=chrome&ie=UTF-8">here</a></div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
