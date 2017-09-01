@@ -3,6 +3,22 @@ import React from 'react';
 import styles from './styles.css'
 
 
+function getNumLeadingSpaces(str) {
+    let pttrn = /^\s*/;
+    return str.match(pttrn)[0].length
+}
+
+function createLeadingSpaces(str) {
+
+    let numSpaces = getNumLeadingSpaces(str)
+
+    let text = ''
+    for (let i = 0; i < numSpaces; i++) { 
+      text += '\u00A0';
+    }
+    return text
+}
+
 export default class MarkupWord extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
@@ -32,6 +48,8 @@ export default class MarkupWord extends React.Component {
     this.state = { highlighted: false }
     // console.log('CONSTRUCT')
   }
+
+
 
   _onMouseEnter = () => {
     if (!this.props.isInteractive) {
@@ -63,7 +81,7 @@ export default class MarkupWord extends React.Component {
 
         { this.props.isInteractive && 
           <span className={wordClassNameString} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave}>
-            {this.props.isSpace && '\u00A0\u00A0\u00A0'}
+            {this.props.isSpace && '\u00A0'}
             {!this.props.isSpace && this.props.text}
           </span>
         }
@@ -77,6 +95,7 @@ export default class MarkupWord extends React.Component {
 
         { this.props.wordAbove && this.props.wordAbove !== '' &&
           <span className={this.props.isSpace ? styles.wordAboveSpace : styles.wordAbove}>
+            {createLeadingSpaces(this.props.wordAbove)}
             {this.props.wordAbove}
             {this.props.isSpace &&
               <i className={["fa fa-chevron-up", styles.addChevron].join(' ')} aria-hidden={"true"}></i>
