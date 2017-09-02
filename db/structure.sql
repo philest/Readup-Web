@@ -103,7 +103,8 @@ CREATE TABLE assessments (
     completed boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    scored_text json
+    scored_text json,
+    scored boolean DEFAULT false
 );
 
 
@@ -654,6 +655,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170715172257'),
 ('20170717172846'),
 ('20170720183554'),
-('20170819233547');
+('20170819233547'),
+('20170902203022'),
+('20170902203941');
 
 

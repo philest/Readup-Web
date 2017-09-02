@@ -174,6 +174,10 @@ export default class ReportsInterface extends React.Component {
     console.log(getTotalWordsReadCorrectly(this.state.gradedText))
   }
 
+  onSampleAssessmentClicked = () => {
+    window.location.href = "/reports/direct-sample"
+  }
+
   onEmailFormSubmit = () => {
 
     this.setState({ showEmailModal: false })
@@ -487,15 +491,15 @@ export default class ReportsInterface extends React.Component {
 
           <div className={styles.pricingFooter}>
             <div className={styles.pricingFooterLabel}>
-              Want Readup at your school?
+              { this.props.isSample ? "Save thousands of instructional hours" : "See a full scored assessment" }
             </div>
             <Button
               className={styles.pricingFooterButton}
               bsStyle={'primary'}
               bsSize={'large'}
-              onClick={this.onPricingClicked}
+              onClick={this.props.isSample ? this.onPricingClicked : this.onSampleAssessmentClicked}
             >
-              Get Pricing
+              { this.props.isSample ? "Get Pricing" : "See sample" }
             </Button>
           </div>
 

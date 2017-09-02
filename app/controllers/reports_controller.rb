@@ -45,6 +45,7 @@ class ReportsController < ApplicationController
         whenCreatedDate: @assessment.updated_at.to_s,
         isSample: true,
         isDirectSample: is_direct_sample, 
+        isScoredPrior: @assessment.scored,
 
         scorerProfilePicURL: "/images/lakia.png",
         scorerSignature: "Lakia Kenan, M.Ed",
@@ -81,6 +82,7 @@ class ReportsController < ApplicationController
         whenCreatedDate: @assessment.updated_at.to_s,
         isSample: false,
         isDirectSample: false, 
+        isScoredPrior: @assessment.scored,
 
         scorerProfilePicURL: "/images/peter.png",
         scorerSignature: "Peter Krason, M.A.",
@@ -125,7 +127,9 @@ class ReportsController < ApplicationController
       @student = @user.teachers.last.classrooms.last.students.last
       @assessment = @student.assessments.last
 
+      # Update the assessment
       @assessment.update(scored_text: params["JSONScoredText"])
+      @assessment.update(scored: true)
     end 
 
 
