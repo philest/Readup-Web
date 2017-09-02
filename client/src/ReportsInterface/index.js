@@ -135,9 +135,12 @@ export default class ReportsInterface extends React.Component {
     let loc =  `/reports/${this.props.userID}`
     console.log(loc)
 
+    playSoundAsync('/audio/complete.mp3')
+
+
     setTimeout(function () {
-      playSoundAsync('/audio/paused.mp3')
-    }, 500);
+      window.location.href = loc
+    }, 800);
 
 
 
@@ -433,6 +436,8 @@ export default class ReportsInterface extends React.Component {
         {this.props.isSample &&
    
           <div className={[styles.comp, sharedStyles.textContainerLarge].join(' ')}>
+            
+            <hr className={styles.compDivider}/>
 
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Retell</h2>
