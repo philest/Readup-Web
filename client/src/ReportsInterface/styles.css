@@ -413,6 +413,14 @@ span.missed, span.correct {
 	padding: 0px;
 }
 
+.readyCheck {
+	margin-left: 88px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: 3em;
+    color: green;
+}
+
 .pricingFormWrapper {
 	padding-top:10px;
 	width: 65%;

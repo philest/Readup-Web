@@ -14,6 +14,7 @@ import { Button, Modal } from 'react-bootstrap'
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
 import { sendEmail, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -135,7 +136,7 @@ export default class ReportsInterface extends React.Component {
     console.log(loc)
 
     setTimeout(function () {
-      window.location.href = loc
+      playSoundAsync('/audio/paused.mp3')
     }, 500);
 
 

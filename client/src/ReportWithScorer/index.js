@@ -19,6 +19,7 @@ import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
 import { sendEmail, validateEmail, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from '../ReportsInterface/emailHelpers'
+import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
@@ -134,9 +135,11 @@ export default class ReportWithScorer extends React.Component {
     let loc =  `/reports/${this.props.userID}`
     console.log(loc)
 
+    playSoundAsync('/audio/complete.mp3')
+
     setTimeout(function () {
       window.location.href = loc
-    }, 500);
+    }, 800);
 
 
 
@@ -383,7 +386,7 @@ export default class ReportWithScorer extends React.Component {
           <Modal.Body bsClass={styles.readyModalBody}>
 
             <div className={styles.pricingFormWrapper}>
-              <img alt="" className={[styles.paperImage, styles.readyModalPaperImage].join(' ')} src="/images/checkmark-on-paper.jpg" />
+               <i className={["fa", "fa-check", styles.readyCheck, styles.pulse].join(" ")} aria-hidden={"true"} />
             </div>
 
           </Modal.Body>
