@@ -14,6 +14,7 @@ export default class FormattedMarkupText extends React.Component {
     onMouseEnterWord: PropTypes.func,
     onMouseLeaveWord: PropTypes.func,
     bookLevel: PropTypes.string,
+    isSample: PropTypes.bool,
   };
   static defaultProps = {
     isInteractive: false,
@@ -38,7 +39,7 @@ export default class FormattedMarkupText extends React.Component {
       <div className={(this.props.bookLevel >= "I") ? styles.textContainerLarge : styles.textContainer}>
 
         {this.props.paragraphs.map((paragraph, pIndex) => (
-          <div className={(pIndex > endPindex) ? styles.textParagraphGrayedOut: styles.textParagraph} key={paragraph.key}>
+          <div className={(pIndex > endPindex) ? styles.textParagraphGrayedOut: styles.textParagraph} key={paragraph.key} style={{display: ((pIndex > endPindex) && this.props.isSample)  ? "none" : "block"}}>
 
             {paragraph.words.map((wordDict, wIndex) => (
 

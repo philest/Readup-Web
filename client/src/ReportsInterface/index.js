@@ -426,6 +426,7 @@ export default class ReportsInterface extends React.Component {
             endParagraphIndex={this.state.gradedText.readingEndIndex.paragraphIndex}
             endWordIndex={this.state.gradedText.readingEndIndex.wordIndex}
             bookLevel={this.props.bookLevel}
+            isSample={this.props.isSample}
           />
 
         {this.props.isSample &&
