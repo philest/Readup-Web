@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'illustrator', to: 'homepage#illustrator'
   get 'design', to: 'homepage#design'
   get 'success', to: 'homepage#signup_success'
+  get 'library', to: 'homepage#library'
 
   # user stuff including auth
 

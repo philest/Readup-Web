@@ -36,6 +36,11 @@ class HomepageController < ActionController::Base
     render 'instructions'
   end
 
+  def library 
+  pdf_filename = File.join(Rails.root, "public/ReadUp-Leveled-Books.pdf")
+  send_file(pdf_filename, :filename => "ReadUp-Leveled-Books.pdf", :type => "application/pdf", :disposition => 'inline')
+  end 
+
   def product_lead
     redirect_to 'homepage/pages/product'
   end
