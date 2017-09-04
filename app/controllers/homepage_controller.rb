@@ -37,7 +37,7 @@ class HomepageController < ActionController::Base
   end
 
   def library 
-  pdf_filename = File.join(Rails.root, "public/ReadUp-Leveled-Books.pdf")
+  pdf_filename = File.join(Rails.root, "public/ReadUp-Leveled-Books-Library.pdf")
   send_file(pdf_filename, :filename => "ReadUp-Leveled-Books.pdf", :type => "application/pdf", :disposition => 'inline')
   end 
 
