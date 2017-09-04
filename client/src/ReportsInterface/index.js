@@ -25,6 +25,7 @@ const ADMIN_EMAIL = "philesterman@gmail.com"
 
 
 
+
 export default class ReportsInterface extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
@@ -48,6 +49,9 @@ export default class ReportsInterface extends React.Component {
       lastUpdated: this.props.whenCreated,
       givenScoredReport: false,
       showReportReadyModal: false,
+      footerButtonText: '',
+      footerLabelText: '',
+      footerLink: '',
     }
     this.tick = this.tick.bind(this);
 
@@ -74,6 +78,33 @@ export default class ReportsInterface extends React.Component {
       this.setState({ showEmailModal: false })
 
     }
+
+
+
+    // Set the footer label and button 
+    let footerButtonText
+    let footerLabelText
+    let footerLink
+
+    if (!this.props.isSample) {
+      footerLabelText = "See a full scored assessment"
+      footerButtonText = "See sample"
+      footerLink = "/reports/direct-sample"
+    } else if (this.props.isSample && !this.props.isDirectSample) {
+      footerLabelText = "Save thousands of instructional hours"
+      footerButtonText = "Get Pricing"
+      footerLink = ''
+
+    } else if (this.props.isSample && this.props.isDirectSample) {
+      footerLabelText = "See our Fountas and Pinnell leveled texts"
+      footerButtonText = "See books"
+      footerLink = "/library"
+    }
+
+    this.setState({ footerButtonText: footerButtonText })
+    this.setState({ footerLabelText: footerLabelText })
+    this.setState({ footerLink: footerLink })
+
 
   }
 
@@ -169,14 +200,19 @@ export default class ReportsInterface extends React.Component {
   }
 
   onPricingClicked = () => {
-    this.setState({ showPricingModal: true })
 
-    console.log(getTotalWordsReadCorrectly(this.state.gradedText))
+    if (this.state.footerLink) {
+      window.open(this.state.footerLink, '_blank'); 
+    }
+    else {
+      this.setState({ showPricingModal: true })
+    }
   }
 
   onSampleAssessmentClicked = () => {
-    window.location.href = "/reports/direct-sample"
+    window.location.href = this.state.footerLink
   }
+
 
   onEmailFormSubmit = () => {
 
@@ -489,9 +525,11 @@ export default class ReportsInterface extends React.Component {
 
 
 
+          
+
           <div className={styles.pricingFooter}>
             <div className={styles.pricingFooterLabel}>
-              { this.props.isSample ? "Save thousands of instructional hours" : "See a full scored assessment" }
+              { this.state.footerLabelText }
             </div>
             <Button
               className={styles.pricingFooterButton}
@@ -499,7 +537,7 @@ export default class ReportsInterface extends React.Component {
               bsSize={'large'}
               onClick={this.props.isSample ? this.onPricingClicked : this.onSampleAssessmentClicked}
             >
-              { this.props.isSample ? "Get Pricing" : "See sample" }
+              { this.state.footerButtonText}
             </Button>
           </div>
 
