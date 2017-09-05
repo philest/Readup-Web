@@ -136,23 +136,15 @@ export default class ReportWithScorer extends React.Component {
 
     this.setState({ showReportReadyModal: true })
 
-
-    let loc =  `/reports/${this.props.userID}`
-    console.log(loc)
-
     playSoundAsync('/audio/complete.mp3')
 
-    setTimeout(function () {
-      window.location.href = loc
-    }, 2000);
-
-
-
-
-       // getScoredText().then(res => {
-    //   this.setState({ gradedText: res })
-    // })
-
+    // Only automatically update when it's scored prior
+    if (this.props.isScoredPrior) {
+      const loc = `/reports/${this.props.userID}`
+      setTimeout(function () {
+        window.location.href = loc
+      }, 2000);
+    }
 
 
   }
@@ -394,6 +386,9 @@ export default class ReportWithScorer extends React.Component {
             <div className={styles.pricingFormWrapper}>
                <i className={["fa", "fa-check", styles.readyCheck, styles.pulse].join(" ")} aria-hidden={"true"} />
             </div>
+
+          {!this.props.isScoredPrior &&
+
               <a href={`/reports/${this.props.userID}`}>
                 <Button
                   className={[styles.pricingFormButton, styles.seeYourReportButton].join(' ')}
@@ -402,6 +397,7 @@ export default class ReportWithScorer extends React.Component {
                   See it
                 </Button>
               </a>
+          }
 
           </Modal.Body>
         </Modal>
