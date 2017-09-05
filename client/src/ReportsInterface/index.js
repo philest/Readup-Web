@@ -87,7 +87,7 @@ export default class ReportsInterface extends React.Component {
     let footerLink
 
     if (!this.props.isSample) {
-      footerLabelText = "See a full scored assessment"
+      footerLabelText = "See a sample full scored assessment"
       footerButtonText = "See sample"
       footerLink = "/reports/direct-sample"
     } else if (this.props.isSample && !this.props.isDirectSample) {
@@ -307,7 +307,7 @@ export default class ReportsInterface extends React.Component {
         {this.props.fullPage &&
           <InfoBar
             title={ this.props.isSample ? "Example Report" : "Your Report"}
-            extraInfo={this.props.isSample ? "Your actual report will come within 20 minutes" : "Graded by our teaching team"}
+            extraInfo={this.props.isSample ? "Your actual report will come within 15 minutes" : "Graded by our teaching team"}
             withScorer={!this.props.fullPage}
           />
         }
@@ -550,9 +550,9 @@ export default class ReportsInterface extends React.Component {
             <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
             <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              Get your scored demo report
+              Get your scored demo report soon
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>Your running record will come within 20 minutes</h4>
+            <h4 className={styles.modalSubtitle}>Your running record will come within 15 minutes</h4>
           </Modal.Header>
           <Modal.Body>
 

@@ -366,6 +366,8 @@ span.missed, span.correct {
 
 /*END COMPREHENSION SECTION */
 
+
+
 .pricingFooter {
 	margin-top: 100px;
 	margin-bottom: 40px;
@@ -422,7 +424,11 @@ span.missed, span.correct {
     padding-top: 10px;
     padding-bottom: 20px;
     font-size: 3em;
-    color: green;
+    color: #4cae4c;
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 .pricingFormWrapper {
@@ -460,4 +466,12 @@ span.missed, span.correct {
 	font-family: 'ProximaNova Semibold';
 }
 
+.seeYourReportButton {
+	width: 60%;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
 

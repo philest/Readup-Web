@@ -92,8 +92,8 @@ class ReportsController < ApplicationController
         scorerExperience: "7 years at Chicago Ridge",
         scorerEmail: "peter@readupnow.com",
         scorerFirstName: "Peter",
-        scorerLastName: "Kranson",
-        scorerFullName: "Peter Kranson",
+        scorerLastName: "Krason",
+        scorerFullName: "Peter Krason",
 
         reviewerSignature: "Maria Contreras, M.Ed",
         reviewerProfilePicURL: "/images/maria-small.png"

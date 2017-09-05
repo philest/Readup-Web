@@ -276,7 +276,7 @@ export default class ReportWithScorer extends React.Component {
 
         <InfoBar
           title={ this.props.isSample ? "Example Report" : "Your Report"}
-          extraInfo={this.props.isSample ? "Your actual report will come within 20 min" : "Scored by " + this.props.scorerFullName}
+          extraInfo={this.props.isSample ? "Your actual report will come within 15 min" : "Scored by " + this.props.scorerFullName}
           withScorer={true}
 
         />
@@ -347,9 +347,9 @@ export default class ReportWithScorer extends React.Component {
             <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
             <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              Get your scored demo report
+              Get your scored demo report soon
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>Your running record will come within 20 minutes</h4>
+            <h4 className={styles.modalSubtitle}>Your running record will come within 15 minutes</h4>
           </Modal.Header>
           <Modal.Body>
 
@@ -394,6 +394,14 @@ export default class ReportWithScorer extends React.Component {
             <div className={styles.pricingFormWrapper}>
                <i className={["fa", "fa-check", styles.readyCheck, styles.pulse].join(" ")} aria-hidden={"true"} />
             </div>
+              <a href={`/reports/${this.props.userID}`}>
+                <Button
+                  className={[styles.pricingFormButton, styles.seeYourReportButton].join(' ')}
+                  bsStyle={'success'}
+                >
+                  See it
+                </Button>
+              </a>
 
           </Modal.Body>
         </Modal>
