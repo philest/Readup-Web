@@ -482,7 +482,7 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Retell</h2>
                 <div className={styles.questionBlock}>
-                  <h4 className={styles.questionText}>Retell the most important parts of what you just read.<span className={styles.pointValue}> (3 pts)</span></h4>
+                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 pts)</span></h4>
                   <p className={styles.studentResponse}>"Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike."</p> 
                   <p className={styles.compCorrect}><span className={styles.correct}>+3 points:</span> Shows excellent undestanding of the passage, including three critical plot details, as well as sequence and characters.</p> 
                 </div>
