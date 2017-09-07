@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './styles.css'
 
 import InfoBar from './components/InfoBar'
+import LevelResult from './components/LevelResult'
+
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
 
@@ -13,7 +15,7 @@ import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 
@@ -344,11 +346,12 @@ export default class ReportsInterface extends React.Component {
                 <div className={styles.metricDescriptionLabel}>Comp.</div>
               </div>
 
-              <div className={styles.levelInfoWrapper}>
-                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Did not finish</div>
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span><br/> Reassess at Level E</div>
-              </div>
 
+              <LevelResult
+                difficulty="independent"
+                currentLevel={this.props.bookLevel}
+                reassess={true}
+              />
 
             </div>
           }
@@ -409,15 +412,14 @@ export default class ReportsInterface extends React.Component {
 
 
             { this.props.isSample &&
-              <div className={styles.levelInfoWrapper}>
-                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Hard</div>
-                { this.state.levelFound &&
-                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
-                }
-                { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span><br/> Assess at Level Q</div>
-                }
-              </div>
+
+              <LevelResult
+                difficulty="Hard"
+                currentLevel={this.props.bookLevel}
+                reassess={false}
+                yellowColorOverride={true}
+              />
+
             }
 
 
@@ -462,6 +464,9 @@ export default class ReportsInterface extends React.Component {
               </div>
  
             }
+
+
+
 
             </div>
           }
