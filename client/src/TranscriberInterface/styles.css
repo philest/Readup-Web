@@ -63,6 +63,10 @@ body {
 	width: 120px;
 }
 
+.unscorableButton {
+	margin-left: 25px;
+}
+
 .alertSuccess {
 	width: 320px;
 	margin-top: 15px;

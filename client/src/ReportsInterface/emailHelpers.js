@@ -52,6 +52,7 @@ export function updateScoredText(JSONScoredText, userID) {
   })
 }
 
+
 export function getScoredText() {
   console.log("Okay, getting the scored text...");
 
@@ -102,6 +103,20 @@ export function getAssessmentUpdateTimestamp(id) {
 
 }
 
+
+export function markUnscorable(id) {
+
+  const params = {
+      unscorable: true,
+  }
+    return axios.patch(`/assessments/${id}`, {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      return res
+  })
+
+}
 
 
 // HELPERS FOR METRICS 

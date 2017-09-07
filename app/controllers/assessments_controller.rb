@@ -29,6 +29,25 @@ class AssessmentsController < ApplicationController
   def edit
   end
 
+  # PATCH/PUT /assessments/1
+  # PATCH/PUT /assessments/1.json
+  def update
+
+    puts "I'm in the update assessments controller!"
+
+    # TODO PHIL: Fix this hack to avoid user_params 
+    if params["params"]["unscorable"]
+      res = @assessment.update!(unscorable: true, scored: true)
+    else
+      @user.update_attributes(user_params)
+    end
+
+    render json: @assessment , status: :ok, location: @assessment
+
+  end
+
+
+
 
 
 

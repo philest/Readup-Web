@@ -32,7 +32,8 @@ class TranscriberInterfaceController < ApplicationController
         bookLevel: "E",
         recordingURL: @assessment.book_key,
         scoredText: @assessment.scored_text,
-        userID: @user.id 
+        userID: @user.id,
+        assessmentID: @assessment.id
       }
     end
 

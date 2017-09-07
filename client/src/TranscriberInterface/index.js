@@ -6,7 +6,7 @@ import { Button, Alert } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateScoredText } from '../ReportsInterface/emailHelpers'
+import { updateScoredText, markUnscorable} from '../ReportsInterface/emailHelpers'
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
 
@@ -154,11 +154,17 @@ export default class TranscriberInterface extends React.Component {
   }
 
   onSubmitClicked = () => {
-
-
     updateScoredText(this.state.evaluationTextData, this.props.userID);
     this.setState({showSuccessAlert: true})
   }
+
+
+  onUnscorableClicked = () => {
+    markUnscorable(this.props.assessmentID);
+    console.log("Done marking?")
+    this.setState({showSuccessAlert: true})
+  }
+
 
   handleAlertDismiss = () => {
     this.setState({showSuccessAlert: false})
@@ -237,6 +243,16 @@ export default class TranscriberInterface extends React.Component {
         >
           Submit
         </Button>
+
+        <Button
+          className={styles.unscorableButton}
+          bsStyle={'warning'}
+          bsSize={'small'}
+          onClick={this.onUnscorableClicked}
+        >
+          Unscorable
+        </Button>
+
        
        {this.state.showSuccessAlert &&
         <div className={styles.alertSuccess}>
