@@ -323,6 +323,38 @@ export default class ReportsInterface extends React.Component {
               </div>
             </div>
 
+
+          { this.props.isUnscorable &&
+
+            <div className={styles.metricsHeadingContainer}>
+
+              <div className={styles.metricWrapper}>
+                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>{"—"}</div>
+                <div className={styles.metricDescriptionLabel}>Accuracy</div>
+              </div>
+
+              <div className={styles.metricWrapper}>
+                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>{"—"}</div>
+                <div className={styles.metricDescriptionLabel}>WCPM</div>
+              </div>
+
+              <div className={styles.metricWrapper}>
+                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>{"—"}</div>
+                <div className={styles.metricDescriptionLabel}>Comp.</div>
+              </div>
+
+              <div className={styles.levelInfoWrapper}>
+                <div className={[styles.fairLevelResult, styles.levelRectangle].join(' ')}>Did not finish</div>
+                  <div className={styles.ReassessLevelLabel}><span>Next step:</span><br/> Reassess at Level E</div>
+              </div>
+
+
+            </div>
+          }
+
+
+          { !this.props.isUnscorable &&
+
             <div className={styles.metricsHeadingContainer}>
 
 
@@ -431,6 +463,8 @@ export default class ReportsInterface extends React.Component {
             }
 
             </div>
+          }
+
           </div>
 
           <div className={styles.bookInfoHeader}>

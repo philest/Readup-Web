@@ -327,6 +327,7 @@ export default class ReportWithScorer extends React.Component {
             whenCreatedDate={this.props.whenCreatedDate}
             isSample={this.props.isSample}
             isDirectSample={this.props.isDirectSample}
+            isUnscorable={this.props.isUnscorable}
           />
         </div>
 

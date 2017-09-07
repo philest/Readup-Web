@@ -46,6 +46,7 @@ class ReportsController < ApplicationController
         isSample: true,
         isDirectSample: is_direct_sample, 
         isScoredPrior: @assessment.scored,
+        isUnscorable: false,
 
         scorerProfilePicURL: "/images/lakia.png",
         scorerSignature: "Lakia Kenan, M.Ed",
@@ -83,6 +84,7 @@ class ReportsController < ApplicationController
         isSample: false,
         isDirectSample: false, 
         isScoredPrior: @assessment.scored,
+        isUnscorable: @assessment.unscorable,
 
         scorerProfilePicURL: "/images/peter.png",
         scorerSignature: "Peter Krason, M.A.",
