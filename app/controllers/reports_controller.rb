@@ -121,18 +121,6 @@ class ReportsController < ApplicationController
     puts params 
 
 
-    # In case a scored text update
-    if params["JSONScoredText"]
-      puts "okay, ready to update..."
-
-      @user = User.find(params['userID'])
-      @student = @user.teachers.last.classrooms.last.students.last
-      @assessment = @student.assessments.last
-
-      # Update the assessment
-      @assessment.update(scored_text: params["JSONScoredText"])
-      @assessment.update(scored: true)
-    end 
 
 
     # In case a scored text update

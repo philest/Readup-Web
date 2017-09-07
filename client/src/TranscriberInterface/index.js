@@ -154,7 +154,7 @@ export default class TranscriberInterface extends React.Component {
   }
 
   onSubmitClicked = () => {
-    updateScoredText(this.state.evaluationTextData, this.props.userID);
+    updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     this.setState({showSuccessAlert: true})
   }
 

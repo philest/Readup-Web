@@ -33,24 +33,23 @@ export function validateEmail(email) {
 
 
 
-export function updateScoredText(JSONScoredText, userID) {
+export function updateScoredText(JSONScoredText, assessmentID) {
   console.log("Okay, updating the scored text...");
 
   // PHIL TODO refactor to a POST request to our server to send email
   const params = {
     JSONScoredText: JSONScoredText,
-    userID: userID,
   }
 
-  return axios.get('/reports/email_submit', {
+    return axios.patch(`/assessments/${assessmentID}`, {
       params,
       headers: RctOnR.authenticityHeaders(),
     }).then(res => {
       return res
-      console.log(res);
-      console.log("yay!");
   })
 }
+
+
 
 
 export function getScoredText() {
