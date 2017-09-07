@@ -300,9 +300,18 @@ export default class ReportsInterface extends React.Component {
 
   render() {
 
+    let difficulty
+    const acc = getAccuracy(this.state.gradedText)
+
+    if (acc >= 95) {
+      difficulty = "Indendent" 
+    } else if (acc >= 90) {
+      difficulty = "Instructional"
+    } else {
+      difficulty = "Hard"
+    }
+
     return (
-
-
 
       <div className={styles.reportsContainer}>
 
@@ -348,7 +357,7 @@ export default class ReportsInterface extends React.Component {
 
 
               <LevelResult
-                difficulty="independent"
+                difficulty={difficulty}
                 currentLevel={this.props.bookLevel}
                 reassess={true}
               />
@@ -416,56 +425,22 @@ export default class ReportsInterface extends React.Component {
               <LevelResult
                 difficulty="Hard"
                 currentLevel={this.props.bookLevel}
-                reassess={false}
+                reassess={this.props.isUnscorable}
                 yellowColorOverride={true}
               />
 
             }
 
 
-            { (!this.props.isSample && (getAccuracy(this.state.gradedText) < 90)) &&
-              <div className={styles.levelInfoWrapper}>
-                <div className={[styles.poorLevelResult, styles.levelRectangle].join(' ')}>Hard</div>
-                { this.state.levelFound &&
-                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
-                }
-                { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span><br/> {["Assess at Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) - 1)].join(' ')}</div>
-                }
-              </div>
+            { !this.props.isSample &&
+            
+              <LevelResult
+                difficulty={difficulty}
+                currentLevel={this.props.bookLevel}
+                reassess={this.props.isUnscorable}
+              />
  
             }
-
-
-            { ((!this.props.isSample && (getAccuracy(this.state.gradedText) >= 90)) && (getAccuracy(this.state.gradedText) <= 94)) &&
-              <div className={styles.levelInfoWrapper}>
-                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Instructional</div>
-                { this.state.levelFound &&
-                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
-                }
-                { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span><br/> {["Assess at Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) + 1)].join(' ')}</div>
-                }
-              </div>
- 
-            }
-
-
-
-            { (!this.props.isSample && (getAccuracy(this.state.gradedText) >= 95)) &&
-              <div className={styles.levelInfoWrapper}>
-                <div className={[styles.goodLevelResult, styles.levelRectangle].join(' ')}>Independent</div>
-                { this.state.levelFound &&
-                  <div className={styles.levelLabel}>Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i></div>
-                }
-                { !this.state.levelFound &&
-                  <div className={styles.ReassessLevelLabel}><span>Next step:</span><br/> {["Assess at Level", String.fromCharCode(this.props.bookLevel.charCodeAt(0) + 1)].join(' ')}</div>
-                }
-              </div>
- 
-            }
-
-
 
 
             </div>
