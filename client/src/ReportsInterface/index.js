@@ -113,6 +113,7 @@ export default class ReportsInterface extends React.Component {
     if (this.props.fullPage) {
       this.interval = setInterval(this.tick, 2000);
     }
+
   }
 
 

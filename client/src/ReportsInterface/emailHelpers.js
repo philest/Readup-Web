@@ -157,7 +157,7 @@ export function getTotalWordsReadCorrectly(evaluationTextData) {
       }
       else if (i === endPindex){
         let wordsArr =  evaluationTextData.paragraphs[i].words
-        for (let k = 0; k < endWindex; k++) {
+        for (let k = 0; k <= endWindex; k++) {
           if (wordsArr[k].wordDeleted == false && !wordsArr[k].substituteWord){
             wordCount++
           }
