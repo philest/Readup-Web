@@ -362,6 +362,10 @@ span.missed, span.correct {
 	font-size: 1.05em;
 }
 
+.pointValue {
+	font-style: italic;
+}
+
 
 
 
