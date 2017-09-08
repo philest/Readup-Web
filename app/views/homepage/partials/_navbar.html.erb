@@ -78,7 +78,7 @@
       <a class="demo-button" id="demo-nav-button" href="/student_dashboard/#/story/demo">
         <button
           id="top-button"
-          onclick="mixpanel.track('navbar signup button clicked', {'location': 'navbar'});"
+          onclick="demoClicked()"
           class="pure-button-primary pure-button signup-button"
         >
           Try a Demo
@@ -124,6 +124,17 @@
           $("#demo-nav-button").hide();
         }
   });
+
+
+  function demoClicked() {
+     $.ajax({
+        url: '/auth/phil_setup_demo',
+        type: 'post',
+      }).fail(function(xhr, status, err) {
+        console.log(err)
+      })
+  }
+
 
 
 // $("#demo-nav-button").click( function() { 
