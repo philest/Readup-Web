@@ -499,3 +499,11 @@ a:hover {
     margin-top: 10px;
 }
 
+.pdf {
+	margin: 0 auto;
+	display: block;
+	width: 100%;
+	height: 500px;
+	text-align: center;
+}
+

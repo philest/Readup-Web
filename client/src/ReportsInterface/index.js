@@ -688,26 +688,9 @@ export default class ReportsInterface extends React.Component {
 
 
        <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
-        <Modal show={this.state.showBookModal}  onHide={this.closeBookModal} dialogClassName={styles.modalMedium}>
-          <Modal.Header closeButton>
-            <Modal.Title bsClass={styles.pricingModalTitle}>
-              Great, here's an example of one first
-            </Modal.Title>
-          </Modal.Header>
+        <Modal show={this.state.showBookModal} bsSize={"large"} onHide={this.closeBookModal} >
           <Modal.Body>
-
-            <div className={styles.pricingFormWrapper}>
-
-              <Button
-                className={styles.pricingFormButton}
-                bsStyle={'primary'}
-                onClick={this.onSampleButtonClick}
-              >
-                See sample
-              </Button>
-
-            </div>
-
+            <embed className={styles.pdf} src="/ReadUp-Leveled-Books-Library.pdf" type='application/pdf'/>
           </Modal.Body>
         </Modal>
 
