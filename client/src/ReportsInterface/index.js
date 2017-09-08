@@ -45,6 +45,7 @@ export default class ReportsInterface extends React.Component {
     this.state = {
       showAudioPlayback: false,
       showPricingModal: false,
+      showBookModal: false,
       showEmailModal: true,
       showSampleInfoModal: false,
       levelFound: false,
@@ -204,16 +205,12 @@ export default class ReportsInterface extends React.Component {
   }
 
   onPricingClicked = () => {
-
-    if (this.state.footerLink) {
-      window.open(this.state.footerLink, '_blank'); 
-    }
-    else {
-      this.setState({ showPricingModal: true })
-    }
+    this.setState({ showPricingModal: true })
   }
 
-
+  onBooksClicked = () => {
+    this.setState({ showBookModal: true })
+  }
 
   onEmailFormSubmit = () => {
 
@@ -241,6 +238,10 @@ export default class ReportsInterface extends React.Component {
 
   closeSampleInfoModal  = () => {
     this.setState({ showSampleInfoModal: false })
+  }
+
+  closeBookModal  = () => {
+    this.setState({ showBookModal: false })
   }
 
 
@@ -525,7 +526,7 @@ export default class ReportsInterface extends React.Component {
               className={styles.pricingFooterButton}
               bsStyle={'primary'}
               bsSize={'large'}
-              onClick={this.onPricingClicked}
+              onClick={ (this.props.isSample && !this.props.isDirectSample) ? this.onPricingClicked : this.onBooksClicked }
             >
               { this.state.footerButtonText}
             </Button>
@@ -684,6 +685,34 @@ export default class ReportsInterface extends React.Component {
 
           </Modal.Body>
         </Modal>
+
+
+       <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+        <Modal show={this.state.showBookModal}  onHide={this.closeBookModal} dialogClassName={styles.modalMedium}>
+          <Modal.Header closeButton>
+            <Modal.Title bsClass={styles.pricingModalTitle}>
+              Great, here's an example of one first
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className={styles.pricingFormWrapper}>
+
+              <Button
+                className={styles.pricingFormButton}
+                bsStyle={'primary'}
+                onClick={this.onSampleButtonClick}
+              >
+                See sample
+              </Button>
+
+            </div>
+
+          </Modal.Body>
+        </Modal>
+
+
+
 
 
 
