@@ -42,7 +42,7 @@ export default class LevelResult extends React.Component {
   getDelta(difficulty) {
     if (this.props.reassess) {
       return 0
-    } else if (difficulty == 'Hard') {
+    } else if (difficulty == 'Frustrational') {
       return -1
     } else {
       return 1
@@ -57,8 +57,8 @@ export default class LevelResult extends React.Component {
   render() {
 
     let btnClass = cx({
-      goodLevelResult: this.props.difficulty !== 'Hard',
-      poorLevelResult: this.props.difficulty === 'Hard',
+      goodLevelResult: this.props.difficulty !== 'Frustrational',
+      poorLevelResult: this.props.difficulty === 'Frustrational',
       fairLevelResult: this.props.reassess === true || this.props.yellowColorOverride,
       levelRectangle: true,
     });

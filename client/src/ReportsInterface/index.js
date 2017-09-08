@@ -313,7 +313,7 @@ export default class ReportsInterface extends React.Component {
     } else if (acc >= 90) {
       difficulty = "Instructional"
     } else {
-      difficulty = "Hard"
+      difficulty = "Frustrational"
     }
 
     return (
@@ -407,7 +407,7 @@ export default class ReportsInterface extends React.Component {
             { this.props.isSample &&
 
               <LevelResult
-                difficulty="Hard"
+                difficulty="Frustrational"
                 currentLevel={this.props.bookLevel}
                 reassess={this.props.isUnscorable}
                 yellowColorOverride={true}
