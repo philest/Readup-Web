@@ -41,7 +41,7 @@ export default class LevelResult extends React.Component {
   }
 
   getDelta(difficulty) {
-    if (this.props.reassess) {
+    if (this.props.reassess || this.props.didEndEarly) {
       return 0
     } else if (difficulty == 'Frustrational') {
       return -1
@@ -60,16 +60,19 @@ export default class LevelResult extends React.Component {
     let btnClass = cx({
       goodLevelResult: this.props.difficulty !== 'Frustrational',
       poorLevelResult: this.props.difficulty === 'Frustrational',
-      fairLevelResult: this.props.reassess === true || this.props.yellowColorOverride,
+      fairLevelResult: this.props.reassess === true || this.props.didEndEarly || this.props.yellowColorOverride,
       levelRectangle: true,
     });
 
     let label
+    let nextStepMsg
 
     if (this.props.didEndEarly) {
       label = "Did not finish"
+      nextStepMsg = "Resasses at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     } else {
       label = this.props.difficulty
+      nextStepMsg = "Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     }
 
 
@@ -83,14 +86,9 @@ export default class LevelResult extends React.Component {
             Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i>
           </div>
         }
-        { (!this.props.levelFound && !this.props.reassess) &&
+        { !this.props.levelFound &&
           <div className={styles.ReassessLevelLabel}>
-            <span>Next step:</span><br />{ "Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))}
-          </div>
-        }
-        { (!this.props.levelFound && this.props.reassess) &&
-          <div className={styles.ReassessLevelLabel}>
-            <span>Next step:</span><br />{ "Reassess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))}
+            <span>Next step:</span><br />{ nextStepMsg }
           </div>
         }
       </div>
