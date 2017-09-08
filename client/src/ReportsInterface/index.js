@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Panel, Button, Modal } from 'react-bootstrap'
-import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+import { Button, Modal } from 'react-bootstrap'
 
 
 import styles from './styles.css'
@@ -24,10 +23,6 @@ import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 import { sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
-
-bootstrapUtils.addStyle(Panel, 'myDanger');
-bootstrapUtils.addStyle(Panel, 'myWarning');
-bootstrapUtils.addStyle(Panel, 'mySuccess');
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
@@ -310,9 +305,6 @@ export default class ReportsInterface extends React.Component {
 
   render() {
 
-    const title = (
-      <h2>Frustrational at R</h2>
-    );
 
     let difficulty
     const acc = getAccuracy(this.state.gradedText)
@@ -347,79 +339,31 @@ export default class ReportsInterface extends React.Component {
           <div className={styles.evaluationInfoHeader}>
 
             <div className={styles.mainHeadingContainer}>
-              <div className={styles.studentNameHeading}>{this.props.name}</div>
+              <div className={styles.studentNameHeading}>{this.props.name}
+              </div>
 
-              <style type="text/css">{`
-              .panel-myDanger, .panel-myWarning, .panel-mySuccess  {
-                margin-top: 14px;
-                margin-left: 0px;
-              }
 
-              .panel-myDanger h2, .panel-myWarning h2, .panel-mySuccess h2 {
-                font-size: 1.6em;
-              }
-
-              .panel-myDanger div.panel-heading, .panel-myWarning div.panel-heading, .panel-mySuccess div.panel-heading {
-                padding: 15px 30px 15px 14px;
-              }
-
-              .panel-myDanger .panel-body, .panel-myWarning .panel-body, .panel-mySuccess .panel-body {
-                padding: 8px 15px 8px 17px;
-                font-style: italic;
-
+              { this.props.isSample &&
+                <LevelResult
+                  difficulty="Frustrational"
+                  currentLevel={this.props.bookLevel}
+                  reassess={this.props.isUnscorable}
+                  didEndEarly={false}
+                  yellowColorOverride={true}
+                />
               }
 
 
-
-              .panel-myDanger div.panel-heading {
-
-                color: #a94442;
-                background-color: #f2dede;
-                border-color: #ebccd1;
-              }
-
-              .panel-myDanger {
-
-                border-color: #ebccd1;
+              { !this.props.isSample &&
+                <LevelResult
+                  difficulty={difficulty}
+                  currentLevel={this.props.bookLevel}
+                  reassess={this.props.isUnscorable}
+                  didEndEarly={itDidEndEarly}
+                />
               }
 
 
-              .panel-myWarning div.panel-heading {
-
-                color: #8a6d3b;
-                background-color: #fcf8e3;
-                border-color: #faebcc;
-              }
-
-              .panel-myWarning {
-
-                border-color: #faebcc;
-              }
-
-
-              .panel-mySuccess div.panel-heading {
-
-                color: #3c763d;
-                background-color: #dff0d8;
-                border-color: #d6e9c6;
-              }
-
-              .panel-mySuccess {
-
-                border-color: #d6e9c6;
-              }
-
-
-
-
-
-
-
-
-              `}</style>
-              <Panel header={title} bsStyle="mySuccess">
-                Next Step: Assess at Q
-              </Panel>
 
             </div>
 
@@ -444,15 +388,8 @@ export default class ReportsInterface extends React.Component {
                 <div className={styles.metricDescriptionLabel}>Comp.</div>
               </div>
 
-
-              <LevelResult
-                difficulty={difficulty}
-                currentLevel={this.props.bookLevel}
-                reassess={true}
-                didEndEarly={itDidEndEarly}
-              />
-
             </div>
+
           }
 
 
@@ -485,20 +422,6 @@ export default class ReportsInterface extends React.Component {
                   label="Comp."
                   number={7}
                 />
-            }
-
-
-
-
-            { !this.props.isSample &&
-            
-              <LevelResult
-                difficulty={difficulty}
-                currentLevel={this.props.bookLevel}
-                reassess={this.props.isUnscorable}
-                didEndEarly={itDidEndEarly}
-              />
- 
             }
 
 

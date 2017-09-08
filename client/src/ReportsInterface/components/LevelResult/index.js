@@ -4,9 +4,14 @@ import css from './styles.css'
 import styles from '../../styles.css'
 
 
-import classNames from 'classnames/bind';
+import { Panel } from 'react-bootstrap'
+import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
-let cx = classNames.bind(styles);
+bootstrapUtils.addStyle(Panel, 'myDanger');
+bootstrapUtils.addStyle(Panel, 'myWarning');
+bootstrapUtils.addStyle(Panel, 'mySuccess');
+
+
 
 
 
@@ -55,43 +60,115 @@ export default class LevelResult extends React.Component {
   }
 
 
+  getClass() {
+   
+    if (this.props.reassess === true || this.props.didEndEarly || this.props.yellowColorOverride) {
+      return "myWarning"
+    } else if (this.props.difficulty == 'Frustrational') {
+      return "myDanger"
+    } else  {
+      return "mySuccess"
+    }
+
+  }
+
   render() {
 
-    let btnClass = cx({
-      goodLevelResult: this.props.difficulty !== 'Frustrational',
-      poorLevelResult: this.props.difficulty === 'Frustrational',
-      fairLevelResult: this.props.reassess === true || this.props.didEndEarly || this.props.yellowColorOverride,
-      levelRectangle: true,
-    });
+
+
 
     let label
     let nextStepMsg
 
     if (this.props.didEndEarly) {
-      label = "Did not finish"
-      nextStepMsg = "Resasses at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
+      label = "Did not finish reading"
+      nextStepMsg = "Next Step: Reassess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     } else {
-      label = this.props.difficulty
-      nextStepMsg = "Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
+      label = this.props.difficulty + " at " + this.props.currentLevel
+      nextStepMsg = "Next Step: Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     }
+
+    const title = (
+      <h2>{label}</h2>
+    );
+
+
+
 
 
     return (
 
+      <div> 
+        <style type="text/css">{`
+        .panel-myDanger, .panel-myWarning, .panel-mySuccess  {
+          margin-top: 14px;
+          margin-left: 0px;
+        }
 
-      <div className={styles.levelInfoWrapper}>
-        <div className={btnClass}>{label}</div>
-        { this.props.levelFound &&
-          <div className={styles.levelLabel}>
-            Just-right level found <i className={"fa fa-check"} aria-hidden={"true"}></i>
-          </div>
+        .panel-myDanger h2, .panel-myWarning h2, .panel-mySuccess h2 {
+          font-size: 1.6em;
         }
-        { !this.props.levelFound &&
-          <div className={styles.ReassessLevelLabel}>
-            <span>Next step:</span><br />{ nextStepMsg }
-          </div>
+
+        .panel-myDanger div.panel-heading, .panel-myWarning div.panel-heading, .panel-mySuccess div.panel-heading {
+          padding: 15px 30px 15px 14px;
         }
+
+        .panel-myDanger .panel-body, .panel-myWarning .panel-body, .panel-mySuccess .panel-body {
+          padding: 8px 15px 8px 17px;
+          font-style: italic;
+
+        }
+
+
+
+        .panel-myDanger div.panel-heading {
+
+          color: #a94442;
+          background-color: #f2dede;
+          border-color: #ebccd1;
+        }
+
+        .panel-myDanger {
+
+          border-color: #ebccd1;
+        }
+
+
+        .panel-myWarning div.panel-heading {
+
+          color: #8a6d3b;
+          background-color: #fcf8e3;
+          border-color: #faebcc;
+        }
+
+        .panel-myWarning {
+
+          border-color: #faebcc;
+        }
+
+
+        .panel-mySuccess div.panel-heading {
+
+          color: #3c763d;
+          background-color: #dff0d8;
+          border-color: #d6e9c6;
+        }
+
+        .panel-mySuccess {
+
+          border-color: #d6e9c6;
+        }
+
+        `}</style>
+        <Panel header={title} bsStyle={this.getClass()}>
+          {nextStepMsg}
+        </Panel>
+
       </div>
+
+
+
+
 
 
     );
