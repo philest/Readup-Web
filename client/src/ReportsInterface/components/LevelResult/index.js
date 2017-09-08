@@ -16,6 +16,7 @@ export default class LevelResult extends React.Component {
     currentLevel: PropTypes.string,
     levelFound: PropTypes.bool,
     reassess: PropTypes.bool,
+    didEndEarly: PropTypes.bool,
     yellowColorOverride: PropTypes.bool,
   };
 
@@ -65,7 +66,7 @@ export default class LevelResult extends React.Component {
 
     let label
 
-    if (this.props.reassess) {
+    if (this.props.didEndEarly) {
       label = "Did not finish"
     } else {
       label = this.props.difficulty

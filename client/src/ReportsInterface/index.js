@@ -307,6 +307,7 @@ export default class ReportsInterface extends React.Component {
     const WCPM = getWCPM(this.state.gradedText)
     const comp = 7
 
+    let itDidEndEarly = didEndEarly(this.state.gradedText)
 
     if (acc >= 95) {
       difficulty = "Indendent" 
@@ -365,6 +366,7 @@ export default class ReportsInterface extends React.Component {
                 difficulty={difficulty}
                 currentLevel={this.props.bookLevel}
                 reassess={true}
+                didEndEarly={itDidEndEarly}
               />
 
             </div>
@@ -410,7 +412,9 @@ export default class ReportsInterface extends React.Component {
                 difficulty="Frustrational"
                 currentLevel={this.props.bookLevel}
                 reassess={this.props.isUnscorable}
+                didEndEarly={itDidEndEarly}
                 yellowColorOverride={true}
+
               />
 
             }
@@ -422,6 +426,7 @@ export default class ReportsInterface extends React.Component {
                 difficulty={difficulty}
                 currentLevel={this.props.bookLevel}
                 reassess={this.props.isUnscorable}
+                didEndEarly={itDidEndEarly}
               />
  
             }
