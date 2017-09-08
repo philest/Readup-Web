@@ -4,6 +4,8 @@ import styles from './styles.css'
 
 import InfoBar from './components/InfoBar'
 import LevelResult from './components/LevelResult'
+import Metric from './components/Metric'
+
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
@@ -302,6 +304,9 @@ export default class ReportsInterface extends React.Component {
 
     let difficulty
     const acc = getAccuracy(this.state.gradedText)
+    const WCPM = getWCPM(this.state.gradedText)
+    const comp = 7
+
 
     if (acc >= 95) {
       difficulty = "Indendent" 
@@ -370,52 +375,31 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.metricsHeadingContainer}>
 
+              <Metric
+                label="Accuracy"
+                number={acc}
+              />
 
-            { getAccuracy(this.state.gradedText) >= 90 &&
-              <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>{ getAccuracy(this.state.gradedText) }%</div>
-                <div className={styles.metricDescriptionLabel}>Accuracy</div>
-              </div>
-            }
+              { !this.props.isSample &&
+                <Metric
+                  label="WCPM"
+                  number={WCPM}
+                />
+              }
 
-            { getAccuracy(this.state.gradedText) < 90 &&
-              <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.poorMetric].join(' ')}>{ getAccuracy(this.state.gradedText) }%</div>
-                <div className={styles.metricDescriptionLabel}>Accuracy</div>
-              </div>
-            }
-
-
-            { this.props.isSample &&
-              <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>161</div>
-                <div className={styles.metricDescriptionLabel}>WCPM</div>
-              </div>
-            }
-
-            { (!this.props.isSample && (getWCPM(this.state.gradedText) < 25)) &&
-              <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>{getWCPM(this.state.gradedText)}</div>
-                <div className={styles.metricDescriptionLabel}>wcpm</div>
-              </div>
-            }
-
-
-            { (!this.props.isSample && (getWCPM(this.state.gradedText) >= 25))  &&
-              <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.goodMetric].join(' ')}>{getWCPM(this.state.gradedText)}</div>
-                <div className={styles.metricDescriptionLabel}>wcpm</div>
-              </div>
-            }
-
-
+              { this.props.isSample &&
+                <Metric
+                  label="WCPM"
+                  number={161}
+                />
+              }
 
 
             { this.props.isSample && // No comp if it's not a sample
-              <div className={styles.metricWrapper}>
-                <div className={[styles.metricFigureLabel, styles.fairMetric].join(' ')}>7/9</div>
-                <div className={styles.metricDescriptionLabel}>Comp.</div>
-              </div>
+                <Metric
+                  label="Comp."
+                  number={7}
+                />
             }
 
 
