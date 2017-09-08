@@ -93,20 +93,16 @@ export default class ReportsInterface extends React.Component {
     let footerLabelText
     let footerLink
 
-    if (!this.props.isSample) {
-      footerLabelText = "See a sample full scored assessment"
-      footerButtonText = "See sample"
-      footerLink = "/reports/direct-sample"
-    } else if (this.props.isSample && !this.props.isDirectSample) {
+    if (!this.props.isSample || this.props.isDirectSample) {
+      footerLabelText = "See our Fountas and Pinnell leveled texts"
+      footerButtonText = "See assessment texts"
+      footerLink = "/library"
+    } else {
       footerLabelText = "Save thousands of instructional hours"
       footerButtonText = "Get Pricing"
       footerLink = ''
-
-    } else if (this.props.isSample && this.props.isDirectSample) {
-      footerLabelText = "See our Fountas and Pinnell leveled texts"
-      footerButtonText = "See books"
-      footerLink = "/library"
     }
+
 
     this.setState({ footerButtonText: footerButtonText })
     this.setState({ footerLabelText: footerLabelText })
@@ -217,9 +213,6 @@ export default class ReportsInterface extends React.Component {
     }
   }
 
-  onSampleAssessmentClicked = () => {
-    window.location.href = this.state.footerLink
-  }
 
 
   onEmailFormSubmit = () => {
@@ -532,7 +525,7 @@ export default class ReportsInterface extends React.Component {
               className={styles.pricingFooterButton}
               bsStyle={'primary'}
               bsSize={'large'}
-              onClick={this.props.isSample ? this.onPricingClicked : this.onSampleAssessmentClicked}
+              onClick={this.onPricingClicked}
             >
               { this.state.footerButtonText}
             </Button>
