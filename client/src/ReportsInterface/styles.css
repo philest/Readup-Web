@@ -93,7 +93,7 @@
 	flex: 1;
 	display: flex;
 	flex-flow: row;
-	justify-content: flex-end;
+	justify-content: center;
 	margin-top: 5px; 
 	/*This aligns it with bottom of Student Heading.*/
 }
@@ -154,6 +154,23 @@
 }
 
 
+.panel-custom {
+	margin-top: 20px;
+}
+
+.panel-custom h2 {
+	font-size: 24px;
+}
+
+.panel-custom div.panel-heading {
+	padding: 15px 35px 15px 20px;
+}
+
+.panel-custom > div.panel-heading {
+	padding: 15px 35px 15px 20px;
+}
+
+
 
 .goodLevelResult {
 	background-color: #249C44;
@@ -200,7 +217,7 @@
 	display: flex;
 	flex-flow: row;
 	align-items: center;
-	margin-top: 115px;
+	margin-top: 95px;
 	margin-bottom: 60px;
 }
 

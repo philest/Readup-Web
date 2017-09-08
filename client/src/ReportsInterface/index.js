@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import { Panel, Button, Modal } from 'react-bootstrap'
+import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+
+
 import styles from './styles.css'
 
 import InfoBar from './components/InfoBar'
@@ -13,13 +18,16 @@ import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
 import sharedStyles from '../sharedComponents/styles.css'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
-import { Button, Modal } from 'react-bootstrap'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
 import { sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
+
+bootstrapUtils.addStyle(Panel, 'myDanger');
+bootstrapUtils.addStyle(Panel, 'myWarning');
+bootstrapUtils.addStyle(Panel, 'mySuccess');
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
@@ -302,6 +310,10 @@ export default class ReportsInterface extends React.Component {
 
   render() {
 
+    const title = (
+      <h2>Frustrational at R</h2>
+    );
+
     let difficulty
     const acc = getAccuracy(this.state.gradedText)
     const WCPM = getWCPM(this.state.gradedText)
@@ -336,10 +348,50 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.mainHeadingContainer}>
               <div className={styles.studentNameHeading}>{this.props.name}</div>
-              <div className={styles.bookInfoSubheading}>
-                <p>{this.props.bookTitle}<span> - Level {this.props.bookLevel}</span></p>
-              </div>
+
+              <style type="text/css">{`
+              .panel-myDanger {
+                margin-top: 14px;
+                margin-left: 0px;
+              }
+
+              .panel-myDanger h2 {
+                font-size: 1.6em;
+              }
+
+              .panel-myDanger div.panel-heading {
+                padding: 15px 30px 15px 14px;
+              }
+
+              .panel-myDanger .panel-body {
+                padding: 8px 15px 8px 17px;
+                font-style: italic;
+
+              }
+
+
+              .panel-myDanger div.panel-heading {
+
+                color: #a94442;
+                background-color: #f2dede;
+                border-color: #ebccd1;
+              }
+
+              .panel-myDanger {
+
+                border-color: #ebccd1;
+              }
+
+
+
+
+              `}</style>
+              <Panel header={title} bsStyle="myDanger">
+                Next Step: Assess at Q
+              </Panel>
+
             </div>
+
 
 
           { this.props.isUnscorable &&
@@ -405,19 +457,6 @@ export default class ReportsInterface extends React.Component {
             }
 
 
-
-            { this.props.isSample &&
-
-              <LevelResult
-                difficulty="Frustrational"
-                currentLevel={this.props.bookLevel}
-                reassess={this.props.isUnscorable}
-                didEndEarly={false}
-                yellowColorOverride={true}
-
-              />
-
-            }
 
 
             { !this.props.isSample &&
