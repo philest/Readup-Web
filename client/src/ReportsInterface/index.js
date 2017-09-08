@@ -350,24 +350,25 @@ export default class ReportsInterface extends React.Component {
               <div className={styles.studentNameHeading}>{this.props.name}</div>
 
               <style type="text/css">{`
-              .panel-myDanger {
+              .panel-myDanger, .panel-myWarning, .panel-mySuccess  {
                 margin-top: 14px;
                 margin-left: 0px;
               }
 
-              .panel-myDanger h2 {
+              .panel-myDanger h2, .panel-myWarning h2, .panel-mySuccess h2 {
                 font-size: 1.6em;
               }
 
-              .panel-myDanger div.panel-heading {
+              .panel-myDanger div.panel-heading, .panel-myWarning div.panel-heading, .panel-mySuccess div.panel-heading {
                 padding: 15px 30px 15px 14px;
               }
 
-              .panel-myDanger .panel-body {
+              .panel-myDanger .panel-body, .panel-myWarning .panel-body, .panel-mySuccess .panel-body {
                 padding: 8px 15px 8px 17px;
                 font-style: italic;
 
               }
+
 
 
               .panel-myDanger div.panel-heading {
@@ -383,10 +384,40 @@ export default class ReportsInterface extends React.Component {
               }
 
 
+              .panel-myWarning div.panel-heading {
+
+                color: #8a6d3b;
+                background-color: #fcf8e3;
+                border-color: #faebcc;
+              }
+
+              .panel-myWarning {
+
+                border-color: #faebcc;
+              }
+
+
+              .panel-mySuccess div.panel-heading {
+
+                color: #3c763d;
+                background-color: #dff0d8;
+                border-color: #d6e9c6;
+              }
+
+              .panel-mySuccess {
+
+                border-color: #d6e9c6;
+              }
+
+
+
+
+
+
 
 
               `}</style>
-              <Panel header={title} bsStyle="myDanger">
+              <Panel header={title} bsStyle="mySuccess">
                 Next Step: Assess at Q
               </Panel>
 
