@@ -412,7 +412,7 @@ export default class ReportsInterface extends React.Component {
                 difficulty="Frustrational"
                 currentLevel={this.props.bookLevel}
                 reassess={this.props.isUnscorable}
-                didEndEarly={itDidEndEarly}
+                didEndEarly={false}
                 yellowColorOverride={true}
 
               />
