@@ -327,6 +327,10 @@
 	margin-top: 5.5em;
 }
 
+.fadedComp {
+	opacity: .4;
+}
+
 .compDivider {
 	margin-bottom: 5em;
 }

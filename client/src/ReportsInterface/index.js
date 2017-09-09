@@ -503,7 +503,7 @@ export default class ReportsInterface extends React.Component {
 
 
             <div className={styles.compPart}>
-              <h2 className={styles.compPartHeader}>Beyond the Text</h2>
+              <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (1 point)</span></h4>
                   <p className={styles.studentResponse}>"He thinks Mr. Podler once saw a ghost."</p> 
@@ -521,7 +521,43 @@ export default class ReportsInterface extends React.Component {
 
         }
 
+       { !this.props.isSample &&
+   
+          <div className={[styles.comp, sharedStyles.textContainerLarge, styles.fadedComp].join(' ')}>
+            
+            <hr className={styles.compDivider}/>
 
+            <div className={styles.compPart}>
+              <h2 className={styles.compPartHeader}>Retell</h2>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
+                </div>
+            </div>
+
+            <div className={styles.compPart}>
+              <h2 className={styles.compPartHeader}>Within the Text</h2>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>1. Why did the girl and her dad go outside?<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>2. Talk about how the story ended.<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+            </div>
+
+
+            <div className={styles.compPart}>
+              <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>3. Why do you think the girl liked catching fireflies?<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>4. Why did the girl feel like opening her jar and letting the fireflies go?<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+            </div>
+
+          </div>
+
+        }
 
 
           
