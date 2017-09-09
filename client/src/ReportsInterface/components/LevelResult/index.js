@@ -77,20 +77,28 @@ export default class LevelResult extends React.Component {
 
 
 
-    let label
     let nextStepMsg
+    let title
+
+
+    let titleNormal = (
+      <h2><span>{this.props.difficulty}</span> {" at Level " + this.props.currentLevel}</h2>
+    );
+
+    let titleNoFinish = (
+      <h2><span>{"Did not finish reading"}</span></h2>
+    );
+
+
 
     if (this.props.didEndEarly) {
-      label = "Did not finish reading"
+      title = titleNoFinish
       nextStepMsg = "Next Step: Reassess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     } else {
-      label = this.props.difficulty 
+      title = titleNormal
       nextStepMsg = "Next Step: Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     }
 
-    const title = (
-      <h2><span>{label}</span> {" at Level " + this.props.currentLevel}</h2>
-    );
 
 
 
