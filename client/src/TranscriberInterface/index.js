@@ -62,6 +62,7 @@ export default class TranscriberInterface extends React.Component {
       highlightedWordIndex: null,
       highlightedIsSpace: null,
       showSuccessAlert: false,
+      savedIsActive: false, 
       fluencyScore: null,
     }
   }
@@ -223,9 +224,18 @@ export default class TranscriberInterface extends React.Component {
   onSubmitClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
-
+    markScored(this.props.assessmentID)
     this.setState({showSuccessAlert: true})
   }
+
+
+  onSaveClicked = () => {
+    updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
+    updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
+    markScored(this.props.assessmentID)
+    this.setState({savedIsActive: true})
+  }
+
 
   onUnscorableClicked = () => {
     markUnscorable(this.props.assessmentID);
@@ -337,7 +347,17 @@ export default class TranscriberInterface extends React.Component {
 
         <Button
           className={styles.unscorableButton}
-          bsStyle={'warning'}
+          bsStyle={'default'}
+          bsSize={'small'}
+          onClick={this.onSaveClicked}
+        >
+          Save edits
+        </Button>
+
+
+        <Button
+          className={styles.unscorableButton}
+          bsStyle={'danger'}
           bsSize={'small'}
           onClick={this.onUnscorableClicked}
         >

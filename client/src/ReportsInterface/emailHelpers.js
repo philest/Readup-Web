@@ -49,6 +49,22 @@ export function updateScoredText(JSONScoredText, assessmentID) {
   })
 }
 
+export function markScored(assessmentID) {
+  console.log("Okay, marking it as scored...");
+
+  // PHIL TODO refactor to a POST request to our server to send email
+  const params = {
+    scored: true,
+  }
+
+    return axios.patch(`/assessments/${assessmentID}`, {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      return res
+  })
+}
+
 
 
 export function updateFluencyScore(fluencyScore, assessmentID) {
