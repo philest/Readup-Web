@@ -95,17 +95,14 @@ const popoverBottom = (
     <ul>
     <li>Primarily word-by-word</li>
     <li>No expressive interpretation</li>
-    <li>Irregular pausing</li>
-    <li>No attention to meaning</li>
-    <li>No appropriate stress</li>
+    <li>No appropriate stress or pausing</li>
     </ul>
 
      <strong>2 - Limited fluency</strong>
      <ul>
       <li>Primarily two-word phrases</li>
       <li>Almost no expressive interpretation</li>
-      <li>Almost no appropriate pausing</li>
-      <li>Almost no appropriate stress</li>
+      <li>Almost no appropriate pausing or stress</li>
      </ul>
 
      <strong>3 - Satisfactory fluency</strong>
@@ -118,8 +115,7 @@ const popoverBottom = (
     <strong>4 - Excellent fluency</strong>
     <ul>
     <li>Mostly smooth, expressive interpretation</li>
-    <li>Pausing guided by meaning</li>
-    <li>Appropriate stress and pausing</li>
+    <li>Pausing and stress guided by meaning</li>
     <li>Only a few slowdowns </li>
     </ul>
 
@@ -190,7 +186,7 @@ const popoverBottom = (
         <div className={styles.metricDescriptionLabel}>{ label }
           { hasPopover && 
 
-          <OverlayTrigger trigger={['click']} rootClose placement="bottom" overlay={popoverBottom}>
+          <OverlayTrigger trigger={['click']} rootClose  placement="bottom" overlay={popoverBottom}>
             <i className={["fa", "fa-question-circle", css.questionIcon].join(" ")} aria-hidden={"true"} />
           </OverlayTrigger>
           }

@@ -6,4 +6,5 @@
 
 .myPopover {
 	font-family: 'ProximaNova';
+	min-width: 325px;
 }
