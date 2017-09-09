@@ -2,14 +2,49 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-import { Button, Alert } from 'react-bootstrap'
+import { Button, ButtonGroup, Alert, OverlayTrigger, Popover } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
 import { updateScoredText, markUnscorable} from '../ReportsInterface/emailHelpers'
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
+import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 
+
+const popoverBottom = (
+  <Popover id="popover-positioned-bottom" className={questionCSS.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
+ 
+    <strong>1 - Unsatisfactory fluency</strong>
+    <ul>
+    <li>Primarily word-by-word</li>
+    <li>No expressive interpretation</li>
+    <li>No appropriate stress or pausing</li>
+    </ul>
+
+     <strong>2 - Limited fluency</strong>
+     <ul>
+      <li>Primarily two-word phrases</li>
+      <li>Almost no expressive interpretation</li>
+      <li>Almost no appropriate pausing or stress</li>
+     </ul>
+
+     <strong>3 - Satisfactory fluency</strong>
+     <ul>
+    <li>Primarily three- or four-word phrases</li>
+    <li>Some smooth, expressive interpretation </li>
+    <li>Mostly appropriate stress and pausing</li>
+     </ul>
+
+    <strong>4 - Excellent fluency</strong>
+    <ul>
+    <li>Primarily larger, meaningful phrases</li>
+    <li>Mostly smooth, expressive interpretation</li>
+    <li>Pausing and stress guided by meaning</li>
+    </ul>
+
+  </Popover>
+);
 
 
 
@@ -233,6 +268,29 @@ export default class TranscriberInterface extends React.Component {
 
 
         </div>
+
+        <div className={styles.fluencyContainer}>
+          <div className={styles.bookInfo}>
+            <span className={styles.bookTitleHeading}>
+              Fluency Score
+            </span>
+            <span className={styles.bookLevelHeading}>
+              Assign a score using the rubric 
+              <OverlayTrigger defaultOverlayShown={true} trigger={['click']}   placement="bottom" overlay={popoverBottom}>
+                <i className={["fa", "fa-question-circle", styles.questionIcon].join(" ")} aria-hidden={"true"} />
+              </OverlayTrigger>
+
+            </span>
+          </div>
+        </div> 
+
+
+        <ButtonGroup className={styles.fluencyButtonGroup}>
+          <Button><strong>1</strong> - Unsatisfactory</Button>
+          <Button ><strong>2</strong> - Limited</Button>
+          <Button ><strong>3</strong> - Satifscatory</Button>
+          <Button><strong>4</strong> - Excellent</Button>
+        </ButtonGroup>
 
 
         <Button

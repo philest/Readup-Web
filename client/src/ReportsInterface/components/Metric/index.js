@@ -10,6 +10,40 @@ import classNames from 'classnames/bind';
 let cx = classNames.bind(styles);
 
 
+const popoverBottom = (
+  <Popover id="popover-positioned-bottom" className={css.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
+ 
+    <strong>1 - Unsatisfactory fluency</strong>
+    <ul>
+    <li>Primarily word-by-word</li>
+    <li>No expressive interpretation</li>
+    <li>No appropriate stress or pausing</li>
+    </ul>
+
+     <strong>2 - Limited fluency</strong>
+     <ul>
+      <li>Primarily two-word phrases</li>
+      <li>Almost no expressive interpretation</li>
+      <li>Almost no appropriate pausing or stress</li>
+     </ul>
+
+     <strong>3 - Satisfactory fluency</strong>
+     <ul>
+    <li>Primarily three- or four-word phrases</li>
+    <li>Some smooth, expressive interpretation </li>
+    <li>Mostly appropriate stress and pausing</li>
+     </ul>
+
+    <strong>4 - Excellent fluency</strong>
+    <ul>
+    <li>Primarily larger, meaningful phrases</li>
+    <li>Mostly smooth, expressive interpretation</li>
+    <li>Pausing and stress guided by meaning</li>
+    </ul>
+
+  </Popover>
+);
+
 
 export default class Metric extends React.Component {
   static propTypes = {
@@ -88,39 +122,7 @@ export default class Metric extends React.Component {
 
   render() {
 
-const popoverBottom = (
-  <Popover id="popover-positioned-bottom" className={css.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
- 
-    <strong>1 - Unsatisfactory fluency</strong>
-    <ul>
-    <li>Primarily word-by-word</li>
-    <li>No expressive interpretation</li>
-    <li>No appropriate stress or pausing</li>
-    </ul>
 
-     <strong>2 - Limited fluency</strong>
-     <ul>
-      <li>Primarily two-word phrases</li>
-      <li>Almost no expressive interpretation</li>
-      <li>Almost no appropriate pausing or stress</li>
-     </ul>
-
-     <strong>3 - Satisfactory fluency</strong>
-     <ul>
-    <li>Primarily three- or four-word phrases</li>
-    <li>Some smooth, expressive interpretation </li>
-    <li>Mostly appropriate stress and pausing</li>
-     </ul>
-
-    <strong>4 - Excellent fluency</strong>
-    <ul>
-    <li>Primarily larger, meaningful phrases</li>
-    <li>Mostly smooth, expressive interpretation</li>
-    <li>Pausing and stress guided by meaning</li>
-    </ul>
-
-  </Popover>
-);
 
     let accMetricClass = cx({
       goodMetric: this.getAccColor(this.props.number) == 'good',

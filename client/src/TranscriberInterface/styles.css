@@ -43,9 +43,6 @@ body {
 	margin-top: 40px;
 }
 
-.bookInfo {
-	margin-left: 10px;
-}
 
 .bookTitleHeading {
 	font-family: 'ProximaNova';
@@ -59,6 +56,17 @@ body {
 	margin-left: 20px;
 }
 
+.fluencyContainer {
+	margin-top: 60px;
+}
+
+.fluencyButtonGroup {
+	margin-top: 30px;
+	width: 100%;
+	margin-bottom: 100px;
+}
+
+
 .submitButton {
 	width: 120px;
 }
@@ -70,6 +78,10 @@ body {
 .alertSuccess {
 	width: 320px;
 	margin-top: 15px;
+}
+
+.questionIcon {
+	margin-left: 250px;
 }
 
 
