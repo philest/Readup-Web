@@ -340,7 +340,7 @@
 }
 
 .compPartHeader { 
-	font-size: 1.8em;
+	font-size: 1.5em;
 	margin-bottom: 20px;
 	font-weight: 900;
 }
@@ -348,11 +348,13 @@
 .questionBlock {
 	margin: 25px 0px;
 	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .questionText {
 	font-family: 'ProximaNova Semibold';
     line-height: 1.6;
+    font-size: 16px;
 
 }
 
@@ -362,10 +364,11 @@
 }
 
 .studentResponse {
-    margin: 18px 0px;
+    margin: 12px 0px;
     font-style: italic;
-    font-size: 1.1em;
+    font-size: 1em;
     line-height: 1.6;
+    margin-left: 20px;
  }
 
 .compMissed {
@@ -375,6 +378,10 @@
 .compCorrect {
 	color: green; 
 	/*Less contrast with white background than #249C44*/
+}
+
+.compCorrect, .compMissed {
+	margin-left: 20px;
 }
 
 span.missed, span.correct {
