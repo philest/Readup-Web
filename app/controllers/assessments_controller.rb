@@ -50,6 +50,7 @@ class AssessmentsController < ApplicationController
       puts "okay, ready to update fluency to #{params["params"]["fluencyScore"]}..."
       res = @assessment.update!(fluency_score: params["params"]["fluencyScore"])
     else    
+      puts "nothing matched"
       @user.update_attributes(user_params)
     end
 

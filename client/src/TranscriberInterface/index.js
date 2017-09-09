@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover } from 'react-boots
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateScoredText, markUnscorable, updateFluencyScore } from '../ReportsInterface/emailHelpers'
+import { updateScoredText, markUnscorable, updateFluencyScore, getFluencyScore} from '../ReportsInterface/emailHelpers'
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
@@ -62,11 +62,17 @@ export default class TranscriberInterface extends React.Component {
       highlightedWordIndex: null,
       highlightedIsSpace: null,
       showSuccessAlert: false,
+      fluencyScore: null,
     }
   }
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
+
+    // TODO refactor this into a controller prop 
+    getFluencyScore(this.props.assessmentID).then(res => {
+    this.setState({ fluencyScore: res })
+    })
 
   }
 
@@ -190,22 +196,24 @@ export default class TranscriberInterface extends React.Component {
 
   onFluencyScoreOneClicked = () => {
     console.log('here i am 1')
-    updateFluencyScore(1, this.props.assessmentID)
+    this.setState({fluencyScore: 1})
   }
 
   onFluencyScoreTwoClicked = () => {
     console.log('here i am 2')
-    updateFluencyScore(2, this.props.assessmentID)
+    this.setState({fluencyScore: 2})
+
   }
 
   onFluencyScoreThreeClicked = () => {
     console.log('here i am 3')
-    updateFluencyScore(3, this.props.assessmentID)
+    this.setState({fluencyScore: 3})
+
   }
 
   onFluencyScoreFourClicked = () => {
     console.log('here i am 4')
-    updateFluencyScore(4, this.props.assessmentID)
+    this.setState({fluencyScore: 4})
   }
 
 
@@ -213,6 +221,8 @@ export default class TranscriberInterface extends React.Component {
 
   onSubmitClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
+    updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
+
     this.setState({showSuccessAlert: true})
   }
 
@@ -308,10 +318,10 @@ export default class TranscriberInterface extends React.Component {
 
 
         <ButtonGroup className={styles.fluencyButtonGroup}>
-          <Button href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Unsatisfactory</Button>
-          <Button href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Limited</Button>
-          <Button href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Satifscatory</Button>
-          <Button href="#" onClick={this.onFluencyScoreFourClicked}><strong>4</strong> - Excellent</Button>
+          <Button active={this.state.fluencyScore === 1} href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Unsatisfactory</Button>
+          <Button active={this.state.fluencyScore === 2} href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Limited</Button>
+          <Button active={this.state.fluencyScore === 3} href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Satifscatory</Button>
+          <Button active={this.state.fluencyScore === 4} href="#" onClick={this.onFluencyScoreFourClicked}><strong>4</strong> - Excellent</Button>
         </ButtonGroup>
 
 
