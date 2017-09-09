@@ -35,11 +35,8 @@ class AssessmentsController < ApplicationController
 
     puts "I'm in the update assessments controller!"
 
-    puts "START params"
-    puts params 
+    puts params
     puts params["params"]
-    puts params["JSONScoredText"]
-    puts "END params"
 
 
     # TODO PHIL: Fix this hack to avoid user_params 
@@ -47,10 +44,11 @@ class AssessmentsController < ApplicationController
       res = @assessment.update!(unscorable: true, scored: true)
     elsif params["params"]["JSONScoredText"]
       puts "okay, ready to update scored text..."
-
       #first convert to JSON
-
       res = @assessment.update!(scored_text: params["params"]["JSONScoredText"].to_json, scored: true, unscorable: false)
+    elsif params["params"]["fluencyScore"]
+      puts "okay, ready to update fluency to #{params["params"]["fluencyScore"]}..."
+      res = @assessment.update!(fluency_score: params["params"]["fluencyScore"])
     else    
       @user.update_attributes(user_params)
     end

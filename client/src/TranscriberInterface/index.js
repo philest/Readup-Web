@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover } from 'react-boots
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateScoredText, markUnscorable} from '../ReportsInterface/emailHelpers'
+import { updateScoredText, markUnscorable, updateFluencyScore } from '../ReportsInterface/emailHelpers'
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
@@ -188,11 +188,33 @@ export default class TranscriberInterface extends React.Component {
     })
   }
 
+  onFluencyScoreOneClicked = () => {
+    console.log('here i am 1')
+    updateFluencyScore(1, this.props.assessmentID)
+  }
+
+  onFluencyScoreTwoClicked = () => {
+    console.log('here i am 2')
+    updateFluencyScore(2, this.props.assessmentID)
+  }
+
+  onFluencyScoreThreeClicked = () => {
+    console.log('here i am 3')
+    updateFluencyScore(3, this.props.assessmentID)
+  }
+
+  onFluencyScoreFourClicked = () => {
+    console.log('here i am 4')
+    updateFluencyScore(4, this.props.assessmentID)
+  }
+
+
+
+
   onSubmitClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     this.setState({showSuccessAlert: true})
   }
-
 
   onUnscorableClicked = () => {
     markUnscorable(this.props.assessmentID);
@@ -286,10 +308,10 @@ export default class TranscriberInterface extends React.Component {
 
 
         <ButtonGroup className={styles.fluencyButtonGroup}>
-          <Button><strong>1</strong> - Unsatisfactory</Button>
-          <Button ><strong>2</strong> - Limited</Button>
-          <Button ><strong>3</strong> - Satifscatory</Button>
-          <Button><strong>4</strong> - Excellent</Button>
+          <Button href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Unsatisfactory</Button>
+          <Button href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Limited</Button>
+          <Button href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Satifscatory</Button>
+          <Button href="#" onClick={this.onFluencyScoreFourClicked}><strong>4</strong> - Excellent</Button>
         </ButtonGroup>
 
 
