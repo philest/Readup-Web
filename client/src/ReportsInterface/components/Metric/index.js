@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import css from './styles.css'
 import styles from '../../styles.css'
+import { Popover, OverlayTrigger } from 'react-bootstrap'
 
 
 import classNames from 'classnames/bind';
@@ -47,6 +48,17 @@ export default class Metric extends React.Component {
 
   }
 
+  getFluencyColor(score) {
+
+    if (score >= 3) {
+      return 'good'
+    } else if (score >= 2) {
+      return 'fair'
+    } else {
+      return 'poor'
+    }
+
+  }
 
   getWCPMColor(wcpm) {
     if (wcpm >= 25) {
@@ -76,12 +88,58 @@ export default class Metric extends React.Component {
 
   render() {
 
+const popoverBottom = (
+  <Popover id="popover-positioned-bottom" className={css.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
+ 
+    <strong>1 - Unsatisfactory fluency</strong>
+    <ul>
+    <li>Primarily word-by-word</li>
+    <li>No expressive interpretation</li>
+    <li>Irregular pausing</li>
+    <li>No attention to meaning</li>
+    <li>No appropriate stress</li>
+    </ul>
+
+     <strong>2 - Limited fluency</strong>
+     <ul>
+      <li>Primarily two-word phrases</li>
+      <li>Almost no expressive interpretation</li>
+      <li>Almost no appropriate pausing</li>
+      <li>Almost no appropriate stress</li>
+     </ul>
+
+     <strong>3 - Satisfactory fluency</strong>
+     <ul>
+    <li>Primarily three- or four-word phrases</li>
+    <li>Some smooth, expressive interpretation </li>
+    <li>Mostly appropriate stress and pausing</li>
+     </ul>
+
+    <strong>4 - Excellent fluency</strong>
+    <ul>
+    <li>Mostly smooth, expressive interpretation</li>
+    <li>Pausing guided by meaning</li>
+    <li>Appropriate stress and pausing</li>
+    <li>Only a few slowdowns </li>
+    </ul>
+
+  </Popover>
+);
+
     let accMetricClass = cx({
       goodMetric: this.getAccColor(this.props.number) == 'good',
       fairMetric: this.getAccColor(this.props.number) == 'fair',
       poorMetric: this.getAccColor(this.props.number) == 'poor',
       metricFigureLabel: true,
     });
+
+    let fluencyMetricClass = cx({
+      goodMetric: this.getFluencyColor(this.props.number) == 'good',
+      fairMetric: this.getFluencyColor(this.props.number) == 'fair',
+      poorMetric: this.getFluencyColor(this.props.number) == 'poor',
+      metricFigureLabel: true,
+    })
+
 
     let WCMPMetricClass = cx({
       goodMetric: this.getWCPMColor(this.props.number) == 'good',
@@ -97,11 +155,13 @@ export default class Metric extends React.Component {
       metricFigureLabel: true,
     });
 
+
     const label = this.props.label
     let number = this.props.number
 
 
     let metricClass
+    let hasPopover = false 
 
     switch (label) {
       case 'Accuracy':
@@ -116,13 +176,25 @@ export default class Metric extends React.Component {
         metricClass = compMetricClass;
         number = (number.toString() + "/9")
         break
+      case 'Fluency':
+        metricClass = fluencyMetricClass;
+        number = (number.toString() + "/4")
+        hasPopover = true
+        break
     }
 
     return (
 
       <div className={styles.metricWrapper}>
         <div className={metricClass}>{ number }</div>
-        <div className={styles.metricDescriptionLabel}>{ label }</div>
+        <div className={styles.metricDescriptionLabel}>{ label }
+          { hasPopover && 
+
+          <OverlayTrigger trigger={['click']} rootClose placement="bottom" overlay={popoverBottom}>
+            <i className={["fa", "fa-question-circle", css.questionIcon].join(" ")} aria-hidden={"true"} />
+          </OverlayTrigger>
+          }
+        </div>
       </div>
 
     );

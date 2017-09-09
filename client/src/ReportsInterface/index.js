@@ -396,6 +396,13 @@ export default class ReportsInterface extends React.Component {
                 number={acc}
               />
 
+              <Metric
+                  label="Fluency"
+                  number={3}
+              />
+
+
+
               { !this.props.isSample &&
                 <Metric
                   label="WCPM"
