@@ -328,6 +328,7 @@ export default class ReportWithScorer extends React.Component {
             isSample={this.props.isSample}
             isDirectSample={this.props.isDirectSample}
             isUnscorable={this.props.isUnscorable}
+            fluencyScore={this.props.fluencyScore}
           />
         </div>
 

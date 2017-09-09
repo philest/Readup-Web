@@ -84,7 +84,7 @@ export default class LevelResult extends React.Component {
       label = "Did not finish reading"
       nextStepMsg = "Next Step: Reassess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     } else {
-      label = this.props.difficulty + " at " + this.props.currentLevel
+      label = this.props.difficulty + " at Level " + this.props.currentLevel
       nextStepMsg = "Next Step: Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     }
 
@@ -110,7 +110,7 @@ export default class LevelResult extends React.Component {
         }
 
         .panel-myDanger div.panel-heading, .panel-myWarning div.panel-heading, .panel-mySuccess div.panel-heading {
-          padding: 15px 30px 15px 14px;
+          padding: 15px 15px 15px 14px;
         }
 
         .panel-myDanger .panel-body, .panel-myWarning .panel-body, .panel-mySuccess .panel-body {
