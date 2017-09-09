@@ -66,6 +66,17 @@ export function markScored(assessmentID) {
 }
 
 
+export function isScored(assessmentID) {
+
+  return axios.get(`/assessments/${assessmentID}`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+    return res.data.scored;
+  })
+}
+
+
+
 
 export function updateFluencyScore(fluencyScore, assessmentID) {
   console.log("Okay, updating the fluency score...");

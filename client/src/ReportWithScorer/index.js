@@ -18,7 +18,7 @@ import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, validateEmail, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from '../ReportsInterface/emailHelpers'
+import { sendEmail, validateEmail, isScored, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from '../ReportsInterface/emailHelpers'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 
@@ -53,6 +53,7 @@ export default class ReportWithScorer extends React.Component {
       lastUpdated: this.props.whenCreated,
       givenScoredReport: false,
       showReportReadyModal: false,
+      isScored: this.props.isScoredPrior,
     }
     this.tick = this.tick.bind(this);
 
@@ -99,10 +100,14 @@ export default class ReportWithScorer extends React.Component {
 
   tick() {
 
-    let updated = this.assessmentUpdated(this.props.assessmentID)
+    isScored(this.props.assessmentID).then(res => {
+    this.setState({ isScored: res })
+    })
+
+    let isNewlyScored = (this.state.isScored && !this.props.isScoredPrior)
     let givenScoredReport = this.state.givenScoredReport
 
-    if (updated && !givenScoredReport) {
+    if (isNewlyScored && !givenScoredReport) {
       console.log("SHOW modal")
       this.setState({ givenScoredReport: true })
       this.deliverScoredReport()
