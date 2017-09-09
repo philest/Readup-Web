@@ -212,12 +212,18 @@
 	font-family: 'ProximaNova';
 }
 
+.sectionHeader {
+    letter-spacing: .12em;
+    color: grey;
+    font-size: 12px;
+    margin-top: 80px;
+}
 
 .bookInfoHeader {
 	display: flex;
 	flex-flow: row;
 	align-items: center;
-	margin-top: 95px;
+	margin-top: 25px;
 	margin-bottom: 60px;
 }
 
@@ -343,6 +349,10 @@
 	font-size: 1.5em;
 	margin-bottom: 20px;
 	font-weight: 900;
+}
+
+.retellHeader {
+	margin-top: 30px;
 }
 
 .questionBlock {

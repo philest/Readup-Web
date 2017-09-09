@@ -432,6 +432,9 @@ export default class ReportsInterface extends React.Component {
 
           </div>
 
+
+          <h5 className={styles.sectionHeader}>1. ORAL READING</h5>
+
           <div className={styles.bookInfoHeader}>
 
             <div className={styles.bookInfoWrapper}>
@@ -472,14 +475,18 @@ export default class ReportsInterface extends React.Component {
             isSample={this.props.isSample}
           />
 
+
         {this.props.isSample &&
    
           <div className={[styles.comp, sharedStyles.textContainerLarge].join(' ')}>
             
             <hr className={styles.compDivider}/>
 
+
+           <h5 className={styles.sectionHeader}>2. COMPREHENSION</h5>
+
             <div className={styles.compPart}>
-              <h2 className={styles.compPartHeader}>Retell</h2>
+              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                   <p className={styles.studentResponse}>"Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike."</p> 
@@ -527,8 +534,11 @@ export default class ReportsInterface extends React.Component {
             
             <hr className={styles.compDivider}/>
 
+
+           <h5 className={styles.sectionHeader}>2. COMPREHENSION</h5>
+
             <div className={styles.compPart}>
-              <h2 className={styles.compPartHeader}>Retell</h2>
+              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                 </div>
