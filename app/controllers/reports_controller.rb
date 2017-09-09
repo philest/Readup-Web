@@ -47,7 +47,7 @@ class ReportsController < ApplicationController
         isDirectSample: is_direct_sample, 
         isScoredPrior: @assessment.scored,
         isUnscorable: false,
-        fluencyScore: 3,
+        fluencyScore: 2,
 
         scorerProfilePicURL: "/images/lakia.png",
         scorerSignature: "Lakia Kenan, M.Ed",

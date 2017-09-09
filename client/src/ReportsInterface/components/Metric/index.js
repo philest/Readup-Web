@@ -13,28 +13,28 @@ let cx = classNames.bind(styles);
 const popoverBottom = (
   <Popover id="popover-positioned-bottom" className={css.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
  
-    <strong>1 - Unsatisfactory fluency</strong>
+    <strong>0 - Unsatisfactory fluency</strong>
     <ul>
     <li>Primarily word-by-word</li>
     <li>No expressive interpretation</li>
     <li>No appropriate stress or pausing</li>
     </ul>
 
-     <strong>2 - Limited fluency</strong>
+     <strong>1 - Limited fluency</strong>
      <ul>
       <li>Primarily two-word phrases</li>
       <li>Almost no expressive interpretation</li>
       <li>Almost no appropriate pausing or stress</li>
      </ul>
 
-     <strong>3 - Satisfactory fluency</strong>
+     <strong>2 - Satisfactory fluency</strong>
      <ul>
     <li>Primarily three- or four-word phrases</li>
     <li>Some smooth, expressive interpretation </li>
     <li>Mostly appropriate stress and pausing</li>
      </ul>
 
-    <strong>4 - Excellent fluency</strong>
+    <strong>3 - Excellent fluency</strong>
     <ul>
     <li>Primarily larger, meaningful phrases</li>
     <li>Mostly smooth, expressive interpretation</li>
@@ -86,7 +86,7 @@ export default class Metric extends React.Component {
 
     if (score >= 3) {
       return 'good'
-    } else if (score >= 2) {
+    } else if (score >= 1) {
       return 'fair'
     } else {
       return 'poor'
@@ -176,7 +176,7 @@ export default class Metric extends React.Component {
         break
       case 'Fluency':
         metricClass = fluencyMetricClass;
-        number = (number.toString() + "/4")
+        number = (number.toString() + "/3")
         hasPopover = true
         break
     }

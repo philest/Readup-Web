@@ -15,28 +15,28 @@ import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 const popoverBottom = (
   <Popover id="popover-positioned-bottom" className={questionCSS.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
  
-    <strong>1 - Unsatisfactory fluency</strong>
+    <strong>0 - Unsatisfactory fluency</strong>
     <ul>
     <li>Primarily word-by-word</li>
     <li>No expressive interpretation</li>
     <li>No appropriate stress or pausing</li>
     </ul>
 
-     <strong>2 - Limited fluency</strong>
+     <strong>1 - Limited fluency</strong>
      <ul>
       <li>Primarily two-word phrases</li>
       <li>Almost no expressive interpretation</li>
       <li>Almost no appropriate pausing or stress</li>
      </ul>
 
-     <strong>3 - Satisfactory fluency</strong>
+     <strong>2 - Satisfactory fluency</strong>
      <ul>
     <li>Primarily three- or four-word phrases</li>
     <li>Some smooth, expressive interpretation </li>
     <li>Mostly appropriate stress and pausing</li>
      </ul>
 
-    <strong>4 - Excellent fluency</strong>
+    <strong>3 - Excellent fluency</strong>
     <ul>
     <li>Primarily larger, meaningful phrases</li>
     <li>Mostly smooth, expressive interpretation</li>
@@ -194,9 +194,16 @@ export default class TranscriberInterface extends React.Component {
     })
   }
 
+  onFluencyScoreZeroClicked = () => {
+    console.log('here i am 0')
+    this.setState({fluencyScore: 0})
+  }
+  
+
   onFluencyScoreOneClicked = () => {
     console.log('here i am 1')
     this.setState({fluencyScore: 1})
+
   }
 
   onFluencyScoreTwoClicked = () => {
@@ -208,12 +215,6 @@ export default class TranscriberInterface extends React.Component {
   onFluencyScoreThreeClicked = () => {
     console.log('here i am 3')
     this.setState({fluencyScore: 3})
-
-  }
-
-  onFluencyScoreFourClicked = () => {
-    console.log('here i am 4')
-    this.setState({fluencyScore: 4})
   }
 
 
@@ -318,10 +319,10 @@ export default class TranscriberInterface extends React.Component {
 
 
         <ButtonGroup className={styles.fluencyButtonGroup}>
-          <Button active={this.state.fluencyScore === 1} href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Unsatisfactory</Button>
-          <Button active={this.state.fluencyScore === 2} href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Limited</Button>
-          <Button active={this.state.fluencyScore === 3} href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Satifscatory</Button>
-          <Button active={this.state.fluencyScore === 4} href="#" onClick={this.onFluencyScoreFourClicked}><strong>4</strong> - Excellent</Button>
+          <Button active={this.state.fluencyScore === 0} href="#" onClick={this.onFluencyScoreZeroClicked}><strong>0</strong> - Unsatisfactory</Button>
+          <Button active={this.state.fluencyScore === 1} href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Limited</Button>
+          <Button active={this.state.fluencyScore === 2} href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
+          <Button active={this.state.fluencyScore === 3} href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Excellent</Button>
         </ButtonGroup>
 
 
