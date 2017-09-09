@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover } from 'react-boots
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateScoredText, markUnscorable, updateFluencyScore, getFluencyScore} from '../ReportsInterface/emailHelpers'
+import { updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore} from '../ReportsInterface/emailHelpers'
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
@@ -232,7 +232,6 @@ export default class TranscriberInterface extends React.Component {
   onSaveClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
-    markScored(this.props.assessmentID)
     this.setState({savedIsActive: true})
   }
 
@@ -349,6 +348,7 @@ export default class TranscriberInterface extends React.Component {
           className={styles.unscorableButton}
           bsStyle={'default'}
           bsSize={'small'}
+          active={this.state.savedIsActive}
           onClick={this.onSaveClicked}
         >
           Save edits
