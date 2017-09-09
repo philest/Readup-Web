@@ -110,7 +110,7 @@ export default class LevelResult extends React.Component {
         <style type="text/css">{`
         .panel-myDanger, .panel-myWarning, .panel-mySuccess  {
           margin-top: 14px;
-          margin-left: 0px;
+          margin-left: -12px;
         }
 
         .panel-myDanger h2, .panel-myWarning h2, .panel-mySuccess h2 {
