@@ -107,6 +107,7 @@ export default class LevelResult extends React.Component {
 
         .panel-myDanger h2, .panel-myWarning h2, .panel-mySuccess h2 {
           font-size: 1.6em;
+          font-weight: bold;
         }
 
         .panel-myDanger div.panel-heading, .panel-myWarning div.panel-heading, .panel-mySuccess div.panel-heading {
