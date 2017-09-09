@@ -114,9 +114,9 @@ const popoverBottom = (
 
     <strong>4 - Excellent fluency</strong>
     <ul>
+    <li>Primarily larger, meaningful phrases</li>
     <li>Mostly smooth, expressive interpretation</li>
     <li>Pausing and stress guided by meaning</li>
-    <li>Only a few slowdowns </li>
     </ul>
 
   </Popover>
