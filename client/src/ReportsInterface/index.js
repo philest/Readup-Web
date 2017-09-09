@@ -308,7 +308,7 @@ export default class ReportsInterface extends React.Component {
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
     if (acc >= 95) {
-      difficulty = "Indendent" 
+      difficulty = "Independent"
     } else if (acc >= 90) {
       difficulty = "Instructional"
     } else {

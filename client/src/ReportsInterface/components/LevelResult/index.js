@@ -84,12 +84,12 @@ export default class LevelResult extends React.Component {
       label = "Did not finish reading"
       nextStepMsg = "Next Step: Reassess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     } else {
-      label = this.props.difficulty + " at Level " + this.props.currentLevel
+      label = this.props.difficulty 
       nextStepMsg = "Next Step: Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
     }
 
     const title = (
-      <h2>{label}</h2>
+      <h2><span>{label}</span> {" at Level " + this.props.currentLevel}</h2>
     );
 
 
@@ -98,7 +98,7 @@ export default class LevelResult extends React.Component {
 
     return (
 
-      <div> 
+      <div>
         <style type="text/css">{`
         .panel-myDanger, .panel-myWarning, .panel-mySuccess  {
           margin-top: 14px;
@@ -107,7 +107,10 @@ export default class LevelResult extends React.Component {
 
         .panel-myDanger h2, .panel-myWarning h2, .panel-mySuccess h2 {
           font-size: 1.6em;
-          font-weight: bold;
+        }
+
+        .panel .panel-heading .panel-title span {
+          font-weight: bold
         }
 
         .panel-myDanger div.panel-heading, .panel-myWarning div.panel-heading, .panel-mySuccess div.panel-heading {
