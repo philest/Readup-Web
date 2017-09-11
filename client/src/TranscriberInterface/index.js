@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-import { Button, ButtonGroup, Alert, OverlayTrigger, Popover } from 'react-bootstrap'
+import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
@@ -10,6 +10,8 @@ import { updateScoredText, markScored, markUnscorable, updateFluencyScore, getFl
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
+import reportStyles from '../ReportsInterface/styles.css'
+import {getAssessmentUpdateTimestamp} from '../ReportsInterface/emailHelpers.js'
 
 
 const popoverBottom = (
@@ -61,10 +63,16 @@ export default class TranscriberInterface extends React.Component {
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
-      showSuccessAlert: false,
-      savedIsActive: false, 
+      showSubmitAlert: false,
+      showSaveAlert: false,
       fluencyScore: null,
+      hasSaved: false,
+      hasSeenAlert: this.props.seenUpdatePrior,
+      showReadyForReviewModal: false,
+      lastUpdated: this.props.whenCreated,
     }
+        this.tick = this.tick.bind(this);
+
   }
 
   componentWillMount() {
@@ -77,9 +85,70 @@ export default class TranscriberInterface extends React.Component {
 
   }
 
+
+  componentDidMount() {
+    this.interval = setInterval(this.tick, 2000);
+  }
+
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
+    clearInterval(this.interval);
+
   }
+
+
+  tick() {
+
+
+
+      const isUpdated = this.assessmentUpdated(this.props.assessmentID)
+      const hasSaved = this.state.hasSaved 
+      const hasSeenAlert = this.state.hasSeenAlert
+
+
+      if (isUpdated && !hasSaved && !hasSeenAlert) {
+        this.setState({ showReadyForReviewModal: true,
+                        hasSeenAlert: true,
+                      })
+      }
+
+
+    // isScored(this.props.assessmentID).then(res => {
+    // this.setState({ isScored: res })
+    // })
+
+    // let isNewlyScored = (this.state.isScored && !this.props.isScoredPrior)
+    // let givenScoredReport = this.state.givenScoredReport
+
+    // if (isNewlyScored && !givenScoredReport) {
+    //   console.log("SHOW modal")
+    //   this.setState({ givenScoredReport: true })
+    //   this.deliverScoredReport()
+    // } else {
+    //   console.log("don't show modal")
+    //   // this.hideReportReadyModal()
+    // }
+
+  }
+
+  assessmentUpdated(id) {
+
+    let res = getAssessmentUpdateTimestamp(id)
+    res.then(res => {
+      this.setState({ lastUpdated: res })
+    })
+
+    let whenCreated = this.props.whenCreated
+    let lastUpdated = this.state.lastUpdated
+
+    if (whenCreated !== lastUpdated) { // their timestamps are different
+      return true
+    } else {
+      return false
+    }
+  }
+
+
 
   _handleKeyDown = (event) => {
 
@@ -225,26 +294,27 @@ export default class TranscriberInterface extends React.Component {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
     markScored(this.props.assessmentID)
-    this.setState({showSuccessAlert: true})
+    this.setState({showSubmitAlert: true})
   }
 
 
   onSaveClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
-    this.setState({savedIsActive: true})
+    this.setState({ hasSaved: true,
+                    showSaveAlert: true })
   }
 
 
   onUnscorableClicked = () => {
     markUnscorable(this.props.assessmentID);
     console.log("Done marking?")
-    this.setState({showSuccessAlert: true})
+    this.setState({showSubmitAlert: true})
   }
 
 
   handleAlertDismiss = () => {
-    this.setState({showSuccessAlert: false})
+    this.setState({showSubmitAlert: false})
   }
 
   render() {
@@ -348,7 +418,7 @@ export default class TranscriberInterface extends React.Component {
           className={styles.unscorableButton}
           bsStyle={'default'}
           bsSize={'small'}
-          active={this.state.savedIsActive}
+          active={this.state.hasSaved}
           onClick={this.onSaveClicked}
         >
           Save edits
@@ -365,13 +435,48 @@ export default class TranscriberInterface extends React.Component {
         </Button>
 
        
-       {this.state.showSuccessAlert &&
+       {this.state.showSubmitAlert &&
         <div className={styles.alertSuccess}>
           <Alert bsStyle="success" onDismiss={this.handleAlertDismiss}>
             <strong>Great!</strong> you can see the scored report <a target="_blank" href={`/reports/${this.props.userID}`}>here</a>.
           </Alert>
         </div>
       }
+
+       {this.state.showSaveAlert &&
+        <div className={styles.alertSuccess}>
+          <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
+            <strong>Great!</strong> your partner was sent your edits.
+          </Alert>
+        </div>
+      }
+
+
+        <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+        <Modal show={this.state.showReadyForReviewModal} dialogClassName={reportStyles.modalSmall}>
+          <Modal.Header>
+            <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
+              Ready for review! 
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body bsClass={reportStyles.readyModalBody}>
+
+            <div className={reportStyles.pricingFormWrapper}>
+               <i className={["fa", "fa-check", reportStyles.readyCheck, reportStyles.pulse].join(" ")} aria-hidden={"true"} />
+            </div>
+
+
+              <a href={`/transcribe/${this.props.userID}/?seen_update_prior=true`}>
+                <Button
+                  className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
+                  bsStyle={'success'}
+                >
+                  See report
+                </Button>
+              </a>
+
+          </Modal.Body>
+        </Modal>
 
 
         <div className={styles.Instructions}> 
