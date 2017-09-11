@@ -155,6 +155,25 @@ export function getAssessmentUpdateTimestamp(id) {
       return d
   })
 
+}
+
+
+export function getAssessmentSavedTimestamp(id) {
+
+  return axios.get(`/assessments/${id}`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      let d 
+      d = res.data.saved_at
+      
+      if (!d) {
+        return 0 // never saved
+      }
+
+      d = new Date(d)
+      d = d.getTime() // convert into ms since 1970 for equality with Rails date
+      return d
+  })
 
 }
 

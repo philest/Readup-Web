@@ -35,7 +35,8 @@ class TranscriberInterfaceController < ApplicationController
         userID: @user.id,
         assessmentID: @assessment.id,
         seenUpdatePrior: params["seen_update_prior"] == "true",
-        whenCreated: (@assessment.updated_at.to_f*1000).to_i # convert into ms since 1970 for equality with Rails date
+        whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
+        whenFirstSaved: (@assessment.saved_at .to_f*1000).to_i
       }
     end
 

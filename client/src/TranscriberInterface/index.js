@@ -11,7 +11,7 @@ import { updateScoredText, markScored, markUnscorable, updateFluencyScore, getFl
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 import reportStyles from '../ReportsInterface/styles.css'
-import {getAssessmentUpdateTimestamp} from '../ReportsInterface/emailHelpers.js'
+import {getAssessmentSavedTimestamp} from '../ReportsInterface/emailHelpers.js'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 
@@ -70,7 +70,7 @@ export default class TranscriberInterface extends React.Component {
       hasSaved: false,
       hasSeenAlert: this.props.seenUpdatePrior,
       showReadyForReviewModal: false,
-      lastUpdated: this.props.whenCreated,
+      lastSaved: this.props.whenFirstSaved,
     }
         this.tick = this.tick.bind(this);
 
@@ -102,7 +102,7 @@ export default class TranscriberInterface extends React.Component {
 
 
 
-      const isUpdated = this.assessmentUpdated(this.props.assessmentID)
+      const isUpdated = this.assessmentSavedThisSession(this.props.assessmentID)
       const hasSaved = this.state.hasSaved 
       const hasSeenAlert = this.state.hasSeenAlert
 
@@ -118,19 +118,27 @@ export default class TranscriberInterface extends React.Component {
 
   }
 
-  assessmentUpdated(id) {
+  assessmentSavedThisSession(id) {
 
-    let res = getAssessmentUpdateTimestamp(id)
+    let res = getAssessmentSavedTimestamp(id)
     res.then(res => {
-      this.setState({ lastUpdated: res })
+      this.setState({ lastSaved: res })
     })
 
-    let whenCreated = this.props.whenCreated
-    let lastUpdated = this.state.lastUpdated
 
-    if (whenCreated !== lastUpdated) { // their timestamps are different
+    let whenFirstSaved = this.props.whenFirstSaved
+    let lastSaved = this.state.lastSaved
+
+    console.log(`lastSaved is ${lastSaved}`)
+    console.log(`whenFirstSaved is ${whenFirstSaved}`)
+
+
+    if (whenFirstSaved !== lastSaved) { // their timestamps are different
+    console.log(`so an update!!!`)
       return true
     } else {
+    console.log(`so nothing,,,`)
+
       return false
     }
   }

@@ -106,7 +106,8 @@ CREATE TABLE assessments (
     scored_text json,
     scored boolean DEFAULT false,
     unscorable boolean DEFAULT false,
-    fluency_score integer
+    fluency_score integer,
+    saved_at timestamp without time zone
 );
 
 
@@ -661,6 +662,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170902203022'),
 ('20170902203941'),
 ('20170907154442'),
-('20170909051255');
+('20170909051255'),
+('20170911232543');
 
 
