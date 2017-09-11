@@ -116,22 +116,6 @@ export default class TranscriberInterface extends React.Component {
       }
 
 
-    // isScored(this.props.assessmentID).then(res => {
-    // this.setState({ isScored: res })
-    // })
-
-    // let isNewlyScored = (this.state.isScored && !this.props.isScoredPrior)
-    // let givenScoredReport = this.state.givenScoredReport
-
-    // if (isNewlyScored && !givenScoredReport) {
-    //   console.log("SHOW modal")
-    //   this.setState({ givenScoredReport: true })
-    //   this.deliverScoredReport()
-    // } else {
-    //   console.log("don't show modal")
-    //   // this.hideReportReadyModal()
-    // }
-
   }
 
   assessmentUpdated(id) {
@@ -317,7 +301,7 @@ export default class TranscriberInterface extends React.Component {
 
 
   handleAlertDismiss = () => {
-    this.setState({showSubmitAlert: false
+    this.setState({showSubmitAlert: false,
                    showSaveAlert: false
                  })
   }
