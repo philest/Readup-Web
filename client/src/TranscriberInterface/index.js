@@ -12,6 +12,7 @@ import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 import reportStyles from '../ReportsInterface/styles.css'
 import {getAssessmentUpdateTimestamp} from '../ReportsInterface/emailHelpers.js'
+import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 
 const popoverBottom = (
@@ -107,9 +108,11 @@ export default class TranscriberInterface extends React.Component {
 
 
       if (isUpdated && !hasSaved && !hasSeenAlert) {
+        playSoundAsync('/audio/complete.mp3')
         this.setState({ showReadyForReviewModal: true,
                         hasSeenAlert: true,
                       })
+
       }
 
 
@@ -314,7 +317,9 @@ export default class TranscriberInterface extends React.Component {
 
 
   handleAlertDismiss = () => {
-    this.setState({showSubmitAlert: false})
+    this.setState({showSubmitAlert: false
+                   showSaveAlert: false
+                 })
   }
 
   render() {
