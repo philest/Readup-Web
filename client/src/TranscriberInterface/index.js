@@ -67,12 +67,15 @@ export default class TranscriberInterface extends React.Component {
       showSubmitAlert: false,
       showSaveAlert: false,
       fluencyScore: null,
-      hasSaved: false,
+      hasSavedRecently: false,
       hasSeenAlert: this.props.seenUpdatePrior,
       showReadyForReviewModal: false,
       lastSaved: this.props.whenFirstSaved,
+      prevLastSaved: this.props.whenFirstSaved,
     }
         this.tick = this.tick.bind(this);
+
+        this.tick2 = this.tick2.bind(this);
 
   }
 
@@ -89,11 +92,14 @@ export default class TranscriberInterface extends React.Component {
 
   componentDidMount() {
     this.interval = setInterval(this.tick, 2000);
+    this.interval2 = setInterval(this.tick2, 6000);
+
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
     clearInterval(this.interval);
+    clearInterval(this.interval2);
 
   }
 
@@ -103,19 +109,22 @@ export default class TranscriberInterface extends React.Component {
 
 
       const isUpdated = this.assessmentSavedThisSession(this.props.assessmentID)
-      const hasSaved = this.state.hasSaved 
+      const hasSavedRecently = this.state.hasSavedRecently
       const hasSeenAlert = this.state.hasSeenAlert
 
+      console.log(`hasSavedRecently is ${hasSavedRecently}`)
 
-      if (isUpdated && !hasSaved && !hasSeenAlert) {
+      if (isUpdated && !hasSavedRecently && !hasSeenAlert) {
         playSoundAsync('/audio/complete.mp3')
         this.setState({ showReadyForReviewModal: true,
                         hasSeenAlert: true,
                       })
-
       }
 
+  }
 
+  tick2() {
+    this.setState({ hasSavedRecently: false })
   }
 
   assessmentSavedThisSession(id) {
@@ -126,15 +135,16 @@ export default class TranscriberInterface extends React.Component {
     })
 
 
-    let whenFirstSaved = this.props.whenFirstSaved
+    let prevLastSaved = this.state.prevLastSaved
     let lastSaved = this.state.lastSaved
 
+    console.log(`prevLastSaved is ${prevLastSaved}`)
     console.log(`lastSaved is ${lastSaved}`)
-    console.log(`whenFirstSaved is ${whenFirstSaved}`)
 
 
-    if (whenFirstSaved !== lastSaved) { // their timestamps are different
+    if (prevLastSaved !== lastSaved) { // their timestamps are different
     console.log(`so an update!!!`)
+      this.setState({ prevLastSaved: lastSaved })
       return true
     } else {
     console.log(`so nothing,,,`)
@@ -296,7 +306,7 @@ export default class TranscriberInterface extends React.Component {
   onSaveClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
-    this.setState({ hasSaved: true,
+    this.setState({ hasSavedRecently: true,
                     showSaveAlert: true })
   }
 
@@ -415,7 +425,7 @@ export default class TranscriberInterface extends React.Component {
           className={styles.unscorableButton}
           bsStyle={'default'}
           bsSize={'small'}
-          active={this.state.hasSaved}
+          active={this.state.hasSavedRecently}
           onClick={this.onSaveClicked}
         >
           Save edits
