@@ -445,15 +445,6 @@ export default class TranscriberInterface extends React.Component {
           className={styles.submitButton}
           bsStyle={'primary'}
           bsSize={'large'}
-          onClick={this.onSubmitClicked}
-        >
-          Submit
-        </Button>
-
-        <Button
-          className={styles.unscorableButton}
-          bsStyle={'default'}
-          bsSize={'small'}
           active={this.state.hasSavedRecently}
           onClick={this.onSaveClicked}
         >
@@ -463,11 +454,20 @@ export default class TranscriberInterface extends React.Component {
 
         <Button
           className={styles.unscorableButton}
+          bsStyle={'success'}
+          bsSize={'xsmall'}
+          onClick={this.onSubmitClicked}
+        >
+          Send to user
+        </Button>
+
+        <Button
+          className={styles.unscorableButton}
           bsStyle={'danger'}
-          bsSize={'small'}
+          bsSize={'xsmall'}
           onClick={this.onUnscorableClicked}
         >
-          Unscorable
+          Mark as unscorable
         </Button>
 
        
