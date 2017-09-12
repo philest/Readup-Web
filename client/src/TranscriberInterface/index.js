@@ -75,7 +75,6 @@ export default class TranscriberInterface extends React.Component {
     }
         this.tick = this.tick.bind(this);
 
-        this.tick2 = this.tick2.bind(this);
 
   }
 
@@ -91,15 +90,12 @@ export default class TranscriberInterface extends React.Component {
 
 
   componentDidMount() {
-    this.interval = setInterval(this.tick, 2000);
-    this.interval2 = setInterval(this.tick2, 6000);
-
+    this.interval = setInterval(this.tick, 3000);
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
     clearInterval(this.interval);
-    clearInterval(this.interval2);
 
   }
 
@@ -123,9 +119,6 @@ export default class TranscriberInterface extends React.Component {
 
   }
 
-  tick2() {
-    this.setState({ hasSavedRecently: false })
-  }
 
   assessmentSavedThisSession(id) {
 
@@ -308,6 +301,12 @@ export default class TranscriberInterface extends React.Component {
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
     this.setState({ hasSavedRecently: true,
                     showSaveAlert: true })
+
+    setTimeout(() => {
+      this.setState({ hasSavedRecently: false });
+    }, 7500);
+
+
   }
 
 
