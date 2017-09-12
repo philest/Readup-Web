@@ -78,7 +78,6 @@
       <a class="demo-button" id="demo-nav-button" href="/student_dashboard/#/story/demo">
         <button
           id="top-button"
-          onclick="demoClicked()"
           class="pure-button-primary pure-button signup-button"
         >
           Try a Demo
@@ -126,14 +125,6 @@
   });
 
 
-  function demoClicked() {
-     $.ajax({
-        url: '/auth/phil_setup_demo',
-        type: 'post',
-      }).fail(function(xhr, status, err) {
-        console.log(err)
-      })
-  }
 
 
 

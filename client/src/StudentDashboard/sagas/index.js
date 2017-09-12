@@ -252,6 +252,13 @@ function* assessThenSubmitSaga() {
     yield takeLatest(EXIT_CLICKED, exitClick),
   )
 
+ $.ajax({
+    url: '/auth/phil_setup_demo',
+    type: 'post',
+  }).fail(function(xhr, status, err) {
+    console.log(err)
+ })
+
 
   // TODO: convert the countdown to saga!!!!
   yield put.resolve(setPageNumber(1))
