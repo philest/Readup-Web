@@ -297,6 +297,15 @@ export default class TranscriberInterface extends React.Component {
     
     markScored(this.props.assessmentID)
     this.setState({showSubmitAlert: true})
+
+    this.setState({ hasSavedRecently: true })
+
+    setTimeout(() => {
+      this.setState({ hasSavedRecently: false });
+    }, 7500);
+
+
+
   }
 
 

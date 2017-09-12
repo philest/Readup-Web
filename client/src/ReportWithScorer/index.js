@@ -68,10 +68,7 @@ export default class ReportWithScorer extends React.Component {
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
 
-    if (this.props.isSample && !this.props.isDirectSample && this.props.isScoredPrior) {
-      this.setState({ showEmailModal: false })
-      this.deliverScoredReport()
-    }
+
 
     if (!this.props.isSample) {
       // Hide the email modal and render graded text
