@@ -5,6 +5,13 @@ class RegistrationController < ApplicationController
   # TODO PHIL - skip for now 
   skip_before_action :verify_authenticity_token
 
+  def get_user_count
+    puts "now getting count...."
+
+    render json: { ok: true, user_count: User.count }, status: :ok, location: @user
+
+    return User.count 
+  end
 
 
   #  TODO PHIL: Hack for creating the user, teacher, school, class, assessment for the demo

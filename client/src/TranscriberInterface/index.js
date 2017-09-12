@@ -11,7 +11,7 @@ import { updateScoredText, markScored, markUnscorable, updateFluencyScore, getFl
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 import reportStyles from '../ReportsInterface/styles.css'
-import {getAssessmentSavedTimestamp} from '../ReportsInterface/emailHelpers.js'
+import {getUserCount, getAssessmentSavedTimestamp} from '../ReportsInterface/emailHelpers.js'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 
@@ -70,8 +70,10 @@ export default class TranscriberInterface extends React.Component {
       hasSavedRecently: false,
       hasSeenAlert: this.props.seenUpdatePrior,
       showReadyForReviewModal: false,
+      showWakeModal: false,
       lastSaved: this.props.whenFirstSaved,
       prevLastSaved: this.props.whenFirstSaved,
+      userCountCurrent: this.props.userCountPrior,
     }
         this.tick = this.tick.bind(this);
 
@@ -116,6 +118,20 @@ export default class TranscriberInterface extends React.Component {
                         hasSeenAlert: true,
                       })
       }
+
+
+      getUserCount().then(res => {
+       this.setState({ userCountCurrent:  res })
+      })
+
+      if ((this.state.userCountCurrent != this.props.userCountPrior) && !this.state.showWakeModal) {
+        console.log("time to show the wake modal...")
+        playSoundAsync('/audio/complete.mp3')
+        this.setState({ showWakeModal: true})
+      } else {
+          console.log("don't trigger wake modal...")
+      }
+
 
   }
 
@@ -426,6 +442,31 @@ export default class TranscriberInterface extends React.Component {
           </Modal.Body>
         </Modal>
 
+      <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+        <Modal show={this.state.showWakeModal} dialogClassName={reportStyles.modalSmall}>
+          <Modal.Header>
+            <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
+              The demo user started :)  
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body bsClass={reportStyles.readyModalBody}>
+
+            <div className={reportStyles.pricingFormWrapper}>
+               <i className={["fa", "fa-flag", reportStyles.readyCheck, reportStyles.pulse, reportStyles.flag].join(" ")} aria-hidden={"true"} />
+            </div>
+
+
+              <a href={`/transcribe/latest`}>
+                <Button
+                  className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
+                  bsStyle={'primary'}
+                >
+                  Set up grading
+                </Button>
+              </a>
+
+          </Modal.Body>
+        </Modal>
 
 
 

@@ -480,6 +480,10 @@ span.missed, span.correct {
     color: #4cae4c;
 }
 
+.flag {
+	color: #286090;
+}
+
 a:hover {
 	text-decoration: none;
 }

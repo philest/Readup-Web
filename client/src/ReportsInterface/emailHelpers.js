@@ -75,6 +75,16 @@ export function isScored(assessmentID) {
   })
 }
 
+export function getUserCount() {
+
+  return axios.get(`/auth/get_user_count`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+    return res.data.user_count;
+  })
+}
+
+
 
 
 

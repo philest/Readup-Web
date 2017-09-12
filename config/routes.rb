@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   resources :users
   resources :assessments
 
+  get 'auth/get_user_count', to: 'registration#get_user_count'
+
 
   get 'auth/user_exists', to: 'users#exists'
   get 'auth/complete_signup', to: 'users#show_complete_signup'
