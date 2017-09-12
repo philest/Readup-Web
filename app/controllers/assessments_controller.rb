@@ -45,13 +45,10 @@ class AssessmentsController < ApplicationController
     elsif params["params"]["JSONScoredText"]
       puts "okay, ready to update scored text..."
       #first convert to JSON
-      res = @assessment.update!(scored_text: params["params"]["JSONScoredText"].to_json,
-                                unscorable: false,
-                                saved_at: DateTime.now)
+      res = @assessment.update!(scored_text: params["params"]["JSONScoredText"].to_json, unscorable: false, saved_at: DateTime.now)
     elsif params["params"]["fluencyScore"]
       puts "okay, ready to update fluency to #{params["params"]["fluencyScore"]}..."
-      res = @assessment.update!(fluency_score: params["params"]["fluencyScore"],
-                                saved_at: DateTime.now)
+      res = @assessment.update!(fluency_score: params["params"]["fluencyScore"], saved_at: DateTime.now)
     elsif params["params"]["scored"]
       puts "okay, ready to update scored to #{params["params"]["scored"]}..."
       res = @assessment.update!(scored: params["params"]["scored"])
