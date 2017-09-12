@@ -252,12 +252,6 @@ function* assessThenSubmitSaga() {
     yield takeLatest(EXIT_CLICKED, exitClick),
   )
 
- $.ajax({
-    url: '/auth/phil_setup_demo',
-    type: 'post',
-  }).fail(function(xhr, status, err) {
-    console.log(err)
- })
 
 
   // TODO: convert the countdown to saga!!!!
@@ -285,9 +279,20 @@ function* assessThenSubmitSaga() {
   yield put.resolve(setCurrentModal('no-modal'))
 
 
+
+
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
   ))
+
+   $.ajax({
+      url: '/auth/phil_setup_demo',
+      type: 'post',
+    }).fail(function(xhr, status, err) {
+      console.log(err)
+   })
+
+  
 
   // this ensures that effects are canceleld
   // while (true) {
