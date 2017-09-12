@@ -388,6 +388,35 @@ export default class TranscriberInterface extends React.Component {
 
         </div>
 
+        <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+        <Modal show={this.state.showReadyForReviewModal} dialogClassName={reportStyles.modalSmall}>
+          <Modal.Header>
+            <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
+              Ready for review! 
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body bsClass={reportStyles.readyModalBody}>
+
+            <div className={reportStyles.pricingFormWrapper}>
+               <i className={["fa", "fa-check", reportStyles.readyCheck, reportStyles.pulse].join(" ")} aria-hidden={"true"} />
+            </div>
+
+
+              <a href={`/transcribe/${this.props.userID}/?seen_update_prior=true`}>
+                <Button
+                  className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
+                  bsStyle={'success'}
+                >
+                  See report
+                </Button>
+              </a>
+
+          </Modal.Body>
+        </Modal>
+
+
+
+
         <div className={styles.fluencyContainer}>
           <div className={styles.bookInfo}>
             <span className={styles.bookTitleHeading}>
@@ -459,31 +488,6 @@ export default class TranscriberInterface extends React.Component {
       }
 
 
-        <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
-        <Modal show={this.state.showReadyForReviewModal} dialogClassName={reportStyles.modalSmall}>
-          <Modal.Header>
-            <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
-              Ready for review! 
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body bsClass={reportStyles.readyModalBody}>
-
-            <div className={reportStyles.pricingFormWrapper}>
-               <i className={["fa", "fa-check", reportStyles.readyCheck, reportStyles.pulse].join(" ")} aria-hidden={"true"} />
-            </div>
-
-
-              <a href={`/transcribe/${this.props.userID}/?seen_update_prior=true`}>
-                <Button
-                  className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
-                  bsStyle={'success'}
-                >
-                  See report
-                </Button>
-              </a>
-
-          </Modal.Body>
-        </Modal>
 
 
         <div className={styles.Instructions}> 
