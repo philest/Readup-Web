@@ -453,7 +453,7 @@ export default class TranscriberInterface extends React.Component {
        {this.state.showSaveAlert &&
         <div className={styles.alertSuccess}>
           <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
-            <strong>Great!</strong> your partner was sent your edits.
+            <strong>Great!</strong> your partner was notified and sent all your edits.
           </Alert>
         </div>
       }
