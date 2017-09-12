@@ -95,15 +95,17 @@ export default class ReportsInterface extends React.Component {
     let footerLabelText
     let footerLink
 
-    if (!this.props.isSample || this.props.isDirectSample) {
-      footerLabelText = "See our Fountas and Pinnell leveled texts"
-      footerButtonText = "See assessment texts"
-      footerLink = "/library"
-    } else {
-      footerLabelText = "Save thousands of instructional hours"
-      footerButtonText = "Get Pricing"
-      footerLink = ''
-    }
+    // if (!this.props.isSample || this.props.isDirectSample) {
+
+    footerLabelText = "See our Fountas and Pinnell leveled texts"
+    footerButtonText = "See assessment texts"
+    footerLink = "/library"
+
+    // } else {
+    //   footerLabelText = "Save thousands of instructional hours"
+    //   footerButtonText = "Get Pricing"
+    //   footerLink = ''
+    // }
 
 
     this.setState({ footerButtonText: footerButtonText })
@@ -589,18 +591,21 @@ export default class ReportsInterface extends React.Component {
                 className={[styles.pricingFooterButton, styles.multipleFooterButton].join(' ')}
                 bsStyle={'primary'}
                 bsSize={'large'}
-                onClick={ (this.props.isSample && !this.props.isDirectSample) ? this.onPricingClicked : this.onBooksClicked }
+                onClick={ this.onBooksClicked }
               >
                 { this.state.footerButtonText}
               </Button>
-              <a href="/reports/direct-sample" target="_blank" display="inlineBlock">
-                <Button
-                  className={styles.multipleFooterButton} 
-                  bsStyle={'default'}
-                >
-                  { "See example assessment"}
-                </Button>
-              </a>
+
+              { !this.props.isSample &&
+                <a href="/reports/direct-sample" target="_blank" display="inlineBlock">
+                  <Button
+                    className={styles.multipleFooterButton} 
+                    bsStyle={'default'}
+                  >
+                    { "See example assessment"}
+                  </Button>
+                </a>
+              }
               <Button
                 className={styles.multipleFooterButton}
                 bsStyle={'default'}
