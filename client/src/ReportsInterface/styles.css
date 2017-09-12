@@ -421,6 +421,9 @@ span.missed, span.correct {
 	justify*/-content: center;
 }
 
+.footerButtonContainer {
+	text-align: center;
+}
 .pricingFooterLabel {
 	font-family: 'ProximaNova';
 	font-weight: bold;
@@ -441,6 +444,12 @@ span.missed, span.correct {
     font-family: 'ProximaNova Semibold';
     padding: 8px 20px;
 
+}
+
+.multipleFooterButton {
+	display: inline-block;
+	margin-right: 25px;
+	text-align: center;
 }
 
 .pricingModalTitle {

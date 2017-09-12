@@ -576,14 +576,25 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.pricingFooterLabel}>
               { this.state.footerLabelText }
             </div>
-            <Button
-              className={styles.pricingFooterButton}
-              bsStyle={'primary'}
-              bsSize={'large'}
-              onClick={ (this.props.isSample && !this.props.isDirectSample) ? this.onPricingClicked : this.onBooksClicked }
-            >
-              { this.state.footerButtonText}
-            </Button>
+            <div className={[styles.footerButtonContainer]}>
+              <Button
+                className={[styles.pricingFooterButton, styles.multipleFooterButton].join(' ')}
+                bsStyle={'primary'}
+                bsSize={'large'}
+                onClick={ (this.props.isSample && !this.props.isDirectSample) ? this.onPricingClicked : this.onBooksClicked }
+              >
+                { this.state.footerButtonText}
+              </Button>
+              <a href="/reports/direct-sample" target="_blank" display="inlineBlock">
+              <Button
+                bsStyle={'default'}
+              >
+                { "See example assessment"}
+              </Button>
+              </a>
+            </div>
+
+
           </div>
 
 
