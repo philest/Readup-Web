@@ -396,7 +396,7 @@ export default class ReportsInterface extends React.Component {
                 number={acc}
               />
 
-              { this.props.fluencyScore &&
+              { (this.props.fluencyScore != null) &&
                 <Metric
                   label="Fluency"
                   number={this.props.fluencyScore}

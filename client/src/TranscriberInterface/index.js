@@ -290,7 +290,11 @@ export default class TranscriberInterface extends React.Component {
 
   onSubmitClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
+    
+    if (this.state.fluencyScore != null) {
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
+    }
+    
     markScored(this.props.assessmentID)
     this.setState({showSubmitAlert: true})
   }
