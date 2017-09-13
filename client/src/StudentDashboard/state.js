@@ -302,6 +302,7 @@ export function restartRecording() {
   }
 }
 
+
 export function playbackRecording() {
   return {
     type: RECORDING_PLAYBACK,

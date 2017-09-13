@@ -54,6 +54,7 @@ import {
   setCurrentModal,
   setCurrentOverlay,
   setCountdownValue,
+  COMP_START,
 } from '../state'
 
 
@@ -285,6 +286,7 @@ function* assessThenSubmitSaga() {
     ReaderStateOptions.inProgress,
   ))
 
+  // TODO Phil: better user creation. 
    $.ajax({
       url: '/auth/phil_setup_demo',
       type: 'post',
@@ -325,6 +327,22 @@ function* assessThenSubmitSaga() {
   recorder = yield select(getRecorder)
   const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
   yield clog('url for recording!!!', recordingBlob)
+
+
+// Start of comprehension 
+
+  yield put.resolve(setCurrentModal('modal-comp'))
+  yield put.resolve(setPageNumber(0))
+
+
+
+// End of comprehension 
+  // fake wait
+  yield take(TURN_IN_CLICKED)
+
+
+
+
 
   yield put.resolve(setCurrentModal('modal-done'))
   // yield call(recorder.forceDownloadRecording, ['_test_.wav'])

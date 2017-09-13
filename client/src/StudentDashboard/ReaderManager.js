@@ -15,6 +15,7 @@ import {
 
 import styles from './styles.css'
 
+import CompModal from './modals/CompModal'
 import DoneModal from './modals/DoneModal'
 import PausedModal from './modals/PausedModal'
 import ExitModal from './modals/ExitModal'
@@ -193,6 +194,13 @@ class StudentDashboard extends React.Component {
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
         />
+
+        <CompModal
+          onHearRecordingClicked={this.props.actions.hearRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
+        />
+
       </div>
     );
 
