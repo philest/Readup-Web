@@ -36,6 +36,7 @@ import {
   BOOK_INTRO_RECORDING_ENDED,
   INTRO_CONTINUE_CLICKED,
   HEAR_RECORDING_CLICKED,
+  SEE_BOOK_CLICKED,
   COUNTDOWN_ENDED,
   EXIT_CLICKED,
   RESTART_RECORDING_CLICKED,
@@ -335,9 +336,26 @@ function* assessThenSubmitSaga() {
   yield put.resolve(setPageNumber(0))
 
 
+  yield takeLatest(SEE_BOOK_CLICKED, function* () {
+    yield put.resolve(setCurrentModal('no-modal'))
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.inProgress,
+    ))
+    yield clog("effects is this: ", effects)
+  
+    yield cancel(...effects)
+    yield clog("effects is this: ", effects)
 
-// End of comprehension 
-  // fake wait
+    effects.push(
+      yield fork(assessmentSaga),
+    )
+  })
+
+
+
+
+  // End of comprehension 
+    // fake wait
   yield take(TURN_IN_CLICKED)
 
 

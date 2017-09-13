@@ -128,6 +128,8 @@ class StudentDashboard extends React.Component {
       showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
       onExitClicked: this.props.actions.exitClicked,
+      hasRecordedSomething: this.props.hasRecordedSomething
+
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
@@ -196,7 +198,7 @@ class StudentDashboard extends React.Component {
         />
 
         <CompModal
-          onHearRecordingClicked={this.props.actions.hearRecordingClicked}
+          onSeeBookClicked={this.props.actions.seeBookClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
         />

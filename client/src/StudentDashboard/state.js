@@ -34,6 +34,8 @@ export const TURN_IN_CLICKED = 'TURN_IN_CLICKED'
 export const HEAR_RECORDING_CLICKED = 'HEAR_RECORDING_CLICKED'
 export const RECORDING_URL_SET = 'RECORDING_URL_SET'
 
+export const SEE_BOOK_CLICKED = 'SEE_BOOK_CLICKED'
+
 export const DEMO_SUBMITTED_LOGOUT_CLICKED = 'DEMO_SUBMITTED_LOGOUT_CLICKED'
 export const SPINNER_SHOW = 'SPINNER_SHOW'
 export const SPINNER_HIDE = 'SPINNER_HIDE'
@@ -212,6 +214,12 @@ export function turnInClicked() {
 export function hearRecordingClicked() {
   return {
     type: HEAR_RECORDING_CLICKED,
+  }
+}
+
+export function seeBookClicked() {
+  return {
+    type: SEE_BOOK_CLICKED,
   }
 }
 

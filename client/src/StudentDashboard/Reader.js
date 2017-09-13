@@ -54,6 +54,9 @@ export default class Reader extends React.Component {
     onNextPageClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
+
+    //Phil 
+    hasRecordedSomething: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -131,7 +134,7 @@ export default class Reader extends React.Component {
         />
       );
     }
-    else if (this.props.showCover) {
+    else if (this.props.showCover && !this.props.hasRecordedSomething) {
       return (
         <RectangleButton
           title='Start'

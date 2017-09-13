@@ -11,7 +11,7 @@ const THIS_MODAL_ID = 'modal-comp'
 
 export default class CompModal extends React.Component {
   static propTypes = {
-    onHearRecordingClicked: PropTypes.func,
+    onSeeBookClicked: PropTypes.func,
     onTurnInClicked: PropTypes.func,
 
     currentShowModal: PropTypes.string,
@@ -33,7 +33,7 @@ export default class CompModal extends React.Component {
           <ButtonArray
             titles={['test1', 'test2']}
             images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/hear-it-icon.png']}
-            actions={[this.props.onTurnInClicked, this.props.onHearRecordingClicked]}
+            actions={[this.props.onTurnInClicked, this.props.onSeeBookClicked]}
             enlargeFirst={true}
           />
         </div>
