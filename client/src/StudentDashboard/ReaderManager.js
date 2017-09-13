@@ -128,7 +128,9 @@ class StudentDashboard extends React.Component {
       showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
       onExitClicked: this.props.actions.exitClicked,
-      hasRecordedSomething: this.props.hasRecordedSomething
+      hasRecordedSomething: this.props.hasRecordedSomething,
+      onNextPageClicked: this.props.actions.nextPageClicked,
+
 
     }
 
@@ -155,7 +157,6 @@ class StudentDashboard extends React.Component {
         isLastPage: (this.props.pageNumber == this.props.numPages),
         onPreviousPageClicked: this.props.actions.previousPageClicked,
         onPauseClicked: this.props.actions.pauseClicked,
-        onNextPageClicked: this.props.actions.nextPageClicked,
         onStopClicked: this.props.actions.stopRecordingClicked,
       }
     }

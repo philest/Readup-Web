@@ -336,22 +336,17 @@ function* assessThenSubmitSaga() {
   yield put.resolve(setPageNumber(0))
 
 
-  yield takeLatest(SEE_BOOK_CLICKED, function* () {
-    yield put.resolve(setCurrentModal('no-modal'))
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.inProgress,
-    ))
-    yield clog("effects is this: ", effects)
+  yield take(SEE_BOOK_CLICKED)
+
+
+  yield clog("here ia am?")
+  yield put.resolve(setCurrentModal('no-modal'))
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.inProgress,
+  ))
   
-    yield cancel(...effects)
-    yield clog("effects is this: ", effects)
 
-    effects.push(
-      yield fork(assessmentSaga),
-    )
-  })
-
-
+  yield clog("effects is:", effects)
 
 
   // End of comprehension 
