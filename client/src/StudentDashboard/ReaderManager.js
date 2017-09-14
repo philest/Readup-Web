@@ -46,7 +46,7 @@ import {
 const PRELOAD_IMAGES_ADVANCE = 3
 
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     // micEnabled: state.reader.micEnabled,
     pageNumber: state.reader.pageNumber,
@@ -61,6 +61,7 @@ function mapStateToProps (state) {
     currentShowOverlay: state.reader.currentOverlayId,
     showSpinner: state.reader.showSpinner,
     countdownValue: state.reader.countdownValue,
+    inComp: state.reader.inComp,
   }
 }
 
@@ -128,8 +129,10 @@ class StudentDashboard extends React.Component {
       showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
       onExitClicked: this.props.actions.exitClicked,
-      hasRecordedSomething: this.props.hasRecordedSomething,
       onNextPageClicked: this.props.actions.nextPageClicked,
+      onSeeCompClicked: this.props.actions.seeCompClicked,
+      inComp: this.props.inComp,
+      onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL 
 
 
     }
@@ -142,7 +145,6 @@ class StudentDashboard extends React.Component {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
-        onStartClicked: this.props.actions.startRecordingClicked,
       }
     }
     else { // any other page...
@@ -202,6 +204,7 @@ class StudentDashboard extends React.Component {
           onSeeBookClicked={this.props.actions.seeBookClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
+          onStartClicked={this.props.actions.startRecordingClicked}
         />
 
       </div>

@@ -22,7 +22,7 @@ export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
 
 
 export const INTRO_CONTINUE_CLICKED = 'INTRO_CONTINUE_CLICKED'
-export const START_RECORDING_CLICKED = 'CLICK_START_READING'
+export const START_RECORDING_CLICKED = 'START_RECORDING_CLICKED'
 export const STOP_RECORDING_CLICKED = 'CLICK_STOP_RECORDING'
 export const PAUSE_CLICKED = 'PAUSE_CLICKED'
 export const RESUME_CLICKED = 'RESUME_CLICKED'
@@ -66,13 +66,15 @@ export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
 export const IS_DEMO_SET = 'IS_DEMO_SET'
 
+export const IN_COMP_SET = 'IN_COMP_SET'
+export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
 
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
     payload: {
       readerState,
-    }
+    },
   }
 }
 
@@ -184,6 +186,7 @@ export function nextPageClicked() {
     type: NEXT_PAGE_CLICKED,
   }
 }
+
 
 export function previousPageClicked() {
   return {
@@ -335,9 +338,26 @@ export function setIsDemo(isDemo) {
     type: IS_DEMO_SET,
     payload: {
       isDemo,
-    }
+    },
   }
 }
+
+
+export function setInComp(inComp: bool) {
+  return {
+    type: IN_COMP_SET,
+    payload: {
+      inComp,
+    },
+  }
+}
+
+export function seeCompClicked() {
+  return {
+    type: SEE_COMP_CLICKED,
+  }
+}
+
 
 
 const sampleBook = {
@@ -520,6 +540,11 @@ function reducer(state = initialState, action = {}) {
     case IS_DEMO_SET: {
       return { ...state, isDemo: payload.isDemo }
     }
+
+    case IN_COMP_SET: {
+      return { ...state, inComp: payload.inComp }
+    }
+
 
     default: return state;
   }

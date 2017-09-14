@@ -45,6 +45,8 @@ import {
   SPINNER_SHOW,
   SPINNER_HIDE,
   DEMO_SUBMITTED_LOGOUT_CLICKED,
+  IN_COMP_SET,
+  SEE_COMP_CLICKED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -55,7 +57,8 @@ import {
   setCurrentModal,
   setCurrentOverlay,
   setCountdownValue,
-  COMP_START,
+  setInComp,
+
 } from '../state'
 
 
@@ -204,6 +207,7 @@ function* assessThenSubmitSaga() {
 
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
+  yield put.resolve(setInComp(false))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
@@ -265,7 +269,7 @@ function* assessThenSubmitSaga() {
 
 
   // TODO: try sending text notification 
-  sendEmail("Demo started", "Demo was started", "philesterman@gmail.com")
+  yield call(sendEmail, "Demo started", "Demo was started", "philesterman@gmail.com")
 
 
   let countdown = 3
@@ -334,19 +338,31 @@ function* assessThenSubmitSaga() {
 
   yield put.resolve(setCurrentModal('modal-comp'))
   yield put.resolve(setPageNumber(0))
+  yield put.resolve(setInComp(true))
 
 
-  yield take(SEE_BOOK_CLICKED)
+  yield takeLatest(START_RECORDING_CLICKED, function* () {
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.inProgress,
+    ))
+  })
+
+  yield takeLatest(SEE_BOOK_CLICKED, function* () {
+    yield put.resolve(setCurrentModal('no-modal'))
+  })
 
 
-  yield clog("here ia am?")
-  yield put.resolve(setCurrentModal('no-modal'))
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.inProgress,
-  ))
-  
+  yield takeLatest(SEE_COMP_CLICKED, function* () {
+    yield put.resolve(setCurrentModal('modal-comp'))
+  })
 
-  yield clog("effects is:", effects)
+
+
+
+
+
+
+
 
 
   // End of comprehension 

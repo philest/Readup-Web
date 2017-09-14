@@ -54,9 +54,10 @@ export default class Reader extends React.Component {
     onNextPageClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
+    onSeeCompClicked: PropTypes.func,
 
     //Phil 
-    hasRecordedSomething: PropTypes.bool,
+    inComp: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -77,25 +78,10 @@ export default class Reader extends React.Component {
 
 
   renderLeftButton = () => {
-    if (this.props.showCover || this.props.isFirstPage) {
+    if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp)) {
       return null
     }
 
-    if (this.props.isDemo) { // disabled previous button
-      return (
-        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Back button is disabled in this demo</Popover>}>
-          <div className={styles.fullWidthHeight}>
-            <BackArrowButton
-              title='Back'
-              subtitle='page'
-              style={{ width: 120, height: 95 }}
-              disabled={true}
-              onClick={this.props.onPreviousPageClicked}
-            />
-          </div>
-        </OverlayTrigger>
-      );
-    }
 
     return (
       <BackArrowButton
@@ -134,7 +120,7 @@ export default class Reader extends React.Component {
         />
       );
     }
-    else if (this.props.showCover && !this.props.hasRecordedSomething) {
+    else if (this.props.showCover && !this.props.inComp) {
       return (
         <RectangleButton
           title='Start'
@@ -156,6 +142,24 @@ export default class Reader extends React.Component {
         onClick={this.props.onNextPageClicked}
       />
     );
+  }
+
+
+  renderUpperLeftButton = () => { 
+    
+    if (this.props.inComp) {
+      return (
+        <RectangleButton
+          title='See'
+          subtitle='Question'
+          style={{ width: 200, height: 70, backgroundColor: 'blue' }}
+          pulsatingArrow={true}
+          disabled={this.props.disabled}
+          onClick={this.props.onSeeCompClicked}
+        />
+      );      
+    }    
+
   }
 
   renderNavigationBar = () => {
@@ -193,6 +197,7 @@ export default class Reader extends React.Component {
         <div className={styles.contentContainer}>
 
           <div className={styles.leftButtonContainer}>
+            { this.renderUpperLeftButton() }
             { this.renderLeftButton() }
           </div>
 

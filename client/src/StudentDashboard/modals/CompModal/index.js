@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styles from '../DoneModal/styles.css'
 
-import ModalHeader from '../subcomponents/ModalHeader'
+import RectangleButton from '../../components/RectangleButton'
+
+import styles from '../DoneModal/styles.css'
+import myStyles from './styles.css'
+
 import ButtonArray from '../subcomponents/ButtonArray'
 
 import BaseModal from '../BaseModal'
+
 
 const THIS_MODAL_ID = 'modal-comp'
 
@@ -15,6 +19,7 @@ export default class CompModal extends React.Component {
     onTurnInClicked: PropTypes.func,
 
     currentShowModal: PropTypes.string,
+    onStartClicked: PropTypes.func,
   };
 
   /**
@@ -30,6 +35,19 @@ export default class CompModal extends React.Component {
     return (
        <BaseModal title="Comprehension!" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
         <div className={styles.doneModalButtonWrapper}>
+
+          <RectangleButton
+            title='Start'
+            subtitle='read and record'
+            style={{ width: 200, height: 70, backgroundColor: '#249C44', marginLeft: 50, marginTop: 50 }}
+            className={myStyles.compRecordButton}
+            pulsatingArrow={true}
+            disabled={this.props.disabled}
+            onClick={this.props.onStartClicked}
+          />
+
+
+
           <ButtonArray
             titles={['test1', 'test2']}
             images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/hear-it-icon.png']}
