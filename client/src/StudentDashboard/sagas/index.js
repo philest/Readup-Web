@@ -347,6 +347,12 @@ function* assessThenSubmitSaga() {
     ))
   })
 
+  yield takeLatest(STOP_RECORDING_CLICKED, function* () {
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.done,
+    ))
+  })
+
   yield takeLatest(SEE_BOOK_CLICKED, function* () {
     yield put.resolve(setCurrentModal('no-modal'))
   })

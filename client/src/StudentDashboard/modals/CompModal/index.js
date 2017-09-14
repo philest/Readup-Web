@@ -10,6 +10,11 @@ import ButtonArray from '../subcomponents/ButtonArray'
 
 import BaseModal from '../BaseModal'
 
+import {
+  ReaderStateOptions,
+} from '../../types'
+
+
 
 const THIS_MODAL_ID = 'modal-comp'
 
@@ -20,6 +25,7 @@ export default class CompModal extends React.Component {
 
     currentShowModal: PropTypes.string,
     onStartClicked: PropTypes.func,
+    onStopClicked: PropTypes.func,
   };
 
   /**
@@ -36,15 +42,30 @@ export default class CompModal extends React.Component {
        <BaseModal title="Comprehension!" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
         <div className={styles.doneModalButtonWrapper}>
 
-          <RectangleButton
-            title='Start'
-            subtitle='read and record'
-            style={{ width: 200, height: 70, backgroundColor: '#249C44', marginLeft: 50, marginTop: 50 }}
-            className={myStyles.compRecordButton}
-            pulsatingArrow={true}
-            disabled={this.props.disabled}
-            onClick={this.props.onStartClicked}
-          />
+          { this.props.readerState !== ReaderStateOptions.inProgress &&
+
+            <RectangleButton
+              title='Start'
+              subtitle='read and record'
+              style={{ width: 200, height: 70, backgroundColor: '#249C44', marginLeft: 50, marginTop: 50 }}
+              className={myStyles.compRecordButton}
+              pulsatingArrow={true}
+              disabled={this.props.disabled}
+              onClick={this.props.onStartClicked}
+            />
+
+          }
+
+          { this.props.readerState === ReaderStateOptions.inProgress &&
+            <RectangleButton
+              title='Stop'
+              subtitle='recording'
+              style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
+              pulsatingArrow={true}
+              disabled={this.props.disabled}
+              onClick={this.props.onStopClicked}
+            />
+          }
 
 
 
