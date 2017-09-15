@@ -23,10 +23,11 @@
 .compModalHeader h4 {
     text-align: center;
     line-height: 1.75;
+    font-family: 'ProximaNova SemiBold'
 }
 
 .compModalHeader h4.compSubTitle {
-  font-weight: 100;
+  font-family: 'ProximaNova'
 }
 
 
