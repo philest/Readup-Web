@@ -10,9 +10,15 @@ import ButtonArray from '../subcomponents/ButtonArray'
 
 import BaseModal from '../BaseModal'
 
+import commonStyles from '../commonstyles.css'
+import ModalHeader from '../subcomponents/ModalHeader'
+
+
 import {
   ReaderStateOptions,
 } from '../../types'
+
+import { Modal, Panel } from 'react-bootstrap'
 
 
 
@@ -39,15 +45,18 @@ export default class CompModal extends React.Component {
 
   render() {
     return (
-       <BaseModal title="Comprehension!" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
-        <div className={styles.doneModalButtonWrapper}>
 
+        <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} className={myStyles.compModal}>
+          <Modal.Header className={myStyles.compModalHeader}>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className={myStyles.compModalBody}>
           { this.props.readerState !== ReaderStateOptions.inProgress &&
 
             <RectangleButton
-              title='Start'
-              subtitle='read and record'
-              style={{ width: 200, height: 70, backgroundColor: '#249C44', marginLeft: 50, marginTop: 50 }}
+              title="Start"
+              subtitle="read and record"
+              style={{ width: 200, height: 70, backgroundColor: '#5cb85c', borderColor: '#4cae4c' }}
               className={myStyles.compRecordButton}
               pulsatingArrow={true}
               disabled={this.props.disabled}
@@ -67,16 +76,10 @@ export default class CompModal extends React.Component {
             />
           }
 
+          </Modal.Body>
+        </Modal>
 
 
-          <ButtonArray
-            titles={['test1', 'test2']}
-            images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/hear-it-icon.png']}
-            actions={[this.props.onTurnInClicked, this.props.onSeeBookClicked]}
-            enlargeFirst={true}
-          />
-        </div>
-      </BaseModal>
     );
   }
 }

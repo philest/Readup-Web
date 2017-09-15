@@ -8,6 +8,13 @@
 	height: 100%;
 }
 
+.compModalHeaderTitleWrapper {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+
+
 .modalHeaderTitleText {
 	text-align: center;
 	color: white;
