@@ -17,6 +17,7 @@ export default class NavigationBar extends React.Component {
     showBookInfo: PropTypes.bool,
     bookTitle: PropTypes.string,
     bookAuthor: PropTypes.string,
+    inComp: PropTypes.bool,
   };
   static defaultProps = {
     showPauseButton: true,
@@ -62,7 +63,7 @@ export default class NavigationBar extends React.Component {
 
         }
 
-        { (this.props.isCoverPage || this.props.showBookInfo) &&
+        { ((this.props.isCoverPage || this.props.showBookInfo) && !this.props.inComp) &&
 
           <div className={css.subContainer}>
             <div className={[css.centerDisplayContainer, css.headerTabBlue].join(' ')}>

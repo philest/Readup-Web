@@ -147,6 +147,13 @@ class StudentDashboard extends React.Component {
         showPauseButton: false,
       }
     }
+    else if (this.props.pageNumber == 0 && this.props.isComp) { // cover
+        readerProps = {
+          ...readerProps,
+          showCover: true,
+          showPauseButton: true,
+      }
+    }
     else { // any other page...
 
       readerProps = {

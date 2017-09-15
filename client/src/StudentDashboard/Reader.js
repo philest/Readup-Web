@@ -174,6 +174,7 @@ export default class Reader extends React.Component {
       isCoverPage: this.props.showCover,
       onPauseClicked: this.props.onPauseClicked,
       onExitClicked: this.props.onExitClicked,
+      inComp: this.props.inComp,
     }
 
     return <NavigationBar {...navProps} />
