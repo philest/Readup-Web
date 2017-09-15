@@ -32,6 +32,7 @@ export default class CompModal extends React.Component {
     currentShowModal: PropTypes.string,
     onStartClicked: PropTypes.func,
     onStopClicked: PropTypes.func,
+    close: PropTypes.func,
   };
 
   /**
@@ -40,8 +41,15 @@ export default class CompModal extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {  };
+    this.state = {
+      showModal: true,
+    };
   }
+
+
+
+
+
 
   render() {
 
@@ -50,7 +58,7 @@ export default class CompModal extends React.Component {
 
     return (
 
-        <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} className={myStyles.compModal}>
+        <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
             <Modal.Title>Tell as much as you can about the passage you just read.</Modal.Title>
             <Modal.Title className={myStyles.compSubTitle}>Be sure to include the beginning, middle and end.</Modal.Title>

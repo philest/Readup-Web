@@ -152,7 +152,7 @@ export default class Reader extends React.Component {
         <RectangleButton
           title='See'
           subtitle='Question'
-          style={{ width: 200, height: 70, backgroundColor: '#3583BB' }}
+          style={{ width: 200, height: 70, backgroundColor: '#245F92' }}
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onSeeCompClicked}
@@ -197,7 +197,7 @@ export default class Reader extends React.Component {
 
         <div className={styles.contentContainer}>
 
-          <div className={styles.leftButtonContainer}>
+          <div className={this.props.inComp ? styles.leftDoubleButtonContainer : styles.leftButtonContainer}>
             { this.renderUpperLeftButton() }
             { this.renderLeftButton() }
           </div>

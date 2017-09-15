@@ -33,6 +33,15 @@
 
 }
 
+.leftDoubleButtonContainer {
+	margin-top: 0px;
+    display: flex;
+    flex-flow: column;
+    height: 65vh;
+    justify-content: space-between;
+
+}
+
 .rightButtonContainer {
 	min-width: 200px;
 	/*width: 200px;
