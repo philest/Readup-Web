@@ -152,7 +152,7 @@ export default class Reader extends React.Component {
         <RectangleButton
           title='See'
           subtitle='Question'
-          style={{ width: 200, height: 70, backgroundColor: 'blue' }}
+          style={{ width: 200, height: 70, backgroundColor: '#3583BB' }}
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onSeeCompClicked}
