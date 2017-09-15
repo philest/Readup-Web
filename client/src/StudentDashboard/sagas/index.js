@@ -258,7 +258,7 @@ function* assessThenSubmitSaga() {
     yield takeLatest(EXIT_CLICKED, exitClick),
   )
 
-
+  yield call(sendEmail, "Demo started", "Demo was started", "philesterman@gmail.com") // move here so don't break
 
   // TODO: convert the countdown to saga!!!!
   yield put.resolve(setPageNumber(1))
@@ -269,7 +269,6 @@ function* assessThenSubmitSaga() {
 
 
   // TODO: try sending text notification 
-  yield call(sendEmail, "Demo started", "Demo was started", "philesterman@gmail.com")
 
 
   let countdown = 3
