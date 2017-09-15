@@ -44,11 +44,17 @@ export default class CompModal extends React.Component {
   }
 
   render() {
+
+
+
+
     return (
 
         <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Tell as much as you can about the passage you just read.</Modal.Title>
+            <Modal.Title className={myStyles.compSubTitle}>Be sure to include the beginning, middle and end.</Modal.Title>
+
           </Modal.Header>
           <Modal.Body className={myStyles.compModalBody}>
           { this.props.readerState !== ReaderStateOptions.inProgress &&
@@ -75,6 +81,15 @@ export default class CompModal extends React.Component {
               onClick={this.props.onStopClicked}
             />
           }
+
+          <ButtonArray
+            titles={['See book']}
+            images={['/images/dashboard/hear-it-icon.png']}
+            actions={[this.props.onSeeBookClicked]}
+            inline={true}
+          />
+
+
 
           </Modal.Body>
         </Modal>

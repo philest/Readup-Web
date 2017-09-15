@@ -10,6 +10,17 @@
 	padding-right: 30px;
 }
 
+
+.inlineButtonArrayWrapper {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-around;
+	align-items: center;
+    padding-left: 70px;
+    padding-right: 45px;
+
+}
+
 .buttonWrapper {
 	display: flex;
 	flex-flow: column;
@@ -17,12 +28,27 @@
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+    transition: all .3s;
+	
+}
+
+.buttonWrapper:hover {
+	transform: translateY(-3px);
+    filter: brightness(120%);
+    transition: all .3s;
+
 }
 
 .buttonImage {
 	width: 60px;
 	height: 60px;
 	margin: 10px;
+}
+
+.smallButtonImage {
+	width: 50px;
+    height: 50px;
+    margin: 0px; 
 }
 
 .largeButtonImage {
@@ -37,7 +63,10 @@
 	font-size: 1.1em;
 	margin: 10px;
 	font-family: 'Proximanova Semibold';
+	color: #4a4a4a;
 }
+
+
 
 .largeButtonText {
 	font-weight: bold;
@@ -45,7 +74,21 @@
 	font-size: 1.3em;
 	margin: 10px;
 	font-family: 'Proximanova Semibold';
+	color: #4a4a4a;
 }
+
+.smallButtonText {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 1em;
+	margin: 10px;
+	margin-top: 7px;
+	font-family: 'Proximanova Semibold';
+	color: #4a4a4a;
+
+}
+
+
 
 /*.doneModal {
 	display: block; 
