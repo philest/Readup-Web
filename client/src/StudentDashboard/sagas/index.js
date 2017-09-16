@@ -404,12 +404,11 @@ function* assessThenSubmitSaga() {
   yield clog('url for recording!!!', recordingBlob)
 
 
+  if (endRecording) {
+    const compOutput = yield* compSaga() // blocks
+    yield put.resolve(setCurrentModal('modal-done'))
+  }
 
-  const compOutput = yield* compSaga() // blocks
-
-
-  yield put.resolve(setCurrentModal('modal-done'))
-  // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
 
   // do not delete, this is import :)
   if (endRecording) {
