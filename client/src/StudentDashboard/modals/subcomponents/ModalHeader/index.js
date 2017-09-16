@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './styles.css'
 
 import classNames from 'classnames/bind';
+
 let cx = classNames.bind(styles);
 
 
@@ -24,11 +25,13 @@ export default class ModalHeader extends React.Component {
 
     let modalHeaderTitleWrapperClass = cx({
       successModalHeaderTitleWrapper: this.props.modalType === 'success',
+      infoModalHeaderTitleWrapper: this.props.modalType === 'info',
       modalHeaderTitleWrapper: true,
     });
 
     let modalHeaderTitleTextClass = cx({
       successModalHeaderTitleText: this.props.modalType === 'success',
+      infoModalHeaderTitleText: this.props.modalType === 'info',
       modalHeaderTitleText: true,
     });
 

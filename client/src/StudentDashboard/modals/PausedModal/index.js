@@ -19,6 +19,7 @@ export default class PausedModal extends React.Component {
     onTurnInClicked: PropTypes.func,
 
     currentShowModal: PropTypes.string,
+    modalType: PropTypes.string,
   };
 
   /**
@@ -32,14 +33,16 @@ export default class PausedModal extends React.Component {
 
   render() {
     return (
-      <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
+      <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType='info'>
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Turn it in', 'Go on', 'Start over']}
-            images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/go-on-icon.png', '/images/dashboard/record-again-icon.png' ]}
-            actions={[this.props.onTurnInClicked, this.props.onContinueClicked, this.props.onStartOverClicked ]}
+            titles={['Go on', 'Turn it in', 'Start over']}
+            images={['fa-play', 'fa-check', 'fa-repeat' ]}
+            actions={[this.props.onContinueClicked, this.props.onTurnInClicked, this.props.onStartOverClicked ]}
             enlargeFirst={true}
+            fontAwesome={true}
+            modalType={'info'}
           />
         </div>
 

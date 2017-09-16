@@ -78,7 +78,7 @@ export default class BaseModal extends React.Component {
       >
         <div className={modalContainerClass}>
           <div className={modalHeaderWrapperClass}>
-            <ModalHeader title={this.props.title} className={modalHeaderClass} modalType="success" />
+            <ModalHeader title={this.props.title} className={modalHeaderClass} modalType={this.props.modalType} />
           </div>
 
           {this.props.children}
