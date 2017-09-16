@@ -84,16 +84,16 @@ export function setPageNumber(pageNumber: number) {
     type: PAGE_NUMBER_SET,
     payload: {
       pageNumber,
-    }
+    },
   }
 }
 
-export function setHasRecordedSomething(hasRecordedSomething: bool) {
+export function setHasRecordedSomething(hasRecordedSomething: boolean) {
   return {
     type: HAS_RECORDED_SOMETHING_SET,
     payload: {
       hasRecordedSomething,
-    }
+    },
   }
 }
 
@@ -122,7 +122,7 @@ export function setCountdownValue(countdownValue: number) {
     type: COUNTDOWN_VALUE_SET,
     payload: {
       countdownValue,
-    }
+    },
   }
 }
 
@@ -138,7 +138,7 @@ export function setCurrentSound(currentSoundId: string) {
     type: CURRENT_SOUND_SET,
     payload: {
       currentSoundId,
-    }
+    },
   }
 }
 
@@ -147,7 +147,7 @@ export function setCurrentModal(currentModalId: string) {
     type: CURRENT_MODAL_SET,
     payload: {
       currentModalId,
-    }
+    },
   }
 }
 
@@ -156,7 +156,7 @@ export function setCurrentOverlay(currentOverlayId: string) {
     type: CURRENT_OVERLAY_SET,
     payload: {
       currentOverlayId,
-    }
+    },
   }
 }
 
@@ -234,18 +234,13 @@ export function hearQuestionAgainClicked() {
 }
 
 
-export function setRecordingURL(recordingURL: string) {
+export function setRecordingURL(recordingURL: string, comp: boolean) {
   return {
     type: RECORDING_URL_SET,
     payload: {
       recordingURL,
-    }
-  }
-}
-
-export function demoSubmittedLogoutClicked() {
-  return {
-    type: DEMO_SUBMITTED_LOGOUT_CLICKED,
+      comp,
+    },
   }
 }
 
@@ -409,6 +404,7 @@ const initialState = {
   hasRecordedSomething: false,
   recorder: new Recorder(),
   recordingURL: null,
+  compRecordingURL: null,
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
   currentSoundId: 'no-sound',
   currentModalId: 'no-modal',
@@ -477,7 +473,14 @@ function reducer(state = initialState, action = {}) {
     }
 
     case RECORDING_URL_SET: {
-      return { ...state, recordingURL: payload.recordingURL}
+
+      if (payload.comp === true) {
+        console.log("Just set compRecordingURL....")
+        return { ...state, compRecordingURL: payload.recordingURL}
+      } else {
+        console.log("Just set recordingURL....")
+        return { ...state, recordingURL: payload.recordingURL}
+      }
     }
 
     case SPINNER_SHOW: {

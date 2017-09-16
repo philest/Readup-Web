@@ -151,7 +151,7 @@ function* haltRecordingAndGenerateBlobSaga(recorder) {
     })
   });
   // this is done in the Store because PlaybackModal takes this is a prop
-  yield put.resolve(setRecordingURL(blobURL))
+  yield put.resolve(setRecordingURL(blobURL, false))
   return yield blobURL
 }
 

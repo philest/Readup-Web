@@ -57,6 +57,7 @@ function mapStateToProps(state) {
     book: state.reader.book,
     recorder: state.reader.recorder, // TODO probably shouldn't have access
     recordingURL: state.reader.recordingURL,
+    compRecordingURL: state.reader.compRecordingURL,
     currentShowModal: state.reader.currentModalId,
     currentShowOverlay: state.reader.currentOverlayId,
     showSpinner: state.reader.showSpinner,
@@ -197,6 +198,7 @@ class StudentDashboard extends React.Component {
 
         <PlaybackModal
           audioSrc={this.props.recordingURL}
+          compAudioSrc={this.props.compRecordingURL}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
