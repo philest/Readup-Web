@@ -407,7 +407,14 @@ function* assessThenSubmitSaga() {
 
   // do not delete, this is import :)
   if (endRecording) {
+
+      yield playSoundAsync('/audio/done-final.mp3')
+
+      yield clog('made it here 4')
+
     yield take(TURN_IN_CLICKED)
+      yield clog('made it here 5')
+
   }
 
 
@@ -468,6 +475,9 @@ function* rootSaga() {
       quit: take('QUIT_ASSESSMENT_AND_DESTROY'),
     })
     yield clog('Race Finished')
+
+    yield clog('made it here 6')
+
 
     if (quit) {
       window.location.href = "/" // eslint-disable-line
