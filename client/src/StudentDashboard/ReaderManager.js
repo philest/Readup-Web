@@ -162,7 +162,7 @@ class StudentDashboard extends React.Component {
         pageNumber: this.props.pageNumber,
         textLines: this.props.book.pages[this.props.pageNumber].lines,
         imageURL: this.props.book.pages[this.props.pageNumber].img,
-        showPauseButton: this.props.readerState === ReaderStateOptions.inProgress,
+        showPauseButton: (this.props.readerState === ReaderStateOptions.inProgress && !this.props.inComp),
         isFirstPage: (this.props.pageNumber == 1),
         isLastPage: (this.props.pageNumber == this.props.numPages),
         onPreviousPageClicked: this.props.actions.previousPageClicked,
