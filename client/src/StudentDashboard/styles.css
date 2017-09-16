@@ -39,6 +39,7 @@
     flex-flow: column;
     height: 65vh;
     justify-content: space-between;
+    margin-left: 10px;
 
 }
 
