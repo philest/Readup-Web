@@ -32,9 +32,11 @@ export default class DoneModal extends React.Component {
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
             titles={['Turn it in', 'Hear it']}
-            images={['/images/dashboard/finish-icon-green.png', '/images/dashboard/hear-it-icon.png']}
+            images={['fa-check', 'fa-headphones']}
             actions={[this.props.onTurnInClicked, this.props.onHearRecordingClicked]}
+            fontAwesome={true}
             enlargeFirst={true}
+            modalType={"success"}
           />
         </div>
       </BaseModal>

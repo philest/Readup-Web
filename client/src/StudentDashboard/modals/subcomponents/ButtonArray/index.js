@@ -19,6 +19,7 @@ export default class ButtonArray extends React.Component {
     enlargeFirst: PropTypes.bool,
     inline: PropTypes.bool,
     fontAwesome: PropTypes.bool,
+    modalType: PropTypes.string,
   };
   static defaultProps = {
     enlargeFirst: false,
@@ -40,13 +41,30 @@ export default class ButtonArray extends React.Component {
       smallButtonText: this.props.inline,
     });
 
+    let iconColorClass = cx({
+      greenIcon: this.props.modalType === 'success',
+    });
+
+    let faSizeClassFirst = cx({
+      icon: this.props.inline,
+      largeIcon: !this.props.inline,
+    })
+
+
+    let faSizeClassRest = cx({
+      smallIcon: this.props.inline,
+      icon: !this.props.inline,
+      obscure: true,
+      lightgrayIcon: true,  
+    })
+
 
     if (this.props.fontAwesome) {
       return (
         zipped.map((buttonInfoArray, index) => (
           <div className={this.props.disabled ? styles.disabledButtonWrapper : styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
-            <i className={[((this.props.enlargeFirst && index == 0) ? styles.icon : [styles.smallIcon, styles.obscure].join(' ')), 'fa', buttonInfoArray[1]].join(' ')} aria-hidden={"true"} />
-            <div className={[((this.props.enlargeFirst && index == 0) ? styles.buttonText : styles.smallButtonText)].join(' ')}>{buttonInfoArray[2]}</div>
+            <i className={[((this.props.enlargeFirst && index === 0) ? faSizeClassFirst : faSizeClassRest), 'fa', 'faa-tada', 'animated-hover', buttonInfoArray[1], iconColorClass].join(' ')} aria-hidden={"true"} />
+            <div className={[((this.props.enlargeFirst && index == 0) ? styles.buttonText : [styles.smallButtonText, styles.obscure].join(' '))].join(' ')}>{buttonInfoArray[2]}</div>
           </div>
         ))
       );
