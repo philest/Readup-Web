@@ -44,7 +44,7 @@ export default class ButtonArray extends React.Component {
     if (this.props.fontAwesome) {
       return (
         zipped.map((buttonInfoArray, index) => (
-          <div className={styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
+          <div className={this.props.disabled ? styles.disabledButtonWrapper : styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
             <i className={[((this.props.enlargeFirst && index == 0) ? styles.icon : [styles.smallIcon, styles.obscure].join(' ')), 'fa', buttonInfoArray[1]].join(' ')} aria-hidden={"true"} />
             <div className={[((this.props.enlargeFirst && index == 0) ? styles.buttonText : styles.smallButtonText)].join(' ')}>{buttonInfoArray[2]}</div>
           </div>

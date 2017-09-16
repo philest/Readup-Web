@@ -336,11 +336,16 @@ function* assessThenSubmitSaga() {
 
   yield playSound('/audio/now-questions.mp3')
 
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.playingBookIntro,
+  ))
 
-  
   yield put.resolve(setCurrentModal('modal-comp'))
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setInComp(true))
+
+
+
 
   yield call(delay, 750)
 
@@ -350,6 +355,12 @@ function* assessThenSubmitSaga() {
   yield call(delay, 500)
 
   yield playSound('/audio/retell-full.mp3')
+
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.done,
+  ))
+
 
 
   yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {

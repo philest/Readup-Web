@@ -34,6 +34,7 @@ export default class CompModal extends React.Component {
     onStopClicked: PropTypes.func,
     onHearQuestionAgainClicked: PropTypes.func,
     close: PropTypes.func,
+    disabled: PropTypes.bool,
   };
 
   /**
@@ -98,7 +99,7 @@ export default class CompModal extends React.Component {
             inline={true}
             fontAwesome={true}
             enlargeFirst={true}
-
+            disabled={this.props.disabled}
           />
 
 

@@ -217,6 +217,7 @@ class StudentDashboard extends React.Component {
           readerState={this.props.readerState}
           close={this.props.actions.seeBookClicked}
           onHearQuestionAgainClicked={this.props.actions.hearQuestionAgainClicked}
+          disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro)}
         />
 
       </div>
