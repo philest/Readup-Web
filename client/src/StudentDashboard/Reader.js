@@ -92,6 +92,7 @@ export default class Reader extends React.Component {
         subtitle='page'
         style={{ width: 120, height: 95 }}
         onClick={this.props.onPreviousPageClicked}
+        disabled={this.props.disabled}
       />
     )
   }

@@ -334,11 +334,12 @@ function* assessThenSubmitSaga() {
 
 // Start of comprehension 
 
-  yield playSound('/audio/now-questions.mp3')
-
   yield put.resolve(setReaderState(
     ReaderStateOptions.playingBookIntro,
   ))
+
+  yield playSound('/audio/now-questions.mp3')
+
 
   yield put.resolve(setCurrentModal('modal-comp'))
   yield put.resolve(setPageNumber(0))
