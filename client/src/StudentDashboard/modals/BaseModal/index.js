@@ -9,11 +9,22 @@ import { Modal } from 'react-bootstrap'
 import ModalHeader from '../subcomponents/ModalHeader'
 import RectangleButton from 'StudentDashboard/components/RectangleButton'
 
-export default class PausedModal extends React.Component {
+
+import classNames from 'classnames/bind';
+
+let cx = classNames.bind(styles);
+
+
+let commonCX = classNames.bind(commonStyles);
+
+
+
+export default class BaseModal extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     show: PropTypes.bool,
-    animation: PropTypes.bool
+    animation: PropTypes.bool,
+    modalType: PropTypes.string,
   };
 
   static defaultProps = {
@@ -31,16 +42,43 @@ export default class PausedModal extends React.Component {
   }
 
   render() {
+
+
+
+    let modalClass = cx({
+      successModal: this.props.modalType === 'success',
+      baseModal: true,
+    });
+
+
+    let modalContainerClass = commonCX({
+      successModalContainer: this.props.modalType === 'success',
+      modalContainer: true,
+    });
+
+
+    let modalHeaderWrapperClass = commonCX({
+      successModalHeaderWrapper: this.props.modalType === 'success',
+      modalHeaderWrapper: true,
+    });
+
+    let modalHeaderClass = commonCX({
+      successModalHeader: this.props.modalType === 'success',
+    })
+
+
+
+
     return (
       <Modal
-        className={styles.baseModal}
+        className={modalClass}
         show={this.props.show}
         onHide={this.close}
         animation={this.props.animation}
       >
-        <div className={commonStyles.modalContainer}>
-          <div className={commonStyles.modalHeaderWrapper}>
-            <ModalHeader title={this.props.title} />
+        <div className={modalContainerClass}>
+          <div className={modalHeaderWrapperClass}>
+            <ModalHeader title={this.props.title} className={modalHeaderClass} modalType="success" />
           </div>
 
           {this.props.children}

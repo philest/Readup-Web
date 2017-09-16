@@ -6,7 +6,15 @@
 	width: 100%;
 	background-color: #3C8FCA;
 	height: 100%;
+	border-radius: 4px;
 }
+
+.successModalHeaderTitleWrapper{
+    border: 1px solid transparent;
+    border-color: #D6E9C6;	
+    background-color: #DFF0D8;
+}
+
 
 .compModalHeaderTitleWrapper {
     color: #333;
@@ -20,4 +28,9 @@
 	color: white;
 	font-size: 1.8em;
 	font-family: 'Proximanova Semibold';
+}
+
+
+.successModalHeaderTitleText {
+	color: #6D8F6E;
 }

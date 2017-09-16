@@ -28,7 +28,7 @@ export default class DoneModal extends React.Component {
 
   render() {
     return (
-       <BaseModal title="You're Done!" show={(this.props.currentShowModal === THIS_MODAL_ID)}>
+       <BaseModal title="You're Done!" show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType="success">
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
             titles={['Turn it in', 'Hear it']}

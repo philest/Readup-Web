@@ -2,8 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
+import classNames from 'classnames/bind';
+let cx = classNames.bind(styles);
+
+
 export default class ModalHeader extends React.Component {
   static propTypes = {
+    modalType: PropTypes.string,
   };
 
   /**
@@ -15,9 +20,22 @@ export default class ModalHeader extends React.Component {
   }
 
   render() {
+
+
+    let modalHeaderTitleWrapperClass = cx({
+      successModalHeaderTitleWrapper: this.props.modalType === 'success',
+      modalHeaderTitleWrapper: true,
+    });
+
+    let modalHeaderTitleTextClass = cx({
+      successModalHeaderTitleText: this.props.modalType === 'success',
+      modalHeaderTitleText: true,
+    });
+
+
     return (
-      <div className={styles.modalHeaderTitleWrapper}>
-        <div className={styles.modalHeaderTitleText}>{this.props.title}</div>
+      <div className={modalHeaderTitleWrapperClass}>
+        <div className={modalHeaderTitleTextClass}>{this.props.title}</div>
       </div>
 
     );
