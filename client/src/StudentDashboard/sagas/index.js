@@ -265,18 +265,16 @@ function* assessThenSubmitSaga() {
   yield put.resolve(setReaderState(
     ReaderStateOptions.countdownToStart,
   ))
-  yield playSoundAsync('/audio/recording_countdown.mp3')
+
+  // yield playSoundAsync('/audio/recording_countdown.mp3')
 
 
-  // TODO: try sending text notification 
-
-
-  let countdown = 3
-  while (countdown > 0) {
-    yield put(setCountdownValue(countdown))
-    yield call(delay, 1000)
-    countdown--
-  }
+  // let countdown = 3
+  // while (countdown > 0) {
+  //   yield put(setCountdownValue(countdown))
+  //   yield call(delay, 1000)
+  //   countdown--
+  // }
 
 
   // yield put(setCurrentSound('/audio/book_intro.mp3'))

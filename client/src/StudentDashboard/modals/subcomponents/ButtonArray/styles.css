@@ -62,6 +62,7 @@
 	font-style: italic;
 	font-size: 1.1em;
 	margin: 10px;
+	margin-top: 8px;
 	font-family: 'Proximanova Semibold';
 	color: #4a4a4a;
 }
@@ -78,16 +79,29 @@
 }
 
 .smallButtonText {
-	font-weight: bold;
-	font-style: italic;
-	font-size: 1em;
-	margin: 10px;
-	margin-top: 7px;
-	font-family: 'Proximanova Semibold';
-	color: #4a4a4a;
-
+    font-weight: bold;
+    font-style: italic;
+    font-size: 0.8em;
+    margin: 10px;
+    margin-top: 5px;
+    font-family: 'Proximanova Semibold';
+    color: #4a4a4a;
 }
 
+
+.icon {
+	color: rgb(36, 95, 146);
+    font-size: 3.8em;
+}
+
+.smallIcon {
+	color: rgb(36, 95, 146);
+    font-size: 2.5em;
+}
+
+.obscure {
+	opacity: .75
+}
 
 
 /*.doneModal {

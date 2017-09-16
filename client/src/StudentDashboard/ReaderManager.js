@@ -214,7 +214,7 @@ class StudentDashboard extends React.Component {
           onStartClicked={this.props.actions.startRecordingClicked}
           onStopClicked={this.props.actions.stopRecordingClicked}
           readerState={this.props.readerState}
-          close={this.props.actions.setCurrentModal}
+          close={this.props.actions.seeBookClicked}
         />
 
       </div>

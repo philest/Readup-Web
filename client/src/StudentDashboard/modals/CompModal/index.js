@@ -91,10 +91,13 @@ export default class CompModal extends React.Component {
           }
 
           <ButtonArray
-            titles={['See book']}
-            images={['/images/dashboard/hear-it-icon.png']}
+            titles={['See book', "Hear again"]}
+            images={['fa-book', 'fa-volume-up obscure']}
             actions={[this.props.onSeeBookClicked]}
             inline={true}
+            fontAwesome={true}
+            enlargeFirst={true}
+
           />
 
 
