@@ -222,7 +222,6 @@ function* compSaga() {
 
 
 
-
   yield call(delay, 750)
 
   // yield playSound('/audio/comp-instructions.mp3')
@@ -245,6 +244,8 @@ function* compSaga() {
 
   yield take(START_RECORDING_CLICKED)
 
+  yield playSoundAsync('/audio/single_countdown.mp3')
+
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
   ))
@@ -254,6 +255,9 @@ function* compSaga() {
   yield take(STOP_RECORDING_CLICKED)
 
   yield clog('made it here 2')
+
+  yield playSound('/audio/complete.mp3')
+
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.done,
@@ -405,9 +409,25 @@ function* assessThenSubmitSaga() {
 
 
   if (endRecording) {
+
+
+
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.playingBookIntro,
+    ))
+
+    yield playSound('/audio/complete.mp3')
+
+    yield call(delay, 300)
+
+    yield playSound('/audio/now-questions.mp3')
+
     const compOutput = yield* compSaga() // blocks
     yield put.resolve(setCurrentModal('modal-done'))
   }
+
+  yield call(delay, 200)
+  yield playSoundAsync('/audio/done-final.mp3')
 
 
   // do not delete, this is import :)
@@ -420,51 +440,6 @@ function* assessThenSubmitSaga() {
 
   return recorder.getBlob()
 
-
-
-
-  // const { endRecording } = yield race({
-  //   turnItIn: take(TURN_IN_CLICKED),
-  //   endRecording: take(STOP_RECORDING_CLICKED),
-  // })
-
-  // recorder = yield select(getRecorder)
-  // const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
-  // yield clog('url for recording!!!', recordingBlob)
-
-
-  // yield put.resolve(setReaderState(
-  //   ReaderStateOptions.playingBookIntro,
-  // ))
-  // yield playSound('/audio/now-questions.mp3')
-
-
-  // // Start the comprehension saga
-  // const compOutput = yield* compSaga() // blocks
-
-
-  // yield clog('made it here 3.55555')
-
-
-  // yield put.resolve(setCurrentModal('modal-done'))
-  // // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
-
-  // // do not delete, this is import :)
-  // if (endRecording) {
-
-  //     yield playSoundAsync('/audio/done-final.mp3')
-
-  //     yield clog('made it here 4')
-
-  //   yield take(TURN_IN_CLICKED)
-  //     yield clog('made it here 5')
-
-  // }
-
-
-  // yield cancel(...effects)
-
-  // return recorder.getBlob()
 
 
 }
