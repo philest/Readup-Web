@@ -23,7 +23,8 @@
 	margin-left: 60px;
 	/*background-color: red;*/
 	margin-right: auto;
-	font-family: 'Proximanova Semibold'
+	font-family: 'Proximanova Semibold';
+	cursor: pointer;
 }
 
 .centerDisplayContainer {

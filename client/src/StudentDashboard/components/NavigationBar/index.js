@@ -43,7 +43,7 @@ export default class NavigationBar extends React.Component {
     return (
       <div className={css.navContainer}>
         <div className={css.subContainer}>
-          <span className={css.brandText}>ReadUp</span>
+          <span className={css.brandText} onClick={this.props.onExitClicked}>ReadUp</span>
         </div>
 
         { this.props.showPauseButton &&
