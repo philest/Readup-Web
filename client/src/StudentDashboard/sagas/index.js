@@ -350,36 +350,22 @@ function* assessThenSubmitSaga() {
 
   yield call(delay, 750)
 
-  yield playSound('/audio/comp-instructions.mp3')
+  // yield playSound('/audio/comp-instructions.mp3')
 
 
   yield call(delay, 500)
 
-  yield playSound('/audio/retell-full.mp3')
+  // yield playSound('/audio/retell-full.mp3')
 
 
   yield put.resolve(setReaderState(
-    ReaderStateOptions.done,
+    ReaderStateOptions.awaitingStart,
   ))
 
 
 
   yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {
     yield playSoundAsync('/audio/retell-partial.mp3')
-  })
-
-
-
-  yield takeLatest(START_RECORDING_CLICKED, function* () {
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.inProgress,
-    ))
-  })
-
-  yield takeLatest(STOP_RECORDING_CLICKED, function* () {
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.done,
-    ))
   })
 
   yield takeLatest(SEE_BOOK_CLICKED, function* () {
@@ -394,18 +380,26 @@ function* assessThenSubmitSaga() {
 
 
 
+  yield take(START_RECORDING_CLICKED)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.inProgress,
+  ))
+
+  yield clog('made it here')
+
+  yield take(STOP_RECORDING_CLICKED)
+
+  yield clog('made it here 2')
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.done,
+  ))
 
 
-
-
-
+  yield clog('made it here 3')
 
   // End of comprehension 
-    // fake wait
-  yield take(TURN_IN_CLICKED)
-
-
-
 
 
   yield put.resolve(setCurrentModal('modal-done'))
