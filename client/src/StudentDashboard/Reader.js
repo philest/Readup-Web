@@ -111,7 +111,7 @@ export default class Reader extends React.Component {
   }
 
   renderRightButton = () => {
-    if (this.props.isLastPage) {
+    if (this.props.isLastPage && !this.props.inComp) {
       return (
         <RectangleButton
           title='Stop'
@@ -120,8 +120,12 @@ export default class Reader extends React.Component {
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onStopClicked}
+          visibility={(this.props.inComp ? 'hidden' : 'inherit')}
         />
       );
+    }
+    else if (this.props.isLastPage && this.props.inComp) {
+      return
     }
     else if (this.props.showCover && !this.props.inComp) {
       return (
@@ -135,6 +139,7 @@ export default class Reader extends React.Component {
         />
       );
     }
+
 
     return (
       <ForwardArrowButton
