@@ -26,12 +26,14 @@ export default class ModalHeader extends React.Component {
     let modalHeaderTitleWrapperClass = cx({
       successModalHeaderTitleWrapper: this.props.modalType === 'success',
       infoModalHeaderTitleWrapper: this.props.modalType === 'info',
+      dangerModalHeaderTitleWrapper: this.props.modalType === 'danger',
       modalHeaderTitleWrapper: true,
     });
 
     let modalHeaderTitleTextClass = cx({
       successModalHeaderTitleText: this.props.modalType === 'success',
       infoModalHeaderTitleText: this.props.modalType === 'info',
+      dangerModalHeaderTitleText: this.props.modalType === 'danger',
       modalHeaderTitleText: true,
     });
 

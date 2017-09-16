@@ -20,6 +20,7 @@ export default class ExitModal extends React.Component {
     startedRecording: PropTypes.bool,
 
     currentShowModal: PropTypes.string,
+    modalType: PropTypes.string,
   };
   static defaultProps = {
     startedRecording: false,
@@ -34,45 +35,30 @@ export default class ExitModal extends React.Component {
 
 
   render() {
+
+    let exitAction
+
+    if (this.props.startedRecording) {
+      exitAction = this.props.onExitAndUploadClicked
+    } else {
+      exitAction = this.props.onExitNoUploadClicked
+    }
+
     return (
-      <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)}>
+      <BaseModal title="Exit?" show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType="danger">
 
 
-        <div className={styles.exitModalTextWrapper}>
-
-        {this.props.startedRecording &&
-          <p className={styles.exitModalText}>Are you sure you want to quit? You can resume the demo, exit and upload your recording to be scored, or exit without uploading your recording.</p>
-        }
-
-        {!this.props.startedRecording &&
-          <p className={styles.exitModalText}>Are you sure you want to quit? We can't show you how we score running records if you don't give us one! Press continue to start the demo.</p>
-        }
-
-        </div>
-
-        <div className={styles.exitModalButtonArrayWrapper}>
-          <RectangleButton
-            className={styles.exitModalButton}
-            title="Resume"
-            style={{ width: 200, height: 50, backgroundColor: 'green', fontSize: 11, margin: 10 }}
-            onClick={this.props.onContinueClicked}
-          />
-
-          {this.props.startedRecording &&
-            <RectangleButton
-              className={styles.exitModalButton}
-              title="Exit & Upload"
-              style={{ width: 200, height: 50, backgroundColor: '#3C8FCA', fontSize: 11, margin: 10 }}
-              onClick={this.props.onExitAndUploadClicked}
-            />
-          }
-          <RectangleButton
-            className={styles.exitModalButton}
-            title="Exit without uploading"
-            style={{ width: 200, height: 50, backgroundColor: '#982E2B', fontSize: 11, margin: 10 }}
-            onClick={this.props.onExitNoUploadClicked}
+        <div className={commonStyles.modalButtonArrayWrapper}>
+          <ButtonArray
+            titles={['Keep reading', 'Exit book']}
+            images={['fa-play', 'fa-times']}
+            actions={[this.props.onContinueClicked, exitAction]}
+            enlargeFirst={true}
+            fontAwesome={true}
+            modalType={'danger'}
           />
         </div>
+
 
 
       </BaseModal>

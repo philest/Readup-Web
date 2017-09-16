@@ -57,6 +57,12 @@
 	color: #50B250;
 }
 
+.buttonWrapper:hover .redIcon {
+	opacity: 1;
+	transition: all .3s;
+    color: #a94442;
+}
+
 
 
 .buttonImage {
@@ -154,6 +160,10 @@
 
 .greenIcon {
 	color: #50B250;
+}
+
+.redIcon {
+	color: red;
 }
 
 

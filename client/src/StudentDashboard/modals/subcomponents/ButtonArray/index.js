@@ -43,7 +43,7 @@ export default class ButtonArray extends React.Component {
 
     let iconColorClass = cx({
       greenIcon: this.props.modalType === 'success',
-      blueIcon: this.props.modalType === 'info',
+      blueIcon: this.props.modalType === 'info' || this.props.modalType === 'danger',
     });
 
     let faSizeClassFirst = cx({
@@ -57,6 +57,7 @@ export default class ButtonArray extends React.Component {
       icon: !this.props.inline,
       obscure: true,
       lightgrayIcon: true,  
+      redIcon: this.props.modalType === 'danger',
     })
 
 
