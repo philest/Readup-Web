@@ -10,6 +10,8 @@ import BackArrowButton from './components/BackArrowButton'
 
 
 import styles from './styles.css'
+import css from './components/NavigationBar/styles.css'
+import ReportStyles from '../ReportsInterface/styles.css'
 
 import { RouteTransition, presets } from 'react-router-transition';
 
@@ -58,6 +60,7 @@ export default class Reader extends React.Component {
 
     //Phil 
     inComp: PropTypes.bool,
+    currentShowModal: PropTypes.string,
   };
 
   static defaultProps = {
@@ -147,16 +150,22 @@ export default class Reader extends React.Component {
 
   renderUpperLeftButton = () => { 
     
-    if (this.props.inComp) {
+    if (this.props.inComp && (this.props.currentShowModal !== "modal-comp")) {
       return (
-        <RectangleButton
-          title='See'
-          subtitle='Question'
-          style={{ width: 200, height: 70, backgroundColor: '#245F92' }}
-          pulsatingArrow={true}
-          disabled={this.props.disabled}
-          onClick={this.props.onSeeCompClicked}
-        />
+
+          <div className={css.subContainer}>
+            <div className={[css.centerDisplayContainer].join(' ')}>
+              <RectangleButton
+                title='See'
+                subtitle='Question'
+                style={{ width: 200, height: 70, backgroundColor: '#245F92' }}
+                pulsatingArrow={false}
+                disabled={this.props.disabled}
+                onClick={this.props.onSeeCompClicked}
+              />
+              <i className={["fa", "fa-question", ReportStyles.pulse, styles.myQuestionMarkIcon].join(" ")} aria-hidden={"true"} />
+            </div>
+          </div>
       );      
     }    
 
@@ -197,7 +206,7 @@ export default class Reader extends React.Component {
 
         <div className={styles.contentContainer}>
 
-          <div className={this.props.inComp ? styles.leftDoubleButtonContainer : styles.leftButtonContainer}>
+          <div className={ (this.props.inComp && this.props.currentShowModal !== "modal-comp") ? styles.leftDoubleButtonContainer : styles.leftButtonContainer}>
             { this.renderUpperLeftButton() }
             { this.renderLeftButton() }
           </div>

@@ -102,3 +102,12 @@
 	background-color: green;
 	opacity: 0.3;
 }
+
+
+.myQuestionMarkIcon {
+	position: relative;
+    top: -46px;
+    left: 30px;
+    font-size: 1.5em;
+    color: white;
+}

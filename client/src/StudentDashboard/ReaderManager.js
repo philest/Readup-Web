@@ -133,6 +133,7 @@ class StudentDashboard extends React.Component {
       onSeeCompClicked: this.props.actions.seeCompClicked,
       inComp: this.props.inComp,
       onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL 
+      currentShowModal: this.props.currentShowModal,
 
 
     }
