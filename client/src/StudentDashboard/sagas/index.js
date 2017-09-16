@@ -47,6 +47,7 @@ import {
   DEMO_SUBMITTED_LOGOUT_CLICKED,
   IN_COMP_SET,
   SEE_COMP_CLICKED,
+  HEAR_QUESTION_AGAIN_CLICKED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -333,9 +334,28 @@ function* assessThenSubmitSaga() {
 
 // Start of comprehension 
 
+  yield playSound('/audio/now-questions.mp3')
+
+
+  
   yield put.resolve(setCurrentModal('modal-comp'))
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setInComp(true))
+
+  yield call(delay, 750)
+
+  yield playSound('/audio/comp-instructions.mp3')
+
+
+  yield call(delay, 500)
+
+  yield playSound('/audio/retell-full.mp3')
+
+
+  yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {
+    yield playSoundAsync('/audio/retell-partial.mp3')
+  })
+
 
 
   yield takeLatest(START_RECORDING_CLICKED, function* () {
