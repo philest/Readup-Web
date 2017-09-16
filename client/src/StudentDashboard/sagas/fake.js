@@ -1,3 +1,22 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Explore
+ @philest
+ Sign out
+ Unwatch 4
+  Star 1
+ Fork 0 aubreywahl/birdup Private
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki Insights 
+Branch: master Find file Copy pathbirdup/client/src/StudentDashboard/sagas/index.js
+e1ed02f  4 days ago
+@philest philest james hotfix to create user later
+3 contributors @philest @aubreywahl @danieler15
+RawBlameHistory     
+451 lines (310 sloc)  9.24 KB
 // @flow
 import {
   fork,
@@ -36,7 +55,6 @@ import {
   BOOK_INTRO_RECORDING_ENDED,
   INTRO_CONTINUE_CLICKED,
   HEAR_RECORDING_CLICKED,
-  SEE_BOOK_CLICKED,
   COUNTDOWN_ENDED,
   EXIT_CLICKED,
   RESTART_RECORDING_CLICKED,
@@ -45,9 +63,6 @@ import {
   SPINNER_SHOW,
   SPINNER_HIDE,
   DEMO_SUBMITTED_LOGOUT_CLICKED,
-  IN_COMP_SET,
-  SEE_COMP_CLICKED,
-  HEAR_QUESTION_AGAIN_CLICKED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -58,8 +73,6 @@ import {
   setCurrentModal,
   setCurrentOverlay,
   setCountdownValue,
-  setInComp,
-
 } from '../state'
 
 
@@ -197,80 +210,6 @@ function* exitClick() {
 }
 
 
-function* compSeeBookSaga() {
-  yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {
-    yield playSoundAsync('/audio/retell-partial.mp3')
-  })
-
-  yield takeLatest(SEE_BOOK_CLICKED, function* () {
-    yield put.resolve(setCurrentModal('no-modal'))
-  })
-
-  yield takeLatest(SEE_COMP_CLICKED, function* () {
-    yield put.resolve(setCurrentModal('modal-comp'))
-  })
-
-}
-
-function* compSaga() {
-
-  let compEffects = [] 
-
-  yield put.resolve(setCurrentModal('modal-comp'))
-  yield put.resolve(setPageNumber(0))
-  yield put.resolve(setInComp(true))
-
-
-
-
-  yield call(delay, 750)
-
-  // yield playSound('/audio/comp-instructions.mp3')
-
-
-  yield call(delay, 500)
-
-  // yield playSound('/audio/retell-full.mp3')
-
-
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.awaitingStart,
-  ))
-
-
-  compEffects.push(
-    yield fork(compSeeBookSaga),
-  )
-
-
-  yield take(START_RECORDING_CLICKED)
-
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.inProgress,
-  ))
-
-  yield clog('made it here')
-
-  yield take(STOP_RECORDING_CLICKED)
-
-  yield clog('made it here 2')
-
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.done,
-  ))
-
-
-  yield clog('made it here 3')
-
-  yield clog('compEffects is....', compEffects)
-
-  yield cancel(...compEffects)
-
-
-  return 'finished comp saga'
-}
-
-
 
 
 
@@ -282,7 +221,6 @@ function* assessThenSubmitSaga() {
 
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
-  yield put.resolve(setInComp(false))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
 
@@ -333,23 +271,26 @@ function* assessThenSubmitSaga() {
     yield takeLatest(EXIT_CLICKED, exitClick),
   )
 
-  yield call(sendEmail, "Demo started", "Demo was started", "philesterman@gmail.com") // move here so don't break
+
 
   // TODO: convert the countdown to saga!!!!
   yield put.resolve(setPageNumber(1))
   yield put.resolve(setReaderState(
     ReaderStateOptions.countdownToStart,
   ))
+  yield playSoundAsync('/audio/recording_countdown.mp3')
 
-  // yield playSoundAsync('/audio/recording_countdown.mp3')
+
+  // TODO: try sending text notification 
+  sendEmail("Demo started", "Demo was started", "philesterman@gmail.com")
 
 
-  // let countdown = 3
-  // while (countdown > 0) {
-  //   yield put(setCountdownValue(countdown))
-  //   yield call(delay, 1000)
-  //   countdown--
-  // }
+  let countdown = 3
+  while (countdown > 0) {
+    yield put(setCountdownValue(countdown))
+    yield call(delay, 1000)
+    countdown--
+  }
 
 
   // yield put(setCurrentSound('/audio/book_intro.mp3'))
@@ -363,7 +304,6 @@ function* assessThenSubmitSaga() {
     ReaderStateOptions.inProgress,
   ))
 
-  // TODO Phil: better user creation. 
    $.ajax({
       url: '/auth/phil_setup_demo',
       type: 'post',
@@ -394,6 +334,8 @@ function* assessThenSubmitSaga() {
   // yield playSoundAsync('/audio/done.mp3')
 
 
+
+
   const { endRecording } = yield race({
     turnItIn: take(TURN_IN_CLICKED),
     endRecording: take(STOP_RECORDING_CLICKED),
@@ -402,11 +344,6 @@ function* assessThenSubmitSaga() {
   recorder = yield select(getRecorder)
   const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
   yield clog('url for recording!!!', recordingBlob)
-
-
-
-  const compOutput = yield* compSaga() // blocks
-
 
   yield put.resolve(setCurrentModal('modal-done'))
   // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
@@ -420,54 +357,6 @@ function* assessThenSubmitSaga() {
   yield cancel(...effects)
 
   return recorder.getBlob()
-
-
-
-
-  // const { endRecording } = yield race({
-  //   turnItIn: take(TURN_IN_CLICKED),
-  //   endRecording: take(STOP_RECORDING_CLICKED),
-  // })
-
-  // recorder = yield select(getRecorder)
-  // const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
-  // yield clog('url for recording!!!', recordingBlob)
-
-
-  // yield put.resolve(setReaderState(
-  //   ReaderStateOptions.playingBookIntro,
-  // ))
-  // yield playSound('/audio/now-questions.mp3')
-
-
-  // // Start the comprehension saga
-  // const compOutput = yield* compSaga() // blocks
-
-
-  // yield clog('made it here 3.55555')
-
-
-  // yield put.resolve(setCurrentModal('modal-done'))
-  // // yield call(recorder.forceDownloadRecording, ['_test_.wav'])
-
-  // // do not delete, this is import :)
-  // if (endRecording) {
-
-  //     yield playSoundAsync('/audio/done-final.mp3')
-
-  //     yield clog('made it here 4')
-
-  //   yield take(TURN_IN_CLICKED)
-  //     yield clog('made it here 5')
-
-  // }
-
-
-  // yield cancel(...effects)
-
-  // return recorder.getBlob()
-
-
 }
 
 
@@ -522,9 +411,6 @@ function* rootSaga() {
       quit: take('QUIT_ASSESSMENT_AND_DESTROY'),
     })
     yield clog('Race Finished')
-
-    yield clog('made it here 6')
-
 
     if (quit) {
       window.location.href = "/" // eslint-disable-line
@@ -581,3 +467,15 @@ function* rootSaga() {
 
 export default rootSaga
 
+© 2017 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
