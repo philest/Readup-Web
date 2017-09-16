@@ -38,11 +38,13 @@ export default class ExitModal extends React.Component {
 
     let exitAction
 
-    if (this.props.startedRecording) {
-      exitAction = this.props.onExitAndUploadClicked
-    } else {
-      exitAction = this.props.onExitNoUploadClicked
-    }
+    // if (this.props.startedRecording) {
+    //   exitAction = this.props.onExitAndUploadClicked
+    // } else {
+    //   exitAction = this.props.onExitNoUploadClicked
+    // }
+
+    exitAction = this.props.onExitNoUploadClicked // Keep this because it's more expected by user
 
     return (
       <BaseModal title="Exit?" show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType="danger">
