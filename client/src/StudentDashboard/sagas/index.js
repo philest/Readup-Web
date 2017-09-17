@@ -528,10 +528,6 @@ function* rootSaga() {
     yield clog('made it here 6')
 
 
-    const recordingBlob = recordingBlobArray[0]
-    const compBlob = recordingBlobArray[1]
-
-
     if (quit) {
       window.location.href = "/" // eslint-disable-line
       return
@@ -544,6 +540,9 @@ function* rootSaga() {
       yield put(setCurrentOverlay('no-overlay'))
 
     } else {
+
+      const recordingBlob = recordingBlobArray[0]
+      const compBlob = recordingBlobArray[1]
 
       yield put({ type: SPINNER_SHOW })
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false)
