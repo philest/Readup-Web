@@ -222,11 +222,6 @@ function* compSaga() {
 
 
 
-  yield call(delay, 750)
-
-  yield playSound('/audio/comp-instructions.mp3')
-
-
   yield call(delay, 500)
 
   yield playSound('/audio/retell-full.mp3')

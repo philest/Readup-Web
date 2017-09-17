@@ -71,7 +71,7 @@ export default class CompModal extends React.Component {
 
             <RectangleButton
               title="Start"
-              subtitle="read and record"
+              subtitle="record answer"
               style={{ width: 200, height: 70, backgroundColor: '#5cb85c', borderColor: '#4cae4c' }}
               className={myStyles.compRecordButton}
               pulsatingArrow={true}
