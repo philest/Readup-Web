@@ -203,6 +203,7 @@ class StudentDashboard extends React.Component {
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
+          showSpinner={this.props.showSpinner}          
         />
 
         <DoneModal
