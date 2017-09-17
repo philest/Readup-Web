@@ -20,6 +20,7 @@ export default class ButtonArray extends React.Component {
     inline: PropTypes.bool,
     fontAwesome: PropTypes.bool,
     modalType: PropTypes.string,
+    showSpinner: PropTypes.bool,
   };
   static defaultProps = {
     enlargeFirst: false,
@@ -56,16 +57,24 @@ export default class ButtonArray extends React.Component {
       smallIcon: this.props.inline,
       icon: !this.props.inline,
       obscure: true,
-      lightgrayIcon: true,  
+      lightgrayIcon: true,
       redIcon: this.props.modalType === 'danger',
     })
+
+    let faAnimationClass
+
+    if (this.props.showSpinner) {
+      faAnimationClass = ''
+    } else {
+      faAnimationClass = 'fa-tada animated-hover'
+    }
 
 
     if (this.props.fontAwesome) {
       return (
         zipped.map((buttonInfoArray, index) => (
           <div className={this.props.disabled ? styles.disabledButtonWrapper : styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
-            <i className={[((this.props.enlargeFirst && index === 0) ? faSizeClassFirst : faSizeClassRest), 'fa', 'faa-tada', 'animated-hover', buttonInfoArray[1], iconColorClass].join(' ')} aria-hidden={"true"} />
+            <i className={[((this.props.enlargeFirst && index === 0) ? faSizeClassFirst : faSizeClassRest), 'fa', faAnimationClass, buttonInfoArray[1], iconColorClass].join(' ')} aria-hidden={"true"} />
             <div className={[((this.props.enlargeFirst && index == 0) ? styles.buttonText : [styles.smallButtonText, styles.obscure].join(' '))].join(' ')}>{buttonInfoArray[2]}</div>
           </div>
         ))

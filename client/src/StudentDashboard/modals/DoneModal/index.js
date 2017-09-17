@@ -15,6 +15,7 @@ export default class DoneModal extends React.Component {
     onTurnInClicked: PropTypes.func,
 
     currentShowModal: PropTypes.string,
+    showSpinner: PropTypes.bool,
   };
 
   /**
@@ -27,16 +28,26 @@ export default class DoneModal extends React.Component {
   }
 
   render() {
+
+    let firstIcons
+
+    if (this.props.showSpinner) {
+      firstIcons = 'fa-spinner fa-pulse'
+    } else {
+      firstIcons = 'fa-check'
+    }
+
     return (
        <BaseModal title="You're Done!" show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType="success">
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
             titles={['Turn it in', 'Hear it']}
-            images={['fa-check', 'fa-headphones']}
+            images={[firstIcons, 'fa-headphones']}
             actions={[this.props.onTurnInClicked, this.props.onHearRecordingClicked]}
             fontAwesome={true}
             enlargeFirst={true}
             modalType={"success"}
+            showSpinner={this.props.showSpinner}
           />
         </div>
       </BaseModal>

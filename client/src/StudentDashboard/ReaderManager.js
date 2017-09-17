@@ -208,6 +208,7 @@ class StudentDashboard extends React.Component {
           onHearRecordingClicked={this.props.actions.hearRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
+          showSpinner={this.props.showSpinner}
         />
 
         <CompModal
@@ -309,10 +310,6 @@ class StudentDashboard extends React.Component {
         { ModalComponentOrNull }
         { OverlayOrNull }
         { this.renderHiddenPreloadImages() }
-
-        { this.props.showSpinner &&
-          <SpinnerOverlay />
-        }
 
       </div>
     );
