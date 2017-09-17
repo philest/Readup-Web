@@ -66,7 +66,7 @@ export default class ButtonArray extends React.Component {
     if (this.props.showSpinner) {
       faAnimationClass = ''
     } else {
-      faAnimationClass = 'fa-tada animated-hover'
+      faAnimationClass = 'faa-tada animated-hover'
     }
 
 
