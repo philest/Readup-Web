@@ -23,12 +23,13 @@ export function requestNewAssessment(bookKey: string): AssessmentId {
     })
 }
 
-export function getS3Presign(assessmentId: number): PresignObject {
+export function getS3Presign(assessmentId: number, isCompBlob: boolean): PresignObject {
   console.log("\n\n\n\n\n\n", assessmentId)
   // get s3 presign
   const  params = {
     _: Date.now(),
     assessment_id: assessmentId,
+    is_comp_blob: isCompBlob,
   }
 
   return axios.get('/aws_presign', {
