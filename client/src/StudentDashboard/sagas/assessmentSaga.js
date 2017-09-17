@@ -69,6 +69,8 @@ function* resumeAssessmentSaga (action) {
 }
 
 function* pageIncrementSaga (action) {
+  yield call(console.log, "here in PAGE_INCREMENT........")
+
   yield call(delay, PAGE_CHANGE_DEBOUNCE_TIME_MS)
   yield put({ type: PAGE_INCREMENT })
 }
@@ -83,6 +85,7 @@ function* pageDecrementSaga (action) {
 // TODO: flowtype the assessment results as return value
 export default function* assessmentSaga() {
 
+  yield call(console.log, "here in assessmentSaga")
   // watchers!
   // TODO: refactor this into saga for referential integrity of recorder
   yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga)

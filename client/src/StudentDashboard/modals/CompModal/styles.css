@@ -1,0 +1,42 @@
+.compRecordButton {
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.275);
+}
+
+.compModal{
+  margin-top: 100px;
+}
+
+.compModalHeader {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    color: #565656;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    flex-flow: column;
+
+}
+
+.compModalHeader h4 {
+    text-align: center;
+    line-height: 1.75;
+    font-family: 'ProximaNova SemiBold';
+}
+
+.compModalHeader h4.compSubTitle {
+  font-family: 'ProximaNova';
+  font-weight: 100;
+
+}
+
+
+.compModalBody {
+  display: flex;
+  justify-content: flex-end;
+  padding: 45px 0px 30px;
+}
+
+

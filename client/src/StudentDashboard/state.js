@@ -22,7 +22,7 @@ export const HAS_RECORDED_SOMETHING_SET = 'RECORDED_SOMETHING_SET'
 
 
 export const INTRO_CONTINUE_CLICKED = 'INTRO_CONTINUE_CLICKED'
-export const START_RECORDING_CLICKED = 'CLICK_START_READING'
+export const START_RECORDING_CLICKED = 'START_RECORDING_CLICKED'
 export const STOP_RECORDING_CLICKED = 'CLICK_STOP_RECORDING'
 export const PAUSE_CLICKED = 'PAUSE_CLICKED'
 export const RESUME_CLICKED = 'RESUME_CLICKED'
@@ -31,8 +31,11 @@ export const PREVIOUS_PAGE_CLICKED = 'PREVIOUS_PAGE_CLICKED'
 export const EXIT_CLICKED = 'EXIT_CLICKED'
 export const RESTART_RECORDING_CLICKED = 'RESTART_RECORDING_CLICKED'
 export const TURN_IN_CLICKED = 'TURN_IN_CLICKED'
-export const HEAR_RECORDING_CLICKED = 'HEAR_RECORDING_CLICKED'
+export const HEAR_QUESTION_AGAIN_CLICKED = 'HEAR_QUESTION_AGAIN_CLICKED'
 export const RECORDING_URL_SET = 'RECORDING_URL_SET'
+
+export const SEE_BOOK_CLICKED = 'SEE_BOOK_CLICKED'
+export const HEAR_RECORDING_CLICKED = 'HEAR_RECORDING_CLICKED'
 
 export const DEMO_SUBMITTED_LOGOUT_CLICKED = 'DEMO_SUBMITTED_LOGOUT_CLICKED'
 export const SPINNER_SHOW = 'SPINNER_SHOW'
@@ -64,13 +67,15 @@ export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
 export const IS_DEMO_SET = 'IS_DEMO_SET'
 
+export const IN_COMP_SET = 'IN_COMP_SET'
+export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
 
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
     payload: {
       readerState,
-    }
+    },
   }
 }
 
@@ -79,16 +84,16 @@ export function setPageNumber(pageNumber: number) {
     type: PAGE_NUMBER_SET,
     payload: {
       pageNumber,
-    }
+    },
   }
 }
 
-export function setHasRecordedSomething(hasRecordedSomething: bool) {
+export function setHasRecordedSomething(hasRecordedSomething: boolean) {
   return {
     type: HAS_RECORDED_SOMETHING_SET,
     payload: {
       hasRecordedSomething,
-    }
+    },
   }
 }
 
@@ -117,7 +122,7 @@ export function setCountdownValue(countdownValue: number) {
     type: COUNTDOWN_VALUE_SET,
     payload: {
       countdownValue,
-    }
+    },
   }
 }
 
@@ -133,7 +138,7 @@ export function setCurrentSound(currentSoundId: string) {
     type: CURRENT_SOUND_SET,
     payload: {
       currentSoundId,
-    }
+    },
   }
 }
 
@@ -142,7 +147,7 @@ export function setCurrentModal(currentModalId: string) {
     type: CURRENT_MODAL_SET,
     payload: {
       currentModalId,
-    }
+    },
   }
 }
 
@@ -151,7 +156,7 @@ export function setCurrentOverlay(currentOverlayId: string) {
     type: CURRENT_OVERLAY_SET,
     payload: {
       currentOverlayId,
-    }
+    },
   }
 }
 
@@ -182,6 +187,7 @@ export function nextPageClicked() {
     type: NEXT_PAGE_CLICKED,
   }
 }
+
 
 export function previousPageClicked() {
   return {
@@ -215,18 +221,26 @@ export function hearRecordingClicked() {
   }
 }
 
-export function setRecordingURL(recordingURL: string) {
+export function seeBookClicked() {
+  return {
+    type: SEE_BOOK_CLICKED,
+  }
+}
+
+export function hearQuestionAgainClicked() {
+  return {
+    type: HEAR_QUESTION_AGAIN_CLICKED,
+  }
+}
+
+
+export function setRecordingURL(recordingURL: string, comp: boolean) {
   return {
     type: RECORDING_URL_SET,
     payload: {
       recordingURL,
-    }
-  }
-}
-
-export function demoSubmittedLogoutClicked() {
-  return {
-    type: DEMO_SUBMITTED_LOGOUT_CLICKED,
+      comp,
+    },
   }
 }
 
@@ -302,6 +316,7 @@ export function restartRecording() {
   }
 }
 
+
 export function playbackRecording() {
   return {
     type: RECORDING_PLAYBACK,
@@ -326,9 +341,26 @@ export function setIsDemo(isDemo) {
     type: IS_DEMO_SET,
     payload: {
       isDemo,
-    }
+    },
   }
 }
+
+
+export function setInComp(inComp: bool) {
+  return {
+    type: IN_COMP_SET,
+    payload: {
+      inComp,
+    },
+  }
+}
+
+export function seeCompClicked() {
+  return {
+    type: SEE_COMP_CLICKED,
+  }
+}
+
 
 
 const sampleBook = {
@@ -372,6 +404,7 @@ const initialState = {
   hasRecordedSomething: false,
   recorder: new Recorder(),
   recordingURL: null,
+  compRecordingURL: null,
   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
   currentSoundId: 'no-sound',
   currentModalId: 'no-modal',
@@ -440,7 +473,14 @@ function reducer(state = initialState, action = {}) {
     }
 
     case RECORDING_URL_SET: {
-      return { ...state, recordingURL: payload.recordingURL}
+
+      if (payload.comp === true) {
+        console.log("Just set compRecordingURL....")
+        return { ...state, compRecordingURL: payload.recordingURL}
+      } else {
+        console.log("Just set recordingURL....")
+        return { ...state, recordingURL: payload.recordingURL}
+      }
     }
 
     case SPINNER_SHOW: {
@@ -511,6 +551,11 @@ function reducer(state = initialState, action = {}) {
     case IS_DEMO_SET: {
       return { ...state, isDemo: payload.isDemo }
     }
+
+    case IN_COMP_SET: {
+      return { ...state, inComp: payload.inComp }
+    }
+
 
     default: return state;
   }

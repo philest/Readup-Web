@@ -10,6 +10,8 @@ import BackArrowButton from './components/BackArrowButton'
 
 
 import styles from './styles.css'
+import css from './components/NavigationBar/styles.css'
+import ReportStyles from '../ReportsInterface/styles.css'
 
 import { RouteTransition, presets } from 'react-router-transition';
 
@@ -54,6 +56,11 @@ export default class Reader extends React.Component {
     onNextPageClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
+    onSeeCompClicked: PropTypes.func,
+
+    //Phil 
+    inComp: PropTypes.bool,
+    currentShowModal: PropTypes.string,
   };
 
   static defaultProps = {
@@ -74,25 +81,10 @@ export default class Reader extends React.Component {
 
 
   renderLeftButton = () => {
-    if (this.props.showCover || this.props.isFirstPage) {
+    if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp)) {
       return null
     }
 
-    if (this.props.isDemo) { // disabled previous button
-      return (
-        <OverlayTrigger trigger={['hover', 'focus']} placement='top' overlay={<Popover id='back'>Back button is disabled in this demo</Popover>}>
-          <div className={styles.fullWidthHeight}>
-            <BackArrowButton
-              title='Back'
-              subtitle='page'
-              style={{ width: 120, height: 95 }}
-              disabled={true}
-              onClick={this.props.onPreviousPageClicked}
-            />
-          </div>
-        </OverlayTrigger>
-      );
-    }
 
     return (
       <BackArrowButton
@@ -100,6 +92,7 @@ export default class Reader extends React.Component {
         subtitle='page'
         style={{ width: 120, height: 95 }}
         onClick={this.props.onPreviousPageClicked}
+        disabled={this.props.disabled}
       />
     )
   }
@@ -119,7 +112,7 @@ export default class Reader extends React.Component {
   }
 
   renderRightButton = () => {
-    if (this.props.isLastPage) {
+    if (this.props.isLastPage && !this.props.inComp) {
       return (
         <RectangleButton
           title='Stop'
@@ -128,10 +121,14 @@ export default class Reader extends React.Component {
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onStopClicked}
+          visibility={(this.props.inComp ? 'hidden' : 'inherit')}
         />
       );
     }
-    else if (this.props.showCover) {
+    else if (this.props.isLastPage && this.props.inComp) {
+      return
+    }
+    else if (this.props.showCover && !this.props.inComp) {
       return (
         <RectangleButton
           title='Start'
@@ -144,6 +141,7 @@ export default class Reader extends React.Component {
       );
     }
 
+
     return (
       <ForwardArrowButton
         title='Next'
@@ -153,6 +151,30 @@ export default class Reader extends React.Component {
         onClick={this.props.onNextPageClicked}
       />
     );
+  }
+
+
+  renderUpperLeftButton = () => { 
+    
+    if (this.props.inComp && (this.props.currentShowModal !== "modal-comp")) {
+      return (
+
+          <div className={css.subContainer}>
+            <div className={[css.centerDisplayContainer].join(' ')}>
+              <RectangleButton
+                title='See'
+                subtitle='Question'
+                style={{ width: 200, height: 70, backgroundColor: '#245F92' }}
+                pulsatingArrow={false}
+                disabled={this.props.disabled}
+                onClick={this.props.onSeeCompClicked}
+              />
+              <i className={["fa", "fa-question", ReportStyles.pulse, styles.myQuestionMarkIcon].join(" ")} aria-hidden={"true"} />
+            </div>
+          </div>
+      );      
+    }    
+
   }
 
   renderNavigationBar = () => {
@@ -167,6 +189,7 @@ export default class Reader extends React.Component {
       isCoverPage: this.props.showCover,
       onPauseClicked: this.props.onPauseClicked,
       onExitClicked: this.props.onExitClicked,
+      inComp: this.props.inComp,
     }
 
     return <NavigationBar {...navProps} />
@@ -189,7 +212,8 @@ export default class Reader extends React.Component {
 
         <div className={styles.contentContainer}>
 
-          <div className={styles.leftButtonContainer}>
+          <div className={ (this.props.inComp && this.props.currentShowModal !== "modal-comp") ? styles.leftDoubleButtonContainer : styles.leftButtonContainer}>
+            { this.renderUpperLeftButton() }
             { this.renderLeftButton() }
           </div>
 

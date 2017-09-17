@@ -5,7 +5,7 @@
 .navContainer {
 	display: flex;
 	height: 60px;
-	background-color: #3C8FCA;
+	background-color: #143145;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -23,7 +23,8 @@
 	margin-left: 60px;
 	/*background-color: red;*/
 	margin-right: auto;
-	font-family: 'Proximanova Semibold'
+	font-family: 'Proximanova Semibold';
+	cursor: pointer;
 }
 
 .centerDisplayContainer {
@@ -36,7 +37,7 @@
 }
 
 .headerTabBlue {
-	background: url(/images/dashboard/header-tab-blue.svg);
+	background: url(/images/dashboard/header-tab-dark-blue.svg);
 	background-size: 250px 90px;
 }
 .headerTabRed {

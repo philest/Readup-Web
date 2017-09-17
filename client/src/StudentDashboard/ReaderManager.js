@@ -15,6 +15,7 @@ import {
 
 import styles from './styles.css'
 
+import CompModal from './modals/CompModal'
 import DoneModal from './modals/DoneModal'
 import PausedModal from './modals/PausedModal'
 import ExitModal from './modals/ExitModal'
@@ -45,7 +46,7 @@ import {
 const PRELOAD_IMAGES_ADVANCE = 3
 
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     // micEnabled: state.reader.micEnabled,
     pageNumber: state.reader.pageNumber,
@@ -56,10 +57,12 @@ function mapStateToProps (state) {
     book: state.reader.book,
     recorder: state.reader.recorder, // TODO probably shouldn't have access
     recordingURL: state.reader.recordingURL,
+    compRecordingURL: state.reader.compRecordingURL,
     currentShowModal: state.reader.currentModalId,
     currentShowOverlay: state.reader.currentOverlayId,
     showSpinner: state.reader.showSpinner,
     countdownValue: state.reader.countdownValue,
+    inComp: state.reader.inComp,
   }
 }
 
@@ -127,6 +130,13 @@ class StudentDashboard extends React.Component {
       showBookInfo: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
       onExitClicked: this.props.actions.exitClicked,
+      onNextPageClicked: this.props.actions.nextPageClicked,
+      onSeeCompClicked: this.props.actions.seeCompClicked,
+      inComp: this.props.inComp,
+      onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL 
+      currentShowModal: this.props.currentShowModal,
+
+
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
@@ -137,7 +147,13 @@ class StudentDashboard extends React.Component {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
-        onStartClicked: this.props.actions.startRecordingClicked,
+      }
+    }
+    else if (this.props.pageNumber == 0 && this.props.isComp) { // cover
+        readerProps = {
+          ...readerProps,
+          showCover: true,
+          showPauseButton: true,
       }
     }
     else { // any other page...
@@ -147,12 +163,11 @@ class StudentDashboard extends React.Component {
         pageNumber: this.props.pageNumber,
         textLines: this.props.book.pages[this.props.pageNumber].lines,
         imageURL: this.props.book.pages[this.props.pageNumber].img,
-        showPauseButton: this.props.readerState === ReaderStateOptions.inProgress,
+        showPauseButton: (this.props.readerState === ReaderStateOptions.inProgress && !this.props.inComp),
         isFirstPage: (this.props.pageNumber == 1),
         isLastPage: (this.props.pageNumber == this.props.numPages),
         onPreviousPageClicked: this.props.actions.previousPageClicked,
         onPauseClicked: this.props.actions.pauseClicked,
-        onNextPageClicked: this.props.actions.nextPageClicked,
         onStopClicked: this.props.actions.stopRecordingClicked,
       }
     }
@@ -183,6 +198,7 @@ class StudentDashboard extends React.Component {
 
         <PlaybackModal
           audioSrc={this.props.recordingURL}
+          compAudioSrc={this.props.compRecordingURL}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
@@ -193,6 +209,19 @@ class StudentDashboard extends React.Component {
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
         />
+
+        <CompModal
+          onSeeBookClicked={this.props.actions.seeBookClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
+          onStartClicked={this.props.actions.startRecordingClicked}
+          onStopClicked={this.props.actions.stopRecordingClicked}
+          readerState={this.props.readerState}
+          close={this.props.actions.seeBookClicked}
+          onHearQuestionAgainClicked={this.props.actions.hearQuestionAgainClicked}
+          disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro)}
+        />
+
       </div>
     );
 

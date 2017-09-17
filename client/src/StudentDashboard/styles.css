@@ -33,6 +33,16 @@
 
 }
 
+.leftDoubleButtonContainer {
+	margin-top: 0px;
+    display: flex;
+    flex-flow: column;
+    height: 65vh;
+    justify-content: space-between;
+    margin-left: 10px;
+
+}
+
 .rightButtonContainer {
 	min-width: 200px;
 	/*width: 200px;
@@ -92,4 +102,13 @@
 	bottom: 0;
 	background-color: green;
 	opacity: 0.3;
+}
+
+
+.myQuestionMarkIcon {
+	position: relative;
+    top: -46px;
+    left: 30px;
+    font-size: 1.5em;
+    color: white;
 }
