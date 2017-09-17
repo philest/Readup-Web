@@ -143,7 +143,7 @@ function* getMicPermissionsSaga() {
 
 
 
-function* haltRecordingAndGenerateBlobSaga(recorder) {
+function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob) {
   yield put.resolve(setReaderState(ReaderStateOptions.done))
   const blobURL = yield new Promise(function(resolve, reject) {
     recorder.stopRecording((blobUrl) => {
@@ -151,7 +151,7 @@ function* haltRecordingAndGenerateBlobSaga(recorder) {
     })
   });
   // this is done in the Store because PlaybackModal takes this is a prop
-  yield put.resolve(setRecordingURL(blobURL, false))
+  yield put.resolve(setRecordingURL(blobURL, isCompBlob))
   return yield blobURL
 }
 
@@ -244,8 +244,11 @@ function* compSaga() {
 
   yield take(START_RECORDING_CLICKED)
 
-  yield playSoundAsync('/audio/single_countdown.mp3')
+  yield playSound('/audio/single_countdown.mp3')
 
+  let recorder = yield select(getRecorder)
+  yield call(recorder.startRecording)
+  yield put.resolve(setHasRecordedSomething(true))
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
   ))
@@ -256,8 +259,12 @@ function* compSaga() {
 
   yield clog('made it here 2')
 
-  yield playSound('/audio/complete.mp3')
+  recorder = yield select(getRecorder)
+  const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
+  yield clog('url for comp recording!!!', compRecordingURL)
 
+
+  yield playSound('/audio/complete.mp3')
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.done,
@@ -271,7 +278,7 @@ function* compSaga() {
   yield cancel(...compEffects)
 
 
-  return 'finished comp saga'
+  return recorder.getBlob()
 }
 
 
@@ -404,13 +411,14 @@ function* assessThenSubmitSaga() {
   })
 
   recorder = yield select(getRecorder)
-  const recordingBlob = yield* haltRecordingAndGenerateBlobSaga(recorder);
-  yield clog('url for recording!!!', recordingBlob)
+  const recordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, false);
+  yield clog('url for recording!!!', recordingURL)
 
+  const recordingBlob = recorder.getBlob()
+
+  let compBlob
 
   if (endRecording) {
-
-
 
     yield put.resolve(setReaderState(
       ReaderStateOptions.playingBookIntro,
@@ -422,9 +430,12 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/now-questions.mp3')
 
-    const compOutput = yield* compSaga() // blocks
+    compBlob = yield* compSaga() // blocks
     yield put.resolve(setCurrentModal('modal-done'))
   }
+
+  compBlob = compBlob || ''
+
 
   yield call(delay, 200)
   yield playSoundAsync('/audio/done-final.mp3')
@@ -438,9 +449,10 @@ function* assessThenSubmitSaga() {
 
   yield cancel(...effects)
 
-  return recorder.getBlob()
+  yield clog("recordingBlob:   ", recordingBlob)
+  yield clog("compblog:   ", compBlob)
 
-
+  return [recordingBlob, compBlob]
 
 }
 
@@ -488,16 +500,20 @@ function* rootSaga() {
   while (true) {
     const {
       restartAssessment,
-      recordingBlob,
+      recordingBlobArray,
       quit,
     } = yield race({
       restartAssessment: take(RESTART_RECORDING_CLICKED),
-      recordingBlob: call(assessThenSubmitSaga),
+      recordingBlobArray: call(assessThenSubmitSaga),
       quit: take('QUIT_ASSESSMENT_AND_DESTROY'),
     })
     yield clog('Race Finished')
 
     yield clog('made it here 6')
+
+
+    const recordingBlob = recordingBlobArray[0]
+    const compBlob = recordingBlobArray[1]
 
 
     if (quit) {
@@ -524,7 +540,7 @@ function* rootSaga() {
         if (isDemo) {
           yield clog('oh hey you r done')
 
-          window.location.href = "/reports/sample"
+          // window.location.href = "/reports/sample"
           yield put({ type: SPINNER_SHOW })
 
 
