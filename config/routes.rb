@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   get 'student_dashboard/assessment', to: 'student_dashboard#create_assessment'
   post 'student_dashboard/assessment', to: 'student_dashboard#confirm_assessment_completion'
 
+  get 'demo', to: redirect('/student_dashboard/#/story/demo')
+
   get 'transcribe/:user_id', to: 'transcriber_interface#index'
   get 'reports/demo/show', to: 'reports#index'
   get 'reports/:user_id', to: 'reports#index'
