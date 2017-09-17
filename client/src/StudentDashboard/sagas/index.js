@@ -224,12 +224,12 @@ function* compSaga() {
 
   yield call(delay, 750)
 
-  // yield playSound('/audio/comp-instructions.mp3')
+  yield playSound('/audio/comp-instructions.mp3')
 
 
   yield call(delay, 500)
 
-  // yield playSound('/audio/retell-full.mp3')
+  yield playSound('/audio/retell-full.mp3')
 
 
   yield put.resolve(setReaderState(
@@ -352,15 +352,15 @@ function* assessThenSubmitSaga() {
     ReaderStateOptions.countdownToStart,
   ))
 
-  // yield playSoundAsync('/audio/recording_countdown.mp3')
+  yield playSoundAsync('/audio/recording_countdown.mp3')
 
 
-  // let countdown = 3
-  // while (countdown > 0) {
-  //   yield put(setCountdownValue(countdown))
-  //   yield call(delay, 1000)
-  //   countdown--
-  // }
+  let countdown = 3
+  while (countdown > 0) {
+    yield put(setCountdownValue(countdown))
+    yield call(delay, 1000)
+    countdown--
+  }
 
 
   // yield put(setCurrentSound('/audio/book_intro.mp3'))
@@ -540,7 +540,7 @@ function* rootSaga() {
         if (isDemo) {
           yield clog('oh hey you r done')
 
-          // window.location.href = "/reports/sample"
+          window.location.href = "/reports/sample"
           yield put({ type: SPINNER_SHOW })
 
 
