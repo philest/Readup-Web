@@ -18,6 +18,7 @@ import { RouteTransition, presets } from 'react-router-transition';
 import { Modal, Button, Popover, OverlayTrigger } from 'react-bootstrap';
 
 
+
 import {
   Link,
   Redirect,
@@ -219,7 +220,7 @@ export default class Reader extends React.Component {
 
           <div className={styles.bookpageContainer}>
             <RouteTransition {...transitionProps}>
-              { this.renderCenterDisplay() }
+                { this.renderCenterDisplay() }
             </RouteTransition>
           </div>
 

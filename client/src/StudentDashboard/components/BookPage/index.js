@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 export default class BookPage extends React.Component {
@@ -39,12 +38,6 @@ export default class BookPage extends React.Component {
 
     return (
 
-      <ReactCSSTransitionGroup
-        transitionName="example"
-        transitionEnterTimeout={700}
-        transitionLeaveTimeout={700}
-      >
-
         <div className={styles.fullContainer}>
 
           <div className={styles.bookEdge} />
@@ -57,8 +50,6 @@ export default class BookPage extends React.Component {
           </div>
 
         </div>
-
-      </ReactCSSTransitionGroup>
 
     );
   }
