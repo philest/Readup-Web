@@ -64,7 +64,7 @@ function Root ({ store, rorProps }) {
           // default catchall
           // TODO how to handle?
           console.log('404!!!!')
-          return <div>404</div>
+          return <div>Sorry, the page you requested was not found.</div>
         }} />
       </Switch>
       </HashRouter>
