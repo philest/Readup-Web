@@ -9,6 +9,7 @@ type props = {
   onClick: Function,
   disabled: boolean,
   pulsatingArrow: boolean,
+  partiallyDisabled: boolean,
   style: {},
 };
 
@@ -17,14 +18,27 @@ function RectangleButton ({
   subtitle = "",
   onClick = function () { return null },
   disabled = false,
+  partiallyDisabled = false,
   pulsatingArrow = false,
   style = {},
 } : props) {
+
+
+  let containerStyle
+
+  if (disabled) {
+    containerStyle = styles.disabledButtonContainer
+  } else if (partiallyDisabled) {
+    containerStyle = styles.partiallyDisabledButtonContainer
+  } else {
+    containerStyle = styles.rectangleButtonContainer
+  }
+
   return (
     <div
-      className={disabled ? styles.disabledButtonContainer : styles.rectangleButtonContainer}
+      className={containerStyle}
       style={style}
-      onClick={() => (!disabled && onClick())}
+      onClick={() => ((!disabled && !partiallyDisabled) && onClick())}
     >
 
       

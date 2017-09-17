@@ -80,6 +80,7 @@ export default class CompModal extends React.Component {
               className={myStyles.compRecordButton}
               pulsatingArrow={true}
               disabled={this.props.disabled && !talkingAboutStartButton}
+              partiallyDisabled={talkingAboutStartButton}
               onClick={this.props.onStartClicked}
             />
 
@@ -91,6 +92,7 @@ export default class CompModal extends React.Component {
               subtitle='recording'
               style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
               pulsatingArrow={true}
+              partiallyDisabled={talkingAboutStopButton}
               disabled={this.props.disabled && !talkingAboutStopButton}
               onClick={this.props.onStopClicked}
             />
