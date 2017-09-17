@@ -21,10 +21,13 @@ export default class ButtonArray extends React.Component {
     fontAwesome: PropTypes.bool,
     modalType: PropTypes.string,
     showSpinner: PropTypes.bool,
+    disabled: PropTypes.bool,
   };
   static defaultProps = {
     enlargeFirst: false,
     inline: false,
+    fontAwesome: true,
+    disabled: false,
   };
 
 
@@ -63,7 +66,7 @@ export default class ButtonArray extends React.Component {
 
     let faAnimationClass
 
-    if (this.props.showSpinner) {
+    if (this.props.showSpinner || this.props.disabled) {
       faAnimationClass = ''
     } else {
       faAnimationClass = 'faa-tada animated-hover'
@@ -76,15 +79,6 @@ export default class ButtonArray extends React.Component {
           <div className={this.props.disabled ? styles.disabledButtonWrapper : styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
             <i className={[((this.props.enlargeFirst && index === 0) ? faSizeClassFirst : faSizeClassRest), 'fa', faAnimationClass, buttonInfoArray[1], iconColorClass].join(' ')} aria-hidden={"true"} />
             <div className={[((this.props.enlargeFirst && index == 0) ? styles.buttonText : [styles.smallButtonText, styles.obscure].join(' '))].join(' ')}>{buttonInfoArray[2]}</div>
-          </div>
-        ))
-      );
-    } else {
-      return (
-        zipped.map((buttonInfoArray, index) => (
-          <div className={styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
-            <img className={[((this.props.enlargeFirst && index == 0) ? styles.largeButtonImage : styles.buttonImage), buttonImageClass].join(' ')} src={buttonInfoArray[1]} />
-            <div className={[((this.props.enlargeFirst && index == 0) ? styles.largeButtonText : styles.buttonText), buttonTextClass].join(' ')}>{buttonInfoArray[2]}</div>
           </div>
         ))
       );

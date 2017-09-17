@@ -220,9 +220,19 @@ function* compSaga() {
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setInComp(true))
 
-
-
   yield call(delay, 500)
+
+  yield playSound('/audio/comp-instructions.mp3')
+
+  yield call(delay, 300)
+
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.awaitingStart,
+  ))
+
+
+  yield call(delay, 700)
 
   yield playSound('/audio/retell-full.mp3')
 

@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+
 export default class BookPage extends React.Component {
   static propTypes = {
     pageNumber: PropTypes.number,
@@ -36,18 +39,27 @@ export default class BookPage extends React.Component {
 
     return (
 
-      <div className={styles.fullContainer}>
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionEnterTimeout={700}
+        transitionLeaveTimeout={700}
+      >
 
-        <div className={styles.bookEdge}></div>
+        <div className={styles.fullContainer}>
 
-        <div className={styles.readerContentContainer}>
-          <img src={this.props.imageURL} className={styles.readerImage} />
-          <img src={pageTearURL} className={styles.paperTearImage} />
-          <FormattedText textLines={this.props.textLines} />
-          <div className={styles.pageNumber}>{this.props.pageNumber}</div>
+          <div className={styles.bookEdge} />
+
+          <div className={styles.readerContentContainer}>
+            <img src={this.props.imageURL} className={styles.readerImage} />
+            <img src={pageTearURL} className={styles.paperTearImage} />
+            <FormattedText textLines={this.props.textLines} />
+            <div className={styles.pageNumber}>{this.props.pageNumber}</div>
+          </div>
+
         </div>
-        
-      </div>
+
+      </ReactCSSTransitionGroup>
+
     );
   }
 }
