@@ -20,6 +20,7 @@ export default class PausedModal extends React.Component {
 
     currentShowModal: PropTypes.string,
     modalType: PropTypes.string,
+    showSpinner: PropTypes.bool,
   };
 
   /**
@@ -32,17 +33,28 @@ export default class PausedModal extends React.Component {
   }
 
   render() {
+
+    let firstIcons
+
+    if (this.props.showSpinner) {
+      firstIcons = 'fa-spinner fa-pulse'
+    } else {
+      firstIcons = 'fa-check'
+    }
+
+
     return (
       <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType='info'>
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
             titles={['Go on', 'Turn it in', 'Start over']}
-            images={['fa-play', 'fa-check', 'fa-repeat' ]}
-            actions={[this.props.onContinueClicked, this.props.onTurnInClicked, this.props.onStartOverClicked ]}
+            images={['fa-play', firstIcons, 'fa-repeat']}
+            actions={[this.props.onContinueClicked, this.props.onTurnInClicked, this.props.onStartOverClicked]}
             enlargeFirst={true}
             fontAwesome={true}
             modalType={'info'}
+            showSpinner={this.props.showSpinner}
           />
         </div>
 

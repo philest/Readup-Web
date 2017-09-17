@@ -402,8 +402,6 @@ function* assessThenSubmitSaga() {
     yield fork(assessmentSaga),
   )
 
-  yield playSoundAsync('/audio/done.mp3')
-
 
   const { endRecording } = yield race({
     turnItIn: take(TURN_IN_CLICKED),
@@ -432,13 +430,15 @@ function* assessThenSubmitSaga() {
 
     compBlob = yield* compSaga() // blocks
     yield put.resolve(setCurrentModal('modal-done'))
+
+    yield call(delay, 200)
+    yield playSoundAsync('/audio/done-final.mp3')
+
   }
 
   compBlob = compBlob || ''
 
 
-  yield call(delay, 200)
-  yield playSoundAsync('/audio/done-final.mp3')
 
 
   // do not delete, this is import :)
