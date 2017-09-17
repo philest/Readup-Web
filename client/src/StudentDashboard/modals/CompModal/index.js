@@ -35,6 +35,7 @@ export default class CompModal extends React.Component {
     onHearQuestionAgainClicked: PropTypes.func,
     close: PropTypes.func,
     disabled: PropTypes.bool,
+    readerState: PropTypes.string,
   };
 
   /**
@@ -56,7 +57,10 @@ export default class CompModal extends React.Component {
   render() {
 
 
+    let talkingAboutStartButton = this.props.readerState === ReaderStateOptions.talkingAboutStartButton
+    let talkingAboutStopButton = this.props.readerState === ReaderStateOptions.talkingAboutStopButton
 
+    let talkingAboutButtons = talkingAboutStartButton || talkingAboutStopButton
 
     return (
 
@@ -67,7 +71,7 @@ export default class CompModal extends React.Component {
 
           </Modal.Header>
           <Modal.Body className={myStyles.compModalBody}>
-          { this.props.readerState !== ReaderStateOptions.inProgress &&
+          { ((this.props.readerState !== ReaderStateOptions.inProgress) && !talkingAboutStopButton) &&
 
             <RectangleButton
               title="Start"
@@ -75,19 +79,19 @@ export default class CompModal extends React.Component {
               style={{ width: 200, height: 70, backgroundColor: '#5cb85c', borderColor: '#4cae4c' }}
               className={myStyles.compRecordButton}
               pulsatingArrow={true}
-              disabled={this.props.disabled}
+              disabled={this.props.disabled && !talkingAboutStartButton}
               onClick={this.props.onStartClicked}
             />
 
           }
 
-          { this.props.readerState === ReaderStateOptions.inProgress &&
+          { (this.props.readerState === ReaderStateOptions.inProgress || talkingAboutStopButton) &&
             <RectangleButton
               title='Stop'
               subtitle='recording'
               style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
               pulsatingArrow={true}
-              disabled={this.props.disabled}
+              disabled={this.props.disabled && !talkingAboutStopButton}
               onClick={this.props.onStopClicked}
             />
           }

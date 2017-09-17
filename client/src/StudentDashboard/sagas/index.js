@@ -222,17 +222,28 @@ function* compSaga() {
 
   yield call(delay, 500)
 
-  yield playSound('/audio/comp-instructions.mp3')
+  yield playSoundAsync('/audio/comp-instructions.mp3')
 
-  yield call(delay, 300)
+  yield call(delay, 1600)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.talkingAboutStartButton,
+  ))
+
+  yield call(delay, 2280)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.talkingAboutStopButton,
+  ))
+
+  yield call(delay, 1900)
 
 
   yield put.resolve(setReaderState(
-    ReaderStateOptions.awaitingStart,
+    ReaderStateOptions.playingBookIntro,
   ))
 
 
-  yield call(delay, 700)
 
   yield playSound('/audio/retell-full.mp3')
 

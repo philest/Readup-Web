@@ -28,7 +28,6 @@ import SubmittedOverlay from './overlays/SubmittedOverlay'
 import DemoSubmittedOverlay from './overlays/DemoSubmittedOverlay'
 import PermissionsOverlay from './overlays/PermissionsOverlay'
 import CountdownOverlay from './overlays/CountdownOverlay'
-import SpinnerOverlay from './overlays/SpinnerOverlay'
 
 import { Modal } from 'react-bootstrap'
 
@@ -222,7 +221,7 @@ class StudentDashboard extends React.Component {
           readerState={this.props.readerState}
           close={this.props.actions.seeBookClicked}
           onHearQuestionAgainClicked={this.props.actions.hearQuestionAgainClicked}
-          disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro)}
+          disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.readerState === ReaderStateOptions.talkingAboutStartButton) || (this.props.readerState === ReaderStateOptions.talkingAboutStopButton)}
         />
 
       </div>
