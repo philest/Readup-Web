@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
+
+import LogRocket from 'logrocket';
+LogRocket.init('y5jtw9/readup-prod');
+
 import React from 'react'
 import storeConfig from './createStore'
 import rootSaga from './sagas'
@@ -12,6 +16,25 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom'
+
+import { getUserCount } from '../ReportsInterface/emailHelpers.js'
+
+let userCount
+
+getUserCount().then(res => {
+  userCount = res
+  console.log("in promise")
+
+  console.log(res)
+  console.log(userCount )
+  
+  LogRocket.identify(userCount + 1, {
+
+  });
+})
+
+
+
 
 storeConfig.runSaga(rootSaga)
 

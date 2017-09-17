@@ -3241,6 +3241,10 @@ loglevel@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.4.1.tgz#95b383f91a3c2756fd4ab093667e4309161f2bcd"
 
+logrocket@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/logrocket/-/logrocket-0.5.4.tgz#2fb58348d27d0a9699f7a044c882a642608f33a1"
+
 longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
@@ -4226,6 +4230,10 @@ react-addons-css-transition-group@^15.6.0:
   resolved "https://registry.yarnpkg.com/react-addons-css-transition-group/-/react-addons-css-transition-group-15.6.0.tgz#69887cf6e4874d25cd66e22a699e29f0d648aba0"
   dependencies:
     react-transition-group "^1.2.0"
+
+react-animate-on-change@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-animate-on-change/-/react-animate-on-change-1.0.0.tgz#177f8f5c7bce082ee8c4a97f5451304964582f81"
 
 react-bootstrap@^0.31.0:
   version "0.31.1"

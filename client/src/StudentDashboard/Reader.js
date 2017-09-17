@@ -18,7 +18,6 @@ import { RouteTransition, presets } from 'react-router-transition';
 import { Modal, Button, Popover, OverlayTrigger } from 'react-bootstrap';
 
 
-
 import {
   Link,
   Redirect,
