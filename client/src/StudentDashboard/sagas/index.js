@@ -167,10 +167,10 @@ function* redirectToHomepage () {
 
 
 
-function* turnInAudio(blob, assessmentId: number) {
+function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean) {
   for (let i = 0; i < 3; i++) {
     try {
-      const presign = yield getS3Presign(assessmentId)
+      const presign = yield getS3Presign(assessmentId, isCompBlob)
       const res = yield sendAudioToS3(blob, presign)
       yield clog('yay response!', res)
       return yield res
@@ -530,7 +530,11 @@ function* rootSaga() {
     } else {
 
       yield put({ type: SPINNER_SHOW })
-      const turnedIn = yield* turnInAudio(recordingBlob, assessmentId)
+      const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false)
+
+      const compTurnedIn = yield* turnInAudio(compBlob, assessmentId, true)
+
+
       yield put({ type: SPINNER_HIDE })
 
       // success!

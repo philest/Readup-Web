@@ -46,6 +46,7 @@ class AudioProcessController < ApplicationController
   private
 
   def set_s3_direct_post
+    puts "is_comp_blob: #{params["is_comp_blob"]}\n\n\n\n\n\n\n\n"
     puts "#{params["assessment_id"]}\n\n\n\n\n\n\n\n"
   
 
@@ -53,8 +54,12 @@ class AudioProcessController < ApplicationController
     # THE REAL IMPLEMENTATION IS COMMENTED OUT BELOW 
     if true
 
+      if params["is_comp_blob"] == "true"
+        key = "fake-assessments/#{ENV['RAILS_ENV']}/#{User.last.id}/comp/${filename}"
+      else # normal upload
+        key = "fake-assessments/#{ENV['RAILS_ENV']}/#{User.last.id}/${filename}"
+      end 
 
-      key = "fake-assessments/#{ENV['RAILS_ENV']}/#{User.last.id}/${filename}"
       @s3_direct_post = S3_BUCKET.presigned_post(
         key: key,
         success_action_status: '201',
