@@ -215,21 +215,7 @@ function* questionIncrementSaga (action) {
 
 
 
-function* compSeeBookSaga() {
-  yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {
-    yield playSoundAsync('/audio/retell-partial.mp3')
-  })
 
-  yield takeLatest(SEE_BOOK_CLICKED, function* () {
-    yield put.resolve(setCurrentModal('no-modal'))
-    yield call(stopAudio)
-  })
-
-  yield takeLatest(SEE_COMP_CLICKED, function* () {
-    yield put.resolve(setCurrentModal('modal-comp'))
-  })
-
-}
 
 function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: string) {
 
@@ -281,9 +267,35 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   ))
 
 
+
+  // BEGIN the former compSeeBookSaga
+
   compEffects.push(
-    yield fork(compSeeBookSaga),
+    yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {
+      yield playSoundAsync(questionAudioFile)
+    })
   )
+  compEffects.push(
+    yield takeLatest(SEE_BOOK_CLICKED, function* () {
+      yield put.resolve(setCurrentModal('no-modal'))
+      yield call(stopAudio)
+    })
+  )
+
+  compEffects.push(
+    yield takeLatest(SEE_COMP_CLICKED, function* () {
+      yield put.resolve(setCurrentModal('modal-comp'))
+    })
+  )
+
+  // END the former compSeeBookSaga
+
+
+
+
+
+
+
 
 
   yield take(START_RECORDING_CLICKED)

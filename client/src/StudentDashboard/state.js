@@ -421,7 +421,7 @@ const sampleBook = {
       audioSrc: '/audio/retell-full.mp3',
     },
     2: {
-      title: "Tell some more about that",
+      title: "Tell some more about the passage.",
       audioSrc: '/audio/tell-more.mp3',
     },
     3: {
