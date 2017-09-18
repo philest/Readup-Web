@@ -204,6 +204,7 @@ function* compSeeBookSaga() {
 
   yield takeLatest(SEE_BOOK_CLICKED, function* () {
     yield put.resolve(setCurrentModal('no-modal'))
+    yield call(stopAudio)
   })
 
   yield takeLatest(SEE_COMP_CLICKED, function* () {
@@ -260,7 +261,11 @@ function* compSaga() {
 
   yield take(START_RECORDING_CLICKED)
 
-  yield playSound('/audio/single_countdown.mp3')
+  yield call(stopAudio)
+
+  yield playSoundAsync('/audio/single_countdown.mp3')
+
+  yield call(delay, 900)
 
   let recorder = yield select(getRecorder)
   yield call(recorder.startRecording)
@@ -273,11 +278,14 @@ function* compSaga() {
 
   yield take(STOP_RECORDING_CLICKED)
 
+  yield call(stopAudio)
+
   yield clog('made it here 2')
 
   recorder = yield select(getRecorder)
   const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
   yield clog('url for comp recording!!!', compRecordingURL)
+
 
 
   yield playSound('/audio/complete.mp3')

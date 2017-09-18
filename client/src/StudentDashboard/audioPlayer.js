@@ -33,8 +33,21 @@ export function playSound(file, onEnd) {
 
 export function playSoundAsync(file) {
 
+
+
     if (!!audio) {
       audio.pause()
+
+      // BEGIN toggle off audio when the same file is replayed 
+      let prevFileName = audio.src.substr(audio.src.lastIndexOf('/') + 1)
+      let currFileName = file.substr(file.lastIndexOf('/') + 1)
+
+      if (prevFileName === currFileName) {
+        audio = null
+        return
+      }
+      // END toggle off audio
+
     }
     console.log('Playing Sound: ' + file)
     audio = new Audio(file);
