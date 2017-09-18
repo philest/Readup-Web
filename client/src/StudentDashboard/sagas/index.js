@@ -48,6 +48,8 @@ import {
   IN_COMP_SET,
   SEE_COMP_CLICKED,
   HEAR_QUESTION_AGAIN_CLICKED,
+  QUESTION_INCREMENT,
+  QUESTION_DECREMENT,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -78,7 +80,7 @@ import assessmentSaga from './assessmentSaga'
 import { sendEmail } from '../../ReportsInterface/emailHelpers'
 
 
-
+const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200
 
 
 function getPermission(recorder) {
@@ -204,6 +206,14 @@ function* exitClick() {
   yield put(setCurrentModal('modal-exit'))
 }
 
+function* questionIncrementSaga (action) {
+  yield clog("here in QUESTION_INCREMENT........")
+
+  yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS)
+  yield put({ type: QUESTION_INCREMENT })
+}
+
+
 
 function* compSeeBookSaga() {
   yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {
@@ -221,7 +231,7 @@ function* compSeeBookSaga() {
 
 }
 
-function* compSaga(firstTime: boolean, questionAudioFile: string) {
+function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: string) {
 
   const compEffects = []
 
@@ -321,9 +331,22 @@ function* compSaga(firstTime: boolean, questionAudioFile: string) {
 
   yield put({ type: SPINNER_SHOW })
   yield call (delay, 4000)
-  yield put({ type: SPINNER_HIDE })
-  yield playSoundAsync('/audio/complete.mp3')
 
+  yield playSound('/audio/complete.mp3')
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.playingBookIntro,
+  ))
+
+
+  yield put({ type: SPINNER_HIDE })
+
+
+  yield put.resolve(setCurrentModal('no-modal'))
+
+  if (!lastTime) {
+    yield* questionIncrementSaga()
+  }
 
   yield cancel(...compEffects)
 
@@ -482,9 +505,12 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/now-questions.mp3')
 
-    compBlob = yield* compSaga(true, '/audio/retell-full.mp3') // blocks
+    compBlob = yield* compSaga(true, false, '/audio/retell-full.mp3') // blocks
 
-    compBlob2 = yield* compSaga(false, '/audio/done-final.mp3')
+    compBlob2 = yield* compSaga(false, false, '/audio/tell-more.mp3')
+
+    compBlob2 = yield* compSaga(false, true, '/audio/know-that.mp3')
+
 
     yield put.resolve(setCurrentModal('modal-done'))
 
@@ -586,6 +612,9 @@ function* rootSaga() {
       const compBlob = recordingBlobArray[1]
 
       yield put({ type: SPINNER_SHOW })
+
+      yield playSoundAsync('/audio/complete.mp3')
+
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false)
 
       const compTurnedIn = yield* turnInAudio(compBlob, assessmentId, true)

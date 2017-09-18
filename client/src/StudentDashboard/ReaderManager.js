@@ -49,6 +49,7 @@ function mapStateToProps(state) {
   return {
     // micEnabled: state.reader.micEnabled,
     pageNumber: state.reader.pageNumber,
+    questionNumber: state.reader.questionNumber,
     readerState: state.reader.readerState,
     pauseType: state.reader.pauseType,
     hasRecordedSomething: state.reader.hasRecordedSomething,
@@ -223,7 +224,7 @@ class StudentDashboard extends React.Component {
           onHearQuestionAgainClicked={this.props.actions.hearQuestionAgainClicked}
           disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.readerState === ReaderStateOptions.talkingAboutStartButton) || (this.props.readerState === ReaderStateOptions.talkingAboutStopButton) }
           showSpinner={this.props.showSpinner}
-          question={this.props.book.questions[1]}
+          question={this.props.book.questions[this.props.questionNumber]}
         />
 
       </div>

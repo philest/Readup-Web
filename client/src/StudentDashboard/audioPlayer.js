@@ -1,4 +1,4 @@
-export const DEV_DISABLE_VOICE_INSTRUCTIONS = true
+export const DEV_DISABLE_VOICE_INSTRUCTIONS = false
 
 let audio = null
 

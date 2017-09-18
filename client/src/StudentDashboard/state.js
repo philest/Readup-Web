@@ -70,6 +70,10 @@ export const IS_DEMO_SET = 'IS_DEMO_SET'
 export const IN_COMP_SET = 'IN_COMP_SET'
 export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
 
+export const QUESTION_INCREMENT = 'QUESTION_INCREMENT'
+export const QUESTION_DECREMENT = 'QUESTION_DECREMENT'
+
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -265,6 +269,9 @@ export function decrementPage() {
   }
 }
 
+
+
+
 export function startCountdownToStart() {
   return {
     type: RECORDING_COUNTDOWN_TO_START,
@@ -346,7 +353,7 @@ export function setIsDemo(isDemo) {
 }
 
 
-export function setInComp(inComp: bool) {
+export function setInComp(inComp: boolean) {
   return {
     type: IN_COMP_SET,
     payload: {
@@ -361,18 +368,21 @@ export function seeCompClicked() {
   }
 }
 
-const sampleQuestions = {
-  1: {
-    title: "Tell as much as you can about the passage you just read.",
-    subTitle: "Be sure to include the beginning, middle and end",
-  },
-  2: {
-    title: "Tell some more about that",
-  },
-  3: {
-    title: "How do you know that?",
-  },
-};
+
+export function incrementQuestion() {
+  return {
+    type: QUESTION_INCREMENT,
+  }
+}
+
+export function decrementQuestion() {
+  return {
+    type: QUESTION_DECREMENT,
+  }
+}
+
+
+
 
 
 const sampleBook = {
@@ -408,12 +418,15 @@ const sampleBook = {
     1: {
       title: "Tell as much as you can about the passage you just read.",
       subtitle: "Be sure to include the beginning, middle and end",
+      audioSrc: '/audio/retell-full.mp3',
     },
     2: {
       title: "Tell some more about that",
+      audioSrc: '/audio/tell-more.mp3',
     },
     3: {
       title: "How do you know that?",
+      audioSrc: '/audio/know-that.mp3',
     },
   },
 
@@ -425,6 +438,7 @@ const initialState = {
   pageNumber: 0,
   numPages: sampleBook.numPages,
   book: sampleBook,
+  questionNumber: 1,
   readerState: ReaderStateOptions.initializing,
   pauseType: PauseTypeOptions.fromPauseButton,
   hasRecordedSomething: false,
@@ -533,6 +547,18 @@ function reducer(state = initialState, action = {}) {
       history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber-1))
       return { ...state, pageNumber: state.pageNumber - 1}
     }
+
+    case QUESTION_INCREMENT: {
+        // TODO add history here.
+        return { ...state, questionNumber: state.questionNumber + 1}
+    }
+
+    case QUESTION_DECREMENT: {
+        // TODO add history here.
+        return { ...state, questionNumber: state.questionNumber - 1}
+    }
+
+
     // case RECORDING_COUNTDOWN_TO_START: {
     //   history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber+1))
     //   return { ...state, readerState: ReaderStateOptions.countdownToStart, pageNumber: 1 }
