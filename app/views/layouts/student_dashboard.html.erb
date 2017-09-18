@@ -17,9 +17,6 @@
     <% if ENV["HMR"] == "1" %>
       <%= javascript_include_tag "http://localhost:8080/hmr-bundle.js" %>
     <% else %>
-      <%= stylesheet_pack_tag('vendor-bundle',
-                              media: 'all',
-                              'data-turbolinks-track': true) %>
 
       <%= stylesheet_pack_tag('app-bundle',
                               media: 'all',
