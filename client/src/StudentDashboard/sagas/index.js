@@ -148,8 +148,10 @@ function* getMicPermissionsSaga() {
 function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob) {
   yield put.resolve(setReaderState(ReaderStateOptions.done))
 
+  let blobURL
+
   try {
-    const blobURL = yield new Promise(function(resolve, reject) {
+      blobURL = yield new Promise(function(resolve, reject) {
       recorder.stopRecording((blobUrl) => {
         resolve(blobUrl)
       })
@@ -157,7 +159,7 @@ function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob) {
   } catch (err) {
       yield clog("ERROR: ", err)
       yield call(sendEmail, err, "Recorder failed to STOP", "philesterman@gmail.com") // move here so don't break
-      let blobURL = "false"
+      blobURL = "false"
   }
 
   // this is done in the Store because PlaybackModal takes this is a prop
