@@ -63,6 +63,9 @@ export default class CompModal extends React.Component {
 
     let talkingAboutButtons = talkingAboutStartButton || talkingAboutStopButton
 
+    let done = this.props.readerState === ReaderStateOptions.done
+    let inProgress = this.props.readerState === ReaderStateOptions.inProgress
+
     return (
 
         <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
@@ -72,7 +75,7 @@ export default class CompModal extends React.Component {
 
           </Modal.Header>
           <Modal.Body className={myStyles.compModalBody}>
-          { ((this.props.readerState !== ReaderStateOptions.inProgress) && !talkingAboutStopButton) &&
+          { (!inProgress && !done && !talkingAboutStopButton) &&
 
             <RectangleButton
               title="Start"
@@ -88,7 +91,7 @@ export default class CompModal extends React.Component {
 
           }
 
-          { (this.props.readerState === ReaderStateOptions.inProgress || talkingAboutStopButton) &&
+          { (inProgress || done || talkingAboutStopButton) &&
             <RectangleButton
               title='Stop'
               subtitle='recording'
@@ -97,8 +100,12 @@ export default class CompModal extends React.Component {
               partiallyDisabled={talkingAboutStopButton}
               disabled={this.props.disabled && !talkingAboutStopButton}
               onClick={this.props.onStopClicked}
+              showSpinner={this.props.showSpinner}
             />
           }
+
+
+
 
           <ButtonArray
             titles={['See book', "Hear again"]}

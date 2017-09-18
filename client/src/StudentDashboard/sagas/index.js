@@ -313,14 +313,16 @@ function* compSaga(firstTime: boolean, questionAudioFile: string) {
   ))
 
 
+
   yield clog('made it here 3')
 
   yield clog('compEffects is....', compEffects)
 
 
   yield put({ type: SPINNER_SHOW })
-  yield call (delay, 12000)
+  yield call (delay, 4000)
   yield put({ type: SPINNER_HIDE })
+  yield playSoundAsync('/audio/complete.mp3')
 
 
   yield cancel(...compEffects)
