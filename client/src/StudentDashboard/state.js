@@ -361,6 +361,18 @@ export function seeCompClicked() {
   }
 }
 
+const sampleQuestions = {
+  1: {
+    title: "Tell as much as you can about the passage you just read.",
+    subTitle: "Be sure to include the beginning, middle and end",
+  },
+  2: {
+    title: "Tell some more about that",
+  },
+  3: {
+    title: "How do you know that?",
+  },
+};
 
 
 const sampleBook = {
@@ -379,18 +391,32 @@ const sampleBook = {
     2: {
       lines: [
         "Fireflies shine.\nAll of them glow.",
-        "I race to show Daddy\ntheir dancing light show."
+        "I race to show Daddy\ntheir dancing light show.",
       ],
       img: '/images/dashboard/sample-book-assets/firefly-4.png',
     },
     3: {
       lines: [
         "I open my jar. They fly away quickly and shine. ",
-        "I love catching fireflies, but they are not mine."
+        "I love catching fireflies, but they are not mine.",
       ],
-      img: '/images/dashboard/sample-book-assets/firefly-3.png'
+      img: '/images/dashboard/sample-book-assets/firefly-3.png',
     },
   },
+
+  questions: {
+    1: {
+      title: "Tell as much as you can about the passage you just read.",
+      subtitle: "Be sure to include the beginning, middle and end",
+    },
+    2: {
+      title: "Tell some more about that",
+    },
+    3: {
+      title: "How do you know that?",
+    },
+  },
+
 };
 
 
@@ -399,7 +425,7 @@ const initialState = {
   pageNumber: 0,
   numPages: sampleBook.numPages,
   book: sampleBook,
-  readerState:  ReaderStateOptions.initializing,
+  readerState: ReaderStateOptions.initializing,
   pauseType: PauseTypeOptions.fromPauseButton,
   hasRecordedSomething: false,
   recorder: new Recorder(),

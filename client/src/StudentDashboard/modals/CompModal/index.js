@@ -37,6 +37,7 @@ export default class CompModal extends React.Component {
     disabled: PropTypes.bool,
     readerState: PropTypes.string,
     showSpinner: PropTypes.bool,
+    question: PropTypes.object,
   };
 
   /**
@@ -66,56 +67,66 @@ export default class CompModal extends React.Component {
     let done = this.props.readerState === ReaderStateOptions.done
     let inProgress = this.props.readerState === ReaderStateOptions.inProgress
 
+
+    let questionTitle = this.props.question.title
+    let questionSubtitle = this.props.question.subtitle
+
+
+
+
     return (
 
         <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
-            <Modal.Title>Tell as much as you can about the passage you just read.</Modal.Title>
-            <Modal.Title className={myStyles.compSubTitle}>Be sure to include the beginning, middle and end.</Modal.Title>
+            <Modal.Title>{questionTitle}</Modal.Title>
+
+            { questionSubtitle &&
+              <Modal.Title className={myStyles.compSubTitle}>{questionSubtitle}</Modal.Title>
+            }
 
           </Modal.Header>
           <Modal.Body className={myStyles.compModalBody}>
-          { (!inProgress && !done && !talkingAboutStopButton) &&
+            { (!inProgress && !done && !talkingAboutStopButton) &&
 
-            <RectangleButton
-              title="Start"
-              subtitle="record answer"
-              style={{ width: 200, height: 70, backgroundColor: '#5cb85c', borderColor: '#4cae4c' }}
-              className={myStyles.compRecordButton}
-              pulsatingArrow={true}
-              disabled={this.props.disabled && !talkingAboutStartButton}
-              partiallyDisabled={talkingAboutStartButton}
-              onClick={this.props.onStartClicked}
-              showSpinner={this.props.showSpinner}
+              <RectangleButton
+                title="Start"
+                subtitle="record answer"
+                style={{ width: 200, height: 70, backgroundColor: '#5cb85c', borderColor: '#4cae4c' }}
+                className={myStyles.compRecordButton}
+                pulsatingArrow={true}
+                disabled={this.props.disabled && !talkingAboutStartButton}
+                partiallyDisabled={talkingAboutStartButton}
+                onClick={this.props.onStartClicked}
+                showSpinner={this.props.showSpinner}
+              />
+
+            }
+
+            { (inProgress || done || talkingAboutStopButton) &&
+              <RectangleButton
+                title='Stop'
+                subtitle='recording'
+                style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
+                pulsatingArrow={true}
+                partiallyDisabled={talkingAboutStopButton}
+                disabled={this.props.disabled && !talkingAboutStopButton}
+                onClick={this.props.onStopClicked}
+                showSpinner={this.props.showSpinner}
+              />
+            }
+
+
+
+
+            <ButtonArray
+              titles={['See book', "Hear again"]}
+              images={['fa-book', 'fa-volume-up obscure']}
+              actions={[this.props.onSeeBookClicked, this.props.onHearQuestionAgainClicked]}
+              inline={true}
+              fontAwesome={true}
+              enlargeFirst={true}
+              disabled={this.props.disabled}
             />
-
-          }
-
-          { (inProgress || done || talkingAboutStopButton) &&
-            <RectangleButton
-              title='Stop'
-              subtitle='recording'
-              style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
-              pulsatingArrow={true}
-              partiallyDisabled={talkingAboutStopButton}
-              disabled={this.props.disabled && !talkingAboutStopButton}
-              onClick={this.props.onStopClicked}
-              showSpinner={this.props.showSpinner}
-            />
-          }
-
-
-
-
-          <ButtonArray
-            titles={['See book', "Hear again"]}
-            images={['fa-book', 'fa-volume-up obscure']}
-            actions={[this.props.onSeeBookClicked, this.props.onHearQuestionAgainClicked]}
-            inline={true}
-            fontAwesome={true}
-            enlargeFirst={true}
-            disabled={this.props.disabled}
-          />
 
           
 
