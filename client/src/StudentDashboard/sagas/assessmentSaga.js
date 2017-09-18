@@ -36,13 +36,17 @@ import {
   getIsDemo,
 } from './selectors'
 
+import {
+  clog,
+} from './helpers'
+
+
 import { playSoundAsync, stopAudio } from '../audioPlayer'
+
+import { sendEmail } from '../../ReportsInterface/emailHelpers'
 
 const PAGE_CHANGE_DEBOUNCE_TIME_MS = 200
 
-// import {
-//   clog
-// } from './helpers'
 
 function* pauseAssessmentSaga (action) {
   const recorder = yield select(getRecorder)
@@ -96,8 +100,14 @@ export default function* assessmentSaga() {
   yield takeLatest(PREVIOUS_PAGE_CLICKED, pageDecrementSaga)
   // start recording the assessment audio
   const recorder = yield select(getRecorder)
-  yield call(recorder.startRecording)
-  yield put.resolve(setHasRecordedSomething(true))
+
+  try {
+    yield call(recorder.startRecording)
+    yield put.resolve(setHasRecordedSomething(true))
+  } catch (err) {
+    yield clog("ERROR: ", err)
+    yield call(sendEmail, err, "Recorder failed to start", "philesterman@gmail.com") // move here so don't break
+  }
 
   return { some: 'sick results' }
 }

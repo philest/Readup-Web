@@ -147,11 +147,19 @@ function* getMicPermissionsSaga() {
 
 function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob) {
   yield put.resolve(setReaderState(ReaderStateOptions.done))
-  const blobURL = yield new Promise(function(resolve, reject) {
-    recorder.stopRecording((blobUrl) => {
-      resolve(blobUrl)
-    })
-  });
+
+  try {
+    const blobURL = yield new Promise(function(resolve, reject) {
+      recorder.stopRecording((blobUrl) => {
+        resolve(blobUrl)
+      })
+    });
+  } catch (err) {
+      yield clog("ERROR: ", err)
+      yield call(sendEmail, err, "Recorder failed to STOP", "philesterman@gmail.com") // move here so don't break
+      let blobURL = "false"
+  }
+
   // this is done in the Store because PlaybackModal takes this is a prop
   yield put.resolve(setRecordingURL(blobURL, isCompBlob))
   return yield blobURL
@@ -313,11 +321,17 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
   if (firstTime) { // start
 
-    yield call(recorder.startRecording)
-    yield put.resolve(setHasRecordedSomething(true))
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.inProgress,
-    ))
+    try {
+      yield call(recorder.startRecording)
+      yield put.resolve(setHasRecordedSomething(true))
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.inProgress,
+      ))
+    } catch (err) {
+      yield clog("ERROR: ", err)
+      yield call(sendEmail, err, "Recorder failed to start in comp...", "philesterman@gmail.com") // move here so don't break
+    }
+
 
   } else { // resume
 
