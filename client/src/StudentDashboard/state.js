@@ -72,7 +72,7 @@ export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
 
 export const QUESTION_INCREMENT = 'QUESTION_INCREMENT'
 export const QUESTION_DECREMENT = 'QUESTION_DECREMENT'
-
+export const QUESTION_NUMBER_SET = 'QUESTION_NUMBER_SET'
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -91,6 +91,8 @@ export function setPageNumber(pageNumber: number) {
     },
   }
 }
+
+
 
 export function setHasRecordedSomething(hasRecordedSomething: boolean) {
   return {
@@ -382,6 +384,14 @@ export function decrementQuestion() {
 }
 
 
+export function setQuestionNumber(questionNumber: number) {
+  return {
+    type: QUESTION_NUMBER_SET,
+    payload: {
+      questionNumber,
+    },
+  }
+}
 
 
 
@@ -477,6 +487,7 @@ function reducer(state = initialState, action = {}) {
       return { ...state, pageNumber: payload.pageNumber }
     }
 
+
     case HAS_RECORDED_SOMETHING_SET: {
       return { ...state, hasRecordedSomething: payload.hasRecordedSomething }
     }
@@ -545,17 +556,21 @@ function reducer(state = initialState, action = {}) {
     }
     case PAGE_DECREMENT: {
       history.pushState({}, 'Readup', '#/story/demo/page/' + (state.pageNumber-1))
-      return { ...state, pageNumber: state.pageNumber - 1}
+      return { ...state, pageNumber: state.pageNumber - 1 }
     }
 
     case QUESTION_INCREMENT: {
-        // TODO add history here.
-        return { ...state, questionNumber: state.questionNumber + 1}
+      // TODO add history here.
+      return { ...state, questionNumber: state.questionNumber + 1 }
     }
 
     case QUESTION_DECREMENT: {
-        // TODO add history here.
-        return { ...state, questionNumber: state.questionNumber - 1}
+      // TODO add history here.
+      return { ...state, questionNumber: state.questionNumber - 1 }
+    }
+
+    case QUESTION_NUMBER_SET: {
+      return { ...state, questionNumber: payload.questionNumber }
     }
 
 

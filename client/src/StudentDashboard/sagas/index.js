@@ -61,6 +61,7 @@ import {
   setCurrentOverlay,
   setCountdownValue,
   setInComp,
+  setQuestionNumber,
 
 } from '../state'
 
@@ -420,6 +421,7 @@ function* assessThenSubmitSaga() {
 
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
+  yield put.resolve(setQuestionNumber(1))
   yield put.resolve(setInComp(false))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
