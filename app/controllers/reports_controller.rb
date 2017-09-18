@@ -71,12 +71,19 @@ class ReportsController < ApplicationController
       @student = @user.teachers.last.classrooms.last.students.last
       @assessment = @student.assessments.last
 
+      # For backward compatitibility, only use the new recordingURL for new users...
+      if (@user.id <= 102)
+        recordingURL = @assessment.book_key # old hack...
+      else 
+        recordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm"
+      end 
+
       @reports_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",
         email: "#{@user.email}",
         bookTitle: "Firefly Night",
         bookLevel: "E",
-        recordingURL: @assessment.book_key,
+        recordingURL: recordingURL,
         scoredText: @assessment.scored_text,
         userID: @user.id,
         assessmentID: @assessment.id, 
