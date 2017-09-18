@@ -244,7 +244,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
       yield call(delay, 500)
 
-      yield playSoundAsync('/audio/comp-instructions.mp3')
+      yield playSoundAsync('/audio/VB/VB-comp-instructions.mp3')
 
       yield call(delay, 1400)
 
@@ -440,7 +440,7 @@ function* assessThenSubmitSaga() {
 
 
   // permission was granted!!!!
-  yield playSoundAsync('https://s3-us-west-2.amazonaws.com/readup-now/website/firefly-intro.mp3')
+  yield playSoundAsync('/audio/VB/VB-book-intro.mp3')
 
 
   let recorder = yield select(getRecorder)
@@ -557,9 +557,9 @@ function* assessThenSubmitSaga() {
 
     yield call(delay, 300)
 
-    yield playSound('/audio/now-questions.mp3')
+    yield playSound('/audio/VB/VB-now-questions.mp3')
 
-    compBlob = yield* compSaga(true, false, '/audio/retell-full.mp3') // blocks
+    compBlob = yield* compSaga(true, false, '/audio/VB/VB-retell-full.mp3') // blocks
 
     compBlob = yield* compSaga(false, false, '/audio/tell-more.mp3')
 
@@ -569,7 +569,7 @@ function* assessThenSubmitSaga() {
     yield put.resolve(setCurrentModal('modal-done'))
 
     yield call(delay, 200)
-    yield playSoundAsync('/audio/done-final.mp3')
+    yield playSoundAsync('/audio/VB/VB-done.mp3')
 
   }
 
