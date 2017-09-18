@@ -22,12 +22,14 @@ export default class ButtonArray extends React.Component {
     modalType: PropTypes.string,
     showSpinner: PropTypes.bool,
     disabled: PropTypes.bool,
+    secondaryAnimation: PropTypes.string,
   };
   static defaultProps = {
     enlargeFirst: false,
     inline: false,
     fontAwesome: true,
     disabled: false,
+    secondaryAnimation: null,
   };
 
 
@@ -72,11 +74,16 @@ export default class ButtonArray extends React.Component {
       faAnimationClass = 'faa-tada animated-hover'
     }
 
+    let secondaryAnimationClass = this.props.secondaryAnimation
+
+    if (secondaryAnimationClass) {
+      secondaryAnimationClass = [secondaryAnimationClass, 'animated', styles.noTransform].join(' ')
+    }
 
     if (this.props.fontAwesome) {
       return (
         zipped.map((buttonInfoArray, index) => (
-          <div className={this.props.disabled ? styles.disabledButtonWrapper : styles.buttonWrapper} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
+          <div className={[(this.props.disabled ? styles.disabledButtonWrapper : styles.buttonWrapper), secondaryAnimationClass].join(' ')} key={buttonInfoArray[2]} onClick={buttonInfoArray[0]}>
             <i className={[((this.props.enlargeFirst && index === 0) ? faSizeClassFirst : faSizeClassRest), 'fa', faAnimationClass, buttonInfoArray[1], iconColorClass].join(' ')} aria-hidden={"true"} />
             <div className={[((this.props.enlargeFirst && index == 0) ? styles.buttonText : [styles.smallButtonText, styles.obscure].join(' '))].join(' ')}>{buttonInfoArray[2]}</div>
           </div>

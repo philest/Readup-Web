@@ -3,6 +3,8 @@
 import React from 'react';
 import styles from './styles.css'
 
+import ButtonArray from '../../modals/subcomponents/ButtonArray'
+
 type props = {
   title: string,
   subtitle: string,
@@ -11,6 +13,7 @@ type props = {
   pulsatingArrow: boolean,
   partiallyDisabled: boolean,
   style: {},
+  showSpinner: boolean,
 };
 
 function RectangleButton ({
@@ -21,6 +24,7 @@ function RectangleButton ({
   partiallyDisabled = false,
   pulsatingArrow = false,
   style = {},
+  showSpinner = false,
 } : props) {
 
 
@@ -33,6 +37,30 @@ function RectangleButton ({
   } else {
     containerStyle = styles.rectangleButtonContainer
   }
+
+
+  if (showSpinner) {
+    // show the spinne
+    return (
+
+          <ButtonArray
+            titles={['Thinking of next question...']}
+            images={['fa-spinner faa-spin animated']}
+            actions={[null]}
+            inline={true}
+            fontAwesome={true}
+            enlargeFirst={true}
+            disabled={disabled}
+            showSpinner={showSpinner}
+            secondaryAnimation={"faa-float"}
+          />
+    )
+
+  }
+
+
+
+
 
   return (
     <div

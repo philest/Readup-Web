@@ -36,6 +36,7 @@ export default class CompModal extends React.Component {
     close: PropTypes.func,
     disabled: PropTypes.bool,
     readerState: PropTypes.string,
+    showSpinner: PropTypes.bool,
   };
 
   /**
@@ -82,6 +83,7 @@ export default class CompModal extends React.Component {
               disabled={this.props.disabled && !talkingAboutStartButton}
               partiallyDisabled={talkingAboutStartButton}
               onClick={this.props.onStartClicked}
+              showSpinner={this.props.showSpinner}
             />
 
           }
@@ -107,6 +109,8 @@ export default class CompModal extends React.Component {
             enlargeFirst={true}
             disabled={this.props.disabled}
           />
+
+          
 
 
 

@@ -25,7 +25,7 @@ import {
 
 import audioEffectsSaga from './audioEffectsSaga'
 import Recorder from '../recorder'
-import { playSound, stopAudio, playSoundAsync as _pSA } from '../audioPlayer'
+import { playSound, stopAudio, playSoundAsync as _pSA, DEV_DISABLE_VOICE_INSTRUCTIONS } from '../audioPlayer'
 
 // actions
 import {
@@ -221,31 +221,40 @@ function* compSeeBookSaga() {
 
 }
 
-function* compSaga() {
+function* compSaga(firstTime: boolean, questionAudioFile: string) {
 
-  let compEffects = [] 
+  const compEffects = []
 
   yield put.resolve(setCurrentModal('modal-comp'))
-  yield put.resolve(setPageNumber(0))
-  yield put.resolve(setInComp(true))
 
-  yield call(delay, 500)
+  if (firstTime) {
+    yield put.resolve(setPageNumber(0))
+    yield put.resolve(setInComp(true))
 
-  yield playSoundAsync('/audio/comp-instructions.mp3')
+    if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
 
-  yield call(delay, 1600)
+      yield call(delay, 500)
 
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.talkingAboutStartButton,
-  ))
+      yield playSoundAsync('/audio/comp-instructions.mp3')
 
-  yield call(delay, 2280)
+      yield call(delay, 1400)
 
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.talkingAboutStopButton,
-  ))
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.talkingAboutStartButton,
+      ))
 
-  yield call(delay, 1900)
+      yield call(delay, 2480)
+
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.talkingAboutStopButton,
+      ))
+
+      yield call(delay, 1900)
+
+    }
+
+  }
+
 
 
   yield put.resolve(setReaderState(
@@ -254,7 +263,7 @@ function* compSaga() {
 
 
 
-  yield playSound('/audio/retell-full.mp3')
+  yield playSound(questionAudioFile)
 
 
   yield put.resolve(setReaderState(
@@ -298,6 +307,7 @@ function* compSaga() {
 
   yield playSound('/audio/complete.mp3')
 
+
   yield put.resolve(setReaderState(
     ReaderStateOptions.done,
   ))
@@ -306,6 +316,12 @@ function* compSaga() {
   yield clog('made it here 3')
 
   yield clog('compEffects is....', compEffects)
+
+
+  yield put({ type: SPINNER_SHOW })
+  yield call (delay, 12000)
+  yield put({ type: SPINNER_HIDE })
+
 
   yield cancel(...compEffects)
 
@@ -387,11 +403,14 @@ function* assessThenSubmitSaga() {
   yield playSoundAsync('/audio/recording_countdown.mp3')
 
 
-  let countdown = 3
-  while (countdown > 0) {
-    yield put(setCountdownValue(countdown))
-    yield call(delay, 1000)
-    countdown--
+  if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
+
+    let countdown = 3
+    while (countdown > 0) {
+      yield put(setCountdownValue(countdown))
+      yield call(delay, 1000)
+      countdown--
+    }
   }
 
 
@@ -447,6 +466,7 @@ function* assessThenSubmitSaga() {
   const recordingBlob = recorder.getBlob()
 
   let compBlob
+  let compBlob2
 
   if (endRecording) {
 
@@ -460,7 +480,10 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/now-questions.mp3')
 
-    compBlob = yield* compSaga() // blocks
+    compBlob = yield* compSaga(true, '/audio/retell-full.mp3') // blocks
+
+    compBlob2 = yield* compSaga(false, '/audio/done-final.mp3')
+
     yield put.resolve(setCurrentModal('modal-done'))
 
     yield call(delay, 200)
