@@ -206,6 +206,9 @@ function* exitClick() {
   yield put(setCurrentModal('modal-exit'))
 }
 
+
+
+
 function* questionIncrementSaga (action) {
   yield clog("here in QUESTION_INCREMENT........")
 
@@ -307,11 +310,23 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   yield call(delay, 900)
 
   let recorder = yield select(getRecorder)
-  yield call(recorder.startRecording)
-  yield put.resolve(setHasRecordedSomething(true))
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.inProgress,
-  ))
+
+  if (firstTime) { // start
+
+    yield call(recorder.startRecording)
+    yield put.resolve(setHasRecordedSomething(true))
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.inProgress,
+    ))
+
+  } else { // resume
+
+    yield call(recorder.resumeRecording)
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.inProgress,
+    ))
+  }
+
 
   yield clog('made it here')
 
@@ -322,9 +337,20 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   yield clog('made it here 2')
 
   recorder = yield select(getRecorder)
-  const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
-  yield clog('url for comp recording!!!', compRecordingURL)
 
+  if (lastTime) { // halt
+
+    const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
+    yield clog('url for comp recording!!!', compRecordingURL)
+
+  } else { // pause
+
+    yield call(recorder.pauseRecording)
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.paused,
+    ))
+
+  }
 
 
   yield playSound('/audio/complete.mp3')
@@ -519,9 +545,9 @@ function* assessThenSubmitSaga() {
 
     compBlob = yield* compSaga(true, false, '/audio/retell-full.mp3') // blocks
 
-    compBlob2 = yield* compSaga(false, false, '/audio/tell-more.mp3')
+    compBlob = yield* compSaga(false, false, '/audio/tell-more.mp3')
 
-    compBlob2 = yield* compSaga(false, true, '/audio/know-that.mp3')
+    compBlob = yield* compSaga(false, true, '/audio/know-that.mp3')
 
 
     yield put.resolve(setCurrentModal('modal-done'))
