@@ -168,14 +168,22 @@ function* redirectToHomepage () {
 
 
 function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean) {
-  for (let i = 0; i < 3; i++) {
+
+  let numAttempts = 2
+
+  if (isCompBlob) {
+    numAttempts = 1
+  }
+
+
+  for (let i = 0; i < numAttempts; i++) {
     try {
       const presign = yield getS3Presign(assessmentId, isCompBlob)
       const res = yield sendAudioToS3(blob, presign)
       yield clog('yay response!', res)
       return yield res
     } catch (err) {
-      yield clog("ERR:", err, err.request)
+      yield clog("turnInAudio error ERR:", err, err.request)
     }
   }
   return yield false // TODO: this is pretty meh
@@ -593,6 +601,13 @@ function* rootSaga() {
       // fail! allow option to turn in again?
       } else {
         yield clog('could not turn it in :/')
+
+          // Keep them moving forward anyway...
+          yield call(sendEmail, "Just failed to upload to s3... ", "s3 Upload Failure", "philesterman@gmail.com") // move here so don't break
+
+          window.location.href = "/reports/sample"
+          yield put({ type: SPINNER_SHOW })
+
       }
 
     } // END if (restartAssessment)
