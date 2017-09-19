@@ -327,6 +327,26 @@ export default class ReportsInterface extends React.Component {
 
     let firstQuestionGraded = (this.props.studentResponse && this.props.graderComment && this.props.compScore)
 
+    let compScoreLabel
+    let colorClass
+
+    if (firstQuestionGraded) {
+
+      if (this.props.compScore >= 2) {
+        colorClass = styles.compCorrect
+        compScoreLabel = '+' + this.props.compScore + ' points'
+
+      } else if (this.props.compScore >= 1) {
+        colorClass = styles.fairMetric
+        compScoreLabel = '+' + this.props.compScore + ' points'
+      } else {
+        colorClass = styles.compMissed
+        compScoreLabel = 'No points'
+      }
+
+    }
+
+
     return (
 
       <div className={styles.reportsContainer}>
@@ -552,7 +572,7 @@ export default class ReportsInterface extends React.Component {
 
        { !this.props.isSample &&
    
-          <div className={[styles.comp, sharedStyles.textContainerLarge, ].join(' ')}>
+          <div className={[styles.comp, sharedStyles.textContainerLarge].join(' ')}>
             
             <hr className={styles.compDivider}/>
 
@@ -567,7 +587,7 @@ export default class ReportsInterface extends React.Component {
                   { firstQuestionGraded &&
                     <div>
                     <p className={styles.studentResponse}>"{ this.props.studentResponse }."</p>
-                    <p className={styles.compCorrect}><span className={styles.correct}>+{this.props.compScore} points:</span> {this.props.graderComment}.</p>
+                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}</span> {this.props.graderComment}.</p>
                     </div>
                   }
                   
