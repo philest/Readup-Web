@@ -61,6 +61,11 @@
 	font-style: italic;
 }
 
+.shareLabel {
+	cursor: pointer;
+}
+
+
 .logoutButton {
 	margin-left: 40px;
 	margin-right: 80px;
@@ -88,6 +93,11 @@
 	height: 20px;
 	margin-left: 8px;
 	background-color: transparent;
+	cursor: pointer;
+}
+
+.shareIcon {
+	font-size: 0.85em;
 }
 
 @keyframes pulseOut {

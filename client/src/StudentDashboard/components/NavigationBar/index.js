@@ -3,6 +3,9 @@ import React from 'react';
 import RectangleButton from '../RectangleButton'
 import BookInfoHeader from '../BookInfoHeader'
 import css from './styles.css'
+import { Popover, OverlayTrigger } from 'react-bootstrap'
+import questionCSS from '../../../ReportsInterface/components/Metric/styles.css'
+
 
 
 export default class NavigationBar extends React.Component {
@@ -64,6 +67,17 @@ export default class NavigationBar extends React.Component {
       navClass = css.reportNav
     }
 
+
+  const popoverClickRootClose = (
+    <Popover className={questionCSS.sharePopover} id="popover-trigger-click-root-close" >
+      <a href={window.location.href}><strong>{window.location.href}</strong></a>
+      <br/>
+      Copy and paste this link to share this screen with students, parents, and administrators.
+    </Popover>
+  );
+
+
+
     return (
       <div className={[navClass, css.navContainer].join(' ')}>
         <div className={css.subContainer}>
@@ -106,6 +120,16 @@ export default class NavigationBar extends React.Component {
 
         <div className={css.subContainer}>
           <div className={css.rightDisplayContainer}>
+
+          { this.props.onReport &&
+            <OverlayTrigger  trigger="click" rootClose placement="bottom" overlay={popoverClickRootClose}>
+              <span>
+                <span className={css.shareLabel}>Share report</span>
+                <i className={[css.logoutIcon, 'fa fa-share', css.shareIcon].join(' ')} />
+              </span>
+            </OverlayTrigger>
+          }
+
             <span className={css.userNameLabel}>{this.props.studentName}</span>
             <span className={css.logoutButton} onClick={onRightIconClick}>
               <a className={css.logoutLabel} >

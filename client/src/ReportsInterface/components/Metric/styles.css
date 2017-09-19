@@ -9,3 +9,10 @@
 	min-width: 325px;
 	z-index: 1;
 }
+
+.sharePopover {
+	font-family: 'ProximaNova';
+	min-width: 320px;
+	z-index: 999999;
+
+}
