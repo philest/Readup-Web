@@ -66,7 +66,6 @@ export default class TranscriberInterface extends React.Component {
       highlightedIsSpace: null,
       showSubmitAlert: false,
       showSaveAlert: false,
-      fluencyScore: null,
       hasSavedRecently: false,
       hasSeenAlert: this.props.seenUpdatePrior,
       showReadyForReviewModal: false,
@@ -74,7 +73,8 @@ export default class TranscriberInterface extends React.Component {
       lastSaved: this.props.whenFirstSaved,
       prevLastSaved: this.props.whenFirstSaved,
       userCountCurrent: this.props.userCountPrior,
-      compScore: null,
+      compScore: this.props.compScorePrior,
+      fluencyScore: this.props.fluencyScorePrior,
     }
         this.tick = this.tick.bind(this);
 
@@ -85,13 +85,14 @@ export default class TranscriberInterface extends React.Component {
     document.addEventListener("keydown", this._handleKeyDown);
 
     // TODO refactor this into a controller prop 
-    getFluencyScore(this.props.assessmentID).then(res => {
-    this.setState({ fluencyScore: res })
-    })
+    // getFluencyScore(this.props.assessmentID).then(res => {
+    // this.setState({ fluencyScore: res })
+    // })
 
-    getAssessmentData(this.props.assessmentID).then(res => {
-    this.setState({ compScore: parseInt(res.comp_scores[0]) })
-    })
+    // getAssessmentData(this.props.assessmentID).then(res => {
+    // this.setState({ compScore: parseInt(res.comp_scores[0]),
+    //              })
+    // })
 
   }
 
@@ -558,7 +559,7 @@ export default class TranscriberInterface extends React.Component {
 
         <FormGroup controlId="studentResponse">
           <ControlLabel>Student Response</ControlLabel>
-          <FormControl componentClass="textarea" className={styles.myTextArea} inputRef={ref => { this.studentResponseInput = ref; }} placeholder="Student response" />
+          <FormControl componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsePrior} inputRef={ref => { this.studentResponseInput = ref; }} placeholder="Student response" />
         </FormGroup>
 
 
@@ -566,7 +567,7 @@ export default class TranscriberInterface extends React.Component {
 
         <FormGroup controlId="graderComments">
           <ControlLabel>Your comments</ControlLabel>
-          <FormControl componentClass="textarea" className={styles.myTextArea} inputRef={ref2 => { this.graderCommentsInput = ref2; }} placeholder="Your comments" />
+          <FormControl componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.graderCommentPrior} inputRef={ref2 => { this.graderCommentsInput = ref2; }} placeholder="Your comments" />
         </FormGroup>
 
 

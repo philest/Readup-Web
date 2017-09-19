@@ -38,7 +38,11 @@ class TranscriberInterfaceController < ApplicationController
         seenUpdatePrior: params["seen_update_prior"] == "true",
         whenCreated: (@assessment.updated_at.to_f*1000).to_i, # convert into ms since 1970 for equality with Rails date
         whenFirstSaved: (@assessment.saved_at .to_f*1000).to_i,
-        userCountPrior: User.count
+        userCountPrior: User.count,
+        fluencyScorePrior: @assessment.fluency_score,
+        graderCommentPrior: @assessment.grader_comments["0"],
+        studentResponsePrior: @assessment.student_responses["0"],
+        compScorePrior: @assessment.comp_scores["0"],
       }
     end
 
