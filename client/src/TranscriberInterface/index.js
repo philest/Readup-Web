@@ -167,32 +167,40 @@ export default class TranscriberInterface extends React.Component {
   _handleKeyDown = (event) => {
 
     // audio playback keys
-    if (event.code === 'Space') {
-      if (this.refs.audioPlayer.paused) {
-        this.refs.audioPlayer.play()
-      }
-      else {
-        this.refs.audioPlayer.pause()
-      }
+
+      // TODO ASAP: BRING BACK PAUSING AND ARROW KEYING 
+
+    // if (event.code === 'Space') {
+
+
+    //   if (this.refs.audioPlayer.paused) {
+    //     this.refs.audioPlayer.play()
+    //   }
+    //   else {
+    //     this.refs.audioPlayer.pause()
+    //   }
       
-      event.preventDefault();
-    }
-    else if (event.code === 'ArrowLeft') {
-      if (this.refs.audioPlayer.currentTime < 2) {
-        this.refs.audioPlayer.currentTime = 0;
-      }
-      else {
-        this.refs.audioPlayer.currentTime -= 2;
-      }
-    }
-    else if (event.code === 'ArrowRight') {
-      if (this.refs.audioPlayer.currentTime > this.refs.audioPlayer.duration - 2) {
-        this.refs.audioPlayer.currentTime = this.refs.audioPlayer.duration
-      }
-      else {
-        this.refs.audioPlayer.currentTime += 2;
-      }
-    }
+    //   event.preventDefault();
+
+
+
+    // }
+    // else if (event.code === 'ArrowLeft') {
+    //   if (this.refs.audioPlayer.currentTime < 2) {
+    //     this.refs.audioPlayer.currentTime = 0;
+    //   }
+    //   else {
+    //     this.refs.audioPlayer.currentTime -= 2;
+    //   }
+    // }
+    // else if (event.code === 'ArrowRight') {
+    //   if (this.refs.audioPlayer.currentTime > this.refs.audioPlayer.duration - 2) {
+    //     this.refs.audioPlayer.currentTime = this.refs.audioPlayer.duration
+    //   }
+    //   else {
+    //     this.refs.audioPlayer.currentTime += 2;
+    //   }
+    // }
 
     // grading keys
     // first ensure we have selected indices
