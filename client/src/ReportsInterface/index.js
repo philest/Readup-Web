@@ -43,6 +43,7 @@ export default class ReportsInterface extends React.Component {
     super(props);
     this.state = {
       showAudioPlayback: false,
+      showCompAudioPlayback: false,
       showPricingModal: false,
       showBookModal: false,
       showCompModal: false,
@@ -240,6 +241,11 @@ export default class ReportsInterface extends React.Component {
   onPlayRecordingClicked = () => {
     this.setState({ showAudioPlayback: true })
   }
+
+  onCompPlayRecordingClicked = () => {
+    this.setState({ showCompAudioPlayback: true })
+  }
+
 
   onPricingClicked = () => {
     this.setState({ showPricingModal: true })
@@ -617,8 +623,19 @@ export default class ReportsInterface extends React.Component {
                   { firstQuestionGraded &&
                     <div>
                     <p className={styles.studentResponse}>"{ this.props.studentResponse }."</p> 
-                    
-                    <Button className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+
+                    { !this.state.showCompAudioPlayback &&
+                    <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                    }
+                    { this.state.showCompAudioPlayback &&
+                      <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
+                        <source src={this.props.compRecordingURL} />
+                        <p>Playback not supported</p>
+                      </audio>
+                    }
+
+
+
 
                     <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}.</p>
                     </div>

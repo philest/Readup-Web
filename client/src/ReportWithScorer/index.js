@@ -340,6 +340,7 @@ export default class ReportWithScorer extends React.Component {
             bookTitle={this.props.bookTitle}
             bookLevel={this.props.bookLevel}
             recordingURL={this.props.recordingURL}
+            compRecordingURL={this.props.compRecordingURL}
             scoredText={this.props.scoredText}
             userID={this.props.userID}
             assessmentID={this.props.assessmentID}

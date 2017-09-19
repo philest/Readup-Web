@@ -98,6 +98,7 @@ class ReportsController < ApplicationController
         recordingURL = @assessment.book_key # old hack...
       else 
         recordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm"
+        compRecordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/comp/recording.webm"
       end 
 
       @reports_interface_props = {
@@ -106,6 +107,7 @@ class ReportsController < ApplicationController
         bookTitle: "Firefly Night",
         bookLevel: "E",
         recordingURL: recordingURL,
+        compRecordingURL: compRecordingURL,
         scoredText: @assessment.scored_text,
         userID: @user.id,
         assessmentID: @assessment.id, 

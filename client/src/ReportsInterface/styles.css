@@ -260,6 +260,9 @@
 	width: 400px;
 }
 
+.compAudioElement {
+	width: 130px;
+}
 
 .modalSubtitle {
 	color: grey;
@@ -571,3 +574,12 @@ a:hover {
 	margin-left: 3px;
 }
 
+@media (max-width: 1168px) {
+
+	.miniPlayButton, .compAudioElement {
+		margin-left: 20px;
+		margin-top: 10px;
+		margin-bottom: 15px;
+	}	
+
+}
