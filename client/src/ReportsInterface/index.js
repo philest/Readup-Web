@@ -193,6 +193,41 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  getDifficulty(acc, comp) {
+
+    const accOnlyScores = ['Frustrational', 'Instructional', 'Independent']
+
+    // Scores with comp 
+    const fullScores = [
+      ['Frustrational', 'Frustrational', 'Frustrational', 'Frustrational'],
+      ['Frustrational', 'Frustrational', 'Instructional', 'Instructional'],
+      ['Frustrational', 'Instructional', 'Independent', 'Independent'],
+    ]
+    // Indexed [acc] by [comp] so, [0][1] is an accIndex of 0 and compScore (index) of 1
+    // based on Fountas and Pinnell: https://www.dropbox.com/s/gid9673g38cne07/Screenshot%202017-09-19%2011.13.32.png?dl=0
+
+
+    // first, convert accuracy to an index
+    let accIndex
+
+    if (acc >= 95) {
+      accIndex = 2
+    } else if (acc >= 90) {
+      accIndex = 1
+    } else {
+      accIndex = 0
+    }
+
+    // Decide whether to use just acc, or the comp as well
+    if (comp == null) {
+      return accOnlyScores[accIndex]
+    } else {
+      return fullScores[accIndex][comp]
+    }
+
+  }
+
+
 
   hideReportReadyModal() {
     this.setState({ showReportReadyModal: false })
@@ -310,20 +345,24 @@ export default class ReportsInterface extends React.Component {
   render() {
 
 
-    let difficulty
     const acc = getAccuracy(this.state.gradedText)
     const WCPM = getWCPM(this.state.gradedText)
     const comp = 7
 
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
-    if (acc >= 95) {
-      difficulty = "Independent"
-    } else if (acc >= 90) {
-      difficulty = "Instructional"
-    } else {
-      difficulty = "Frustrational"
-    }
+
+    const difficulty = this.getDifficulty(acc, this.props.compScore)
+
+    console.log("DIFFICULTY: ", difficulty)
+
+    // if (acc >= 95) {
+    //   difficulty = "Independent"
+    // } else if (acc >= 90) {
+    //   difficulty = "Instructional"
+    // } else {
+    //   difficulty = "Frustrational"
+    // }
 
     let firstQuestionGraded = (this.props.studentResponse && this.props.graderComment && (this.props.compScore != null))
 

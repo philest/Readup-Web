@@ -73,9 +73,9 @@ export default class Metric extends React.Component {
 
   getAccColor(acc) {
     
-    if (acc >= 90) {
+    if (acc >= 95) {
       return 'good'
-    } else if (acc >= 85) {
+    } else if (acc >= 89) {
       return 'fair'
     } else {
       return 'poor'
@@ -87,7 +87,7 @@ export default class Metric extends React.Component {
 
     if (score >= 3) {
       return 'good'
-    } else if (score >= 1) {
+    } else if (score >= 2) {
       return 'fair'
     } else {
       return 'poor'
