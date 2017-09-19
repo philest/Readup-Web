@@ -35,12 +35,14 @@ class AssessmentsController < ApplicationController
 
     puts "I'm in the update assessments controller!"
 
-    puts params
+    # puts params
+    # puts params["params"] 
+
+    puts assessment_params
     puts params["params"]
+    puts "HERE"
 
-    res = @assessment.update!(params["params"])
-
-    # TODO PHIL: Fix this hack to avoid user_params 
+    # TODO PHIL: Fix this hack to avoid assessment_params 
     if params["params"]["unscorable"]
       res = @assessment.update!(unscorable: true, scored: true)
     elsif params["params"]["JSONScoredText"]
@@ -55,7 +57,7 @@ class AssessmentsController < ApplicationController
       res = @assessment.update!(scored: params["params"]["scored"])
     else    
       puts "nothing matched"
-      @user.update_attributes(user_params)
+      res = @assessment.update!(params["params"])
     end
 
     render json: @assessment , status: :ok, location: @assessment
@@ -71,6 +73,10 @@ class AssessmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_assessment
       @assessment = Assessment.find(params[:id])
+    end
+
+    def assessment_params
+            params.permit!
     end
 
 end

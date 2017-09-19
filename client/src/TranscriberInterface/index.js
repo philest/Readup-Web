@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, 
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore} from '../ReportsInterface/emailHelpers'
+import { updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
@@ -74,6 +74,7 @@ export default class TranscriberInterface extends React.Component {
       lastSaved: this.props.whenFirstSaved,
       prevLastSaved: this.props.whenFirstSaved,
       userCountCurrent: this.props.userCountPrior,
+      compScore: null,
     }
         this.tick = this.tick.bind(this);
 
@@ -86,6 +87,10 @@ export default class TranscriberInterface extends React.Component {
     // TODO refactor this into a controller prop 
     getFluencyScore(this.props.assessmentID).then(res => {
     this.setState({ fluencyScore: res })
+    })
+
+    getAssessmentData(this.props.assessmentID).then(res => {
+    this.setState({ compScore: parseInt(res.comp_scores[0]) })
     })
 
   }
@@ -311,6 +316,29 @@ export default class TranscriberInterface extends React.Component {
 
 
 
+  onCompScoreZeroClicked = () => {
+    console.log('here i am 0')
+    this.setState({compScore: 0})
+  }
+  
+
+  onCompScoreOneClicked = () => {
+    console.log('here i am 1')
+    this.setState({compScore: 1})
+
+  }
+
+  onCompScoreTwoClicked = () => {
+    console.log('here i am 2')
+    this.setState({compScore: 2})
+
+  }
+
+  onCompScoreThreeClicked = () => {
+    console.log('here i am 3')
+    this.setState({compScore: 3})
+  }
+
 
   onSubmitClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
@@ -337,16 +365,16 @@ export default class TranscriberInterface extends React.Component {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
 
-    let studentAnswers = { 0: this.studentAnswerInput.value }
+    let studentResponses = { 0: this.studentResponseInput.value }
     let graderComments = { 0: this.graderCommentsInput.value }
-
-    // console.log(studentAnswers)
-    // console.log(JSON.stringify(studentAnswers))
+    let compScores = { 0: this.state.compScore }
+    // console.log(studentResponses)
+    // console.log(JSON.stringify(studentResponses))
 
     updateAssessment( {
-                       studentAnswers: studentAnswers,
-                       graderComments: graderComments,
-                       compScore: this.state.compScore,
+                       student_responses: studentResponses,
+                       grader_comments: graderComments,
+                       comp_scores: compScores,
                       },
                        this.props.assessmentID,
                     )
@@ -528,9 +556,9 @@ export default class TranscriberInterface extends React.Component {
 
         <br/><br/>
 
-        <FormGroup controlId="studentAnswer">
-          <ControlLabel>Student Answer</ControlLabel>
-          <FormControl componentClass="textarea" className={styles.myTextArea} inputRef={ref => { this.studentAnswerInput = ref; }} placeholder="Student answer" />
+        <FormGroup controlId="studentResponse">
+          <ControlLabel>Student Response</ControlLabel>
+          <FormControl componentClass="textarea" className={styles.myTextArea} inputRef={ref => { this.studentResponseInput = ref; }} placeholder="Student response" />
         </FormGroup>
 
 
@@ -543,13 +571,14 @@ export default class TranscriberInterface extends React.Component {
 
 
         <ButtonGroup className={styles.fluencyButtonGroup}>
-          <Button active={this.state.fluencyScore === 1} href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Limited</Button>
-          <Button active={this.state.fluencyScore === 2} href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
-          <Button active={this.state.fluencyScore === 3} href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Excellent</Button>
+          <Button active={this.state.compScore === 0} href="#" onClick={this.onCompScoreZeroClicked}><strong>1</strong> - Unsatisfactory</Button>
+          <Button active={this.state.compScore === 1} href="#" onClick={this.onCompScoreOneClicked}><strong>1</strong> - Limited</Button>
+          <Button active={this.state.compScore === 2} href="#" onClick={this.onCompScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
+          <Button active={this.state.compScore === 3} href="#" onClick={this.onCompScoreThreeClicked}><strong>3</strong> - Excellent</Button>
         </ButtonGroup>
 
-        {this.studentAnswerInput &&
-          console.log(this.studentAnswerInput.value)
+        {this.studentResponseInput &&
+          console.log(this.studentResponseInput.value)
         }
 
         {this.graderCommentsInput &&

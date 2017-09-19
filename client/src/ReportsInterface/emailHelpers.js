@@ -121,7 +121,7 @@ export function updateFluencyScore(fluencyScore, assessmentID) {
 }
 
 export function getFluencyScore(assessmentID) {
-  console.log("Okay, updating the fluency score...");
+  console.log("Okay, getting the fluency score...");
 
     return axios.get(`/assessments/${assessmentID}`, {
       headers: RctOnR.authenticityHeaders(),
@@ -130,6 +130,15 @@ export function getFluencyScore(assessmentID) {
   })
 }
 
+export function getAssessmentData(assessmentID) {
+  console.log("Okay, getting assessment data...");
+
+    return axios.get(`/assessments/${assessmentID}`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      return res.data
+  })
+}
 
 
 
