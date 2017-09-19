@@ -572,7 +572,7 @@ export default class TranscriberInterface extends React.Component {
 
 
         <ButtonGroup className={styles.fluencyButtonGroup}>
-          <Button active={this.state.compScore === 0} href="#" onClick={this.onCompScoreZeroClicked}><strong>1</strong> - Unsatisfactory</Button>
+          <Button active={this.state.compScore === 0} href="#" onClick={this.onCompScoreZeroClicked}><strong>0</strong> - Unsatisfactory</Button>
           <Button active={this.state.compScore === 1} href="#" onClick={this.onCompScoreOneClicked}><strong>1</strong> - Limited</Button>
           <Button active={this.state.compScore === 2} href="#" onClick={this.onCompScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
           <Button active={this.state.compScore === 3} href="#" onClick={this.onCompScoreThreeClicked}><strong>3</strong> - Excellent</Button>

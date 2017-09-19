@@ -49,10 +49,11 @@ export default class Metric extends React.Component {
   static propTypes = {
     number: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
+    denominator: PropTypes.number,
   };
 
   static defaultProps = {
-  }
+ }
 
 
   /**
@@ -106,13 +107,27 @@ export default class Metric extends React.Component {
   }
 
 
-  getCompColor(comp) {
-    if (comp >= 8) {
-      return 'good'
-    } else if (comp >= 5) {
-      return 'fair'
-    } else {
-      return 'poor'
+  getCompColor(comp, denominator) {
+
+    if (denominator === 9) {
+
+      if (comp >= 8) {
+        return 'good'
+      } else if (comp >= 5) {
+        return 'fair'
+      } else {
+        return 'poor'
+      }
+    } else if (denominator === 3) {
+
+      if (comp >= 2) {
+        return 'good'
+      } else if (comp >= 1) {
+        return 'fair'
+      } else {
+        return 'poor'
+      }
+
     }
 
   }
@@ -147,12 +162,14 @@ export default class Metric extends React.Component {
     });
 
     let compMetricClass = cx({
-      goodMetric: this.getCompColor(this.props.number) == 'good',
-      fairMetric: this.getCompColor(this.props.number) == 'fair',
-      poorMetric: this.getCompColor(this.props.number) == 'poor',
+      goodMetric: this.getCompColor(this.props.number, this.props.denominator) == 'good',
+      fairMetric: this.getCompColor(this.props.number, this.props.denominator) == 'fair',
+      poorMetric: this.getCompColor(this.props.number, this.props.denominator) == 'poor',
       metricFigureLabel: true,
     });
 
+    console.log('compMetricClass is...')
+    console.log(compMetricClass)
 
     const label = this.props.label
     let number = this.props.number
@@ -172,11 +189,11 @@ export default class Metric extends React.Component {
         break
       case 'Comp.':
         metricClass = compMetricClass;
-        number = (number.toString() + "/9")
+        number = (number.toString() + ("/" + this.props.denominator.toString()))
         break
       case 'Fluency':
         metricClass = fluencyMetricClass;
-        number = (number.toString() + "/3")
+        number = (number.toString() + "/" +  this.props.denominator.toString())
         hasPopover = true
         break
     }

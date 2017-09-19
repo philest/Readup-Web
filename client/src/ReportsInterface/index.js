@@ -410,6 +410,7 @@ export default class ReportsInterface extends React.Component {
                 <Metric
                   label="Fluency"
                   number={this.props.fluencyScore}
+                  denominator={3}
                 />
               }
 
@@ -433,7 +434,16 @@ export default class ReportsInterface extends React.Component {
                 <Metric
                   label="Comp."
                   number={7}
+                  denominator={9}
                 />
+            }
+
+            { (!this.props.isSample && (this.props.compScore != null)) &&
+              <Metric
+                label="Comp."
+                number={this.props.compScore}
+                denominator={3}
+              />
             }
 
 

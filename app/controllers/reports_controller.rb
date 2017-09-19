@@ -32,6 +32,7 @@ class ReportsController < ApplicationController
       @assessment = @student.assessments.last
       is_direct_sample = (params['user_id'] == "direct-sample")
 
+
       @reports_interface_props = {
         name: "Sarah Jones",
         email: "testemail@gmail.com",
@@ -71,6 +72,27 @@ class ReportsController < ApplicationController
       @student = @user.teachers.last.classrooms.last.students.last
       @assessment = @student.assessments.last
 
+
+      # Backwards compatability to non-comp users... 
+      if @assessment.comp_scores
+        @comp_score = @assessment.comp_scores["0"]
+      else 
+        @comp_score = nil
+      end 
+
+      if @assessment.grader_comments
+        @grader_comment = @assessment.grader_comments["0"]
+      else 
+        @grader_comment = nil
+      end 
+
+      if @assessment.student_responses
+        @student_response = @assessment.student_responses["0"]
+      else 
+        @student_response = nil
+      end 
+
+
       # For backward compatitibility, only use the new recordingURL for new users...
       if (@user.id <= 102)
         recordingURL = @assessment.book_key # old hack...
@@ -94,6 +116,9 @@ class ReportsController < ApplicationController
         isScoredPrior: @assessment.scored,
         isUnscorable: @assessment.unscorable,
         fluencyScore: @assessment.fluency_score,
+        compScore: @comp_score,
+        graderComment: @grader_comment,
+        studentResponse: @student_response,
 
         scorerProfilePicURL: "/images/peter.png",
         scorerSignature: "Peter Krason, M.A.",
