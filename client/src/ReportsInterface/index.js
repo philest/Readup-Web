@@ -523,7 +523,7 @@ export default class ReportsInterface extends React.Component {
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
                 >
-                  Play Recording &nbsp;&nbsp;<i className={["fa", "fa-play", styles.pulse].join(" ")} aria-hidden={"true"} />
+                  Play Recording &nbsp;&nbsp;<i className={["fa", "fa-play", 'animated', 'faa-pulse'].join(" ")} aria-hidden={"true"} />
                 </Button>
               }
 
@@ -617,6 +617,7 @@ export default class ReportsInterface extends React.Component {
                   { firstQuestionGraded &&
                     <div>
                     <p className={styles.studentResponse}>"{ this.props.studentResponse }."</p> 
+                    
                     <Button className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
 
                     <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}.</p>
