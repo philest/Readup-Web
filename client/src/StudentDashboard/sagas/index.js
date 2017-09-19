@@ -385,7 +385,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
 
   yield put({ type: SPINNER_SHOW })
-  yield call (delay, 4000)
+  yield call (delay, 2300)
 
   // yield playSound('/audio/complete.mp3')
 
