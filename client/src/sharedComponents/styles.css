@@ -11,6 +11,10 @@
 	width: 600px;
 }
 
+.compContainerLarger {
+	width: 700px; 
+}
+
 .textParagraph {
 	margin-bottom: 30px;
 	line-height: 3.5em;
