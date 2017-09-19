@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
-import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal } from 'react-bootstrap'
+import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
@@ -499,6 +499,36 @@ export default class TranscriberInterface extends React.Component {
         </ButtonGroup>
 
 
+
+
+        <h3>Comprehension</h3>
+
+        <br/><br/>
+
+        <FormGroup controlId="formControlsTextarea">
+          <ControlLabel>Student Answer</ControlLabel>
+          <FormControl componentClass="textarea" className={styles.myTextArea} placeholder="Student answer" />
+        </FormGroup>
+
+
+        <br/>
+
+        <FormGroup controlId="formControlsTextarea">
+          <ControlLabel>Your comments</ControlLabel>
+          <FormControl componentClass="textarea" className={styles.myTextArea} placeholder="Your comments" />
+        </FormGroup>
+
+
+        <ButtonGroup className={styles.fluencyButtonGroup}>
+          <Button active={this.state.fluencyScore === 1} href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Limited</Button>
+          <Button active={this.state.fluencyScore === 2} href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
+          <Button active={this.state.fluencyScore === 3} href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Excellent</Button>
+        </ButtonGroup>
+
+
+
+
+
         <Button
           className={styles.submitButton}
           bsStyle={'primary'}
@@ -545,8 +575,22 @@ export default class TranscriberInterface extends React.Component {
         </div>
       }
 
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
 
           <hr/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
           <br/>
           <br/>
           <br/>

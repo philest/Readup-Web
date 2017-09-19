@@ -82,7 +82,11 @@ body {
 }
 
 .questionIcon {
-	margin-left: 250px;
+	margin-left: 500px;
+}
+
+.myTextArea {
+	max-width: 650px;
 }
 
 
