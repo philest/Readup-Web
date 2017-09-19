@@ -325,7 +325,7 @@ export default class ReportsInterface extends React.Component {
       difficulty = "Frustrational"
     }
 
-    let firstQuestionGraded = (this.props.studentResponse && this.props.graderComment && this.props.compScore)
+    let firstQuestionGraded = (this.props.studentResponse && this.props.graderComment && (this.props.compScore != null))
 
     let compScoreLabel
     let colorClass
@@ -337,7 +337,7 @@ export default class ReportsInterface extends React.Component {
         compScoreLabel = '+' + this.props.compScore + ' points'
 
       } else if (this.props.compScore >= 1) {
-        colorClass = styles.fairMetric
+        colorClass = styles.compFair
         compScoreLabel = '+' + this.props.compScore + ' points'
       } else {
         colorClass = styles.compMissed
@@ -587,7 +587,7 @@ export default class ReportsInterface extends React.Component {
                   { firstQuestionGraded &&
                     <div>
                     <p className={styles.studentResponse}>"{ this.props.studentResponse }."</p>
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}</span> {this.props.graderComment}.</p>
+                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}.</p>
                     </div>
                   }
                   

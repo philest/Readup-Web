@@ -393,6 +393,10 @@
 	/*Less contrast with white background than #249C44*/
 }
 
+.compFair {
+	color: #af6304;
+}
+
 .compCorrect, .compMissed {
 	margin-left: 20px;
 }

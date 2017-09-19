@@ -348,6 +348,21 @@ export default class TranscriberInterface extends React.Component {
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
     }
     
+
+    let studentResponses = { 0: this.studentResponseInput.value }
+    let graderComments = { 0: this.graderCommentsInput.value }
+    let compScores = { 0: this.state.compScore }
+
+    updateAssessment( {
+                       student_responses: studentResponses,
+                       grader_comments: graderComments,
+                       comp_scores: compScores,
+                      },
+                       this.props.assessmentID,
+                    )
+
+
+
     markScored(this.props.assessmentID)
     this.setState({showSubmitAlert: true})
 
@@ -369,8 +384,6 @@ export default class TranscriberInterface extends React.Component {
     let studentResponses = { 0: this.studentResponseInput.value }
     let graderComments = { 0: this.graderCommentsInput.value }
     let compScores = { 0: this.state.compScore }
-    // console.log(studentResponses)
-    // console.log(JSON.stringify(studentResponses))
 
     updateAssessment( {
                        student_responses: studentResponses,
