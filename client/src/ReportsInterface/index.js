@@ -325,6 +325,8 @@ export default class ReportsInterface extends React.Component {
       difficulty = "Frustrational"
     }
 
+    let firstQuestionGraded = (this.props.studentResponse && this.props.graderComment && this.props.compScore)
+
     return (
 
       <div className={styles.reportsContainer}>
@@ -550,21 +552,31 @@ export default class ReportsInterface extends React.Component {
 
        { !this.props.isSample &&
    
-          <div className={[styles.comp, sharedStyles.textContainerLarge, styles.fadedComp].join(' ')}>
+          <div className={[styles.comp, sharedStyles.textContainerLarge, ].join(' ')}>
             
             <hr className={styles.compDivider}/>
 
 
-           <h5 className={styles.sectionHeader}>2. COMPREHENSION</h5>
+           <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
-            <div className={styles.compPart}>
+            <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
+                 
+                  { firstQuestionGraded &&
+                    <div>
+                    <p className={styles.studentResponse}>"{ this.props.studentResponse }."</p>
+                    <p className={styles.compCorrect}><span className={styles.correct}>+{this.props.compScore} points:</span> {this.props.graderComment}.</p>
+                    </div>
+                  }
+                  
+
+
                 </div>
             </div>
 
-            <div className={styles.compPart}>
+            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Within the Text</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>1. Why did the girl and her dad go outside?<span className={styles.pointValue}> (1 point)</span></h4>
@@ -575,7 +587,7 @@ export default class ReportsInterface extends React.Component {
             </div>
 
 
-            <div className={styles.compPart}>
+            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>3. Why do you think the girl liked catching fireflies?<span className={styles.pointValue}> (1 point)</span></h4>

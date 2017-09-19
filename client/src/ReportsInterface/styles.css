@@ -336,6 +336,10 @@
 	opacity: .4;
 }
 
+.showQ {
+	opacity: 1;
+}
+
 .compDivider {
 	margin-bottom: 5em;
 }
