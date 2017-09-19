@@ -563,9 +563,9 @@ function* assessThenSubmitSaga() {
 
     compBlob = yield* compSaga(true, false, '/audio/VB/VB-retell-full.mp3') // blocks
 
-    compBlob = yield* compSaga(false, false, '/audio/tell-more.mp3')
+    compBlob = yield* compSaga(false, false, '/audio/VB/VB-tell-more.mp3')
 
-    compBlob = yield* compSaga(false, true, '/audio/know-that.mp3')
+    compBlob = yield* compSaga(false, true, '/audio/VB/VB-know-that.mp3')
 
 
     yield put.resolve(setCurrentModal('modal-done'))
