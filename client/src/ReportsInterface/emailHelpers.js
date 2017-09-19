@@ -32,6 +32,22 @@ export function validateEmail(email) {
 }
 
 
+export function updateAssessment(params, id) {
+  console.log('Updating assessment...')
+
+  return axios.patch(`/assessments/${id}`, {
+    params,
+    headers: RctOnR.authenticityHeaders(),
+  }).then(response => {
+    console.log(response)
+    return response
+  }).catch(error => {
+    console.log(error)
+    console.log(error.response)
+  });
+
+}
+
 
 export function updateScoredText(JSONScoredText, assessmentID) {
   console.log("Okay, updating the scored text...");

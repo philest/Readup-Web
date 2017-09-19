@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, 
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore} from '../ReportsInterface/emailHelpers'
+import { updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore} from '../ReportsInterface/emailHelpers'
 
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
@@ -336,6 +336,21 @@ export default class TranscriberInterface extends React.Component {
   onSaveClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
     updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
+
+    let studentAnswers = { 0: this.studentAnswerInput.value }
+    let graderComments = { 0: this.graderCommentsInput.value }
+
+    // console.log(studentAnswers)
+    // console.log(JSON.stringify(studentAnswers))
+
+    updateAssessment( {
+                       studentAnswers: studentAnswers,
+                       graderComments: graderComments,
+                       compScore: this.state.compScore,
+                      },
+                       this.props.assessmentID,
+                    )
+
     this.setState({ hasSavedRecently: true,
                     showSaveAlert: true })
 
@@ -513,17 +528,17 @@ export default class TranscriberInterface extends React.Component {
 
         <br/><br/>
 
-        <FormGroup controlId="formControlsTextarea">
+        <FormGroup controlId="studentAnswer">
           <ControlLabel>Student Answer</ControlLabel>
-          <FormControl componentClass="textarea" className={styles.myTextArea} placeholder="Student answer" />
+          <FormControl componentClass="textarea" className={styles.myTextArea} inputRef={ref => { this.studentAnswerInput = ref; }} placeholder="Student answer" />
         </FormGroup>
 
 
         <br/>
 
-        <FormGroup controlId="formControlsTextarea">
+        <FormGroup controlId="graderComments">
           <ControlLabel>Your comments</ControlLabel>
-          <FormControl componentClass="textarea" className={styles.myTextArea} placeholder="Your comments" />
+          <FormControl componentClass="textarea" className={styles.myTextArea} inputRef={ref2 => { this.graderCommentsInput = ref2; }} placeholder="Your comments" />
         </FormGroup>
 
 
@@ -533,8 +548,13 @@ export default class TranscriberInterface extends React.Component {
           <Button active={this.state.fluencyScore === 3} href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Excellent</Button>
         </ButtonGroup>
 
+        {this.studentAnswerInput &&
+          console.log(this.studentAnswerInput.value)
+        }
 
-
+        {this.graderCommentsInput &&
+          console.log(this.graderCommentsInput.value)
+        }
 
 
         <Button

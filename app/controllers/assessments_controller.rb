@@ -38,6 +38,7 @@ class AssessmentsController < ApplicationController
     puts params
     puts params["params"]
 
+    res = @assessment.update!(params["params"])
 
     # TODO PHIL: Fix this hack to avoid user_params 
     if params["params"]["unscorable"]
