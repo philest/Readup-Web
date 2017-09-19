@@ -43,6 +43,21 @@ export default class NavigationBar extends React.Component {
 
   render() {
 
+    let onRightIconClick 
+    let rightIconLabel
+    let rightIconButton
+
+    if (this.props.onReport) {
+      onRightIconClick = this.props.onReplayClicked
+      rightIconButton = 'fa fa-repeat'
+      rightIconLabel = "Retry demo"
+    } else {
+      onRightIconClick = this.props.onExitClicked
+      rightIconButton = 'fa fa-sign-out'
+      rightIconLabel = "Exit"
+
+    }
+
     let navClass = null 
 
     if (this.props.onReport) { 
@@ -87,14 +102,16 @@ export default class NavigationBar extends React.Component {
         }
 
 
+
+
         <div className={css.subContainer}>
           <div className={css.rightDisplayContainer}>
             <span className={css.userNameLabel}>{this.props.studentName}</span>
-            <span className={css.logoutButton} onClick={this.props.onExitClicked}>
+            <span className={css.logoutButton} onClick={onRightIconClick}>
               <a className={css.logoutLabel} >
-                Exit
+                {rightIconLabel}
               </a>
-              <img src='/images/dashboard/logout-icon.png' className={css.logoutIcon} />
+              <i className={[css.logoutIcon, rightIconButton].join(' ')} />
             </span>
           </div>
         </div>

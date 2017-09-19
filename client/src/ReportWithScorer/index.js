@@ -258,6 +258,11 @@ export default class ReportWithScorer extends React.Component {
     window.location.href = '/'
   }
 
+  onReplayClicked = () => {
+    window.location.href = '/demo'
+  }
+
+
 
   renderNavigationBar = () => {
 
@@ -265,6 +270,7 @@ export default class ReportWithScorer extends React.Component {
       showPauseButton: false,
       onReport: true,
       onExitClicked: this.onExitClicked,
+      onReplayClicked: this.onReplayClicked
     }
 
     return <NavigationBar {...navProps} />
