@@ -11,7 +11,6 @@ import LevelResult from './components/LevelResult'
 import Metric from './components/Metric'
 
 
-import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
 
 import sharedStyles from '../sharedComponents/styles.css'
@@ -354,7 +353,6 @@ export default class ReportsInterface extends React.Component {
 
     const difficulty = this.getDifficulty(acc, this.props.compScore)
 
-    console.log("DIFFICULTY: ", difficulty)
 
     // if (acc >= 95) {
     //   difficulty = "Independent"
@@ -391,13 +389,6 @@ export default class ReportsInterface extends React.Component {
       <div className={styles.reportsContainer}>
 
 
-        {this.props.fullPage &&
-          <InfoBar
-            title={ this.props.isSample ? "Example Report" : "Your Report"}
-            extraInfo={this.props.isSample ? "Your actual report will come within 15 minutes" : "Graded by our teaching team"}
-            withScorer={!this.props.fullPage}
-          />
-        }
 
         <div className={styles.contentWrapper} style={{ paddingTop: this.props.fullPage ? 130 + "px" : 110 + "px", paddingLeft: this.props.fullPage ? 110 + "px" : 60 + "px"  } }>
 

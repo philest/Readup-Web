@@ -7,7 +7,7 @@ import css from './styles.css'
 
 export default class NavigationBar extends React.Component {
   static propTypes = {
-    studentName: PropTypes.string.isRequired,
+    studentName: PropTypes.string,
     onPauseClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
 
@@ -18,11 +18,13 @@ export default class NavigationBar extends React.Component {
     bookTitle: PropTypes.string,
     bookAuthor: PropTypes.string,
     inComp: PropTypes.bool,
+    onReport: PropTypes.bool,
   };
   static defaultProps = {
     showPauseButton: true,
     isCoverPage: false,
     showBookInfo: false,
+    onReport: false,
   }
 
   /**
@@ -40,8 +42,15 @@ export default class NavigationBar extends React.Component {
 
 
   render() {
+
+    let navClass = null 
+
+    if (this.props.onReport) { 
+      navClass = css.reportNav
+    }
+
     return (
-      <div className={css.navContainer}>
+      <div className={[navClass, css.navContainer].join(' ')}>
         <div className={css.subContainer}>
           <span className={css.brandText} onClick={this.props.onExitClicked}>ReadUp</span>
         </div>

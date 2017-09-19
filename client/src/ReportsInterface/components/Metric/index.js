@@ -168,8 +168,6 @@ export default class Metric extends React.Component {
       metricFigureLabel: true,
     });
 
-    console.log('compMetricClass is...')
-    console.log(compMetricClass)
 
     const label = this.props.label
     let number = this.props.number

@@ -254,6 +254,22 @@ export default class ReportWithScorer extends React.Component {
   }
 
 
+  onExitClicked = () => {
+    window.location.href = '/'
+  }
+
+
+  renderNavigationBar = () => {
+
+    const navProps = {
+      showPauseButton: false,
+      onReport: true,
+      onExitClicked: this.onExitClicked,
+    }
+
+    return <NavigationBar {...navProps} />
+  }
+
 
 
 
@@ -268,12 +284,8 @@ export default class ReportWithScorer extends React.Component {
       <div className={styles.reportsContainer}>
 
 
-        <InfoBar
-          title={ this.props.isSample ? "Example Report" : "Your Report"}
-          extraInfo={this.props.isSample ? "Your actual report will come within 15 min" : "Scored by " + this.props.scorerFullName}
-          withScorer={true}
+        { this.renderNavigationBar() }
 
-        />
 
 
         <div className={ReportWithScorerStyles.profileContainer}>
