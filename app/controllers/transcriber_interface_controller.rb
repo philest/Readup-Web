@@ -24,6 +24,26 @@ class TranscriberInterfaceController < ApplicationController
       created_at = User.last.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')
 
 
+      # Backwards compatability to non-comp users... 
+      if @assessment.comp_scores
+        @comp_score = @assessment.comp_scores["0"]
+      else 
+        @comp_score = nil
+      end 
+
+      if @assessment.grader_comments
+        @grader_comment = @assessment.grader_comments["0"]
+      else 
+        @grader_comment = nil
+      end 
+
+      if @assessment.student_responses
+        @student_response = @assessment.student_responses["0"]
+      else 
+        @student_response = nil
+      end 
+
+
       @transcriber_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",
         createdAt: created_at,
@@ -40,9 +60,9 @@ class TranscriberInterfaceController < ApplicationController
         whenFirstSaved: (@assessment.saved_at .to_f*1000).to_i,
         userCountPrior: User.count,
         fluencyScorePrior: @assessment.fluency_score,
-        graderCommentPrior: @assessment.grader_comments["0"],
-        studentResponsePrior: @assessment.student_responses["0"],
-        compScorePrior: @assessment.comp_scores["0"],
+        graderCommentPrior: @comp_score,
+        studentResponsePrior: @student_response,
+        compScorePrior: @grader_comment,
       }
     end
 
