@@ -455,15 +455,28 @@ export default class GraderInterface extends React.Component {
       <div className={styles.graderContainer}>
 
 
+        <div className={styles.headingContainer}>
+          <div className={styles.nameHeading}>
+            Grading Demo
+          </div>
+          <div className={styles.emailHeading}>
+            {this.props.email}
+          </div>
+          <div className={styles.emailHeading}>
+            {this.props.createdAt + " (Pacific)"}
+          </div>
+        </div>
 
-        <div className={styles.nameHeading}>
-          Grading Demo
-        </div>
-        <div className={styles.emailHeading}>
-          {this.props.email}
-        </div>
-        <div className={styles.emailHeading}>
-          {this.props.createdAt + " (Pacific)"}
+        <div className={styles.compPromptContainer}>
+          <h4>Prompts</h4>
+          <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+            <Button href="#" onClick={this.onFluencyScoreZeroClicked}>Tell some more</Button>
+            <Button href="#" onClick={this.onFluencyScoreOneClicked}>What in the story makes you think that?</Button>
+            <Button href="#" onClick={this.onFluencyScoreTwoClicked}>Why is that important?</Button>
+            <Button href="#" onClick={this.onFluencyScoreThreeClicked}>Repeat the question</Button>
+            <Button href="#" onClick={this.onFluencyScoreThreeClicked}><strong>No prompt needed</strong></Button>
+          </ButtonGroup>
+
         </div>
 
 
