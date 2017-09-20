@@ -166,15 +166,15 @@ export function getAssessmentData(assessmentID) {
 }
 
 
-export function getStudentData(studentID) {
-  console.log("Okay, getting student data...");
+// export function getStudentData(studentID) {
+//   console.log("Okay, getting student data...");
 
-    return axios.get(`/students/${studentID}`, {
-      headers: RctOnR.authenticityHeaders(),
-    }).then(res => {
-      return res.data
-  })
-}
+//     return axios.get(`/students/${studentID}`, {
+//       headers: RctOnR.authenticityHeaders(),
+//     }).then(res => {
+//       return res.data
+//   })
+// }
 
 
 

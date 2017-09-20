@@ -16,6 +16,8 @@ import ModalHeader from '../subcomponents/ModalHeader'
 
 import {
   ReaderStateOptions,
+  PromptOptions,
+  PromptTextOptions,
 } from '../../types'
 
 import { Modal, Panel } from 'react-bootstrap'
@@ -38,6 +40,7 @@ export default class CompModal extends React.Component {
     readerState: PropTypes.string,
     showSpinner: PropTypes.bool,
     question: PropTypes.object,
+    prompt: PropTypes.string,
   };
 
   /**
@@ -59,17 +62,25 @@ export default class CompModal extends React.Component {
   render() {
 
 
-    let talkingAboutStartButton = this.props.readerState === ReaderStateOptions.talkingAboutStartButton
-    let talkingAboutStopButton = this.props.readerState === ReaderStateOptions.talkingAboutStopButton
+    const talkingAboutStartButton = this.props.readerState === ReaderStateOptions.talkingAboutStartButton
+    const talkingAboutStopButton = this.props.readerState === ReaderStateOptions.talkingAboutStopButton
 
-    let talkingAboutButtons = talkingAboutStartButton || talkingAboutStopButton
+    const talkingAboutButtons = talkingAboutStartButton || talkingAboutStopButton
 
-    let done = this.props.readerState === ReaderStateOptions.done
-    let inProgress = this.props.readerState === ReaderStateOptions.inProgress
+    const done = this.props.readerState === ReaderStateOptions.done
+    const inProgress = this.props.readerState === ReaderStateOptions.inProgress
 
 
-    let questionTitle = this.props.question.title
-    let questionSubtitle = this.props.question.subtitle
+    let title
+    let subtitle
+
+    if (this.props.prompt === PromptOptions.awaitingPrompt) {
+      title = this.props.question.title
+      subtitle = this.props.question.subtitle
+    } else {
+      title = PromptTextOptions[this.props.prompt]
+    }
+
 
 
 
@@ -78,10 +89,10 @@ export default class CompModal extends React.Component {
 
         <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
-            <Modal.Title>{questionTitle}</Modal.Title>
+            <Modal.Title>{title}</Modal.Title>
 
-            { questionSubtitle &&
-              <Modal.Title className={myStyles.compSubTitle}>{questionSubtitle}</Modal.Title>
+            { subtitle &&
+              <Modal.Title className={myStyles.compSubTitle}>{subtitle}</Modal.Title>
             }
 
           </Modal.Header>

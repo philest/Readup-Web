@@ -74,6 +74,7 @@ import {
   ReaderStateOptions,
   MicPermissionsStatusOptions,
   PromptOptions,
+  PromptAudioOptions,
 } from '../types'
 
 import {
@@ -600,12 +601,35 @@ function* assessThenSubmitSaga() {
     compBlob = blobAndPrompt[0]
     fetchedPrompt = blobAndPrompt[1]
 
+
     if (fetchedPrompt !== PromptOptions.noPromptNeeded) {
 
-    compBlob = yield* compSaga(false, false, '/audio/VB/VB-tell-more.mp3')
+        let audiofile = PromptAudioOptions[fetchedPrompt]
+        console.log("audiofile is...", audiofile)
 
-    compBlob = yield* compSaga(false, true, '/audio/VB/VB-know-that.mp3')
+        blobAndPrompt = yield* compSaga(false, false, audiofile)
+        compBlob = blobAndPrompt[0]
+        fetchedPrompt = blobAndPrompt[1]
     }
+
+    if (fetchedPrompt !== PromptOptions.noPromptNeeded) {
+
+        let audiofile = PromptAudioOptions[fetchedPrompt]
+        console.log("audiofile is...", audiofile)
+
+        blobAndPrompt = yield* compSaga(false, false, audiofile)
+        compBlob = blobAndPrompt[0]
+        fetchedPrompt = blobAndPrompt[1]
+    }
+
+
+
+    let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
+    yield clog('url for comp recording!!!', compRecordingURL)
+    compBlob = recorder.getBlob()
+
+
+
 
     yield put.resolve(setCurrentModal('modal-done'))
 

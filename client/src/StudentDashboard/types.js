@@ -43,3 +43,28 @@ export const PromptOptions = {
 }
 
 export type Prompt = Keys<typeof PromptOptions>;
+
+
+
+export const PromptTextOptions = {
+  TELL_SOME_MORE: 'Tell some more.',
+  WHAT_IN_STORY: 'What in the story makes you think that?',
+  WHY_IMPORTANT: 'Why is that important?',
+  WHY_THINK_THAT: 'Why do you think that',
+  REPEAT_QUESTION: "Tell as much as you can about the passage you just read. Be sure to include the beginning, middle, and end.",
+}
+
+export type pPromptText = Keys<typeof promptTextOptions>;
+
+
+
+export const PromptAudioOptions = {
+  TELL_SOME_MORE: '/audio/prompts/VB-tell-some-more.mp3',
+  WHAT_IN_STORY: '/audio/prompts/VB-what-in-story.mp3',
+  WHY_IMPORTANT: '/audio/prompts/VB-why-important.mp3',
+  WHY_THINK_THAT: '/audio/prompts/VB-why-think-that.mp3',
+  REPEAT_QUESTION: '/audio/VB/min/VB-retell-partial.mp3',
+}
+
+export type PromptAudio = Keys<typeof promptAudioOptions>;
+
