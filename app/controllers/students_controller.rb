@@ -14,6 +14,11 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
+    respond_to do |format|
+      format.json
+    end
+
+    render json: @student
   end
 
   # GET /students/new

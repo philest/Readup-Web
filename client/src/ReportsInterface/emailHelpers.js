@@ -72,6 +72,8 @@ export function updateStudent(params, id) {
 
 
 
+
+
 export function updateScoredText(JSONScoredText, assessmentID) {
   console.log("Okay, updating the scored text...");
 
@@ -162,6 +164,18 @@ export function getAssessmentData(assessmentID) {
       return res.data
   })
 }
+
+
+export function getStudentData(studentID) {
+  console.log("Okay, getting student data...");
+
+    return axios.get(`/students/${studentID}`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      return res.data
+  })
+}
+
 
 
 

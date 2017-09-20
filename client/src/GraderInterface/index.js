@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, 
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
+import { getStudentData, updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import InfoBar from '../ReportsInterface/components/InfoBar'
@@ -90,6 +90,13 @@ export default class GraderInterface extends React.Component {
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
+
+    // console.log(getStudentData(this.props.studentID))
+
+    getStudentData(this.props.studentID).then(res => {
+      console.log(res)
+    });
+
 
     // TODO refactor this into a controller prop 
     // getFluencyScore(this.props.assessmentID).then(res => {
