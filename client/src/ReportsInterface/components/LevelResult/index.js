@@ -82,9 +82,9 @@ export default class LevelResult extends React.Component {
 
   translateToSTEP(FPdifficulty) {
     if (FPdifficulty === 'Frustrational') {
-      return 'Did not pass'
+      return 'Did not achieve'
     } else {
-      return "Passed"
+      return "Achieved"
     }
   }
 
