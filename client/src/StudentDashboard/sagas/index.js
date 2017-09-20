@@ -399,7 +399,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   let fetchedPrompt = PromptOptions.awaitingPrompt
   let count = 0
 
-  while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 2)) {
+  while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 3)) {
     yield call(delay, 2500)
 
     // TODO current student....
