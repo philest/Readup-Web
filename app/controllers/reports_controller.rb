@@ -62,7 +62,8 @@ class ReportsController < ApplicationController
         scorerFullName: "Lakia Kenan",
 
         reviewerSignature: "Ashley Brantley, M.A.",
-        reviewerProfilePicURL: "/images/ashley.png"
+        reviewerProfilePicURL: "/images/ashley.png",
+        assessmentBrand: "FP" 
 
       }
 
@@ -96,9 +97,12 @@ class ReportsController < ApplicationController
       # For backward compatitibility, only use the new recordingURL for new users...
       if (@user.id <= 102)
         recordingURL = @assessment.book_key # old hack...
+        assessmentBrand = "FP"
       else 
         recordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm"
         compRecordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/comp/recording.webm"
+        assessmentBrand = "STEP"
+
       end 
 
       @reports_interface_props = {
@@ -106,6 +110,7 @@ class ReportsController < ApplicationController
         email: "#{@user.email}",
         bookTitle: "Firefly Night",
         bookLevel: "E",
+        stepLevel: "4",
         recordingURL: recordingURL,
         compRecordingURL: compRecordingURL,
         scoredText: @assessment.scored_text,
@@ -134,8 +139,8 @@ class ReportsController < ApplicationController
         scorerFullName: "Peter Krason",
 
         reviewerSignature: "Maria Contreras, M.Ed",
-        reviewerProfilePicURL: "/images/maria-small.png"
-
+        reviewerProfilePicURL: "/images/maria-small.png",
+        assessmentBrand: "STEP" 
       }
     end
 

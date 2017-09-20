@@ -23,12 +23,14 @@ export default class LevelResult extends React.Component {
     reassess: PropTypes.bool,
     didEndEarly: PropTypes.bool,
     yellowColorOverride: PropTypes.bool,
+    assessmentBrand: PropTypes.string,
   };
 
   static defaultProps = {
     levelFound: false,
     reassess: false,
-    yellowColorOverride: false
+    yellowColorOverride: false,
+    assessmentBrand: "FP",
   }
 
 
@@ -48,15 +50,21 @@ export default class LevelResult extends React.Component {
   getDelta(difficulty) {
     if (this.props.reassess || this.props.didEndEarly) {
       return 0
-    } else if (difficulty == 'Frustrational') {
+    } else if (difficulty === 'Frustrational') {
       return -1
     } else {
       return 1
     }
   }
 
-  getNextLevelString(delta) {
-    return String.fromCharCode(this.props.currentLevel.charCodeAt(0) + delta)
+  getNextLevelString(delta, assessmentBrand) {
+    
+    if (assessmentBrand === 'FP'){
+      return "Level " + String.fromCharCode(this.props.currentLevel.charCodeAt(0) + delta)
+    }
+    else {
+      return "STEP " + String(Number(this.props.currentLevel) + delta)
+    }
   }
 
 
@@ -72,6 +80,15 @@ export default class LevelResult extends React.Component {
 
   }
 
+  translateToSTEP(FPdifficulty) {
+    if (FPdifficulty === 'Frustrational') {
+      return 'Did not pass'
+    } else {
+      return "Passed"
+    }
+  }
+
+
   render() {
 
 
@@ -79,24 +96,36 @@ export default class LevelResult extends React.Component {
 
     let nextStepMsg
     let title
+    let STEPdiffficulty = this.translateToSTEP(this.props.difficulty)
+    let titleNormal
 
-
-    let titleNormal = (
+    let titleNormalFP = (
       <h2><span>{this.props.difficulty}</span> {" at Level " + this.props.currentLevel}</h2>
     );
+
+    let titleNormalSTEP = (
+      <h2><span>{ STEPdiffficulty }<span>{ " STEP 4" }</span></span> </h2>
+    )
+
 
     let titleNoFinish = (
       <h2><span>{"Did not finish reading"}</span></h2>
     );
 
 
+    if (this.props.assessmentBrand === 'FP') {
+      titleNormal = titleNormalFP
+    } else {
+      titleNormal = titleNormalSTEP
+    }
+
 
     if (this.props.didEndEarly) {
       title = titleNoFinish
-      nextStepMsg = "Next Step: Reassess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
+      nextStepMsg = "Next Step: Reassess at " + this.getNextLevelString(this.getDelta(this.props.difficulty), this.props.assessmentBrand)
     } else {
       title = titleNormal
-      nextStepMsg = "Next Step: Assess at Level " + this.getNextLevelString(this.getDelta(this.props.difficulty))
+      nextStepMsg = "Next Step: Assess at " + this.getNextLevelString(this.getDelta(this.props.difficulty), this.props.assessmentBrand)
     }
 
 

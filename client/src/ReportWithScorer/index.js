@@ -339,6 +339,7 @@ export default class ReportWithScorer extends React.Component {
             email={this.props.email}
             bookTitle={this.props.bookTitle}
             bookLevel={this.props.bookLevel}
+            stepLevel={this.props.stepLevel}
             recordingURL={this.props.recordingURL}
             compRecordingURL={this.props.compRecordingURL}
             scoredText={this.props.scoredText}
@@ -353,6 +354,7 @@ export default class ReportWithScorer extends React.Component {
             compScore={this.props.compScore}
             graderComment={this.props.graderComment}
             studentResponse={this.props.studentResponse}
+            assessmentBrand={this.props.assessmentBrand}
           />
         </div>
 

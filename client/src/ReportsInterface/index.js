@@ -219,6 +219,7 @@ export default class ReportsInterface extends React.Component {
     }
 
     // Decide whether to use just acc, or the comp as well
+
     if (comp == null) {
       return accOnlyScores[accIndex]
     } else {
@@ -389,6 +390,17 @@ export default class ReportsInterface extends React.Component {
 
     }
 
+    let bookLevel
+
+    if (this.props.assessmentBrand === 'FP') {
+      bookLevel = this.props.bookLevel
+    } else {
+      bookLevel = this.props.stepLevel
+    }
+
+
+
+
 
     return (
 
@@ -419,9 +431,10 @@ export default class ReportsInterface extends React.Component {
               { !this.props.isSample &&
                 <LevelResult
                   difficulty={difficulty}
-                  currentLevel={this.props.bookLevel}
+                  currentLevel={bookLevel}
                   reassess={this.props.isUnscorable}
                   didEndEarly={itDidEndEarly}
+                  assessmentBrand={this.props.assessmentBrand}
                 />
               }
 
