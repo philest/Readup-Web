@@ -22,12 +22,14 @@ export default class NavigationBar extends React.Component {
     bookAuthor: PropTypes.string,
     inComp: PropTypes.bool,
     onReport: PropTypes.bool,
+    onGrading: PropTypes.bool,
   };
   static defaultProps = {
     showPauseButton: true,
     isCoverPage: false,
     showBookInfo: false,
     onReport: false,
+    onGrading: false
   }
 
   /**
@@ -63,7 +65,7 @@ export default class NavigationBar extends React.Component {
 
     let navClass = null 
 
-    if (this.props.onReport) { 
+    if (this.props.onReport || this.props.onGrading) { 
       navClass = css.reportNav
     }
 
@@ -128,6 +130,10 @@ export default class NavigationBar extends React.Component {
                 <i className={[css.logoutIcon, 'fa fa-share', css.shareIcon].join(' ')} />
               </span>
             </OverlayTrigger>
+          }
+
+          { this.props.onGrading &&
+            <span className={css.userNameLabel}>On grading view</span>
           }
 
             <span className={css.userNameLabel}>{this.props.studentName}</span>

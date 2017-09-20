@@ -8,6 +8,7 @@ import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
 import { updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
+import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import InfoBar from '../ReportsInterface/components/InfoBar'
 import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 import reportStyles from '../ReportsInterface/styles.css'
@@ -167,6 +168,8 @@ export default class TranscriberInterface extends React.Component {
       return false
     }
   }
+
+
 
 
 
@@ -417,27 +420,44 @@ export default class TranscriberInterface extends React.Component {
                  })
   }
 
+
+  onExitClicked = () => {
+    window.location.href = '/'
+  }
+
+
+  renderNavigationBar = () => {
+
+    const navProps = {
+      showPauseButton: false,
+      onReport: false,
+      onExitClicked: this.onExitClicked,
+      onReplayClicked: this.onReplayClicked,
+      onGrading: true,
+    }
+
+    return <NavigationBar {...navProps} />
+  }
+
+
+
+
+
   render() {
 
 
     return (
 
       <div>
-              <InfoBar
-          title={ "Grading view"}
-          extraInfo={"Your grading will be sent upon submit"}
-          withScorer={false}
-        />
 
+        { this.renderNavigationBar() }
 
       <div className={styles.transcriberContainer}>
 
 
 
-        <div className={styles.gradingViewLabel}>Grading View</div>
-
         <div className={styles.nameHeading}>
-          {this.props.name}'s Demo
+          Grading Demo
         </div>
         <div className={styles.emailHeading}>
           {this.props.email}
