@@ -65,6 +65,7 @@ import {
   setCountdownValue,
   setInComp,
   setQuestionNumber,
+  setPrompt,
 
 } from '../state'
 
@@ -404,13 +405,18 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
       .catch(e => e.request) // TODO
 
     yield clog('Prompt status:', fetchedPrompt)
-    count++
+    count += 1
     yield call(delay, 2500)
   }
-  
+
+  if (fetchedPrompt !== PromptOptions.awaitingPrompt) {
+    yield put.resolve(setPrompt(
+      fetchedPrompt,
+    ))
+  }
+
+  // for the student model
   yield* resetToAwaitingPrompt(stuID)
-
-
 
 
   yield put.resolve(setReaderState(
@@ -430,7 +436,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   yield cancel(...compEffects)
 
 
-  return recorder.getBlob()
+  return [recorder.getBlob(), fetchedPrompt]
 }
 
 
@@ -446,6 +452,10 @@ function* assessThenSubmitSaga() {
   // TODO: convert this into a batched action
   yield put.resolve(setPageNumber(0))
   yield put.resolve(setQuestionNumber(1))
+  yield put.resolve(setPrompt(
+    PromptOptions.awaitingPrompt,
+  ))
+
   yield put.resolve(setInComp(false))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
@@ -570,8 +580,9 @@ function* assessThenSubmitSaga() {
 
   const recordingBlob = recorder.getBlob()
 
+  let blobAndPrompt
+  let fetchedPrompt
   let compBlob
-  let compBlob2
 
   if (endRecording) {
 
@@ -585,12 +596,16 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
-    compBlob = yield* compSaga(true, false, '/audio/VB/min/VB-retell-full.mp3') // blocks
+    blobAndPrompt = yield* compSaga(true, false, '/audio/VB/min/VB-retell-full.mp3') // blocks
+    compBlob = blobAndPrompt[0]
+    fetchedPrompt = blobAndPrompt[1]
+
+    if (fetchedPrompt !== PromptOptions.noPromptNeeded) {
 
     compBlob = yield* compSaga(false, false, '/audio/VB/VB-tell-more.mp3')
 
     compBlob = yield* compSaga(false, true, '/audio/VB/VB-know-that.mp3')
-
+    }
 
     yield put.resolve(setCurrentModal('modal-done'))
 

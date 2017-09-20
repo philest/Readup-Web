@@ -11,7 +11,7 @@
 // TODO REMOVE, put recorder logic in saga
 import Recorder from './recorder'
 
-import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions } from './types'
+import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions, Prompt, PromptOptions  } from './types'
 
 
 export const READER_STATE_SET = 'READER_STATE_SET'
@@ -74,6 +74,8 @@ export const QUESTION_INCREMENT = 'QUESTION_INCREMENT'
 export const QUESTION_DECREMENT = 'QUESTION_DECREMENT'
 export const QUESTION_NUMBER_SET = 'QUESTION_NUMBER_SET'
 
+export const PROMPT_SET = 'PROMPT_SET'
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -88,6 +90,15 @@ export function setPageNumber(pageNumber: number) {
     type: PAGE_NUMBER_SET,
     payload: {
       pageNumber,
+    },
+  }
+}
+
+export function setPrompt(prompt: Prompt) {
+  return {
+    type: PROMPT_SET,
+    payload: {
+      prompt,
     },
   }
 }
@@ -450,6 +461,7 @@ const initialState = {
   book: sampleBook,
   questionNumber: 1,
   readerState: ReaderStateOptions.initializing,
+  prompt: PromptOptions.awaitingPrompt,
   pauseType: PauseTypeOptions.fromPauseButton,
   hasRecordedSomething: false,
   recorder: new Recorder(),
@@ -485,6 +497,12 @@ function reducer(state = initialState, action = {}) {
 
     case PAGE_NUMBER_SET: {
       return { ...state, pageNumber: payload.pageNumber }
+    }
+
+    case PROMPT_SET: {
+      console.log('SET PROMPT: ', payload.prompt)
+      return { ...state, prompt: payload.prompt }
+
     }
 
 
