@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, 
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
-import { updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
+import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
 import InfoBar from '../ReportsInterface/components/InfoBar'
@@ -14,6 +14,11 @@ import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 import reportStyles from '../ReportsInterface/styles.css'
 import {getUserCount, getAssessmentSavedTimestamp} from '../ReportsInterface/emailHelpers.js'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
+
+
+import {
+  PromptOptions,
+} from '../StudentDashboard/types'
 
 
 const popoverBottom = (
@@ -55,6 +60,7 @@ const popoverBottom = (
 export default class GraderInterface extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
+    studentID: PropTypes.number,
   };
 
 
@@ -295,6 +301,19 @@ export default class GraderInterface extends React.Component {
     })
   }
 
+
+  onPrompt1Clicked = () => {
+    const params = { prompt_status: PromptOptions.tellSomeMore }
+    updateStudent(params, this.props.studentID)
+  }
+
+  onPrompt2Clicked = () => {
+    console.log('here i am 0')
+    this.setState({fluencyScore: 0})
+  }
+
+
+
   onFluencyScoreZeroClicked = () => {
     console.log('here i am 0')
     this.setState({fluencyScore: 0})
@@ -470,11 +489,11 @@ export default class GraderInterface extends React.Component {
         <div className={styles.compPromptContainer}>
           <h4>Prompts</h4>
           <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-            <Button href="#" onClick={this.onFluencyScoreZeroClicked}>Tell some more</Button>
-            <Button href="#" onClick={this.onFluencyScoreOneClicked}>What in the story makes you think that?</Button>
-            <Button href="#" onClick={this.onFluencyScoreTwoClicked}>Why is that important?</Button>
-            <Button href="#" onClick={this.onFluencyScoreThreeClicked}>Repeat the question</Button>
-            <Button href="#" onClick={this.onFluencyScoreThreeClicked}><strong>No prompt needed</strong></Button>
+            <Button href="#" onClick={this.onPrompt1Clicked}>Tell some more</Button>
+            <Button href="#" onClick={this.onPrompt2Clicked}>What in the story makes you think that?</Button>
+            <Button href="#" onClick={this.onPrompt3Clicked}>Why is that important?</Button>
+            <Button href="#" onClick={this.onPrompt4Clicked}>Repeat the question</Button>
+            <Button href="#" onClick={this.onPrompt5Clicked}><strong>No prompt needed</strong></Button>
           </ButtonGroup>
 
         </div>
@@ -623,14 +642,6 @@ export default class GraderInterface extends React.Component {
           <Button active={this.state.compScore === 2} href="#" onClick={this.onCompScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
           <Button active={this.state.compScore === 3} href="#" onClick={this.onCompScoreThreeClicked}><strong>3</strong> - Excellent</Button>
         </ButtonGroup>
-
-        {this.studentResponseInput &&
-          console.log(this.studentResponseInput.value)
-        }
-
-        {this.graderCommentsInput &&
-          console.log(this.graderCommentsInput.value)
-        }
 
 
         <Button

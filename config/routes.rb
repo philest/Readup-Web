@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :assessments
+  resources :students
 
   get 'auth/get_user_count', to: 'registration#get_user_count'
 

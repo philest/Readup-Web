@@ -63,6 +63,7 @@ class GraderInterfaceController < ApplicationController
         graderCommentPrior: @comp_score,
         studentResponsePrior: @student_response,
         compScorePrior: @grader_comment,
+        studentID: @student.id,
       }
     end
 

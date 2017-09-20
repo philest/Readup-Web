@@ -49,6 +49,29 @@ export function updateAssessment(params, id) {
 }
 
 
+
+export function updateStudent(params, id) {
+  console.log('Updating student...')
+
+  return axios.patch(`/students/${id}`, {
+    params,
+    headers: RctOnR.authenticityHeaders(),
+  }).then(response => {
+    console.log(response)
+    return response
+  }).catch(error => {
+    console.log(error)
+    console.log(error.response)
+  });
+
+}
+
+
+
+
+
+
+
 export function updateScoredText(JSONScoredText, assessmentID) {
   console.log("Okay, updating the scored text...");
 
