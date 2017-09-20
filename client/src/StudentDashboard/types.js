@@ -64,6 +64,7 @@ export const PromptAudioOptions = {
   WHY_IMPORTANT: '/audio/prompts/VB-why-important.mp3',
   WHY_THINK_THAT: '/audio/prompts/VB-why-think-that.mp3',
   REPEAT_QUESTION: '/audio/VB/min/VB-retell-partial.mp3',
+  AWAITING_PROMPT: '/audio/prompts/VB-tell-some-more.mp3', // HACK to have default
 }
 
 export type PromptAudio = Keys<typeof promptAudioOptions>;

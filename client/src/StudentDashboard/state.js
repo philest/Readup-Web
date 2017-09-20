@@ -442,13 +442,14 @@ const sampleBook = {
       audioSrc: '/audio/retell-full.mp3',
     },
     2: {
-      title: "Tell some more about the passage.",
-      audioSrc: '/audio/tell-more.mp3',
+      title: "Tell some more.",
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
     },
     3: {
-      title: "How do you know that?",
-      audioSrc: '/audio/know-that.mp3',
+      title: "this shouldn't happen",
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
     },
+
   },
 
 };

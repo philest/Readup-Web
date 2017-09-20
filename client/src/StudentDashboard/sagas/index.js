@@ -88,7 +88,7 @@ import { sendEmail } from '../../ReportsInterface/emailHelpers'
 
 
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200
-
+const MAX_NUM_PROMPTS = 2
 
 function getPermission(recorder) {
 
@@ -399,7 +399,8 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   let fetchedPrompt = PromptOptions.awaitingPrompt
   let count = 0
 
-  while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 4)) {
+  while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 2)) {
+    yield call(delay, 2500)
 
     // TODO current student....
     fetchedPrompt = yield getStudentPromptStatus(stuID)
@@ -407,7 +408,6 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
     yield clog('Prompt status:', fetchedPrompt)
     count += 1
-    yield call(delay, 2500)
   }
 
   if (fetchedPrompt !== PromptOptions.awaitingPrompt) {
@@ -602,26 +602,25 @@ function* assessThenSubmitSaga() {
     fetchedPrompt = blobAndPrompt[1]
 
 
-    if (fetchedPrompt !== PromptOptions.noPromptNeeded) {
+    // default to tell me more, done 
 
-        let audiofile = PromptAudioOptions[fetchedPrompt]
-        console.log("audiofile is...", audiofile)
+    for (let i = 0; i < MAX_NUM_PROMPTS; i++) { 
 
-        blobAndPrompt = yield* compSaga(false, false, audiofile)
-        compBlob = blobAndPrompt[0]
-        fetchedPrompt = blobAndPrompt[1]
+      if (fetchedPrompt !== PromptOptions.noPromptNeeded) {
+
+          let audiofile = PromptAudioOptions[fetchedPrompt]
+          console.log("audiofile is...", audiofile)
+
+          blobAndPrompt = yield* compSaga(false, false, audiofile)
+          compBlob = blobAndPrompt[0]
+          fetchedPrompt = blobAndPrompt[1]
+      }
+
+      if (fetchedPrompt === PromptOptions.awaitingPrompt) { // There's no wizard setting prompts, so only do one
+        break; 
+      }
+
     }
-
-    if (fetchedPrompt !== PromptOptions.noPromptNeeded) {
-
-        let audiofile = PromptAudioOptions[fetchedPrompt]
-        console.log("audiofile is...", audiofile)
-
-        blobAndPrompt = yield* compSaga(false, false, audiofile)
-        compBlob = blobAndPrompt[0]
-        fetchedPrompt = blobAndPrompt[1]
-    }
-
 
 
     let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
