@@ -308,9 +308,31 @@ export default class GraderInterface extends React.Component {
   }
 
   onPrompt2Clicked = () => {
-    console.log('here i am 0')
-    this.setState({fluencyScore: 0})
+    const params = { prompt_status: PromptOptions.whatInStory }
+    updateStudent(params, this.props.studentID)
   }
+
+  onPrompt3Clicked = () => {
+    const params = { prompt_status: PromptOptions.whyImportant }
+    updateStudent(params, this.props.studentID)
+  }
+
+  onPrompt4Clicked = () => {
+    const params = { prompt_status: PromptOptions.whyThinkThat }
+    updateStudent(params, this.props.studentID)
+  }
+
+  onPrompt5Clicked = () => {
+    const params = { prompt_status: PromptOptions.repeatQuestion }
+    updateStudent(params, this.props.studentID)
+  }
+
+  onPrompt6Clicked = () => {
+    const params = { prompt_status: PromptOptions.noPromptNeeded }
+    updateStudent(params, this.props.studentID)
+  }
+
+
 
 
 
@@ -492,8 +514,9 @@ export default class GraderInterface extends React.Component {
             <Button href="#" onClick={this.onPrompt1Clicked}>Tell some more</Button>
             <Button href="#" onClick={this.onPrompt2Clicked}>What in the story makes you think that?</Button>
             <Button href="#" onClick={this.onPrompt3Clicked}>Why is that important?</Button>
-            <Button href="#" onClick={this.onPrompt4Clicked}>Repeat the question</Button>
-            <Button href="#" onClick={this.onPrompt5Clicked}><strong>No prompt needed</strong></Button>
+            <Button href="#" onClick={this.onPrompt4Clicked}>Why do you think that?</Button>
+            <Button href="#" onClick={this.onPrompt5Clicked}>Repeat the question</Button>
+            <Button href="#" onClick={this.onPrompt6Clicked}><strong>No prompt needed</strong></Button>
           </ButtonGroup>
 
         </div>

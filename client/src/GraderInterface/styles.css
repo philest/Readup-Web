@@ -83,7 +83,10 @@ body {
 .promptButtonGroup {
 	margin-top: 5px;
 	margin-bottom: 0px;
+}
 
+.promptButtonGroup a {
+	    font-size: .9em;
 }
 
 
