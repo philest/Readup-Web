@@ -10,7 +10,7 @@ import { render } from 'react-dom'
 import ReactOnRails from 'react-on-rails'
 import HelloWorld from './HelloWorld'
 import StudentDashboard from './StudentDashboard'
-import TranscriberInterface from './TranscriberInterface'
+import GraderInterface from './GraderInterface'
 import ReportsInterface from './ReportsInterface'
 import ReportWithScorer from './ReportWithScorer'
 
@@ -49,7 +49,7 @@ function createHotModule(Komponent) {
     renderApp(Komponent)
     if (module.hot) {
 
-      module.hot.accept(['./HelloWorld', './StudentDashboard', './TranscriberInterface', './ReportsInterface', './ReportWithScorer'], () => {
+      module.hot.accept(['./HelloWorld', './StudentDashboard', './GraderInterface', './ReportsInterface', './ReportWithScorer'], () => {
         // store.replaceReducer(reducer)
         renderApp(Komponent)
       })
@@ -62,7 +62,7 @@ function createHotModule(Komponent) {
 ReactOnRails.register({
   HelloWorld: createHotModule(HelloWorld),
   StudentDashboard: createHotModule(StudentDashboard),
-  TranscriberInterface: createHotModule(TranscriberInterface),
+  GraderInterface: createHotModule(GraderInterface),
   ReportsInterface: createHotModule(ReportsInterface),
   ReportWithScorer: createHotModule(ReportWithScorer),
 })

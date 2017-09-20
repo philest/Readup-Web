@@ -1,6 +1,6 @@
 
-class TranscriberInterfaceController < ApplicationController
-  layout "transcriber_interface"
+class GraderInterfaceController < ApplicationController
+  layout "grader_interface"
 
   def index
 
@@ -11,7 +11,7 @@ class TranscriberInterfaceController < ApplicationController
     end 
 
     if params['user_id'] == "sample"
-     @transcriber_interface_props = {
+     @grader_interface_props = {
         name: "Sarah Jones",
         email: "testemail@gmail.com",
         bookTitle: "No More Magic",
@@ -44,7 +44,7 @@ class TranscriberInterfaceController < ApplicationController
       end 
 
 
-      @transcriber_interface_props = {
+      @grader_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",
         createdAt: created_at,
         email: "#{@user.email}",

@@ -52,7 +52,7 @@ const popoverBottom = (
 
 
 
-export default class TranscriberInterface extends React.Component {
+export default class GraderInterface extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
   };
@@ -452,7 +452,7 @@ export default class TranscriberInterface extends React.Component {
 
         { this.renderNavigationBar() }
 
-      <div className={styles.transcriberContainer}>
+      <div className={styles.graderContainer}>
 
 
 
@@ -520,7 +520,7 @@ export default class TranscriberInterface extends React.Component {
             </div>
 
 
-              <a href={`/transcribe/${this.props.userID}/?seen_update_prior=true`}>
+              <a href={`/grade/${this.props.userID}/?seen_update_prior=true`}>
                 <Button
                   className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
                   bsStyle={'success'}
@@ -546,7 +546,7 @@ export default class TranscriberInterface extends React.Component {
             </div>
 
 
-              <a href={`/transcribe/latest`}>
+              <a href={`/grade/latest`}>
                 <Button
                   className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
                   bsStyle={'primary'}

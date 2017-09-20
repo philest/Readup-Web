@@ -61,7 +61,7 @@ Rails.application.routes.draw do
 
   get 'demo', to: redirect('/student_dashboard/#/story/demo')
 
-  get 'transcribe/:user_id', to: 'transcriber_interface#index'
+  get 'grade/:user_id', to: 'grader_interface#index'
   get 'reports/demo/show', to: 'reports#index'
   get 'reports/:user_id', to: 'reports#index'
   get 'reports/email_submit', to: 'reports#email_submit'
