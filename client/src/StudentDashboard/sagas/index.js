@@ -19,6 +19,7 @@ import {
   requestNewAssessment,
   getStudentPromptStatus,
   resetToAwaitingPrompt,
+  getStudentCount,
 } from './networkingHelpers'
 
 import {
@@ -389,13 +390,17 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
   yield put({ type: SPINNER_SHOW })
 
+
+  let stuID = yield getStudentCount()
+    .catch(e => e.request) // TODO
+
   let fetchedPrompt = PromptOptions.awaitingPrompt
   let count = 0
 
   while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 4)) {
 
     // TODO current student....
-    fetchedPrompt = yield getStudentPromptStatus(566)
+    fetchedPrompt = yield getStudentPromptStatus(stuID)
       .catch(e => e.request) // TODO
 
     yield clog('Prompt status:', fetchedPrompt)
@@ -403,7 +408,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
     yield call(delay, 2500)
   }
   
-  yield* resetToAwaitingPrompt(566)
+  yield* resetToAwaitingPrompt(stuID)
 
 
 

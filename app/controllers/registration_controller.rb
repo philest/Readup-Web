@@ -14,6 +14,14 @@ class RegistrationController < ApplicationController
   end
 
 
+  def get_student_count 
+    puts "now getting count...."
+
+    render json: { ok: true, student_count: Student.count }, status: :ok, location: @student
+
+    return Student.count 
+  end
+  
   #  TODO PHIL: Hack for creating the user, teacher, school, class, assessment for the demo
   def phil_setup_demo
       # Create the dummy user linked to the real assesment. Dummy user updated after email collected. 
