@@ -140,7 +140,7 @@ class ReportsController < ApplicationController
 
         reviewerSignature: "Maria Contreras, M.Ed",
         reviewerProfilePicURL: "/images/maria-small.png",
-        assessmentBrand: "STEP" 
+        assessmentBrand: assessmentBrand 
       }
     end
 

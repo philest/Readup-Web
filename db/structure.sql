@@ -110,7 +110,8 @@ CREATE TABLE assessments (
     saved_at timestamp without time zone,
     student_responses json,
     grader_comments json,
-    comp_scores json
+    comp_scores json,
+    brand character varying DEFAULT 'FP'::character varying
 );
 
 
@@ -669,6 +670,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170911232543'),
 ('20170919030442'),
 ('20170919031138'),
-('20170919031433');
+('20170919031433'),
+('20170920041527');
 
 
