@@ -547,7 +547,7 @@ export default class TranscriberInterface extends React.Component {
             </span>
             <span className={styles.bookLevelHeading}>
               Assign a score using the rubric 
-              <OverlayTrigger defaultOverlayShown={true} trigger={['click']}   placement="bottom" overlay={popoverBottom}>
+              <OverlayTrigger defaultOverlayShown={false} trigger={['click']} rootClose placement="bottom" overlay={popoverBottom}>
                 <i className={["fa", "fa-question-circle", styles.questionIcon].join(" ")} aria-hidden={"true"} />
               </OverlayTrigger>
 

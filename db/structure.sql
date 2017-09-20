@@ -325,7 +325,8 @@ CREATE TABLE students (
     nick character varying,
     grade integer,
     first_name character varying,
-    last_name character varying
+    last_name character varying,
+    prompt_status character varying DEFAULT 'AWAITING_PROMPT'::character varying
 );
 
 
@@ -671,6 +672,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170919030442'),
 ('20170919031138'),
 ('20170919031433'),
-('20170920041527');
+('20170920041527'),
+('20170920164606');
 
 
