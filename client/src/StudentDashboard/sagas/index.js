@@ -17,6 +17,8 @@ import {
   getS3Presign,
   sendAudioToS3,
   requestNewAssessment,
+  getStudentPromptStatus,
+  resetToAwaitingPrompt,
 } from './networkingHelpers'
 
 import {
@@ -69,6 +71,7 @@ import {
 import {
   ReaderStateOptions,
   MicPermissionsStatusOptions,
+  PromptOptions,
 } from '../types'
 
 import {
@@ -385,9 +388,25 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
 
   yield put({ type: SPINNER_SHOW })
-  yield call (delay, 2300)
 
-  // yield playSound('/audio/complete.mp3')
+  let fetchedPrompt = PromptOptions.awaitingPrompt
+  let count = 0
+
+  while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 4)) {
+
+    // TODO current student....
+    fetchedPrompt = yield getStudentPromptStatus(566)
+      .catch(e => e.request) // TODO
+
+    yield clog('Prompt status:', fetchedPrompt)
+    count++
+    yield call(delay, 2500)
+  }
+  
+  yield* resetToAwaitingPrompt(566)
+
+
+
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.playingBookIntro,

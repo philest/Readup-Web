@@ -3,6 +3,13 @@ import RctOnR from 'react-on-rails'
 import axios from 'axios'
 import _forOwn from 'lodash/forOwn'
 
+import { updateStudent } from '../../ReportsInterface/emailHelpers.js'
+
+import {
+  PromptOptions,
+} from '../types'
+
+
 type PresignObject = {
   url: string,
   fields: {},
@@ -62,3 +69,24 @@ export function sendAudioToS3(blob, presign: PresignObject) {
       console.log("yay!");
     })
 }
+
+
+
+
+export function getStudentPromptStatus(studentID) {
+  console.log("Okay, getting student data...");
+
+    return axios.get(`/students/${studentID}`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      return res.data.prompt_status
+  })
+}
+
+export function  resetToAwaitingPrompt(studentID) {
+  const params = { prompt_status: PromptOptions.awaitingPrompt }
+  updateStudent(params, studentID)
+}
+
+
+
