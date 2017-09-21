@@ -196,9 +196,9 @@ class StudentDashboard extends React.Component {
         <CompPausedModal
           onContinueClicked={this.props.actions.resumeClicked}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
-          onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
-          showSpinner={this.props.showSpinner}          
+          showSpinner={this.props.showSpinner}    
+          onDoneClicked={this.props.actions.stopRecordingClicked}      
         />
 
         <ExitModal

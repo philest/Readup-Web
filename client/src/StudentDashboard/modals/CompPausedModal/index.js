@@ -18,7 +18,7 @@ export default class CompPausedModal extends React.Component {
   static propTypes = {
     onContinueClicked: PropTypes.func.isRequired,
     onStartOverClicked: PropTypes.func,  // TODO required?
-    onTurnInClicked: PropTypes.func,
+    onDoneClicked: PropTypes.func,
 
     currentShowModal: PropTypes.string,
     modalType: PropTypes.string,
@@ -50,9 +50,9 @@ export default class CompPausedModal extends React.Component {
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Done', 'Say more', 'Start over']}
-            images={[firstIcons, 'fa-play', 'fa-repeat']}
-            actions={[this.props.onTurnInClicked, this.props.onContinueClicked, this.props.onStartOverClicked]}
+            titles={['Done', 'Say more']}
+            images={[firstIcons, 'fa-play']}
+            actions={[this.props.onDoneClicked, this.props.onContinueClicked]}
             enlargeFirst={true}
             fontAwesome={true}
             modalType={'info'}
