@@ -572,12 +572,13 @@ a:hover {
 
 .miniPlayIcon {
 	margin-left: 3px;
+	margin-left: 20px;
+
 }
 
 @media (max-width: 1168px) {
 
 	.miniPlayButton, .compAudioElement {
-		margin-left: 20px;
 		margin-top: 10px;
 		margin-bottom: 15px;
 	}	
