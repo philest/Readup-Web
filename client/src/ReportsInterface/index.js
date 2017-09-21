@@ -573,7 +573,7 @@ export default class ReportsInterface extends React.Component {
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
-                  <p className={styles.studentResponse}>"Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike."</p> 
+                  <p className={styles.studentResponse}>Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike.</p> 
                   <p className={styles.compCorrect}><span className={styles.correct}>+3 points:</span> Shows excellent undestanding of the passage, including three critical plot details, as well as sequence and characters.</p> 
                 </div>
             </div>
@@ -582,12 +582,12 @@ export default class ReportsInterface extends React.Component {
               <h2 className={styles.compPartHeader}>Within the Text</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>1. How is the narrator's mom trying to make him feel better?<span className={styles.pointValue}> (1 point)</span></h4>
-                  <p className={styles.studentResponse}>"Chris's mom is trying to make him feel better by buying him a new bike."</p> 
+                  <p className={styles.studentResponse}>Chris's mom is trying to make him feel better by buying him a new bike.</p> 
                   <p className={styles.compCorrect}><span className={styles.missed}>+1 points:</span> Shows strong undertanding of character and plot regarding Chris's mom.</p> 
                 </div>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (1 point)</span></h4>
-                  <p className={styles.studentResponse}>"Chris will stop looking because he still hasn’t found it."</p> 
+                  <p className={styles.studentResponse}>Chris will stop looking because he still hasn’t found it.</p> 
                   <p className={styles.compMissed}><span className={styles.missed}>No points:</span> Missed key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
                 </div>
             </div>
@@ -597,12 +597,12 @@ export default class ReportsInterface extends React.Component {
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (1 point)</span></h4>
-                  <p className={styles.studentResponse}>"He thinks Mr. Podler once saw a ghost."</p> 
+                  <p className={styles.studentResponse}>He thinks Mr. Podler once saw a ghost.</p> 
                   <p className={styles.compMissed}><span className={styles.missed}>No points:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 point)</span></h4>
-                  <p className={styles.studentResponse}>"He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first."</p> 
+                  <p className={styles.studentResponse}>He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first.</p> 
                   <p className={styles.compCorrect}><span className={styles.missed}>+1 point:</span> Reflects excellent understanding of the text. Includes details on Chris’s mixed feelings and evidence from the text.</p> 
 
                 </div>
