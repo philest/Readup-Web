@@ -628,7 +628,7 @@ export default class ReportsInterface extends React.Component {
                  
                   { firstQuestionGraded &&
                     <div>
-                    <p className={styles.studentResponse}>"{ this.props.studentResponse }."</p> 
+                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
 
                     { !this.state.showCompAudioPlayback &&
                     <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
@@ -643,7 +643,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}.</p>
+                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
                     </div>
                   }
                   
