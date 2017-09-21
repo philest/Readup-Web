@@ -182,7 +182,7 @@ export default class Metric extends React.Component {
         number = (number.toString() + "%")
 
         break;
-      case 'WCPM':
+      case 'Words/Min':
         metricClass = WCMPMetricClass;
         break
       case 'Comp.':
