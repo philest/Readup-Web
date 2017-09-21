@@ -234,6 +234,34 @@ function* questionIncrementSaga (action) {
 }
 
 
+// if it's a real prompt, play it, then reset it on the student. 
+
+function* keepFetchingPrompt(studentID) {
+  yield clog('here in keepFetchingPrompt')
+  while (true) {
+    prompt = yield call(fetchInBackground, studentID)
+    yield clog('loop: prompt is: ', prompt)
+
+    if (prompt !== PromptOptions.awaitingPrompt) {
+      let audiofile = PromptAudioOptions[prompt]
+      yield playSoundAsync(audiofile)
+      yield call(resetToAwaitingPrompt, studentID)
+    }
+    yield call(delay, 2000)
+  }
+}
+
+function* fetchInBackground(studentID) {
+    yield clog('  here in fetchInBackground..')
+
+    // TODO current student....
+    const fetchedPrompt = yield getStudentPromptStatus(studentID)
+      .catch(e => e.request) // TODO
+
+    yield clog('Prompt:', fetchedPrompt)
+    return fetchedPrompt
+}
+
 
 
 
@@ -318,6 +346,8 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
 
 
+
+
   yield take(START_RECORDING_CLICKED)
 
   yield call(stopAudio)
@@ -351,9 +381,32 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   }
 
 
-  yield clog('made it here')
+  // In middle of recording 
 
-  yield take(STOP_RECORDING_CLICKED)
+
+
+  const studentID = yield getStudentCount()
+    .catch(e => e.request) // TODO
+
+
+    yield race({
+      task: call(keepFetchingPrompt, studentID),
+      cancel: take(STOP_RECORDING_CLICKED),
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // yield take(STOP_RECORDING_CLICKED)
 
   yield call(stopAudio)
 
@@ -393,32 +446,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   yield put({ type: SPINNER_SHOW })
 
 
-  let stuID = yield getStudentCount()
-    .catch(e => e.request) // TODO
-
-  let fetchedPrompt = PromptOptions.awaitingPrompt
-  let count = 0
-
-  while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 3)) {
-    yield call(delay, 2800)
-
-    // TODO current student....
-    fetchedPrompt = yield getStudentPromptStatus(stuID)
-      .catch(e => e.request) // TODO
-
-    yield clog('Prompt status:', fetchedPrompt)
-    count += 1
-  }
-
-  if (fetchedPrompt !== PromptOptions.awaitingPrompt) {
-    yield put.resolve(setPrompt(
-      fetchedPrompt,
-    ))
-  }
-
-  // for the student model
-  yield* resetToAwaitingPrompt(stuID)
-
+  yield call(delay,1500)
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.playingBookIntro,
