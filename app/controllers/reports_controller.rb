@@ -95,14 +95,16 @@ class ReportsController < ApplicationController
       end 
 
 
+      assessmentBrand = @assessment.brand
+
       # For backward compatitibility, only use the new recordingURL for new users...
       if (@user.id <= 102)
         recordingURL = @assessment.book_key # old hack...
-        assessmentBrand = "FP"
+         assessmentBrand ||= "FP"
       else 
         recordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm"
         compRecordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/comp/recording.webm"
-        assessmentBrand = "STEP"
+        assessmentBrand ||= "STEP"
 
       end 
 

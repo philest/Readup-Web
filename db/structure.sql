@@ -111,7 +111,8 @@ CREATE TABLE assessments (
     student_responses json,
     grader_comments json,
     comp_scores json,
-    brand character varying DEFAULT 'FP'::character varying
+    brand character varying DEFAULT 'FP'::character varying,
+    is_live_demo boolean DEFAULT false
 );
 
 
@@ -673,6 +674,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170919031138'),
 ('20170919031433'),
 ('20170920041527'),
-('20170920164606');
+('20170920164606'),
+('20170921210711');
 
 

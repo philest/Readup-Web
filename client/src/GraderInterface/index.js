@@ -82,6 +82,7 @@ export default class GraderInterface extends React.Component {
       userCountCurrent: this.props.userCountPrior,
       compScore: this.props.compScorePrior,
       fluencyScore: this.props.fluencyScorePrior,
+      assessmentBrand: this.props.assessmentBrand,
     }
         this.tick = this.tick.bind(this);
 
@@ -335,6 +336,24 @@ export default class GraderInterface extends React.Component {
 
 
 
+  onFPclicked = () => {
+    this.setState({ assessmentBrand: 'FP' })
+    updateAssessment( {
+                       brand: 'FP',
+                      },
+                       this.props.assessmentID,
+                    )
+  }
+
+  onSTEPclicked = () => {
+    this.setState({ assessmentBrand: 'STEP' })
+    updateAssessment( {
+                       brand: 'STEP',
+                      },
+                       this.props.assessmentID,
+                    )
+  }
+
 
 
   onFluencyScoreZeroClicked = () => {
@@ -523,6 +542,13 @@ export default class GraderInterface extends React.Component {
 
         </div>
 
+        <div className={styles.compPromptContainer}>
+          <h4>Asessment Brand</h4>
+          <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+            <Button active={this.state.assessmentBrand === 'FP'} href="#" onClick={this.onFPclicked}>F&P</Button>
+            <Button active={this.state.assessmentBrand === 'STEP'} href="#" onClick={this.onSTEPclicked}>STEP</Button>
+          </ButtonGroup>
+        </div>
 
 
         <audio controls ref={"audioPlayer"} className={styles.audioElement}>
