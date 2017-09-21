@@ -38,6 +38,7 @@ class ReportsController < ApplicationController
         email: "testemail@gmail.com",
         bookTitle: "No More Magic",
         bookLevel: "R",
+        stepLevel: "12",
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav",
         scoredText: "Fake!",
         userID: @user.id,
@@ -63,7 +64,7 @@ class ReportsController < ApplicationController
 
         reviewerSignature: "Ashley Brantley, M.A.",
         reviewerProfilePicURL: "/images/ashley.png",
-        assessmentBrand: "FP",
+        assessmentBrand: @assessment.brand,
         isLiveDemo: true
 
       }

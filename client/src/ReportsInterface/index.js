@@ -413,10 +413,11 @@ export default class ReportsInterface extends React.Component {
               { this.props.isSample &&
                 <LevelResult
                   difficulty="Frustrational"
-                  currentLevel={this.props.bookLevel}
+                  currentLevel={bookLevel}
                   reassess={this.props.isUnscorable}
                   didEndEarly={false}
                   yellowColorOverride={true}
+                  assessmentBrand={this.props.assessmentBrand}
                 />
               }
 

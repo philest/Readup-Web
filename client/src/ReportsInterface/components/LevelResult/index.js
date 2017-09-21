@@ -104,7 +104,7 @@ export default class LevelResult extends React.Component {
     );
 
     let titleNormalSTEP = (
-      <h2><span>{ STEPdiffficulty }<span>{ " STEP 4" }</span></span> </h2>
+      <h2><span>{ STEPdiffficulty }<span>{ " STEP " + this.props.currentLevel }</span></span> </h2>
     )
 
 
