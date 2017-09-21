@@ -400,7 +400,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   let count = 0
 
   while ((fetchedPrompt === PromptOptions.awaitingPrompt) && (count < 3)) {
-    yield call(delay, 2500)
+    yield call(delay, 2800)
 
     // TODO current student....
     fetchedPrompt = yield getStudentPromptStatus(stuID)
