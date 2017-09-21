@@ -19,7 +19,7 @@ import {
   requestNewAssessment,
   getStudentPromptStatus,
   resetToAwaitingPrompt,
-  getStudentCount,
+  getLastStudentID,
 } from './networkingHelpers'
 
 import {
@@ -387,9 +387,10 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
 
 
-  const studentID = yield getStudentCount()
+  const studentID = yield getLastStudentID()
     .catch(e => e.request) // TODO
 
+  yield clog('studentID is', studentID)
 
     yield race({
       task: call(keepFetchingPrompt, studentID),

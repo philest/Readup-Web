@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   resources :students
 
   get 'auth/get_user_count', to: 'registration#get_user_count'
-  get 'auth/get_student_count', to: 'registration#get_student_count'
+  get 'auth/get_last_student_id', to: 'registration#get_last_student_id'
 
 
   get 'auth/user_exists', to: 'users#exists'

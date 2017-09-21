@@ -106,5 +106,15 @@ export function getStudentCount() {
   })
 }
 
+export function getLastStudentID() {
+
+  return axios.get(`/auth/get_last_student_id`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+    return res.data.student_id;
+  })
+
+}
+
 
 

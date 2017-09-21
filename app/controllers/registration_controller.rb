@@ -14,10 +14,10 @@ class RegistrationController < ApplicationController
   end
 
 
-  def get_student_count 
-    puts "now getting count...."
+  def get_last_student_id 
+    puts "now getting student id...."
 
-    render json: { ok: true, student_count: Student.count }, status: :ok, location: @student
+    render json: { ok: true, student_id: Student.last.id }, status: :ok, location: @student
 
     return Student.count 
   end
