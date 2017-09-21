@@ -3,6 +3,8 @@ import React from 'react';
 
 import styles from '../PausedModal/styles.css'
 import commonStyles from '../commonstyles.css'
+import compPausedStyles from './styles.css'
+
 
 import ModalHeader from '../subcomponents/ModalHeader'
 import RectangleButton from 'StudentDashboard/components/RectangleButton'

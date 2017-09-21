@@ -156,6 +156,7 @@ class StudentDashboard extends React.Component {
           ...readerProps,
           showCover: true,
           showPauseButton: (this.props.readerState === ReaderStateOptions.inProgress),
+          onCompPauseClicked: this.props.actions.compPauseClicked,
       }
     }
     else { // any other page...
