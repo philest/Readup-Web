@@ -680,11 +680,6 @@ export default class ReportsInterface extends React.Component {
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>5. Does it seem like the girl and her Dad have caught fireflies before? Why do you think that?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
-            </div>
-
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Personal Opinion</h2>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>6. Do you agree with the girl’s decision to let the fireflies go? Why? <span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
