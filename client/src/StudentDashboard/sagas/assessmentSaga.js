@@ -21,6 +21,7 @@ import {
   PAUSE_CLICKED,
   RESUME_CLICKED,
   STOP_RECORDING_CLICKED,
+  COMP_PAUSE_CLICKED,
   setHasRecordedSomething,
   setCurrentSound,
   setCurrentModal,
@@ -65,6 +66,26 @@ function* pauseAssessmentSaga (action) {
   // directly show modal here
 }
 
+function* compPauseAssessmentSaga (action) {
+  const recorder = yield select(getRecorder)
+  yield call(recorder.pauseRecording)
+  yield delay(300) // delay to prevent phil's voice from getting pick up :/
+
+  yield call(playSoundAsync, '/audio/complete.mp3')
+
+  // yield call(playSoundAsync, '/audio/paused.mp3')
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.paused,
+  ))
+  // yield put.resolve(setCurrentSound('/audio/paused.mp3'))
+  yield put.resolve(setCurrentModal('modal-comp-paused'))
+  return
+  // directly show modal here
+}
+
+
+
+
 function* resumeAssessmentSaga (action) {
   yield call(stopAudio)
 
@@ -99,6 +120,9 @@ export default function* assessmentSaga() {
   // watchers!
   // TODO: refactor this into saga for referential integrity of recorder
   yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga)
+
+  yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga)
+
   yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga)
 
   yield takeLatest(NEXT_PAGE_CLICKED, pageIncrementSaga)

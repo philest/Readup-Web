@@ -51,6 +51,7 @@ export default class Reader extends React.Component {
     // not required because not all functions needed for every page
     // i.e. the last page shouldn't have a nextPageClicked function
     onPauseClicked: PropTypes.func,
+    onCompPauseClicked: PropTypes.func,
     onStopClicked: PropTypes.func,
     onStartClicked: PropTypes.func,
     onNextPageClicked: PropTypes.func,
@@ -187,7 +188,7 @@ export default class Reader extends React.Component {
       bookTitle: this.props.bookTitle,
       bookAuthor: this.props.bookAuthor,
       isCoverPage: this.props.showCover,
-      onPauseClicked: this.props.onPauseClicked,
+      onPauseClicked: (this.props.inComp ? this.props.onCompPauseClicked : this.props.onPauseClicked),
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
     }

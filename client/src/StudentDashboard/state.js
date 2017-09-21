@@ -75,6 +75,7 @@ export const QUESTION_DECREMENT = 'QUESTION_DECREMENT'
 export const QUESTION_NUMBER_SET = 'QUESTION_NUMBER_SET'
 
 export const PROMPT_SET = 'PROMPT_SET'
+export const COMP_PAUSE_CLICKED = 'COMP_PAUSE_CLICKED'
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -189,6 +190,12 @@ export function setMicPermissions(micPermissionsStatus: MicPermissionsStatus) {
 export function pauseClicked() {
   return {
     type: PAUSE_CLICKED,
+  }
+}
+
+export function compPauseClicked() {
+  return {
+    type: COMP_PAUSE_CLICKED,
   }
 }
 

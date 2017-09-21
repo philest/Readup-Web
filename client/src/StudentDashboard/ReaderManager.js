@@ -18,6 +18,7 @@ import styles from './styles.css'
 import CompModal from './modals/CompModal'
 import DoneModal from './modals/DoneModal'
 import PausedModal from './modals/PausedModal'
+import CompPausedModal from './modals/CompPausedModal'
 import ExitModal from './modals/ExitModal'
 import MicModal from './modals/MicModal'
 import PlaybackModal from './modals/PlaybackModal'
@@ -143,7 +144,7 @@ class StudentDashboard extends React.Component {
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
 
 
-    if (this.props.pageNumber == 0) { // cover
+    if (this.props.pageNumber == 0  && !this.props.isComp) { // cover
       readerProps = {
         ...readerProps,
         showCover: true,
@@ -164,11 +165,12 @@ class StudentDashboard extends React.Component {
         pageNumber: this.props.pageNumber,
         textLines: this.props.book.pages[this.props.pageNumber].lines,
         imageURL: this.props.book.pages[this.props.pageNumber].img,
-        showPauseButton: (this.props.readerState === ReaderStateOptions.inProgress && !this.props.inComp),
+        showPauseButton: (this.props.readerState === ReaderStateOptions.inProgress),
         isFirstPage: (this.props.pageNumber == 1),
         isLastPage: (this.props.pageNumber == this.props.numPages),
         onPreviousPageClicked: this.props.actions.previousPageClicked,
         onPauseClicked: this.props.actions.pauseClicked,
+        onCompPauseClicked: this.props.actions.compPauseClicked,
         onStopClicked: this.props.actions.stopRecordingClicked,
       }
     }
@@ -183,6 +185,14 @@ class StudentDashboard extends React.Component {
 
       <div>
         <PausedModal
+          onContinueClicked={this.props.actions.resumeClicked}
+          onStartOverClicked={this.props.actions.restartRecordingClicked}
+          onTurnInClicked={this.props.actions.turnInClicked}
+          currentShowModal={this.props.currentShowModal}
+          showSpinner={this.props.showSpinner}          
+        />
+
+        <CompPausedModal
           onContinueClicked={this.props.actions.resumeClicked}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
