@@ -46,7 +46,6 @@ export default class ReportsInterface extends React.Component {
       showCompAudioPlayback: false,
       showPricingModal: false,
       showBookModal: false,
-      showCompModal: false,
       showEmailModal: true,
       showSampleInfoModal: false,
       levelFound: false,
@@ -256,9 +255,6 @@ export default class ReportsInterface extends React.Component {
     this.setState({ showBookModal: true })
   }
 
-  onCompClicked = () => {
-    this.setState({ showCompModal: true })
-  }
 
   onEmailFormSubmit = () => {
 
@@ -292,9 +288,6 @@ export default class ReportsInterface extends React.Component {
     this.setState({ showBookModal: false })
   }
 
-  closeCompModal  = () => {
-    this.setState({ showCompModal: false })
-  }
 
   _handleKeyDown = (event) => {
     if (this.state.showPricingModal && event.code === 'Enter') {
@@ -729,13 +722,6 @@ export default class ReportsInterface extends React.Component {
                   </Button>
                 </a>
               }
-              <Button
-                className={styles.multipleFooterButton}
-                bsStyle={'default'}
-                onClick={ this.onCompClicked }
-              >
-                { "Preview comprehension"}
-              </Button>
 
             </div>
 
@@ -904,12 +890,6 @@ export default class ReportsInterface extends React.Component {
           </Modal.Body>
         </Modal>
 
-       <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
-        <Modal show={this.state.showCompModal} bsSize={"large"} onHide={this.closeCompModal} >
-          <Modal.Body>
-            <img className={styles.compImage} alt="Student Comprehension" src="/images/student-comp-preview.jpg" />
-          </Modal.Body>
-        </Modal>
 
 
 
