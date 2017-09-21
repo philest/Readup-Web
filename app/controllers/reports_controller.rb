@@ -34,7 +34,7 @@ class ReportsController < ApplicationController
 
 
       @reports_interface_props = {
-        name: "Sarah Jones",
+        name: "Maya De Leon",
         email: "testemail@gmail.com",
         bookTitle: "No More Magic",
         bookLevel: "R",
