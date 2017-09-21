@@ -220,6 +220,10 @@ function* exitClick() {
   yield put.resolve(setReaderState(
     ReaderStateOptions.paused,
   ))
+
+  yield call(stopAudio)
+  yield call(playSoundAsync, '/audio/bamboo.mp3')
+
   yield put(setCurrentModal('modal-exit'))
 }
 

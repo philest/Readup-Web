@@ -41,7 +41,7 @@ import {
 } from './helpers'
 
 
-import { playSoundAsync, stopAudio } from '../audioPlayer'
+import { playSoundAsync, playSound, stopAudio } from '../audioPlayer'
 
 import { sendEmail } from '../../ReportsInterface/emailHelpers'
 
@@ -52,6 +52,9 @@ function* pauseAssessmentSaga (action) {
   const recorder = yield select(getRecorder)
   yield call(recorder.pauseRecording)
   yield delay(300) // delay to prevent phil's voice from getting pick up :/
+
+  yield call(playSoundAsync, '/audio/bamboo.mp3')
+
   // yield call(playSoundAsync, '/audio/paused.mp3')
   yield put.resolve(setReaderState(
     ReaderStateOptions.paused,
@@ -64,6 +67,9 @@ function* pauseAssessmentSaga (action) {
 
 function* resumeAssessmentSaga (action) {
   yield call(stopAudio)
+
+  yield call(playSound, '/audio/complete.mp3')
+
   const recorder = yield select(getRecorder)
   yield call(recorder.resumeRecording)
   yield put.resolve(setReaderState(

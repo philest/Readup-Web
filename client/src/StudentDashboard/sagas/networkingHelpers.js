@@ -97,15 +97,6 @@ export function  resetToAwaitingPrompt(studentID) {
 //     })
 // }
 
-export function getStudentCount() {
-
-  return axios.get(`/auth/get_student_count`, {
-      headers: RctOnR.authenticityHeaders(),
-    }).then(res => {
-    return res.data.student_count;
-  })
-}
-
 export function getLastStudentID() {
 
   return axios.get(`/auth/get_last_student_id`, {

@@ -237,10 +237,6 @@ class StudentDashboard extends React.Component {
   renderOverlayOrNullBasedOnState = () => {
     return (
       <div>
-        <IntroOverlay
-          currentShowOverlay={this.props.currentShowOverlay}
-          onContinueClicked={this.props.actions.introContinueClicked}
-        />
 
         <BlockedMicOverlay
           currentShowOverlay={this.props.currentShowOverlay}
