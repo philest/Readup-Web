@@ -65,7 +65,7 @@ class ReportsController < ApplicationController
         reviewerSignature: "Ashley Brantley, M.A.",
         reviewerProfilePicURL: "/images/ashley.png",
         assessmentBrand: @assessment.brand,
-        isLiveDemo: true
+        isLiveDemo: @assessment.is_live_demo
 
       }
 

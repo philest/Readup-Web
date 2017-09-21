@@ -83,6 +83,7 @@ export default class GraderInterface extends React.Component {
       compScore: this.props.compScorePrior,
       fluencyScore: this.props.fluencyScorePrior,
       assessmentBrand: this.props.assessmentBrand,
+      isLiveDemo: this.props.isLiveDemo,
     }
         this.tick = this.tick.bind(this);
 
@@ -335,6 +336,24 @@ export default class GraderInterface extends React.Component {
   }
 
 
+  onIsLiveDemoClicked = () => {
+    this.setState({ isLiveDemo: true })
+    updateAssessment( {
+                       is_live_demo: true,
+                      },
+                       this.props.assessmentID,
+                    )
+  }
+
+  onIsNotLiveDemoClicked = () => {
+    this.setState({ isLiveDemo: false })
+    updateAssessment( {
+                       is_live_demo: false,
+                      },
+                       this.props.assessmentID,
+                    )
+  }
+
 
   onFPclicked = () => {
     this.setState({ assessmentBrand: 'FP' })
@@ -529,7 +548,7 @@ export default class GraderInterface extends React.Component {
           </div>
         </div>
 
-        <div className={styles.compPromptContainer}>
+        <div className={[styles.compPromptContainer, styles.block]}>
           <h4>Prompts</h4>
           <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
             <Button href="#" onClick={this.onPrompt1Clicked}>Tell some more</Button>
@@ -543,12 +562,22 @@ export default class GraderInterface extends React.Component {
         </div>
 
         <div className={styles.compPromptContainer}>
-          <h4>Asessment Brand</h4>
+          <h4>Asessment Brand?</h4>
           <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
             <Button active={this.state.assessmentBrand === 'FP'} href="#" onClick={this.onFPclicked}>F&P</Button>
             <Button active={this.state.assessmentBrand === 'STEP'} href="#" onClick={this.onSTEPclicked}>STEP</Button>
           </ButtonGroup>
         </div>
+
+
+        <div className={styles.compPromptContainer}>
+          <h4>Scoring live?</h4>
+          <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+            <Button active={this.state.isLiveDemo} href="#" onClick={this.onIsLiveDemoClicked}>Yes, live</Button>
+            <Button active={!this.state.isLiveDemo} href="#" onClick={this.onIsNotLiveDemoClicked}>No, not live</Button>
+          </ButtonGroup>
+        </div>
+
 
 
         <audio controls ref={"audioPlayer"} className={styles.audioElement}>
@@ -645,9 +674,9 @@ export default class GraderInterface extends React.Component {
 
         <div className={styles.fluencyContainer}>
           <div className={styles.bookInfo}>
-            <span className={styles.bookTitleHeading}>
+            <h4 >
               Fluency Score
-            </span>
+            </h4>
             <span className={styles.bookLevelHeading}>
               Assign a score using the rubric 
               <OverlayTrigger defaultOverlayShown={false} trigger={['click']} rootClose placement="bottom" overlay={popoverBottom}>
@@ -687,13 +716,22 @@ export default class GraderInterface extends React.Component {
         </FormGroup>
 
 
-        <ButtonGroup className={styles.fluencyButtonGroup}>
+        <br/>
+
+        <h4 >
+          Comp Score
+        </h4>
+
+        <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
           <Button active={this.state.compScore === 0} href="#" onClick={this.onCompScoreZeroClicked}><strong>0</strong> - Unsatisfactory</Button>
           <Button active={this.state.compScore === 1} href="#" onClick={this.onCompScoreOneClicked}><strong>1</strong> - Limited</Button>
           <Button active={this.state.compScore === 2} href="#" onClick={this.onCompScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
           <Button active={this.state.compScore === 3} href="#" onClick={this.onCompScoreThreeClicked}><strong>3</strong> - Excellent</Button>
         </ButtonGroup>
 
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
 
         <Button
           className={styles.submitButton}
