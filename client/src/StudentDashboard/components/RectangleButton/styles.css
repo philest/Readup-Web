@@ -85,6 +85,13 @@
                                   supported by Chrome and Opera */
 }
 
+.navRectangleButtonTitle {
+	font-size: 1.6em;
+	font-family: 'Proximanova';
+  font-weight: bold;
+  margin-top: 13px;
+}
+
 
 .rectangleButtonTitle {
 	font-size: 1.6em;

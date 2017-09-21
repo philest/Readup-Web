@@ -14,6 +14,7 @@ type props = {
   partiallyDisabled: boolean,
   style: {},
   showSpinner: boolean,
+  id: string,
 };
 
 function RectangleButton ({
@@ -25,6 +26,8 @@ function RectangleButton ({
   pulsatingArrow = false,
   style = {},
   showSpinner = false,
+  id = "",
+
 } : props) {
 
 
@@ -37,6 +40,8 @@ function RectangleButton ({
   } else {
     containerStyle = styles.rectangleButtonContainer
   }
+
+  let isNavButton = (id === 'navigation-button')
 
 
   if (showSpinner) {
@@ -70,7 +75,7 @@ function RectangleButton ({
     >
 
       
-      <div className={styles.rectangleButtonTitle}>
+      <div className={isNavButton ? styles.navRectangleButtonTitle : styles.rectangleButtonTitle}>
         { pulsatingArrow 
           && !disabled
           && <i className={['fa fa-angle-right', styles.pulsatingArrow].join(' ')}></i>
