@@ -718,7 +718,7 @@ export default class ReportsInterface extends React.Component {
                     className={styles.multipleFooterButton} 
                     bsStyle={'default'}
                   >
-                    { "See example assessment"}
+                    { "See a prior assessment"}
                   </Button>
                 </a>
               }

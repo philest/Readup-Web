@@ -60,9 +60,9 @@ class GraderInterfaceController < ApplicationController
         whenFirstSaved: (@assessment.saved_at .to_f*1000).to_i,
         userCountPrior: User.count,
         fluencyScorePrior: @assessment.fluency_score,
-        graderCommentPrior: @comp_score,
+        graderCommentPrior: @grader_comment,
         studentResponsePrior: @student_response,
-        compScorePrior: @grader_comment,
+        compScorePrior: @comp_score,
         studentID: @student.id,
       }
     end
