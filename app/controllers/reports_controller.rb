@@ -63,7 +63,8 @@ class ReportsController < ApplicationController
 
         reviewerSignature: "Ashley Brantley, M.A.",
         reviewerProfilePicURL: "/images/ashley.png",
-        assessmentBrand: "FP" 
+        assessmentBrand: "FP",
+        isLiveDemo: true
 
       }
 
@@ -140,7 +141,9 @@ class ReportsController < ApplicationController
 
         reviewerSignature: "Maria Contreras, M.Ed",
         reviewerProfilePicURL: "/images/maria-small.png",
-        assessmentBrand: assessmentBrand 
+        assessmentBrand: assessmentBrand,
+        isLiveDemo: false
+
       }
     end
 

@@ -42,7 +42,8 @@ export default class ReportWithScorer extends React.Component {
     this.state = {
       showAudioPlayback: false,
       showPricingModal: false,
-      showEmailModal: true,
+      showEmailModal: !this.props.isLiveDemo,
+      showLiveDemoModal: this.props.isLiveDemo,
       showSampleInfoModal: false,
       levelFound: false,
       email: '',
@@ -78,7 +79,8 @@ export default class ReportWithScorer extends React.Component {
     }
 
     if (this.props.isSample && this.props.isDirectSample) {
-      this.setState({ showEmailModal: false })      
+      this.setState({ showEmailModal: false })   
+      this.setState({ showLiveDemoModal: false })
     }
     
   }
@@ -170,6 +172,10 @@ export default class ReportWithScorer extends React.Component {
     this.setState({ showPricingModal: true })
 
     console.log(getTotalWordsReadCorrectly(this.state.gradedText))
+  }
+
+  onLiveDemoClick = () => {
+    this.setState({ showLiveDemoModal: false })
   }
 
   onEmailFormSubmit = () => {
@@ -431,6 +437,32 @@ export default class ReportWithScorer extends React.Component {
           </Modal.Body>
         </Modal>
 
+        <style type="text/css">{'.modal-backdrop.in { opacity: 0.9; } '}</style>
+        <Modal show={this.state.showLiveDemoModal} dialogClassName={styles.modalMedium}>
+          <Modal.Header>
+            <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
+            <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
+            <Modal.Title bsClass={styles.pricingModalTitle}>
+              We'll finish scoring in 2 minutes
+            </Modal.Title>
+            <h4 className={styles.modalSubtitle}>While you wait, you can look over a prior scored assessment</h4>
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className={styles.pricingFormWrapper}>
+
+              <Button
+                className={styles.pricingFormButton}
+                bsStyle={'primary'}
+                onClick={this.onLiveDemoClick}
+              >
+                See prior assessment
+              </Button>
+
+            </div>
+
+          </Modal.Body>
+        </Modal>
 
 
        <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
