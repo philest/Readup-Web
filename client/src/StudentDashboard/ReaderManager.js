@@ -144,18 +144,18 @@ class StudentDashboard extends React.Component {
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
 
 
-    if (this.props.pageNumber == 0  && !this.props.isComp) { // cover
+    if (this.props.pageNumber === 0  && !this.props.inComp) { // cover
       readerProps = {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
       }
     }
-    else if (this.props.pageNumber == 0 && this.props.isComp) { // cover
+    else if (this.props.pageNumber === 0 && this.props.inComp) { // cover
         readerProps = {
           ...readerProps,
           showCover: true,
-          showPauseButton: true,
+          showPauseButton: (this.props.readerState === ReaderStateOptions.inProgress),
       }
     }
     else { // any other page...
