@@ -15,6 +15,11 @@
 .subContainer {
 	flex: 1;
 	align-items: center;
+}
+
+.notRecordingSubContainer {
+	flex: 1;
+	align-items: center;
 	text-align: center;
 }
 
