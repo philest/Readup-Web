@@ -270,7 +270,8 @@ export default class ReportWithScorer extends React.Component {
       showPauseButton: false,
       onReport: true,
       onExitClicked: this.onExitClicked,
-      onReplayClicked: this.onReplayClicked
+      onReplayClicked: this.onReplayClicked,
+      onReader: false,
     }
 
     return <NavigationBar {...navProps} />

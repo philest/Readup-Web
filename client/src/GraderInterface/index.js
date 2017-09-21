@@ -476,6 +476,7 @@ export default class GraderInterface extends React.Component {
       onExitClicked: this.onExitClicked,
       onReplayClicked: this.onReplayClicked,
       onGrading: true,
+      onReader: false,
     }
 
     return <NavigationBar {...navProps} />

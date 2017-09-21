@@ -23,13 +23,15 @@ export default class NavigationBar extends React.Component {
     inComp: PropTypes.bool,
     onReport: PropTypes.bool,
     onGrading: PropTypes.bool,
+    onReader: PropTypes.bool,
   };
   static defaultProps = {
     showPauseButton: true,
     isCoverPage: false,
     showBookInfo: false,
     onReport: false,
-    onGrading: false
+    onGrading: false,
+    onReader: true,
   }
 
   /**
@@ -101,6 +103,12 @@ export default class NavigationBar extends React.Component {
             </div>
           </div>
 
+        }
+
+        { this.props.onReader && !this.props.showPauseButton && !this.props.showBookInfo &&
+          <div className={css.subContainer}>
+           <span className={css.notRecording}>Not recording</span>
+          </div>
         }
 
         { ((this.props.isCoverPage || this.props.showBookInfo) && !this.props.inComp) &&
