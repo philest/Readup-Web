@@ -417,6 +417,7 @@ const sampleBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
   numPages: 3, // if you want a shorter book for testing purposes just change this
+  isWideBook: false,
   coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
   pages: {
     1: {
@@ -462,11 +463,117 @@ const sampleBook = {
 };
 
 
+const fpBook = {
+  title: "Bedtime for Nick",
+  author: 'Steve Olson',
+  numPages: 10, // if you want a shorter book for testing purposes just change this
+  isWideBook: true,
+  coverImage: '/images/dashboard/bedtime-cover-2.jpg',
+  pages: {
+    1: {
+      lines: [
+        "The moon is high\nand the stars are bright.",
+        "Daddy tells me,\n\"It's a firefly night!\"",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/1.jpg',
+    },
+    2: {
+      lines: [
+        "Fireflies shine.\nAll of them glow.",
+        "I race to show Daddy\ntheir dancing light show.",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/2.jpg',
+    },
+    3: {
+      lines: [
+        "I open my jar. They fly away quickly and shine. ",
+        "I love catching fireflies, but they are not mine.",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/3.jpg',
+    },
+
+    4: {
+      lines: [
+        "The moon is high\nand the stars are bright.",
+        "Daddy tells me,\n\"It's a firefly night!\"",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/4.jpg',
+    },
+    5: {
+      lines: [
+        "Fireflies shine.\nAll of them glow.",
+        "I race to show Daddy\ntheir dancing light show.",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/5.jpg',
+    },
+    6: {
+      lines: [
+        "I open my jar. They fly away quickly and shine. ",
+        "I love catching fireflies, but they are not mine.",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/6.jpg',
+    },
+
+    7: {
+      lines: [
+        "The moon is high\nand the stars are bright.",
+        "Daddy tells me,\n\"It's a firefly night!\"",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/7.jpg',
+    },
+    8: {
+      lines: [
+        "Fireflies shine.\nAll of them glow.",
+        "I race to show Daddy\ntheir dancing light show.",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/8.jpg',
+    },
+    9: {
+      lines: [
+        "I open my jar. They fly away quickly and shine. ",
+        "I love catching fireflies, but they are not mine.",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/9.jpg',
+    },
+
+    10: {
+      lines: [
+        "I open my jar. They fly away quickly and shine. ",
+        "I love catching fireflies, but they are not mine.",
+      ],
+      img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/10.jpg',
+    },
+
+
+
+  },
+
+  questions: {
+    1: {
+      title: "Tell as much as you can about the passage you just read.",
+      subtitle: "Be sure to include the beginning, middle and end",
+      audioSrc: '/audio/retell-full.mp3',
+    },
+    2: {
+      title: "Tell some more.",
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+    },
+    3: {
+      title: "this shouldn't happen",
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+    },
+
+  },
+
+};
+
+
+
 
 const initialState = {
   pageNumber: 0,
-  numPages: sampleBook.numPages,
-  book: sampleBook,
+  numPages: fpBook.numPages,
+  book: fpBook,
   questionNumber: 1,
   readerState: ReaderStateOptions.initializing,
   prompt: PromptOptions.awaitingPrompt,

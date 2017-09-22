@@ -62,6 +62,12 @@
 	background-color: white;
 }
 
+.wideBookpageContainer {
+    width: 700px;
+    height: 75%;
+   	background-color: white;
+}
+
 
 .routeTransition, .routeTransition > div  {
 	width: 100%;

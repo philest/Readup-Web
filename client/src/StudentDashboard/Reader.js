@@ -33,6 +33,7 @@ export default class Reader extends React.Component {
     pageNumber: PropTypes.number,
     textLines: PropTypes.arrayOf(PropTypes.string),
     imageURL: PropTypes.string,
+    isWideBook: PropTypes.bool,
 
     // For displaying book cover
     showCover: PropTypes.bool,
@@ -218,7 +219,7 @@ export default class Reader extends React.Component {
             { this.renderLeftButton() }
           </div>
 
-          <div className={styles.bookpageContainer}>
+          <div className={this.props.isWideBook ? styles.wideBookpageContainer : styles.bookpageContainer}>
             <RouteTransition {...transitionProps}>
                 { this.renderCenterDisplay() }
             </RouteTransition>

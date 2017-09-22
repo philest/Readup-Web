@@ -129,6 +129,7 @@ class StudentDashboard extends React.Component {
       coverImageURL: this.props.book.coverImage,
       bookTitle: this.props.book.title,
       bookAuthor: this.props.book.author,
+      isWideBook: this.props.book.isWideBook,
       showBookInfo: ((this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart) && !this.props.inComp),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
       onExitClicked: this.props.actions.exitClicked,
