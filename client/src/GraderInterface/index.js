@@ -21,6 +21,15 @@ import {
 } from '../StudentDashboard/types'
 
 
+const rubric = {
+  3: "Response shows exceptional understanding of Firefly Night. Includes all major events of plot in sequence, and shows insight into the girl's actions. Uses important details to enrich the retelling. Great job!",
+  2: "Response shows good understanding of Firefly Night. Includes major events of plot in sequence. Describes the the girl's actions and character, and uses some details to support the retelling. Nice job!",
+  1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+  0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out."
+}
+
+
+
 const popoverBottom = (
   <Popover id="popover-positioned-bottom" className={questionCSS.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
  
@@ -84,6 +93,7 @@ export default class GraderInterface extends React.Component {
       fluencyScore: this.props.fluencyScorePrior,
       assessmentBrand: this.props.assessmentBrand,
       isLiveDemo: this.props.isLiveDemo,
+      graderComment: this.props.graderCommentPrior,
     }
         this.tick = this.tick.bind(this);
 
@@ -403,24 +413,29 @@ export default class GraderInterface extends React.Component {
   onCompScoreZeroClicked = () => {
     console.log('here i am 0')
     this.setState({compScore: 0})
+    this.setState({graderComment: rubric[0]})
   }
   
 
   onCompScoreOneClicked = () => {
     console.log('here i am 1')
     this.setState({compScore: 1})
+    this.setState({graderComment: rubric[1]})
+
 
   }
 
   onCompScoreTwoClicked = () => {
     console.log('here i am 2')
     this.setState({compScore: 2})
+    this.setState({graderComment: rubric[2]})
 
   }
 
   onCompScoreThreeClicked = () => {
     console.log('here i am 3')
     this.setState({compScore: 3})
+    this.setState({graderComment: rubric[3]})
   }
 
 
@@ -522,6 +537,9 @@ export default class GraderInterface extends React.Component {
 
 
 
+  handleGraderCommentChange = (event) => {
+    this.setState({ graderComment: event.target.value })
+  }
 
 
   render() {
@@ -690,8 +708,8 @@ export default class GraderInterface extends React.Component {
 
         <ButtonGroup className={styles.fluencyButtonGroup}>
           <Button active={this.state.fluencyScore === 0} href="#" onClick={this.onFluencyScoreZeroClicked}><strong>0</strong> - Unsatisfactory</Button>
-          <Button active={this.state.fluencyScore === 1} href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Limited</Button>
-          <Button active={this.state.fluencyScore === 2} href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
+          <Button active={this.state.fluencyScore === 1} href="#" onClick={this.onFluencyScoreOneClicked}><strong>1</strong> - Partial</Button>
+          <Button active={this.state.fluencyScore === 2} href="#" onClick={this.onFluencyScoreTwoClicked}><strong>2</strong> - Good</Button>
           <Button active={this.state.fluencyScore === 3} href="#" onClick={this.onFluencyScoreThreeClicked}><strong>3</strong> - Excellent</Button>
         </ButtonGroup>
 
@@ -704,7 +722,7 @@ export default class GraderInterface extends React.Component {
 
         <FormGroup controlId="studentResponse">
           <ControlLabel>Student Response</ControlLabel>
-          <FormControl componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsePrior} inputRef={ref => { this.studentResponseInput = ref; }} placeholder="Student response" />
+          <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsePrior} inputRef={ref => { this.studentResponseInput = ref; }} placeholder="Student response" />
         </FormGroup>
 
 
@@ -712,7 +730,7 @@ export default class GraderInterface extends React.Component {
 
         <FormGroup controlId="graderComments">
           <ControlLabel>Your comments</ControlLabel>
-          <FormControl componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.graderCommentPrior} inputRef={ref2 => { this.graderCommentsInput = ref2; }} placeholder="Your comments" />
+          <FormControl value={this.state.graderComment} onChange={this.handleGraderCommentChange} componentClass="textarea" className={styles.myTextArea}  inputRef={ref2 => { this.graderCommentsInput = ref2; }} placeholder="Your comments" />
         </FormGroup>
 
 

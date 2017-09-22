@@ -94,6 +94,10 @@ body {
 	    font-size: .9em;
 }
 
+.tallTextArea {
+	height: 100px;
+}
+
 
 .submitButton {
 	width: 120px;
@@ -115,6 +119,7 @@ body {
 
 .myTextArea {
 	max-width: 650px;
+	height: 100px !important;
 }
 
 
