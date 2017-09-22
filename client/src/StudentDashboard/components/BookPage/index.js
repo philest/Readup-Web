@@ -9,7 +9,11 @@ export default class BookPage extends React.Component {
     pageNumber: PropTypes.number,
     textLines: PropTypes.arrayOf(PropTypes.string),
     imageURL: PropTypes.string,
+    isWideBook: PropTypes.bool,
   };
+  static defaultProps = {
+    isWideBook: false,
+}
 
   /**
    * @param props - Comes from your rails view.
@@ -25,7 +29,7 @@ export default class BookPage extends React.Component {
   render() {
 
     const FormattedText = ({textLines}) => (
-      <div className={styles.readerTextContainer}>
+      <div className={this.props.isWideBook ? styles.wideReaderTextContainer : styles.readerTextContainer}>
         {textLines.map(text => (
           // note: can uncomment below instead so that <br />'s in the text are interepreted as html elements
           // <div className={styles.textParagraph} key={text} dangerouslySetInnerHTML={{__html: text}}></div>
@@ -43,11 +47,18 @@ export default class BookPage extends React.Component {
           <div className={styles.bookEdge} />
 
           <div className={styles.readerContentContainer}>
-            <img src={this.props.imageURL} className={styles.readerImage} />
-            <img src={pageTearURL} className={styles.paperTearImage} />
+            <img src={this.props.imageURL} className={this.props.isWideBook ? styles.wideReaderImage : styles.readerImage} />
+            <img src={pageTearURL} className={this.props.isWideBook ? styles.widePaperTearImage : styles.paperTearImage} />
             <FormattedText textLines={this.props.textLines} />
-            <div className={styles.pageNumber}>{this.props.pageNumber}</div>
+
+            { !this.props.isWideBook &&
+              <div className={styles.pageNumber}>{this.props.pageNumber}</div>
+            }
+
           </div>
+
+          <div className={styles.bookEdge} />
+ 
 
         </div>
 

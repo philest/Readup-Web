@@ -109,6 +109,7 @@ export default class Reader extends React.Component {
         pageNumber={this.props.pageNumber}
         textLines={this.props.textLines}
         imageURL={this.props.imageURL}
+        isWideBook={this.props.isWideBook}
       />
     );
   }

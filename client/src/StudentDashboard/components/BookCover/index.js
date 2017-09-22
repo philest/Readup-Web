@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
+import bookpageStyles from '../BookPage/styles.css'
 
 export default class BookCover extends React.Component {
   static propTypes = {
@@ -20,7 +21,14 @@ export default class BookCover extends React.Component {
   render() {
 
     return (
-      <img src={this.props.imageURL} className={styles.coverImage} />
+
+        <div className={bookpageStyles.fullContainer}>
+          <div className={bookpageStyles.readerContentContainer}>
+            <img src={this.props.imageURL} className={styles.coverImage} />            
+          </div>
+          <div className={bookpageStyles.bookEdge} />
+
+        </div>
     );
   }
 }
