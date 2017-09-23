@@ -53,6 +53,7 @@ import {
   HEAR_QUESTION_AGAIN_CLICKED,
   QUESTION_INCREMENT,
   QUESTION_DECREMENT,
+  LAST_QUESTION_EXITED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -268,6 +269,14 @@ function* fetchInBackground(studentID) {
     return fetchedPrompt
 }
 
+
+function* generalCompSaga() {
+    let compBlob = yield* compSaga(true, false)
+
+    while (true) {
+      compBlob = yield* compSaga(false, false)
+    }
+}
 
 
 
@@ -617,12 +626,16 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
-    compBlob = yield* compSaga(true, false) // blocks
-    compBlob = yield* compSaga(false, false) // blocks
+    // compBlob = yield* compSaga(true, false) // blocks
+    // compBlob = yield* compSaga(false, false) // blocks
 
 
     // compBlob = yield* compSaga(false, true, '/audio/prompts/VB-tell-some-more.mp3') // blocks
 
+    yield race({
+      comp: call(generalCompSaga),
+      finishComp: take(LAST_QUESTION_EXITED),
+    })
 
 
     let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);

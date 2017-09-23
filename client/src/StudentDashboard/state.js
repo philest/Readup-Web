@@ -76,6 +76,10 @@ export const QUESTION_NUMBER_SET = 'QUESTION_NUMBER_SET'
 
 export const PROMPT_SET = 'PROMPT_SET'
 export const COMP_PAUSE_CLICKED = 'COMP_PAUSE_CLICKED'
+export const LAST_QUESTION_EXITED = 'LAST_QUESTION_EXITED'
+
+
+
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -411,6 +415,12 @@ export function setQuestionNumber(questionNumber: number) {
   }
 }
 
+export function exitLastQuestion() {
+  return {
+    type: LAST_QUESTION_EXITED,
+  }
+}
+
 
 
 const sampleBook = {
@@ -442,7 +452,7 @@ const sampleBook = {
       img: '/images/dashboard/sample-book-assets/firefly-3.png',
     },
   },
-
+  numQuestions: 3,
   questions: {
     1: {
       title: "Tell as much as you can about the passage you just read.",
@@ -454,7 +464,7 @@ const sampleBook = {
       audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
     },
     3: {
-      title: "this shouldn't happen",
+      title: "this can now happen",
       audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
     },
 
@@ -553,7 +563,7 @@ const fpBook = {
     },
 
   },
-
+  numQuestions: 4,
   questions: {
     1: {
       title: "Tell as much as you can about the passage you just read.",
@@ -567,10 +577,13 @@ const fpBook = {
     3: {
       title: "How do you think Nick feels about Wags?",
       subtitle: "What makes you think that?",
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+
     },
     4: {
       title: "Tell about a time when you had trouble sleeping or doing something else.",
       subtitle: "Was your problem like Nick’s? Why or why not?",
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',      
     },
 
   },

@@ -56,6 +56,7 @@ function mapStateToProps(state) {
     pauseType: state.reader.pauseType,
     hasRecordedSomething: state.reader.hasRecordedSomething,
     numPages: state.reader.book.numPages,
+    numQuestions: state.reader.book.numQuestions,
     book: state.reader.book,
     recorder: state.reader.recorder, // TODO probably shouldn't have access
     recordingURL: state.reader.recordingURL,
@@ -239,6 +240,7 @@ class StudentDashboard extends React.Component {
           question={this.props.book.questions[this.props.questionNumber]}
           includeDelay={this.props.questionNumber === 1}
           prompt={this.props.prompt}
+          onExit={(this.props.questionNumber === this.props.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
         />
 
       </div>

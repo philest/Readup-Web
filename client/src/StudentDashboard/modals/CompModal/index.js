@@ -42,6 +42,7 @@ export default class CompModal extends React.Component {
     question: PropTypes.object,
     includeDelay: PropTypes.bool,
     prompt: PropTypes.string,
+    onExit: PropTypes.func,
   };
 
   /**
@@ -73,7 +74,7 @@ export default class CompModal extends React.Component {
     if (!this.props.disabled) {
       playSoundAsync(this.props.question.audioSrc)
     }
-    
+
   }
 
   render() {
@@ -104,7 +105,7 @@ export default class CompModal extends React.Component {
 
     return (
 
-        <Modal onEntering={this.playQuestion} show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
+        <Modal onExit={this.props.onExit} onEntering={this.playQuestion} show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
             <Modal.Title>{title}</Modal.Title>
 
