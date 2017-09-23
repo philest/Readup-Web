@@ -13,7 +13,7 @@ import BaseModal from '../BaseModal'
 import commonStyles from '../commonstyles.css'
 import ModalHeader from '../subcomponents/ModalHeader'
 
-import { playSound } from '../../audioPlayer.js'
+import { playSound, playSoundAsync } from '../../audioPlayer.js'
 
 import {
   ReaderStateOptions,
@@ -35,7 +35,6 @@ export default class CompModal extends React.Component {
     currentShowModal: PropTypes.string,
     onStartClicked: PropTypes.func,
     onStopClicked: PropTypes.func,
-    onHearQuestionAgainClicked: PropTypes.func,
     close: PropTypes.func,
     disabled: PropTypes.bool,
     readerState: PropTypes.string,
@@ -67,9 +66,14 @@ export default class CompModal extends React.Component {
     else {
       playSound(this.props.question.audioSrc)
     }
+  }
 
+  onHearQuestionAgainClicked = () => {
 
-
+    if (!this.props.disabled) {
+      playSoundAsync(this.props.question.audioSrc)
+    }
+    
   }
 
   render() {
@@ -145,7 +149,7 @@ export default class CompModal extends React.Component {
             <ButtonArray
               titles={['See book', "Hear again"]}
               images={['fa-book', 'fa-volume-up obscure']}
-              actions={[this.props.onSeeBookClicked, this.props.onHearQuestionAgainClicked]}
+              actions={[this.props.onSeeBookClicked, this.onHearQuestionAgainClicked]}
               inline={true}
               fontAwesome={true}
               enlargeFirst={true}

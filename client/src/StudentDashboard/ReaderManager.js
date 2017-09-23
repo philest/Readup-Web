@@ -234,7 +234,6 @@ class StudentDashboard extends React.Component {
           onStopClicked={this.props.actions.stopRecordingClicked}
           readerState={this.props.readerState}
           close={this.props.actions.seeBookClicked}
-          onHearQuestionAgainClicked={this.props.actions.hearQuestionAgainClicked}
           disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.readerState === ReaderStateOptions.talkingAboutStartButton) || (this.props.readerState === ReaderStateOptions.talkingAboutStopButton) }
           showSpinner={this.props.showSpinner}
           question={this.props.book.questions[this.props.questionNumber]}
