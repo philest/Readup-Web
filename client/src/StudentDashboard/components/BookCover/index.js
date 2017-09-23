@@ -26,8 +26,6 @@ export default class BookCover extends React.Component {
           <div className={bookpageStyles.readerContentContainer}>
             <img src={this.props.imageURL} className={styles.coverImage} />            
           </div>
-          <div className={bookpageStyles.bookEdge} />
-
         </div>
     );
   }

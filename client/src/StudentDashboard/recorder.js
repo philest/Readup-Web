@@ -56,7 +56,7 @@ export default class Recorder {
 
       // <-- smaller filesize
       // this.rtcRecorder = RecordRTC(stream, { recorderType: RecordRTC.StereoAudioRecorder, bitsPerSecond: 30000, numberOfAudioChannels: 1, mimeType: 'audio/wav' });
-      this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm' });
+      this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'true' });
       callback && callback(null)
       return true
     });

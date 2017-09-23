@@ -429,6 +429,49 @@ const sampleBook = {
   numPages: 3, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
+  introAudioSrc: '/audio/VB/VB-book-intro.mp3',
+  pages: {
+    1: {
+      lines: [
+        "The moon is high\nand the stars are bright.",
+        "Daddy tells me,\n\"It's a firefly night!\"",
+      ],
+      img: '/images/dashboard/sample-book-assets/firefly-2.png',
+    },
+    2: {
+      lines: [
+        "Fireflies shine.\nAll of them glow.",
+        "I race to show Daddy\ntheir dancing light show.",
+      ],
+      img: '/images/dashboard/sample-book-assets/firefly-4.png',
+    },
+    3: {
+      lines: [
+        "I open my jar. They fly away quickly and shine. ",
+        "I love catching fireflies, but they are not mine.",
+      ],
+      img: '/images/dashboard/sample-book-assets/firefly-3.png',
+    },
+  },
+  numQuestions: 3,
+  questions: {
+    1: {
+      title: "Tell as much as you can about the passage you just read.",
+      subtitle: "Be sure to include the beginning, middle and end",
+      audioSrc: '/audio/VB/VB-retell-full.mp3',
+    },
+  },
+
+};
+
+
+const sampleBookLong = {
+  title: "Firefly Night",
+  author: 'Dianne Ochiltree',
+  numPages: 3, // if you want a shorter book for testing purposes just change this
+  isWideBook: false,
+  coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
+  introAudioSrc: '/audio/VB/VB-book-intro.mp3',
   pages: {
     1: {
       lines: [
@@ -470,7 +513,9 @@ const sampleBook = {
 
   },
 
-};
+
+
+
 
 
 const fpBook = {
@@ -479,6 +524,7 @@ const fpBook = {
   numPages: 10, // if you want a shorter book for testing purposes just change this
   isWideBook: true,
   coverImage: '/images/dashboard/bedtime-cover-2.jpg',
+  introAudioSrc: '/audio/VB/nick/nick-intro.mp3',
   pages: {
     1: {
       lines: [
@@ -572,18 +618,18 @@ const fpBook = {
     },
     2: {
       title: "What is the real reason Nick can’t sleep?",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+      audioSrc: '/audio/VB/nick/nick-real-reason.mp3',
     },
     3: {
       title: "How do you think Nick feels about Wags?",
       subtitle: "What makes you think that?",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+      audioSrc: '/audio/VB/nick/nick-how-feels.mp3',
 
     },
     4: {
       title: "Tell about a time when you had trouble sleeping or doing something else.",
       subtitle: "Was your problem like Nick’s? Why or why not?",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+      audioSrc: '/audio/VB/nick/nick-tell-about-a-time.mp3',
     },
 
   },

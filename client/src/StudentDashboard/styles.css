@@ -60,12 +60,14 @@
 	width: 400px;
 	height: 80%;
 	background-color: white;
+	border-radius: 5px;
 }
 
 .wideBookpageContainer {
     width: 700px;
     height: 75%;
    	background-color: white;
+   	border-radius: 5px;
 }
 
 
