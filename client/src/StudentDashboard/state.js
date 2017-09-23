@@ -447,7 +447,7 @@ const sampleBook = {
     1: {
       title: "Tell as much as you can about the passage you just read.",
       subtitle: "Be sure to include the beginning, middle and end",
-      audioSrc: '/audio/retell-full.mp3',
+      audioSrc: '/audio/VB/VB-retell-full.mp3',
     },
     2: {
       title: "Tell some more.",
@@ -558,10 +558,11 @@ const fpBook = {
     1: {
       title: "Tell as much as you can about the passage you just read.",
       subtitle: "Be sure to include the beginning, middle and end",
-      audioSrc: '/audio/retell-full.mp3',
+      audioSrc: '/audio/VB/VB-retell-full.mp3',
     },
     2: {
       title: "What is the real reason Nick can’t sleep?",
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
     },
     3: {
       title: "How do you think Nick feels about Wags?",

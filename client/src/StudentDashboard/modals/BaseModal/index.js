@@ -25,11 +25,13 @@ export default class BaseModal extends React.Component {
     show: PropTypes.bool,
     animation: PropTypes.bool,
     modalType: PropTypes.string,
+    onEntering: PropTypes.func,
   };
 
   static defaultProps = {
     show: true,
     animation: true,
+    onEntering: null,
   }
 
   /**
@@ -75,6 +77,8 @@ export default class BaseModal extends React.Component {
         show={this.props.show}
         onHide={this.close}
         animation={this.props.animation}
+        onEntering={this.props.onEntering}
+
       >
         <div className={modalContainerClass}>
           <div className={modalHeaderWrapperClass}>

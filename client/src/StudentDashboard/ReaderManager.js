@@ -238,6 +238,7 @@ class StudentDashboard extends React.Component {
           disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.readerState === ReaderStateOptions.talkingAboutStartButton) || (this.props.readerState === ReaderStateOptions.talkingAboutStopButton) }
           showSpinner={this.props.showSpinner}
           question={this.props.book.questions[this.props.questionNumber]}
+          includeDelay={this.props.questionNumber === 1}
           prompt={this.props.prompt}
         />
 

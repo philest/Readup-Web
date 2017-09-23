@@ -10,6 +10,7 @@ import ButtonArray from '../subcomponents/ButtonArray'
 
 import BaseModal from '../BaseModal'
 
+
 const THIS_MODAL_ID = 'modal-paused'
 
 export default class PausedModal extends React.Component {
@@ -23,6 +24,8 @@ export default class PausedModal extends React.Component {
     showSpinner: PropTypes.bool,
   };
 
+
+
   /**
    * @param props - Comes from your rails view.
    * @param _railsContext - Comes from React on Rails
@@ -31,6 +34,19 @@ export default class PausedModal extends React.Component {
     super(props);
     this.state = {  };
   }
+
+  componentDidMount() {
+
+
+  }
+
+
+  componentWillUnmount() {
+  }
+
+
+
+
 
   render() {
 
@@ -43,8 +59,9 @@ export default class PausedModal extends React.Component {
     }
 
 
+
     return (
-      <BaseModal title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType='info'>
+      <BaseModal  title='Paused' show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType='info'>
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray

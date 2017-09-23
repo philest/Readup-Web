@@ -13,6 +13,7 @@ import BaseModal from '../BaseModal'
 import commonStyles from '../commonstyles.css'
 import ModalHeader from '../subcomponents/ModalHeader'
 
+import { playSound } from '../../audioPlayer.js'
 
 import {
   ReaderStateOptions,
@@ -40,6 +41,7 @@ export default class CompModal extends React.Component {
     readerState: PropTypes.string,
     showSpinner: PropTypes.bool,
     question: PropTypes.object,
+    includeDelay: PropTypes.bool,
     prompt: PropTypes.string,
   };
 
@@ -55,9 +57,20 @@ export default class CompModal extends React.Component {
   }
 
 
+  playQuestion = () => {
+
+    if (this.props.includeDelay) {
+      setTimeout(playSound,
+                 6500,
+                 this.props.question.audioSrc)
+    }
+    else {
+      playSound(this.props.question.audioSrc)
+    }
 
 
 
+  }
 
   render() {
 
@@ -87,7 +100,7 @@ export default class CompModal extends React.Component {
 
     return (
 
-        <Modal show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
+        <Modal onEntering={this.playQuestion} show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
             <Modal.Title>{title}</Modal.Title>
 

@@ -74,8 +74,6 @@ function RectangleButton ({
     titleClass.push(styles.singleTitle)
   }
 
-  console.log(titleClass)
-
 
 
 

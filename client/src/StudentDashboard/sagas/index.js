@@ -312,8 +312,9 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   ))
 
 
+      yield call(delay, 8500)
 
-  yield playSound(questionAudioFile)
+
 
 
   yield put.resolve(setReaderState(
