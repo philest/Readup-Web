@@ -2,6 +2,9 @@
 import RecordRTC from 'recordrtc'
 import DetectRTC from 'detectrtc'
 
+import { sendEmail } from '../ReportsInterface/emailHelpers'
+
+
 export default class Recorder {
 
   constructor() {
@@ -70,18 +73,30 @@ export default class Recorder {
   }
 
   startRecording = () => {
+
+    try {
     this.captureUserMedia((stream) => {
     	this.rtcRecorder.startRecording()
       this.recording = true
     });
+    } catch (err) {
+      sendEmail(err, "startRecording failed", "philesterman@gmail.com")
+      console.log("startRecording ERROR: ", err)
+    }
+
   }
 
   stopRecording = (callback) => {
-    this.rtcRecorder.stopRecording(() => {
-      this.recording = false
-      this.blobURL = URL.createObjectURL(this.rtcRecorder.getBlob())
-      callback && callback(this.blobURL)
-    })
+    try {
+      this.rtcRecorder.stopRecording(() => {
+        this.recording = false
+        this.blobURL = URL.createObjectURL(this.rtcRecorder.getBlob())
+        callback && callback(this.blobURL)
+      })
+    } catch (err) {
+      sendEmail(err, "stopRecording failed", "philesterman@gmail.com")
+      console.log("stopRecording ERROR: ", err)
+    }
   }
 
 

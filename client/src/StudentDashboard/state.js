@@ -453,7 +453,7 @@ const sampleBook = {
       img: '/images/dashboard/sample-book-assets/firefly-3.png',
     },
   },
-  numQuestions: 3,
+  numQuestions: 1,
   questions: {
     1: {
       title: "Tell as much as you can about the passage you just read.",
@@ -512,8 +512,7 @@ const sampleBookLong = {
     },
 
   },
-
-
+};
 
 
 
