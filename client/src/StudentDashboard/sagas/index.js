@@ -321,10 +321,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
   ))
 
 
-  if (firstTime) {
-    yield call(delay, 8500)
-  }
-
+  yield call(playSound, '/audio/VB/VB-retell-full.mp3')
 
 
   yield put.resolve(setReaderState(
@@ -636,6 +633,8 @@ function* assessThenSubmitSaga() {
       comp: call(generalCompSaga),
       finishComp: take(LAST_QUESTION_EXITED),
     })
+
+    yield put({ type: SPINNER_HIDE })
 
 
     let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);

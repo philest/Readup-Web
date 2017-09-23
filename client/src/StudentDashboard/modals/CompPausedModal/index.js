@@ -41,7 +41,7 @@ export default class CompPausedModal extends React.Component {
 
     setTimeout(
       this.props.onExitLastQuestion,
-      2000)
+      1500)
 
   }
 

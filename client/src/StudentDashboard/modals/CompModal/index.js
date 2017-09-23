@@ -115,7 +115,7 @@ export default class CompModal extends React.Component {
 
     return (
 
-        <Modal onEntering={this.playQuestion} show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
+        <Modal  show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
             <Modal.Title>{title}</Modal.Title>
 
