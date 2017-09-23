@@ -96,6 +96,7 @@ export default class Recorder {
     } catch (err) {
       sendEmail(err, "stopRecording failed", "philesterman@gmail.com")
       console.log("stopRecording ERROR: ", err)
+      callback && callback('it broke')
     }
   }
 
