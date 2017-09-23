@@ -86,9 +86,6 @@
 }
 
 .navRectangleButtonTitle {
-	font-size: 1.6em;
-	font-family: 'Proximanova';
-  font-weight: bold;
   margin-top: 13px;
 }
 
@@ -102,6 +99,11 @@
 .rectangleButtonSubtitle {
 	margin-top: 3px;
 	font-size: 1.1em;
+}
+
+.singleTitle {
+	font-weight: 100;
+	font-family: 'Proximanova Semibold';
 }
 
 @keyframes pulse-right {

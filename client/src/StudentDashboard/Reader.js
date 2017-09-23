@@ -134,9 +134,8 @@ export default class Reader extends React.Component {
     else if (this.props.showCover && !this.props.inComp) {
       return (
         <RectangleButton
-          title='Start'
-          subtitle='read and record'
-          style={{ width: 200, height: 70, backgroundColor: '#249C44' }}
+          title='Start Recording'
+          style={{ width: 230, height: 70, backgroundColor: '#249C44' }}
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onStartClicked}

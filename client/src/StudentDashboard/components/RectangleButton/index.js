@@ -63,6 +63,18 @@ function RectangleButton ({
 
   }
 
+  let titleClass = [styles.rectangleButtonTitle]
+
+  if (isNavButton) {
+    titleClass.push(styles.navRectangleButtonTitle)
+  }
+  
+
+  if (subtitle === "") {
+    titleClass.push(styles.singleTitle)
+  }
+
+  console.log(titleClass)
 
 
 
@@ -75,7 +87,7 @@ function RectangleButton ({
     >
 
       
-      <div className={isNavButton ? styles.navRectangleButtonTitle : styles.rectangleButtonTitle}>
+      <div className={titleClass.join(' ')}>
         { pulsatingArrow 
           && !disabled
           && <i className={['fa fa-angle-right', styles.pulsatingArrow].join(' ')}></i>
