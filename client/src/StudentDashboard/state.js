@@ -460,12 +460,12 @@ const sampleBook = {
       audioSrc: '/audio/VB/VB-retell-full.mp3',
     },
     2: {
-      title: "Tell some more.",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+      title: "Why did the girl and her dad go outside?",
+      audioSrc: '/audio/VB/firefly/why-did-outside.mp3',
     },
     3: {
-      title: "this can now happen",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+      title: "Why do you think the girl chose to let the fireflies go?",
+      audioSrc: '/audio/VB/firefly/why-chose.mp3',
     },
 
   },
@@ -583,7 +583,7 @@ const fpBook = {
     4: {
       title: "Tell about a time when you had trouble sleeping or doing something else.",
       subtitle: "Was your problem like Nick’s? Why or why not?",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',      
+      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
     },
 
   },
@@ -594,8 +594,8 @@ const fpBook = {
 
 const initialState = {
   pageNumber: 0,
-  numPages: fpBook.numPages,
-  book: fpBook,
+  numPages: sampleBook.numPages,
+  book: sampleBook,
   questionNumber: 1,
   readerState: ReaderStateOptions.initializing,
   prompt: PromptOptions.awaitingPrompt,
