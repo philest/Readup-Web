@@ -472,79 +472,85 @@ const fpBook = {
   pages: {
     1: {
       lines: [
-        "The moon is high\nand the stars are bright.",
-        "Daddy tells me,\n\"It's a firefly night!\"",
+        "Nick was looking at his book.",
+        "His mom came in and said, \"It’s time for bed.\"",
+        "\"Okay, Mom,\" said Nick.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/1.jpg',
     },
     2: {
       lines: [
-        "Fireflies shine.\nAll of them glow.",
-        "I race to show Daddy\ntheir dancing light show.",
+        "Nick put on his pajamas.",
+        "He washed his face and brushed his teeth.",
+        "He was ready for bed.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/2.jpg',
     },
     3: {
       lines: [
-        "I open my jar. They fly away quickly and shine. ",
-        "I love catching fireflies, but they are not mine.",
+        "\"Will you read me a story?\" Nick asked his mom.",
+        "Mom read the story to Nick.",
+        "Nick liked the story about the magic fish.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/3.jpg',
     },
 
     4: {
       lines: [
-        "The moon is high\nand the stars are bright.",
-        "Daddy tells me,\n\"It's a firefly night!\"",
+        "When the story was over, Nick's mom turned off the light.",
+        "\"Good night, Nick,\" his mom said.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/4.jpg',
     },
     5: {
       lines: [
-        "Fireflies shine.\nAll of them glow.",
-        "I race to show Daddy\ntheir dancing light show.",
+        "\"Will you turn on the nightlight?\" asked Nick.",
+        "\"Okay, Nick,\" his mom said.",
+        "She turned it on.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/5.jpg',
     },
     6: {
       lines: [
-        "I open my jar. They fly away quickly and shine. ",
-        "I love catching fireflies, but they are not mine.",
+        "\"Good night, Nick,\" his mom said. \"Now it’s time to go to sleep.\"",  
+        "\"I can’t go to sleep,\" said Nick.",
+        "\"I will give you a good night kiss,\" said Nick's mom",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/6.jpg',
     },
 
     7: {
       lines: [
-        "The moon is high\nand the stars are bright.",
-        "Daddy tells me,\n\"It's a firefly night!\"",
+        "\"I can’t go to sleep,\" said Nick.",
+        "\"Will you open the door?\" he asked.",
+        "Nick’s mom opened the door. Light came into the room.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/7.jpg',
     },
+
     8: {
       lines: [
-        "Fireflies shine.\nAll of them glow.",
-        "I race to show Daddy\ntheir dancing light show.",
+        "\"Good night, Nick,\" his mom said. \"Go to sleep now.\"",
+        "\"I can\'t go to sleep,\" said Nick. \"Something is missing.\"",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/8.jpg',
     },
+
     9: {
       lines: [
-        "I open my jar. They fly away quickly and shine. ",
-        "I love catching fireflies, but they are not mine.",
+        "He looked around the room. Something came in the door.",
+        "\"Wags! You’re late,\" said Nick.",
+        " \"Now we can go to sleep.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/9.jpg',
     },
-
     10: {
       lines: [
-        "I open my jar. They fly away quickly and shine. ",
-        "I love catching fireflies, but they are not mine.",
+        "\"Good night, Nick,\" said Mom. \"Good night, Wags.\"",
+        "\"Good night, Mom,\" said Nick.",
       ],
       img: 'https://s3-us-west-2.amazonaws.com/readup-now/website/bedtime-for-nick/10.jpg',
     },
-
-
 
   },
 
