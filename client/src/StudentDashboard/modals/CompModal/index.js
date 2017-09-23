@@ -42,7 +42,7 @@ export default class CompModal extends React.Component {
     question: PropTypes.object,
     includeDelay: PropTypes.bool,
     prompt: PropTypes.string,
-    onExit: PropTypes.func,
+    onExitLastQuestion: PropTypes.func,
   };
 
   /**
@@ -77,6 +77,16 @@ export default class CompModal extends React.Component {
 
   }
 
+  onStop = () => {
+    console.log('here i am... onSTOP')
+    this.props.onStopClicked()
+
+    setTimeout(
+      this.props.onExitLastQuestion,
+      2000)
+
+  }
+
   render() {
 
 
@@ -105,7 +115,7 @@ export default class CompModal extends React.Component {
 
     return (
 
-        <Modal onExit={this.props.onExit} onEntering={this.playQuestion} show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
+        <Modal onEntering={this.playQuestion} show={(this.props.currentShowModal === THIS_MODAL_ID)} onHide={this.props.close} className={myStyles.compModal}>
           <Modal.Header className={myStyles.compModalHeader}>
             <Modal.Title>{title}</Modal.Title>
 
@@ -139,7 +149,7 @@ export default class CompModal extends React.Component {
                 pulsatingArrow={true}
                 partiallyDisabled={talkingAboutStopButton}
                 disabled={this.props.disabled && !talkingAboutStopButton}
-                onClick={this.props.onStopClicked}
+                onClick={this.onStop}
                 showSpinner={this.props.showSpinner}
               />
             }

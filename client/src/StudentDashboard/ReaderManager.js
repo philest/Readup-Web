@@ -200,7 +200,8 @@ class StudentDashboard extends React.Component {
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           currentShowModal={this.props.currentShowModal}
           showSpinner={this.props.showSpinner}    
-          onDoneClicked={this.props.actions.stopRecordingClicked}      
+          onDoneClicked={this.props.actions.stopRecordingClicked}
+          onExitLastQuestion={(this.props.questionNumber === this.props.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
         />
 
         <ExitModal
@@ -240,7 +241,7 @@ class StudentDashboard extends React.Component {
           question={this.props.book.questions[this.props.questionNumber]}
           includeDelay={this.props.questionNumber === 1}
           prompt={this.props.prompt}
-          onExit={(this.props.questionNumber === this.props.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
+          onExitLastQuestion={(this.props.questionNumber === this.props.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
         />
 
       </div>

@@ -23,6 +23,7 @@ export default class CompPausedModal extends React.Component {
     currentShowModal: PropTypes.string,
     modalType: PropTypes.string,
     showSpinner: PropTypes.bool,
+    onExitLastQuestion: PropTypes.func,
   };
 
   /**
@@ -33,6 +34,17 @@ export default class CompPausedModal extends React.Component {
     super(props);
     this.state = {  };
   }
+
+  onStop = () => {
+    console.log('here i am... onSTOP')
+    this.props.onDoneClicked()
+
+    setTimeout(
+      this.props.onExitLastQuestion,
+      2000)
+
+  }
+
 
   render() {
 
@@ -52,7 +64,7 @@ export default class CompPausedModal extends React.Component {
           <ButtonArray
             titles={['Done', 'Say more']}
             images={[firstIcons, 'fa-play']}
-            actions={[this.props.onDoneClicked, this.props.onContinueClicked]}
+            actions={[this.onStop, this.props.onContinueClicked]}
             enlargeFirst={true}
             fontAwesome={true}
             modalType={'info'}
