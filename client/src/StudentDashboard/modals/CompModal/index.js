@@ -102,13 +102,14 @@ export default class CompModal extends React.Component {
     let title
     let subtitle
 
-    if (this.props.prompt === PromptOptions.awaitingPrompt) {
-      title = this.props.question.title
-      subtitle = this.props.question.subtitle
-    } else {
-      title = PromptTextOptions[this.props.prompt]
+    if (this.props.question) {
+      if (this.props.prompt === PromptOptions.awaitingPrompt) {
+        title = this.props.question.title
+        subtitle = this.props.question.subtitle
+      } else {
+        title = PromptTextOptions[this.props.prompt]
+      }
     }
-
 
 
 

@@ -274,6 +274,7 @@ function* generalCompSaga() {
     let compBlob = yield* compSaga(true, false)
 
     while (true) {
+      yield call(delay, 1000)
       compBlob = yield* compSaga(false, false)
     }
 }
@@ -457,7 +458,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 
   if (!lastTime) {
     yield* questionIncrementSaga()
-  }
+  }  
 
   yield cancel(...compEffects)
 
