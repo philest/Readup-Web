@@ -271,7 +271,7 @@ function* fetchInBackground(studentID) {
 
 
 
-function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: string) {
+function* compSaga(firstTime: boolean, lastTime: boolean) {
 
   const compEffects = []
 
@@ -312,8 +312,9 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
   ))
 
 
-      yield call(delay, 8500)
-
+  if (firstTime) {
+    yield call(delay, 8500)
+  }
 
 
 
@@ -325,11 +326,6 @@ function* compSaga(firstTime: boolean, lastTime: boolean, questionAudioFile: str
 
   // BEGIN the former compSeeBookSaga
 
-  compEffects.push(
-    yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, function* () {
-      yield playSoundAsync(questionAudioFile)
-    })
-  )
   compEffects.push(
     yield takeLatest(SEE_BOOK_CLICKED, function* () {
       yield put.resolve(setCurrentModal('no-modal'))
@@ -621,7 +617,9 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
-    compBlob = yield* compSaga(true, false, '/audio/VB/min/VB-retell-full.mp3') // blocks
+    compBlob = yield* compSaga(true, false) // blocks
+    compBlob = yield* compSaga(false, false) // blocks
+
 
     // compBlob = yield* compSaga(false, true, '/audio/prompts/VB-tell-some-more.mp3') // blocks
 
