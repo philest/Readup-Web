@@ -326,9 +326,9 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
     ReaderStateOptions.playingBookIntro,
   ))
 
-
-  yield call(playSound, '/audio/VB/VB-retell-full.mp3')
-
+  if (firstTime) { 
+    yield call(delay, 8200)
+  }
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.awaitingStart,

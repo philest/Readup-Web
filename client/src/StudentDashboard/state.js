@@ -639,8 +639,8 @@ const fpBook = {
 
 const initialState = {
   pageNumber: 0,
-  numPages: sampleBook.numPages,
-  book: sampleBook,
+  numPages: sampleBookLong.numPages,
+  book: sampleBookLong,
   questionNumber: 1,
   readerState: ReaderStateOptions.initializing,
   prompt: PromptOptions.awaitingPrompt,
