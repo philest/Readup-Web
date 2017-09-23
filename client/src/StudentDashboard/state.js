@@ -561,18 +561,20 @@ const fpBook = {
       audioSrc: '/audio/retell-full.mp3',
     },
     2: {
-      title: "Tell some more.",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+      title: "What is the real reason Nick can’t sleep?",
     },
     3: {
-      title: "this shouldn't happen",
-      audioSrc: '/audio/prompts/VB-tell-some-more.mp3',
+      title: "How do you think Nick feels about Wags?",
+      subtitle: "What makes you think that?",
+    },
+    4: {
+      title: "Tell about a time when you had trouble sleeping or doing something else.",
+      subtitle: "Was your problem like Nick’s? Why or why not?",
     },
 
   },
 
 };
-
 
 
 
