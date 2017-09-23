@@ -151,6 +151,8 @@ class StudentDashboard extends React.Component {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
+        introAudioSrc: this.props.book.introAudioSrc,
+        readerState: this.props.readerState
       }
     }
     else if (this.props.pageNumber === 0 && this.props.inComp) { // cover

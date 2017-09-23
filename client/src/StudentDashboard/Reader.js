@@ -24,6 +24,8 @@ import {
 } from 'react-router-dom'
 
 
+import { playSoundAsync, stopAudio } from './audioPlayer.js'
+
 
 export default class Reader extends React.Component {
   static propTypes = {
@@ -63,6 +65,7 @@ export default class Reader extends React.Component {
     //Phil 
     inComp: PropTypes.bool,
     currentShowModal: PropTypes.string,
+    introAudioSrc: PropTypes.string,
   };
 
   static defaultProps = {
@@ -101,6 +104,12 @@ export default class Reader extends React.Component {
 
   renderCenterDisplay = () => {
     if (this.props.showCover) {
+
+      if (!this.props.inComp && (this.props.readerState === 'READER_STATE_AWAITING_START')) {
+        stopAudio()
+        playSoundAsync(this.props.introAudioSrc)
+      }
+
       return <BookCover imageURL={this.props.coverImageURL} />
     }
 

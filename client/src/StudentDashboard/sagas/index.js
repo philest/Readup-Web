@@ -509,7 +509,6 @@ function* assessThenSubmitSaga() {
 
 
   // permission was granted!!!!
-  yield playSoundAsync('/audio/VB/min/VB-book-intro.mp3')
 
 
   let recorder = yield select(getRecorder)

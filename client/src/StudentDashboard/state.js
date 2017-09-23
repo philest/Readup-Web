@@ -626,7 +626,7 @@ const fpBook = {
 
     },
     4: {
-      title: "Tell about a time when you had trouble sleeping or doing something else.",
+      title: "Tell about a time when you had trouble with something.",
       subtitle: "Was your problem like Nick’s? Why or why not?",
       audioSrc: '/audio/VB/nick/nick-tell-about-a-time.mp3',
     },
@@ -639,8 +639,8 @@ const fpBook = {
 
 const initialState = {
   pageNumber: 0,
-  numPages: sampleBookLong.numPages,
-  book: sampleBookLong,
+  numPages: fpBook.numPages,
+  book: fpBook,
   questionNumber: 1,
   readerState: ReaderStateOptions.initializing,
   prompt: PromptOptions.awaitingPrompt,
