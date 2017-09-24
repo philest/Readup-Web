@@ -18,11 +18,15 @@
 .textParagraph {
 	margin-bottom: 30px;
 	line-height: 3.5em;
+    transition: all .3s;
+
 }
 
 .textParagraphGrayedOut {
 	margin-bottom: 48px;
     line-height: 1.5em;
+    transition: all .3s;
+
 }
 
 .wordAndSpaceWrapper {
@@ -128,8 +132,19 @@
 	color: #B7B7B7;
 }
 
+.toggleText {
+	font-family: 'ProximaNova Semibold';
+	opacity: .7;
+	font-size: 12px;
+	cursor: pointer;
+}
 
-
+.caret {
+    font-size: 18px;
+    position: relative;
+    top: 2px;
+    left: 2px;
+}
 
 
 /*.highlightedTextWord {

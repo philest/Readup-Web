@@ -15,6 +15,7 @@ export default class FormattedMarkupText extends React.Component {
     onMouseLeaveWord: PropTypes.func,
     bookLevel: PropTypes.string,
     isSample: PropTypes.bool,
+    showSeeMore: PropTypes.bool
   };
   static defaultProps = {
     isInteractive: false,
@@ -22,9 +23,18 @@ export default class FormattedMarkupText extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      hideUnread: true,
+    }
+
+
     console.log('CONSTRUCT')
     console.log(props)
     // console.log('CONSTRUCT')
+  }
+
+  toggleHideUnread = () => {
+    this.setState({hideUnread: !this.state.hideUnread})
   }
 
   render() {
@@ -39,7 +49,7 @@ export default class FormattedMarkupText extends React.Component {
       <div className={(this.props.bookLevel >= "I") ? styles.textContainerLarge : styles.textContainer}>
 
         {this.props.paragraphs.map((paragraph, pIndex) => (
-          <div className={(pIndex > endPindex) ? styles.textParagraphGrayedOut: styles.textParagraph} key={paragraph.key} style={{display: ((pIndex > endPindex) && this.props.isSample)  ? "none" : "block"}}>
+          <div className={(pIndex > endPindex) ? styles.textParagraphGrayedOut: styles.textParagraph} key={paragraph.key} style={{display: ((pIndex > endPindex) && this.state.hideUnread)  ? "none" : "block"}}>
 
             {paragraph.words.map((wordDict, wIndex) => (
 
@@ -75,7 +85,19 @@ export default class FormattedMarkupText extends React.Component {
             
           </div>
         ))}
+
+      { this.state.hideUnread && this.props.showSeeMore &&
+        <span className={styles.toggleText} onClick={this.toggleHideUnread}> See more <i className={"fa fa-caret-down " + styles.caret} aria-hidden="true"></i>
+        </span>
+      }
+      { !this.state.hideUnread && this.props.showSeeMore &&
+        <span className={styles.toggleText} onClick={this.toggleHideUnread}> See Less <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
+ </span>
+      }
+
       </div>
+
+
 
     );
   }
