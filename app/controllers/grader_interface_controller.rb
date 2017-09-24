@@ -65,7 +65,8 @@ class GraderInterfaceController < ApplicationController
         compScorePrior: @comp_score,
         studentID: @student.id,
         assessmentBrand: @assessment.brand,
-        isLiveDemo: @assessment.is_live_demo
+        isLiveDemo: @assessment.is_live_demo,
+        bookKey: 'nick',
       }
       
     end

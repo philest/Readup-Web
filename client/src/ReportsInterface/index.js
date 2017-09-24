@@ -22,6 +22,7 @@ import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 import { sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
+import { fpBook } from '../StudentDashboard/state.js'
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
@@ -752,7 +753,7 @@ export default class ReportsInterface extends React.Component {
 
         }
 
-       { !this.props.isSample && this.props.assessmentBrand === 'FP' &&
+       { !this.props.isSample && this.props.assessmentBrand === 'FP' && this.props.bookKey !== 'nick' &&
    
           <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
             
@@ -827,6 +828,77 @@ export default class ReportsInterface extends React.Component {
 
         }
 
+
+
+       { !this.props.isSample && this.props.assessmentBrand === 'FP' && this.props.bookKey === 'nick' &&
+   
+          <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
+            
+            <hr className={styles.compDivider}/>
+
+
+           <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+
+            <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
+              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
+                 
+                  { firstQuestionGraded &&
+                    <div>
+                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
+
+                    { !this.state.showCompAudioPlayback &&
+                    <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                    }
+                    { this.state.showCompAudioPlayback &&
+                      <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
+                        <source src={this.props.compRecordingURL} />
+                        <p>Playback not supported</p>
+                      </audio>
+                    }
+
+
+
+
+                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
+                    </div>
+                  }
+                  
+
+
+                </div>
+            </div>
+
+            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
+              <h2 className={styles.compPartHeader}>Within the Text</h2>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>1. {fpBook.questions['1'].title + " " + fpBook.questions['1'].subtitle }<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>2. {fpBook.questions['2'].title }<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+            </div>
+
+
+
+
+            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
+              <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>3. {fpBook.questions['3'].title + " " + fpBook.questions['3'].subtitle}<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+
+                <div className={styles.questionBlock}>
+                  <h4 className={styles.questionText}>4. {fpBook.questions['4'].title + " " + fpBook.questions['4'].subtitle }<span className={styles.pointValue}> (1 point)</span></h4>
+                </div>
+            </div>
+
+
+
+          </div>
+
+        }
 
 
 

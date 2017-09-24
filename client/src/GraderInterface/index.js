@@ -14,6 +14,7 @@ import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 import reportStyles from '../ReportsInterface/styles.css'
 import {getUserCount, getAssessmentSavedTimestamp} from '../ReportsInterface/emailHelpers.js'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
+import { fireflyBook, fpBook } from '../StudentDashboard/state.js'
 
 
 import {
@@ -21,14 +22,8 @@ import {
 } from '../StudentDashboard/types'
 
 
-const rubric = {
-  3: "Response shows excellent understanding of Firefly Night. Includes all major events of plot in sequence, and shows insight into the girl's actions. Uses important details to enrich the retelling. Great job! Let me know if you have any questions.",
-  2: "Response shows good understanding of Firefly Night. Includes major events of plot in sequence. Describes the the girl's actions and character, and uses some details to support the retelling. Nice job!",
-  1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
-  0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out."
-}
 
-
+let rubric 
 
 const popoverBottom = (
   <Popover id="popover-positioned-bottom" className={questionCSS.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
@@ -70,6 +65,7 @@ export default class GraderInterface extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
     studentID: PropTypes.number,
+    bookKey: PropTypes.string,
   };
 
 
@@ -103,6 +99,13 @@ export default class GraderInterface extends React.Component {
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
 
+
+    if (this.props.bookKey === 'nick') {
+      rubric = fpBook.rubric
+    }
+    else {
+      rubric = fireflyBook.rubric
+    }
 
     // TODO refactor this into a controller prop 
     // getFluencyScore(this.props.assessmentID).then(res => {

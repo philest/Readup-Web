@@ -423,49 +423,9 @@ export function exitLastQuestion() {
 
 
 
-const sampleBook = {
-  title: "Firefly Night",
-  author: 'Dianne Ochiltree',
-  numPages: 3, // if you want a shorter book for testing purposes just change this
-  isWideBook: false,
-  coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
-  introAudioSrc: '/audio/VB/VB-book-intro.mp3',
-  pages: {
-    1: {
-      lines: [
-        "The moon is high\nand the stars are bright.",
-        "Daddy tells me,\n\"It's a firefly night!\"",
-      ],
-      img: '/images/dashboard/sample-book-assets/firefly-2.png',
-    },
-    2: {
-      lines: [
-        "Fireflies shine.\nAll of them glow.",
-        "I race to show Daddy\ntheir dancing light show.",
-      ],
-      img: '/images/dashboard/sample-book-assets/firefly-4.png',
-    },
-    3: {
-      lines: [
-        "I open my jar. They fly away quickly and shine. ",
-        "I love catching fireflies, but they are not mine.",
-      ],
-      img: '/images/dashboard/sample-book-assets/firefly-3.png',
-    },
-  },
-  numQuestions: 1,
-  questions: {
-    1: {
-      title: "Tell as much as you can about the passage you just read.",
-      subtitle: "Be sure to include the beginning, middle and end",
-      audioSrc: '/audio/VB/VB-retell-full.mp3',
-    },
-  },
-
-};
 
 
-const sampleBookLong = {
+const fireflyBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
   numPages: 3, // if you want a shorter book for testing purposes just change this
@@ -512,12 +472,20 @@ const sampleBookLong = {
     },
 
   },
+
+  rubric: {
+    3: "Response shows excellent understanding of Firefly Night. Includes all major events of plot in sequence, and shows insight into the girl's actions. Uses important details to enrich the retelling. Great job! Let me know if you have any questions.",
+    2: "Response shows good understanding of Firefly Night. Includes major events of plot in sequence. Describes the girl's actions and character, and uses some details to support the retelling. Nice job!",
+    1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+    0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
+  },
+
 };
 
 
 
 
-const fpBook = {
+export const fpBook = {
   title: "Bedtime for Nick",
   author: 'Steve Olson',
   numPages: 10, // if you want a shorter book for testing purposes just change this
@@ -631,6 +599,13 @@ const fpBook = {
       audioSrc: '/audio/VB/nick/nick-tell-about-a-time.mp3',
     },
 
+  },
+
+  rubric: {
+    3: "Response shows excellent understanding of Bedtime For Nick. Includes all major events of plot in sequence, and shows insight into Nick's actions. Uses important details to enrich the retelling. Great job! Let me know if you have any questions.",
+    2: "Response shows good understanding of Bedtime For Nick. Includes major events of plot in sequence. Describes Nick's actions and character, and uses some details to support the retelling. Nice job!",
+    1: "Response shows partial understanding of Bedtime For Nick. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+    0: "Response does not indicate understanding of Bedtime For Nick. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
   },
 
 };
