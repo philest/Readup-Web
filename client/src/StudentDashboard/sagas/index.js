@@ -388,8 +388,13 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 
 
   } else { // resume
+    try {
+      yield call(recorder.resumeRecording)
+    } catch (err) {
+      yield clog('err', err)
+    }
 
-    yield call(recorder.resumeRecording)
+
     yield put.resolve(setReaderState(
       ReaderStateOptions.inProgress,
     ))
@@ -424,10 +429,14 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 
   } else { // pause
 
-    yield call(recorder.pauseRecording)
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.paused,
-    ))
+    try {
+      yield call(recorder.pauseRecording)
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.paused,
+      ))
+    } catch (err) {
+      yield clog('err:', err)
+    }
 
   }
 
@@ -467,8 +476,12 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 
   yield cancel(...compEffects)
 
-
-  return recorder.getBlob()
+  try {
+    return recorder.getBlob()
+  } catch (err) {
+    yield clog ('err: ', err)
+    return 'it broke'
+  }
 
 }
 
@@ -614,7 +627,14 @@ function* assessThenSubmitSaga() {
 
   yield clog('url for recording!!!', recordingURL)
 
-  const recordingBlob = recorder.getBlob()
+  try {
+    const recordingBlob = recorder.getBlob()
+  }
+  catch (err) {
+    const recordingBlob = 'it broke'
+    yield clog('err:', err)
+  } 
+
 
   let blobAndPrompt
   let fetchedPrompt
@@ -646,7 +666,15 @@ function* assessThenSubmitSaga() {
 
     let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
     yield clog('url for comp recording!!!', compRecordingURL)
-    compBlob = recorder.getBlob()
+
+    try {
+      compBlob = recorder.getBlob()
+    }
+    catch (err) {
+      combBlob = 'it broke'
+      yield clog('err:', err) 
+    } 
+
 
 
 

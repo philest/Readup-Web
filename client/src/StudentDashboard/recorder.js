@@ -59,9 +59,20 @@ export default class Recorder {
 
       // <-- smaller filesize
       // this.rtcRecorder = RecordRTC(stream, { recorderType: RecordRTC.StereoAudioRecorder, bitsPerSecond: 30000, numberOfAudioChannels: 1, mimeType: 'audio/wav' });
-      this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'true' });
-      callback && callback(null)
-      return true
+  
+      try {
+
+        this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'true' });
+        callback && callback(null)
+        return true
+      } catch (err) {
+        sendEmail(err, "captureMedia inner startRecording failed", "philesterman@gmail.com")
+        console.log("captureMedia inner startRecording ERROR: ", err)
+        callback && callback(null)
+        return true
+      }
+
+
     });
   };
 
@@ -75,10 +86,15 @@ export default class Recorder {
   startRecording = () => {
 
     try {
-    throw new Error('Dan ERROR ON START')
     this.captureUserMedia((stream) => {
+      try {
     	this.rtcRecorder.startRecording()
       this.recording = true
+      } catch (err) {
+        sendEmail(err, "inner startRecording failed", "philesterman@gmail.com")
+        console.log("inner startRecording ERROR: ", err)
+      }
+
     });
     } catch (err) {
       sendEmail(err, "startRecording failed", "philesterman@gmail.com")

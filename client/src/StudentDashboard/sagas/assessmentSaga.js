@@ -50,8 +50,12 @@ const PAGE_CHANGE_DEBOUNCE_TIME_MS = 200
 
 
 function* pauseAssessmentSaga (action) {
-  const recorder = yield select(getRecorder)
-  yield call(recorder.pauseRecording)
+  try {
+    const recorder = yield select(getRecorder)
+    yield call(recorder.pauseRecording)
+  } catch (err) {
+    yield clog('err', err)
+  }
   yield delay(300) // delay to prevent phil's voice from getting pick up :/
 
   yield call(playSoundAsync, '/audio/bamboo.mp3')
@@ -67,8 +71,14 @@ function* pauseAssessmentSaga (action) {
 }
 
 function* compPauseAssessmentSaga (action) {
-  const recorder = yield select(getRecorder)
-  yield call(recorder.pauseRecording)
+
+  try {
+    const recorder = yield select(getRecorder)
+    yield call(recorder.pauseRecording)
+  } catch (err) {
+    yield clog('err', err)
+  }
+
   yield delay(300) // delay to prevent phil's voice from getting pick up :/
 
   yield call(playSoundAsync, '/audio/complete.mp3')
@@ -91,8 +101,13 @@ function* resumeAssessmentSaga (action) {
 
   yield call(playSound, '/audio/complete.mp3')
 
-  const recorder = yield select(getRecorder)
-  yield call(recorder.resumeRecording)
+  try {
+    const recorder = yield select(getRecorder)
+    yield call(recorder.resumeRecording)
+  } catch (err) {
+    yield clog('err', err)
+  } 
+
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
   ))
