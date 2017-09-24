@@ -75,6 +75,7 @@ export default class Recorder {
   startRecording = () => {
 
     try {
+    throw new Error('Dan ERROR ON START')
     this.captureUserMedia((stream) => {
     	this.rtcRecorder.startRecording()
       this.recording = true
@@ -88,11 +89,18 @@ export default class Recorder {
 
   stopRecording = (callback) => {
     try {
-      this.rtcRecorder.stopRecording(() => {
-        this.recording = false
-        this.blobURL = URL.createObjectURL(this.rtcRecorder.getBlob())
-        callback && callback(this.blobURL)
-      })
+      if (this.recording === true) {
+        this.rtcRecorder.stopRecording(() => {
+          this.recording = false
+          this.blobURL = URL.createObjectURL(this.rtcRecorder.getBlob())
+          callback && callback(this.blobURL)
+        })
+      }
+      else {
+        sendEmail('startRecording', "startRecording never started", "philesterman@gmail.com")
+        console.log("startRecording ERROR: ", 'startRecording')
+        callback && callback('it broke')
+      }
     } catch (err) {
       sendEmail(err, "stopRecording failed", "philesterman@gmail.com")
       console.log("stopRecording ERROR: ", err)
