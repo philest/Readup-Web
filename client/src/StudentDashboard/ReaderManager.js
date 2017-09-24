@@ -86,6 +86,7 @@ class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
     isDemo: PropTypes.bool,
+    bookKey: PropTypes.string,
   };
 
   constructor(props, _railsContext) {

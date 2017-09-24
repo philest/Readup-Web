@@ -606,7 +606,6 @@ function* assessThenSubmitSaga() {
     endRecording: take(STOP_RECORDING_CLICKED),
   })
 
-  yield clog('1. made it just after  to stop clicked')
 
   recorder = yield select(getRecorder)
 
@@ -633,16 +632,14 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
-    // compBlob = yield* compSaga(true, false) // blocks
-    // compBlob = yield* compSaga(false, false) // blocks
-
-
-    // compBlob = yield* compSaga(false, true, '/audio/prompts/VB-tell-some-more.mp3') // blocks
-
-    yield race({
+    const {
+      comp,
+      finishComp
+    } = yield race({
       comp: call(generalCompSaga),
       finishComp: take(LAST_QUESTION_EXITED),
     })
+
 
     yield put({ type: SPINNER_HIDE })
 

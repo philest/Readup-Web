@@ -8,6 +8,12 @@ class StudentDashboardController < ApplicationController
       teacherName: "Sum Dum Teachum"
     }
 
+    if (params)
+      puts params
+    end
+
+
+
     if stu
       @student_dashboard_props = {
         studentName: "#{stu.first_name} #{stu.last_name}",

@@ -145,7 +145,8 @@ class ReportsController < ApplicationController
         reviewerSignature: "Maria Contreras, M.Ed",
         reviewerProfilePicURL: "/images/maria-small.png",
         assessmentBrand: assessmentBrand,
-        isLiveDemo: false
+        isLiveDemo: false,
+        bookKey: 'nick'
 
       }
     end

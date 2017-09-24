@@ -330,12 +330,12 @@ export function getTotalWordsReadCorrectly(evaluationTextData) {
 }
 
   // TODO: THIS IS NOT GENERALIZABLE
-  // Only tells you if ended paragraph early
+  // Only tells you if read less than 2 paragraphs
 export function didEndEarly(evaluationTextData) {
     const endPindex = evaluationTextData.readingEndIndex.paragraphIndex
     const numParagraphs = evaluationTextData.paragraphs.length
 
-    if (numParagraphs > endPindex) {
+    if (endPindex < 2) {
       return true
     }
     else {

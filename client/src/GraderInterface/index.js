@@ -5,7 +5,7 @@ import styles from './styles.css'
 import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
-import { newFireflyEvaluationText } from '../sharedComponents/fireflyMarkup'
+import { newSampleEvaluationText } from '../sharedComponents/nickMarkup.js'
 import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'

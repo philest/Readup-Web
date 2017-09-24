@@ -6,6 +6,7 @@ import bookpageStyles from '../BookPage/styles.css'
 export default class BookCover extends React.Component {
   static propTypes = {
     imageURL: PropTypes.string,
+
   };
 
   /**
@@ -16,6 +17,8 @@ export default class BookCover extends React.Component {
     super(props);
     this.state = {  };
   }
+
+
 
 
   render() {
