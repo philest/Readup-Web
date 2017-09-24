@@ -24,7 +24,9 @@ import {
 
 import {
   clog,
+  isMobileDevice,
 } from './helpers'
+
 
 import audioEffectsSaga from './audioEffectsSaga'
 import Recorder from '../recorder'
@@ -508,7 +510,7 @@ function* assessThenSubmitSaga() {
 
   yield put(setCurrentOverlay('no-overlay'))
 
-  const permissionsGranted = yield* getMicPermissionsSaga() // blocks
+  const permissionsGranted = yield*  getMicPermissionsSaga() // blocks
 
   // TODO asap as possible
   // TODO: some loop here :)
@@ -733,6 +735,15 @@ function* rootSaga() {
     .catch(e => e.request) // TODO
 
   yield clog('Assessment ID:', assessmentId)
+
+
+
+  // if isMobileDevice, halt
+  const isMobile = yield call(isMobileDevice)
+  if (isMobile) {
+    window.location.href = '/mobile_halt'
+    take('ickkk')
+  }
 
 
   /*
