@@ -614,8 +614,8 @@ export const fpBook = {
 
 const initialState = {
   pageNumber: 0,
-  numPages: fpBook.numPages,
-  book: fpBook,
+  numPages: fireflyBook.numPages,
+  book: fireflyBook,
   questionNumber: 1,
   readerState: ReaderStateOptions.initializing,
   prompt: PromptOptions.awaitingPrompt,
