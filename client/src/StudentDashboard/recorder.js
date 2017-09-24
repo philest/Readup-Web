@@ -105,7 +105,7 @@ export default class Recorder {
 
   stopRecording = (callback) => {
     try {
-      if (this.recording === true) {
+      if (this.recording === true || this.rtcRecorder.state === "paused") {
         this.rtcRecorder.stopRecording(() => {
           this.recording = false
           this.blobURL = URL.createObjectURL(this.rtcRecorder.getBlob())

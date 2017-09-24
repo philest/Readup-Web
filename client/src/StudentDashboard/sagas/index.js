@@ -627,11 +627,13 @@ function* assessThenSubmitSaga() {
 
   yield clog('url for recording!!!', recordingURL)
 
+  let recordingBlob
+
   try {
-    const recordingBlob = recorder.getBlob()
+    recordingBlob = recorder.getBlob()
   }
   catch (err) {
-    const recordingBlob = 'it broke'
+    recordingBlob = 'it broke'
     yield clog('err:', err)
   } 
 
