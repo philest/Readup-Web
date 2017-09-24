@@ -1,6 +1,10 @@
 
 class StudentDashboardController < ApplicationController
   layout "student_dashboard"
+  # TODO PHIL - skip for now 
+  skip_before_action :verify_authenticity_token
+
+
 
   def index
    return @student_dashboard_props = {

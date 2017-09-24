@@ -425,7 +425,7 @@ export function exitLastQuestion() {
 
 
 
-const fireflyBook = {
+export const fireflyBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
   numPages: 3, // if you want a shorter book for testing purposes just change this
