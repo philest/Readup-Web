@@ -638,6 +638,9 @@ function* assessThenSubmitSaga() {
   } 
 
 
+
+
+
   let blobAndPrompt
   let fetchedPrompt
   let compBlob
@@ -650,13 +653,21 @@ function* assessThenSubmitSaga() {
 
     yield playSound('/audio/complete.mp3')
 
+
+    //  reset recorder
+    let recorder = yield select(getRecorder)
+    yield call(recorder.reset)
+    recorder = yield select(getRecorder)
+    yield call(recorder.initialize)
+
+
     yield call(delay, 300)
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
     const {
       comp,
-      finishComp
+      finishComp,
     } = yield race({
       comp: call(generalCompSaga),
       finishComp: take(LAST_QUESTION_EXITED),
@@ -784,12 +795,14 @@ function* rootSaga() {
 
       yield playSoundAsync('/audio/complete.mp3')
 
+      // const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false)
       const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false)
 
       const compTurnedIn = yield* turnInAudio(compBlob, assessmentId, true)
 
 
       yield put({ type: SPINNER_HIDE })
+
 
       // success!
       if (turnedIn && compTurnedIn) {
