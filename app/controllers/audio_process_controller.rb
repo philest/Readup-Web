@@ -66,13 +66,6 @@ class AudioProcessController < ApplicationController
         acl: 'public-read',
       )
 
-      # TODO PHIL NOTE: An atrocious hack. Hijacking the book key to start AWS URL of recording
-      key = "fake-assessments/#{ENV['RAILS_ENV']}/#{User.last.id}/recording.webm"
-      start_url = "https://s3-us-west-2.amazonaws.com/readup-now/"
-      full_url = start_url + key
-
-      Assessment.last.update(book_key: full_url) 
-
 
 
 
