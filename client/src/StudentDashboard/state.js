@@ -67,6 +67,7 @@ export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
 export const IS_DEMO_SET = 'IS_DEMO_SET'
 export const BOOK_KEY_SET = 'BOOK_KEY_SET'
+export const BOOK_SET = 'BOOK_SET'
 
 export const IN_COMP_SET = 'IN_COMP_SET'
 export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
@@ -392,6 +393,17 @@ export function setBookKey(bookKey) {
 }
 
 
+export function setBook(bookKey) {
+  return {
+    type: BOOK_SET,
+    payload: {
+      bookKey,
+    },
+  }
+}
+
+
+
 export function setInComp(inComp: boolean) {
   return {
     type: IN_COMP_SET,
@@ -626,6 +638,11 @@ export const fpBook = {
 };
 
 
+export const library = {
+  demo: fireflyBook,
+  nick: fpBook,
+}
+
 
 const initialState = {
   pageNumber: 0,
@@ -817,6 +834,17 @@ function reducer(state = initialState, action = {}) {
     case BOOK_KEY_SET: {
       return { ...state, bookKey: payload.bookKey }
     }
+
+    case BOOK_SET: {
+
+      const book = library[payload.bookKey]
+      console.log('I just set the book!: ', book)
+      console.log('heres bookKey: ', payload.bookKey)
+
+
+      return { ...state, book: book }
+    }
+
 
     case IN_COMP_SET: {
       return { ...state, inComp: payload.inComp }

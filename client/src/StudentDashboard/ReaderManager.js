@@ -53,6 +53,8 @@ function mapStateToProps(state) {
     pageNumber: state.reader.pageNumber,
     questionNumber: state.reader.questionNumber,
     readerState: state.reader.readerState,
+    book: state.reader.book,
+    numQuestions: state.reader.book.numQuestions,
     prompt: state.reader.prompt,
     pauseType: state.reader.pauseType,
     hasRecordedSomething: state.reader.hasRecordedSomething,
@@ -90,17 +92,13 @@ class StudentDashboard extends React.Component {
 
   constructor(props, _railsContext) {
     super(props);
-    this.state = {
-      book: (this.props.storyID === 'nick' ? fpBook : fireflyBook)
-
-    }
-
   }
 
 
   componentWillMount() {
     this.props.actions.setIsDemo(this.props.isDemo)
     this.props.actions.setBookKey(this.props.storyID)
+    this.props.actions.setBook(this.props.storyID)
 
     if (!Recorder.browserSupportsRecording()) {
       alert("Your browser cannot record audio. Please switch to Chrome or Firefox.")
@@ -133,10 +131,10 @@ class StudentDashboard extends React.Component {
       studentName: this.props.studentName,
       pathname: this.props.location.pathname,
       isDemo: this.props.isDemo,
-      coverImageURL: this.state.book.coverImage,
-      bookTitle: this.state.book.title,
-      bookAuthor: this.state.book.author,
-      isWideBook: this.state.book.isWideBook,
+      coverImageURL: this.props.book.coverImage,
+      bookTitle: this.props.book.title,
+      bookAuthor: this.props.book.author,
+      isWideBook: this.props.book.isWideBook,
       showBookInfo: ((this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart) && !this.props.inComp),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
       onExitClicked: this.props.actions.exitClicked,
@@ -157,7 +155,7 @@ class StudentDashboard extends React.Component {
         ...readerProps,
         showCover: true,
         showPauseButton: false,
-        introAudioSrc: this.state.book.introAudioSrc,
+        introAudioSrc: this.props.book.introAudioSrc,
         readerState: this.props.readerState,
         showVolumeIndicator: this.props.showVolumeIndicator,
       }
@@ -175,11 +173,11 @@ class StudentDashboard extends React.Component {
       readerProps = {
         ...readerProps,
         pageNumber: this.props.pageNumber,
-        textLines: this.state.book.pages[this.props.pageNumber].lines,
-        imageURL: this.state.book.pages[this.props.pageNumber].img,
+        textLines: this.props.book.pages[this.props.pageNumber].lines,
+        imageURL: this.props.book.pages[this.props.pageNumber].img,
         showPauseButton: (this.props.readerState === ReaderStateOptions.inProgress),
         isFirstPage: (this.props.pageNumber == 1),
-        isLastPage: (this.props.pageNumber == this.state.book.numPages),
+        isLastPage: (this.props.pageNumber == this.props.book.numPages),
         onPreviousPageClicked: this.props.actions.previousPageClicked,
         onPauseClicked: this.props.actions.pauseClicked,
         onCompPauseClicked: this.props.actions.compPauseClicked,
@@ -210,7 +208,7 @@ class StudentDashboard extends React.Component {
           currentShowModal={this.props.currentShowModal}
           showSpinner={this.props.showSpinner}    
           onDoneClicked={this.props.actions.stopRecordingClicked}
-          onExitLastQuestion={(this.props.questionNumber === this.state.book.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
+          onExitLastQuestion={(this.props.questionNumber === this.props.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
         />
 
         <ExitModal
@@ -247,10 +245,10 @@ class StudentDashboard extends React.Component {
           close={this.props.actions.seeBookClicked}
           disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.readerState === ReaderStateOptions.talkingAboutStartButton) || (this.props.readerState === ReaderStateOptions.talkingAboutStopButton) }
           showSpinner={this.props.showSpinner}
-          question={this.state.book.questions[this.props.questionNumber]}
+          question={this.props.book.questions[this.props.questionNumber]}
           includeDelay={this.props.questionNumber === 1}
           prompt={this.props.prompt}
-          onExitLastQuestion={(this.props.questionNumber === this.state.book.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
+          onExitLastQuestion={(this.props.questionNumber === this.props.numQuestions) ? this.props.actions.exitLastQuestion : (function(){}) }
         />
 
       </div>
@@ -303,8 +301,8 @@ class StudentDashboard extends React.Component {
     }
 
     let preloadImageURLs = []
-    for (let i = this.props.pageNumber + 1; i <= this.state.book.numPages && i <= this.props.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
-      preloadImageURLs.push(this.state.book.pages[i].img)
+    for (let i = this.props.pageNumber + 1; i <= this.props.book.numPages && i <= this.props.pageNumber + PRELOAD_IMAGES_ADVANCE; i++) {
+      preloadImageURLs.push(this.props.book.pages[i].img)
     }
 
     return (
