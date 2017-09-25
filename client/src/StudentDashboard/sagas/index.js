@@ -58,6 +58,7 @@ import {
   QUESTION_DECREMENT,
   LAST_QUESTION_EXITED,
   VOLUME_INDICATOR_HIDDEN,
+  BOOK_KEY_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -499,7 +500,7 @@ function* hideVolumeSaga() {
 
 
 
-function* assessThenSubmitSaga() {
+function* assessThenSubmitSaga(bookKey) {
 
   const effects = []
 
@@ -609,7 +610,7 @@ function* assessThenSubmitSaga() {
 
   // TODO Phil: better user creation. 
    $.ajax({
-      url: '/auth/phil_setup_demo',
+      url: ('/auth/phil_setup_demo?book_key=' + bookKey),
       type: 'post',
     }).fail(function(xhr, status, err) {
       console.log(err)
@@ -745,13 +746,18 @@ function* assessThenSubmitSaga() {
 
 function* rootSaga() {
   const { payload: { isDemo } } = yield take(IS_DEMO_SET)
+  const { payload: { bookKey } } = yield take(BOOK_KEY_SET)
+
+  yield clog("isDemo: ", isDemo)
+
+  yield clog("bookKey: ", bookKey)
 
   yield clog('Root Saga Started')
 
 
-  const bookKey = isDemo ? 'demo' : 'unclear'
-  yield clog('Generating assessment... bookKey:', bookKey)
-  const assessmentId = yield requestNewAssessment(bookKey)
+  const newBookKey = isDemo ? 'demo' : 'unclear'
+  yield clog('Generating assessment... newBookKey:', newBookKey)
+  const assessmentId = yield requestNewAssessment(newBookKey)
     .catch(e => e.request) // TODO
 
   yield clog('Assessment ID:', assessmentId)
@@ -798,7 +804,7 @@ function* rootSaga() {
       quit,
     } = yield race({
       restartAssessment: take(RESTART_RECORDING_CLICKED),
-      recordingBlobArray: call(assessThenSubmitSaga),
+      recordingBlobArray: call(assessThenSubmitSaga, bookKey),
       quit: take('QUIT_ASSESSMENT_AND_DESTROY'),
     })
     yield clog('Race Finished')

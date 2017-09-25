@@ -66,6 +66,7 @@ export const RECORDING_PLAYBACK = 'RECORDING_PLAYBACK'
 
 export const PERMISSIONS_ARROW_CLICKED = 'PERMISSIONS_ARROW_CLICKED'
 export const IS_DEMO_SET = 'IS_DEMO_SET'
+export const BOOK_KEY_SET = 'BOOK_KEY_SET'
 
 export const IN_COMP_SET = 'IN_COMP_SET'
 export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
@@ -377,6 +378,15 @@ export function setIsDemo(isDemo) {
     type: IS_DEMO_SET,
     payload: {
       isDemo,
+    },
+  }
+}
+
+export function setBookKey(bookKey) {
+  return {
+    type: BOOK_KEY_SET,
+    payload: {
+      bookKey,
     },
   }
 }
@@ -802,6 +812,10 @@ function reducer(state = initialState, action = {}) {
 
     case IS_DEMO_SET: {
       return { ...state, isDemo: payload.isDemo }
+    }
+
+    case BOOK_KEY_SET: {
+      return { ...state, bookKey: payload.bookKey }
     }
 
     case IN_COMP_SET: {

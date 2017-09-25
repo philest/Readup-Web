@@ -47,7 +47,7 @@ function Root ({ store, rorProps }) {
         <Route
           path="/story/:story_id/page/:page_number"
           render={(props) => {
-            const readerManagerProps = { ...props, ...rorProps, isDemo: (props.match.params.story_id === 'demo') } //router: this.props.history}
+            let readerManagerProps = { ...props, ...rorProps, isDemo: true, storyID: (props.match.params.story_id)} //router: this.props.history}
             return <ReaderManager {...readerManagerProps} />
           }}
         />
