@@ -43,13 +43,26 @@ class GraderInterfaceController < ApplicationController
         @student_response = nil
       end 
 
+      if @assessment.book_key === 'nick'
+        title = "Bedtime for Nick"
+        level = "G"
+        stepLevel = "5"
+        bookKey = 'nick'
+      else
+        title = "Firefly Night"
+        level = "E"
+        stepLevel = '4'
+        bookKey = 'firefly'
+      end 
+
+
 
       @grader_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",
         createdAt: created_at,
         email: "#{@user.email}",
-        bookTitle: "Firefly Night",
-        bookLevel: "E",
+        bookTitle: title,
+        bookLevel: level,
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm",
         compRecordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/comp/recording.webm",
         scoredText: @assessment.scored_text,
@@ -66,7 +79,7 @@ class GraderInterfaceController < ApplicationController
         studentID: @student.id,
         assessmentBrand: @assessment.brand,
         isLiveDemo: @assessment.is_live_demo,
-        bookKey: 'nick',
+        bookKey: bookKey,
       }
       
     end

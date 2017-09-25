@@ -106,15 +106,31 @@ class ReportsController < ApplicationController
         recordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm"
         compRecordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/comp/recording.webm"
         assessmentBrand ||= "STEP"
-
       end 
+
+
+
+      if @assessment.book_key === 'nick'
+        title = "Bedtime for Nick"
+        level = "G"
+        stepLevel = "5"
+        bookKey = 'nick'
+      else
+        title = "Firefly Night"
+        level = "E"
+        stepLevel = '4'
+        bookKey = 'firefly'
+      end 
+
+
+
 
       @reports_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",
         email: "#{@user.email}",
-        bookTitle: "Firefly Night",
-        bookLevel: "E",
-        stepLevel: "4",
+        bookTitle: title,
+        bookLevel: level,
+        stepLevel: stepLevel,
         recordingURL: recordingURL,
         compRecordingURL: compRecordingURL,
         scoredText: @assessment.scored_text,
@@ -146,7 +162,7 @@ class ReportsController < ApplicationController
         reviewerProfilePicURL: "/images/maria-small.png",
         assessmentBrand: assessmentBrand,
         isLiveDemo: false,
-        bookKey: 'nick'
+        bookKey: bookKey
 
       }
     end
