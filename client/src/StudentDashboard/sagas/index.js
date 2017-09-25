@@ -301,12 +301,18 @@ function* generalCompSaga() {
 function* definedCompSaga(numQuestions) {
   
   let compBlobArray = []
-  let newBlob = yield* compSaga(true)
-  compBlobArray.push(newBlob)
 
-  for(let currQ = 2; currQ <= numQuestions; currQ++){
-      let tryBlob = yield* compSaga(false)
-      compBlobArray.push(tryBlob)
+  for(let currQ = 1; currQ <= numQuestions; currQ++){
+
+      let isFirstTime = (currQ === 1)
+      let newBlob = yield* compSaga(isFirstTime)
+      compBlobArray.push(newBlob)
+
+        // reset the recorder each time
+        let recorder = yield select(getRecorder)
+        yield call(recorder.reset)
+        recorder = yield select(getRecorder)
+        yield call(recorder.initialize)
   }
 
   return compBlobArray
