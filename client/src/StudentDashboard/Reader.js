@@ -216,6 +216,14 @@ export default class Reader extends React.Component {
 
     console.log('Rerendering Reader, pageNumber is: ' + this.props.pageNumber)
 
+    let wideContainerClass
+
+    if (this.props.showCover) {
+      wideContainerClass = styles.largeWideBookpageContainer
+    } else {
+      wideContainerClass = styles.wideBookpageContainer
+    }
+
 
     // const transitionPreset = this.props.location.action === 'POP' ? presets.slideLeft : presets.slideRight;
     const transitionProps = {...presets.pop, pathname: this.props.pathname, className: styles.routeTransition}
@@ -234,7 +242,7 @@ export default class Reader extends React.Component {
             { this.renderLeftButton() }
           </div>
 
-          <div className={this.props.isWideBook ? styles.wideBookpageContainer : styles.bookpageContainer}>
+          <div className={this.props.isWideBook ? wideContainerClass : styles.bookpageContainer}>
             <RouteTransition {...transitionProps}>
                 { this.renderCenterDisplay() }
             </RouteTransition>

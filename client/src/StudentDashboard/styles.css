@@ -70,6 +70,14 @@
    	border-radius: 5px;
 }
 
+.largeWideBookpageContainer {
+	width: 700px;
+    height: 85%;
+   	background-color: white;
+   	border-radius: 5px;
+
+}
+
 
 .routeTransition, .routeTransition > div  {
 	width: 100%;

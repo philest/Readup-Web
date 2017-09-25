@@ -517,7 +517,7 @@ export const fpBook = {
   author: 'Steve Olson',
   numPages: 10, // if you want a shorter book for testing purposes just change this
   isWideBook: true,
-  coverImage: '/images/dashboard/bedtime-cover-2.jpg',
+  coverImage: '/images/dashboard/bedtime-large.jpg',
   introAudioSrc: '/audio/VB/nick/nick-intro.mp3',
   pages: {
     1: {
