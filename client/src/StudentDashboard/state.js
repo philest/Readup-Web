@@ -77,7 +77,7 @@ export const QUESTION_NUMBER_SET = 'QUESTION_NUMBER_SET'
 export const PROMPT_SET = 'PROMPT_SET'
 export const COMP_PAUSE_CLICKED = 'COMP_PAUSE_CLICKED'
 export const LAST_QUESTION_EXITED = 'LAST_QUESTION_EXITED'
-
+export const VOLUME_INDICATOR_HIDDEN = 'VOLUME_INDICATOR_HIDDEN'
 
 
 
@@ -272,6 +272,11 @@ export function setRecordingURL(recordingURL: string, comp: boolean) {
   }
 }
 
+export function hideVolumeIndicator() {
+  return {
+    type: VOLUME_INDICATOR_HIDDEN,
+  }
+}
 
 /* stil using these */
 
@@ -630,6 +635,7 @@ const initialState = {
   currentOverlayId: 'no-overlay',
   showSpinner: false,
   countdownValue: -1,
+  showVolumeIndicator: true,
 }
 
 
@@ -715,6 +721,10 @@ function reducer(state = initialState, action = {}) {
 
     case SPINNER_HIDE: {
       return { ...state, showSpinner: false }
+    }
+
+    case VOLUME_INDICATOR_HIDDEN: {
+        return { ...state, showVolumeIndicator: false }
     }
 
     case COUNTDOWN_VALUE_SET: {

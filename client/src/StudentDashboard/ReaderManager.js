@@ -66,6 +66,7 @@ function mapStateToProps(state) {
     showSpinner: state.reader.showSpinner,
     countdownValue: state.reader.countdownValue,
     inComp: state.reader.inComp,
+    showVolumeIndicator: state.reader.showVolumeIndicator,
   }
 }
 
@@ -153,7 +154,8 @@ class StudentDashboard extends React.Component {
         showCover: true,
         showPauseButton: false,
         introAudioSrc: this.props.book.introAudioSrc,
-        readerState: this.props.readerState
+        readerState: this.props.readerState,
+        showVolumeIndicator: this.props.showVolumeIndicator,
       }
     }
     else if (this.props.pageNumber === 0 && this.props.inComp) { // cover

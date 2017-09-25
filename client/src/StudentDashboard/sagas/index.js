@@ -9,6 +9,7 @@ import {
   put,
   select,
   race,
+  all,
 } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
@@ -56,6 +57,7 @@ import {
   QUESTION_INCREMENT,
   QUESTION_DECREMENT,
   LAST_QUESTION_EXITED,
+  VOLUME_INDICATOR_HIDDEN,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -69,6 +71,7 @@ import {
   setInComp,
   setQuestionNumber,
   setPrompt,
+  hideVolumeIndicator,
 
 } from '../state'
 
@@ -488,6 +491,10 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 }
 
 
+function* hideVolumeSaga() {
+    yield call(delay, 4000)
+    yield put.resolve(hideVolumeIndicator())
+}
 
 
 
@@ -526,6 +533,7 @@ function* assessThenSubmitSaga() {
   // permission was granted!!!!
 
 
+
   let recorder = yield select(getRecorder)
   yield call(recorder.initialize)
 
@@ -533,6 +541,9 @@ function* assessThenSubmitSaga() {
     ReaderStateOptions.awaitingStart,
   ))
 
+  effects.push(
+    yield fork(hideVolumeSaga),
+  )
 
   // before assessment has started, clicking exit immediately quits app
   // I guess. We will probably change this
@@ -540,6 +551,15 @@ function* assessThenSubmitSaga() {
     exit: take(EXIT_CLICKED),
     startAssessment: take(START_RECORDING_CLICKED),
   })
+
+
+  // const { exit, fake } = yield all([
+  //   race({
+  //     exit: take(EXIT_CLICKED),
+  //     startAssessment: take(START_RECORDING_CLICKED),
+  //   })
+  // ])
+
 
   yield call(stopAudio)
 

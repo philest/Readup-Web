@@ -66,6 +66,7 @@ export default class Reader extends React.Component {
     inComp: PropTypes.bool,
     currentShowModal: PropTypes.string,
     introAudioSrc: PropTypes.string,
+    showVolumeIndicator: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -86,6 +87,11 @@ export default class Reader extends React.Component {
 
 
   renderLeftButton = () => {
+
+    if (this.props.showCover && !this.props.inComp && this.props.showVolumeIndicator) {
+      return (<i className="fa fa-volume-up faa-pulse animated fa-3x faa-fast" style={{ color: "white" }} aria-hidden="true"></i>)
+    }
+
     if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp)) {
       return null
     }
@@ -105,7 +111,7 @@ export default class Reader extends React.Component {
   renderCenterDisplay = () => {
     if (this.props.showCover) {
 
-      if (!this.props.inComp && (this.props.readerState === 'READER_STATE_AWAITING_START')) {
+      if (!this.props.inComp && (this.props.readerState === 'READER_STATE_AWAITING_START') && this.props.showVolumeIndicator ){
         stopAudio()
         playSoundAsync(this.props.introAudioSrc)
       }
