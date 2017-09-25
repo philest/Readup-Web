@@ -87,6 +87,7 @@ import {
 import {
   getRecorder,
   getIsDemo,
+  getNumQuestions,
 } from './selectors'
 
 import assessmentSaga from './assessmentSaga'
@@ -161,7 +162,7 @@ function errorHandler(error) {
     console.log("saw this error:", error);
 }
 
-function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob) {
+function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob, firstTime) {
   yield put.resolve(setReaderState(ReaderStateOptions.done))
 
   let blobURL
@@ -182,7 +183,13 @@ function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob) {
   blobURL = blobURL || 'fake'
 
   // this is done in the Store because PlaybackModal takes this is a prop
-  yield put.resolve(setRecordingURL(blobURL, isCompBlob))
+  if (!isCompBlob) {
+    yield put.resolve(setRecordingURL(blobURL, isCompBlob))
+  }
+  else if (firstTime) {
+    yield put.resolve(setRecordingURL(blobURL, isCompBlob))
+  }
+
   return yield blobURL
 }
 
@@ -290,9 +297,25 @@ function* generalCompSaga() {
     }
 }
 
+// assumes at least one question...
+function* definedCompSaga(numQuestions) {
+  
+  let compBlobArray = []
+  let newBlob = yield* compSaga(true)
+  compBlobArray.push(newBlob)
+
+  for(let currQ = 2; currQ <= numQuestions; currQ++){
+      let tryBlob = yield* compSaga(false)
+      compBlobArray.push(tryBlob)
+  }
+
+  return compBlobArray
+
+}
 
 
-function* compSaga(firstTime: boolean, lastTime: boolean) {
+
+function* compSaga(firstTime: boolean) {
 
   const compEffects = []
 
@@ -379,32 +402,21 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 
   let recorder = yield select(getRecorder)
 
-  if (firstTime) { // start
-
-    try {
-      yield call(recorder.startRecording)
-      yield put.resolve(setHasRecordedSomething(true))
-      yield put.resolve(setReaderState(
-        ReaderStateOptions.inProgress,
-      ))
-    } catch (err) {
-      yield clog("ERROR: ", err)
-      yield call(sendEmail, err, "Recorder failed to start in comp...", "philesterman@gmail.com") // move here so don't break
-    }
 
 
-  } else { // resume
-    try {
-      yield call(recorder.resumeRecording)
-    } catch (err) {
-      yield clog('err', err)
-    }
-
-
+  // Start recording 
+  try {
+    yield call(recorder.startRecording)
+    yield put.resolve(setHasRecordedSomething(true))
     yield put.resolve(setReaderState(
       ReaderStateOptions.inProgress,
     ))
+  } catch (err) {
+    yield clog("ERROR: ", err)
+    yield call(sendEmail, err, "Recorder failed to start in comp...", "philesterman@gmail.com") // move here so don't break
   }
+
+
 
 
   // In middle of recording 
@@ -428,23 +440,9 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 
   recorder = yield select(getRecorder)
 
-  if (lastTime) { // halt
-
-    const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
-    yield clog('url for comp recording!!!', compRecordingURL)
-
-  } else { // pause
-
-    try {
-      yield call(recorder.pauseRecording)
-      yield put.resolve(setReaderState(
-        ReaderStateOptions.paused,
-      ))
-    } catch (err) {
-      yield clog('err:', err)
-    }
-
-  }
+  // stop it 
+  const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, firstTime);
+  yield clog('url for comp recording!!!', compRecordingURL)
 
 
   yield playSound('/audio/complete.mp3')
@@ -476,9 +474,7 @@ function* compSaga(firstTime: boolean, lastTime: boolean) {
 
   yield put.resolve(setCurrentModal('no-modal'))
 
-  if (!lastTime) {
-    yield* questionIncrementSaga()
-  }  
+  yield* questionIncrementSaga()
 
   yield cancel(...compEffects)
 
@@ -646,7 +642,7 @@ function* assessThenSubmitSaga(bookKey) {
   recorder = yield select(getRecorder)
 
 
-  const recordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, false);
+  const recordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, false, false);
 
   yield clog('url for recording!!!', recordingURL)
 
@@ -688,28 +684,34 @@ function* assessThenSubmitSaga(bookKey) {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
-    const {
-      comp,
-      finishComp,
-    } = yield race({
-      comp: call(generalCompSaga),
-      finishComp: take(LAST_QUESTION_EXITED),
-    })
+    // const {
+    //   comp,
+    //   finishComp,
+    // } = yield race({
+    //   comp: call(generalCompSaga),
+    //   finishComp: take(LAST_QUESTION_EXITED),
+    // })
+    const numQuestions = yield select(getNumQuestions)
+
+    const compBlobArray = yield call(definedCompSaga, numQuestions)
+    compBlob = compBlobArray[0]
+
+
 
 
     yield put({ type: SPINNER_HIDE })
 
 
-    let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
-    yield clog('url for comp recording!!!', compRecordingURL)
+    // let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
+    // yield clog('url for comp recording!!!', compRecordingURL)
 
-    try {
-      compBlob = recorder.getBlob()
-    }
-    catch (err) {
-      combBlob = 'it broke'
-      yield clog('err:', err) 
-    } 
+    // try {
+    //   compBlob = recorder.getBlob()
+    // }
+    // catch (err) {
+    //   combBlob = 'it broke'
+    //   yield clog('err:', err) 
+    // } 
 
 
 
