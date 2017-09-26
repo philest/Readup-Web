@@ -257,77 +257,40 @@ function* questionIncrementSaga (action) {
 }
 
 
-// if it's a real prompt, play it, then reset it on the student. 
 
-function* keepFetchingPrompt(studentID) {
-  yield clog('here in keepFetchingPrompt')
-  let prompt 
-  while (true) {
-    prompt = yield call(fetchInBackground, studentID)
-    yield clog('loop: prompt is: ', prompt)
 
-    if (prompt !== PromptOptions.awaitingPrompt && prompt !== PromptOptions.noPromptNeeded) {
-      let audiofile = PromptAudioOptions[prompt]
-      yield playSoundAsync(audiofile)
-      yield call(resetToAwaitingPrompt, studentID)
-      yield call(delay, 1000)
-    }
-    yield call(delay, 750)
-  }
+function* playPromptSaga(prompt, studentID) {
+    let audiofile = PromptAudioOptions[prompt]
+    yield playSound(audiofile)
+    yield call(resetToAwaitingPrompt, studentID)
 }
 
-function* fetchInBackground(studentID) {
-    yield clog('  here in fetchInBackground..')
 
-    // TODO current student....
-    const fetchedPrompt = yield getStudentPromptStatus(studentID)
+
+
+function* newFetchUntilPrompt(studentID){
+  let fetchedPrompt = PromptOptions.awaitingPrompt
+
+  while (fetchedPrompt === PromptOptions.awaitingPrompt) {
+    fetchedPrompt = yield getStudentPromptStatus(studentID)
       .catch(e => e.request) // TODO
-
-    yield clog('Prompt:', fetchedPrompt)
-    return fetchedPrompt
-}
-
-
-function* generalCompSaga() {
-    let compBlob = yield* compSaga(true, false)
-
-    while (true) {
-      yield call(delay, 1000)
-      compBlob = yield* compSaga(false, false)
-    }
-}
-
-// assumes at least one question...
-function* definedCompSaga(numQuestions) {
   
-  let compBlobArray = []
-
-  for(let currQ = 1; currQ <= numQuestions; currQ++){
-
-      let isFirstTime = (currQ === 1)
-      let newBlob = yield* compSaga(isFirstTime)
-      compBlobArray.push(newBlob)
-
-        // reset the recorder each time
-        let recorder = yield select(getRecorder)
-        yield call(recorder.reset)
-        recorder = yield select(getRecorder)
-        yield call(recorder.initialize)
+    if (fetchedPrompt === PromptOptions.noPromptNeeded) {
+      yield call(resetToAwaitingPrompt, studentID)
+      return null
+    }
+    
+    yield clog('Prompt:', fetchedPrompt)
+    yield call(delay, 1000)
   }
 
-  return compBlobArray
-
+  return fetchedPrompt // a meaningful prompt was found 
 }
 
 
 
-function* compSaga(firstTime: boolean) {
 
-  const compEffects = []
-
-  yield put.resolve(setCurrentModal('modal-comp'))
-
-  if (firstTime) {
+function* instructionSaga() {
     yield put.resolve(setPageNumber(0))
     yield put.resolve(setInComp(true))
 
@@ -353,7 +316,90 @@ function* compSaga(firstTime: boolean) {
 
     }
 
+}
+
+
+// assumes at least one question...
+function* definedCompSaga(numQuestions) {
+  
+  let compBlobArray = []
+
+  for(let currQ = 1; currQ <= numQuestions; currQ++){
+
+      yield clog("currQ IS", currQ)
+
+      let isFirstTime = (currQ === 1)
+      if (isFirstTime) { // first time, play instructions 
+          yield put.resolve(setCurrentModal('modal-comp'))
+          yield call(instructionSaga)
+      }
+
+
+      let newBlob = yield* compSaga(isFirstTime)
+      compBlobArray.push(newBlob)
+
+        // reset the recorder each time
+        let recorder = yield select(getRecorder)
+        yield call(recorder.reset)
+        recorder = yield select(getRecorder)
+        yield call(recorder.initialize)
   }
+
+  return compBlobArray
+
+}
+
+// worry about pause->stop later. 
+function* promptSaga() {
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.awaitingStart,
+  ))
+
+
+  yield take(START_RECORDING_CLICKED)
+
+  yield call(stopAudio)
+
+  yield playSoundAsync('/audio/single_countdown.mp3')
+
+  yield call(delay, 900)
+
+  let recorder = yield select(getRecorder)
+
+  // resume recording 
+  try {
+    yield call(recorder.resumeRecording)
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.inProgress,
+    ))
+  } catch (err) {
+    yield clog("ERROR: ", err)
+    yield call(sendEmail, err, "Recorder failed to resume in promptSaga...", "philesterman@gmail.com") // move here so don't break
+  }
+
+  yield take(STOP_RECORDING_CLICKED)
+  yield call(stopAudio)
+
+  try {
+    yield call(recorder.pauseRecording)
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.paused,
+    ))
+  } catch (err) {
+    yield clog("ERROR: ", err)
+    yield call(sendEmail, err, "Recorder failed to pause in promptSaga...", "philesterman@gmail.com") // move here so don't break
+  }
+
+}
+
+
+function* compSaga(firstTime: boolean, isPrompt: boolean) {
+
+  const compEffects = []
+
+
+  yield put.resolve(setCurrentModal('modal-comp'))
 
 
 
@@ -361,7 +407,7 @@ function* compSaga(firstTime: boolean) {
     ReaderStateOptions.playingBookIntro,
   ))
 
-  if (firstTime) { 
+  if (firstTime) {
     yield call(delay, 8200)
   }
 
@@ -390,14 +436,6 @@ function* compSaga(firstTime: boolean) {
 
 
 
-
-
-
-
-
-
-
-
   yield take(START_RECORDING_CLICKED)
 
   yield call(stopAudio)
@@ -409,19 +447,30 @@ function* compSaga(firstTime: boolean) {
   let recorder = yield select(getRecorder)
 
 
-
-  // Start recording 
-  try {
-    yield call(recorder.startRecording)
-    yield put.resolve(setHasRecordedSomething(true))
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.inProgress,
-    ))
-  } catch (err) {
-    yield clog("ERROR: ", err)
-    yield call(sendEmail, err, "Recorder failed to start in comp...", "philesterman@gmail.com") // move here so don't break
+  if (!isPrompt) {
+    // Start recording 
+    try {
+      yield call(recorder.startRecording)
+      yield put.resolve(setHasRecordedSomething(true))
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.inProgress,
+      ))
+    } catch (err) {
+      yield clog("ERROR: ", err)
+      yield call(sendEmail, err, "Recorder failed to start in comp...", "philesterman@gmail.com") // move here so don't break
+    }
   }
-
+  else {
+    try {
+      yield call(recorder.resumeRecording)
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.inProgress,
+      ))
+    } catch (err) {
+      yield clog("ERROR: ", err)
+      yield call(sendEmail, err, "Recorder failed to resume in comp...", "philesterman@gmail.com") // move here so don't break
+    }
+  }
 
 
 
@@ -434,18 +483,14 @@ function* compSaga(firstTime: boolean) {
 
   yield clog('studentID is', studentID)
 
-    yield race({
-      task: call(keepFetchingPrompt, studentID),
-      cancel: take(STOP_RECORDING_CLICKED),
-    })
+
+  yield take(STOP_RECORDING_CLICKED)
 
 
   yield call(stopAudio)
 
-  yield clog('made it here 2')
 
   recorder = yield select(getRecorder)
-
   // stop it 
   const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, firstTime);
   yield clog('url for comp recording!!!', compRecordingURL)
@@ -468,27 +513,50 @@ function* compSaga(firstTime: boolean) {
   yield put({ type: SPINNER_SHOW })
 
 
-  yield call(delay, 1000)
 
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.playingBookIntro,
-  ))
-
-
-  yield put({ type: SPINNER_HIDE })
+  const { prompt, timeout } = yield race({
+    prompt: call(newFetchUntilPrompt, studentID),
+    timeout: call(delay, 5000),
+  })
 
 
-  yield put.resolve(setCurrentModal('no-modal'))
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.playingBookIntro,
+    ))
 
-  yield* questionIncrementSaga()
+    yield put({ type: SPINNER_HIDE })
 
-  yield cancel(...compEffects)
 
-  try {
-    return recorder.getBlob()
-  } catch (err) {
-    yield clog ('err: ', err)
-    return 'it broke'
+
+
+  if (prompt) {
+    yield clog("111 We found a prompt!: ", prompt)
+
+    yield call(playPromptSaga, prompt, studentID)
+
+    yield cancel(...compEffects)
+
+    return yield call(compSaga, false)
+
+  }
+
+
+  else {
+    yield clog("111 NO PROMPT FOUND")
+
+    yield put.resolve(setCurrentModal('no-modal'))
+
+    yield* questionIncrementSaga()
+
+    yield cancel(...compEffects)
+
+    try {
+      return recorder.getBlob()
+    } catch (err) {
+      yield clog ('err: ', err)
+      return 'it broke'
+    }
+
   }
 
 }

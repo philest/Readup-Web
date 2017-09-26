@@ -61,10 +61,15 @@ Rails.application.routes.draw do
   get 'student_dashboard/assessment', to: 'student_dashboard#create_assessment'
   post 'student_dashboard/assessment', to: 'student_dashboard#confirm_assessment_completion'
 
-  get 'demo', to: redirect('/student_dashboard/#/story/demo')
+  get 'demo', to: redirect('/student_dashboard/#/story/nick')
 
   get 'fp', to: redirect('/student_dashboard/#/story/nick')
   get 'nick', to: redirect('/student_dashboard/#/story/nick')
+
+  get 'firefly', to: redirect('/student_dashboard/#/story/demo')
+  get 'test', to: redirect('/student_dashboard/#/story/demo')
+
+
 
 
   get 'grade/:user_id', to: 'grader_interface#index'
