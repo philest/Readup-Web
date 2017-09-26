@@ -335,7 +335,7 @@ function* definedCompSaga(numQuestions) {
       }
 
 
-      let newBlob = yield* compSaga(isFirstTime)
+      let newBlob = yield* compSaga(isFirstTime, false)
       compBlobArray.push(newBlob)
 
         // reset the recorder each time
@@ -539,7 +539,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean) {
 
     yield cancel(...compEffects)
 
-    return yield call(compSaga, false)
+    return yield call(compSaga, false, true)
 
   }
 
