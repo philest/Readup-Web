@@ -335,7 +335,7 @@ function* definedCompSaga(numQuestions) {
       }
 
 
-      let newBlob = yield* compSaga(isFirstTime, false)
+      let newBlob = yield* compSaga(isFirstTime, false, isFirstTime)
       compBlobArray.push(newBlob)
 
         // reset the recorder each time
@@ -394,7 +394,7 @@ function* promptSaga() {
 }
 
 
-function* compSaga(firstTime: boolean, isPrompt: boolean) {
+function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boolean) {
 
   const compEffects = []
 
@@ -539,7 +539,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean) {
 
     yield cancel(...compEffects)
 
-    return yield call(compSaga, false, true)
+    return yield call(compSaga, false, true, firstTime)
 
   }
 
@@ -548,7 +548,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean) {
     yield clog("111 NO PROMPT FOUND")
 
     // stop it 
-    const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, firstTime);
+    const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, isOnFirstQuestion);
     yield clog('url for comp recording!!!', compRecordingURL)
 
     yield put.resolve(setReaderState(
@@ -770,13 +770,7 @@ function* assessThenSubmitSaga(bookKey) {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
-    // const {
-    //   comp,
-    //   finishComp,
-    // } = yield race({
-    //   comp: call(generalCompSaga),
-    //   finishComp: take(LAST_QUESTION_EXITED),
-    // })
+
     const numQuestions = yield select(getNumQuestions)
 
     const compBlobArray = yield call(definedCompSaga, numQuestions)
