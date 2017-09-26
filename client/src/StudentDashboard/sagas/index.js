@@ -207,7 +207,7 @@ function* redirectToHomepage () {
 
 
 
-function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean) {
+function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean, questionNum: number) {
 
   let numAttempts = 2
 
@@ -219,7 +219,7 @@ function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean) {
   for (let i = 0; i < numAttempts; i++) {
     try {
       const presign = yield getS3Presign(assessmentId, isCompBlob)
-      const res = yield sendAudioToS3(blob, presign)
+      const res = yield sendAudioToS3(blob, presign, isCompBlob, questionNum)
       yield clog('yay response!', res)
       return yield res
     } catch (err) {
@@ -918,22 +918,29 @@ function* rootSaga() {
 
       const recordingBlob = recordingBlobArray[0]
       const compBlobArray = recordingBlobArray[1]
-      const compBlob = compBlobArray[0]
+      const numBlobs = compBlobArray.length
 
       yield put({ type: SPINNER_SHOW })
 
       yield playSoundAsync('/audio/complete.mp3')
 
-      // const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false)
-      const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false)
+      const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
 
-      const compTurnedIn = yield* turnInAudio(compBlob, assessmentId, true)
+      let compTurnedIn = []
+
+      for(let i = 0; i <=  numBlobs; i++) {
+        const compBlob = compBlobArray[i]
+
+        const newResult = yield* turnInAudio(compBlob, assessmentId, true, i + 1)
+        compTurnedIn.push(newResult)
+      }
+
 
 
       yield put({ type: SPINNER_HIDE })
 
 
-      // success!
+      // success! TODO better checking of compTurnedIn
       if (turnedIn && compTurnedIn) {
         yield clog('turned it in!')
 

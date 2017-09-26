@@ -50,11 +50,18 @@ export function getS3Presign(assessmentId: number, isCompBlob: boolean): Presign
 }
 
 
-export function sendAudioToS3(blob, presign: PresignObject) {
+export function sendAudioToS3(blob, presign: PresignObject, isCompBlob: boolean, questionNum: number) {
 
   const { fields, url } = presign
   const data = new FormData(); // eslint-disable-line
-  const fileName = "recording.webm";
+  let fileName
+
+  if (!isCompBlob) {
+    fileName = "recording.webm";
+  }
+  else {
+    fileName = ["question", String(questionNum), ".webm"].join('');
+  }
 
   console.log('sendAudio', presign, blob)
 
