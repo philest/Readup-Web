@@ -616,7 +616,6 @@ export const fpBook = {
     },
     3: {
       title: "How do you think Nick feels about Wags?",
-      subtitle: "What makes you think that?",
       audioSrc: '/audio/VB/nick/nick-how-feels.mp3',
 
     },
