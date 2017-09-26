@@ -59,6 +59,8 @@ export default class CompModal extends React.Component {
 
   playQuestion = () => {
 
+    console.log("In playQuestion...")
+
     if (this.props.readerState === ReaderStateOptions.playingBookIntro) {
 
       if (this.props.includeDelay) {

@@ -398,6 +398,10 @@ function* compSaga(firstTime: boolean, isPrompt: boolean) {
 
   const compEffects = []
 
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.playingBookIntro,
+  ))
+
 
   yield put.resolve(setCurrentModal('modal-comp'))
 
@@ -486,22 +490,20 @@ function* compSaga(firstTime: boolean, isPrompt: boolean) {
 
   yield take(STOP_RECORDING_CLICKED)
 
-
   yield call(stopAudio)
 
 
   recorder = yield select(getRecorder)
-  // stop it 
-  const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, firstTime);
-  yield clog('url for comp recording!!!', compRecordingURL)
+
+  // Pause it for the prompt fetching 
+  yield call(recorder.pauseRecording)
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.paused,
+  ))
 
 
   yield playSound('/audio/complete.mp3')
 
-
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.done,
-  ))
 
 
 
@@ -530,6 +532,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean) {
 
 
   if (prompt) {
+
     yield clog("111 We found a prompt!: ", prompt)
 
     yield call(playPromptSaga, prompt, studentID)
@@ -543,6 +546,15 @@ function* compSaga(firstTime: boolean, isPrompt: boolean) {
 
   else {
     yield clog("111 NO PROMPT FOUND")
+
+    // stop it 
+    const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, firstTime);
+    yield clog('url for comp recording!!!', compRecordingURL)
+
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.playingBookIntro,
+    ))
+
 
     yield put.resolve(setCurrentModal('no-modal'))
 
