@@ -88,6 +88,8 @@ import {
   getRecorder,
   getIsDemo,
   getNumQuestions,
+  getQuestionNumber,
+  getBook
 } from './selectors'
 
 import assessmentSaga from './assessmentSaga'
@@ -260,7 +262,15 @@ function* questionIncrementSaga (action) {
 
 
 function* playPromptSaga(prompt, studentID) {
-    let audiofile = PromptAudioOptions[prompt]
+    let audiofile
+    if (prompt === PromptOptions.repeatQuestion) {
+      const questionNumber = yield select(getQuestionNumber)
+      const book = yield select(getBook)
+      audiofile = book.questions[questionNumber].audioSrc
+    } else {
+      audiofile = PromptAudioOptions[prompt]
+    }
+
     yield playSound(audiofile)
     yield call(resetToAwaitingPrompt, studentID)
 }
