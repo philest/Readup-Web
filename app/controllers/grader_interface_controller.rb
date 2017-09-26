@@ -26,21 +26,21 @@ class GraderInterfaceController < ApplicationController
 
       # Backwards compatability to non-comp users... 
       if @assessment.comp_scores
-        @comp_score = @assessment.comp_scores["0"]
+        @comp_scores = @assessment.comp_scores
       else 
-        @comp_score = nil
+        @comp_scores = nil
       end 
 
       if @assessment.grader_comments
-        @grader_comment = @assessment.grader_comments["0"]
+        @grader_comments = @assessment.grader_comments
       else 
-        @grader_comment = nil
+        @grader_comments = nil
       end 
 
       if @assessment.student_responses
-        @student_response = @assessment.student_responses["0"]
+        @student_responses = @assessment.student_responses
       else 
-        @student_response = nil
+        @student_responses = nil
       end 
 
       if @assessment.book_key === 'nick'
@@ -72,9 +72,9 @@ class GraderInterfaceController < ApplicationController
         whenFirstSaved: (@assessment.saved_at .to_f*1000).to_i,
         userCountPrior: User.count,
         fluencyScorePrior: @assessment.fluency_score,
-        graderCommentPrior: @grader_comment,
-        studentResponsePrior: @student_response,
-        compScorePrior: @comp_score,
+        graderCommentsPrior: @grader_comments,
+        studentResponsesPrior: @student_responses,
+        compScoresPrior: @comp_scores,
         studentID: @student.id,
         assessmentBrand: @assessment.brand,
         isLiveDemo: @assessment.is_live_demo,

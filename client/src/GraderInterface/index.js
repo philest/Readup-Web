@@ -91,7 +91,7 @@ export default class GraderInterface extends React.Component {
       fluencyScore: this.props.fluencyScorePrior,
       assessmentBrand: this.props.assessmentBrand,
       isLiveDemo: this.props.isLiveDemo,
-      graderComment: this.props.graderCommentPrior,
+      graderComments: this.props.graderCommentsPrior,
     }
         this.tick = this.tick.bind(this);
 
@@ -550,6 +550,54 @@ export default class GraderInterface extends React.Component {
     window.location.href = '/'
   }
 
+
+
+  renderCompQuestionsOne = () => {
+    let q = 1
+    let questionsArr = []
+
+      questionsArr.push(
+          <div>
+            <br/><br/>
+
+            <h4>{`Question ${q}`}</h4>
+            <FormGroup controlId="studentResponse">
+              <ControlLabel>Student Response</ControlLabel>
+              <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput1 = ref; }} placeholder="Student response" />
+            </FormGroup>
+
+
+            <br/>
+
+            <FormGroup controlId="graderComments">
+              <ControlLabel>Your comments</ControlLabel>
+              <FormControl value={this.state.graderComments[q - 1]} onChange={this.handleGraderCommentChange} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
+            </FormGroup>
+
+
+            <br/>
+
+            <h4 >
+              Comp Score
+            </h4>
+
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button active={this.state.compScore === 0} href="#" onClick={this.onCompScoreZeroClicked}><strong>0</strong> - Unsatisfactory</Button>
+              <Button active={this.state.compScore === 1} href="#" onClick={this.onCompScoreOneClicked}><strong>1</strong> - Limited</Button>
+              <Button active={this.state.compScore === 2} href="#" onClick={this.onCompScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
+              <Button active={this.state.compScore === 3} href="#" onClick={this.onCompScoreThreeClicked}><strong>3</strong> - Excellent</Button>
+            </ButtonGroup>
+
+            <br/><br/>
+          </div>
+      ) 
+    }
+    return questionsArr
+
+  }
+
+
+
   renderCompAudioPlayers = () => {
 
     if (this.props.userID <= 156 ) {  // backwards compatibility
@@ -597,6 +645,10 @@ export default class GraderInterface extends React.Component {
 
 
   handleGraderCommentChange = (event) => {
+    let graderComments = this.state.graderComments
+    // graderComments 
+    // this.setState({ graderCommments })
+
     this.setState({ graderComment: event.target.value })
   }
 
@@ -774,36 +826,10 @@ export default class GraderInterface extends React.Component {
 
         <h3>Comprehension</h3>
 
-        <br/><br/>
 
-        <FormGroup controlId="studentResponse">
-          <ControlLabel>Student Response</ControlLabel>
-          <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsePrior} inputRef={ref => { this.studentResponseInput = ref; }} placeholder="Student response" />
-        </FormGroup>
+        { this.renderCompQuestions() }
 
 
-        <br/>
-
-        <FormGroup controlId="graderComments">
-          <ControlLabel>Your comments</ControlLabel>
-          <FormControl value={this.state.graderComment} onChange={this.handleGraderCommentChange} componentClass="textarea" className={styles.myTextArea}  inputRef={ref2 => { this.graderCommentsInput = ref2; }} placeholder="Your comments" />
-        </FormGroup>
-
-
-        <br/>
-
-        <h4 >
-          Comp Score
-        </h4>
-
-        <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-          <Button active={this.state.compScore === 0} href="#" onClick={this.onCompScoreZeroClicked}><strong>0</strong> - Unsatisfactory</Button>
-          <Button active={this.state.compScore === 1} href="#" onClick={this.onCompScoreOneClicked}><strong>1</strong> - Limited</Button>
-          <Button active={this.state.compScore === 2} href="#" onClick={this.onCompScoreTwoClicked}><strong>2</strong> - Satifscatory</Button>
-          <Button active={this.state.compScore === 3} href="#" onClick={this.onCompScoreThreeClicked}><strong>3</strong> - Excellent</Button>
-        </ButtonGroup>
-
-        <br/><br/>
         <br/><br/>
         <br/><br/>
 
