@@ -80,6 +80,7 @@ class GraderInterfaceController < ApplicationController
         assessmentBrand: @assessment.brand,
         isLiveDemo: @assessment.is_live_demo,
         bookKey: bookKey,
+        env: ENV['RAILS_ENV']
       }
       
     end

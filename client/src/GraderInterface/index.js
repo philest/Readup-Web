@@ -22,8 +22,10 @@ import {
 } from '../StudentDashboard/types'
 
 
-
-let rubric 
+let book
+let rubric
+let numQuestions
+let questions
 
 const popoverBottom = (
   <Popover id="popover-positioned-bottom" className={questionCSS.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
@@ -71,7 +73,7 @@ export default class GraderInterface extends React.Component {
 
   constructor(props, _railsContext) {
     super(props);
-    this.state = { 
+    this.state = {
       evaluationTextData: JSON.parse(this.props.scoredText),
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
@@ -101,11 +103,18 @@ export default class GraderInterface extends React.Component {
 
 
     if (this.props.bookKey === 'nick') {
-      rubric = fpBook.rubric
+      book = fpBook
     }
     else {
-      rubric = fireflyBook.rubric
+      book = fireflyBook
     }
+
+    rubric = book.rubric
+    numQuestions = book.numQuestions
+
+
+
+
 
     // TODO refactor this into a controller prop 
     // getFluencyScore(this.props.assessmentID).then(res => {
@@ -523,6 +532,35 @@ export default class GraderInterface extends React.Component {
     window.location.href = '/'
   }
 
+  renderCompAudioPlayers = () => {
+
+    if (this.props.userID <= 156 ) {  // backwards compatibility
+      return  (
+        <audio controls ref={"1_AudioPlayer"} className={styles.audioElement}>
+          <source src={`https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/recording.webm`} />
+          <p>Playback not supported</p>
+        </audio>
+      )
+    } 
+
+    let audioPlayers = []
+
+    for(let q = 1; q <= numQuestions; q++){
+      
+      audioPlayers.push (
+        <div>
+          <h5>{`Response ${q}`}</h5>
+          <audio controls ref={String(q)+ "_AudioPlayer"} className={styles.audioElement}>
+            <source src={`https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${q}.webm`} />
+            <p>Playback not supported</p>
+          </audio>
+        </div>
+      )
+    }
+
+    return audioPlayers
+  }
+
 
   renderNavigationBar = () => {
 
@@ -600,18 +638,15 @@ export default class GraderInterface extends React.Component {
         </div>
 
 
-
+        <h5>Oral Reading</h5>
         <audio controls ref={"audioPlayer"} className={styles.audioElement}>
           <source src={this.props.recordingURL} />
           <p>Playback not supported</p>
         </audio>
         
-        <audio controls ref={"secondAudioPlayer"} className={styles.audioElement}>
-          <source src={this.props.compRecordingURL} />
-          <p>Playback not supported</p>
-        </audio>
-
-        
+        {   
+            this.renderCompAudioPlayers()
+        }   
 
 
         <div className={styles.markupContainer}>
