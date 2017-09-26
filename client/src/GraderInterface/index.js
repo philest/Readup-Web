@@ -25,7 +25,7 @@ import {
 let book
 let rubric
 let numQuestions
-let questions
+let currAudioPlayer
 
 const popoverBottom = (
   <Popover id="popover-positioned-bottom" className={questionCSS.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
@@ -131,6 +131,8 @@ export default class GraderInterface extends React.Component {
 
   componentDidMount() {
     this.interval = setInterval(this.tick, 3000);
+     currAudioPlayer = this.refs.audioPlayer0
+
   }
 
   componentWillUnmount() {
@@ -206,41 +208,57 @@ export default class GraderInterface extends React.Component {
 
   _handleKeyDown = (event) => {
 
+    console.log(event)
     // audio playback keys
 
       // TODO ASAP: BRING BACK PAUSING AND ARROW KEYING 
 
-    // if (event.code === 'Space') {
+    if (event.code === 'Space' && event.shiftKey) {
 
 
-    //   if (this.refs.audioPlayer.paused) {
-    //     this.refs.audioPlayer.play()
-    //   }
-    //   else {
-    //     this.refs.audioPlayer.pause()
-    //   }
+      if (currAudioPlayer.paused) {
+        currAudioPlayer.play()
+      }
+      else {
+        currAudioPlayer.pause()
+      }
       
-    //   event.preventDefault();
+      event.preventDefault();
 
 
 
-    // }
-    // else if (event.code === 'ArrowLeft') {
-    //   if (this.refs.audioPlayer.currentTime < 2) {
-    //     this.refs.audioPlayer.currentTime = 0;
-    //   }
-    //   else {
-    //     this.refs.audioPlayer.currentTime -= 2;
-    //   }
-    // }
-    // else if (event.code === 'ArrowRight') {
-    //   if (this.refs.audioPlayer.currentTime > this.refs.audioPlayer.duration - 2) {
-    //     this.refs.audioPlayer.currentTime = this.refs.audioPlayer.duration
-    //   }
-    //   else {
-    //     this.refs.audioPlayer.currentTime += 2;
-    //   }
-    // }
+    }
+    else if (event.code === 'ArrowLeft' && event.shiftKey) {
+      if (currAudioPlayer.currentTime < 2) {
+        currAudioPlayer.currentTime = 0;
+      }
+      else {
+        currAudioPlayer.currentTime -= 2;
+      }
+    }
+    else if (event.code === 'ArrowRight' && event.shiftKey) {
+      if (currAudioPlayer.currentTime > currAudioPlayer.duration - 2) {
+        currAudioPlayer.currentTime = currAudioPlayer.duration
+      }
+      else {
+        currAudioPlayer.currentTime += 2;
+      }
+
+    }
+    else if (event.code === 'Digit0' && event.shiftKey) {
+      currAudioPlayer = this.refs.audioPlayer0
+    }    
+    else if (event.code === 'Digit1' && event.shiftKey) {
+      currAudioPlayer = this.refs.audioPlayer1
+    }
+    else if (event.code === 'Digit2' && event.shiftKey) {
+      currAudioPlayer = this.refs.audioPlayer2
+    }
+    else if (event.code === 'Digit3' && event.shiftKey) {
+      currAudioPlayer = this.refs.audioPlayer3
+    }
+
+
 
     // grading keys
     // first ensure we have selected indices
@@ -536,7 +554,7 @@ export default class GraderInterface extends React.Component {
 
     if (this.props.userID <= 156 ) {  // backwards compatibility
       return  (
-        <audio controls ref={"1_AudioPlayer"} className={styles.audioElement}>
+        <audio controls ref={"audioPlayer1"} className={styles.audioElement}>
           <source src={`https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/recording.webm`} />
           <p>Playback not supported</p>
         </audio>
@@ -550,7 +568,7 @@ export default class GraderInterface extends React.Component {
       audioPlayers.push (
         <div>
           <h5>{`Response ${q}`}</h5>
-          <audio controls ref={String(q)+ "_AudioPlayer"} className={styles.audioElement}>
+          <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
             <source src={`https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${q}.webm`} />
             <p>Playback not supported</p>
           </audio>
@@ -639,7 +657,7 @@ export default class GraderInterface extends React.Component {
 
 
         <h5>Oral Reading</h5>
-        <audio controls ref={"audioPlayer"} className={styles.audioElement}>
+        <audio controls ref={"audioPlayer0"} className={styles.audioElement}>
           <source src={this.props.recordingURL} />
           <p>Playback not supported</p>
         </audio>

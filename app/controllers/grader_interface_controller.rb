@@ -64,7 +64,6 @@ class GraderInterfaceController < ApplicationController
         bookTitle: title,
         bookLevel: level,
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm",
-        compRecordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/comp/recording.webm",
         scoredText: @assessment.scored_text,
         userID: @user.id,
         assessmentID: @assessment.id,
