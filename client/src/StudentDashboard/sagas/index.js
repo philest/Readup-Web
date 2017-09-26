@@ -758,7 +758,7 @@ function* assessThenSubmitSaga(bookKey) {
 
   let blobAndPrompt
   let fetchedPrompt
-  let compBlob
+  let compBlobArray
 
   if (endRecording) {
 
@@ -783,8 +783,7 @@ function* assessThenSubmitSaga(bookKey) {
 
     const numQuestions = yield select(getNumQuestions)
 
-    const compBlobArray = yield call(definedCompSaga, numQuestions)
-    compBlob = compBlobArray[0]
+    compBlobArray = yield call(definedCompSaga, numQuestions)
 
 
 
@@ -814,7 +813,7 @@ function* assessThenSubmitSaga(bookKey) {
 
   }
 
-  compBlob = compBlob || ''
+  compBlobArray = compBlobArray || ''
 
 
 
@@ -828,9 +827,9 @@ function* assessThenSubmitSaga(bookKey) {
   yield cancel(...effects)
 
   yield clog("recordingBlob:   ", recordingBlob)
-  yield clog("compblog:   ", compBlob)
+  yield clog("compblogArray:   ", compBlobArray)
 
-  return [recordingBlob, compBlob]
+  return [recordingBlob, compBlobArray]
 
 }
 
@@ -918,7 +917,8 @@ function* rootSaga() {
     } else {
 
       const recordingBlob = recordingBlobArray[0]
-      const compBlob = recordingBlobArray[1]
+      const compBlobArray = recordingBlobArray[1]
+      const compBlob = compBlobArray[0]
 
       yield put({ type: SPINNER_SHOW })
 
