@@ -338,6 +338,25 @@ export default class ReportsInterface extends React.Component {
 
 
 
+  renderCompAudio = () => {
+
+    let compURL 
+
+    if (this.props.userID < 156) {
+      compURL = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/recording.webm`
+    } else {
+      compURL = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question1.webm`
+    }
+
+
+    return (
+    <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
+      <source src={compURL} />
+      <p>Playback not supported</p>
+    </audio>
+    )
+
+  }
 
 
 
@@ -775,10 +794,8 @@ export default class ReportsInterface extends React.Component {
                     <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
                     { this.state.showCompAudioPlayback &&
-                      <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
-                        <source src={this.props.compRecordingURL} />
-                        <p>Playback not supported</p>
-                      </audio>
+
+                      this.renderCompAudio()
                     }
 
 

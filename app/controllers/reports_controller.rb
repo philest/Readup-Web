@@ -65,7 +65,9 @@ class ReportsController < ApplicationController
         reviewerSignature: "Ashley Brantley, M.A.",
         reviewerProfilePicURL: "/images/ashley.png",
         assessmentBrand: @assessment.brand,
-        isLiveDemo: @assessment.is_live_demo
+        isLiveDemo: @assessment.is_live_demo,
+        env: ENV['RAILS_ENV']
+
 
       }
 
@@ -162,7 +164,8 @@ class ReportsController < ApplicationController
         reviewerProfilePicURL: "/images/maria-small.png",
         assessmentBrand: assessmentBrand,
         isLiveDemo: false,
-        bookKey: bookKey
+        bookKey: bookKey,
+        env: ENV['RAILS_ENV']
 
       }
     end
