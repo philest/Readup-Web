@@ -528,7 +528,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
   const { prompt, timeout } = yield race({
     prompt: call(newFetchUntilPrompt, studentID),
-    timeout: call(delay, 5000),
+    timeout: call(delay, 8000),
   })
 
 
