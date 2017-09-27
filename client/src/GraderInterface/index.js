@@ -548,7 +548,8 @@ export default class GraderInterface extends React.Component {
 
 
 
-  handleGraderCommentChange1 = (event) => {
+  handleGraderCommentChange1 = (event, id) => {
+    console.log('id is... ', id )
     let graderComments = this.state.graderComments
     graderComments["0"] = event.target.value
     this.setState({ graderComments: graderComments })
@@ -581,7 +582,7 @@ export default class GraderInterface extends React.Component {
 
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
-              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={handleChangeFunc} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
+              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={() => this.handleGraderCommentChange1(1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
             </FormGroup>
 
 
