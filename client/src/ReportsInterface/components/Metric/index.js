@@ -127,8 +127,19 @@ export default class Metric extends React.Component {
       } else {
         return 'poor'
       }
+    } else if (denominator === 6) {
+
+      if (comp >= 4) {
+        return 'good'
+      } else if (comp >= 3) {
+        return 'fair'
+      } else {
+        return 'poor'
+      }
 
     }
+
+
 
   }
 

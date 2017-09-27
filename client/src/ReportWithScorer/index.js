@@ -358,11 +358,12 @@ export default class ReportWithScorer extends React.Component {
             isDirectSample={this.props.isDirectSample}
             isUnscorable={this.props.isUnscorable}
             fluencyScore={this.props.fluencyScore}
-            compScore={this.props.compScore}
-            graderComment={this.props.graderComment}
-            studentResponse={this.props.studentResponse}
+            compScores={this.props.compScores}
+            graderComments={this.props.graderComments}
+            studentResponses={this.props.studentResponses}
             assessmentBrand={this.props.assessmentBrand}
             bookKey={this.props.bookKey}
+            env={this.props.env}
           />
         </div>
 
@@ -444,7 +445,7 @@ export default class ReportWithScorer extends React.Component {
             <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
             <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              We'll finish scoring in 2 minutes
+              We'll finish scoring in 5 minutes
             </Modal.Title>
             <h4 className={styles.modalSubtitle}>While you wait, you can look over a prior scored assessment</h4>
           </Modal.Header>

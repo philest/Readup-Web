@@ -33,6 +33,37 @@ class ReportsController < ApplicationController
       is_direct_sample = (params['user_id'] == "direct-sample")
 
 
+      @student_responses = @assessment.student_responses
+      @grader_comments = @assessment.grader_comments
+      @comp_scores = @assessment.comp_scores
+
+
+      if (@student_responses === nil)
+        @student_responses = { '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@grader_comments === nil)
+        @grader_comments = {   '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@comp_scores === nil)
+        @comp_scores = {       '0' => nil,
+                               '1' => nil,
+                               '2' => nil,
+                               '3' => nil
+                             }
+      end
+
+
+
       @reports_interface_props = {
         name: "Maya De Leon",
         email: "testemail@gmail.com",
@@ -65,7 +96,13 @@ class ReportsController < ApplicationController
         reviewerSignature: "Ashley Brantley, M.A.",
         reviewerProfilePicURL: "/images/ashley.png",
         assessmentBrand: @assessment.brand,
-        isLiveDemo: @assessment.is_live_demo
+        isLiveDemo: @assessment.is_live_demo,
+        env: ENV['RAILS_ENV'],
+
+        compScores: @comp_scores,
+        graderComments: @grader_comments,
+        studentResponses: @student_responses
+
 
       }
 
@@ -77,23 +114,6 @@ class ReportsController < ApplicationController
 
 
       # Backwards compatability to non-comp users... 
-      if @assessment.comp_scores
-        @comp_score = @assessment.comp_scores["0"]
-      else 
-        @comp_score = nil
-      end 
-
-      if @assessment.grader_comments
-        @grader_comment = @assessment.grader_comments["0"]
-      else 
-        @grader_comment = nil
-      end 
-
-      if @assessment.student_responses
-        @student_response = @assessment.student_responses["0"]
-      else 
-        @student_response = nil
-      end 
 
 
       assessmentBrand = @assessment.brand
@@ -123,6 +143,34 @@ class ReportsController < ApplicationController
       end 
 
 
+      @student_responses = @assessment.student_responses
+      @grader_comments = @assessment.grader_comments
+      @comp_scores = @assessment.comp_scores
+
+
+      if (@student_responses === nil)
+        @student_responses = { '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@grader_comments === nil)
+        @grader_comments = {   '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@comp_scores === nil)
+        @comp_scores = {       '0' => nil,
+                               '1' => nil,
+                               '2' => nil,
+                               '3' => nil
+                             }
+      end
 
 
       @reports_interface_props = {
@@ -143,9 +191,9 @@ class ReportsController < ApplicationController
         isScoredPrior: @assessment.scored,
         isUnscorable: @assessment.unscorable,
         fluencyScore: @assessment.fluency_score,
-        compScore: @comp_score,
-        graderComment: @grader_comment,
-        studentResponse: @student_response,
+        compScores: @comp_scores,
+        graderComments: @grader_comments,
+        studentResponses: @student_responses,
 
         scorerProfilePicURL: "/images/peter.png",
         scorerSignature: "Peter Krason, M.A.",
@@ -162,7 +210,8 @@ class ReportsController < ApplicationController
         reviewerProfilePicURL: "/images/maria-small.png",
         assessmentBrand: assessmentBrand,
         isLiveDemo: false,
-        bookKey: bookKey
+        bookKey: bookKey,
+        env: ENV['RAILS_ENV']
 
       }
     end

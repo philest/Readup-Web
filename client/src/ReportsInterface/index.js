@@ -22,10 +22,12 @@ import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 import { sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
-import { fpBook } from '../StudentDashboard/state.js'
+import { fpBook, fireflyBook } from '../StudentDashboard/state.js'
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
+let book
+let numQuestions
 
 
 
@@ -87,6 +89,17 @@ export default class ReportsInterface extends React.Component {
       this.setState({ showEmailModal: false })
 
     }
+
+
+
+    if (this.props.bookKey === 'nick') {
+      book = fpBook
+    }
+    else {
+      book = fireflyBook
+    }
+
+    numQuestions = book.numQuestions
 
 
 
@@ -193,7 +206,7 @@ export default class ReportsInterface extends React.Component {
   }
 
 
-  getDifficulty(acc, comp) {
+  getDifficulty(acc, comp, compDenom) {
 
     const accOnlyScores = ['Frustrational', 'Instructional', 'Independent']
 
@@ -218,16 +231,67 @@ export default class ReportsInterface extends React.Component {
       accIndex = 0
     }
 
+    let compIndex 
+
+    if (compDenom === 3 && comp) {
+      compIndex = comp 
+    } 
+    else if (compDenom === 6 && comp) {
+
+      if (comp >= 5) {
+        compIndex = 3 
+      }
+      else if (comp >= 4) {
+        compIndex = 2
+      }
+      else if (comp >= 3) {
+        compIndex = 1 
+      }
+      else {
+        compIndex = 0
+      }
+    }
+
+
+
+
+
+
     // Decide whether to use just acc, or the comp as well
 
     if (comp == null) {
       return accOnlyScores[accIndex]
     } else {
-      return fullScores[accIndex][comp]
+      return fullScores[accIndex][compIndex]
     }
 
   }
 
+
+  getCompTotal() {
+
+
+    if (this.props.isSample) {
+      return 5
+    }
+
+    let total = 0 
+
+    for(let i = 0; i < numQuestions; i++) {
+      total += this.props.compScores[String(i)]
+    } 
+    return total
+  }
+
+  getCompDenom() {
+
+    if (this.props.isSample) {
+      return 9
+    }
+
+
+    return 3 + (numQuestions - 1)
+  }
 
 
   hideReportReadyModal() {
@@ -338,6 +402,115 @@ export default class ReportsInterface extends React.Component {
 
 
 
+  renderCompAudio = (questionNum) => {
+
+    let compURL 
+
+    if (this.props.userID < 156) {
+      compURL = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/recording.webm`
+    } else {
+      compURL = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${questionNum}.webm`
+    }
+
+
+    return (
+    <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
+      <source src={compURL} />
+      <p>Playback not supported</p>
+    </audio>
+    )
+
+  }
+
+  renderFullQuestion = (questionNum, isGraded) => {
+
+    let pointsLabel
+    let qLabel = (questionNum + 1) + '. '
+
+    if (questionNum === 0) {
+      pointsLabel = "(3 points)"
+    } else {
+      pointsLabel = "(1 point)"
+    }
+
+
+    return (
+      <div className={styles.questionBlock}>
+        <h4 className={styles.questionText}>{qLabel + book.questions[String(questionNum + 1)].title + ' ' + book.questions[String(questionNum + 1)].subtitle}.<span className={styles.pointValue}> {pointsLabel}</span></h4>
+       
+        { isGraded &&
+          this.renderGradedPartOfQuestion(questionNum)
+        }
+        
+      </div>
+    )
+
+
+  }
+
+
+
+  renderGradedPartOfQuestion = (questionNum) => {
+    let scoreLabel
+    let colorClass
+    if (questionNum === 0) {
+      scoreLabel = this.props.compScores[String(questionNum)] + ' of 3' + ' points'
+      colorClass = this.getColorClass(this.props.compScores[String(questionNum)], true)
+
+    }
+    else {
+      scoreLabel = this.props.compScores[String(questionNum)] + ' of 1' + ' points'
+      colorClass = this.getColorClass(this.props.compScores[String(questionNum)], false)
+    } 
+
+    console.log('colorClass is .... ', colorClass)
+
+    return (
+            <div>
+            <p className={styles.studentResponse}>"{ this.props.studentResponses[String(questionNum)] }"</p> 
+
+            { !this.state.showCompAudioPlayback &&
+            <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+            }
+            { this.state.showCompAudioPlayback &&
+              this.renderCompAudio(questionNum)
+            }
+
+            <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {this.props.graderComments[String(questionNum)]}</p>
+            </div>
+          )
+  }
+
+
+
+  getColorClass(score, isRetell) {
+    let colorClass
+
+    if (isRetell) {
+
+        if (score >= 2) {
+          colorClass = styles.compCorrect
+
+        } else if (score >= 1) {
+          colorClass = styles.compFair
+        } else {
+          colorClass = styles.compMissed
+        }
+    }
+    else {
+
+      if (score === 1) {
+        colorClass = styles.compCorrect
+      }
+      else {
+        colorClass = styles.compMissed
+      }
+
+    }
+
+    return colorClass
+
+  }
 
 
 
@@ -352,7 +525,8 @@ export default class ReportsInterface extends React.Component {
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
 
-    const difficulty = this.getDifficulty(acc, this.props.compScore)
+
+    const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom())
 
 
     // if (acc >= 95) {
@@ -363,25 +537,34 @@ export default class ReportsInterface extends React.Component {
     //   difficulty = "Frustrational"
     // }
 
-    let firstQuestionGraded = (this.props.studentResponse && this.props.graderComment && (this.props.compScore != null))
+    console.log("HERE")
 
-    let compScoreLabel
-    let colorClass
+    console.log("props", this.props)
 
-    if (firstQuestionGraded) {
+    let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
+    let secondQuestionGraded = (this.props.studentResponses["1"] && this.props.graderComments["1"] && (this.props.compScores["1"] != null))
+    let thirdQuestionGraded = (this.props.studentResponses["2"] && this.props.graderComments["2"] && (this.props.compScores["2"] != null))
+    let fourthQuestionGraded = (this.props.studentResponses["3"] && this.props.graderComments["3"] && (this.props.compScores["3"] != null))
 
-      compScoreLabel = this.props.compScore + ' of 3' + ' points'
+    let allQuestionsGraded = (firstQuestionGraded && secondQuestionGraded && thirdQuestionGraded && fourthQuestionGraded)
 
-      if (this.props.compScore >= 2) {
-        colorClass = styles.compCorrect
+    // let compScoreLabel
+    // let colorClass
 
-      } else if (this.props.compScore >= 1) {
-        colorClass = styles.compFair
-      } else {
-        colorClass = styles.compMissed
-      }
+    // if (firstQuestionGraded) {
 
-    }
+    //   compScoreLabel = this.props.compScores["0"] + ' of 3' + ' points'
+
+    //   if (this.props.compScores["0"] >= 2) {
+    //     colorClass = styles.compCorrect
+
+    //   } else if (this.props.compScores["0"] >= 1) {
+    //     colorClass = styles.compFair
+    //   } else {
+    //     colorClass = styles.compMissed
+    //   }
+
+    // }
 
     let bookLevel
 
@@ -503,11 +686,11 @@ export default class ReportsInterface extends React.Component {
                 />
             }
 
-            { (!this.props.isSample && (this.props.compScore != null)) &&
+            { (!this.props.isSample && (this.props.compScores["0"] != null)) &&
               <Metric
                 label="Comp."
-                number={this.props.compScore}
-                denominator={3}
+                number={this.getCompTotal()}
+                denominator={this.getCompDenom()}
               />
             }
 
@@ -690,24 +873,7 @@ export default class ReportsInterface extends React.Component {
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                  
                   { firstQuestionGraded &&
-                    <div>
-                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
-
-                    { !this.state.showCompAudioPlayback &&
-                    <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-                    { this.state.showCompAudioPlayback &&
-                      <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
-                        <source src={this.props.compRecordingURL} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-
-
-
-
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
-                    </div>
+                    this.renderGradedPartOfQuestion(0)
                   }
                   
 
@@ -768,24 +934,7 @@ export default class ReportsInterface extends React.Component {
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                  
                   { firstQuestionGraded &&
-                    <div>
-                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
-
-                    { !this.state.showCompAudioPlayback &&
-                    <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-                    { this.state.showCompAudioPlayback &&
-                      <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
-                        <source src={this.props.compRecordingURL} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-
-
-
-
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
-                    </div>
+                    this.renderGradedPartOfQuestion(0)
                   }
                   
 
@@ -795,10 +944,10 @@ export default class ReportsInterface extends React.Component {
 
             <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Within the Text</h2>
-                <div className={styles.questionBlock}>
-                  <h4 className={styles.questionText}>1. Why did the girl and her dad go outside?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-                <div className={styles.questionBlock}>
+                {
+                  this.renderFullQuestion(1, false)
+                }
+                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>2. Talk about how the story ended.<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
                 <div className={styles.questionBlock}>
@@ -840,58 +989,29 @@ export default class ReportsInterface extends React.Component {
            <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
             <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
-                <div className={styles.questionBlock}>
-                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
-                 
-                  { firstQuestionGraded &&
-                    <div>
-                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
+              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Within the Text</h2>
+                {
+                  this.renderFullQuestion(0, firstQuestionGraded)
+                }
 
-                    { !this.state.showCompAudioPlayback &&
-                    <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-                    { this.state.showCompAudioPlayback &&
-                      <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
-                        <source src={this.props.compRecordingURL} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-
-
-
-
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
-                    </div>
-                  }
-                  
-
-
-                </div>
-            </div>
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Within the Text</h2>
-                <div className={styles.questionBlock}>
-                  <h4 className={styles.questionText}>1. {fpBook.questions['1'].title + " " + fpBook.questions['1'].subtitle }<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-                <div className={styles.questionBlock}>
-                  <h4 className={styles.questionText}>2. {fpBook.questions['2'].title }<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
             </div>
 
 
-
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
+            <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
-                <div className={styles.questionBlock}>
-                  <h4 className={styles.questionText}>3. {fpBook.questions['3'].title + " " + fpBook.questions['3'].subtitle}<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
+                {
+                  this.renderFullQuestion(1, allQuestionsGraded)
+                }
 
-                <div className={styles.questionBlock}>
-                  <h4 className={styles.questionText}>4. {fpBook.questions['4'].title + " " + fpBook.questions['4'].subtitle }<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
+                {
+                  this.renderFullQuestion(2, allQuestionsGraded)
+                }
+
+
+                {
+                  this.renderFullQuestion(3, allQuestionsGraded)
+                }
+
             </div>
 
 
