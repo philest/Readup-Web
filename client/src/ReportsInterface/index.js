@@ -282,21 +282,24 @@ export default class ReportsInterface extends React.Component {
     let total = 0 
 
     for(let i = 0; i < numQuestions; i++) {
-      total += this.props.compScores[String(i)]
+      total += Number(this.props.compScores[String(i)])
     } 
 
 
     return total
   }
 
-  getCompDenom() {
+  getCompDenom(allQuestionsGraded) {
 
     if (this.props.isSample) {
       return 9
     }
-
-
-    return 3 + (numQuestions - 1)
+    else if (!allQuestionsGraded){
+      return 3 
+    }
+    else {
+      return 3 + (numQuestions - 1)
+    }
   }
 
 
@@ -532,16 +535,6 @@ export default class ReportsInterface extends React.Component {
 
 
 
-    const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom())
-
-
-    // if (acc >= 95) {
-    //   difficulty = "Independent"
-    // } else if (acc >= 90) {
-    //   difficulty = "Instructional"
-    // } else {
-    //   difficulty = "Frustrational"
-    // }
 
     let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
     let secondQuestionGraded = (this.props.studentResponses["1"] && this.props.graderComments["1"] && (this.props.compScores["1"] != null))
@@ -550,23 +543,12 @@ export default class ReportsInterface extends React.Component {
 
     let allQuestionsGraded = (firstQuestionGraded && secondQuestionGraded && thirdQuestionGraded && fourthQuestionGraded)
 
-    // let compScoreLabel
-    // let colorClass
 
-    // if (firstQuestionGraded) {
 
-    //   compScoreLabel = this.props.compScores["0"] + ' of 3' + ' points'
+    const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom(allQuestionsGraded))
 
-    //   if (this.props.compScores["0"] >= 2) {
-    //     colorClass = styles.compCorrect
 
-    //   } else if (this.props.compScores["0"] >= 1) {
-    //     colorClass = styles.compFair
-    //   } else {
-    //     colorClass = styles.compMissed
-    //   }
-
-    // }
+ 
 
     let bookLevel
 
@@ -692,7 +674,7 @@ export default class ReportsInterface extends React.Component {
               <Metric
                 label="Comp."
                 number={this.getCompTotal()}
-                denominator={this.getCompDenom()}
+                denominator={this.getCompDenom(allQuestionsGraded)}
               />
             }
 
