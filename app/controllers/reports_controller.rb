@@ -80,21 +80,21 @@ class ReportsController < ApplicationController
 
       # Backwards compatability to non-comp users... 
       if @assessment.comp_scores
-        @comp_score = @assessment.comp_scores["0"]
+        @comp_scores = @assessment.comp_scores
       else 
-        @comp_score = nil
+        @comp_scores = nil
       end 
 
       if @assessment.grader_comments
-        @grader_comment = @assessment.grader_comments["0"]
+        @grader_comments = @assessment.grader_comments
       else 
-        @grader_comment = nil
+        @grader_comments = nil
       end 
 
       if @assessment.student_responses
-        @student_response = @assessment.student_responses["0"]
+        @student_responses = @assessment.student_responses
       else 
-        @student_response = nil
+        @student_responses = nil
       end 
 
 
@@ -145,9 +145,9 @@ class ReportsController < ApplicationController
         isScoredPrior: @assessment.scored,
         isUnscorable: @assessment.unscorable,
         fluencyScore: @assessment.fluency_score,
-        compScore: @comp_score,
-        graderComment: @grader_comment,
-        studentResponse: @student_response,
+        compScores: @comp_scores,
+        graderComments: @grader_comments,
+        studentResponses: @student_responses,
 
         scorerProfilePicURL: "/images/peter.png",
         scorerSignature: "Peter Krason, M.A.",

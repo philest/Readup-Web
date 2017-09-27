@@ -371,7 +371,7 @@ export default class ReportsInterface extends React.Component {
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
 
-    const difficulty = this.getDifficulty(acc, this.props.compScore)
+    const difficulty = this.getDifficulty(acc, this.props.compScores["0"])
 
 
     // if (acc >= 95) {
@@ -382,19 +382,21 @@ export default class ReportsInterface extends React.Component {
     //   difficulty = "Frustrational"
     // }
 
-    let firstQuestionGraded = (this.props.studentResponse && this.props.graderComment && (this.props.compScore != null))
+    let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
+
+
 
     let compScoreLabel
     let colorClass
 
     if (firstQuestionGraded) {
 
-      compScoreLabel = this.props.compScore + ' of 3' + ' points'
+      compScoreLabel = this.props.compScores["0"] + ' of 3' + ' points'
 
-      if (this.props.compScore >= 2) {
+      if (this.props.compScores["0"] >= 2) {
         colorClass = styles.compCorrect
 
-      } else if (this.props.compScore >= 1) {
+      } else if (this.props.compScores["0"] >= 1) {
         colorClass = styles.compFair
       } else {
         colorClass = styles.compMissed
@@ -522,10 +524,10 @@ export default class ReportsInterface extends React.Component {
                 />
             }
 
-            { (!this.props.isSample && (this.props.compScore != null)) &&
+            { (!this.props.isSample && (this.props.compScores["0"] != null)) &&
               <Metric
                 label="Comp."
-                number={this.props.compScore}
+                number={this.props.compScores["0"]}
                 denominator={3}
               />
             }
@@ -710,7 +712,7 @@ export default class ReportsInterface extends React.Component {
                  
                   { firstQuestionGraded &&
                     <div>
-                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
+                    <p className={styles.studentResponse}>"{ this.props.studentResponses["0"] }"</p> 
 
                     { !this.state.showCompAudioPlayback &&
                     <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
@@ -725,7 +727,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
+                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComments["0"]}</p>
                     </div>
                   }
                   
@@ -788,7 +790,7 @@ export default class ReportsInterface extends React.Component {
                  
                   { firstQuestionGraded &&
                     <div>
-                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
+                    <p className={styles.studentResponse}>"{ this.props.studentResponses["0"] }"</p> 
 
                     { !this.state.showCompAudioPlayback &&
                     <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
@@ -801,7 +803,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
+                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComments["0"]}</p>
                     </div>
                   }
                   
@@ -863,7 +865,7 @@ export default class ReportsInterface extends React.Component {
                  
                   { firstQuestionGraded &&
                     <div>
-                    <p className={styles.studentResponse}>"{ this.props.studentResponse }"</p> 
+                    <p className={styles.studentResponse}>"{ this.props.studentResponses["0"] }"</p> 
 
                     { !this.state.showCompAudioPlayback &&
                     <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
@@ -878,7 +880,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
-                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComment}</p>
+                    <p className={colorClass}><span className={styles.correct}>{compScoreLabel}:</span> {this.props.graderComments["0"]}</p>
                     </div>
                   }
                   
