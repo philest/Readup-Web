@@ -33,6 +33,34 @@ class ReportsController < ApplicationController
       is_direct_sample = (params['user_id'] == "direct-sample")
 
 
+
+
+      if (@student_responses === nil)
+        @student_responses = { '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@grader_comments === nil)
+        @grader_comments = {   '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@comp_scores === nil)
+        @comp_scores = {       '0' => nil,
+                               '1' => nil,
+                               '2' => nil,
+                               '3' => nil
+                             }
+      end
+
+
+
       @reports_interface_props = {
         name: "Maya De Leon",
         email: "testemail@gmail.com",
@@ -66,7 +94,11 @@ class ReportsController < ApplicationController
         reviewerProfilePicURL: "/images/ashley.png",
         assessmentBrand: @assessment.brand,
         isLiveDemo: @assessment.is_live_demo,
-        env: ENV['RAILS_ENV']
+        env: ENV['RAILS_ENV'],
+
+        compScores: @comp_scores,
+        graderComments: @grader_comments,
+        studentResponses: @student_responses
 
 
       }
@@ -79,23 +111,6 @@ class ReportsController < ApplicationController
 
 
       # Backwards compatability to non-comp users... 
-      if @assessment.comp_scores
-        @comp_scores = @assessment.comp_scores
-      else 
-        @comp_scores = nil
-      end 
-
-      if @assessment.grader_comments
-        @grader_comments = @assessment.grader_comments
-      else 
-        @grader_comments = nil
-      end 
-
-      if @assessment.student_responses
-        @student_responses = @assessment.student_responses
-      else 
-        @student_responses = nil
-      end 
 
 
       assessmentBrand = @assessment.brand

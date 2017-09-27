@@ -269,6 +269,11 @@ export default class ReportsInterface extends React.Component {
 
 
   getCompTotal() {
+
+    if (this.props.isSample) {
+      return 5
+    }
+
     let total = 0 
 
     for(let i = 0; i < numQuestions; i++) {
@@ -278,6 +283,11 @@ export default class ReportsInterface extends React.Component {
   }
 
   getCompDenom() {
+
+    if (this.props.isSample) {
+      return 9
+    }
+
 
     return 3 + (numQuestions - 1)
   }
