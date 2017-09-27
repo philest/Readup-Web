@@ -274,12 +274,18 @@ export default class ReportsInterface extends React.Component {
     if (this.props.isSample) {
       return 5
     }
+    else if (this.props.compScores["0"] === null) {
+      return null
+    }
+
 
     let total = 0 
 
     for(let i = 0; i < numQuestions; i++) {
       total += this.props.compScores[String(i)]
     } 
+
+
     return total
   }
 
