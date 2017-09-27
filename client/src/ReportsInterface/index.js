@@ -206,7 +206,7 @@ export default class ReportsInterface extends React.Component {
   }
 
 
-  getDifficulty(acc, comp) {
+  getDifficulty(acc, comp, compDenom) {
 
     const accOnlyScores = ['Frustrational', 'Instructional', 'Independent']
 
@@ -231,16 +231,56 @@ export default class ReportsInterface extends React.Component {
       accIndex = 0
     }
 
+    let compIndex 
+
+    if (compDenom === 3 && comp) {
+      compIndex = comp 
+    } 
+    else if (compDenom === 6 && comp) {
+
+      if (comp >= 5) {
+        compIndex = 3 
+      }
+      else if (comp >= 4) {
+        compIndex = 2
+      }
+      else if (comp >= 3) {
+        compIndex = 1 
+      }
+      else {
+        compIndex = 0
+      }
+    }
+
+
+
+
+
+
     // Decide whether to use just acc, or the comp as well
 
     if (comp == null) {
       return accOnlyScores[accIndex]
     } else {
-      return fullScores[accIndex][comp]
+      return fullScores[accIndex][compIndex]
     }
 
   }
 
+
+  getCompTotal() {
+    let total = 0 
+
+    for(let i = 0; i < numQuestions; i++) {
+      total += this.props.compScores[String(i)]
+    } 
+    return total
+  }
+
+  getCompDenom() {
+
+    return 3 + (numQuestions - 1)
+  }
 
 
   hideReportReadyModal() {
@@ -474,7 +514,8 @@ export default class ReportsInterface extends React.Component {
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
 
-    const difficulty = this.getDifficulty(acc, this.props.compScores["0"])
+
+    const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom())
 
 
     // if (acc >= 95) {
@@ -633,8 +674,8 @@ export default class ReportsInterface extends React.Component {
             { (!this.props.isSample && (this.props.compScores["0"] != null)) &&
               <Metric
                 label="Comp."
-                number={this.props.compScores["0"]}
-                denominator={3}
+                number={this.getCompTotal()}
+                denominator={this.getCompDenom()}
               />
             }
 
