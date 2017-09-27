@@ -543,10 +543,6 @@ export default class ReportsInterface extends React.Component {
     //   difficulty = "Frustrational"
     // }
 
-    console.log("HERE")
-
-    console.log("props", this.props)
-
     let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
     let secondQuestionGraded = (this.props.studentResponses["1"] && this.props.graderComments["1"] && (this.props.compScores["1"] != null))
     let thirdQuestionGraded = (this.props.studentResponses["2"] && this.props.graderComments["2"] && (this.props.compScores["2"] != null))
