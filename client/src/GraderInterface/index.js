@@ -420,13 +420,13 @@ export default class GraderInterface extends React.Component {
 
 
 
-  onCompScoreClicked = (id) => {
-    console.log('id is: ', id)
+  onCompScoreClicked = (score, questionNum) => {
+    console.log('score is: ', score)
 
     let graderComments = this.state.graderComments
-    graderComments["0"] = rubric[id]
+    graderComments[String(questionNum)] = rubric[score]
     let compScores = this.state.compScores
-    compScores["0"] = id
+    compScores[String(questionNum)] = score
 
     this.setState({ graderComments: graderComments,
                     compScores: compScores })
@@ -454,16 +454,22 @@ export default class GraderInterface extends React.Component {
     }
 
     let studentResponses = { 0: this.studentResponsesInput1.value,
-                             // 1: this.studentResponsesInput2.value,
-                             // 2: this.studentResponsesInput3.value,
+                             1: this.studentResponsesInput2.value,
+                             2: this.studentResponsesInput3.value,
                             }
     let graderComments = { 0: this.graderCommentsInput1.value,
-                             // 1: this.graderCommentsInput2.value,
-                             // 2: this.graderCommentsInput3.value,
+                           1: this.graderCommentsInput2.value,
+                           2: this.graderCommentsInput3.value,
                             }
+
+
+     if (numQuestions >= 4) {
+      studentResponses["3"] = this.studentResponsesInput4.value
+      graderComments["3"] = this.graderCommentsInput4.value
+     }
                         
 
-    let compScores = this.state.compScores 
+    let compScores = this.state.compScores
 
     updateAssessment( {
                        student_responses: studentResponses,
@@ -548,27 +554,20 @@ export default class GraderInterface extends React.Component {
 
 
 
-  handleGraderCommentChange1 = (event, id) => {
-    console.log('id is... ', id )
+  handleGraderCommentChange = (event, id) => {
     let graderComments = this.state.graderComments
-    graderComments["0"] = event.target.value
+    graderComments[String(id)] = event.target.value
     this.setState({ graderComments: graderComments })
   }
 
 
-  renderCompQuestionsOne = () => {
+  renderCompQuestions1 = () => {
     let q = 1
     let questionsArr = []
 
-    let handleChangeFunc
-
-    if (q === 1) {
-      handleChangeFunc = this.handleGraderCommentChange1
-    } 
-
 
       questionsArr.push(
-          <div key={1} >
+          <div key={q} >
             <br/><br/>
 
             <h4>{`Question ${q}`}</h4>
@@ -582,7 +581,7 @@ export default class GraderInterface extends React.Component {
 
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
-              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={() => this.handleGraderCommentChange1(1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
+              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
             </FormGroup>
 
 
@@ -593,17 +592,158 @@ export default class GraderInterface extends React.Component {
             </h4>
 
             <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0)}><strong>0</strong> - Unsatisfactory</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1)}><strong>1</strong> - Limited</Button>
-              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2)}><strong>2</strong> - Satifscatory</Button>
-              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3)}><strong>3</strong> - Excellent</Button>
+              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Unsatisfactory</Button>
+              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Limited</Button>
+              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2, q - 1)}><strong>2</strong> - Satifscatory</Button>
+              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3, q - 1)}><strong>3</strong> - Excellent</Button>
             </ButtonGroup>
 
-            <br/><br/>
+            <br/><br/><br/>
           </div>
       ) 
     return questionsArr[0]
   }
+
+
+  renderCompQuestions2 = () => {
+    let q = 2
+    let questionsArr = []
+
+    let handleChangeFunc
+
+
+      questionsArr.push(
+          <div key={q} >
+            <br/><br/>
+
+            <h4>{`Question ${q}`}</h4>
+            <FormGroup controlId="studentResponse">
+              <ControlLabel>Student Response</ControlLabel>
+              <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput2 = ref; }} placeholder="Student response" />
+            </FormGroup>
+
+
+            <br/>
+
+            <FormGroup controlId="graderComments">
+              <ControlLabel>Your comments</ControlLabel>
+              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput2 = ref; }} placeholder="Your comments" />
+            </FormGroup>
+
+
+            <br/>
+
+            <h4 >
+              Comp Score
+            </h4>
+
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Unsatisfactory</Button>
+              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Limited</Button>
+              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2, q - 1)}><strong>2</strong> - Satifscatory</Button>
+              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3, q - 1)}><strong>3</strong> - Excellent</Button>
+            </ButtonGroup>
+
+            <br/><br/><br/>
+          </div>
+      ) 
+    return questionsArr[0]
+  }
+
+ renderCompQuestions3 = () => {
+    let q = 3
+    let questionsArr = []
+
+    let handleChangeFunc
+
+
+      questionsArr.push(
+          <div key={q} >
+            <br/><br/>
+
+            <h4>{`Question ${q}`}</h4>
+            <FormGroup controlId="studentResponse">
+              <ControlLabel>Student Response</ControlLabel>
+              <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput3 = ref; }} placeholder="Student response" />
+            </FormGroup>
+
+
+            <br/>
+
+            <FormGroup controlId="graderComments">
+              <ControlLabel>Your comments</ControlLabel>
+              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput3 = ref; }} placeholder="Your comments" />
+            </FormGroup>
+
+
+            <br/>
+
+            <h4 >
+              Comp Score
+            </h4>
+
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Unsatisfactory</Button>
+              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Limited</Button>
+              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2, q - 1)}><strong>2</strong> - Satifscatory</Button>
+              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3, q - 1)}><strong>3</strong> - Excellent</Button>
+            </ButtonGroup>
+
+            <br/><br/><br/>
+          </div>
+      ) 
+    return questionsArr[0]
+  }
+
+renderCompQuestions4 = () => {
+    let q = 4
+    let questionsArr = []
+
+    let handleChangeFunc
+
+
+      questionsArr.push(
+          <div key={q} >
+            <br/><br/>
+
+            <h4>{`Question ${q}`}</h4>
+            <FormGroup controlId="studentResponse">
+              <ControlLabel>Student Response</ControlLabel>
+              <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput4 = ref; }} placeholder="Student response" />
+            </FormGroup>
+
+
+            <br/>
+
+            <FormGroup controlId="graderComments">
+              <ControlLabel>Your comments</ControlLabel>
+              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput4 = ref; }} placeholder="Your comments" />
+            </FormGroup>
+
+
+            <br/>
+
+            <h4 >
+              Comp Score
+            </h4>
+
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Unsatisfactory</Button>
+              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Limited</Button>
+              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2, q - 1)}><strong>2</strong> - Satifscatory</Button>
+              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3, q - 1)}><strong>3</strong> - Excellent</Button>
+            </ButtonGroup>
+
+            <br/><br/><br/>
+          </div>
+      ) 
+    return questionsArr[0]
+  }
+
+
+
+
+
 
 
 
@@ -784,7 +924,20 @@ export default class GraderInterface extends React.Component {
 
         <br/><br/>
 
-        { this.renderCompQuestionsOne() }
+        { this.renderCompQuestions1()
+        }
+
+        { numQuestions >= 2 &&
+          this.renderCompQuestions2()
+        }
+
+        { numQuestions >= 3 &&
+          this.renderCompQuestions3()
+        }
+
+        { numQuestions >= 4 &&
+          this.renderCompQuestions4()
+        }
 
 
         <br/><br/>
