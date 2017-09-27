@@ -33,6 +33,9 @@ class ReportsController < ApplicationController
       is_direct_sample = (params['user_id'] == "direct-sample")
 
 
+      @student_responses = @assessment.student_responses
+      @grader_comments = @assessment.grader_comments
+      @comp_scores = @assessment.comp_scores
 
 
       if (@student_responses === nil)
@@ -140,6 +143,34 @@ class ReportsController < ApplicationController
       end 
 
 
+      @student_responses = @assessment.student_responses
+      @grader_comments = @assessment.grader_comments
+      @comp_scores = @assessment.comp_scores
+
+
+      if (@student_responses === nil)
+        @student_responses = { '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@grader_comments === nil)
+        @grader_comments = {   '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@comp_scores === nil)
+        @comp_scores = {       '0' => nil,
+                               '1' => nil,
+                               '2' => nil,
+                               '3' => nil
+                             }
+      end
 
 
       @reports_interface_props = {

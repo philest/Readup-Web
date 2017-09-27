@@ -488,6 +488,12 @@ export const fireflyBook = {
       title: "Tell as much as you can about the passage you just read.",
       subtitle: "Be sure to include the beginning, middle and end",
       audioSrc: '/audio/VB/VB-retell-full.mp3',
+      rubric: {
+        3: "Response shows excellent understanding of Firefly Night. Includes all major events of plot in sequence, and shows insight into the girl's actions. Uses important details to enrich the retelling. Great job! Let me know if you have any questions.",
+        2: "Response shows good understanding of Firefly Night. Includes major events of plot in sequence. Describes the girl's actions and character, and uses some details to support the retelling. Nice job!",
+        1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+        0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
+      },
     },
     2: {
       title: "Why did the girl and her dad go outside?",
@@ -498,13 +504,6 @@ export const fireflyBook = {
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
     },
 
-  },
-
-  rubric: {
-    3: "Response shows excellent understanding of Firefly Night. Includes all major events of plot in sequence, and shows insight into the girl's actions. Uses important details to enrich the retelling. Great job! Let me know if you have any questions.",
-    2: "Response shows good understanding of Firefly Night. Includes major events of plot in sequence. Describes the girl's actions and character, and uses some details to support the retelling. Nice job!",
-    1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
-    0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
   },
 
 };
@@ -609,32 +608,51 @@ export const fpBook = {
       title: "Tell as much as you can about the passage you just read.",
       subtitle: "Be sure to include the beginning, middle and end",
       audioSrc: '/audio/VB/VB-retell-full.mp3',
+      rubric: {
+                3: "Response shows excellent understanding of Bedtime For Nick. Includes all major events of plot in sequence, and shows insight into Nick's actions. Uses important details to enrich the retelling. Great job! Let me know if you have any questions.",
+                2: "Response shows good understanding of Bedtime For Nick. Includes major events of plot in sequence. Describes Nick's actions and character, and uses some details to support the retelling. Nice job!",
+                1: "Response shows partial understanding of Bedtime For Nick. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+                0: "Response does not indicate understanding of Bedtime For Nick. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
+              },
     },
     2: {
       title: "What is the real reason Nick can’t sleep?",
       audioSrc: '/audio/VB/nick/nick-real-reason.mp3',
+      rubric: {
+        0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+        1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+      },
     },
     3: {
       title: "How do you think Nick feels about Wags?",
       audioSrc: '/audio/VB/nick/nick-how-feels.mp3',
-
+      rubric: {
+                0: "Response does not demonstrate a proficient understanding of Nick’s feelings about Wags. Misses key point that Nick loves Wags and misses him, and lacks strong supporting details (like the fact that Nick is only able to sleep when Wags returns.",
+                1: "Response demonstrates an excellent understanding of Nick’s feelings about Wags. Correctly identifies that Nick loves Wags and misses him. Offers strong supporting details for this answer and notes Nick is only able to sleep when Wags comes back.",
+              },
     },
     4: {
       title: "Tell about a time when you had trouble with something.",
       subtitle: "Was your problem like Nick’s? Why or why not?",
       audioSrc: '/audio/VB/nick/nick-tell-about-a-time.mp3',
+      rubric: {
+                0: "Response does not demonstrate a proficiency in thinking beyond the text. Misses a logical connection between the student’s experiences and Nick’s story, and lacks important supporting details.",
+                1: "Response demonstrates a very strong ability to think beyond the text. Makes a strong logical connection between personal experiences and Nick’s story, and gives important supporting details.",
+              },
     },
 
   },
 
-  rubric: {
-    3: "Response shows excellent understanding of Bedtime For Nick. Includes all major events of plot in sequence, and shows insight into Nick's actions. Uses important details to enrich the retelling. Great job! Let me know if you have any questions.",
-    2: "Response shows good understanding of Bedtime For Nick. Includes major events of plot in sequence. Describes Nick's actions and character, and uses some details to support the retelling. Nice job!",
-    1: "Response shows partial understanding of Bedtime For Nick. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
-    0: "Response does not indicate understanding of Bedtime For Nick. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
-  },
-
 };
+
+
+
+
+
+
+
+
+
 
 
 export const library = {

@@ -428,7 +428,7 @@ export default class GraderInterface extends React.Component {
     console.log('score is: ', score)
 
     let graderComments = this.state.graderComments
-    graderComments[String(questionNum)] = rubric[score]
+    graderComments[String(questionNum)] = book.questions[String(questionNum + 1)].rubric[score]
     let compScores = this.state.compScores
     compScores[String(questionNum)] = score
 
