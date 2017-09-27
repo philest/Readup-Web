@@ -576,6 +576,7 @@ export default class GraderInterface extends React.Component {
             <br/><br/>
 
             <h4>{`Question ${q}`}</h4>
+            <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput1 = ref; }} placeholder="Student response" />
@@ -622,6 +623,8 @@ export default class GraderInterface extends React.Component {
             <br/><br/>
 
             <h4>{`Question ${q}`}</h4>
+            <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput2 = ref; }} placeholder="Student response" />
@@ -643,10 +646,8 @@ export default class GraderInterface extends React.Component {
             </h4>
 
             <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Unsatisfactory</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Limited</Button>
-              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2, q - 1)}><strong>2</strong> - Satifscatory</Button>
-              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3, q - 1)}><strong>3</strong> - Excellent</Button>
+              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
+              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
             </ButtonGroup>
 
             <br/><br/><br/>
@@ -667,6 +668,8 @@ export default class GraderInterface extends React.Component {
             <br/><br/>
 
             <h4>{`Question ${q}`}</h4>
+            <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput3 = ref; }} placeholder="Student response" />
@@ -688,10 +691,8 @@ export default class GraderInterface extends React.Component {
             </h4>
 
             <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Unsatisfactory</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Limited</Button>
-              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2, q - 1)}><strong>2</strong> - Satifscatory</Button>
-              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3, q - 1)}><strong>3</strong> - Excellent</Button>
+              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
+              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
             </ButtonGroup>
 
             <br/><br/><br/>
@@ -712,6 +713,8 @@ renderCompQuestions4 = () => {
             <br/><br/>
 
             <h4>{`Question ${q}`}</h4>
+            <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput4 = ref; }} placeholder="Student response" />
@@ -733,10 +736,8 @@ renderCompQuestions4 = () => {
             </h4>
 
             <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Unsatisfactory</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Limited</Button>
-              <Button active={this.state.compScores[q - 1] === 2} href="#" onClick={() => this.onCompScoreClicked(2, q - 1)}><strong>2</strong> - Satifscatory</Button>
-              <Button active={this.state.compScores[q - 1] === 3} href="#" onClick={() => this.onCompScoreClicked(3, q - 1)}><strong>3</strong> - Excellent</Button>
+              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
+              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
             </ButtonGroup>
 
             <br/><br/><br/>
