@@ -43,6 +43,32 @@ class GraderInterfaceController < ApplicationController
         @student_responses = nil
       end 
 
+
+      if (@assessment.student_responses === nil)
+        @student_responses = { '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@grader_comments === nil)
+        @grader_comments = {   '0' => '',
+                               '1' => '',
+                               '2' => '',
+                               '3' => ''
+                             }
+      end 
+
+      if (@comp_scores === nil)
+        @comp_scores = {       '0' => nil,
+                               '1' => nil,
+                               '2' => nil,
+                               '3' => nil
+                             }
+      end
+
+
       if @assessment.book_key === 'nick'
         title = "Bedtime for Nick"
         level = "G"

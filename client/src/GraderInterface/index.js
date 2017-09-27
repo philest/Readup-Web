@@ -27,6 +27,11 @@ let rubric
 let numQuestions
 let currAudioPlayer
 
+
+
+
+     
+
 const popoverBottom = (
   <Popover id="popover-positioned-bottom" className={questionCSS.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
  
@@ -111,7 +116,6 @@ export default class GraderInterface extends React.Component {
 
     rubric = book.rubric
     numQuestions = book.numQuestions
-
 
 
 
@@ -564,6 +568,7 @@ export default class GraderInterface extends React.Component {
   renderCompQuestions1 = () => {
     let q = 1
     let questionsArr = []
+
 
 
       questionsArr.push(
