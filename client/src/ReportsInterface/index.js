@@ -270,12 +270,16 @@ export default class ReportsInterface extends React.Component {
 
   getCompTotal() {
 
+    console.log(this.props)
 
     if (this.props.isSample) {
       return 5
     }
     else if (this.props.compScores["0"] === null) {
       return null
+    }
+    else if (this.props.compScores["1"] === null) { //backwards compat
+      return Number(this.props.compScores["0"])
     }
 
 
@@ -471,8 +475,6 @@ export default class ReportsInterface extends React.Component {
       scoreLabel = this.props.compScores[String(questionNum)] + ' of 1' + ' points'
       colorClass = this.getColorClass(this.props.compScores[String(questionNum)], false)
     } 
-
-    console.log('colorClass is .... ', colorClass)
 
     return (
             <div>
