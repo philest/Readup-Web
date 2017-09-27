@@ -559,6 +559,13 @@ export default class GraderInterface extends React.Component {
     let q = 1
     let questionsArr = []
 
+    let handleChangeFunc
+
+    if (q === 1) {
+      handleChangeFunc = this.handleGraderCommentChange1
+    } 
+
+
       questionsArr.push(
           <div key={1} >
             <br/><br/>
@@ -574,7 +581,7 @@ export default class GraderInterface extends React.Component {
 
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
-              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={this.handleGraderCommentChange1} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
+              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={handleChangeFunc} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
             </FormGroup>
 
 
