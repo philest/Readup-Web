@@ -437,48 +437,33 @@ export default class GraderInterface extends React.Component {
 
 
   onSubmitClicked = () => {
-    updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
-    
-    if (this.state.fluencyScore != null) {
-    updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
-    }
-    
 
-    let studentResponses = { 0: this.studentResponseInput.value }
-    let graderComments = { 0: this.graderCommentsInput.value }
-    let compScores = { 0: this.state.compScore }
-
-    updateAssessment( {
-                       student_responses: studentResponses,
-                       grader_comments: graderComments,
-                       comp_scores: compScores,
-                      },
-                       this.props.assessmentID,
-                    )
-
-
+    this.onSaveClicked()
 
     markScored(this.props.assessmentID)
     this.setState({showSubmitAlert: true})
-
-    this.setState({ hasSavedRecently: true })
-
-    setTimeout(() => {
-      this.setState({ hasSavedRecently: false });
-    }, 7500);
-
-
 
   }
 
 
   onSaveClicked = () => {
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
-    updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
 
-    let studentResponses = { 0: this.studentResponseInput.value }
-    let graderComments = { 0: this.graderCommentsInput.value }
-    let compScores = { 0: this.state.compScore }
+    if (this.state.fluencyScore != null) {
+      updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
+    }
+
+    let studentResponses = { 0: this.studentResponsesInput1.value,
+                             // 1: this.studentResponsesInput2.value,
+                             // 2: this.studentResponsesInput3.value,
+                            }
+    let graderComments = { 0: this.graderCommentsInput1.value,
+                             // 1: this.graderCommentsInput2.value,
+                             // 2: this.graderCommentsInput3.value,
+                            }
+                        
+
+    let compScores = this.state.compScores 
 
     updateAssessment( {
                        student_responses: studentResponses,
