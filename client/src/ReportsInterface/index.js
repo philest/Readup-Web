@@ -374,20 +374,18 @@ export default class ReportsInterface extends React.Component {
   renderFullQuestion = (questionNum, isGraded) => {
 
     let pointsLabel
-    let qLabel 
+    let qLabel = (questionNum + 1) + '. '
 
     if (questionNum === 0) {
       pointsLabel = "(3 points)"
-      qLable = ''
     } else {
       pointsLabel = "(1 point)"
-      qLabel = questionNum + '. '
     }
 
 
     return (
       <div className={styles.questionBlock}>
-        <h4 className={styles.questionText}>{qLabel + book.questions[String(questionNum)].title + ' ' + book.questions[String(questionNum)].subtitle}.<span className={styles.pointValue}> {pointsLabel}</span></h4>
+        <h4 className={styles.questionText}>{qLabel + book.questions[String(questionNum + 1)].title + ' ' + book.questions[String(questionNum + 1)].subtitle}.<span className={styles.pointValue}> {pointsLabel}</span></h4>
        
         { isGraded &&
           this.renderGradedPartOfQuestion(questionNum)
@@ -492,6 +490,7 @@ export default class ReportsInterface extends React.Component {
     let thirdQuestionGraded = (this.props.studentResponses["2"] && this.props.graderComments["2"] && (this.props.compScores["2"] != null))
     let fourthQuestionGraded = (this.props.studentResponses["3"] && this.props.graderComments["3"] && (this.props.compScores["3"] != null))
 
+    let allQuestionsGraded = (firstQuestionGraded && secondQuestionGraded && thirdQuestionGraded && fourthQuestionGraded)
 
     // let compScoreLabel
     // let colorClass
@@ -934,35 +933,29 @@ export default class ReportsInterface extends React.Component {
            <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
             <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
+              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Within the Text</h2>
                 {
                   this.renderFullQuestion(0, firstQuestionGraded)
                 }
 
             </div>
 
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Within the Text</h2>
-                {
-                  this.renderFullQuestion(1, false)
-                }
-                {
-                  this.renderFullQuestion(2, false)
-                }
-            </div>
 
-
-
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
+            <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
                 {
-                  this.renderFullQuestion(3, false)
+                  this.renderFullQuestion(1, allQuestionsGraded)
                 }
 
                 {
-                  this.renderFullQuestion(4, false)
+                  this.renderFullQuestion(2, allQuestionsGraded)
                 }
+
+
+                {
+                  this.renderFullQuestion(3, allQuestionsGraded)
+                }
+
             </div>
 
 
