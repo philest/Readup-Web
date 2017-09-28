@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import axios from 'axios'
+
 import styles from './styles.css'
 
 import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
@@ -27,7 +29,21 @@ let rubric
 let numQuestions
 let currAudioPlayer
 
+let initShowQArr = {
+  0: false,
+  1: false,
+  2: false,
+  3: false,
+  4: false
+}
 
+let trueInitShowQArr = {
+  0: true,
+  1: true,
+  2: true,
+  3: true,
+  4: true
+}
 
 
      
@@ -97,6 +113,7 @@ export default class GraderInterface extends React.Component {
       assessmentBrand: this.props.assessmentBrand,
       isLiveDemo: this.props.isLiveDemo,
       graderComments: this.props.graderCommentsPrior,
+      showQArr: this.props.scored ? trueInitShowQArr : initShowQArr,
     }
         this.tick = this.tick.bind(this);
 
@@ -169,11 +186,15 @@ export default class GraderInterface extends React.Component {
       })
 
       if ((this.state.userCountCurrent != this.props.userCountPrior) && !this.state.showWakeModal) {
-
-
-         
       }
 
+    // check status of each file 
+
+    for(let q = 0; q <= numQuestions; q++) {
+      if (!this.state.showQArr[String(q)]) {
+        this.checkS3(q)
+      }
+    }
 
   }
 
@@ -513,6 +534,36 @@ export default class GraderInterface extends React.Component {
   }
 
 
+  checkS3 = (qNum) => {
+
+    let url
+
+    if (qNum === 0) {
+      url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/recording.webm`
+    }
+    else {
+      url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${qNum}.webm`
+    }
+
+    axios.get(url)
+    .then(res => {
+      console.log(res);
+      console.log("yay!");
+      console.log('found s3 for question: ', qNum)
+      playSoundAsync('/audio/complete.mp3')
+
+      let showQArr = this.state.showQArr
+      showQArr[String(qNum)] = true 
+      this.setState({showQArr: showQArr}) 
+ 
+    }).catch(error => {
+      console.log(error)
+      console.log("couldn't find ", qNum)
+    })
+
+  }
+
+
 
 
   renderCompAudioPlayers = () => {
@@ -528,17 +579,32 @@ export default class GraderInterface extends React.Component {
 
     let audioPlayers = []
 
-    for(let q = 1; q <= numQuestions; q++){
+    for(let q = 0; q <= numQuestions; q++){
       
-      audioPlayers.push (
-        <div>
-          <h5>{`Response ${q}`}</h5>
-          <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
-            <source src={`https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${q}.webm`} />
-            <p>Playback not supported</p>
-          </audio>
-        </div>
-      )
+
+    let url
+
+    if (q === 0) {
+      url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/recording.webm`
+    }
+    else {
+      url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${q}.webm`
+    }
+
+
+
+      if (this.state.showQArr[String(q)]) {
+        audioPlayers.push (
+          <div key={q}>
+            <h5>{`Response ${q}`}</h5>
+            <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
+              <source src={url} />
+              <p>Playback not supported</p>
+            </audio>
+          </div>
+        )
+      }
+
     }
 
     return audioPlayers
@@ -811,12 +877,6 @@ renderCompQuestions4 = () => {
         </div>
 
 
-        <h5>Oral Reading</h5>
-        <audio controls ref={"audioPlayer0"} className={styles.audioElement}>
-          <source src={this.props.recordingURL} />
-          <p>Playback not supported</p>
-        </audio>
-        
         {   
             this.renderCompAudioPlayers()
         }   
