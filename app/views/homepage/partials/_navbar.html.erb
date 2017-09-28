@@ -75,7 +75,7 @@
     <div class="nav-buttons">
 
 
-      <a class="demo-button" id="demo-nav-button" href="/demo">
+      <a class="demo-button" id="demo-nav-button" href="/demo"">
         <button
           id="top-button"
           class="pure-button-primary pure-button signup-button"
@@ -92,6 +92,8 @@
 </nav>
 
 <script type="text/javascript">
+
+
   var scrollTarget =  isMobileDevice() ? 50 : 160;
 
 
@@ -125,6 +127,16 @@
   });
 
 
+  function demoClicked() {
+    var btn =document.getElementById("new-hero-button");
+    btn.className += " disabled";
+
+    var icon = document.getElementById("btn-icon");
+    icon.className += " fa-spinner fa-pulse";
+    icon.classList.remove("faa-pulse");
+
+ 
+  }
 
 
 

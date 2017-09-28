@@ -14,6 +14,8 @@ class RegistrationController < ApplicationController
   end
 
 
+
+
   def get_last_student_id 
     puts "now getting student id...."
 

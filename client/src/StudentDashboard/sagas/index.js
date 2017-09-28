@@ -699,16 +699,7 @@ function* assessThenSubmitSaga(bookKey) {
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
   ))
-
-  // TODO Phil: better user creation. 
-   $.ajax({
-      url: ('/auth/phil_setup_demo?book_key=' + bookKey),
-      type: 'post',
-    }).fail(function(xhr, status, err) {
-      console.log(err)
-   })
-
-  
+ 
 
   // this ensures that effects are canceleld
   // while (true) {
@@ -862,6 +853,15 @@ function* rootSaga() {
     take('ickkk')
   }
 
+
+  // CREATE THE USER 
+
+   $.ajax({
+      url: ('/auth/phil_setup_demo?book_key=' + bookKey),
+      type: 'post',
+    }).fail(function(xhr, status, err) {
+      console.log(err)
+   })
 
   /*
    ****************
