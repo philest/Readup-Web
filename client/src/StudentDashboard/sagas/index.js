@@ -333,8 +333,9 @@ function* instructionSaga() {
 // assumes at least one question...
 function* definedCompSaga(numQuestions, assessmentId) {
   
+  let uploadEffects = []
+
   let compBlobArray = []
-  let effects = [] 
 
   for(let currQ = 1; currQ <= numQuestions; currQ++){
 
@@ -347,14 +348,17 @@ function* definedCompSaga(numQuestions, assessmentId) {
       }
 
 
-      let newBlob = yield* compSaga(isFirstTime, false, isFirstTime)
+      let newBlob = yield* compSaga(isFirstTime, false, isFirstTime, currQ)
       compBlobArray.push(newBlob)
 
-      // Turn in that comprehension answer after it's done.
-      effects.push(
-        yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
-      )
-
+     if (currQ < numQuestions) {
+       uploadEffects.push(
+          yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
+       )
+     }
+     else {
+      yield* turnInAudio(newBlob, assessmentId, true, currQ) // wait for the last one 
+     }
 
       // reset the recorder each time
       let recorder = yield select(getRecorder)
@@ -363,7 +367,7 @@ function* definedCompSaga(numQuestions, assessmentId) {
       yield call(recorder.initialize)
   }
 
-  yield cancel(...effects)
+  yield cancel(...uploadEffects)
 
   return compBlobArray
 
@@ -414,7 +418,7 @@ function* promptSaga() {
 }
 
 
-function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boolean) {
+function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boolean, currQ: number) {
 
   const compEffects = []
 
@@ -542,16 +546,15 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
   })
 
 
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.playingBookIntro,
-    ))
 
-    yield put({ type: SPINNER_HIDE })
-
-
-
+  yield put({ type: SPINNER_HIDE })
+ 
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.playingBookIntro,
+  ))
 
   if (prompt) {
+
 
     yield clog("111 We found a prompt!: ", prompt)
 
@@ -563,11 +566,9 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
     yield cancel(...compEffects)
 
-    return yield call(compSaga, false, true, firstTime)
+    return yield call(compSaga, false, true, firstTime, currQ)
 
   }
-
-
   else {
     yield clog("111 NO PROMPT FOUND")
 
@@ -576,15 +577,18 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
       PromptOptions.awaitingPrompt,
     ))
 
-
     // stop it 
     const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, isOnFirstQuestion);
     yield clog('url for comp recording!!!', compRecordingURL)
 
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.playingBookIntro,
-    ))
+    let newBlob
 
+    try {
+      newBlob = recorder.getBlob()
+    } catch (err) {
+      yield clog ('err: ', err)
+      newBlob = 'it broke'
+    }
 
     yield put.resolve(setCurrentModal('no-modal'))
 
@@ -592,12 +596,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
     yield cancel(...compEffects)
 
-    try {
-      return recorder.getBlob()
-    } catch (err) {
-      yield clog ('err: ', err)
-      return 'it broke'
-    }
+    return newBlob
 
   }
 
@@ -803,6 +802,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 
     const numQuestions = yield select(getNumQuestions)
+    let uploadEffects = []
 
     compBlobArray = yield call(definedCompSaga, numQuestions, assessmentId)
 
@@ -952,7 +952,7 @@ function* rootSaga() {
 
       yield put({ type: SPINNER_SHOW })
 
-      yield playSoundAsync('/audio/complete.mp3')
+      yield playSound('/audio/complete.mp3')
 
       // const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
 
