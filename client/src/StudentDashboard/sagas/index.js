@@ -545,6 +545,10 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
     yield clog("111 We found a prompt!: ", prompt)
 
+    yield put.resolve(setPrompt(
+      prompt,
+    ))
+
     yield call(playPromptSaga, prompt, studentID)
 
     yield cancel(...compEffects)
@@ -556,6 +560,12 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
   else {
     yield clog("111 NO PROMPT FOUND")
+
+    // reset.
+    yield put.resolve(setPrompt(
+      PromptOptions.awaitingPrompt,
+    ))
+
 
     // stop it 
     const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, isOnFirstQuestion);

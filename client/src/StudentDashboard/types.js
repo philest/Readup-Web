@@ -50,8 +50,8 @@ export const PromptTextOptions = {
   TELL_SOME_MORE: 'Tell some more.',
   WHAT_IN_STORY: 'What in the story makes you think that?',
   WHY_IMPORTANT: 'Why is that important?',
-  WHY_THINK_THAT: 'Why do you think that',
-  REPEAT_QUESTION: "Tell as much as you can about the passage you just read. Be sure to include the beginning, middle, and end.",
+  WHY_THINK_THAT: 'Why do you think that?',
+  REPEAT_QUESTION: "Try reading the question again.",
 }
 
 export type pPromptText = Keys<typeof promptTextOptions>;
