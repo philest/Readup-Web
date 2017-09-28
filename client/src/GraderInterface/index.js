@@ -258,7 +258,9 @@ export default class GraderInterface extends React.Component {
     else if (event.code === 'Digit3' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer3
     }
-
+    else if (event.code === 'Digit4' && event.shiftKey) {
+      currAudioPlayer = this.refs.audioPlayer4
+    }
 
 
     // grading keys
