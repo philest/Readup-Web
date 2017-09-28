@@ -41,6 +41,21 @@ const initShowCompAudioPlayback = {
 }
 
 
+export function getFullTitle(question) {
+
+ let title = question.title
+ let subtitle = question.subtitle
+
+ if (subtitle) {
+  return `${title} ${subtitle}` 
+ } 
+ else {
+  return title 
+ }
+
+}
+
+
 export default class ReportsInterface extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
@@ -56,6 +71,7 @@ export default class ReportsInterface extends React.Component {
       showPricingModal: false,
       showBookModal: false,
       showEmailModal: true,
+      playbackFidgets: false,
       showSampleInfoModal: false,
       levelFound: false,
       email: '',
@@ -132,6 +148,11 @@ export default class ReportsInterface extends React.Component {
     this.setState({ footerLink: footerLink })
 
 
+    this.timeoutId = setTimeout(function () {
+        this.setState({ playbackFidgets: true });
+    }.bind(this), 13500);
+
+
   }
 
   componentDidMount() {
@@ -146,6 +167,12 @@ export default class ReportsInterface extends React.Component {
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
     clearInterval(this.interval);
+    
+    if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+    }
+
+
   }
 
 
@@ -458,7 +485,7 @@ export default class ReportsInterface extends React.Component {
 
     return (
       <div className={styles.questionBlock}>
-        <h4 className={styles.questionText}>{qLabel + book.questions[String(questionNum + 1)].title + ' ' + book.questions[String(questionNum + 1)].subtitle}.<span className={styles.pointValue}> {pointsLabel}</span></h4>
+        <h4 className={styles.questionText}>{qLabel + getFullTitle(book.questions[String(questionNum + 1)])}<span className={styles.pointValue}> {pointsLabel}</span></h4>
        
         { isGraded &&
           this.renderGradedPartOfQuestion(questionNum)
@@ -707,7 +734,18 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.audioWrapper}>
 
-              { !this.state.showAudioPlayback &&
+              { !this.state.showAudioPlayback && !this.state.playbackFidgets && 
+                <Button
+                  className={styles.submitButton}
+                  bsStyle={'primary'}
+                  bsSize={'large'}
+                  onClick={this.onPlayRecordingClicked}
+                >
+                  Play Recording &nbsp;&nbsp;<i className={["fa", "fa-play", 'animated', 'faa-pulse'].join(" ")} aria-hidden={"true"} />
+                </Button>
+              }
+
+              { !this.state.showAudioPlayback && this.state.playbackFidgets && 
                 <Button
                   className={['fa faa-horizontal animated faa-slow', styles.submitButton].join(' ')}
                   bsStyle={'primary'}
@@ -717,6 +755,7 @@ export default class ReportsInterface extends React.Component {
                   Play Recording &nbsp;&nbsp;<i className={["fa", "fa-play", 'animated', 'faa-pulse'].join(" ")} aria-hidden={"true"} />
                 </Button>
               }
+
 
               { this.state.showAudioPlayback &&
                 <audio controls autoPlay preload="auto" className={styles.audioElement}>
