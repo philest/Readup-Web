@@ -486,11 +486,11 @@ export default class ReportsInterface extends React.Component {
     } 
 
     return (
-            <div>
+            <div className={'faa-parent animated-hover faa-slow'}>
             <p className={styles.studentResponse}>"{ this.props.studentResponses[String(questionNum)] }"</p> 
 
             { !this.state.showCompAudioPlayback[questionNum + 1] &&
-            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
             }
             { this.state.showCompAudioPlayback[questionNum + 1] &&
               this.renderCompAudio(questionNum + 1)
@@ -709,7 +709,7 @@ export default class ReportsInterface extends React.Component {
 
               { !this.state.showAudioPlayback &&
                 <Button
-                  className={styles.submitButton}
+                  className={['fa faa-horizontal animated faa-slow', styles.submitButton].join(' ')}
                   bsStyle={'primary'}
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
