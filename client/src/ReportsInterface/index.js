@@ -33,6 +33,12 @@ let numQuestions
 
 
 
+const initShowCompAudioPlayback = {
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+}
 
 
 export default class ReportsInterface extends React.Component {
@@ -46,7 +52,7 @@ export default class ReportsInterface extends React.Component {
     super(props);
     this.state = {
       showAudioPlayback: false,
-      showCompAudioPlayback: false,
+      showCompAudioPlayback: initShowCompAudioPlayback,
       showPricingModal: false,
       showBookModal: false,
       showEmailModal: true,
@@ -270,7 +276,6 @@ export default class ReportsInterface extends React.Component {
 
   getCompTotal() {
 
-    console.log(this.props)
 
     if (this.props.isSample) {
       return 5
@@ -320,8 +325,12 @@ export default class ReportsInterface extends React.Component {
     this.setState({ showAudioPlayback: true })
   }
 
-  onCompPlayRecordingClicked = () => {
-    this.setState({ showCompAudioPlayback: true })
+  onCompPlayRecordingClicked = (qNum) => {
+
+    let showCompAudioNew = this.state.showCompAudioPlayback
+    showCompAudioNew[String(qNum)] = true 
+
+    this.setState({ showCompAudioPlayback: showCompAudioNew })
   }
 
 
@@ -480,11 +489,11 @@ export default class ReportsInterface extends React.Component {
             <div>
             <p className={styles.studentResponse}>"{ this.props.studentResponses[String(questionNum)] }"</p> 
 
-            { !this.state.showCompAudioPlayback &&
-            <Button onClick={this.onCompPlayRecordingClicked} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+            { !this.state.showCompAudioPlayback[questionNum + 1] &&
+            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={styles.miniPlayButton} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
             }
-            { this.state.showCompAudioPlayback &&
-              this.renderCompAudio(questionNum)
+            { this.state.showCompAudioPlayback[questionNum + 1] &&
+              this.renderCompAudio(questionNum + 1)
             }
 
             <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {this.props.graderComments[String(questionNum)]}</p>
