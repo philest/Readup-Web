@@ -57,21 +57,21 @@
 }
 
 .bookpageContainer {
-	width: 400px;
+	width: 31.5%;
 	height: 80%;
 	background-color: white;
 	border-radius: 5px;
 }
 
 .wideBookpageContainer {
-    width: 700px;
+    width: 53%;
     height: 75%;
    	background-color: white;
    	border-radius: 5px;
 }
 
 .largeWideBookpageContainer {
-	width: 700px;
+	width: 53%;
     height: 85%;
    	background-color: white;
    	border-radius: 5px;
