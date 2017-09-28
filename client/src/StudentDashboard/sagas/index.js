@@ -89,7 +89,8 @@ import {
   getIsDemo,
   getNumQuestions,
   getQuestionNumber,
-  getBook
+  getBook,
+  getInComp
 } from './selectors'
 
 import assessmentSaga from './assessmentSaga'
@@ -957,6 +958,13 @@ function* rootSaga() {
       // const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
 
       let turnInCheck = true // fake, defaulting to true. 
+
+      const fullCompleted = yield select(getInComp)
+      const didEndEarly = !fullCompleted
+
+      if (didEndEarly) {
+        yield* turnInAudio(recordingBlob, assessmentId, false, 0)
+      }
 
       // let compTurnedIn = []
 
