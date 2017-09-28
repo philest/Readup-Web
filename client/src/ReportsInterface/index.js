@@ -20,7 +20,7 @@ import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
 import { sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
-import { playSoundAsync } from '../StudentDashboard/audioPlayer'
+import { stopAudio, playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 import { fpBook, fireflyBook } from '../StudentDashboard/state.js'
 
@@ -97,6 +97,9 @@ export default class ReportsInterface extends React.Component {
 
 
   componentWillMount() {
+
+    stopAudio()
+
     document.addEventListener("keydown", this._handleKeyDown);
 
     if (!this.props.isSample) {
@@ -151,6 +154,8 @@ export default class ReportsInterface extends React.Component {
     this.timeoutId = setTimeout(function () {
         this.setState({ playbackFidgets: true });
     }.bind(this), 13500);
+
+
 
 
   }
