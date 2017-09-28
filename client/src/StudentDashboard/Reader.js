@@ -181,12 +181,12 @@ export default class Reader extends React.Component {
               <RectangleButton
                 title='See'
                 subtitle='Question'
-                style={{ width: 200, height: 70, backgroundColor: '#245F92' }}
+                style={{ width: 200, height: 70, backgroundColor: '#F5F5F5', color: '#4a4a4a' }}
                 pulsatingArrow={false}
                 disabled={this.props.disabled}
                 onClick={this.props.onSeeCompClicked}
               />
-              <i className={["fa", "fa-question", ReportStyles.pulse, styles.myQuestionMarkIcon].join(" ")} aria-hidden={"true"} />
+              <i className={["fa", "fa-question", 'faa-pulse animated', styles.myQuestionMarkIcon].join(" ")} aria-hidden={"true"} />
             </div>
           </div>
       );      
