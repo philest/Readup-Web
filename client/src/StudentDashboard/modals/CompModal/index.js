@@ -106,14 +106,16 @@ export default class CompModal extends React.Component {
     const inProgress = this.props.readerState === ReaderStateOptions.inProgress
 
 
-    const title = this.props.question.title
+    let title
     let subtitle
 
-
+    // this is a hack for ensuring that it doesn't break when compModal renders w/o a question. 
     if (this.props.question) {
       if (this.props.prompt === PromptOptions.awaitingPrompt) {
+        title = this.props.question.title
         subtitle = this.props.question.subtitle
       } else {
+        title = this.props.question.title
         subtitle = PromptTextOptions[this.props.prompt]
       }
     }

@@ -215,6 +215,7 @@ function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean, questionN
     numAttempts = 1
   }
 
+  yield clog('inside turnInAudio...')
 
   for (let i = 0; i < numAttempts; i++) {
     try {
@@ -330,9 +331,10 @@ function* instructionSaga() {
 
 
 // assumes at least one question...
-function* definedCompSaga(numQuestions) {
+function* definedCompSaga(numQuestions, assessmentId) {
   
   let compBlobArray = []
+  let effects = [] 
 
   for(let currQ = 1; currQ <= numQuestions; currQ++){
 
@@ -348,12 +350,20 @@ function* definedCompSaga(numQuestions) {
       let newBlob = yield* compSaga(isFirstTime, false, isFirstTime)
       compBlobArray.push(newBlob)
 
-        // reset the recorder each time
-        let recorder = yield select(getRecorder)
-        yield call(recorder.reset)
-        recorder = yield select(getRecorder)
-        yield call(recorder.initialize)
+      // Turn in that comprehension answer after it's done.
+      effects.push(
+        yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
+      )
+
+
+      // reset the recorder each time
+      let recorder = yield select(getRecorder)
+      yield call(recorder.reset)
+      recorder = yield select(getRecorder)
+      yield call(recorder.initialize)
   }
+
+  yield cancel(...effects)
 
   return compBlobArray
 
@@ -602,7 +612,7 @@ function* hideVolumeSaga() {
 
 
 
-function* assessThenSubmitSaga(bookKey) {
+function* assessThenSubmitSaga(assessmentId) {
 
   const effects = []
 
@@ -770,6 +780,16 @@ function* assessThenSubmitSaga(bookKey) {
     yield playSound('/audio/complete.mp3')
 
 
+    // now start submitting it! 
+
+     effects.push(
+        yield fork(turnInAudio, recordingBlob, assessmentId, false, 0)
+     )
+
+
+
+
+
     //  reset recorder
     let recorder = yield select(getRecorder)
     yield call(recorder.reset)
@@ -784,7 +804,7 @@ function* assessThenSubmitSaga(bookKey) {
 
     const numQuestions = yield select(getNumQuestions)
 
-    compBlobArray = yield call(definedCompSaga, numQuestions)
+    compBlobArray = yield call(definedCompSaga, numQuestions, assessmentId)
 
 
 
@@ -905,7 +925,7 @@ function* rootSaga() {
       quit,
     } = yield race({
       restartAssessment: take(RESTART_RECORDING_CLICKED),
-      recordingBlobArray: call(assessThenSubmitSaga, bookKey),
+      recordingBlobArray: call(assessThenSubmitSaga, assessmentId),
       quit: take('QUIT_ASSESSMENT_AND_DESTROY'),
     })
     yield clog('Race Finished')
@@ -934,16 +954,18 @@ function* rootSaga() {
 
       yield playSoundAsync('/audio/complete.mp3')
 
-      const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
+      // const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
 
-      let compTurnedIn = []
+      let turnInCheck = true // fake, defaulting to true. 
 
-      for(let i = 0; i <=  numBlobs; i++) {
-        const compBlob = compBlobArray[i]
+      // let compTurnedIn = []
 
-        const newResult = yield* turnInAudio(compBlob, assessmentId, true, i + 1)
-        compTurnedIn.push(newResult)
-      }
+      // for(let i = 0; i <=  numBlobs; i++) {
+      //   const compBlob = compBlobArray[i]
+
+      //   const newResult = yield* turnInAudio(compBlob, assessmentId, true, i + 1)
+      //   compTurnedIn.push(newResult)
+      // }
 
 
 
@@ -951,7 +973,8 @@ function* rootSaga() {
 
 
       // success! TODO better checking of compTurnedIn
-      if (turnedIn && compTurnedIn) {
+      // if (turnedIn && compTurnedIn) {
+      if (turnInCheck) {
         yield clog('turned it in!')
 
         if (isDemo) {
