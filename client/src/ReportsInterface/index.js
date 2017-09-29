@@ -17,7 +17,7 @@ import sharedStyles from '../sharedComponents/styles.css'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 
-import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
+import { sampleWithMSV } from '../sharedComponents/sampleWithMSV'
 
 import { updateAssessment, sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { stopAudio, playSoundAsync } from '../StudentDashboard/audioPlayer'
@@ -78,7 +78,7 @@ export default class ReportsInterface extends React.Component {
       name: '',
       schoolName: '',
       phoneNumber: '',
-      gradedText: newSampleEvaluationText,
+      gradedText: sampleWithMSV,
       lastUpdated: this.props.whenCreated,
       givenScoredReport: false,
       showReportReadyModal: false,

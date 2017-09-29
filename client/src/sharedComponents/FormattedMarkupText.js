@@ -4,6 +4,37 @@ import styles from './styles.css'
 
 import MarkupWord from '../sharedComponents/MarkupWord'
 
+let wordsOnEachLine = [12, 13]
+
+function getMSVforWord(wordDict) {
+ 
+
+    let msvForWord = ''
+
+    if (wordDict.mTypeError) {
+      msvForWord += 'M'
+    }
+
+    if (wordDict.sTypeError) {
+      msvForWord += 'S'
+    }
+
+    if (wordDict.vTypeError) {
+      msvForWord += 'V'
+    }
+
+    return msvForWord
+
+}
+
+
+
+
+function wordHasError(wordDict) {
+
+  return (wordDict.wordDeleted || wordDict.substituteWord || wordDict.addAfterWord)
+
+}
 
 export default class FormattedMarkupText extends React.Component {
   static propTypes = {
@@ -37,7 +68,70 @@ export default class FormattedMarkupText extends React.Component {
     this.setState({hideUnread: !this.state.hideUnread})
   }
 
+
+
+
+  // paragraph one only
+  // first sentence only 
+  getMSVarr(lineIdx, paraIdx) {
+    let paragraph = this.props.paragraphs[0]
+
+    let howManyWords = wordsOnEachLine[lineIdx]
+
+    let MSVarr = [] 
+
+    let msvForWord
+
+    paragraph.words.forEach(function(wordDict, wordIdx) {
+      
+      if (wordIdx < howManyWords) {
+        if (wordHasError(wordDict) !== null) {
+          msvForWord = getMSVforWord(wordDict)
+          MSVarr.push(msvForWord)
+        }
+      }
+
+    })
+
+    return MSVarr
+
+  }
+
+
+  renderOneMSV(lineNum, MSVarr) {
+
+    const htmlMSVarr = []
+
+    for (let i = 0; i < MSVarr.length; i++) {
+
+      if (MSVarr[i] === '') {
+        htmlMSVarr.push(<span key={i} className={[styles.msv, styles.emptyMSV].join(' ')}>{"—"}</span>
+        )
+      }
+      else {
+        htmlMSVarr.push(<span key={i} className={styles.msv}>{MSVarr[i]}</span>
+        )
+      }
+    }
+
+    return (
+      <div className={styles.rightBlockContainer}>
+        <span className={styles.lineNum}>{lineNum}</span>
+        <div className={styles.rightBlock}>
+          <div className={styles.msvContainer}>
+            {
+              htmlMSVarr
+            }
+          </div>
+
+        </div>
+      </div>
+    )
+  }
+
   render() {
+
+    console.log(this.getMSVarr(0,0))
 
     const endPindex = this.props.endParagraphIndex //shorthands for ease
     const endWindex = this.props.endWordIndex
@@ -50,119 +144,64 @@ export default class FormattedMarkupText extends React.Component {
       { this.props.isSample &&
         <div className={styles.rightSide}>
          
-          <div className={styles.rightBlockContainer}>
-            <span className={styles.lineNum}>1</span>
-            <div className={styles.rightBlock}>
-              <div className={styles.msvContainer}>
-
-                <span className={styles.msv}>S</span>
-                <span className={styles.msv}>MSV</span>
-                <span className={[styles.msv, styles.emptyMSV].join(' ')}>{"—"}</span>
-              </div>
-
-            </div>
-          </div>
-
-          <br/>
-
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>2</span>
-
-            <div className={styles.rightBlock}>
-            </div>
-          </div>
-
-          <br/>
-
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>3</span>
-
-            <div className={styles.rightBlock}>
-              <div className={styles.msvContainer}>
-
-                <span className={styles.msv}>MSV</span>
-              </div>
-
-            </div>
-          </div>
-
-          <br/>
-
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>4</span>
-
-            <div className={styles.rightBlock}>
-              <div className={styles.msvContainer}>
-                <span className={styles.msv}>MSV</span>
-                <span className={styles.msv}>MSV</span>
-                <span className={styles.msv}>S</span>
-                </div>
-            </div>
-          </div>
+         {
+            this.renderOneMSV(1, ['S', 'MSV', ''])
+         }
 
 
           <br/>
 
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>5</span>
-
-            <div className={styles.rightBlock}>
-              <div className={styles.msvContainer}>
-                <span className={[styles.msv, styles.emptyMSV].join(' ')}>{"—"}</span>
-                <span className={styles.msv}>SV</span>
-                <span className={styles.msv}>S</span>
-                <span className={styles.msv}>S</span>
-              </div>
-            </div>
-          </div>
+         {
+            this.renderOneMSV(2, [])
+         }
 
           <br/>
 
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>6</span>
-
-            <div className={styles.rightBlock}>
-            </div>
-          </div>
-
-          <br/>
-
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>7</span>
-
-            <div className={styles.rightBlock}>
-              <div className={styles.msvContainer}>
-                <span className={styles.msv}>S</span>
-                <span className={styles.msv}>V</span>
-              </div>
-            </div>
-          </div>
+         {
+            this.renderOneMSV(3, ['MSV'])
+         }
 
 
           <br/>
 
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>8</span>
-
-            <div className={styles.rightBlock}>
-              <div className={styles.msvContainer}>
-              </div>
-            </div>
-          </div>
+         {
+            this.renderOneMSV(4, ['MSV', 'MSV', 'S'])
+         }
 
 
           <br/>
 
-          <div className={styles.rightBlockContainer}>
-             <span className={styles.lineNum}>9</span>
+        {
+            this.renderOneMSV(5, ['', 'SV', 'S', 'S'])
+         }
 
-            <div className={styles.rightBlock}>
-              <div className={styles.msvContainer}>
-              </div>
-            </div>
-          </div>
+          <br/>
 
-        </div>
+         {
+            this.renderOneMSV(6, [])
+         }
+
+          <br/>
+
+         {
+            this.renderOneMSV(7, ['S', 'V'])
+         }
+
+
+          <br/>
+
+         {
+            this.renderOneMSV(8, [])
+         }
+
+
+          <br/>
+
+         {
+            this.renderOneMSV(9, [])
+         }
+
+        </div> 
       }
 
       <div className={(this.props.bookLevel >= "I") ? styles.textContainerLarge : styles.textContainer}>
