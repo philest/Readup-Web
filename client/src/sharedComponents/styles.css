@@ -147,17 +147,15 @@
 }
 
 .rightSide {
-    margin-top: -17px;
+	margin-top: -54px;
+/*    float: right; */  
+	width: 85px;
     float: right;
-    width: 185px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: space-around;
+    margin-right: 100px;
 }
 
 .rightBlockContainer {
-	margin-top: 3px;
+    margin-top: 33px;
 }
 
 .rightBlock {
@@ -168,9 +166,37 @@
 
 .lineNum {
     color: #bbb;
-    font-size: 13pt;
+    font-size: 10pt;
     float: left;
     margin-top: 25px;
+}
+
+.msvContainer {
+	float: right;
+	text-align: left;
+	width: 10px;
+}
+
+.msv {
+	font-family: 'ProximaNova Semibold';
+    letter-spacing: 2px;
+    font-size: 15px;	
+    display: block;
+    margin-top: -5px;
+}
+
+.emptyMSV {
+	color: #bbb;
+	text-align: left;
+	float: left; 
+}
+
+
+@media (max-width: 1024px) {
+	.rightSide {
+		display: none;
+	}
+
 }
 
 /*.highlightedTextWord {

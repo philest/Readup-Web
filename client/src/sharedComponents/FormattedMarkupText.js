@@ -47,26 +47,123 @@ export default class FormattedMarkupText extends React.Component {
 
       <div>
 
-      <div className={styles.rightSide}>
-       
-        <div className={styles.rightBlockContainer}>
-          <span className={styles.lineNum}>1</span>
-          <div className={styles.rightBlock}>
-            <span className={styles.msv}>MSV</span>
+      { this.props.isSample &&
+        <div className={styles.rightSide}>
+         
+          <div className={styles.rightBlockContainer}>
+            <span className={styles.lineNum}>1</span>
+            <div className={styles.rightBlock}>
+              <div className={styles.msvContainer}>
+
+                <span className={styles.msv}>S</span>
+                <span className={styles.msv}>MSV</span>
+                <span className={[styles.msv, styles.emptyMSV].join(' ')}>{"—"}</span>
+              </div>
+
+            </div>
           </div>
-        </div>
 
-        <br/>
+          <br/>
 
-        <div className={styles.rightBlockContainer}>
-           <span className={styles.lineNum}>1</span>
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>2</span>
 
-          <div className={styles.rightBlock}>
-            <span className={styles.msv}>MSV</span>
+            <div className={styles.rightBlock}>
+            </div>
           </div>
-        </div>
 
-      </div>
+          <br/>
+
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>3</span>
+
+            <div className={styles.rightBlock}>
+              <div className={styles.msvContainer}>
+
+                <span className={styles.msv}>MSV</span>
+              </div>
+
+            </div>
+          </div>
+
+          <br/>
+
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>4</span>
+
+            <div className={styles.rightBlock}>
+              <div className={styles.msvContainer}>
+                <span className={styles.msv}>MSV</span>
+                <span className={styles.msv}>MSV</span>
+                <span className={styles.msv}>S</span>
+                </div>
+            </div>
+          </div>
+
+
+          <br/>
+
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>5</span>
+
+            <div className={styles.rightBlock}>
+              <div className={styles.msvContainer}>
+                <span className={[styles.msv, styles.emptyMSV].join(' ')}>{"—"}</span>
+                <span className={styles.msv}>SV</span>
+                <span className={styles.msv}>S</span>
+                <span className={styles.msv}>S</span>
+              </div>
+            </div>
+          </div>
+
+          <br/>
+
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>6</span>
+
+            <div className={styles.rightBlock}>
+            </div>
+          </div>
+
+          <br/>
+
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>7</span>
+
+            <div className={styles.rightBlock}>
+              <div className={styles.msvContainer}>
+                <span className={styles.msv}>S</span>
+                <span className={styles.msv}>V</span>
+              </div>
+            </div>
+          </div>
+
+
+          <br/>
+
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>8</span>
+
+            <div className={styles.rightBlock}>
+              <div className={styles.msvContainer}>
+              </div>
+            </div>
+          </div>
+
+
+          <br/>
+
+          <div className={styles.rightBlockContainer}>
+             <span className={styles.lineNum}>9</span>
+
+            <div className={styles.rightBlock}>
+              <div className={styles.msvContainer}>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
 
       <div className={(this.props.bookLevel >= "I") ? styles.textContainerLarge : styles.textContainer}>
 
