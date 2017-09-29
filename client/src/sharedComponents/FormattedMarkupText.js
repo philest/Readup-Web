@@ -4,7 +4,7 @@ import styles from './styles.css'
 
 import MarkupWord from '../sharedComponents/MarkupWord'
 
-let wordsOnEachLine = [12, 13]
+let wordsOnEachLine = [12, 13, 11, 11, 10, 9, 13, 10, 6]
 
 function getMSVforWord(wordDict) {
  
@@ -27,6 +27,18 @@ function getMSVforWord(wordDict) {
 
 }
 
+function getLineStartIdx(lineNum) {
+
+  let total = 0
+
+  for (let i = 0; i < (lineNum - 1); i++) {
+    total += wordsOnEachLine[i]
+  }
+
+  return (total - 1)
+
+
+}
 
 
 
@@ -76,15 +88,17 @@ export default class FormattedMarkupText extends React.Component {
   getMSVarr(lineIdx, paraIdx) {
     let paragraph = this.props.paragraphs[0]
 
-    let howManyWords = wordsOnEachLine[lineIdx]
+    let MSVarr = []
 
-    let MSVarr = [] 
+    let lineStartIdx = getLineStartIdx(lineIdx + 1)
+
+    let lineEndIdx = lineStartIdx + wordsOnEachLine[lineIdx]
 
     let msvForWord
 
     paragraph.words.forEach(function(wordDict, wordIdx) {
       
-      if (wordIdx < howManyWords) {
+      if (wordIdx < lineEndIdx && wordIdx > lineStartIdx) {
         if (wordHasError(wordDict) !== null) {
           msvForWord = getMSVforWord(wordDict)
           MSVarr.push(msvForWord)
@@ -98,7 +112,10 @@ export default class FormattedMarkupText extends React.Component {
   }
 
 
-  renderOneMSV(lineNum, MSVarr) {
+  renderOneMSV(lineNum) {
+
+
+    let MSVarr = this.getMSVarr(lineNum - 1, 0)
 
     const htmlMSVarr = []
 
@@ -131,8 +148,6 @@ export default class FormattedMarkupText extends React.Component {
 
   render() {
 
-    console.log(this.getMSVarr(0,0))
-
     const endPindex = this.props.endParagraphIndex //shorthands for ease
     const endWindex = this.props.endWordIndex
 
@@ -145,60 +160,60 @@ export default class FormattedMarkupText extends React.Component {
         <div className={styles.rightSide}>
          
          {
-            this.renderOneMSV(1, ['S', 'MSV', ''])
+            this.renderOneMSV(1)
          }
 
 
           <br/>
 
          {
-            this.renderOneMSV(2, [])
+            this.renderOneMSV(2)
          }
 
           <br/>
 
          {
-            this.renderOneMSV(3, ['MSV'])
+            this.renderOneMSV(3)
          }
 
 
           <br/>
 
          {
-            this.renderOneMSV(4, ['MSV', 'MSV', 'S'])
+            this.renderOneMSV(4)
          }
 
 
           <br/>
 
         {
-            this.renderOneMSV(5, ['', 'SV', 'S', 'S'])
+            this.renderOneMSV(5)
          }
 
           <br/>
 
          {
-            this.renderOneMSV(6, [])
+            this.renderOneMSV(6)
          }
 
           <br/>
 
          {
-            this.renderOneMSV(7, ['S', 'V'])
-         }
-
-
-          <br/>
-
-         {
-            this.renderOneMSV(8, [])
+            this.renderOneMSV(7)
          }
 
 
           <br/>
 
          {
-            this.renderOneMSV(9, [])
+            this.renderOneMSV(8)
+         }
+
+
+          <br/>
+
+         {
+            this.renderOneMSV(9)
          }
 
         </div> 
