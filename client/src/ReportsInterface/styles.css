@@ -438,10 +438,13 @@ span.missed, span.correct {
 }
 
 .noteTextArea {
-	width: 362px;
-    height: 115px !important;
+	width: 400px;
+    height: 100px !important;
 }
 
+.editTeacherNoteText {
+	width: 400px;
+}
 
 .pricingFooter {
 	margin-top: 100px;

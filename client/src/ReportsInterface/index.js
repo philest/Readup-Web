@@ -1100,14 +1100,14 @@ export default class ReportsInterface extends React.Component {
             bsStyle={'primary'}
             onClick={this.onAddNoteClicked}
           >
-          Add a note <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
+          Add notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
           </Button>
         }
 
         { this.state.draftingNote && 
           <div>
             <FormGroup controlId="teacherNote">
-              <ControlLabel className={styles.noteControlLabel} >Your Note</ControlLabel>
+              <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
               <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.props.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
             </FormGroup>
 
@@ -1123,7 +1123,7 @@ export default class ReportsInterface extends React.Component {
 
         { this.state.noteExists && 
           <div>
-            <ControlLabel className={styles.noteControlLabel} >Your Note</ControlLabel>
+            <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
             <p className={styles.editTeacherNoteText}>
             { this.state.teacherNote } 
             </p>
