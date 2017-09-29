@@ -45,7 +45,29 @@ export default class FormattedMarkupText extends React.Component {
 
     return (
 
-      // Make the text container larger for high-level books 
+      <div>
+
+      <div className={styles.rightSide}>
+       
+        <div className={styles.rightBlockContainer}>
+          <span className={styles.lineNum}>1</span>
+          <div className={styles.rightBlock}>
+            <span className={styles.msv}>MSV</span>
+          </div>
+        </div>
+
+        <br/>
+
+        <div className={styles.rightBlockContainer}>
+           <span className={styles.lineNum}>1</span>
+
+          <div className={styles.rightBlock}>
+            <span className={styles.msv}>MSV</span>
+          </div>
+        </div>
+
+      </div>
+
       <div className={(this.props.bookLevel >= "I") ? styles.textContainerLarge : styles.textContainer}>
 
         {this.props.paragraphs.map((paragraph, pIndex) => (
@@ -82,7 +104,8 @@ export default class FormattedMarkupText extends React.Component {
                 />
               </span>
             ))}
-            
+      
+
           </div>
         ))}
 
@@ -98,6 +121,7 @@ export default class FormattedMarkupText extends React.Component {
       </div>
 
 
+      </div>
 
     );
   }

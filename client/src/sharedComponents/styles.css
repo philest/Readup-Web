@@ -8,7 +8,7 @@
 }
 
 .textContainerLarge {
-	width: 600px;
+	width: 450px;
 }
 
 .compContainerLarger {
@@ -146,6 +146,27 @@
     left: 2px;
 }
 
+.rightSide {
+	float: right;
+	width: 185px;
+
+}
+
+.rightBlockContainer {
+	margin-top: 3px;
+}
+
+.rightBlock {
+	float: right;
+    text-align: left;
+}
+
+
+.lineNum {
+    color: #bbb;
+    font-size: 13pt;
+    float: left;
+}
 
 /*.highlightedTextWord {
 	display: inline-block;
