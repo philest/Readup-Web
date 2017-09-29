@@ -433,6 +433,15 @@ span.missed, span.correct {
 	cursor: pointer;
 }
 
+.noteControlLabel {
+	font-size: 1.5em;
+}
+
+.noteTextArea {
+	width: 362px;
+    height: 115px !important;
+}
+
 
 .pricingFooter {
 	margin-top: 100px;

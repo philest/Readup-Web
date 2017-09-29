@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Modal, FormGroup, FormControl, ControlLabel  } from 'react-bootstrap'
 
 
 import styles from './styles.css'
@@ -1093,18 +1093,28 @@ export default class ReportsInterface extends React.Component {
         }
 
         { this.state.draftingNote && 
-          <Button
-            className={styles.saveNoteButton} 
-            bsStyle={'primary'}
-            onClick={this.onSaveNoteClicked}
-          >
-          Save note <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
-          </Button>
+          <div>
+            <FormGroup controlId="teacherNote">
+              <ControlLabel className={styles.noteControlLabel} >Your Note</ControlLabel>
+              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.props.notePrior} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
+            </FormGroup>
+
+            <Button
+              className={styles.saveNoteButton} 
+              bsStyle={'primary'}
+              onClick={this.onSaveNoteClicked}
+            >
+            Save note <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
+            </Button>
+          </div> 
         }
 
         { this.state.noteExists && 
-          <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
-          </span>
+          <div>
+            <ControlLabel className={styles.noteControlLabel} >Your Note</ControlLabel>
+            <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
+            </span>
+          </div>
         }
 
 
