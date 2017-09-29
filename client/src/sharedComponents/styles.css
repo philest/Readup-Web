@@ -147,9 +147,13 @@
 }
 
 .rightSide {
-	float: right;
-	width: 185px;
-
+    margin-top: -17px;
+    float: right;
+    width: 185px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: space-around;
 }
 
 .rightBlockContainer {
@@ -166,6 +170,7 @@
     color: #bbb;
     font-size: 13pt;
     float: left;
+    margin-top: 25px;
 }
 
 /*.highlightedTextWord {
