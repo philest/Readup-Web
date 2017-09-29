@@ -83,10 +83,8 @@ export default class FormattedMarkupText extends React.Component {
 
 
 
-  // paragraph one only
-  // first sentence only 
   getMSVarr(lineIdx, paraIdx) {
-    let paragraph = this.props.paragraphs[0]
+    let paragraph = this.props.paragraphs[paraIdx]
 
     let MSVarr = []
 
@@ -111,8 +109,26 @@ export default class FormattedMarkupText extends React.Component {
 
   }
 
+  renderMSVparagraph(paraIdx, lineLengthsArr) {
+    let arr = []
 
-  renderOneMSV(lineNum) {
+    for (let i = 0; i < lineLengthsArr.length; i++) {
+      arr.push(
+        <div> 
+          {
+          this.renderMSVline(i + 1)
+          }
+          <br />
+        </div>,
+      )
+    }
+
+    return arr
+
+  }
+
+
+  renderMSVline(lineNum) {
 
 
     let MSVarr = this.getMSVarr(lineNum - 1, 0)
@@ -146,6 +162,10 @@ export default class FormattedMarkupText extends React.Component {
     )
   }
 
+
+
+
+
   render() {
 
     const endPindex = this.props.endParagraphIndex //shorthands for ease
@@ -160,60 +180,7 @@ export default class FormattedMarkupText extends React.Component {
         <div className={styles.rightSide}>
          
          {
-            this.renderOneMSV(1)
-         }
-
-
-          <br/>
-
-         {
-            this.renderOneMSV(2)
-         }
-
-          <br/>
-
-         {
-            this.renderOneMSV(3)
-         }
-
-
-          <br/>
-
-         {
-            this.renderOneMSV(4)
-         }
-
-
-          <br/>
-
-        {
-            this.renderOneMSV(5)
-         }
-
-          <br/>
-
-         {
-            this.renderOneMSV(6)
-         }
-
-          <br/>
-
-         {
-            this.renderOneMSV(7)
-         }
-
-
-          <br/>
-
-         {
-            this.renderOneMSV(8)
-         }
-
-
-          <br/>
-
-         {
-            this.renderOneMSV(9)
+          this.renderMSVparagraph(0, wordsOnEachLine)
          }
 
         </div> 
