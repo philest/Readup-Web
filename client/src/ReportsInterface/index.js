@@ -861,7 +861,7 @@ export default class ReportsInterface extends React.Component {
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 point)</span></h4>
                   <p className={styles.studentResponse}>He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first.</p> 
-                  <p className={styles.compCorrect}><span className={styles.missed}>0 of 1 point:</span> Reflects excellent understanding of the text. Includes details on Chris’s mixed feelings and evidence from the text.</p> 
+                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Reflects excellent understanding of the text. Includes details on Chris’s mixed feelings and evidence from the text.</p> 
 
                 </div>
             </div>
@@ -1108,7 +1108,7 @@ export default class ReportsInterface extends React.Component {
           <div>
             <FormGroup controlId="teacherNote">
               <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
-              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.props.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
+              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.state.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
             </FormGroup>
 
             <Button

@@ -103,7 +103,7 @@ class ReportsController < ApplicationController
         graderComments: @grader_comments,
         studentResponses: @student_responses,
 
-        teacherNote: nil
+        teacherNote: "Maya’s early behaviors are under control. Consistently using meaning and structure of sentences to solve words. A big difficulty is limited self-monitoring, with Maya often reading without attending to checking for meaning, self-monitoring, and self-correcting. Fluency seems strong, as does rate, but the high rate may be causing Maya do self-monitor less.  Retelling is strong, but Maya is having more difficulty with higher-order comprehension. Instruction needs to focus on self-monitoring and using all sources of information (meaning, structure, visual) to improve accuracy."
 
 
       }
