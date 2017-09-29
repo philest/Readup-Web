@@ -7,7 +7,7 @@ import styles from './styles.css'
 import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
-import { newSampleEvaluationText } from '../sharedComponents/nickMarkup.js'
+import { sampleWithMSV } from '../sharedComponents/sampleWithMSV.js'
 import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
@@ -151,7 +151,7 @@ export default class GraderInterface extends React.Component {
 
 
   componentDidMount() {
-    this.interval = setInterval(this.tick, 3000);
+    this.interval = setInterval(this.tick, 10000);
      currAudioPlayer = this.refs.audioPlayer0
 
   }
@@ -191,7 +191,7 @@ export default class GraderInterface extends React.Component {
     // check status of each file 
 
     for(let q = 0; q <= numQuestions; q++) {
-      if (!this.state.showQArr[String(q)]) {
+      if (!this.state.showQArr[String(q)] && !this.props.scored) {
         this.checkS3(q)
       }
     }
@@ -293,6 +293,20 @@ export default class GraderInterface extends React.Component {
     var evaluationTextData = this.state.evaluationTextData
 
 
+    // toggleMSV
+    if (event.code === 'KeyM' && event.shiftKey) {
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].mTypeError = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].mTypeError
+    }
+    if (event.code === 'KeyS' && event.shiftKey) {
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].sTypeError = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].sTypeError
+    }
+    if (event.code === 'KeyV' && event.shiftKey) {
+      evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].vTypeError = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].vTypeError
+    }
+
+
+
+    // grading keys
     if (event.code === 'KeyA') {
 
       const addText = window.prompt('Enter the added word')
@@ -302,7 +316,7 @@ export default class GraderInterface extends React.Component {
 
       this.setState({evaluationTextData: evaluationTextData})
     }
-    else if (event.code === 'KeyS' && !this.state.highlightedIsSpace) {
+    else if (event.code === 'KeyS' && !this.state.highlightedIsSpace && !event.shiftKey ) {
 
       const subText = window.prompt('Enter the substituted word')
 
@@ -901,6 +915,7 @@ renderCompQuestions4 = () => {
             onMouseEnterWord={this._onMouseEnterWord}
             onMouseLeaveWord={this._onMouseLeaveWord}
             bookLevel={this.props.bookLevel}
+            isSample={true}
           />
 
 

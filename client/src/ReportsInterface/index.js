@@ -30,7 +30,6 @@ let book
 let numQuestions
 
 
-let mostRecentText
 
 
 const initShowCompAudioPlayback = {
