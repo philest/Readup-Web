@@ -428,6 +428,10 @@ span.missed, span.correct {
 
 /*END COMPREHENSION SECTION */
 
+.editSpan {
+	color: #377BB5;
+	cursor: pointer;
+}
 
 
 .pricingFooter {

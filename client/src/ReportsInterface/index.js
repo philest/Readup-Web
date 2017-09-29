@@ -85,6 +85,9 @@ export default class ReportsInterface extends React.Component {
       footerButtonText: '',
       footerLabelText: '',
       footerLink: '',
+      noNoteStarted: true,
+      draftingNote: false,
+      noteExists: false,
     }
     this.tick = this.tick.bind(this);
 
@@ -406,6 +409,25 @@ export default class ReportsInterface extends React.Component {
   closeBookModal  = () => {
     this.setState({ showBookModal: false })
   }
+
+  onAddNoteClicked = () => {
+    this.setState({ noNoteStarted: false,
+                    draftingNote: true
+                  })
+  }
+
+  onSaveNoteClicked = () => {
+    this.setState({ noteExists: true, 
+                    draftingNote: false
+                  })
+  }
+
+  onEditClicked  = () => {
+    this.setState({ noteExists: false, 
+                    draftingNote: true
+                  })
+  }
+
 
 
   _handleKeyDown = (event) => {
@@ -1058,6 +1080,33 @@ export default class ReportsInterface extends React.Component {
           </div>
 
         }
+
+
+        { this.state.noNoteStarted &&
+          <Button
+            className={styles.addNoteButton} 
+            bsStyle={'primary'}
+            onClick={this.onAddNoteClicked}
+          >
+          Add a note <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
+          </Button>
+        }
+
+        { this.state.draftingNote && 
+          <Button
+            className={styles.saveNoteButton} 
+            bsStyle={'primary'}
+            onClick={this.onSaveNoteClicked}
+          >
+          Save note <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
+          </Button>
+        }
+
+        { this.state.noteExists && 
+          <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
+          </span>
+        }
+
 
 
 
