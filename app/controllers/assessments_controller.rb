@@ -55,6 +55,8 @@ class AssessmentsController < ApplicationController
     elsif params["params"]["scored"]
       puts "okay, ready to update scored to #{params["params"]["scored"]}..."
       res = @assessment.update!(scored: params["params"]["scored"])
+    elsif params['params']['teacher_note']
+      res = @assessment.update!(teacher_note: params["params"]["teacher_note"])
     else    
       puts "nothing matched"
       res = @assessment.update!(params["params"])

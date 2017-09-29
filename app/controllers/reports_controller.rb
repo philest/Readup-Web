@@ -101,7 +101,9 @@ class ReportsController < ApplicationController
 
         compScores: @comp_scores,
         graderComments: @grader_comments,
-        studentResponses: @student_responses
+        studentResponses: @student_responses,
+
+        teacherNote: "This looks like a good student."
 
 
       }
@@ -211,7 +213,8 @@ class ReportsController < ApplicationController
         assessmentBrand: assessmentBrand,
         isLiveDemo: false,
         bookKey: bookKey,
-        env: ENV['RAILS_ENV']
+        env: ENV['RAILS_ENV'],
+        teacherNote: @assessment.teacher_note
 
       }
     end

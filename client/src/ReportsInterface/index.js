@@ -19,7 +19,7 @@ import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
-import { sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
+import { updateAssessment, sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { stopAudio, playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 import { fpBook, fireflyBook } from '../StudentDashboard/state.js'
@@ -30,7 +30,7 @@ let book
 let numQuestions
 
 
-
+let mostRecentText
 
 
 const initShowCompAudioPlayback = {
@@ -85,9 +85,10 @@ export default class ReportsInterface extends React.Component {
       footerButtonText: '',
       footerLabelText: '',
       footerLink: '',
-      noNoteStarted: true,
+      noNoteStarted: (this.props.teacherNote === null),
       draftingNote: false,
-      noteExists: false,
+      noteExists: (this.props.teacherNote !== null),
+      teacherNote: this.props.teacherNote,
     }
     this.tick = this.tick.bind(this);
 
@@ -417,12 +418,23 @@ export default class ReportsInterface extends React.Component {
   }
 
   onSaveNoteClicked = () => {
+    updateAssessment( { teacher_note: this.noteInput.value },
+                       this.props.assessmentID,
+                    )
+
     this.setState({ noteExists: true, 
-                    draftingNote: false
+                    draftingNote: false,
+                    teacherNote: this.noteInput.value,
                   })
   }
 
   onEditClicked  = () => {
+
+    updateAssessment( { teacher_note: this.noteInput },
+                       this.props.assessmentID,
+                    )
+
+
     this.setState({ noteExists: false, 
                     draftingNote: true
                   })
@@ -1096,7 +1108,7 @@ export default class ReportsInterface extends React.Component {
           <div>
             <FormGroup controlId="teacherNote">
               <ControlLabel className={styles.noteControlLabel} >Your Note</ControlLabel>
-              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.props.notePrior} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
+              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.props.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
             </FormGroup>
 
             <Button
@@ -1112,13 +1124,13 @@ export default class ReportsInterface extends React.Component {
         { this.state.noteExists && 
           <div>
             <ControlLabel className={styles.noteControlLabel} >Your Note</ControlLabel>
+            <p className={styles.editTeacherNoteText}>
+            { this.state.teacherNote } 
+            </p>
             <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
             </span>
           </div>
         }
-
-
-
 
 
           
