@@ -103,7 +103,7 @@ class ReportsController < ApplicationController
         graderComments: @grader_comments,
         studentResponses: @student_responses,
 
-        teacherNote: "This looks like a good student."
+        teacherNote: nil
 
 
       }
