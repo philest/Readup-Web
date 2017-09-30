@@ -128,11 +128,14 @@ export default class FormattedMarkupText extends React.Component {
 
 
     for (let i = 0; i < bookLinesArr.length; i++) {
-      paraArr.push(
-        <div className={styles.msvPara}>
-         {this.renderMSVparagraph(i, bookLinesArr[i], lineCounter)}
-        </div>
-      )
+
+      if (i <= this.props.endParagraphIndex) {
+        paraArr.push(
+          <div className={styles.msvPara}>
+           {this.renderMSVparagraph(i, bookLinesArr[i], lineCounter)}
+          </div>
+        )
+      }
 
       lineCounter += bookLinesArr[i].length
     }
