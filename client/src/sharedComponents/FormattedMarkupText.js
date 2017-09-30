@@ -7,7 +7,7 @@ import MarkupWord from '../sharedComponents/MarkupWord'
 
 
 let wordsOnEachLine = [12, 13, 11, 11, 10, 9, 13, 10, 6]
-let nickBookLines = [[11, 9], [10, 8], [11, 11, 2], [10, 7], [9,8], [15,13,6], [10,9,4], [10,9], [9,11,1], [8,5]]
+let nickBookLines = [[11, 9], [10, 8], [11, 11, 2], [10, 7], [9,8], [15,13,6], [11,9,4], [10,9], [9,11,1], [8,5]]
 
 let sampleBookLines = [[12, 13, 11, 11, 10, 9, 13, 10, 6]]
 
@@ -102,7 +102,7 @@ export default class FormattedMarkupText extends React.Component {
 
     paragraph.words.forEach(function(wordDict, wordIdx) {
       
-      if (wordIdx < lineEndIdx && wordIdx > lineStartIdx) {
+      if (wordIdx <= lineEndIdx && wordIdx > lineStartIdx) {
         if (wordHasError(wordDict) !== null) {
           msvForWord = getMSVforWord(wordDict)
           MSVarr.push(msvForWord)
@@ -118,29 +118,38 @@ export default class FormattedMarkupText extends React.Component {
   renderMSVbook(bookLinesArr) {
     let paraArr = [] 
 
+    let lineCounter = 1; 
+
+
     for (let i = 0; i < bookLinesArr.length; i++) {
       paraArr.push(
         <div className={styles.msvPara}>
-         {this.renderMSVparagraph(i, bookLinesArr[i])}
+         {this.renderMSVparagraph(i, bookLinesArr[i], lineCounter)}
         </div>
       )
+
+      lineCounter += bookLinesArr[i].length
     }
 
     return paraArr
   }
 
-  renderMSVparagraph(paraIdx, lineLengthsArr) {
+  renderMSVparagraph(paraIdx, lineLengthsArr, lineCounter) {
     let arr = []
 
     for (let i = 0; i < lineLengthsArr.length; i++) {
+
       arr.push(
         <div>
           {
-          this.renderMSVline(i + 1, paraIdx, lineLengthsArr)
+          this.renderMSVline(i + 1, paraIdx, lineLengthsArr, lineCounter)
           }
           <br />
         </div>,
       )
+
+      lineCounter += 1 
+      
     }
 
     return arr
@@ -148,7 +157,7 @@ export default class FormattedMarkupText extends React.Component {
   }
 
 
-  renderMSVline(lineNum, paraIdx, lineLengthsArr) {
+  renderMSVline(lineNum, paraIdx, lineLengthsArr, lineCounter) {
 
 
     let MSVarr = this.getMSVarr(lineNum - 1, paraIdx, lineLengthsArr)
@@ -169,7 +178,7 @@ export default class FormattedMarkupText extends React.Component {
 
     return (
       <div className={styles.rightBlockContainer}>
-        <span className={styles.lineNum}>{lineNum}</span>
+        <span className={styles.lineNum}>{lineCounter}</span>
         <div className={styles.rightBlock}>
           <div className={styles.msvContainer}>
             {
