@@ -156,7 +156,7 @@ export default class ReportsInterface extends React.Component {
 
     this.timeoutId = setTimeout(function () {
         this.setState({ playbackFidgets: true });
-    }.bind(this), 13500);
+    }.bind(this), 6000);
 
 
 
@@ -799,7 +799,7 @@ export default class ReportsInterface extends React.Component {
 
               { !this.state.showAudioPlayback && this.state.playbackFidgets && 
                 <Button
-                  className={['fa faa-horizontal animated faa-slow', styles.submitButton].join(' ')}
+                  className={[styles.wiggler, styles.submitButton].join(' ')}
                   bsStyle={'primary'}
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
