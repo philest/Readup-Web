@@ -8,8 +8,14 @@ import MarkupWord from '../sharedComponents/MarkupWord'
 
 let wordsOnEachLine = [12, 13, 11, 11, 10, 9, 13, 10, 6]
 let nickBookLines = [[11, 9], [10, 8], [11, 11, 2], [10, 7], [9,8], [15,13,6], [11,9,4], [10,9], [9,11,1], [8,5]]
-
 let sampleBookLines = [[12, 13, 11, 11, 10, 9, 13, 10, 6]]
+
+
+let bookLines
+
+
+
+
 
 function getMSVforWord(wordDict) {
  
@@ -149,7 +155,7 @@ export default class FormattedMarkupText extends React.Component {
       )
 
       lineCounter += 1 
-      
+
     }
 
     return arr
@@ -192,8 +198,11 @@ export default class FormattedMarkupText extends React.Component {
   }
 
 
+  componentWillMount() {
 
+    bookLines = this.props.isSample ? sampleBookLines : nickBookLines
 
+  }
 
   render() {
 
@@ -208,7 +217,7 @@ export default class FormattedMarkupText extends React.Component {
       { this.props.showMSV &&
         <div className={styles.rightSide}>
          
-         { this.renderMSVbook(nickBookLines) }
+         { this.renderMSVbook(bookLines) }
          
 
         </div> 

@@ -917,8 +917,9 @@ renderCompQuestions4 = () => {
             onMouseEnterWord={this._onMouseEnterWord}
             onMouseLeaveWord={this._onMouseLeaveWord}
             bookLevel={this.props.bookLevel}
-            isSample={true}
+            isSample={false}
             showMSV={true}
+            bookKey={this.props.bookKey}
           />
 
 
