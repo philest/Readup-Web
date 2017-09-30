@@ -195,6 +195,7 @@ export default class GraderInterface extends React.Component {
     for(let q = 0; q <= numQuestions; q++) {
       if (!this.state.showQArr[String(q)] && !this.props.scored) {
         this.checkS3(q)
+        break 
       }
     }
 

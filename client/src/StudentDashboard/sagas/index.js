@@ -273,7 +273,13 @@ function* playPromptSaga(prompt, studentID) {
       audiofile = PromptAudioOptions[prompt]
     }
 
-    yield playSound(audiofile)
+    yield call(playSound, audiofile)
+
+
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.awaitingStart,
+    ))
+    
     yield call(resetToAwaitingPrompt, studentID)
 }
 
