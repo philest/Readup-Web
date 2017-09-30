@@ -47,9 +47,16 @@ export default class NavigationBar extends React.Component {
         onClick={this.onAskQuestion}
       >
         <span className={css.tryButtonText}> Try student demo </span>
-        <i className={["fa", "fa-chevron-right", css.pulsatingArrow, css.delay].join(" ")} style={{marginLeft: 7}} aria-hidden={"true"} />
+        <i className={["fa", "fa-chevron-right", (this.state.atBottom ? css.pulsatingArrow : ''), css.delay].join(" ")} style={{marginLeft: 7}} aria-hidden={"true"} />
       </Button>
     )
+  }
+
+  componentDidMount() {
+    setTimeout( () => {
+      this.setState({ atBottom: true })
+    }, 25000);
+
   }
 
   /**
