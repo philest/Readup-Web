@@ -191,6 +191,10 @@
 	float: left; 
 }
 
+.msvPara {
+	margin-bottom: 80px;
+}
+
 
 @media (max-width: 1024px) {
 	.rightSide {

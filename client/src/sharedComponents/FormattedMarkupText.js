@@ -119,7 +119,11 @@ export default class FormattedMarkupText extends React.Component {
     let paraArr = [] 
 
     for (let i = 0; i < bookLinesArr.length; i++) {
-      paraArr.push(this.renderMSVparagraph(i, bookLinesArr[i]))
+      paraArr.push(
+        <div className={styles.msvPara}>
+         {this.renderMSVparagraph(i, bookLinesArr[i])}
+        </div>
+      )
     }
 
     return paraArr
@@ -130,7 +134,7 @@ export default class FormattedMarkupText extends React.Component {
 
     for (let i = 0; i < lineLengthsArr.length; i++) {
       arr.push(
-        <div> 
+        <div>
           {
           this.renderMSVline(i + 1, paraIdx, lineLengthsArr)
           }
@@ -148,10 +152,6 @@ export default class FormattedMarkupText extends React.Component {
 
 
     let MSVarr = this.getMSVarr(lineNum - 1, paraIdx, lineLengthsArr)
-
-    console.log('MSVarr is ', MSVarr)
-    console.log('lineNum is ', lineNum)
-    console.log('lineLengthsArr is ', lineLengthsArr)
 
     const htmlMSVarr = []
 
@@ -199,9 +199,8 @@ export default class FormattedMarkupText extends React.Component {
       { this.props.showMSV &&
         <div className={styles.rightSide}>
          
-         {
-          this.renderMSVbook(nickBookLines)
-         }
+         { this.renderMSVbook(nickBookLines) }
+         
 
         </div> 
       }
