@@ -12,7 +12,7 @@
 import Recorder from './recorder'
 
 import { ReaderStateOptions, ReaderState, MicPermissionsStatusOptions, MicPermissionsStatus, PauseType, PauseTypeOptions, Prompt, PromptOptions  } from './types'
-
+import { nickMarkup } from '../sharedComponents/nickMarkup'
 
 export const READER_STATE_SET = 'READER_STATE_SET'
 
@@ -518,6 +518,7 @@ export const fpBook = {
   isWideBook: true,
   coverImage: '/images/dashboard/bedtime-large.jpg',
   introAudioSrc: '/audio/VB/nick/nick-intro.mp3',
+  markup: nickMarkup,
   pages: {
     1: {
       lines: [

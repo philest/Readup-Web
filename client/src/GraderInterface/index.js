@@ -7,7 +7,7 @@ import styles from './styles.css'
 import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
-import { sampleWithMSV } from '../sharedComponents/sampleWithMSV.js'
+import { newSampleEvaluationText } from '../sharedComponents/nickMarkup'
 import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
@@ -17,6 +17,7 @@ import reportStyles from '../ReportsInterface/styles.css'
 import {getUserCount, getAssessmentSavedTimestamp} from '../ReportsInterface/emailHelpers.js'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 import { fireflyBook, fpBook } from '../StudentDashboard/state.js'
+
 
 
 import {
@@ -95,6 +96,7 @@ export default class GraderInterface extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
+
       evaluationTextData: JSON.parse(this.props.scoredText),
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
