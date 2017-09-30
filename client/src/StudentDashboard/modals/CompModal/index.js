@@ -57,24 +57,7 @@ export default class CompModal extends React.Component {
   }
 
 
-  // playQuestion = () => {
 
-  //   console.log("In playQuestion...")
-
-  //   if (this.props.readerState === ReaderStateOptions.playingBookIntro) {
-
-  //     if (this.props.includeDelay) {
-  //       setTimeout(playSound,
-  //                  6500,
-  //                  this.props.question.audioSrc)
-  //     }
-  //     else {
-  //       playSound(this.props.question.audioSrc)
-  //     }
-    
-  //   }
-
-  // }
 
   onHearQuestionAgainClicked = () => {
 
