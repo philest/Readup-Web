@@ -39,12 +39,14 @@ export default class NavigationBar extends React.Component {
   }
 
 
+
+
   renderButton =() => {
       return (
       <Button
         className={[this.state.atBottom ? css.tryButton : css.tryButtonMuted].join(' ')}
         bsStyle={'default'}
-        onClick={this.onAskQuestion}
+        onClick={this.onTryButtonClicked}
       >
         <span className={css.tryButtonText}> Try student demo </span>
         <i className={["fa", "fa-chevron-right", (this.state.atBottom ? css.pulsatingArrow : ''), css.delay].join(" ")} style={{marginLeft: 7}} aria-hidden={"true"} />
@@ -53,10 +55,17 @@ export default class NavigationBar extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout( () => {
-      this.setState({ atBottom: true })
-    }, 25000);
 
+    if (this.props.beforeStudentDemo) {
+      setTimeout( () => {
+        this.setState({ atBottom: true })
+      }, 25000);
+    }
+
+  }
+
+  onTryButtonClicked = () => {
+    window.location.href = '/demo'
   }
 
   /**

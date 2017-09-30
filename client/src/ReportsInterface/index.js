@@ -138,9 +138,14 @@ export default class ReportsInterface extends React.Component {
 
     // if (!this.props.isSample || this.props.isDirectSample) {
 
-    footerLabelText = "See our Fountas and Pinnell leveled texts"
-    footerButtonText = "See assessment texts"
-    footerLink = "/library"
+    // footerLabelText = "See our Fountas and Pinnell leveled texts"
+    // footerButtonText = "See assessment texts"
+    // footerLink = "/library"
+
+    footerLabelText = "Try out a student demo of ReadUp"
+    footerButtonText = "See demo"
+    footerLink = "/demo"
+
 
     // } else {
     //   footerLabelText = "Save thousands of instructional hours"
@@ -1156,7 +1161,7 @@ export default class ReportsInterface extends React.Component {
             </div>
             <div className={[styles.footerButtonContainer]}>
               <Button
-                className={[styles.pricingFooterButton, styles.multipleFooterButton].join(' ')}
+                className={[styles.pricingFooterButton].join(' ')}
                 bsStyle={'primary'}
                 bsSize={'large'}
                 onClick={ this.onBooksClicked }
@@ -1164,16 +1169,6 @@ export default class ReportsInterface extends React.Component {
                 { this.state.footerButtonText}
               </Button>
 
-              { !this.props.isSample &&
-                <a href="/reports/direct-sample" target="_blank" display="inlineBlock">
-                  <Button
-                    className={styles.multipleFooterButton} 
-                    bsStyle={'default'}
-                  >
-                    { "See a prior assessment"}
-                  </Button>
-                </a>
-              }
 
             </div>
 
