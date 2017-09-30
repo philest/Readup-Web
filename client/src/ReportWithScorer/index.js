@@ -326,7 +326,7 @@ export default class ReportWithScorer extends React.Component {
             </Button>
           </a>
           
-          <hr/>
+          <hr style={{opacity: .75}} />
 
 
           <div className={ReportWithScorerStyles.reviewerContainer}>
