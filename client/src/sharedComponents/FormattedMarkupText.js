@@ -58,7 +58,8 @@ export default class FormattedMarkupText extends React.Component {
     onMouseLeaveWord: PropTypes.func,
     bookLevel: PropTypes.string,
     isSample: PropTypes.bool,
-    showSeeMore: PropTypes.bool
+    showSeeMore: PropTypes.bool,
+    showMSV: PropTypes.bool,
   };
   static defaultProps = {
     isInteractive: false,
@@ -176,7 +177,7 @@ export default class FormattedMarkupText extends React.Component {
 
       <div>
 
-      { this.props.isSample &&
+      { this.props.showMSV &&
         <div className={styles.rightSide}>
          
          {
