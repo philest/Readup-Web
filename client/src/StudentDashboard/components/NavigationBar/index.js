@@ -64,6 +64,10 @@ export default class NavigationBar extends React.Component {
 
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll, false);
+  }
+
   onTryButtonClicked = () => {
     window.location.href = '/demo'
   }

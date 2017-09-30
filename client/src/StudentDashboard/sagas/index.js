@@ -310,7 +310,7 @@ function* instructionSaga() {
 
       yield call(delay, 500)
 
-      yield playSoundAsync('/audio/VB/min/VB-comp-instructions.mp3')
+      yield call(playSoundAsync, '/audio/VB/min/VB-comp-instructions.mp3')
 
       yield call(delay, 1400)
 
@@ -325,6 +325,9 @@ function* instructionSaga() {
       ))
 
       yield call(delay, 1900)
+
+      yield call(playSound, '/audio/VB/VB-see-book.mp3')
+
 
     }
 
@@ -430,19 +433,36 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
   yield put.resolve(setCurrentModal('modal-comp'))
 
+  if (!isPrompt) {
+
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.playingBookIntro,
+    ))
+
+    let book = yield select(getBook)
+    let audioFile = book.questions[String(currQ)].audioSrc
+
+    yield call(playSound, audioFile)
+
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.awaitingStart,
+    ))
 
 
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.playingBookIntro,
-  ))
-
-  if (firstTime) {
-    yield call(delay, 8200)
   }
 
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.awaitingStart,
-  ))
+
+  // yield put.resolve(setReaderState(
+  //   ReaderStateOptions.playingBookIntro,
+  // ))
+
+  // // if (firstTime) {
+  // //   yield call(delay, 8200)
+  // // }
+
+  // yield put.resolve(setReaderState(
+  //   ReaderStateOptions.awaitingStart,
+  // ))
 
 
 
