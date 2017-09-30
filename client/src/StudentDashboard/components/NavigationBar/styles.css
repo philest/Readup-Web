@@ -12,6 +12,8 @@
 	z-index: 100;
 }
 
+
+
 .subContainer {
 	flex: 1;
 	align-items: center;
@@ -149,6 +151,75 @@
     box-shadow: 1px 10px 19px -8px rgba(84,84,84,.5);
     position: fixed;
     width: 100%;
+}
+
+
+.lastNavElt {
+	margin-right: 80px;
+}
+
+.barNavy {
+	background-color: #143145;
+	color: white;
+}
+
+.barWhite {
+	background-color: white;
+	color: #0F72AF;
+}
+
+.textWhite {
+	color: white;
+}
+
+.textNavy {
+	color: #0F72AF;
+}
+
+.tryButton { 
+    margin-right: 30px;
+    color: #133246;
+    font-family: 'Proximanova Semibold';
+    font-size: 1.2em;
+    border: none;
+    transition: all .3s;
+
+}
+
+.tryButtonMuted {
+    margin-right: 30px;
+    color: white;
+    background-color: #133246;
+    font-family: 'Proximanova Semibold';
+    font-size: 1.2em;
+    border: none;
+    transition: all .3s;
+
+}
+
+
+.delay {
+	-webkit-animation-delay: 10s; /* Safari 4.0 - 8.0 */
+    animation-delay: 10s;
+
+}
+
+
+@keyframes pulse-right {
+	from {
+		transform: translateX(0.1em) 
+		scale(1.1)
+	}
+	to {
+		transform: translateX(-0.1em)
+	}
+}
+
+.pulsatingArrow {
+	position: relative;
+	animation-delay: 10s;
+	animation: pulse-right 800ms infinite alternate;
+
 }
 
 

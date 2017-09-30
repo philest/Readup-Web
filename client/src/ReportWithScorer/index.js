@@ -278,6 +278,8 @@ export default class ReportWithScorer extends React.Component {
       onExitClicked: this.onExitClicked,
       onReplayClicked: this.onReplayClicked,
       onReader: false,
+      white: false,
+      beforeStudentDemo: true,
     }
 
     return <NavigationBar {...navProps} />

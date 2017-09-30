@@ -3,7 +3,7 @@ import React from 'react';
 import RectangleButton from '../RectangleButton'
 import BookInfoHeader from '../BookInfoHeader'
 import css from './styles.css'
-import { Popover, OverlayTrigger } from 'react-bootstrap'
+import { Button, Popover, OverlayTrigger } from 'react-bootstrap'
 import questionCSS from '../../../ReportsInterface/components/Metric/styles.css'
 
 
@@ -24,6 +24,8 @@ export default class NavigationBar extends React.Component {
     onReport: PropTypes.bool,
     onGrading: PropTypes.bool,
     onReader: PropTypes.bool,
+    white: PropTypes.bool, 
+    beforeStudentDemo: PropTypes.bool,
   };
   static defaultProps = {
     showPauseButton: true,
@@ -32,6 +34,22 @@ export default class NavigationBar extends React.Component {
     onReport: false,
     onGrading: false,
     onReader: true,
+    white: false,
+    beforeStudentDemo: false, 
+  }
+
+
+  renderButton =() => {
+      return (
+      <Button
+        className={[this.state.atBottom ? css.tryButton : css.tryButtonMuted].join(' ')}
+        bsStyle={'default'}
+        onClick={this.onAskQuestion}
+      >
+        <span className={css.tryButtonText}> Try student demo </span>
+        <i className={["fa", "fa-chevron-right", css.pulsatingArrow, css.delay].join(" ")} style={{marginLeft: 7}} aria-hidden={"true"} />
+      </Button>
+    )
   }
 
   /**
@@ -44,7 +62,9 @@ export default class NavigationBar extends React.Component {
 
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
-    this.state = { name: this.props.name };
+    this.state = { name: this.props.name,
+                   atBottom: false
+    };
   }
 
 
@@ -71,6 +91,14 @@ export default class NavigationBar extends React.Component {
       navClass = css.reportNav
     }
 
+    let barColorClass =  css.barNavy
+    let textColorClass = css.textWhite
+
+    if (this.props.white) {
+      barColorClass = css.barWhite
+      textColorClass = css.textNavy
+    }
+
 
   const popoverClickRootClose = (
     <Popover className={questionCSS.sharePopover} id="popover-trigger-click-root-close" >
@@ -83,9 +111,9 @@ export default class NavigationBar extends React.Component {
 
 
     return (
-      <div className={[navClass, css.navContainer].join(' ')}>
+      <div className={[navClass, css.navContainer, barColorClass].join(' ')}>
         <div className={css.subContainer}>
-          <span className={css.brandText} onClick={this.props.onExitClicked}>ReadUp</span>
+          <span className={[css.brandText, textColorClass].join(' ')} onClick={this.props.onExitClicked}>ReadUp</span>
         </div>
 
         { this.props.showPauseButton &&
@@ -128,11 +156,15 @@ export default class NavigationBar extends React.Component {
 
 
         <div className={css.subContainer}>
-          <div className={css.rightDisplayContainer}>
+          <div className={[css.rightDisplayContainer, textColorClass].join(' ')}>
+
+          { this.props.beforeStudentDemo &&
+            this.renderButton()
+          }
 
           { this.props.onReport &&
             <OverlayTrigger  trigger="click" rootClose placement="bottom" overlay={popoverClickRootClose}>
-              <span>
+              <span className={this.props.beforeStudentDemo ? css.lastNavElt : ''}>
                 <span className={css.shareLabel}>Share report</span>
                 <i className={[css.logoutIcon, 'fa fa-share', css.shareIcon].join(' ')} />
               </span>
@@ -142,14 +174,18 @@ export default class NavigationBar extends React.Component {
           { this.props.onGrading &&
             <span className={css.userNameLabel}>On grading view</span>
           }
+          { !this.props.beforeStudentDemo &&
+            <div className={css.rightMostAction}>
+              <span className={css.userNameLabel}>{this.props.studentName}</span>
+              <span className={css.logoutButton} onClick={onRightIconClick}>
+                <a className={[css.logoutLabel, textColorClass].join(' ')} >
+                  {rightIconLabel}
+                </a>
+                <i className={[css.logoutIcon, rightIconButton].join(' ')} />
+              </span>
+            </div>
+          }
 
-            <span className={css.userNameLabel}>{this.props.studentName}</span>
-            <span className={css.logoutButton} onClick={onRightIconClick}>
-              <a className={css.logoutLabel} >
-                {rightIconLabel}
-              </a>
-              <i className={[css.logoutIcon, rightIconButton].join(' ')} />
-            </span>
           </div>
         </div>
       </div>
