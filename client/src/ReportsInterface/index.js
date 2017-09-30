@@ -417,14 +417,28 @@ export default class ReportsInterface extends React.Component {
   }
 
   onSaveNoteClicked = () => {
+
     updateAssessment( { teacher_note: this.noteInput.value },
                        this.props.assessmentID,
                     )
+
+
+    if (this.noteInput.value) {
 
     this.setState({ noteExists: true, 
                     draftingNote: false,
                     teacherNote: this.noteInput.value,
                   })
+    }
+
+    else {
+      this.setState({ noNoteStarted: true,
+                      draftingNote: false,
+                   })
+
+    }
+
+
   }
 
   onEditClicked  = () => {
