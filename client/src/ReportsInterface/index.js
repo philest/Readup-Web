@@ -138,13 +138,18 @@ export default class ReportsInterface extends React.Component {
 
     // if (!this.props.isSample || this.props.isDirectSample) {
 
-    // footerLabelText = "See our Fountas and Pinnell leveled texts"
-    // footerButtonText = "See assessment texts"
-    // footerLink = "/library"
+    if (this.props.isDirectSample) {
+      footerLabelText = "Try out a student demo of ReadUp"
+      footerButtonText = "See demo"
+      footerLink = "/demo"
+    }
+    else {
 
-    footerLabelText = "Try out a student demo of ReadUp"
-    footerButtonText = "See demo"
-    footerLink = "/demo"
+      footerLabelText = "See our Fountas and Pinnell leveled texts"
+      footerButtonText = "See assessment texts"
+      footerLink = "/library"
+
+    }
 
 
     // } else {
@@ -1184,9 +1189,9 @@ export default class ReportsInterface extends React.Component {
             <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
             <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              Get your scored demo report soon
+              Get your scored assessment soon
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>Your running record will come within 15 minutes</h4>
+            <h4 className={styles.modalSubtitle}>Your scored assessment will come within 15 minutes</h4>
           </Modal.Header>
           <Modal.Body>
 

@@ -183,7 +183,7 @@
     font-size: 1.2em;
     border: none;
     transition: all .3s;
-
+	outline: none !important;
 }
 
 .tryButtonMuted {
@@ -194,7 +194,7 @@
     font-size: 1.2em;
     border: none;
     transition: all .3s;
-
+   	outline: none !important;
 }
 
 

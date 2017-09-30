@@ -18,6 +18,8 @@ import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 
 import { newSampleEvaluationText } from '../sharedComponents/newSampleMarkup'
 
+import { isMobileDevice } from '../StudentDashboard/sagas/helpers'
+
 import { sendEmail, validateEmail, isScored, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from '../ReportsInterface/emailHelpers'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
 
@@ -67,6 +69,13 @@ export default class ReportWithScorer extends React.Component {
 
 
   componentWillMount() {
+
+
+    // if isMobileDevice, halt
+    if (isMobileDevice()) {
+      window.location.href = '/mobile_halt'
+    }
+
     document.addEventListener("keydown", this._handleKeyDown);
 
 
@@ -279,7 +288,7 @@ export default class ReportWithScorer extends React.Component {
       onReplayClicked: this.onReplayClicked,
       onReader: false,
       white: false,
-      beforeStudentDemo: true,
+      beforeStudentDemo: this.props.isDirectSample,
     }
 
     return <NavigationBar {...navProps} />
@@ -379,9 +388,9 @@ export default class ReportWithScorer extends React.Component {
             <img alt="" className={styles.paperImage} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/paper-pen.png" />
             <img alt="" className={styles.paperImageOverlay} src="https://s3-us-west-2.amazonaws.com/readup-now/website/demo/rolling-small.gif" />
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              Get your scored demo report soon
+              Get your scored demo soon
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>Your running record will come within 15 minutes</h4>
+            <h4 className={styles.modalSubtitle}>Your scored demo assessment will come within 15 minutes</h4>
           </Modal.Header>
           <Modal.Body>
 
@@ -450,7 +459,7 @@ export default class ReportWithScorer extends React.Component {
             <Modal.Title bsClass={styles.pricingModalTitle}>
               We'll finish scoring in 5 minutes
             </Modal.Title>
-            <h4 className={styles.modalSubtitle}>While you wait, you can look over a prior scored assessment</h4>
+            <h4 className={styles.modalSubtitle}>While you wait, you can look over the example prior assessment again</h4>
           </Modal.Header>
           <Modal.Body>
 
@@ -471,10 +480,10 @@ export default class ReportWithScorer extends React.Component {
 
 
        <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
-        <Modal show={this.state.showSampleInfoModal}  onHide={this.closeSampleInfoModal} dialogClassName={styles.modalMedium}>
+        <Modal show={this.state.showSampleInfoModal}  onHide={this.closeSampleInfoModal} dialogClassName={styles.modalMediumPlus}>
           <Modal.Header closeButton>
             <Modal.Title bsClass={styles.pricingModalTitle}>
-              Great, here's an example of one first
+              Great, here's the example again while you wait
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -486,7 +495,7 @@ export default class ReportWithScorer extends React.Component {
                 bsStyle={'primary'}
                 onClick={this.onSampleButtonClick}
               >
-                See sample
+                See example
               </Button>
 
             </div>

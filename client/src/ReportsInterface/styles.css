@@ -324,6 +324,10 @@
 		width: 460px;
 	}
 
+	.modalMediumPlus {
+		width: 510px;
+	}
+
 	.paperImageOverlay {
 		display: block;
 	}
