@@ -7,6 +7,7 @@ export const ReaderStateOptions = {
   playingBookIntro: 'READER_STATE_PLAYING_BOOK_INTRO',
   talkingAboutStartButton: 'READER_STATE_TALKING_ABOUT_START_BUTTON',
   talkingAboutStopButton: 'READER_STATE_TALKING_ABOUT_STOP_BUTTON',
+  talkingAboutSeeBook: 'READER_STATE_TALKING_ABOUT_SEE_BOOK',
   awaitingStart: 'READER_STATE_AWAITING_START',
   countdownToStart: 'READER_STATE_COUNTDOWN_TO_START',
   inProgress: 'READER_STATE_IN_PROGRESS',

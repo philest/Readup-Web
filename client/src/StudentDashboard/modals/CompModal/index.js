@@ -82,8 +82,8 @@ export default class CompModal extends React.Component {
 
     const talkingAboutStartButton = this.props.readerState === ReaderStateOptions.talkingAboutStartButton
     const talkingAboutStopButton = this.props.readerState === ReaderStateOptions.talkingAboutStopButton
+    const talkingAboutSeeBook = this.props.readerState === ReaderStateOptions.talkingAboutSeeBook
 
-    const talkingAboutButtons = talkingAboutStartButton || talkingAboutStopButton
 
     const done = this.props.readerState === ReaderStateOptions.done
     const inProgress = this.props.readerState === ReaderStateOptions.inProgress
@@ -158,6 +158,7 @@ export default class CompModal extends React.Component {
               fontAwesome={true}
               enlargeFirst={true}
               disabled={this.props.disabled}
+              talkingAboutFirst={talkingAboutSeeBook}
             />
 
           

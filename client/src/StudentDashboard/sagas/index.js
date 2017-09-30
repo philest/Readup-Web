@@ -279,7 +279,7 @@ function* playPromptSaga(prompt, studentID) {
     yield put.resolve(setReaderState(
       ReaderStateOptions.awaitingStart,
     ))
-    
+
     yield call(resetToAwaitingPrompt, studentID)
 }
 
@@ -332,8 +332,31 @@ function* instructionSaga() {
 
       yield call(delay, 1900)
 
-      yield call(playSound, '/audio/VB/VB-see-book.mp3')
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.playingBookIntro,
+      ))
 
+      yield call(playSoundAsync, '/audio/VB/VB-see-book.mp3')
+      
+      yield call(delay, 3300)
+
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.talkingAboutSeeBook,
+      ))      
+
+      yield call(delay, 1500)
+
+      yield put.resolve(setCurrentModal('no-modal'))
+
+      yield call(delay, 1250)
+
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.playingBookIntro,
+      ))      
+
+      yield put.resolve(setCurrentModal('modal-comp'))
+
+      yield call(delay, 500)
 
     }
 
@@ -383,49 +406,6 @@ function* definedCompSaga(numQuestions, assessmentId) {
 
 }
 
-// worry about pause->stop later. 
-function* promptSaga() {
-
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.awaitingStart,
-  ))
-
-
-  yield take(START_RECORDING_CLICKED)
-
-  yield call(stopAudio)
-
-  yield playSoundAsync('/audio/single_countdown.mp3')
-
-  yield call(delay, 900)
-
-  let recorder = yield select(getRecorder)
-
-  // resume recording 
-  try {
-    yield call(recorder.resumeRecording)
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.inProgress,
-    ))
-  } catch (err) {
-    yield clog("ERROR: ", err)
-    yield call(sendEmail, err, "Recorder failed to resume in promptSaga...", "philesterman@gmail.com") // move here so don't break
-  }
-
-  yield take(STOP_RECORDING_CLICKED)
-  yield call(stopAudio)
-
-  try {
-    yield call(recorder.pauseRecording)
-    yield put.resolve(setReaderState(
-      ReaderStateOptions.paused,
-    ))
-  } catch (err) {
-    yield clog("ERROR: ", err)
-    yield call(sendEmail, err, "Recorder failed to pause in promptSaga...", "philesterman@gmail.com") // move here so don't break
-  }
-
-}
 
 
 function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boolean, currQ: number) {
@@ -456,6 +436,10 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
 
   }
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.awaitingStart,
+  ))
 
 
   // yield put.resolve(setReaderState(
