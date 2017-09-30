@@ -444,6 +444,7 @@ span.missed, span.correct {
 
 .editTeacherNoteText {
 	width: 400px;
+	line-height: 1.5em;
 }
 
 .pricingFooter {
