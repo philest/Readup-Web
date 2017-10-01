@@ -69,7 +69,7 @@ export default class NavigationBar extends React.Component {
   }
 
   onTryButtonClicked = () => {
-    window.location.href = '/step'
+    window.location.href = '/nick'
   }
 
   /**
