@@ -695,7 +695,7 @@ export default class GraderInterface extends React.Component {
 
     for (let i = 0; i <= pointsPossible; i++) {
       buttonArr.push(
-        <Button key={i} active={this.state.compScores[qNum - 1] === i} href="#" onClick={() => this.onCompScoreClicked(i, qNum - 1)}><strong>{i}</strong> points</Button>
+        <Button key={i} active={this.state.compScores[qNum - 1] === i} href="#" onClick={() => this.onCompScoreClicked(i, qNum - 1)}><strong>{i}</strong> {i === 0 ? ' - Missed' : ' - Correct'}</Button>
       )
     }
 
