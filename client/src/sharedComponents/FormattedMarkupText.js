@@ -133,7 +133,7 @@ export default class FormattedMarkupText extends React.Component {
 
       if (i <= this.props.endParagraphIndex) {
         paraArr.push(
-          <div className={styles.msvPara}>
+          <div key={lineCounter} className={styles.msvPara}>
            {this.renderMSVparagraph(i, bookLinesArr[i], lineCounter)}
           </div>
         )
@@ -151,7 +151,7 @@ export default class FormattedMarkupText extends React.Component {
     for (let i = 0; i < lineLengthsArr.length; i++) {
 
       arr.push(
-        <div>
+        <div key={lineCounter} >
           {
           this.renderMSVline(i + 1, paraIdx, lineLengthsArr, lineCounter)
           }
@@ -206,7 +206,7 @@ export default class FormattedMarkupText extends React.Component {
   componentWillMount() {
 
     console.log('mounting MSV?')
-    
+
     if (this.props.isSample) {
       bookLines = sampleBookLines
     }

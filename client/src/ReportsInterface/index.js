@@ -22,7 +22,7 @@ import { sampleWithMSV } from '../sharedComponents/sampleWithMSV'
 import { updateAssessment, sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { stopAudio, playSoundAsync } from '../StudentDashboard/audioPlayer'
 
-import { fpBook, fireflyBook } from '../StudentDashboard/state.js'
+import { fpBook, fireflyBook, stepBook, library } from '../StudentDashboard/state.js'
 
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
@@ -119,13 +119,13 @@ export default class ReportsInterface extends React.Component {
     }
 
 
-
-    if (this.props.bookKey === 'nick') {
-      book = fpBook
+    if (this.props.bookKey && this.props.userID > 150) {
+      book = library[this.props.bookKey]
     }
     else {
       book = fireflyBook
     }
+
 
     numQuestions = book.numQuestions
 
@@ -838,7 +838,7 @@ export default class ReportsInterface extends React.Component {
             bookLevel={this.props.bookLevel}
             isSample={this.props.isSample}
             showSeeMore={this.state.gradedText.readingEndIndex.paragraphIndex < (this.state.gradedText.paragraphs.length - 1)}
-            showMSV={true} // backwards compatibility 
+            showMSV={this.props.userID > 156} // backwards compatibility 
             bookKey={this.props.bookKey}
           />
 
