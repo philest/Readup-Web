@@ -70,6 +70,11 @@ export var stepMarkup = {
 			sTypeError: false,
 			vTypeError: false,
 		},
+	],
+	},
+	{
+		key: 'fake_key_1',
+		words: [
 		{
 			word: 'Things',
 			wordDeleted: false,
@@ -80,7 +85,7 @@ export var stepMarkup = {
 			vTypeError: false,
 		},
 		{
-			word: 'loook',
+			word: 'look',
 			wordDeleted: false,
 			substituteWord: null,
 			addAfterWord: null,
@@ -169,6 +174,11 @@ export var stepMarkup = {
 			sTypeError: false,
 			vTypeError: false,
 		},
+	],
+	},
+	{
+		key: 'fake_key_2',
+		words: [
 		{
 			word: 'I',
 			wordDeleted: false,
@@ -259,6 +269,11 @@ export var stepMarkup = {
 			sTypeError: false,
 			vTypeError: false,
 		},
+	],
+	},
+	{
+		key: 'fake_key_3',
+		words: [
 		{
 			word: 'I',
 			wordDeleted: false,
@@ -349,6 +364,11 @@ export var stepMarkup = {
 			sTypeError: false,
 			vTypeError: false,
 		},
+	],
+	},
+	{
+		key: 'fake_key_4',
+		words: [
 		{
 			word: 'Who',
 			wordDeleted: false,
@@ -547,6 +567,11 @@ export var stepMarkup = {
 			sTypeError: false,
 			vTypeError: false,
 		},
+	],
+	},
+	{
+		key: 'fake_key_5',
+		words: [
 		{
 			word: '\"Jill,',
 			wordDeleted: false,

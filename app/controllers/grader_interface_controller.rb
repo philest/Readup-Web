@@ -74,13 +74,17 @@ class GraderInterfaceController < ApplicationController
         level = "G"
         stepLevel = "5"
         bookKey = 'nick'
+      elsif @assessment.book_key === 'step'
+        title = "Upside Down"
+        level = "E"
+        stepLevel = "4"
+        bookKey = 'step'
       else
         title = "Firefly Night"
         level = "E"
         stepLevel = '4'
         bookKey = 'firefly'
       end 
-
 
 
       @grader_interface_props = {

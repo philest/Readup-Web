@@ -7,7 +7,7 @@ import styles from './styles.css'
 import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
-import { newSampleEvaluationText } from '../sharedComponents/nickMarkup'
+import { newSampleEvaluationText, stepMarkup } from '../sharedComponents/stepMarkup'
 import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'
@@ -16,7 +16,7 @@ import questionCSS from '../ReportsInterface/components/Metric/styles.css'
 import reportStyles from '../ReportsInterface/styles.css'
 import {getUserCount, getAssessmentSavedTimestamp} from '../ReportsInterface/emailHelpers.js'
 import { playSoundAsync } from '../StudentDashboard/audioPlayer'
-import { fireflyBook, fpBook } from '../StudentDashboard/state.js'
+import { fireflyBook, fpBook, library } from '../StudentDashboard/state.js'
 
 
 
@@ -97,7 +97,7 @@ export default class GraderInterface extends React.Component {
     super(props);
     this.state = {
 
-      evaluationTextData: JSON.parse(this.props.scoredText),
+      evaluationTextData: (this.props.bookKey === 'step' && !this.props.scoredText) ? stepMarkup : JSON.parse(this.props.scoredText),
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
@@ -125,9 +125,8 @@ export default class GraderInterface extends React.Component {
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
 
-
-    if (this.props.bookKey === 'nick') {
-      book = fpBook
+    if (this.props.bookKey) {
+      book = library[this.props.bookKey]
     }
     else {
       book = fireflyBook
@@ -136,18 +135,6 @@ export default class GraderInterface extends React.Component {
     rubric = book.rubric
     numQuestions = book.numQuestions
 
-
-
-
-    // TODO refactor this into a controller prop 
-    // getFluencyScore(this.props.assessmentID).then(res => {
-    // this.setState({ fluencyScore: res })
-    // })
-
-    // getAssessmentData(this.props.assessmentID).then(res => {
-    // this.setState({ compScore: parseInt(res.comp_scores[0]),
-    //              })
-    // })
 
   }
 
@@ -919,7 +906,7 @@ renderCompQuestions4 = () => {
             onMouseLeaveWord={this._onMouseLeaveWord}
             bookLevel={this.props.bookLevel}
             isSample={false}
-            showMSV={true}
+            showMSV={false}
             bookKey={this.props.bookKey}
           />
 
