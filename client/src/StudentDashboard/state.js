@@ -530,7 +530,7 @@ export const stepBook = {
     },
     2: {
       lines: [
-        "Things loook different upside down.",
+        "Things look different upside down.",
         "Here is my name upside down.",
       ],
       img: '/images/dashboard/step/p2.jpg',

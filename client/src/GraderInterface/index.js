@@ -138,6 +138,15 @@ export default class GraderInterface extends React.Component {
     numQuestions = book.numQuestions
 
 
+    // check all of s3 fully once
+    for(let q = 0; q <= numQuestions; q++) {
+      if (!this.state.showQArr[String(q)] && !this.props.scored) {
+        this.checkS3(q)
+      }
+    }
+
+
+
   }
 
 
@@ -189,6 +198,9 @@ export default class GraderInterface extends React.Component {
     }
 
   }
+
+
+
 
 
   assessmentSavedThisSession(id) {
@@ -584,6 +596,31 @@ export default class GraderInterface extends React.Component {
   }
 
 
+  renderCompAudioPlayer = (q) => {
+
+    let url
+
+    if (q === 0) {
+      url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/recording.webm`
+    }
+    else {
+      url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${q}.webm`
+    }
+
+      if (this.state.showQArr[String(q)]) {
+        return ( 
+          <div key={q}>
+            <h5>{`Response ${q}`}</h5>
+            <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
+              <source src={url} />
+              <p>Playback not supported</p>
+            </audio>
+          </div>
+        )
+      }
+
+  }
+
 
 
   renderCompAudioPlayers = () => {
@@ -680,8 +717,13 @@ export default class GraderInterface extends React.Component {
           <div key={q} >
             <br/><br/>
 
-            <h4>{`Question ${q}`}</h4>
+            <h4>{`Question ${q}`}</h4> 
+
             <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
+            {this.renderCompAudioPlayer(q)}
+
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput1 = ref; }} placeholder="Student response" />
@@ -722,8 +764,11 @@ export default class GraderInterface extends React.Component {
           <div key={q} >
             <br/><br/>
 
-            <h4>{`Question ${q}`}</h4>
+            <h4>{`Question ${q}`}</h4> 
+
             <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
+            {this.renderCompAudioPlayer(q)}
 
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
@@ -767,8 +812,11 @@ export default class GraderInterface extends React.Component {
           <div key={q} >
             <br/><br/>
 
-            <h4>{`Question ${q}`}</h4>
+            <h4>{`Question ${q}`}</h4> 
+
             <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
+            {this.renderCompAudioPlayer(q)}
 
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
@@ -812,8 +860,11 @@ renderCompQuestions4 = () => {
           <div key={q} >
             <br/><br/>
 
-            <h4>{`Question ${q}`}</h4>
+            <h4>{`Question ${q}`}</h4> 
+
             <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
+            {this.renderCompAudioPlayer(q)}
 
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
@@ -855,8 +906,11 @@ renderCompQuestions5 = () => {
           <div key={q} >
             <br/><br/>
 
-            <h4>{`Question ${q}`}</h4>
+            <h4>{`Question ${q}`}</h4> 
+
             <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
+            {this.renderCompAudioPlayer(q)}
 
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
@@ -899,8 +953,11 @@ renderCompQuestions6 = () => {
           <div key={q} >
             <br/><br/>
 
-            <h4>{`Question ${q}`}</h4>
+            <h4>{`Question ${q}`}</h4> 
+
             <h5 style={{width: 650, fontWeight: 100, fontStyle: 'italic'}}>{ book.questions[String(q)].title + ' ' + book.questions[(q)].subtitle }</h5>
+
+            {this.renderCompAudioPlayer(q)}
 
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>

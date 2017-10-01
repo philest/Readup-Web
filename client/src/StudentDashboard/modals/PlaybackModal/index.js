@@ -54,7 +54,7 @@ export default class PlaybackModal extends React.Component {
             <source src={this.props.audioSrc} />
             <p>Playback not supported</p>
           </audio>
-          <h4 style={{ fontWeight: 'bold', marginTop: 20 }}>Hear retell</h4>
+          <h4 style={{ fontWeight: 'bold', marginTop: 20 }}>Hear first answer</h4>
           <audio controls style={{ marginBottom: 20 }}>
             <source src={this.props.compAudioSrc} />
             <p>Playback not supported</p>
