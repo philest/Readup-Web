@@ -510,6 +510,102 @@ export const fireflyBook = {
 
 
 
+export const stepBook = {
+  title: "Upside Down",
+  author: 'Stefan Olson',
+  numPages: 6, // if you want a shorter book for testing purposes just change this
+  isWideBook: false,
+  coverImage: '/images/dashboard/step/step-cover.jpg',
+  introAudioSrc: '/audio/VB/VB-book-intro.mp3',
+  pages: {
+    1: {
+      lines: [
+        "My name is Peter.",
+        "I'm upside down.",
+      ],
+      img: '/images/dashboard/step/p1.jpg',
+    },
+    2: {
+      lines: [
+        "Things loook different upside down.",
+        "Here is my name upside down.",
+      ],
+      img: '/images/dashboard/step/p2.jpg',
+    },
+    3: {
+      lines: [
+        "I see the living room upside down.",
+        "Everything looks funny!",
+      ],
+      img: '/images/dashboard/step/p3.jpg',
+    },
+    4: {
+      lines: [
+        "I toss a ball.",
+        "Does it fall up? Or down?",
+      ],
+      img: '/images/dashboard/step/p4.jpg',
+    },
+    5: {
+      lines: [
+        "Who is at the door? Wow! It's my friend, Jill!",
+        "But her feet are up, not down. Will her hat fall off?",
+      ],
+      img: '/images/dashboard/step/p5.jpg',
+    },
+    6: {
+      lines: [
+        "\"Jill, do you want to play upside down with me?",
+        "Being upside down is fun!\'",
+      ],
+      img: '/images/dashboard/step/p6.jpg',
+    },
+
+
+  },
+  numQuestions: 6,
+  questions: {
+    1: {
+      title: "Where is Peter playing upside down?",
+      audioSrc: '/audio/VB/VB-retell-full.mp3',
+      rubric: {
+        3: "Response shows excellent understanding of Firefly Night. Includes all major events of plot in sequence, and shows insight into the girl's actions. Uses important details to enrich the retelling.",
+        2: "Response shows good understanding of Firefly Night. Includes major events of plot in sequence. Describes the girl's actions and character, and uses some details to support the retelling.",
+        1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+        0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
+      },
+    },
+    2: {
+      title: "What are some things Peter sees upside down?",
+      audioSrc: '/audio/VB/firefly/why-did-outside.mp3',
+    },
+    3: {
+      title: "Why is Peter looking at things upside down?",
+      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+    },
+    4: {
+      title: "Who comes to visit Peter?",
+      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+    },
+    5: {
+      title: "Why does Peter say, \"Will her hat fall off?\"",
+      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+    },
+    6: {
+      title: "Why does Peter ask Jill to play upside down with him?",
+      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+    },
+
+
+  },
+
+};
+
+
+
+
+
+
 
 export const fpBook = {
   title: "Bedtime for Nick",
@@ -659,6 +755,7 @@ export const fpBook = {
 export const library = {
   demo: fireflyBook,
   nick: fpBook,
+  step: stepBook
 }
 
 

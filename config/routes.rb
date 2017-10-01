@@ -69,7 +69,7 @@ Rails.application.routes.draw do
   get 'firefly', to: redirect('/student_dashboard/#/story/demo')
   get 'test', to: redirect('/student_dashboard/#/story/demo')
 
-
+  get 'step', to: redirect('/student_dashboard/#/story/step')
 
 
   get 'grade/:user_id', to: 'grader_interface#index'
