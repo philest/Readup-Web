@@ -956,7 +956,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
-       { !this.props.isSample && this.props.assessmentBrand === 'STEP' &&
+       { !this.props.isSample && this.props.assessmentBrand === 'STEP' && this.props.bookKey === 'firefly' &&
    
           <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
             
@@ -1113,10 +1113,67 @@ export default class ReportsInterface extends React.Component {
             </div>
 
 
+          </div>
+
+        }
+
+
+      { this.props.bookKey === 'step' &&
+   
+          <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
+            
+            <hr className={styles.compDivider}/>
+
+
+           <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+
+            <div className={ [(allQuestionsGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
+              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Factual</h2>
+                {
+                  this.renderFullQuestion(0, firstQuestionGraded)
+                }
+
+                {
+                  this.renderFullQuestion(1, allQuestionsGraded)
+                }
+
+                {
+                  this.renderFullQuestion(3, allQuestionsGraded)
+                }
+
+            </div>
+
+
+            <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
+              <h2 className={styles.compPartHeader}>Inferential</h2>
+
+                {
+                  this.renderFullQuestion(2, allQuestionsGraded)
+                }
+
+                {
+                  this.renderFullQuestion(4, allQuestionsGraded)
+                }
+
+            </div>
+
+
+            <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
+              <h2 className={styles.compPartHeader}>Critical Thinking</h2>
+
+                {
+                  this.renderFullQuestion(5, allQuestionsGraded)
+                }
+
+
+            </div>
+
+
 
           </div>
 
         }
+
 
 
         { this.state.noNoteStarted &&
