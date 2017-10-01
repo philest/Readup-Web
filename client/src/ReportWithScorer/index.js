@@ -325,7 +325,6 @@ export default class ReportWithScorer extends React.Component {
           <h5>{this.props.scorerJobTitle}</h5>
           <h5>{this.props.scorerEducation}</h5>
           <h5>{this.props.scorerExperience}</h5>
-          <h5>{this.props.scorerEmail}</h5>
 
           <a href={"mailto:" + this.props.scorerEmail + "?subject=Question%20about%20assessment"} target="_blank">
             <Button
