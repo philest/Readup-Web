@@ -63,6 +63,14 @@ class ReportsController < ApplicationController
       end
 
 
+      if (params['brand']) 
+        brand = params['brand']
+      
+      else
+        brand = @assessment.brand 
+      end 
+
+
 
       @reports_interface_props = {
         name: "Maya De Leon",
@@ -95,7 +103,7 @@ class ReportsController < ApplicationController
 
         reviewerSignature: "Ashley Brantley, M.A.",
         reviewerProfilePicURL: "/images/ashley.png",
-        assessmentBrand: @assessment.brand,
+        assessmentBrand: brand,
         isLiveDemo: @assessment.is_live_demo,
         env: ENV['RAILS_ENV'],
 

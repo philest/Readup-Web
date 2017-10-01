@@ -825,16 +825,19 @@ a.demo-button button#new-hero-button {
   >
     <div class="title">
       <div id="myTitleText" class="pure-u-1 pure-u-md-3-5">
+
+        <% @brand = 'STEP'; @brand2 = 'F&ampP' %>
+
         <h1>
-          F&ampP assessments, without lost instructional time
+          <%= @brand %> assessments, without lost instructional time
         </h1>
 
           <h4 id="sub-pitch">
-            ReadUp's reading specialists listen to students read F&ampP texts and score a full assessment for you with a running record, a comprehension conversation, fluency, accuracy, and a recording
+            ReadUp's reading specialists listen to students read <%= @brand %> texts and score a full assessment for you with a running record, a comprehension conversation, fluency, accuracy, and a recording
 
  
            </h4>
-      <a class="demo-button" href="/reports/direct-sample">
+      <a class="demo-button" href="/reports/direct-sample?brand=STEP">
         <button class="primary-btn" id="new-hero-button" onclick="demoClicked()"> 
         Try a Demo
         <i class="fa fa-angle-right faa-pulse animated fa-lg" id="btn-icon"></i>
