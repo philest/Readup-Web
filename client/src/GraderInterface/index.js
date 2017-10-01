@@ -541,7 +541,7 @@ export default class GraderInterface extends React.Component {
 
     setTimeout(() => {
       this.setState({ hasSavedRecently: false });
-    }, 7500);
+    }, 20000);
 
 
   }
