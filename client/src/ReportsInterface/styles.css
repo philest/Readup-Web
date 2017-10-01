@@ -612,6 +612,12 @@ a:hover {
 
 }
 
+.noTranscriptionMiniPlayButton, .noTranscriptionAudio {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+}
+
 .miniPlayIcon {
 	margin-left: 5px;
 

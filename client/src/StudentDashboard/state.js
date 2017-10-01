@@ -581,8 +581,8 @@ export const stepBook = {
       title: "What are some things Peter sees upside down?",
       audioSrc: '/audio/VB/firefly/why-did-outside.mp3',
       rubric: {
-          0: "Response does not demonstrate proficiency in recalling key details about plot . Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
-          1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
+          0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
+          1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees.",
         },
       points: 1,
     },

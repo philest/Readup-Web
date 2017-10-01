@@ -532,7 +532,7 @@ export default class ReportsInterface extends React.Component {
 
 
     return (
-    <audio controls autoPlay preload="auto" className={styles.compAudioElement}>
+    <audio controls autoPlay preload="auto" className={[styles.compAudioElement, (!this.existTranscription(questionNum - 1) ? styles.noTranscriptionMiniPlayButton : '')].join(' ')}>
       <source src={compURL} />
       <p>Playback not supported</p>
     </audio>
@@ -589,10 +589,13 @@ export default class ReportsInterface extends React.Component {
 
     return (
             <div className={'faa-parent animated-hover faa-slow'}>
-            <p className={styles.studentResponse}>"{ this.props.studentResponses[String(questionNum)] }"</p> 
+            
+            { this.existTranscription(questionNum) &&
+              <p className={styles.studentResponse}>"{ this.props.studentResponses[String(questionNum)] }"</p> 
+            }
 
             { !this.state.showCompAudioPlayback[questionNum + 1] &&
-            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton, (!this.existTranscription(questionNum) ? styles.noTranscriptionMiniPlayButton : '')].join(' ')} bsStyle="primary">Play <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
             }
             { this.state.showCompAudioPlayback[questionNum + 1] &&
               this.renderCompAudio(questionNum + 1)
@@ -603,6 +606,10 @@ export default class ReportsInterface extends React.Component {
           )
   }
 
+
+  existTranscription(questionNum) {
+    return this.props.studentResponses[String(questionNum)]
+  }
 
 
   getColorClass(score, isRetell) {
@@ -649,13 +656,19 @@ export default class ReportsInterface extends React.Component {
 
 
 
-    let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
-    let secondQuestionGraded = (this.props.studentResponses["1"] && this.props.graderComments["1"] && (this.props.compScores["1"] != null))
-    let thirdQuestionGraded = (this.props.studentResponses["2"] && this.props.graderComments["2"] && (this.props.compScores["2"] != null))
-    let fourthQuestionGraded = (this.props.studentResponses["3"] && this.props.graderComments["3"] && (this.props.compScores["3"] != null))
+    // let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
+    // let secondQuestionGraded = (this.props.studentResponses["1"] && this.props.graderComments["1"] && (this.props.compScores["1"] != null))
+    // let thirdQuestionGraded = (this.props.studentResponses["2"] && this.props.graderComments["2"] && (this.props.compScores["2"] != null))
+    // let fourthQuestionGraded = (this.props.studentResponses["3"] && this.props.graderComments["3"] && (this.props.compScores["3"] != null))
+
+    let firstQuestionGraded = (this.props.graderComments["0"] && (this.props.compScores["0"] != null))
+    let secondQuestionGraded = (this.props.graderComments["1"] && (this.props.compScores["1"] != null))
+    let thirdQuestionGraded = (this.props.graderComments["2"] && (this.props.compScores["2"] != null))
+    let fourthQuestionGraded = (this.props.graderComments["3"] && (this.props.compScores["3"] != null))
+
+
 
     let allQuestionsGraded = (firstQuestionGraded && secondQuestionGraded && thirdQuestionGraded && fourthQuestionGraded)
-
 
 
     const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom(allQuestionsGraded))
