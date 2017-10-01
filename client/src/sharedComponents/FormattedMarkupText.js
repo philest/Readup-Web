@@ -7,9 +7,9 @@ import MarkupWord from '../sharedComponents/MarkupWord'
 
 
 
-let wordsOnEachLine = [12, 13, 11, 11, 10, 9, 13, 10, 6]
 let nickBookLines = [[11, 9], [10, 8], [11, 11, 2], [10, 7], [9,8], [15,13,6], [11,9,4], [10,9], [9,11,1], [8,5]]
 let stepBookLines = [[7], [9, 2], [9, 1], [10], [13, 9], [11, 4]]
+let sampleBookLines = [[12, 13, 11, 11, 10, 9, 13, 10, 6]]
 
 
 let bookLines
@@ -208,6 +208,7 @@ export default class FormattedMarkupText extends React.Component {
     console.log('mounting MSV?')
 
     if (this.props.isSample) {
+      console.log('setting book lines to sample')
       bookLines = sampleBookLines
     }
     else if (this.props.bookKey === 'nick') {

@@ -352,7 +352,14 @@ export default class ReportsInterface extends React.Component {
       return 3 
     }
     else {
-      return 3 + (numQuestions - 1)
+
+      let total = 0 
+
+      for(let i = 0; i < numQuestions; i++) {
+        total += book.questions[String(i + 1)].points
+      } 
+      
+      return total
     }
   }
 
@@ -538,8 +545,10 @@ export default class ReportsInterface extends React.Component {
     let pointsLabel
     let qLabel = (questionNum + 1) + '. '
 
-    if (questionNum === 0) {
-      pointsLabel = "(3 points)"
+    let pts = book.questions[String(questionNum + 1)].points
+
+    if (pts > 1) {
+      pointsLabel = `(${pts} points)`
     } else {
       pointsLabel = "(1 point)"
     }
@@ -564,7 +573,11 @@ export default class ReportsInterface extends React.Component {
   renderGradedPartOfQuestion = (questionNum) => {
     let scoreLabel
     let colorClass
-    if (questionNum === 0) {
+
+    let pts = book.questions[String(questionNum + 1)].points
+
+
+    if (pts === 3) {
       scoreLabel = this.props.compScores[String(questionNum)] + ' of 3' + ' points'
       colorClass = this.getColorClass(this.props.compScores[String(questionNum)], true)
 

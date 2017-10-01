@@ -86,6 +86,8 @@ class GraderInterfaceController < ApplicationController
         bookKey = 'firefly'
       end 
 
+     
+
 
       @grader_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",

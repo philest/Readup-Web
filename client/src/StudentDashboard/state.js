@@ -494,14 +494,17 @@ export const fireflyBook = {
         1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
         0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
       },
+      points: 3,
     },
     2: {
       title: "Why did the girl and her dad go outside?",
       audioSrc: '/audio/VB/firefly/why-did-outside.mp3',
+      points: 1,
     },
     3: {
       title: "Why do you think the girl chose to let the fireflies go?",
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      points: 1,
     },
 
   },
@@ -569,31 +572,55 @@ export const stepBook = {
       title: "Where is Peter playing upside down?",
       audioSrc: '/audio/VB/VB-retell-full.mp3',
       rubric: {
-        3: "Response shows excellent understanding of Firefly Night. Includes all major events of plot in sequence, and shows insight into the girl's actions. Uses important details to enrich the retelling.",
-        2: "Response shows good understanding of Firefly Night. Includes major events of plot in sequence. Describes the girl's actions and character, and uses some details to support the retelling.",
-        1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
-        0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
-      },
+          0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+          1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+        },
+      points: 1,
     },
     2: {
       title: "What are some things Peter sees upside down?",
       audioSrc: '/audio/VB/firefly/why-did-outside.mp3',
+      rubric: {
+          0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+          1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+        },
+      points: 1,     
     },
     3: {
       title: "Why is Peter looking at things upside down?",
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      rubric: {
+          0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+          1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+        },
+      points: 1,
     },
     4: {
       title: "Who comes to visit Peter?",
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      rubric: {
+          0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+          1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+        },
+      points: 1,
     },
     5: {
       title: "Why does Peter say, \"Will her hat fall off?\"",
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      rubric: {
+          0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+          1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+        },
+      points: 1,
     },
     6: {
       title: "Why does Peter ask Jill to play upside down with him?",
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      rubric: {
+          0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+          1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+        },
+      points: 1,
     },
 
 
@@ -711,6 +738,7 @@ export const fpBook = {
                 1: "Response shows partial understanding of Bedtime For Nick. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
                 0: "Response does not indicate understanding of Bedtime For Nick. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
               },
+      points: 3,
     },
     2: {
       title: "What is the real reason Nick can’t sleep?",
@@ -719,6 +747,7 @@ export const fpBook = {
         0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
         1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
       },
+      points: 1,
     },
     3: {
       title: "How do you think Nick feels about Wags?",
@@ -727,6 +756,7 @@ export const fpBook = {
                 0: "Response does not demonstrate a proficient understanding of Nick’s feelings about Wags. Misses key point that Nick loves Wags and misses him, and lacks strong supporting details (like the fact that Nick is only able to sleep when Wags returns.",
                 1: "Response demonstrates an excellent understanding of Nick’s feelings about Wags. Correctly identifies that Nick loves Wags and misses him. Offers strong supporting details for this answer and notes Nick is only able to sleep when Wags comes back.",
               },
+      points: 1,
     },
     4: {
       title: "Tell about a time when you had trouble with something.",
@@ -736,6 +766,7 @@ export const fpBook = {
                 0: "Response does not demonstrate a proficiency in thinking beyond the text. Misses a logical connection between the student’s experiences and Nick’s story, and lacks important supporting details.",
                 1: "Response demonstrates a very strong ability to think beyond the text. Makes a strong logical connection between personal experiences and Nick’s story, and gives important supporting details.",
               },
+      points: 1,
     },
 
   },

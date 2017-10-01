@@ -160,7 +160,9 @@ class ReportsController < ApplicationController
         @student_responses = { '0' => '',
                                '1' => '',
                                '2' => '',
-                               '3' => ''
+                               '3' => '',
+                               '4' => '',
+                               '5' => ''
                              }
       end 
 
@@ -168,7 +170,9 @@ class ReportsController < ApplicationController
         @grader_comments = {   '0' => '',
                                '1' => '',
                                '2' => '',
-                               '3' => ''
+                               '3' => '',
+                               '4' => '',
+                               '5' => ''
                              }
       end 
 
@@ -176,7 +180,9 @@ class ReportsController < ApplicationController
         @comp_scores = {       '0' => nil,
                                '1' => nil,
                                '2' => nil,
-                               '3' => nil
+                               '3' => nil,
+                               '4' => nil,
+                               '5' => nil
                              }
       end
 
