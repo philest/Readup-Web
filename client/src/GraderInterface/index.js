@@ -723,6 +723,9 @@ export default class GraderInterface extends React.Component {
 
             {this.renderCompAudioPlayer(q)}
 
+            <br/>
+            <br/>
+
 
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
@@ -730,21 +733,22 @@ export default class GraderInterface extends React.Component {
             </FormGroup>
 
 
-            <br/>
+            <h5 className={styles.compScoreHeading}>
+              Comp Score
+            </h5>
 
+            {this.renderScoringButtonsComp(q)}
+
+            <br/>
+            <br/>
+            
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
               <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
             </FormGroup>
 
 
-            <br/>
 
-            <h4 >
-              Comp Score
-            </h4>
-
-            {this.renderScoringButtonsComp(1)}
 
             <br/><br/><br/>
           </div>
@@ -770,30 +774,31 @@ export default class GraderInterface extends React.Component {
 
             {this.renderCompAudioPlayer(q)}
 
+            <br/>
+            <br/>
+
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput2 = ref; }} placeholder="Student response" />
             </FormGroup>
 
 
-            <br/>
+            <h5 className={styles.compScoreHeading}>
+              Comp Score
+            </h5>
 
+            {this.renderScoringButtonsComp(q)}
+
+            <br/>
+            <br/>
+            
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
               <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput2 = ref; }} placeholder="Your comments" />
             </FormGroup>
 
 
-            <br/>
-
-            <h4 >
-              Comp Score
-            </h4>
-
-            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
-            </ButtonGroup>
 
             <br/><br/><br/>
           </div>
@@ -818,30 +823,31 @@ export default class GraderInterface extends React.Component {
 
             {this.renderCompAudioPlayer(q)}
 
+            <br/>
+            <br/>
+
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput3 = ref; }} placeholder="Student response" />
             </FormGroup>
 
 
-            <br/>
+            <h5 className={styles.compScoreHeading}>
+              Comp Score
+            </h5>
 
+            {this.renderScoringButtonsComp(q)}
+
+            <br/>
+            <br/>
+            
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
               <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput3 = ref; }} placeholder="Your comments" />
             </FormGroup>
 
 
-            <br/>
-
-            <h4 >
-              Comp Score
-            </h4>
-
-            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
-            </ButtonGroup>
 
             <br/><br/><br/>
           </div>
@@ -866,30 +872,31 @@ renderCompQuestions4 = () => {
 
             {this.renderCompAudioPlayer(q)}
 
+            <br/>
+            <br/>
+
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput4 = ref; }} placeholder="Student response" />
             </FormGroup>
 
 
-            <br/>
+            <h5 className={styles.compScoreHeading}>
+              Comp Score
+            </h5>
 
+            {this.renderScoringButtonsComp(q)}
+
+            <br/>
+            <br/>
+            
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
               <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput4 = ref; }} placeholder="Your comments" />
             </FormGroup>
 
 
-            <br/>
-
-            <h4 >
-              Comp Score
-            </h4>
-
-            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
-            </ButtonGroup>
 
             <br/><br/><br/>
           </div>
@@ -912,30 +919,29 @@ renderCompQuestions5 = () => {
 
             {this.renderCompAudioPlayer(q)}
 
+            <br/>
+            <br/>
+
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput5 = ref; }} placeholder="Student response" />
             </FormGroup>
 
 
-            <br/>
+            <h5 className={styles.compScoreHeading}>
+              Comp Score
+            </h5>
 
+            {this.renderScoringButtonsComp(q)}
+
+            <br/>
+            <br/>
+            
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
               <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput5 = ref; }} placeholder="Your comments" />
             </FormGroup>
-
-
-            <br/>
-
-            <h4 >
-              Comp Score
-            </h4>
-
-            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
-            </ButtonGroup>
 
             <br/><br/><br/>
           </div>
@@ -959,30 +965,29 @@ renderCompQuestions6 = () => {
 
             {this.renderCompAudioPlayer(q)}
 
+            <br/>
+            <br/>
+
+
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
               <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput6 = ref; }} placeholder="Student response" />
             </FormGroup>
 
 
-            <br/>
+            <h5 className={styles.compScoreHeading}>
+              Comp Score
+            </h5>
 
+            {this.renderScoringButtonsComp(q)}
+
+            <br/>
+            <br/>
+            
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
               <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput6 = ref; }} placeholder="Your comments" />
             </FormGroup>
-
-
-            <br/>
-
-            <h4 >
-              Comp Score
-            </h4>
-
-            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-              <Button active={this.state.compScores[q - 1] === 0} href="#" onClick={() => this.onCompScoreClicked(0, q - 1)}><strong>0</strong> - Missed</Button>
-              <Button active={this.state.compScores[q - 1] === 1} href="#" onClick={() => this.onCompScoreClicked(1, q - 1)}><strong>1</strong> - Correct</Button>
-            </ButtonGroup>
 
             <br/><br/><br/>
           </div>
