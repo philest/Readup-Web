@@ -6,9 +6,10 @@ import MarkupWord from '../sharedComponents/MarkupWord'
 // import { nickLines, sampleLines } from '../sharedComponents/MarkupWord'
 
 
+
 let wordsOnEachLine = [12, 13, 11, 11, 10, 9, 13, 10, 6]
 let nickBookLines = [[11, 9], [10, 8], [11, 11, 2], [10, 7], [9,8], [15,13,6], [11,9,4], [10,9], [9,11,1], [8,5]]
-let sampleBookLines = [[12, 13, 11, 11, 10, 9, 13, 10, 6]]
+let stepBookLines = [[7], [9, 2], [9, 1], [10], [13, 9], [11, 4]]
 
 
 let bookLines
@@ -71,6 +72,7 @@ export default class FormattedMarkupText extends React.Component {
     isSample: PropTypes.bool,
     showSeeMore: PropTypes.bool,
     showMSV: PropTypes.bool,
+    bookKey: PropTypes.string, 
   };
   static defaultProps = {
     isInteractive: false,
@@ -203,7 +205,18 @@ export default class FormattedMarkupText extends React.Component {
 
   componentWillMount() {
 
-    bookLines = this.props.isSample ? sampleBookLines : nickBookLines
+    console.log('mounting MSV?')
+    
+    if (this.props.isSample) {
+      bookLines = sampleBookLines
+    }
+    else if (this.props.bookKey === 'nick') {
+      bookLines = nickBookLines
+    }
+    else if  (this.props.bookKey === 'step') {
+      console.log('found STEP book in MSV')
+      bookLines = stepBookLines
+    }
 
   }
 

@@ -131,17 +131,23 @@ class ReportsController < ApplicationController
       end 
 
 
+      book_key = @assessment.book_key 
+      book_key ||= 'firefly'
 
-      if @assessment.book_key === 'nick'
+
+      if book_key === 'nick'
         title = "Bedtime for Nick"
         level = "G"
         stepLevel = "5"
-        bookKey = 'nick'
-      else
-        title = "Firefly Night"
+      elsif book_key === 'step'
+        title = "Upside Down"
         level = "E"
+        stepLevel = "4"
+
+      else 
+        title = "Firefly Night"
+        level = "F"
         stepLevel = '4'
-        bookKey = 'firefly'
       end 
 
 
@@ -212,7 +218,7 @@ class ReportsController < ApplicationController
         reviewerProfilePicURL: "/images/maria-small.png",
         assessmentBrand: assessmentBrand,
         isLiveDemo: false,
-        bookKey: bookKey,
+        bookKey: book_key,
         env: ENV['RAILS_ENV'],
         teacherNote: @assessment.teacher_note
 
