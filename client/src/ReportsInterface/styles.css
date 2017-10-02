@@ -438,7 +438,11 @@ span.missed, span.correct {
 }
 
 .pointValue {
-	font-style: italic;
+    font-weight: 100;
+    font-family: 'ProximaNova';
+    font-size: 14px;
+    letter-spacing: .7px;
+    opacity: .7;
 }
 
 
