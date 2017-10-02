@@ -62,7 +62,7 @@ export default class Recorder {
   
       try {
 
-        this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'false' });
+        this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'true' });
         callback && callback(null)
         return true
       } catch (err) {

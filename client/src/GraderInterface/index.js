@@ -1032,7 +1032,7 @@ renderCompQuestions6 = () => {
 
         <div className={styles.headingContainer}>
           <div className={styles.nameHeading}>
-            Grading Demo
+            { "Demo from " + this.props.shortCreatedAt + " (PST)"}
           </div>
           <div className={styles.emailHeading}>
             {this.props.email}
@@ -1042,6 +1042,8 @@ renderCompQuestions6 = () => {
           </div>
         </div>
 
+        <br/><br/>
+        
         <div className={[styles.compPromptContainer, styles.block]}>
           <h4>Prompts</h4>
           <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
@@ -1098,7 +1100,7 @@ renderCompQuestions6 = () => {
             onMouseLeaveWord={this._onMouseLeaveWord}
             bookLevel={this.props.bookLevel}
             isSample={false}
-            showMSV={true}
+            showMSV={this.props.bookKey !== 'firefly'}
             bookKey={this.props.bookKey}
           />
 

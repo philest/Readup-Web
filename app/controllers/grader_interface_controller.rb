@@ -24,6 +24,10 @@ class GraderInterfaceController < ApplicationController
       created_at = User.last.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')
 
 
+      short_created_at = User.last.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%l:%M %p')
+
+
+
       # Backwards compatability to non-comp users... 
       if @assessment.comp_scores
         @comp_scores = @assessment.comp_scores
@@ -92,6 +96,7 @@ class GraderInterfaceController < ApplicationController
       @grader_interface_props = {
         name: "#{@student.first_name} #{@student.last_name}",
         createdAt: created_at,
+        shortCreatedAt: short_created_at,
         email: "#{@user.email}",
         bookTitle: title,
         bookLevel: level,

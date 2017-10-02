@@ -500,11 +500,19 @@ export const fireflyBook = {
       title: "Why did the girl and her dad go outside?",
       audioSrc: '/audio/VB/firefly/why-did-outside.mp3',
       points: 1,
+      rubric: {
+        1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+        0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
+      },
     },
     3: {
       title: "Why do you think the girl chose to let the fireflies go?",
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
       points: 1,
+      rubric: {
+        1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+        0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
+      },      
     },
 
   },
@@ -787,7 +795,8 @@ export const fpBook = {
 export const library = {
   demo: fireflyBook,
   nick: fpBook,
-  step: stepBook
+  step: stepBook,
+  firefly: fireflyBook,
 }
 
 
