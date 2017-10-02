@@ -483,6 +483,12 @@ export default class GraderInterface extends React.Component {
 
 
 
+  onPreviewClicked = () => {
+    this.onSaveClicked()
+
+    setTimeout( () => { window.open(`/reports/${this.props.userID}`, '_blank') }, 1500)
+  }
+
 
   onSubmitClicked = () => {
 
@@ -677,6 +683,7 @@ export default class GraderInterface extends React.Component {
       onReplayClicked: this.onReplayClicked,
       onGrading: true,
       onReader: false,
+      onPreviewClicked: this.onPreviewClicked,
     }
 
     return <NavigationBar {...navProps} />

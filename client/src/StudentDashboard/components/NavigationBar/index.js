@@ -26,6 +26,7 @@ export default class NavigationBar extends React.Component {
     onReader: PropTypes.bool,
     white: PropTypes.bool, 
     beforeStudentDemo: PropTypes.bool,
+    onPreviewClicked: PropTypes.func,
   };
   static defaultProps = {
     showPauseButton: true,
@@ -54,6 +55,22 @@ export default class NavigationBar extends React.Component {
     )
   }
 
+
+  renderPreviewButton =() => {
+      return (
+      <Button
+        className={[css.tryButton].join(' ')}
+        bsStyle={'default'}
+        onClick={this.props.onPreviewClicked}
+      >
+        <span className={css.tryButtonText}> Preview report </span>
+        <i className={["fa", "fa-chevron-right", (css.pulsatingArrow), css.delay].join(" ")} style={{marginLeft: 7}} aria-hidden={"true"} />
+      </Button>
+    )
+  }
+
+
+
   componentDidMount() {
 
     if (this.props.beforeStudentDemo) {
@@ -71,6 +88,7 @@ export default class NavigationBar extends React.Component {
   onTryButtonClicked = () => {
     window.location.href = '/nick'
   }
+
 
   /**
    * @param props - Comes from your rails view.
@@ -192,7 +210,7 @@ export default class NavigationBar extends React.Component {
           }
 
           { this.props.onGrading &&
-            <span className={css.userNameLabel}>On grading view</span>
+            this.renderPreviewButton()
           }
           { !this.props.beforeStudentDemo &&
             <div className={css.rightMostAction}>
