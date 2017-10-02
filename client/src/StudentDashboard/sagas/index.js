@@ -264,6 +264,11 @@ function* questionIncrementSaga (action) {
 
 
 function* playPromptSaga(prompt, studentID) {
+
+    // in case we're coming from the comp paused modal... 
+    yield put.resolve(setCurrentModal('modal-comp'))
+
+
     let audiofile
     if (prompt === PromptOptions.repeatQuestion) {
       const questionNumber = yield select(getQuestionNumber)
@@ -572,6 +577,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
     yield put.resolve(setPrompt(
       prompt,
     ))
+
 
     yield call(playPromptSaga, prompt, studentID)
 
