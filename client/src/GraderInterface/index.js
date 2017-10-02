@@ -141,7 +141,7 @@ export default class GraderInterface extends React.Component {
     // check all of s3 fully once
     for(let q = 0; q <= numQuestions; q++) {
       if (!this.state.showQArr[String(q)] && !this.props.scored) {
-        this.checkS3(q)
+        this.checkS3(q, true)
       }
     }
 
@@ -192,7 +192,7 @@ export default class GraderInterface extends React.Component {
 
     for(let q = 0; q <= numQuestions; q++) {
       if (!this.state.showQArr[String(q)] && !this.props.scored) {
-        this.checkS3(q)
+        this.checkS3(q, false)
         break 
       }
     }
@@ -572,7 +572,7 @@ export default class GraderInterface extends React.Component {
   }
 
 
-  checkS3 = (qNum) => {
+  checkS3 = (qNum, isOnPageLoad) => {
 
     let url
 
@@ -588,7 +588,10 @@ export default class GraderInterface extends React.Component {
       console.log(res);
       console.log("yay!");
       console.log('found s3 for question: ', qNum)
-      playSoundAsync('/audio/complete.mp3')
+
+      if (!isOnPageLoad) {
+        playSoundAsync('/audio/complete.mp3')
+      }
 
       let showQArr = this.state.showQArr
       showQArr[String(qNum)] = true 
@@ -1221,20 +1224,12 @@ renderCompQuestions6 = () => {
         <Button
           className={styles.unscorableButton}
           bsStyle={'success'}
-          bsSize={'xsmall'}
+          bsSize={'small'}
           onClick={this.onSubmitClicked}
         >
           Send to user
         </Button>
 
-        <Button
-          className={styles.unscorableButton}
-          bsStyle={'danger'}
-          bsSize={'xsmall'}
-          onClick={this.onUnscorableClicked}
-        >
-          Mark as unscorable
-        </Button>
 
        
        {this.state.showSubmitAlert &&
