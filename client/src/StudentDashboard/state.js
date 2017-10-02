@@ -584,6 +584,7 @@ export const stepBook = {
           1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. ",
         },
       points: 1,
+      standard: "CCRA.R.1",
     },
     2: {
       title: "What are some things Peter sees upside down?",
@@ -593,6 +594,7 @@ export const stepBook = {
           1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees.",
         },
       points: 1,
+      standard: 'CCRA.R.2',
     },
     3: {
       title: "Why is Peter looking at things upside down?",
@@ -602,6 +604,7 @@ export const stepBook = {
           1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind.",
         },
       points: 1,
+      standard: 'CCRA.R.1',
     },
     4: {
       title: "Who comes to visit Peter?",
@@ -611,6 +614,7 @@ export const stepBook = {
           1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text.",
         },
       points: 1,
+      standard: 'CCRA.R.2',
     },
     5: {
       title: "Why does Peter say, \"Will her hat fall off?\"",
@@ -621,6 +625,7 @@ export const stepBook = {
           1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
         },
       points: 1,
+      standard: 'CCRA.R.4',
     },
     6: {
       title: "Why does Peter ask Jill to play upside down with him?",
@@ -630,6 +635,7 @@ export const stepBook = {
           1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. ",
         },
       points: 1,
+      standard: 'CCRA.R.4 and CCRA.R.1',
     },
 
 
@@ -748,6 +754,7 @@ export const fpBook = {
                 0: "Response does not indicate understanding of Bedtime For Nick. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
               },
       points: 3,
+      standard: 'CCRA.R.1 and CCRA.R.3',
     },
     2: {
       title: "What is the real reason Nick can’t sleep?",
@@ -757,6 +764,8 @@ export const fpBook = {
         1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
       },
       points: 1,
+      standard: 'CCRA.R.2',
+
     },
     3: {
       title: "How do you think Nick feels about Wags?",
@@ -766,6 +775,7 @@ export const fpBook = {
                 1: "Response demonstrates an excellent understanding of Nick’s feelings about Wags. Correctly identifies that Nick loves Wags and misses him. Offers strong supporting details for this answer and notes Nick is only able to sleep when Wags comes back.",
               },
       points: 1,
+      standard: 'CCRA.R.4',
     },
     4: {
       title: "Tell about a time when you had trouble with something.",
@@ -776,6 +786,7 @@ export const fpBook = {
                 1: "Response demonstrates a very strong ability to think beyond the text. Makes a strong logical connection between personal experiences and Nick’s story, and gives important supporting details.",
               },
       points: 1,
+      standard: 'CCRA.R.9',
     },
 
   },

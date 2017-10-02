@@ -548,11 +548,13 @@ export default class ReportsInterface extends React.Component {
     let qLabel = (questionNum + 1) + '. '
 
     let pts = book.questions[String(questionNum + 1)].points
+    let standard = book.questions[String(questionNum + 1)].standard
 
-    if (pts > 1) {
-      pointsLabel = `(${pts} points)`
+
+    if (standard) {
+      pointsLabel = `(${standard})`
     } else {
-      pointsLabel = "(1 point)"
+      pointsLabel = ""
     }
 
 
