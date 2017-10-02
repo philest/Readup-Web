@@ -163,6 +163,12 @@ export default class GraderInterface extends React.Component {
   }
 
 
+  closeReportReadyModal = () => {
+
+    this.setState({ showReadyForReviewModal: false,
+                  })
+  }
+
   tick() {
 
 
@@ -1101,8 +1107,8 @@ renderCompQuestions6 = () => {
         </div>
 
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
-        <Modal show={this.state.showReadyForReviewModal} dialogClassName={reportStyles.modalSmall}>
-          <Modal.Header>
+        <Modal show={this.state.showReadyForReviewModal} onHide={this.closeReportReadyModal} dialogClassName={reportStyles.modalSmall}>
+          <Modal.Header closeButton>
             <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
               Ready for review! 
             </Modal.Title>
