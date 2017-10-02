@@ -27,6 +27,7 @@ export default class NavigationBar extends React.Component {
     white: PropTypes.bool, 
     beforeStudentDemo: PropTypes.bool,
     onPreviewClicked: PropTypes.func,
+    onSaveClicked: PropTypes.func,
   };
   static defaultProps = {
     showPauseButton: true,
@@ -210,7 +211,11 @@ export default class NavigationBar extends React.Component {
           }
 
           { this.props.onGrading &&
-            this.renderPreviewButton()
+            <span >
+                <span onClick={this.props.onSaveClicked} className={css.userNameLabel} style={{marginRight: 20, fontWeight: 800, fontSize: 16, cursor: 'pointer'}}>Save</span>
+
+              { this.renderPreviewButton() }
+            </span>
           }
           { !this.props.beforeStudentDemo &&
             <div className={css.rightMostAction}>
