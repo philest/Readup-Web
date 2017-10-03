@@ -559,7 +559,7 @@ export default class ReportsInterface extends React.Component {
 
 
     return (
-      <div className={styles.questionBlock}>
+      <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
         <h4 className={styles.questionText}>{qLabel + getFullTitle(book.questions[String(questionNum + 1)])}<span className={styles.pointValue}> {pointsLabel}</span></h4>
        
         { isGraded &&
@@ -884,7 +884,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.compPart}>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                   <p className={styles.studentResponse}>Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike.</p> 
  
@@ -904,7 +904,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Within the Text</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>1. How is the narrator's mom trying to make him feel better?<span className={styles.pointValue}> (1 point)</span></h4>
                   <p className={styles.studentResponse}>Chris's mom is trying to make him feel better by buying him a new bike.</p> 
 
@@ -921,7 +921,7 @@ export default class ReportsInterface extends React.Component {
 
                   <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Shows strong undertanding of character and plot regarding Chris's mom.</p> 
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (1 point)</span></h4>
                   <p className={styles.studentResponse}>Chris will stop looking because he still hasn’t found it.</p> 
 
@@ -943,7 +943,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (1 point)</span></h4>
                   <p className={styles.studentResponse}>He thinks Mr. Podler once saw a ghost.</p> 
 
@@ -960,7 +960,7 @@ export default class ReportsInterface extends React.Component {
 
                   <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 point)</span></h4>
                   <p className={styles.studentResponse}>He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first.</p> 
 
@@ -997,7 +997,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={ [(true ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Within the Text</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (CCRA.R.2 and CCRA.R.3)</span></h4>
                   <p className={styles.studentResponse}>Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike.</p> 
 
@@ -1016,13 +1016,13 @@ export default class ReportsInterface extends React.Component {
                     }
 
                  
-                  <p className={styles.compCorrect}><span className={styles.correct}>3 of 3 points:</span> Shows excellent undestanding of the passage, including three critical plot details, as well as sequence and characters.</p> 
+                  <p className={styles.compCorrect}><span className={styles.correct}>2 of 3 points:</span> Response demonstrates a good understanding of the passage. Includes three major plot events in sequence, and shows insight into Chris’s actions. Lacks some important details to enrich the retelling, such as details on setting.</p> 
                 </div>
             </div>
 
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Factual</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>1. How is the narrator's mom trying to make him feel better?<span className={styles.pointValue}> (CCRA.R.2)</span></h4>
                   <p className={styles.studentResponse}>Chris's mom is trying to make him feel better by buying him a new bike.</p> 
    
@@ -1038,13 +1038,13 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 points:</span> Shows strong undertanding of character and plot regarding Chris's mom.</p> 
+                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 points:</span> Response shows a strong undertanding of character and plot regarding Chris's mom. Correctly identifies key point that Mom wants to get Chris a new bike so he stops worrying about his lost one.</p> 
                 </div>
             </div>
 
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Inferential</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (CCRA.R.1)</span></h4>
                   <p className={styles.studentResponse}>Chris will stop looking because he still hasn’t found it.</p> 
  
@@ -1059,9 +1059,9 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Missed key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
+                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in understanding whether Chris will keep looking. Misses key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike. Response suggests student could benefit from reviewing the text before answering.</p> 
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (CCRA.R.4)</span></h4>
                   <p className={styles.studentResponse}>He thinks Mr. Podler once saw a ghost.</p> 
 
@@ -1075,7 +1075,7 @@ export default class ReportsInterface extends React.Component {
                         <p>Playback not supported</p>
                       </audio>
                     }
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
+                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in inferring the meaning behind Chris’s dad's response. Student misses key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>                
             </div>
 
@@ -1083,7 +1083,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Critical Thinking</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (CCRA.R.1)</span></h4>
                   <p className={styles.studentResponse}>He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first.</p> 
  
@@ -1099,7 +1099,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Reflects excellent understanding of the text. Includes details on Chris’s mixed feelings and evidence from the text.</p> 
+                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Reflects an excellent understanding of the text. Includes details on Chris’s mixed feelings and strong evidence from the text. Student shows strong ability to understand character motivation and reference the passage.</p> 
 
                 </div>
             </div>
@@ -1123,7 +1123,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                  
                   { firstQuestionGraded &&
@@ -1137,10 +1137,10 @@ export default class ReportsInterface extends React.Component {
 
             <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Factual</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>1. Why did the girl and her dad go outside?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>2. Talk about how the story ended.<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
             </div>
@@ -1148,10 +1148,10 @@ export default class ReportsInterface extends React.Component {
 
             <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Inferential</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>3. Why do you think the girl liked catching fireflies?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>4. Why did the girl feel like opening her jar and letting the fireflies go?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
             </div>
@@ -1159,10 +1159,10 @@ export default class ReportsInterface extends React.Component {
 
             <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Critical Thinking</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>5. Does it seem like the girl and her Dad have caught fireflies before? Why do you think that?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>6. Do you agree with the girl’s decision to let the fireflies go? Why? <span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
             </div>
@@ -1184,7 +1184,7 @@ export default class ReportsInterface extends React.Component {
 
             <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                  
                   { firstQuestionGraded &&
@@ -1201,10 +1201,10 @@ export default class ReportsInterface extends React.Component {
                 {
                   this.renderFullQuestion(1, false)
                 }
-                 <div className={styles.questionBlock}>
+                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>2. Talk about how the story ended.<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>3. Why do you think the girl liked catching fireflies?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
             </div>
@@ -1213,14 +1213,14 @@ export default class ReportsInterface extends React.Component {
 
             <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>4. Why did the girl feel like opening her jar and letting the fireflies go?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
 
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>5. Does it seem like the girl and her Dad have caught fireflies before? Why do you think that?<span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
-                <div className={styles.questionBlock}>
+                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>6. Do you agree with the girl’s decision to let the fireflies go? Why? <span className={styles.pointValue}> (1 point)</span></h4>
                 </div>
             </div>
