@@ -14,7 +14,32 @@ let sampleBookLines = [[12, 13, 11, 11, 10, 9, 13, 10, 6]]
 
 let bookLines
 
+let isMSVgraded
 
+
+function wasMSVgraded(paragraphs) {
+
+  let result = false
+
+  paragraphs.forEach( function(paragraph, paraIdx) {
+
+    paragraph.words.forEach(function(wordDict, wordIdx) {
+      
+        if (wordHasError(wordDict) !== null) {
+          console.log('a word has an error')
+          let msvForWord = getMSVforWord(wordDict)
+          console.log('msvForWord is: ', msvForWord)
+          if (msvForWord !== '') {
+            console.log('here i am....')
+            result = true
+          }
+        }
+    })
+  })
+
+  return result 
+
+}
 
 
 
@@ -219,13 +244,15 @@ export default class FormattedMarkupText extends React.Component {
       bookLines = stepBookLines
     }
 
+
+    isMSVgraded = wasMSVgraded(this.props.paragraphs)
+
   }
 
   render() {
 
     const endPindex = this.props.endParagraphIndex //shorthands for ease
     const endWindex = this.props.endWordIndex
-
 
     return (
 
@@ -234,7 +261,9 @@ export default class FormattedMarkupText extends React.Component {
       { this.props.showMSV &&
         <div className={styles.rightSide}>
          
-         { this.renderMSVbook(bookLines) }
+        { (isMSVgraded || this.props.isInteractive)  &&
+          this.renderMSVbook(bookLines)
+        }
          
 
         </div> 
