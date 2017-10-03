@@ -341,7 +341,7 @@ function* instructionSaga() {
         ReaderStateOptions.playingBookIntro,
       ))
 
-      yield call(playSoundAsync, '/audio/VB/VB-see-book.mp3')
+      yield call(playSoundAsync, '/audio/see-book.mp3')
       
       yield call(delay, 3300)
 

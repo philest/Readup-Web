@@ -527,7 +527,7 @@ export const stepBook = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: '/images/dashboard/step/step-cover.jpg',
-  introAudioSrc: '/audio/VB/VB-book-intro.mp3',
+  introAudioSrc: '/audio/step/intro.mp3',
   pages: {
     1: {
       lines: [
@@ -578,7 +578,7 @@ export const stepBook = {
   questions: {
     1: {
       title: "Where is Peter playing upside down?",
-      audioSrc: '/audio/VB/VB-retell-full.mp3',
+      audioSrc: '/audio/step/1.mp3',
       rubric: {
           0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
           1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. ",
@@ -588,7 +588,7 @@ export const stepBook = {
     },
     2: {
       title: "What are some things Peter sees upside down?",
-      audioSrc: '/audio/VB/firefly/why-did-outside.mp3',
+      audioSrc: '/audio/step/2.mp3',
       rubric: {
           0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
           1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees.",
@@ -598,7 +598,7 @@ export const stepBook = {
     },
     3: {
       title: "Why is Peter looking at things upside down?",
-      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      audioSrc: '/audio/step/3.mp3',
       rubric: {
           0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
           1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind.",
@@ -608,7 +608,7 @@ export const stepBook = {
     },
     4: {
       title: "Who comes to visit Peter?",
-      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      audioSrc: '/audio/step/4.mp3',
       rubric: {
           0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
           1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text.",
@@ -618,7 +618,7 @@ export const stepBook = {
     },
     5: {
       title: "Why does Peter say, \"Will her hat fall off?\"",
-      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      audioSrc: '/audio/step/5.mp3',
       rubric: {
 
           0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -629,7 +629,7 @@ export const stepBook = {
     },
     6: {
       title: "Why does Peter ask Jill to play upside down with him?",
-      audioSrc: '/audio/VB/firefly/why-chose.mp3',
+      audioSrc: '/audio/step/6.mp3',
       rubric: {
           0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
           1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. ",
