@@ -1016,7 +1016,7 @@ export default class ReportsInterface extends React.Component {
                     }
 
                  
-                  <p className={styles.compCorrect}><span className={styles.correct}>+3 points:</span> Shows excellent undestanding of the passage, including three critical plot details, as well as sequence and characters.</p> 
+                  <p className={styles.compCorrect}><span className={styles.correct}>3 of 3 points:</span> Shows excellent undestanding of the passage, including three critical plot details, as well as sequence and characters.</p> 
                 </div>
             </div>
 
@@ -1038,7 +1038,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compCorrect}><span className={styles.missed}>+1 points:</span> Shows strong undertanding of character and plot regarding Chris's mom.</p> 
+                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 points:</span> Shows strong undertanding of character and plot regarding Chris's mom.</p> 
                 </div>
             </div>
 
@@ -1059,7 +1059,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compMissed}><span className={styles.missed}>No points:</span> Missed key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
+                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Missed key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
                 </div>
                 <div className={styles.questionBlock}>
                   <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (CCRA.R.4)</span></h4>
@@ -1075,7 +1075,7 @@ export default class ReportsInterface extends React.Component {
                         <p>Playback not supported</p>
                       </audio>
                     }
-                  <p className={styles.compMissed}><span className={styles.missed}>No points:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
+                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>                
             </div>
 
@@ -1099,7 +1099,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compCorrect}><span className={styles.missed}>+1 point:</span> Reflects excellent understanding of the text. Includes details on Chris’s mixed feelings and evidence from the text.</p> 
+                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Reflects excellent understanding of the text. Includes details on Chris’s mixed feelings and evidence from the text.</p> 
 
                 </div>
             </div>
