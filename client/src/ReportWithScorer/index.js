@@ -289,6 +289,7 @@ export default class ReportWithScorer extends React.Component {
       onReader: false,
       white: false,
       beforeStudentDemo: this.props.isDirectSample,
+      brand: this.props.assessmentBrand,
     }
 
     return <NavigationBar {...navProps} />

@@ -28,6 +28,7 @@ export default class NavigationBar extends React.Component {
     beforeStudentDemo: PropTypes.bool,
     onPreviewClicked: PropTypes.func,
     onSaveClicked: PropTypes.func,
+    brand: PropTypes.string,
   };
   static defaultProps = {
     showPauseButton: true,
@@ -87,7 +88,7 @@ export default class NavigationBar extends React.Component {
   }
 
   onTryButtonClicked = () => {
-    window.location.href = '/step'
+    window.location.href = `/${this.props.brand.toLowerCase()}`
   }
 
 
