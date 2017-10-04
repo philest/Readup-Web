@@ -246,6 +246,7 @@ export default class Metric extends React.Component {
         break;
       case 'Words/Min':
         metricClass = WCMPMetricClass;
+        hasDetails = false 
         break
       case 'Comp.':
         metricClass = compMetricClass;
@@ -267,14 +268,20 @@ export default class Metric extends React.Component {
 
       <div className={styles.metricWrapper}>
         <div className={metricClass}>{ number }</div>
-        <div className={styles.metricDescriptionLabel}>{ label }
+
+        { (!hasDetails || !this.props.showDetails) && 
+           <div className={styles.metricDescriptionLabel}>{ label }</div>
+        }
 
           { hasDetails && this.props.showDetails && 
             <OverlayTrigger trigger={['click']} rootClose  placement="bottom" overlay={popoverName}>
+              <div style={{cursor: 'pointer'}} className={styles.metricDescriptionLabel}>{ label }
               <i className={["fa", "fa-caret-down", css.questionIcon].join(" ")} aria-hidden={"true"} />
+              </div>
+
             </OverlayTrigger>
           }  
-        </div>
+
 
       </div>
 
