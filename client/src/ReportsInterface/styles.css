@@ -552,6 +552,24 @@ span.missed, span.correct {
 	text-align: center;
 }
 
+.playbookModalHeader {
+	background-color: #F7F7F7;
+	color: #4a4a4a;
+	border-radius: 6px;
+	opacity: .9;
+}
+
+.playbookMoves .detail {
+	font-size: 14px; 
+	font-family: 'ProximaNova';
+	line-height: 2.4;
+}
+
+.playbookMoves .detail .poorMetric, .playbookMoves .detail .fairMetric, .playbookMoves .detail .goodMetric{
+    font-style: italic;
+    font-family: 'ProximaNova Semibold';
+}
+
 .readyModalTitle {
 	font-size: 1.7em;
 }

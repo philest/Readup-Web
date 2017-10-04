@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Button, Modal, FormGroup, FormControl, ControlLabel  } from 'react-bootstrap'
+import { Button, Modal, FormGroup, FormControl, ControlLabel, OverlayTrigger  } from 'react-bootstrap'
 
 
 import styles from './styles.css'
@@ -72,6 +72,7 @@ export default class ReportsInterface extends React.Component {
       showPricingModal: false,
       showBookModal: false,
       showEmailModal: true,
+      showPlaybook: false,
       playbackFidgets: false,
       showSampleInfoModal: false,
       levelFound: false,
@@ -472,6 +473,14 @@ export default class ReportsInterface extends React.Component {
                   })
   }
 
+  onPlaybookClicked = () => {
+    this.setState({ showPlaybook: true })
+  }
+
+  onPlaybookClose = () => {
+    this.setState({ showPlaybook: false })
+  }
+
 
 
   _handleKeyDown = (event) => {
@@ -720,7 +729,7 @@ export default class ReportsInterface extends React.Component {
 
 
               { this.props.isSample &&
-                <span className={styles.playbookTrigger}>See playbook
+                <span onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>See playbook
                   <img className={styles.icon} src="/assets/playbook-blue.svg" alt="Playbook icon blue" />
                 </span>
               } 
@@ -1499,6 +1508,8 @@ export default class ReportsInterface extends React.Component {
 
 
 
+
+
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.9; } '}</style>
         <Modal show={this.state.showPricingModal} restoreFocus={false} onHide={this.closePricingModal} dialogClassName={styles.modalMedium}>
           <Modal.Header closeButton>
@@ -1572,6 +1583,27 @@ export default class ReportsInterface extends React.Component {
           </Modal.Body>
         </Modal>
 
+
+
+       <style type="text/css">{'.modal-backdrop.in { opacity: 0.6; } '}</style>
+        <Modal show={this.state.showPlaybook}   onHide={this.onPlaybookClose} >
+          <Modal.Header bsClass={[styles.playbookModalHeader, 'modal-header'].join(' ')} closeButton>
+            <Modal.Title>
+              Some next instructional moves
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className={styles.playbookMoves}>
+            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking first letters and pictures</span>
+            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence sounds right</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving inferential questions by checking back at the text</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>
+            </div>
+
+
+          </Modal.Body>
+        </Modal>
 
 
 
