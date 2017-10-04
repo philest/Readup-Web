@@ -8,6 +8,11 @@
 	font-family: 'ProximaNova';
 	min-width: 325px;
 	z-index: 1;
+	color: #4a4a4a;
+}
+
+.compPopover {
+	min-width: 0px; 
 }
 
 .sharePopover {

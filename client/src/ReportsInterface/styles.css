@@ -144,6 +144,25 @@
 }
 
 
+.detail {
+	font-weight: 100;
+	font-family: 'ProximaNova Semibold';
+	font-size: 12px;
+    color: grey;
+    display: block;	
+    line-height: 1.7;
+}
+
+.detail span {
+	font-size: 15px;
+}
+
+.myHr {
+	margin: .5em 0;
+    margin-bottom: 6px;
+}
+
+
 
 .metricDescriptionLabel {
 	font-family: 'ProximaNova Semibold';
@@ -202,6 +221,8 @@
 .fairLevelResult {
 	background-color: #D97F0F;
 }
+
+
 
 
 

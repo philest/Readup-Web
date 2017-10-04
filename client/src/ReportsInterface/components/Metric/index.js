@@ -45,14 +45,60 @@ const popoverBottom = (
 );
 
 
+
+const compPopover = (
+  <Popover id="popover-positioned-bottom" title="Cues used" className={[css.myPopover, css.compPopover].join(' ')}>
+ 
+    <div>
+    <span className={styles.detail}>Meaning: <span className={styles.fairMetric}>30%</span></span>
+    <span className={styles.detail}>Structure: <span className={styles.goodMetric}>66%</span></span>
+    <span className={styles.detail}>Visual: <span className={styles.goodMetric}>40%</span></span>
+    <hr className={styles.myHr}/>
+    <span className={styles.detail}>Self-corrected: <span className={styles.fairMetric}>20%</span></span>
+
+
+    </div>
+
+  </Popover>
+);
+
+const fluencyPopover = (
+  <Popover id="popover-positioned-bottom" title="Satisfactory fluency" className={[css.myPopover, css.compPopover].join(' ')}>
+ 
+    <div>
+    <span className={styles.detail}>Primarily three- or four-word phrases</span>
+    <span className={styles.detail}>Some smooth, expressive interpretation</span>
+    <span className={styles.detail}>Mostly appropriate stress and pausing</span>
+    </div>
+
+  </Popover>
+);
+
+const lastPopover = (
+  <Popover id="popover-positioned-bottom" title="Breakdown" className={[css.myPopover, css.compPopover].join(' ')}>
+ 
+    <div>
+    <span className={styles.detail}>Retell: <span className={styles.goodMetric}>2/3</span></span>
+    <span className={styles.detail}>Factual: <span className={styles.goodMetric}>1/1</span></span>
+    <span className={styles.detail}>Inferential: <span className={styles.poorMetric}>0/2</span></span>
+    <span className={styles.detail}>Critical Thinking: <span className={styles.goodMetric}>1/1</span></span>
+    </div>
+
+  </Popover>
+);
+
+
+
 export default class Metric extends React.Component {
   static propTypes = {
     number: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
     denominator: PropTypes.number,
+    showDetails: PropTypes.bool,
   };
 
   static defaultProps = {
+    showDetails: false
  }
 
 
@@ -186,11 +232,16 @@ export default class Metric extends React.Component {
 
     let metricClass
     let hasPopover = false 
+    let hasDetails = false
+    let popoverName 
 
     switch (label) {
       case 'Accuracy':
         metricClass = accMetricClass;
         number = (number.toString() + "%")
+
+        hasDetails = true
+        popoverName = compPopover
 
         break;
       case 'Words/Min':
@@ -199,11 +250,16 @@ export default class Metric extends React.Component {
       case 'Comp.':
         metricClass = compMetricClass;
         number = (number.toString() + ("/" + this.props.denominator.toString()))
+        hasDetails = true 
+        popoverName = lastPopover
         break
       case 'Fluency':
         metricClass = fluencyMetricClass;
         number = (number.toString() + "/" +  this.props.denominator.toString())
-        hasPopover = true
+        // hasPopover = true
+        hasDetails = true 
+        popoverName = fluencyPopover
+
         break
     }
 
@@ -212,13 +268,14 @@ export default class Metric extends React.Component {
       <div className={styles.metricWrapper}>
         <div className={metricClass}>{ number }</div>
         <div className={styles.metricDescriptionLabel}>{ label }
-          { hasPopover && 
 
-          <OverlayTrigger trigger={['click']} rootClose  placement="bottom" overlay={popoverBottom}>
-            <i className={["fa", "fa-question-circle", css.questionIcon].join(" ")} aria-hidden={"true"} />
-          </OverlayTrigger>
-          }
+          { hasDetails && this.props.showDetails && 
+            <OverlayTrigger trigger={['click']} rootClose  placement="bottom" overlay={popoverName}>
+              <i className={["fa", "fa-caret-down", css.questionIcon].join(" ")} aria-hidden={"true"} />
+            </OverlayTrigger>
+          }  
         </div>
+
       </div>
 
     );

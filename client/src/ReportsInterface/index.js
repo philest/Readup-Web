@@ -766,6 +766,7 @@ export default class ReportsInterface extends React.Component {
               <Metric
                 label="Accuracy"
                 number={acc}
+                showDetails={this.props.isSample}
               />
 
               { (this.props.fluencyScore != null) &&
@@ -773,6 +774,8 @@ export default class ReportsInterface extends React.Component {
                   label="Fluency"
                   number={this.props.fluencyScore}
                   denominator={3}
+                  showDetails={this.props.isSample}
+
                 />
               }
 
@@ -781,6 +784,8 @@ export default class ReportsInterface extends React.Component {
                 <Metric
                   label="Words/Min"
                   number={WCPM}
+                  showDetails={this.props.isSample}
+
                 />
               }
 
@@ -788,6 +793,8 @@ export default class ReportsInterface extends React.Component {
                 <Metric
                   label="Words/Min"
                   number={161}
+                  showDetails={this.props.isSample}
+
                 />
               }
 
@@ -797,6 +804,8 @@ export default class ReportsInterface extends React.Component {
                   label="Comp."
                   number={5}
                   denominator={9}
+                  showDetails={this.props.isSample}
+
                 />
             }
 
@@ -805,6 +814,7 @@ export default class ReportsInterface extends React.Component {
                 label="Comp."
                 number={this.getCompTotal()}
                 denominator={this.getCompDenom(allQuestionsGraded)}
+                showDetails={this.props.isSample}
               />
             }
 
