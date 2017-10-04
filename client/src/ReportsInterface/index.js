@@ -719,6 +719,13 @@ export default class ReportsInterface extends React.Component {
               }
 
 
+              { this.props.isSample &&
+                <span className={styles.playbookTrigger}>See playbook
+                  <img className={styles.icon} src="/assets/playbook-blue.svg" alt="Playbook icon blue" />
+                </span>
+              } 
+
+
               { !this.props.isSample &&
                 <LevelResult
                   difficulty={difficulty}

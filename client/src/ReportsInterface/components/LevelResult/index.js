@@ -157,6 +157,7 @@ export default class LevelResult extends React.Component {
         .panel-myDanger .panel-body, .panel-myWarning .panel-body, .panel-mySuccess .panel-body {
           padding: 8px 15px 8px 17px;
           font-style: italic;
+          display: none;
 
         }
 
