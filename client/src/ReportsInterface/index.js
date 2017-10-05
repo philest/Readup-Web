@@ -571,7 +571,7 @@ export default class ReportsInterface extends React.Component {
       <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
         <h4 className={styles.questionText}>{qLabel + getFullTitle(book.questions[String(questionNum + 1)])}<span className={styles.pointValue}> {pointsLabel}</span></h4>
        
-        { isGraded &&
+        { this.isQuestionGraded(questionNum + 1) &&
           this.renderGradedPartOfQuestion(questionNum)
         }
         
@@ -625,6 +625,21 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  // It's graded if there's a score and comment
+  isQuestionGraded(qNum) {
+    return (this.props.graderComments[String(qNum - 1)] && (this.props.compScores[String(qNum - 1)] != null))
+  }
+
+  areAllQuestionsGraded() {
+    for (let i = 1; i < book.numQuestions; i++) {
+      if(!isQuestionGraded(i - 1)){
+        return false 
+      }
+    } 
+    return true 
+  }
+
+
   getColorClass(score, isRetell) {
     let colorClass
 
@@ -657,6 +672,8 @@ export default class ReportsInterface extends React.Component {
 
 
 
+
+
   render() {
 
 
@@ -674,14 +691,16 @@ export default class ReportsInterface extends React.Component {
     // let thirdQuestionGraded = (this.props.studentResponses["2"] && this.props.graderComments["2"] && (this.props.compScores["2"] != null))
     // let fourthQuestionGraded = (this.props.studentResponses["3"] && this.props.graderComments["3"] && (this.props.compScores["3"] != null))
 
-    let firstQuestionGraded = (this.props.graderComments["0"] && (this.props.compScores["0"] != null))
-    let secondQuestionGraded = (this.props.graderComments["1"] && (this.props.compScores["1"] != null))
-    let thirdQuestionGraded = (this.props.graderComments["2"] && (this.props.compScores["2"] != null))
-    let fourthQuestionGraded = (this.props.graderComments["3"] && (this.props.compScores["3"] != null))
+    // let firstQuestionGraded = (this.props.graderComments["0"] && (this.props.compScores["0"] != null))
+    // let secondQuestionGraded = (this.props.graderComments["1"] && (this.props.compScores["1"] != null))
+    // let thirdQuestionGraded = (this.props.graderComments["2"] && (this.props.compScores["2"] != null))
+    // let fourthQuestionGraded = (this.props.graderComments["3"] && (this.props.compScores["3"] != null))
+    // let fifthQuestionGraded = (this.props.graderComments["4"] && (this.props.compScores["4"] != null))
+    // let sixthQuestionGraded = (this.props.graderComments["5"] && (this.props.compScores["5"] != null))
 
 
 
-    let allQuestionsGraded = (firstQuestionGraded && secondQuestionGraded && thirdQuestionGraded && fourthQuestionGraded)
+    // let allQuestionsGraded = (firstQuestionGraded && secondQuestionGraded && thirdQuestionGraded && fourthQuestionGraded)
 
 
     const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom(allQuestionsGraded))
@@ -1145,14 +1164,14 @@ export default class ReportsInterface extends React.Component {
             <hr className={styles.compDivider}/>
 
 
-           <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
-            <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
+            <div className={ [(this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                  
-                  { firstQuestionGraded &&
+                  { this.isQuestionGraded(1) &&
                     this.renderGradedPartOfQuestion(0)
                   }
                   
@@ -1206,14 +1225,14 @@ export default class ReportsInterface extends React.Component {
             <hr className={styles.compDivider}/>
 
 
-           <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
-            <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
+            <div className={ [(this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
                  
-                  { firstQuestionGraded &&
+                  { this.isQuestionGraded(1) &&
                     this.renderGradedPartOfQuestion(0)
                   }
                   
@@ -1225,7 +1244,7 @@ export default class ReportsInterface extends React.Component {
             <div className={[styles.compPart, styles.fadedComp].join(' ')}>
               <h2 className={styles.compPartHeader}>Within the Text</h2>
                 {
-                  this.renderFullQuestion(1, false)
+                  this.renderFullQuestion(1)
                 }
                  <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>2. Talk about how the story ended.<span className={styles.pointValue}> (1 point)</span></h4>
@@ -1266,12 +1285,12 @@ export default class ReportsInterface extends React.Component {
             <hr className={styles.compDivider}/>
 
 
-           <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
-            <div className={ [(firstQuestionGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
+            <div className={ [(this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Within the Text</h2>
                 {
-                  this.renderFullQuestion(0, firstQuestionGraded)
+                  this.renderFullQuestion(0)
                 }
 
             </div>
@@ -1280,16 +1299,16 @@ export default class ReportsInterface extends React.Component {
             <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
                 {
-                  this.renderFullQuestion(1, allQuestionsGraded)
+                  this.renderFullQuestion(1)
                 }
 
                 {
-                  this.renderFullQuestion(2, allQuestionsGraded)
+                  this.renderFullQuestion(2)
                 }
 
 
                 {
-                  this.renderFullQuestion(3, allQuestionsGraded)
+                  this.renderFullQuestion(3)
                 }
 
             </div>
@@ -1307,20 +1326,20 @@ export default class ReportsInterface extends React.Component {
             <hr className={styles.compDivider}/>
 
 
-           <h5 className={[styles.sectionHeader, (firstQuestionGraded ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
             <div className={ [(allQuestionsGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Factual</h2>
                 {
-                  this.renderFullQuestion(0, firstQuestionGraded)
+                  this.renderFullQuestion(0)
                 }
 
                 {
-                  this.renderFullQuestion(1, allQuestionsGraded)
+                  this.renderFullQuestion(1)
                 }
 
                 {
-                  this.renderFullQuestion(3, allQuestionsGraded)
+                  this.renderFullQuestion(3)
                 }
 
             </div>
@@ -1330,11 +1349,11 @@ export default class ReportsInterface extends React.Component {
               <h2 className={styles.compPartHeader}>Inferential</h2>
 
                 {
-                  this.renderFullQuestion(2, allQuestionsGraded)
+                  this.renderFullQuestion(2)
                 }
 
                 {
-                  this.renderFullQuestion(4, allQuestionsGraded)
+                  this.renderFullQuestion(4)
                 }
 
             </div>
@@ -1344,7 +1363,7 @@ export default class ReportsInterface extends React.Component {
               <h2 className={styles.compPartHeader}>Critical Thinking</h2>
 
                 {
-                  this.renderFullQuestion(5, allQuestionsGraded)
+                  this.renderFullQuestion(5)
                 }
 
 
