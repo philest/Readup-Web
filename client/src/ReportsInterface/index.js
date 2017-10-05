@@ -730,7 +730,7 @@ export default class ReportsInterface extends React.Component {
 
               { this.props.isSample &&
                 <span onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>See playbook
-                  <img className={styles.icon} src="/assets/playbook-blue.svg" alt="Playbook icon blue" />
+                  <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
                 </span>
               } 
 
