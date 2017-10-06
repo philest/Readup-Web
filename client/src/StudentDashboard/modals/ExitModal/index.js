@@ -21,6 +21,8 @@ export default class ExitModal extends React.Component {
 
     currentShowModal: PropTypes.string,
     modalType: PropTypes.string,
+        onTurnInClicked: PropTypes.func,
+
   };
   static defaultProps = {
     startedRecording: false,
@@ -52,9 +54,9 @@ export default class ExitModal extends React.Component {
 
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Keep reading', 'Exit book']}
-            images={['fa-play', 'fa-times']}
-            actions={[this.props.onContinueClicked, exitAction]}
+            titles={['Keep reading', 'Turn in early', 'Exit book']}
+            images={['fa-play', 'fa-check', 'fa-times']}
+            actions={[this.props.onContinueClicked, this.props.onExitAndUploadClicked, exitAction]}
             enlargeFirst={true}
             fontAwesome={true}
             modalType={'danger'}
