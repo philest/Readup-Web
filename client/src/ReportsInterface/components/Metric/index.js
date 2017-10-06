@@ -47,23 +47,6 @@ const popoverBottom = (
 
 
 
-const compPopover = (
-  <Popover id="popover-positioned-bottom" title="Cues used" className={[css.myPopover, css.compPopover].join(' ')}>
- 
-    <div>
-    <span className={styles.detail}>Meaning: <span className={styles.fairMetric}>30%</span></span>
-    <span className={styles.detail}>Structure: <span className={styles.goodMetric}>66%</span></span>
-    <span className={styles.detail}>Visual: <span className={styles.goodMetric}>40%</span></span>
-    <hr className={styles.myHr}/>
-    <span className={styles.detail}>Self-corrected: <span className={styles.fairMetric}>20%</span></span>
-
-
-    </div>
-
-  </Popover>
-);
-
-
 
 
 const fluencyLibrary = {
@@ -122,6 +105,7 @@ export default class Metric extends React.Component {
     showDetails: PropTypes.bool,
     compSubtotals: PropTypes.array,
     isSample: PropTypes.bool,
+    msvSubtotals: PropTypes.array,
   };
 
   static defaultProps = {
@@ -149,6 +133,18 @@ export default class Metric extends React.Component {
       detailArr.push(
         <span key={i} className={styles.detail}>{this.props.compSubtotals[i][0]}: <span className={this.getGeneralColorClass(this.props.compSubtotals[i][2])}>{this.props.compSubtotals[i][1]}</span></span>
       )  
+    }
+
+    return detailArr
+  }
+
+
+  renderAccDetails = () => {
+    let detailArr = [] 
+    for (let i = 0; i < 3; i++) {
+      detailArr.push(
+        <span key={i} className={styles.detail}>{this.props.msvSubtotals[i][0]}:  <span className={this.getGeneralColorClass(this.props.msvSubtotals[i][2])}>{this.props.msvSubtotals[i][1]}%</span></span>
+      )
     }
 
     return detailArr
@@ -284,6 +280,29 @@ export default class Metric extends React.Component {
   render() {
 
 
+    const accPopover = (
+      <Popover id="popover-positioned-bottom" title="Cues used" className={[css.myPopover, css.compPopover].join(' ')}>
+     
+        {this.props.isSample &&
+          <div>
+          <span className={styles.detail}>Meaning: <span className={styles.fairMetric}>30%</span></span>
+          <span className={styles.detail}>Structure: <span className={styles.goodMetric}>66%</span></span>
+          <span className={styles.detail}>Visual: <span className={styles.goodMetric}>40%</span></span>
+          <hr className={styles.myHr}/>
+          <span className={styles.detail}>Self-corrected: <span className={styles.fairMetric}>20%</span></span>
+          </div>
+        }
+
+        {!this.props.isSample && this.props.label === 'Accuracy' &&
+
+          this.renderAccDetails()
+        }
+
+      </Popover>
+    );
+
+
+
     const lastPopover = (
       <Popover id="popover-positioned-bottom" title="Breakdown" className={[css.myPopover, css.compPopover].join(' ')}>
      
@@ -366,7 +385,7 @@ export default class Metric extends React.Component {
         number = (number.toString() + "%")
 
         hasDetails = true
-        popoverName = compPopover
+        popoverName = accPopover
 
         break;
       case 'Words/Min':

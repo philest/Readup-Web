@@ -711,6 +711,51 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  getNumErrors() {
+    let totalErrors = 0
+    let paragraphs = this.state.gradedText.paragraphs
+
+    for (let i = 0; i < paragraphs.length; i++) {
+      let words = paragraphs[i].words
+      for (let k = 0; k < words.length; k ++) {
+        if (words[k].wordDeleted || words[k].substituteWord || words[k].addAfterWord) {
+          totalErrors += 1
+        }
+      }
+    }
+
+    return totalErrors
+  }
+
+
+
+  getTotalMiscueType(type) {
+    let totalErrors = 0
+    let paragraphs = this.state.gradedText.paragraphs
+
+    for (let i = 0; i < paragraphs.length; i++) {
+      let words = paragraphs[i].words
+      for (let k = 0; k < words.length; k ++) {
+
+        if (type.toLowerCase() === 'm' && words[k].mTypeError) {
+          totalErrors += 1
+        }
+
+        if (type.toLowerCase() === 's' && words[k].sTypeError) {
+          totalErrors += 1
+        }
+
+
+        if (type.toLowerCase() === 'v' && words[k].vTypeError) {
+          totalErrors += 1
+        }
+
+      }
+    }
+
+    return totalErrors
+  }
+
   getSubtotals() {
     let numSections = book.numSections
     let arr = []
@@ -736,11 +781,18 @@ export default class ReportsInterface extends React.Component {
 
     let subtotals = this.getSubtotals() 
 
+    let msvArr = [] 
 
+    let msv = ['Meaning', 'Structure', 'Visual']
 
-    console.log('getCompSectionDenom', this.getCompSectionDenom(1))
-    console.log('getCompSectionTotal', this.getCompSectionTotal(1))
-    console.log('subtotals', subtotals)
+    for (let i = 0; i < 3; i++) {
+      let label = msv[i]
+      let str = String(Math.round((this.getTotalMiscueType(msv[i][0])  / this.getNumErrors()) * 100))
+      let num = this.getTotalMiscueType(msv[i][0]) / this.getNumErrors()
+
+      msvArr.push([label, str, num])
+    }
+
 
     const acc = getAccuracy(this.state.gradedText)
     const WCPM = getWCPM(this.state.gradedText)
@@ -749,6 +801,9 @@ export default class ReportsInterface extends React.Component {
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
 
+    console.log('total M errors: ', this.getTotalMiscueType('M'))
+
+    console.log('total errors: ', this.getNumErrors())
 
 
     // let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
@@ -867,8 +922,9 @@ export default class ReportsInterface extends React.Component {
               <Metric
                 label="Accuracy"
                 number={acc}
-                showDetails={this.props.isSample}
+                showDetails={this.props.userID > 155}
                 isSample={this.props.isSample}
+                msvSubtotals={msvArr}
               />
 
               { (this.props.fluencyScore != null) &&
