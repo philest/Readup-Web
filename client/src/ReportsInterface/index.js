@@ -24,6 +24,8 @@ import { stopAudio, playSoundAsync } from '../StudentDashboard/audioPlayer'
 
 import { fpBook, fireflyBook, stepBook, library } from '../StudentDashboard/state.js'
 
+import {wasMSVgraded} from '../sharedComponents/FormattedMarkupText'
+
 const ADMIN_EMAIL = "philesterman@gmail.com"
 
 let book
@@ -55,6 +57,8 @@ export function getFullTitle(question) {
  }
 
 }
+
+
 
 
 export default class ReportsInterface extends React.Component {
@@ -922,7 +926,7 @@ export default class ReportsInterface extends React.Component {
               <Metric
                 label="Accuracy"
                 number={acc}
-                showDetails={this.props.userID > 155}
+                showDetails={this.props.userID > 155 && wasMSVgraded(this.state.gradedText.paragraphs)}
                 isSample={this.props.isSample}
                 msvSubtotals={msvArr}
               />

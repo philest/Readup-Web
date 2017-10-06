@@ -17,7 +17,7 @@ let bookLines
 let isMSVgraded
 
 
-function wasMSVgraded(paragraphs) {
+export function wasMSVgraded(paragraphs) {
 
   let result = false
 
