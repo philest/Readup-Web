@@ -21,6 +21,8 @@ import {
   getStudentPromptStatus,
   resetToAwaitingPrompt,
   getLastStudentID,
+  getLastAssessmentID,
+  markCompleted,
 } from './networkingHelpers'
 
 import {
@@ -621,7 +623,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
 
 function* hideVolumeSaga() {
-    yield call(delay, 4000)
+    yield call(delay, 5500)
     yield put.resolve(hideVolumeIndicator())
 }
 
@@ -982,6 +984,9 @@ function* rootSaga() {
         yield* turnInAudio(recordingBlob, assessmentId, false, 0)
       }
 
+
+
+
       // let compTurnedIn = []
 
       // for(let i = 0; i <=  numBlobs; i++) {
@@ -1000,6 +1005,14 @@ function* rootSaga() {
       // if (turnedIn && compTurnedIn) {
       if (turnInCheck) {
         yield clog('turned it in!')
+
+        // Mark it as completed 
+        const assID = yield getLastAssessmentID()
+         .catch(e => e.request) // TODO
+
+        const res = yield call(markCompleted, assID)
+        yield clog('marked it as completed!: ', res)
+
 
         if (isDemo) {
           yield clog('oh hey you r done')

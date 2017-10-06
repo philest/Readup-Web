@@ -114,5 +114,34 @@ export function getLastStudentID() {
 
 }
 
+export function getLastAssessmentID() {
+
+  return axios.get(`/auth/get_last_assessment_id`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+    return res.data.assessment_id;
+  })
+
+}
+
+
+
+export function markCompleted(assessmentID) {
+
+
+  console.log("Okay, marking it as completed...");
+
+  // PHIL TODO refactor to a POST request to our server to send email
+  const params = {
+    completed: true,
+  }
+
+    return axios.patch(`/assessments/${assessmentID}`, {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+      return res
+  })
+}
 
 

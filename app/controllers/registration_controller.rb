@@ -24,6 +24,18 @@ class RegistrationController < ApplicationController
     return Student.count 
   end
   
+
+
+  def get_last_assessment_id 
+    puts "now getting assessment id...."
+
+    render json: { ok: true, assessment_id: Assessment.last.id }, status: :ok, location: @assessment
+
+    return Assessment.count 
+  end
+
+
+
   #  TODO PHIL: Hack for creating the user, teacher, school, class, assessment for the demo
   def phil_setup_demo
       # Create the dummy user linked to the real assesment. Dummy user updated after email collected. 
