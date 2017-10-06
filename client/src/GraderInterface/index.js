@@ -119,7 +119,8 @@ export default class GraderInterface extends React.Component {
       isLiveDemo: this.props.isLiveDemo,
       graderComments: this.props.graderCommentsPrior,
       showQArr: this.props.scored ? trueInitShowQArr : initShowQArr,
-      showCompletedModal: true,
+      showCompletedModal: false,
+      hasSeenCompletedModal: this.props.completed,
     }
         this.tick = this.tick.bind(this);
 
@@ -207,6 +208,32 @@ export default class GraderInterface extends React.Component {
       } else {
           console.log("don't trigger wake modal...")
       }
+
+
+      let ass = getAssessmentData(this.props.assessmentID)
+
+        ass.then( (assessment) => {
+          console.log('assessment: ', assessment)
+
+          if (assessment.completed && !this.state.showCompletedModal && !this.state.hasSeenCompletedModal) {
+            console.log("time to show the completed modal...")
+            playSoundAsync('/audio/complete.mp3')
+            this.setState({ showCompletedModal: true, hasSeenCompletedModal: true})
+        } else {
+            console.log("don't trigger completed modal...")
+        }
+
+      }).catch(function(err) {
+        console.log(err)
+      })
+
+      // if ( && !this.state.showWakeModal) {
+      //   console.log("time to show the wake modal...")
+      //   playSoundAsync('/audio/complete.mp3')
+      //   this.setState({ showWakeModal: true})
+      // } else {
+      //     console.log("don't trigger wake modal...")
+      // }
 
 
 
@@ -651,9 +678,15 @@ export default class GraderInterface extends React.Component {
         )
       }
       else {
-        return (
-          <p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>
-        )
+
+          if (this.state.hasSeenCompletedModal) {
+            return (<p key={q}> User ended before submitting {`audio response ${q}.`}</p>)
+          }
+          else {
+            return (<p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>)
+          }
+
+
       }
 
   }
@@ -699,9 +732,19 @@ export default class GraderInterface extends React.Component {
         )
       }
       else {
-        audioPlayers.push (
-          <p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>
-        )
+
+
+          if (this.state.hasSeenCompletedModal) {
+
+            audioPlayers.push (
+              <p key={q}> User ended before submitting {`audio response ${q}.`}/></p>
+            )
+          }
+          else {
+            audioPlayers.push (
+              <p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>
+            )
+          }
       }
 
     }
@@ -1209,13 +1252,13 @@ renderCompQuestions6 = () => {
           <Modal.Body bsClass={reportStyles.readyModalBody}>
 
             <div className={reportStyles.pricingFormWrapper}>
-               <i className={["fa", "fa-check", reportStyles.readyCheck, reportStyles.pulse].join(" ")} style={{color: '#5bc0de'}}aria-hidden={"true"} />
+               <i className={["fa", "fa-check", reportStyles.readyCheck, reportStyles.pulse].join(" ")} style={{color: '#f0ad4e'}}aria-hidden={"true"} />
             </div>
 
 
                 <Button
                   className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
-                  bsStyle={'info'}
+                  bsStyle={'warning'}
                   onClick={this.closeCompletedModal}
                 >
                   Dismiss
@@ -1285,26 +1328,27 @@ renderCompQuestions6 = () => {
 
         <br/><br/>
 
-        { this.renderCompQuestions1()
+        { numQuestions >= 1 && (this.state.showQArr[String(1)] || !this.state.hasSeenCompletedModal) &&
+          this.renderCompQuestions1()
         }
 
-        { numQuestions >= 2 &&
+        { numQuestions >= 2 && (this.state.showQArr[String(2)] || !this.state.hasSeenCompletedModal) &&
           this.renderCompQuestions2()
         }
 
-        { numQuestions >= 3 &&
+        { numQuestions >= 3 && (this.state.showQArr[String(3)] || !this.state.hasSeenCompletedModal) &&
           this.renderCompQuestions3()
         }
 
-        { numQuestions >= 4 &&
+        { numQuestions >= 4 && (this.state.showQArr[String(4)] || !this.state.hasSeenCompletedModal) &&
           this.renderCompQuestions4()
         }
 
-        { numQuestions >= 5 &&
+        { numQuestions >= 5 && (this.state.showQArr[String(5)] || !this.state.hasSeenCompletedModal) &&
           this.renderCompQuestions5()
         }
 
-        { numQuestions >= 6 &&
+        { numQuestions >= 6 && (this.state.showQArr[String(6)] || !this.state.hasSeenCompletedModal) &&
           this.renderCompQuestions6()
         }
 

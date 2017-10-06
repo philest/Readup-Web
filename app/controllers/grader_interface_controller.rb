@@ -122,7 +122,8 @@ class GraderInterfaceController < ApplicationController
         env: ENV['RAILS_ENV'],
         scored: @assessment.scored,
         waiting: params['user_id'] == "waiting",
-        isPartner: params['partner'] == 'true'
+        isPartner: params['partner'] == 'true',
+        completed: @assessment.completed,
       }
       
     end
