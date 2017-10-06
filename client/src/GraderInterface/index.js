@@ -92,6 +92,7 @@ export default class GraderInterface extends React.Component {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
     studentID: PropTypes.number,
     bookKey: PropTypes.string,
+    waiting: PropTypes.bool,
   };
 
 
@@ -642,6 +643,11 @@ export default class GraderInterface extends React.Component {
           </div>
         )
       }
+      else {
+        return (
+          <p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>
+        )
+      }
 
   }
 
@@ -683,6 +689,11 @@ export default class GraderInterface extends React.Component {
               <p>Playback not supported</p>
             </audio>
           </div>
+        )
+      }
+      else {
+        audioPlayers.push (
+          <p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>
         )
       }
 
@@ -1029,6 +1040,41 @@ renderCompQuestions6 = () => {
 
   render() {
 
+    if (this.props.waiting) {
+      return (
+        <div className={styles.waitingInfo}>
+        <h2 className={styles.waitingInfoHeader}>Waiting until user starts demo... <i className={'fa fa-spinner fa-pulse'} /></h2>
+  
+          <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+            <Modal show={this.state.showWakeModal} dialogClassName={reportStyles.modalSmall}>
+              <Modal.Header>
+                <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
+                  They started reading :)  
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body bsClass={reportStyles.readyModalBody}>
+
+                <div className={reportStyles.pricingFormWrapper}>
+                   <i className={["fa", "fa-flag", reportStyles.readyCheck, reportStyles.pulse, reportStyles.flag].join(" ")} aria-hidden={"true"} />
+                </div>
+
+
+                  <a href={`/grade/latest?partner=true`}>
+                    <Button
+                      className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
+                      bsStyle={'primary'}
+                    >
+                      Set up grading
+                    </Button>
+                  </a>
+
+              </Modal.Body>
+            </Modal>
+
+
+        </div>
+      )
+    }
 
     return (
 
@@ -1053,36 +1099,40 @@ renderCompQuestions6 = () => {
 
         <br/><br/>
         
-        <div className={[styles.compPromptContainer, styles.block]}>
-          <h4>Prompts</h4>
-          <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-            <Button href="#" onClick={this.onPrompt1Clicked}>Tell some more</Button>
-            <Button href="#" onClick={this.onPrompt2Clicked}>What in the story makes you think that?</Button>
-            <Button href="#" onClick={this.onPrompt3Clicked}>Why is that important?</Button>
-            <Button href="#" onClick={this.onPrompt4Clicked}>Why do you think that?</Button>
-            <Button href="#" onClick={this.onPrompt5Clicked}>Repeat the question</Button>
-            <Button href="#" onClick={this.onPrompt6Clicked}><strong>No prompt needed</strong></Button>
-          </ButtonGroup>
+        {!this.props.isPartner &&
+        <div className={styles.philControls}>
+          <div className={[styles.compPromptContainer, styles.block]}>
+            <h4>Prompts</h4>
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button href="#" onClick={this.onPrompt1Clicked}>Tell some more</Button>
+              <Button href="#" onClick={this.onPrompt2Clicked}>What in the story makes you think that?</Button>
+              <Button href="#" onClick={this.onPrompt3Clicked}>Why is that important?</Button>
+              <Button href="#" onClick={this.onPrompt4Clicked}>Why do you think that?</Button>
+              <Button href="#" onClick={this.onPrompt5Clicked}>Repeat the question</Button>
+              <Button href="#" onClick={this.onPrompt6Clicked}><strong>No prompt needed</strong></Button>
+            </ButtonGroup>
 
+          </div>
+
+          <div className={styles.compPromptContainer}>
+            <h4>Asessment Brand?</h4>
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button active={this.state.assessmentBrand === 'FP'} href="#" onClick={this.onFPclicked}>F&P</Button>
+              <Button active={this.state.assessmentBrand === 'STEP'} href="#" onClick={this.onSTEPclicked}>STEP</Button>
+            </ButtonGroup>
+          </div>
+
+
+          <div className={styles.compPromptContainer}>
+            <h4>Scoring live?</h4>
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button active={this.state.isLiveDemo} href="#" onClick={this.onIsLiveDemoClicked}>Yes, live</Button>
+              <Button active={!this.state.isLiveDemo} href="#" onClick={this.onIsNotLiveDemoClicked}>No, not live</Button>
+            </ButtonGroup>
+          </div>
         </div>
 
-        <div className={styles.compPromptContainer}>
-          <h4>Asessment Brand?</h4>
-          <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-            <Button active={this.state.assessmentBrand === 'FP'} href="#" onClick={this.onFPclicked}>F&P</Button>
-            <Button active={this.state.assessmentBrand === 'STEP'} href="#" onClick={this.onSTEPclicked}>STEP</Button>
-          </ButtonGroup>
-        </div>
-
-
-        <div className={styles.compPromptContainer}>
-          <h4>Scoring live?</h4>
-          <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
-            <Button active={this.state.isLiveDemo} href="#" onClick={this.onIsLiveDemoClicked}>Yes, live</Button>
-            <Button active={!this.state.isLiveDemo} href="#" onClick={this.onIsNotLiveDemoClicked}>No, not live</Button>
-          </ButtonGroup>
-        </div>
-
+        }
 
         {   
             this.renderCompAudioPlayers()
@@ -1147,7 +1197,7 @@ renderCompQuestions6 = () => {
         <Modal show={this.state.showWakeModal} dialogClassName={reportStyles.modalSmall}>
           <Modal.Header>
             <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
-              The demo user started :)  
+              They started reading :)  
             </Modal.Title>
           </Modal.Header>
           <Modal.Body bsClass={reportStyles.readyModalBody}>

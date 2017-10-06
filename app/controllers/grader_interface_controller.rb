@@ -6,7 +6,7 @@ class GraderInterfaceController < ApplicationController
 
     if params['user_id'].to_i > 0
       @user = User.find(params['user_id'])
-    elsif params['user_id'] == "latest"
+    elsif params['user_id'] == "latest" || params['user_id'] == "waiting"
       @user = User.last
     end 
 
@@ -18,7 +18,7 @@ class GraderInterfaceController < ApplicationController
         bookLevel: "R",
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/website/homepage/sofia.wav"
       }
-    elsif params['user_id'].to_i > 0 || params['user_id'] == 'latest' # Not the email_submit hack 
+    elsif params['user_id'].to_i > 0 || params['user_id'] == 'latest' || params['user_id'] == "waiting" # Not the email_submit hack 
       @student = @user.teachers.last.classrooms.last.students.last
       @assessment = @student.assessments.last
       created_at = User.last.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')
@@ -120,7 +120,9 @@ class GraderInterfaceController < ApplicationController
         isLiveDemo: @assessment.is_live_demo,
         bookKey: bookKey,
         env: ENV['RAILS_ENV'],
-        scored: @assessment.scored
+        scored: @assessment.scored,
+        waiting: params['user_id'] == "waiting",
+        isPartner: params['partner'] == 'true'
       }
       
     end

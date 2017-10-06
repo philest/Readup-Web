@@ -72,6 +72,8 @@ Rails.application.routes.draw do
   get 'step', to: redirect('/student_dashboard/#/story/step')
 
 
+  get 'grade', to: redirect('/grade/waiting')
+
 
   get 'fp-report', to: redirect('reports/direct-sample?brand=FP')
 
