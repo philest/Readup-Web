@@ -648,6 +648,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
+
   getColorClass(score, isRetell) {
     let colorClass
 
@@ -679,11 +680,67 @@ export default class ReportsInterface extends React.Component {
 
 
 
+ getCompSectionTotal(sectionNum) {
+
+    let total = 0 
+
+    for (let i = 0; i < book.numQuestions; i++) {
+
+      if (this.isQuestionGraded(i + 1) && book.questions[String(i + 1)].section === sectionNum) {
+        total += Number(this.props.compScores[String(i)])
+      }
+    }
+
+    return total
+
+  }
+
+  getCompSectionDenom(sectionNum) {
+
+    let total = 0
+
+    for (let i = 0; i < book.numQuestions; i++) {
+
+      if (book.questions[String(i + 1)].section === sectionNum) {
+        total += book.questions[String(i + 1)].points
+      }
+    }
+
+    return total
+
+  }
+
+
+  getSubtotals() {
+    let numSections = book.numSections
+    let arr = []
+
+      console.log(`here i am in subtoal`)
+
+    for (let i = 1; i <= numSections; i++){
+      console.log(`here i am..${i}`)
+      const label = book.sections[String(i)]
+      const str = String(this.getCompSectionTotal(i)) + '/' + String(this.getCompSectionDenom(i))
+      const num = this.getCompSectionTotal(i) / this.getCompSectionDenom(i)
+      arr.push([label, str, num])
+    }
+
+    return arr
+
+  }
 
 
 
   render() {
 
+
+    let subtotals = this.getSubtotals() 
+
+
+
+    console.log('getCompSectionDenom', this.getCompSectionDenom(1))
+    console.log('getCompSectionTotal', this.getCompSectionTotal(1))
+    console.log('subtotals', subtotals)
 
     const acc = getAccuracy(this.state.gradedText)
     const WCPM = getWCPM(this.state.gradedText)
@@ -806,10 +863,12 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.metricsHeadingContainer}>
 
+
               <Metric
                 label="Accuracy"
                 number={acc}
                 showDetails={this.props.isSample}
+                isSample={this.props.isSample}
               />
 
               { (this.props.fluencyScore != null) &&
@@ -818,7 +877,7 @@ export default class ReportsInterface extends React.Component {
                   number={this.props.fluencyScore}
                   denominator={3}
                   showDetails={this.props.isSample}
-
+                  isSample={this.props.isSample}
                 />
               }
 
@@ -828,7 +887,7 @@ export default class ReportsInterface extends React.Component {
                   label="Words/Min"
                   number={WCPM}
                   showDetails={this.props.isSample}
-
+                  isSample={this.props.isSample}
                 />
               }
 
@@ -837,7 +896,8 @@ export default class ReportsInterface extends React.Component {
                   label="Words/Min"
                   number={161}
                   showDetails={this.props.isSample}
-
+                  isSample={this.props.isSample}
+     
                 />
               }
 
@@ -848,6 +908,8 @@ export default class ReportsInterface extends React.Component {
                   number={5}
                   denominator={9}
                   showDetails={this.props.isSample}
+                  compSubtotals={subtotals}
+                  isSample={this.props.isSample}
 
                 />
             }
@@ -857,10 +919,11 @@ export default class ReportsInterface extends React.Component {
                 label="Comp."
                 number={this.getCompTotal()}
                 denominator={this.getCompDenom()}
-                showDetails={this.props.isSample}
+                showDetails={true}
+                compSubtotals={subtotals}
+                isSample={this.props.isSample}
               />
             }
-
 
             </div>
           }

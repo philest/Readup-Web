@@ -575,6 +575,12 @@ export const stepBook = {
 
   },
   numQuestions: 6,
+  numSections: 3,
+  sections: {
+    1: 'Factual',
+    2: 'Inferential',
+    3: 'Critical thinking',
+  },
   questions: {
     1: {
       title: "Where is Peter playing upside down?",
@@ -585,6 +591,7 @@ export const stepBook = {
         },
       points: 1,
       standard: "CCRA.R.1",
+      section: 1,
     },
     2: {
       title: "What are some things Peter sees upside down?",
@@ -595,6 +602,7 @@ export const stepBook = {
         },
       points: 1,
       standard: 'CCRA.R.2',
+      section: 1,
     },
     3: {
       title: "Why is Peter looking at things upside down?",
@@ -605,6 +613,7 @@ export const stepBook = {
         },
       points: 1,
       standard: 'CCRA.R.1',
+      section: 2,
     },
     4: {
       title: "Who comes to visit Peter?",
@@ -615,6 +624,7 @@ export const stepBook = {
         },
       points: 1,
       standard: 'CCRA.R.2',
+      section: 2,
     },
     5: {
       title: "Why does Peter say, \"Will her hat fall off?\"",
@@ -626,6 +636,7 @@ export const stepBook = {
         },
       points: 1,
       standard: 'CCRA.R.4',
+      section: 2,
     },
     6: {
       title: "Why does Peter ask Jill to play upside down with him?",
@@ -636,6 +647,7 @@ export const stepBook = {
         },
       points: 1,
       standard: 'CCRA.R.4 and CCRA.R.1',
+      section: 3,
     },
 
 

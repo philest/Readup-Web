@@ -8,6 +8,7 @@ import { Popover, OverlayTrigger } from 'react-bootstrap'
 import classNames from 'classnames/bind';
 
 let cx = classNames.bind(styles);
+let book 
 
 
 const popoverBottom = (
@@ -74,18 +75,6 @@ const fluencyPopover = (
   </Popover>
 );
 
-const lastPopover = (
-  <Popover id="popover-positioned-bottom" title="Breakdown" className={[css.myPopover, css.compPopover].join(' ')}>
- 
-    <div>
-    <span className={styles.detail}>Retell: <span className={styles.goodMetric}>2/3</span></span>
-    <span className={styles.detail}>Factual: <span className={styles.goodMetric}>1/1</span></span>
-    <span className={styles.detail}>Inferential: <span className={styles.poorMetric}>0/2</span></span>
-    <span className={styles.detail}>Critical Thinking: <span className={styles.goodMetric}>1/1</span></span>
-    </div>
-
-  </Popover>
-);
 
 
 
@@ -95,6 +84,8 @@ export default class Metric extends React.Component {
     label: PropTypes.string.isRequired,
     denominator: PropTypes.number,
     showDetails: PropTypes.bool,
+    compSubtotals: PropTypes.array,
+    isSample: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -115,7 +106,21 @@ export default class Metric extends React.Component {
   }
 
 
+  renderCompDetails = () => {
+    let detailArr = []
 
+    for (let i = 0; i < this.props.compSubtotals.length; i++) {
+      detailArr.push(
+        <span key={i} className={styles.detail}>{this.props.compSubtotals[i][0]}: <span className={styles.goodMetric}>{this.props.compSubtotals[i][1]}</span></span>
+      )  
+    }
+
+    return detailArr
+  }
+
+  componentWillMount() {
+    book = this.props.book
+  }
 
   getAccColor(acc) {
     
@@ -192,7 +197,37 @@ export default class Metric extends React.Component {
 
 
 
+
+
+
+
   render() {
+
+
+    const lastPopover = (
+      <Popover id="popover-positioned-bottom" title="Breakdown" className={[css.myPopover, css.compPopover].join(' ')}>
+     
+        {this.props.isSample &&
+          <div>
+          <span className={styles.detail}>Retell: <span className={styles.goodMetric}>2/3</span></span>
+          <span className={styles.detail}>Factual: <span className={styles.goodMetric}>1/1</span></span>
+          <span className={styles.detail}>Inferential: <span className={styles.poorMetric}>0/2</span></span>
+          <span className={styles.detail}>Critical Thinking: <span className={styles.goodMetric}>1/1</span></span>
+          </div>
+        }
+
+     
+        {!this.props.isSample && this.props.label === 'Comp.' &&
+          <div>
+          {
+            this.renderCompDetails()
+          }
+          </div>
+        }
+
+      </Popover>
+    );
+
 
 
 
