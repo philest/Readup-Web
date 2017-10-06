@@ -876,7 +876,7 @@ export default class ReportsInterface extends React.Component {
                   label="Fluency"
                   number={this.props.fluencyScore}
                   denominator={3}
-                  showDetails={this.props.isSample}
+                  showDetails={this.props.userID > 155}
                   isSample={this.props.isSample}
                 />
               }
@@ -919,7 +919,7 @@ export default class ReportsInterface extends React.Component {
                 label="Comp."
                 number={this.getCompTotal()}
                 denominator={this.getCompDenom()}
-                showDetails={true}
+                showDetails={this.props.userID > 155}
                 compSubtotals={subtotals}
                 isSample={this.props.isSample}
               />
