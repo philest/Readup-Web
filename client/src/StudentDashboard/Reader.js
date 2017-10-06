@@ -89,7 +89,13 @@ export default class Reader extends React.Component {
   renderLeftButton = () => {
 
     if (this.props.showCover && !this.props.inComp && this.props.showVolumeIndicator) {
-      return (<i className="fa fa-volume-up faa-pulse animated fa-3x faa-fast" style={{ color: "white" }} aria-hidden="true"></i>)
+      return (
+        <div>
+        <span className={styles.volumeHeading}> Turn on volume </span>
+        <br />
+        <i className="fa fa-volume-up faa-pulse animated fa-3x faa-fast" style={{ color: "white" }} aria-hidden="true"></i>
+        </div>
+        )
     }
 
     if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp)) {

@@ -129,5 +129,12 @@
 	color: #4a4a4a;    
 }
 
-
+.volumeHeading {
+	color: white;
+    font-family: 'ProximaNova Semibold';
+    position: relative;
+    left: -33px;
+    bottom: 8px;
+    font-size: 16px;
+}
 

@@ -644,7 +644,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
 
 function* hideVolumeSaga() {
-    yield call(delay, 5500)
+    yield call(delay, 4700)
     yield put.resolve(hideVolumeIndicator())
 }
 
