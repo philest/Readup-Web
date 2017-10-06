@@ -1328,29 +1328,50 @@ renderCompQuestions6 = () => {
 
         <br/><br/>
 
-        { numQuestions >= 1 && (this.state.showQArr[String(1)] || !this.state.hasSeenCompletedModal) &&
-          this.renderCompQuestions1()
+        { numQuestions >= 1 &&
+
+          <div style={{opacity: (this.state.showQArr[String(1)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+            { this.renderCompQuestions1() }
+          </div>
         }
 
-        { numQuestions >= 2 && (this.state.showQArr[String(2)] || !this.state.hasSeenCompletedModal) &&
-          this.renderCompQuestions2()
+        { numQuestions >= 2 &&
+
+          <div style={{opacity: (this.state.showQArr[String(2)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+            { this.renderCompQuestions2() }
+          </div>
         }
 
-        { numQuestions >= 3 && (this.state.showQArr[String(3)] || !this.state.hasSeenCompletedModal) &&
-          this.renderCompQuestions3()
+
+        { numQuestions >= 3 &&
+
+          <div style={{opacity: (this.state.showQArr[String(3)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+            { this.renderCompQuestions3() }
+          </div>
         }
 
-        { numQuestions >= 4 && (this.state.showQArr[String(4)] || !this.state.hasSeenCompletedModal) &&
-          this.renderCompQuestions4()
+        { numQuestions >= 4 &&
+
+          <div style={{opacity: (this.state.showQArr[String(4)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+            { this.renderCompQuestions4() }
+          </div>
         }
 
-        { numQuestions >= 5 && (this.state.showQArr[String(5)] || !this.state.hasSeenCompletedModal) &&
-          this.renderCompQuestions5()
+
+        { numQuestions >= 5 &&
+
+          <div style={{opacity: (this.state.showQArr[String(5)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+            { this.renderCompQuestions5() }
+          </div>
         }
 
-        { numQuestions >= 6 && (this.state.showQArr[String(6)] || !this.state.hasSeenCompletedModal) &&
-          this.renderCompQuestions6()
+        { numQuestions >= 6 &&
+
+          <div style={{opacity: (this.state.showQArr[String(6)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+            { this.renderCompQuestions6() }
+          </div>
         }
+
 
         <br/><br/>
         <br/><br/>
