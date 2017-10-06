@@ -354,6 +354,11 @@
 }
 
 @media (min-width: 768px) {
+	
+	.modalLg {
+		width: 690px;
+	}
+
 	.modalMedium {
 		width: 460px;
 	}

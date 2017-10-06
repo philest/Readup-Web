@@ -60,14 +60,14 @@ const fluencyLibrary = {
 
 const playbookDict = {
 
-  visual:  <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking first letters and pictures</span> ,
-  structure:  <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence sounds right</span>,
-  meaning:  <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence makes sense</span>,
-  inferential: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving inferential questions by checking back at the text</span>, 
-  factual: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving factual questions by practicing retelling texts</span>, 
-  critical: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
-  fluency:  <span className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>,
-  criticalthinking: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
+  visual:  <span key={1} className={styles.detail}> <span className={styles.poorMetric}>Visual Cues (Accuracy):  </span>Build self-monitoring based on checking first letters and pictures</span> ,
+  structure:  <span key={2}  className={styles.detail}> <span className={styles.poorMetric}>Structure cues (Accuracy):  </span>Build self-monitoring based on checking if the sentence sounds right</span>,
+  meaning:  <span key={3}  className={styles.detail}> <span className={styles.poorMetric}>Meaning cues (Accuracy):  </span>Build self-monitoring based on checking if the sentence makes sense</span>,
+  inferential: <span  key={4} className={styles.detail}> <span className={styles.fairMetric}>Inferential Comp:  </span>Focus on solving inferential questions by checking back at the text</span>, 
+  factual: <span key={5}  className={styles.detail}> <span className={styles.fairMetric}>Factual Comp:  </span>Focus on solving factual questions by practicing retelling texts</span>, 
+  critical: <span  key={6} className={styles.detail}> <span className={styles.fairMetric}>Critical Thinking:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
+  fluency:  <span key={7} className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>,
+  criticalthinking: <span key={8}  className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
 
 }
 
@@ -139,7 +139,7 @@ export default class Metric extends React.Component {
         <span key={i} className={styles.detail}>{this.props.msvSubtotals[i][0]}:  <span className={this.getGeneralColorClass(this.props.msvSubtotals[i][2])}>{this.props.msvSubtotals[i][1]}%</span></span>
       )
 
-      if (this.getGeneralColorClass(this.props.msvSubtotals[i][2]) !== styles.goodMetric) {
+      if (this.props.showDetails && this.getGeneralColorClass(this.props.msvSubtotals[i][2]) !== styles.goodMetric) {
         movesSet.add(playbookDict[String(this.props.msvSubtotals[i][0]).toLowerCase()])
         console.log(`just added ${String(this.props.msvSubtotals[i][0])}`)
       }
@@ -167,6 +167,11 @@ export default class Metric extends React.Component {
 
   componentWillMount() {
     book = this.props.book
+
+    if (this.props.label === 'Fluency' && this.props.number <= 2) {
+        movesSet.add(playbookDict['fluency'])
+         console.log(`just added fluency`)
+    }
   }
 
   getAccColor(acc) {
@@ -243,36 +248,7 @@ export default class Metric extends React.Component {
 
 
 
-  renderFluencyPopover = () => {
 
-    console.log(this.props.number)
-    let fluencyPopover
-
-      if (this.props.isSample) {
-
-        fluencyPopover = (
-
-          <Popover id="popover-positioned-bottom" title={"Satisfactory fluency"} className={[css.myPopover, css.compPopover].join(' ')}>
-          <p>asdfsdfa</p>
-
-          </Popover>
-        );
-
-      }
-      else {
-        fluencyPopover = (
-
-          <Popover id="popover-positioned-bottom" title={fluencyLibrary[String(this.props.number)].title} className={[css.myPopover, css.compPopover].join(' ')}>
-         
-          <p>asdfsdfa</p>
-
-          </Popover>
-        );
-      }
-
-    return fluencyPopover
-    
-  }
 
 
 
@@ -431,7 +407,7 @@ export default class Metric extends React.Component {
 
 
        <style type="text/css">{'.modal-backdrop.in { opacity: 0.6; } '}</style>
-        <Modal show={this.props.showPlaybook}   onHide={this.props.onPlaybookClose} >
+        <Modal dialogClassName={styles.modalLg}  show={this.props.showPlaybook}   onHide={this.props.onPlaybookClose} >
           <Modal.Header bsClass={[styles.playbookModalHeader, 'modal-header'].join(' ')} closeButton>
             <Modal.Title>
               Some next instructional moves
@@ -441,9 +417,9 @@ export default class Metric extends React.Component {
 
           {this.props.isSample &&
             <div className={styles.playbookMoves}>
-            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking first letters and pictures</span>
-            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence sounds right</span>
-            <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving inferential questions by checking back at the text</span>
+            <span className={styles.detail}> <span className={styles.poorMetric}>Visual cues (Accuracy):  </span>Build self-monitoring based on checking first letters and pictures</span>
+            <span className={styles.detail}> <span className={styles.poorMetric}>Structure cues (Accuracy):  </span>Build self-monitoring based on checking if the sentence sounds right</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>Inferential Comp:  </span>Focus on solving inferential questions by checking back at the text</span>
             <span className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>
             </div>
           }
