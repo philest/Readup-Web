@@ -191,8 +191,17 @@ export default class GraderInterface extends React.Component {
        this.setState({ userCountCurrent:  res })
       })
 
+
       if ((this.state.userCountCurrent != this.props.userCountPrior) && !this.state.showWakeModal) {
+        console.log("time to show the wake modal...")
+        playSoundAsync('/audio/complete.mp3')
+        this.setState({ showWakeModal: true})
+      } else {
+          console.log("don't trigger wake modal...")
       }
+
+
+
 
     // check status of each file 
 
