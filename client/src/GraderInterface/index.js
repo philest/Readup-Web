@@ -119,6 +119,7 @@ export default class GraderInterface extends React.Component {
       isLiveDemo: this.props.isLiveDemo,
       graderComments: this.props.graderCommentsPrior,
       showQArr: this.props.scored ? trueInitShowQArr : initShowQArr,
+      showCompletedModal: true,
     }
         this.tick = this.tick.bind(this);
 
@@ -159,7 +160,7 @@ export default class GraderInterface extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
-    clearInterval(this.interval);
+    clearInterval(this.interval)
 
   }
 
@@ -167,6 +168,12 @@ export default class GraderInterface extends React.Component {
   closeReportReadyModal = () => {
 
     this.setState({ showReadyForReviewModal: false,
+                  })
+  }
+
+  closeCompletedModal = () => {
+
+    this.setState({ showCompletedModal: false,
                   })
   }
 
@@ -1192,6 +1199,33 @@ renderCompQuestions6 = () => {
 
           </Modal.Body>
         </Modal>
+
+        <Modal show={this.state.showCompletedModal} onHide={this.closeCompletedModal} dialogClassName={reportStyles.modalSmall}>
+          <Modal.Header closeButton>
+            <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
+              The user ended their demo
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body bsClass={reportStyles.readyModalBody}>
+
+            <div className={reportStyles.pricingFormWrapper}>
+               <i className={["fa", "fa-check", reportStyles.readyCheck, reportStyles.pulse].join(" ")} style={{color: '#5bc0de'}}aria-hidden={"true"} />
+            </div>
+
+
+                <Button
+                  className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
+                  bsStyle={'info'}
+                  onClick={this.closeCompletedModal}
+                >
+                  Dismiss
+                </Button>
+
+          </Modal.Body>
+        </Modal>
+
+
+
 
       <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
         <Modal show={this.state.showWakeModal} dialogClassName={reportStyles.modalSmall}>
