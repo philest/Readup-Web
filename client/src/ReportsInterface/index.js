@@ -339,31 +339,31 @@ export default class ReportsInterface extends React.Component {
     let total = 0 
 
     for(let i = 0; i < numQuestions; i++) {
+
+      if (this.isQuestionGraded(i + 1)) {
       total += Number(this.props.compScores[String(i)])
+      }
     } 
 
 
     return total
   }
 
-  getCompDenom(allQuestionsGraded) {
+  getCompDenom() {
 
     if (this.props.isSample) {
       return 9
     }
-    else if (!allQuestionsGraded){
-      return 3 
-    }
-    else {
 
-      let total = 0 
 
-      for(let i = 0; i < numQuestions; i++) {
-        total += book.questions[String(i + 1)].points
-      } 
-      
-      return total
-    }
+    let total = 0 
+
+    for(let i = 0; i < numQuestions; i++) {
+      total += book.questions[String(i + 1)].points
+    } 
+    
+    return total
+
   }
 
 
@@ -640,6 +640,8 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+
+
   getColorClass(score, isRetell) {
     let colorClass
 
@@ -703,7 +705,7 @@ export default class ReportsInterface extends React.Component {
     // let allQuestionsGraded = (firstQuestionGraded && secondQuestionGraded && thirdQuestionGraded && fourthQuestionGraded)
 
 
-    const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom(allQuestionsGraded))
+    const difficulty = this.getDifficulty(acc, this.getCompTotal(), this.getCompDenom())
 
 
  
@@ -848,7 +850,7 @@ export default class ReportsInterface extends React.Component {
               <Metric
                 label="Comp."
                 number={this.getCompTotal()}
-                denominator={this.getCompDenom(allQuestionsGraded)}
+                denominator={this.getCompDenom()}
                 showDetails={this.props.isSample}
               />
             }
@@ -1296,7 +1298,7 @@ export default class ReportsInterface extends React.Component {
             </div>
 
 
-            <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
+            <div className={[styles.compPart, (this.isQuestionGraded(2) ? styles.showQ : styles.fadedComp)].join(' ')}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
                 {
                   this.renderFullQuestion(1)
@@ -1328,7 +1330,7 @@ export default class ReportsInterface extends React.Component {
 
            <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
-            <div className={ [(allQuestionsGraded ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
+            <div className={ [(this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Factual</h2>
                 {
                   this.renderFullQuestion(0)
@@ -1345,7 +1347,7 @@ export default class ReportsInterface extends React.Component {
             </div>
 
 
-            <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
+            <div className={[styles.compPart, (this.isQuestionGraded(3) ? styles.showQ : styles.fadedComp)].join(' ')}>
               <h2 className={styles.compPartHeader}>Inferential</h2>
 
                 {
@@ -1359,7 +1361,7 @@ export default class ReportsInterface extends React.Component {
             </div>
 
 
-            <div className={[styles.compPart, (allQuestionsGraded ? styles.showQ : styles.fadedComp)].join(' ')}>
+            <div className={[styles.compPart, (this.isQuestionGraded(6) ? styles.showQ : styles.fadedComp)].join(' ')}>
               <h2 className={styles.compPartHeader}>Critical Thinking</h2>
 
                 {
