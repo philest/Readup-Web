@@ -241,10 +241,15 @@ function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean, questionN
 
 function* exitClick() {
   const recorder = yield select(getRecorder)
-  yield call(recorder.pauseRecording)
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.paused,
-  ))
+
+  if (recorder.recording) {
+
+    yield call(recorder.pauseRecording)
+    yield put.resolve(setReaderState(
+      ReaderStateOptions.paused,
+    ))
+
+  }
 
   yield call(stopAudio)
   yield call(playSoundAsync, '/audio/bamboo.mp3')

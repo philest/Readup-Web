@@ -101,18 +101,23 @@ function* resumeAssessmentSaga (action) {
 
   yield call(playSound, '/audio/complete.mp3')
 
+
   try {
     const recorder = yield select(getRecorder)
-    yield call(recorder.resumeRecording)
+    if (recorder.paused) {
+      yield call(recorder.resumeRecording)
+      yield put.resolve(setReaderState(
+        ReaderStateOptions.inProgress,
+      ))
+
+    }
   } catch (err) {
     yield clog('err', err)
-  } 
+  }
 
-  yield put.resolve(setReaderState(
-    ReaderStateOptions.inProgress,
-  ))
   yield put.resolve(setCurrentModal('no-modal'))
 }
+
 
 function* pageIncrementSaga (action) {
   yield call(console.log, "here in PAGE_INCREMENT........")
