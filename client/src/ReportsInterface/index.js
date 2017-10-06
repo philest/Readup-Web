@@ -871,11 +871,6 @@ export default class ReportsInterface extends React.Component {
               }
 
 
-              { this.props.isSample &&
-                <span onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>See playbook
-                  <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
-                </span>
-              } 
 
 
               { !this.props.isSample &&
@@ -888,6 +883,12 @@ export default class ReportsInterface extends React.Component {
                 />
               }
 
+
+              { this.props.userID > 155 &&
+                <span onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>See playbook
+                  <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
+                </span>
+              } 
 
 
             </div>
@@ -929,6 +930,8 @@ export default class ReportsInterface extends React.Component {
                 showDetails={this.props.userID > 155 && wasMSVgraded(this.state.gradedText.paragraphs)}
                 isSample={this.props.isSample}
                 msvSubtotals={msvArr}
+                showPlaybook={this.state.showPlaybook}
+                onPlaybookClose={this.onPlaybookClose}
               />
 
               { (this.props.fluencyScore != null) &&
@@ -957,7 +960,6 @@ export default class ReportsInterface extends React.Component {
                   number={161}
                   showDetails={this.props.isSample}
                   isSample={this.props.isSample}
-     
                 />
               }
 
@@ -1736,25 +1738,6 @@ export default class ReportsInterface extends React.Component {
 
 
 
-       <style type="text/css">{'.modal-backdrop.in { opacity: 0.6; } '}</style>
-        <Modal show={this.state.showPlaybook}   onHide={this.onPlaybookClose} >
-          <Modal.Header bsClass={[styles.playbookModalHeader, 'modal-header'].join(' ')} closeButton>
-            <Modal.Title>
-              Some next instructional moves
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-
-            <div className={styles.playbookMoves}>
-            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking first letters and pictures</span>
-            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence sounds right</span>
-            <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving inferential questions by checking back at the text</span>
-            <span className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>
-            </div>
-
-
-          </Modal.Body>
-        </Modal>
 
 
 

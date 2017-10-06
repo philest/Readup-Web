@@ -2,48 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import css from './styles.css'
 import styles from '../../styles.css'
-import { Popover, OverlayTrigger } from 'react-bootstrap'
+import { Modal, Popover, OverlayTrigger } from 'react-bootstrap'
 
 
 import classNames from 'classnames/bind';
 
 let cx = classNames.bind(styles);
 let book 
-
-
-const popoverBottom = (
-  <Popover id="popover-positioned-bottom" className={css.myPopover} title="Fluency Rubric, by Fountas & Pinnell">
- 
-    <strong>0 - Unsatisfactory fluency</strong>
-    <ul>
-    <li>Primarily word-by-word</li>
-    <li>No expressive interpretation</li>
-    <li>No appropriate stress or pausing</li>
-    </ul>
-
-     <strong>1 - Limited fluency</strong>
-     <ul>
-      <li>Primarily two-word phrases</li>
-      <li>Almost no expressive interpretation</li>
-      <li>Almost no appropriate pausing or stress</li>
-     </ul>
-
-     <strong>2 - Satisfactory fluency</strong>
-     <ul>
-    <li>Primarily three- or four-word phrases</li>
-    <li>Some smooth, expressive interpretation </li>
-    <li>Mostly appropriate stress and pausing</li>
-     </ul>
-
-    <strong>3 - Excellent fluency</strong>
-    <ul>
-    <li>Primarily larger, meaningful phrases</li>
-    <li>Mostly smooth, expressive interpretation</li>
-    <li>Pausing and stress guided by meaning</li>
-    </ul>
-
-  </Popover>
-);
 
 
 
@@ -93,6 +58,21 @@ const fluencyLibrary = {
 
 }
 
+const playbookDict = {
+
+  visual:  <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking first letters and pictures</span> ,
+  structure:  <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence sounds right</span>,
+  meaning:  <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence makes sense</span>,
+  inferential: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving inferential questions by checking back at the text</span>, 
+  factual: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving factual questions by practicing retelling texts</span>, 
+  critical: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
+  fluency:  <span className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>,
+  criticalthinking: <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
+
+}
+
+let movesSet = new Set();
+
 
 
 
@@ -106,10 +86,12 @@ export default class Metric extends React.Component {
     compSubtotals: PropTypes.array,
     isSample: PropTypes.bool,
     msvSubtotals: PropTypes.array,
+    showPlaybook: PropTypes.bool,
+    onPlaybookClose: PropTypes.func,
   };
 
   static defaultProps = {
-    showDetails: false
+    showDetails: false,
  }
 
 
@@ -119,11 +101,15 @@ export default class Metric extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-
+    this.state = {
+    }
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
 
   }
+
+
+
 
 
   renderCompDetails = () => {
@@ -133,6 +119,13 @@ export default class Metric extends React.Component {
       detailArr.push(
         <span key={i} className={styles.detail}>{this.props.compSubtotals[i][0]}: <span className={this.getGeneralColorClass(this.props.compSubtotals[i][2])}>{this.props.compSubtotals[i][1]}</span></span>
       )  
+ 
+      if (this.getGeneralColorClass(this.props.compSubtotals[i][2]) !== styles.goodMetric) {
+        movesSet.add(playbookDict[String(this.props.compSubtotals[i][0]).replace(/ /g,'').toLowerCase()])
+        console.log(`just added ${String(this.props.compSubtotals[i][0])}`)
+      }
+
+
     }
 
     return detailArr
@@ -145,6 +138,13 @@ export default class Metric extends React.Component {
       detailArr.push(
         <span key={i} className={styles.detail}>{this.props.msvSubtotals[i][0]}:  <span className={this.getGeneralColorClass(this.props.msvSubtotals[i][2])}>{this.props.msvSubtotals[i][1]}%</span></span>
       )
+
+      if (this.getGeneralColorClass(this.props.msvSubtotals[i][2]) !== styles.goodMetric) {
+        movesSet.add(playbookDict[String(this.props.msvSubtotals[i][0]).toLowerCase()])
+        console.log(`just added ${String(this.props.msvSubtotals[i][0])}`)
+      }
+
+
     }
 
     return detailArr
@@ -157,6 +157,7 @@ export default class Metric extends React.Component {
       fairMetric: percent < .66 && percent >= .5, 
       poorMetric: percent < .5,
     });
+
 
     return genColorClass
   }
@@ -278,6 +279,8 @@ export default class Metric extends React.Component {
 
 
   render() {
+
+    console.log(movesSet)
 
 
     const accPopover = (
@@ -425,6 +428,34 @@ export default class Metric extends React.Component {
 
             </OverlayTrigger>
           }  
+
+
+       <style type="text/css">{'.modal-backdrop.in { opacity: 0.6; } '}</style>
+        <Modal show={this.props.showPlaybook}   onHide={this.props.onPlaybookClose} >
+          <Modal.Header bsClass={[styles.playbookModalHeader, 'modal-header'].join(' ')} closeButton>
+            <Modal.Title>
+              Some next instructional moves
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+          {this.props.isSample &&
+            <div className={styles.playbookMoves}>
+            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking first letters and pictures</span>
+            <span className={styles.detail}> <span className={styles.poorMetric}>Accuracy:  </span>Build self-monitoring based on checking if the sentence sounds right</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving inferential questions by checking back at the text</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>
+            </div>
+          }
+
+          {!this.props.isSample && 
+            <div className={styles.playbookMoves}>
+              { movesSet }
+            </div>
+          }
+
+          </Modal.Body>
+        </Modal>
 
 
       </div>
