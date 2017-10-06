@@ -144,12 +144,12 @@ export default class ReportsInterface extends React.Component {
     if (this.props.isDirectSample) {
       footerLabelText = "Try out a student demo of ReadUp"
       footerButtonText = "See demo"
-      footerLink = "/demo"
+      footerLink = "/step"
     }
     else {
 
-      footerLabelText = "See our Fountas and Pinnell leveled texts"
-      footerButtonText = "See assessment texts"
+      footerLabelText = "See our progress monitoring texts"
+      footerButtonText = "See F&P leveled texts"
       footerLink = "/library"
 
     }
@@ -393,8 +393,14 @@ export default class ReportsInterface extends React.Component {
     this.setState({ showPricingModal: true })
   }
 
-  onBooksClicked = () => {
-    this.setState({ showBookModal: true })
+  onFooterClicked = () => {
+
+    if (this.props.isDirectSample) {
+      window.location.href = '/step'
+    }
+    else {
+      this.setState({ showBookModal: true })
+    }
   }
 
 
@@ -1430,7 +1436,7 @@ export default class ReportsInterface extends React.Component {
                 className={[styles.pricingFooterButton].join(' ')}
                 bsStyle={'primary'}
                 bsSize={'large'}
-                onClick={ this.onBooksClicked }
+                onClick={ this.onFooterClicked }
               >
                 { this.state.footerButtonText}
               </Button>
