@@ -383,16 +383,18 @@ function* definedCompSaga(numQuestions, assessmentId) {
   let compBlobArray = []
 
 
-  yield takeLatest(TURN_IN_CLICKED, function* () {
-    const assID = yield getLastAssessmentID()
-     .catch(e => e.request) // TODO
+  uploadEffects.push( 
+    yield takeLatest(TURN_IN_CLICKED, function* () {
+      const assID = yield getLastAssessmentID()
+       .catch(e => e.request) // TODO
 
-    const res = yield call(markCompleted, assID)
-    yield clog('marked it as completed!: ', res)
+      const res = yield call(markCompleted, assID)
+      yield clog('marked it as completed!: ', res)
 
-    window.location.href = '/reports/sample'
+      window.location.href = '/reports/sample'
 
-  })
+    })
+  )
 
 
 
