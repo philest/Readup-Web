@@ -1043,7 +1043,7 @@ export default class ReportsInterface extends React.Component {
            <h5 className={[styles.sectionHeader, (true ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
             <div className={ [(true ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Within the Text</h2>
+              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (CCRA.R.2 and CCRA.R.3)</span></h4>
                   <p className={styles.studentResponse}>Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike.</p> 
