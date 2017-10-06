@@ -111,12 +111,26 @@ export default class Metric extends React.Component {
 
     for (let i = 0; i < this.props.compSubtotals.length; i++) {
       detailArr.push(
-        <span key={i} className={styles.detail}>{this.props.compSubtotals[i][0]}: <span className={styles.goodMetric}>{this.props.compSubtotals[i][1]}</span></span>
+        <span key={i} className={styles.detail}>{this.props.compSubtotals[i][0]}: <span className={this.getGeneralColorClass(this.props.compSubtotals[i][2])}>{this.props.compSubtotals[i][1]}</span></span>
       )  
     }
 
     return detailArr
   }
+
+
+  getGeneralColorClass = (percent) => {
+    let genColorClass = cx({
+      goodMetric: percent >= .66,
+      fairMetric: percent < .66 && percent >= .5, 
+      poorMetric: percent < .5,
+    });
+
+    return genColorClass
+  }
+
+
+
 
   componentWillMount() {
     book = this.props.book
