@@ -79,6 +79,10 @@ Rails.application.routes.draw do
   get 'fp-report', to: redirect('reports/direct-sample?brand=FP')
 
 
+  get 'step-demo', to: redirect('reports/direct-sample?brand=STEP')
+  get 'fp-demo', to: redirect('reports/direct-sample?brand=FP')
+
+
   get 'grade/:user_id', to: 'grader_interface#index'
   get 'reports/demo/show', to: 'reports#index'
   get 'reports/:user_id', to: 'reports#index'
