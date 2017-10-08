@@ -575,6 +575,11 @@ span.missed, span.correct {
     font-family: 'ProximaNova Semibold';
 }
 
+
+.fluencyDetails .detail {
+	font-family: 'ProximaNova';
+}
+
 .readyModalTitle {
 	font-size: 1.7em;
 }

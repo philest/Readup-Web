@@ -18,40 +18,40 @@ const fluencyLibrary = {
   0: {
     title: "Unsatisfactory fluency",
     details: (
-              <div>
-              <span className={styles.detail}>Primarily word-by-word</span>
-              <span className={styles.detail}>No expressive interpretation</span>
-              <span className={styles.detail}>No appropriate stress or pausing</span>
+              <div className={styles.fluencyDetails}>
+                <span className={styles.detail}>Primarily word-by-word</span>
+                <span className={styles.detail}>No expressive interpretation</span>
+                <span className={styles.detail}>No appropriate stress or pausing</span>
               </div> 
               ),
     },
   1: {
     title: "Limited fluency",
     details: (
-              <div>
-              <span className={styles.detail}>Primarily two-word phrases</span>
-              <span className={styles.detail}>Almost no expressive interpretation</span>
-              <span className={styles.detail}>Almost no appropriate pausing or stress</span>
+              <div className={styles.fluencyDetails}>
+                <span className={styles.detail}>Primarily two-word phrases</span>
+                <span className={styles.detail}>Almost no expressive interpretation</span>
+                <span className={styles.detail}>Almost no appropriate pausing or stress</span>
               </div> 
               ),
    },
   2: {
     title: "Satisfactory fluency",
     details: (
-              <div>
-              <span className={styles.detail}>Primarily three- or four-word phrases</span>
-              <span className={styles.detail}>Some smooth, expressive interpretation</span>
-              <span className={styles.detail}>Mostly appropriate stress and pausing</span>
+              <div className={styles.fluencyDetails}>
+                <span className={styles.detail}>Primarily three- or four-word phrases</span>
+                <span className={styles.detail}>Some smooth, expressive interpretation</span>
+                <span className={styles.detail}>Mostly appropriate stress and pausing</span>
               </div> 
               ),
   },
  3: {
     title: "Excellent fluency",
     details: (
-              <div>
-              <span className={styles.detail}>Primarily larger, meaningful phrases</span>
-              <span className={styles.detail}>Mostly smooth, expressive interpretation</span>
-              <span className={styles.detail}>Pausing and stress guided by meaning</span>
+              <div className={styles.fluencyDetails}>
+                <span className={styles.detail}>Primarily larger, meaningful phrases</span>
+                <span className={styles.detail}>Mostly smooth, expressive interpretation</span>
+                <span className={styles.detail}>Pausing and stress guided by meaning</span>
               </div> 
               ),
   },
