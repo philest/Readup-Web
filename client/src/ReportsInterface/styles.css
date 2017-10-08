@@ -143,9 +143,8 @@ button:hover, .btn-primary:hover {
 	transition: all .3s;
 }
 
-.audioWrapper button:hover {
+.audioWrapper button:hover, button.miniPlayButton:hover {
 	transform: translateY(0px);
-
 }
 
 
