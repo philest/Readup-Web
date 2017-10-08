@@ -68,7 +68,7 @@ const playbookDict = {
   critical: <span  key={6} className={styles.detail}> <span className={styles.fairMetric}>Critical Thinking:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
   fluency:  <span key={7} className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>,
   criticalthinking: <span key={8}  className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
-
+  nothing: <span key={9}  className={styles.detail}> No moves added yet. Check back soon!</span>,
 }
 
 let movesSet = new Set();
@@ -249,7 +249,16 @@ export default class Metric extends React.Component {
 
 
 
+  renderMovesSet = () => {
 
+      console.log('hereeee')
+    if (movesSet.size > 0) {
+      return movesSet
+    }
+    else {
+      return playbookDict.nothing
+    }
+  }
 
 
 
@@ -426,7 +435,13 @@ export default class Metric extends React.Component {
 
           {!this.props.isSample && 
             <div className={styles.playbookMoves}>
-              { movesSet }
+              { movesSet.size > 0 &&
+                movesSet 
+               }
+               {movesSet.size === 0 &&
+                playbookDict.nothing
+               } 
+
             </div>
           }
 
