@@ -73,7 +73,8 @@ export default class LevelResult extends React.Component {
     if (this.props.reassess === true || this.props.didEndEarly || this.props.yellowColorOverride) {
       return "myWarning"
     } else if (this.props.difficulty == 'Frustrational') {
-      return "myDanger"
+      // trying warning to be more friendly
+      return "myWarning"
     } else  {
       return "mySuccess"
     }

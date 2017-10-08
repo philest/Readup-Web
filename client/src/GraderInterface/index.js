@@ -691,18 +691,25 @@ export default class GraderInterface extends React.Component {
   renderCompAudioPlayer = (q) => {
 
     let url
+    let waitingOn
+    let label
 
     if (q === 0) {
       url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/recording.webm`
+      waitingOn = `audio of their oral reading...`
+      label = 'Oral reading'
     }
     else {
       url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${q}.webm`
+      waitingOn = `audio response to Q${q}...`
+      label = `Response to Q${q}`
+
     }
 
       if (this.state.showQArr[String(q)]) {
         return ( 
-          <div key={q}>
-            <h5>{`Response ${q}`}</h5>
+          <div style={{marginBottom: 20}} key={q}>
+            <h5>{label}</h5>
             <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
               <source src={url} />
               <p>Playback not supported</p>
@@ -713,10 +720,10 @@ export default class GraderInterface extends React.Component {
       else {
 
           if (this.state.hasSeenCompletedModal) {
-            return (<p key={q}> User ended before submitting {`audio response ${q}.`}</p>)
+            return (<p key={q}> User ended before submitting {`audio response to Q${q}.`} Don't grade it.</p>)
           }
           else {
-            return (<p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>)
+            return (<p key={q}> Still waiting for {waitingOn} <i className={'fa fa-spinner fa-pulse'} /></p>)
           }
 
 
@@ -743,20 +750,27 @@ export default class GraderInterface extends React.Component {
       
 
     let url
+    let waitingOn
+    let label
 
     if (q === 0) {
       url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/recording.webm`
+      waitingOn = `audio of their oral reading...`
+      label = 'Oral reading'
     }
     else {
       url = `https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/${this.props.env}/${this.props.userID}/comp/question${q}.webm`
+      waitingOn = `audio response to Q${q}...`
+      label = `Response to Q${q}`
+
     }
 
 
 
       if (this.state.showQArr[String(q)]) {
         audioPlayers.push (
-          <div key={q}>
-            <h5>{`Response ${q}`}</h5>
+          <div style={{marginBottom: 20}} key={q}>
+            <h5>{label}</h5>
             <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
               <source src={url} />
               <p>Playback not supported</p>
@@ -770,12 +784,12 @@ export default class GraderInterface extends React.Component {
           if (this.state.hasSeenCompletedModal) {
 
             audioPlayers.push (
-              <p key={q}> User ended before submitting {`audio response ${q}.`}/></p>
+              <p key={q}> User ended before submitting {`audio response to Q${q}.`} Don't grade it.</p>
             )
           }
           else {
             audioPlayers.push (
-              <p key={q}> Still waiting for {`audio response ${q}...`} <i className={'fa fa-spinner fa-pulse'} /></p>
+              <p key={q}> Still waiting for {waitingOn} <i className={'fa fa-spinner fa-pulse'} /></p>
             )
           }
       }
@@ -1172,9 +1186,11 @@ renderCompQuestions6 = () => {
           <div className={styles.nameHeading}>
             { "Demo from " + this.props.shortCreatedAt + " (PST)"}
           </div>
+          { this.props.scored &&
           <div className={styles.emailHeading}>
             {this.props.email}
           </div>
+          }
           <div className={styles.emailHeading}>
             {this.props.createdAt + " (Pacific)"}
           </div>
@@ -1222,7 +1238,7 @@ renderCompQuestions6 = () => {
         }   
 
 
-        <div className={styles.markupContainer}>
+        <div style={{opacity: (this.state.showQArr[String(0)] || !this.props.isPartner) ? 1 : 0.4 }} className={styles.markupContainer}>
           <div className={styles.bookInfo}>
             <span className={styles.bookTitleHeading}>
               {this.props.bookTitle}
@@ -1331,12 +1347,12 @@ renderCompQuestions6 = () => {
 
 
 
-        <div className={styles.fluencyContainer}>
+        <div style={{opacity: (this.state.showQArr[String(0)] || !this.props.isPartner) ? 1 : 0.4 }} className={styles.fluencyContainer}>
           <div className={styles.bookInfo}>
-            <h4 >
+            <h3 >
               Fluency Score
-            </h4>
-            <span className={styles.bookLevelHeading}>
+            </h3>
+            <span style={{marginLeft: 0}} className={styles.bookLevelHeading}>
               Assign a score using the rubric 
               <OverlayTrigger defaultOverlayShown={false} trigger={['click']} rootClose placement="bottom" overlay={popoverBottom}>
                 <i className={["fa", "fa-question-circle", styles.questionIcon].join(" ")} aria-hidden={"true"} />
@@ -1347,7 +1363,7 @@ renderCompQuestions6 = () => {
         </div> 
 
 
-        <ButtonGroup className={styles.fluencyButtonGroup}>
+        <ButtonGroup style={{opacity: (this.state.showQArr[String(0)] || !this.props.isPartner) ? 1 : 0.4 }} className={styles.fluencyButtonGroup}>
           <Button active={this.state.fluencyScore === 0} href="#" onClick={() => this.onFluencyScoreClicked(0)}><strong>0</strong> - Unsatisfactory</Button>
           <Button active={this.state.fluencyScore === 1} href="#" onClick={() => this.onFluencyScoreClicked(1)}><strong>1</strong> - Partial</Button>
           <Button active={this.state.fluencyScore === 2} href="#" onClick={() => this.onFluencyScoreClicked(2)}><strong>2</strong> - Good</Button>
@@ -1357,20 +1373,20 @@ renderCompQuestions6 = () => {
 
 
 
-        <h3>Comprehension</h3>
+        <h3 style={{opacity: (this.state.showQArr[String(1)]) ? 1 : 0.4 }} >Comprehension</h3>
 
         <br/><br/>
 
         { numQuestions >= 1 &&
 
-          <div style={{opacity: (this.state.showQArr[String(1)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+          <div style={{opacity: (this.state.showQArr[String(1)]) ? 1 : 0.4 }}>
             { this.renderCompQuestions1() }
           </div>
         }
 
         { numQuestions >= 2 &&
 
-          <div style={{opacity: (this.state.showQArr[String(2)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+          <div style={{opacity: (this.state.showQArr[String(2)]) ? 1 : 0.4 }}>
             { this.renderCompQuestions2() }
           </div>
         }
@@ -1378,14 +1394,14 @@ renderCompQuestions6 = () => {
 
         { numQuestions >= 3 &&
 
-          <div style={{opacity: (this.state.showQArr[String(3)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+          <div style={{opacity: (this.state.showQArr[String(3)]) ? 1 : 0.4 }}>
             { this.renderCompQuestions3() }
           </div>
         }
 
         { numQuestions >= 4 &&
 
-          <div style={{opacity: (this.state.showQArr[String(4)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+          <div style={{opacity: (this.state.showQArr[String(4)]) ? 1 : 0.4 }}>
             { this.renderCompQuestions4() }
           </div>
         }
@@ -1393,14 +1409,14 @@ renderCompQuestions6 = () => {
 
         { numQuestions >= 5 &&
 
-          <div style={{opacity: (this.state.showQArr[String(5)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+          <div style={{opacity: (this.state.showQArr[String(5)]) ? 1 : 0.4 }}>
             { this.renderCompQuestions5() }
           </div>
         }
 
         { numQuestions >= 6 &&
 
-          <div style={{opacity: (this.state.showQArr[String(6)] || !this.state.hasSeenCompletedModal) ? 1 : 0.4 }}>
+          <div style={{opacity: (this.state.showQArr[String(6)]) ? 1 : 0.4 }}>
             { this.renderCompQuestions6() }
           </div>
         }
