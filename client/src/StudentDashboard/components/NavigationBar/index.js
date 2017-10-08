@@ -29,7 +29,8 @@ export default class NavigationBar extends React.Component {
     onPreviewClicked: PropTypes.func,
     onSaveClicked: PropTypes.func,
     brand: PropTypes.string,
-    onSubmitClicked: this.onSubmitClicked,
+    onSubmitClicked: PropTypes.func,
+    hideMenuItems: PropTypes.bool, 
   };
   static defaultProps = {
     showPauseButton: true,
@@ -40,6 +41,7 @@ export default class NavigationBar extends React.Component {
     onReader: true,
     white: false,
     beforeStudentDemo: false, 
+    hideMenuItems: false,
   }
 
 
@@ -206,7 +208,7 @@ export default class NavigationBar extends React.Component {
         <div className={css.subContainer}>
           <div className={[css.rightDisplayContainer, textColorClass].join(' ')}>
 
-          { this.props.beforeStudentDemo &&
+          { this.props.beforeStudentDemo && !this.props.hideMenuItems &&
             this.renderButton()
           }
 
@@ -219,7 +221,7 @@ export default class NavigationBar extends React.Component {
             </OverlayTrigger>
           }
 
-          { this.props.onGrading &&
+          { this.props.onGrading && !this.props.hideMenuItems &&
             <span >
                 <span onClick={this.props.onSaveClicked} className={css.userNameLabel} style={{marginRight: 20, fontWeight: 800, fontSize: 16, cursor: 'pointer'}}>
                 Save
@@ -229,7 +231,7 @@ export default class NavigationBar extends React.Component {
               { this.renderPreviewButton() }
             </span>
           }
-          { !this.props.beforeStudentDemo &&
+          { !this.props.beforeStudentDemo && !this.props.hideMenuItems &&
             <div className={css.rightMostAction}>
               <span className={css.userNameLabel}>{this.props.studentName}</span>
               <span className={css.logoutButton} onClick={onRightIconClick}>

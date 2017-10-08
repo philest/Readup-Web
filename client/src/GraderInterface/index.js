@@ -802,18 +802,21 @@ export default class GraderInterface extends React.Component {
   }
 
 
-  renderNavigationBar = () => {
+  renderNavigationBar = (isWaiting) => {
+    let navProps
 
-    const navProps = {
-      showPauseButton: false,
-      onReport: false,
-      onExitClicked: this.onExitClicked,
-      onReplayClicked: this.onReplayClicked,
-      onGrading: true,
-      onReader: false,
-      onPreviewClicked: this.onPreviewClicked,
-      onSaveClicked: this.onSaveClicked,
-      onSubmitClicked: this.onSubmitClicked,
+      navProps = {
+        showPauseButton: false,
+        onReport: false,
+        onExitClicked: this.onExitClicked,
+        onReplayClicked: this.onReplayClicked,
+        onGrading: true,
+        onReader: false,
+        onPreviewClicked: this.onPreviewClicked,
+        onSaveClicked: this.onSaveClicked,
+        onSubmitClicked: this.onSubmitClicked,
+        hideMenuItems: isWaiting,
+
     }
 
     return <NavigationBar {...navProps} />
@@ -1143,6 +1146,9 @@ renderCompQuestions6 = () => {
     if (this.props.waiting) {
       return (
         <div className={styles.waitingInfo}>
+
+                { this.renderNavigationBar(true) }
+
         <h2 className={styles.waitingInfoHeader}>Waiting until user starts demo... <i className={'fa fa-spinner fa-pulse'} /></h2>
         <h4 className={styles.waitingInfoSubHeader}> This can take up to 10 minutes </h4>
           <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
@@ -1180,7 +1186,7 @@ renderCompQuestions6 = () => {
 
       <div>
 
-        { this.renderNavigationBar() }
+        { this.renderNavigationBar(false) }
 
       <div className={styles.graderContainer}>
 
