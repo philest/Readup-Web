@@ -119,6 +119,44 @@
 	cursor: pointer;
 }
 
+.playbookTrigger:hover  {
+	transform: translateY(-3px);
+    filter: brightness(120%);
+    transition: all .3s;
+
+}
+
+button:hover, .btn-primary:hover {
+	transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    filter: brightness(110%);
+    transition: all .3s;
+}
+
+
+.pricingFormButton:hover {
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    transform: translateY(-3px);
+	box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+	filter: brightness(110%);
+	transition: all .3s;
+}
+
+.audioWrapper button:hover {
+	transform: translateY(0px);
+
+}
+
+
+
+button, .playbookTrigger {
+		transition: all .3s;
+
+}
+
+
+
 .metricsHeadingContainer {
 	flex: 1;
 	display: flex;
@@ -537,9 +575,9 @@ span.missed, span.correct {
     margin: 0 auto;
     display: block;
     border-radius: 3px;
-    background-color: #2e6da4;
+/*    background-color: #2e6da4;
     border-color: #275985;
-    font-family: 'ProximaNova Semibold';
+*/    font-family: 'ProximaNova Semibold';
     padding: 8px 20px;
 
 }

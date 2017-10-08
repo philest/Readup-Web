@@ -1736,6 +1736,8 @@ export default class ReportsInterface extends React.Component {
           </Modal.Body>
         </Modal>
 
+        <style type="text/css">{'.btn-primary:hover {  background-color: #337ab7; border-color: #2e6da4; }'}</style>
+
 
 
 
