@@ -142,7 +142,7 @@ export default class NavigationBar extends React.Component {
 
   const popoverClickRootClose = (
     <Popover className={questionCSS.sharePopover} id="popover-trigger-click-root-close" >
-      <a href={window.location.href}><strong>{window.location.href}</strong></a>
+      <a href={window.location.href}><strong>{window.location.protocol + '//' + window.location.host + window.location.pathname}</strong></a>
       <br/>
       Copy and paste this link to share this screen with students, parents, and administrators.
     </Popover>
