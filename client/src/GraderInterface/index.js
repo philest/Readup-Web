@@ -316,7 +316,7 @@ export default class GraderInterface extends React.Component {
 
       // TODO ASAP: BRING BACK PAUSING AND ARROW KEYING 
 
-    if (event.code === 'Space' && event.shiftKey) {
+    if (event.code === 'Space' && event.ctrlKey) {
 
 
       if (currAudioPlayer.paused) {
@@ -331,7 +331,7 @@ export default class GraderInterface extends React.Component {
 
 
     }
-    else if (event.code === 'ArrowLeft' && event.shiftKey) {
+    else if (event.code === 'ArrowLeft' && event.ctrlKey) {
       if (currAudioPlayer.currentTime < 2) {
         currAudioPlayer.currentTime = 0;
       }
@@ -339,7 +339,7 @@ export default class GraderInterface extends React.Component {
         currAudioPlayer.currentTime -= 2;
       }
     }
-    else if (event.code === 'ArrowRight' && event.shiftKey) {
+    else if (event.code === 'ArrowRight' && event.ctrlKey) {
       if (currAudioPlayer.currentTime > currAudioPlayer.duration - 2) {
         currAudioPlayer.currentTime = currAudioPlayer.duration
       }
@@ -348,25 +348,25 @@ export default class GraderInterface extends React.Component {
       }
 
     }
-    else if (event.code === 'Digit0' && event.shiftKey) {
+    else if (event.code === 'Digit0' && event.ctrlKey) {
       currAudioPlayer = this.refs.audioPlayer0
     }    
-    else if (event.code === 'Digit1' && event.shiftKey) {
+    else if (event.code === 'Digit1' && event.ctrlKey) {
       currAudioPlayer = this.refs.audioPlayer1
     }
-    else if (event.code === 'Digit2' && event.shiftKey) {
+    else if (event.code === 'Digit2' && event.ctrlKey) {
       currAudioPlayer = this.refs.audioPlayer2
     }
-    else if (event.code === 'Digit3' && event.shiftKey) {
+    else if (event.code === 'Digit3' && event.ctrlKey) {
       currAudioPlayer = this.refs.audioPlayer3
     }
-    else if (event.code === 'Digit4' && event.shiftKey) {
+    else if (event.code === 'Digit4' && event.ctrlKey) {
       currAudioPlayer = this.refs.audioPlayer4
     }
-    else if (event.code === 'Digit5' && event.shiftKey) {
+    else if (event.code === 'Digit5' && event.ctrlKey) {
       currAudioPlayer = this.refs.audioPlayer5
     }
-    else if (event.code === 'Digit6' && event.shiftKey) {
+    else if (event.code === 'Digit6' && event.ctrlKey) {
       currAudioPlayer = this.refs.audioPlayer6
     }
 
@@ -572,7 +572,9 @@ export default class GraderInterface extends React.Component {
     this.onSaveClicked()
 
     markScored(this.props.assessmentID)
-    this.setState({showSubmitAlert: true})
+    this.setState({showSubmitAlert: true,
+                   showSaveAlert: false
+                  })
 
   }
 
@@ -811,6 +813,7 @@ export default class GraderInterface extends React.Component {
       onReader: false,
       onPreviewClicked: this.onPreviewClicked,
       onSaveClicked: this.onSaveClicked,
+      onSubmitClicked: this.onSubmitClicked,
     }
 
     return <NavigationBar {...navProps} />
@@ -1450,7 +1453,7 @@ renderCompQuestions6 = () => {
        {this.state.showSubmitAlert &&
         <div className={styles.alertSuccess}>
           <Alert bsStyle="success" onDismiss={this.handleAlertDismiss}>
-            <strong>Great!</strong> you can see the scored report <a target="_blank" href={`/reports/${this.props.userID}`}>here</a>.
+            <strong>Great!</strong> You can see the scored report <a target="_blank" href={`/reports/${this.props.userID}`}>here</a>.
           </Alert>
         </div>
       }

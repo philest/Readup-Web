@@ -115,8 +115,11 @@ body {
 }
 
 .alertSuccess {
-	width: 320px;
-	margin-top: 15px;
+	position: fixed;
+    top: 59px;
+    right: 0px;
+    width: 100%;
+    text-align: center;
 }
 
 .questionIcon {

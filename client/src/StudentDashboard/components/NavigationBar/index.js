@@ -29,6 +29,7 @@ export default class NavigationBar extends React.Component {
     onPreviewClicked: PropTypes.func,
     onSaveClicked: PropTypes.func,
     brand: PropTypes.string,
+    onSubmitClicked: this.onSubmitClicked,
   };
   static defaultProps = {
     showPauseButton: true,
@@ -118,7 +119,14 @@ export default class NavigationBar extends React.Component {
       onRightIconClick = this.props.onReplayClicked
       rightIconButton = 'fa fa-repeat'
       rightIconLabel = "Retry demo"
-    } else {
+    } 
+    else if (this.props.onGrading) {
+      onRightIconClick = this.props.onSubmitClicked
+      rightIconButton = 'fa fa-paper-plane'
+      rightIconLabel = "Send to user"
+
+    }
+    else {
       onRightIconClick = this.props.onExitClicked
       rightIconButton = 'fa fa-sign-out'
       rightIconLabel = "Exit"
@@ -213,7 +221,10 @@ export default class NavigationBar extends React.Component {
 
           { this.props.onGrading &&
             <span >
-                <span onClick={this.props.onSaveClicked} className={css.userNameLabel} style={{marginRight: 20, fontWeight: 800, fontSize: 16, cursor: 'pointer'}}>Save</span>
+                <span onClick={this.props.onSaveClicked} className={css.userNameLabel} style={{marginRight: 20, fontWeight: 800, fontSize: 16, cursor: 'pointer'}}>
+                Save
+                <i style={{marginLeft: 6, fontSize: 11}} className={['fa fa-bookmark'].join(' ')} />
+                </span>
 
               { this.renderPreviewButton() }
             </span>
