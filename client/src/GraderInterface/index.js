@@ -1144,7 +1144,7 @@ renderCompQuestions6 = () => {
       return (
         <div className={styles.waitingInfo}>
         <h2 className={styles.waitingInfoHeader}>Waiting until user starts demo... <i className={'fa fa-spinner fa-pulse'} /></h2>
-  
+        <h4 className={styles.waitingInfoSubHeader}> This can take up to 10 minutes </h4>
           <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
             <Modal show={this.state.showWakeModal} dialogClassName={reportStyles.modalSmall}>
               <Modal.Header>
@@ -1465,6 +1465,17 @@ renderCompQuestions6 = () => {
           </Alert>
         </div>
       }
+
+
+       {this.state.showSaveAlert &&
+        <div className={styles.alertSuccess}>
+          <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
+            <strong>Great!</strong> your partner was notified and sent all your edits.
+          </Alert>
+        </div>
+      }
+
+
 
           <br/>
           <br/>
