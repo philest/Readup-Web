@@ -355,9 +355,9 @@ button, .playbookTrigger {
 }
 
 .audioWrapper button {
-	background-color: #2e6da4;
+/*	background-color: #2e6da4;
 	border-color: #275985;
-	font-family: 'ProximaNova Semibold';
+*/	font-family: 'ProximaNova Semibold';
 	padding: 8px 20px;
 
 }
