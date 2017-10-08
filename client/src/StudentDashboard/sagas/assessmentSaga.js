@@ -101,10 +101,14 @@ function* resumeAssessmentSaga (action) {
 
   yield call(playSound, '/audio/complete.mp3')
 
+  yield clog ('here i am in resume...')
 
   try {
     const recorder = yield select(getRecorder)
-    if (recorder.paused) {
+
+    yield clog ('recorder: ', recorder)
+
+    if (recorder.rtcRecorder.state === "paused") {
       yield call(recorder.resumeRecording)
       yield put.resolve(setReaderState(
         ReaderStateOptions.inProgress,
