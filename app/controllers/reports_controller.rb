@@ -217,16 +217,16 @@ class ReportsController < ApplicationController
         graderComments: @grader_comments,
         studentResponses: @student_responses,
 
-        scorerProfilePicURL: "/images/peter.png",
-        scorerSignature: "Pete Krason, M.A.",
-        scorerResumeURL: "https://www.linkedin.com/in/peter-krason-a6726189/",
+        scorerProfilePicURL: "/images/tedra.png",
+        scorerSignature: "Tedra Matthews, M.A.",
+        scorerResumeURL: "https://www.linkedin.com/in/tedra-matthews-a675095a/",
         scorerJobTitle: "Reading Specialist",
-        scorerEducation: "M.A. in Reading Instruction (DePaul)",
-        scorerExperience: "7 years at Chicago Ridge",
-        scorerEmail: "pete@readupnow.com",
-        scorerFirstName: "Pete",
-        scorerLastName: "Krason",
-        scorerFullName: "Pete Krason",
+        scorerEducation: "M.A. in Language & Literacy (SFSU)",
+        scorerExperience: "13 years at SFUSD",
+        scorerEmail: "tedra@readupnow.com",
+        scorerFirstName: "Tedra",
+        scorerLastName: "Matthews",
+        scorerFullName: "Tedra Matthews",
 
         reviewerSignature: "Maria Contreras, M.Ed",
         reviewerProfilePicURL: "/images/maria-small.png",
@@ -312,6 +312,19 @@ class ReportsController < ApplicationController
     # puts params[:params]
     # TODO mail this shitttt 
   end 
+
+
+        # scorerProfilePicURL: "/images/peter.png",
+        # scorerSignature: "Pete Krason, M.A.",
+        # scorerResumeURL: "https://www.linkedin.com/in/peter-krason-a6726189/",
+        # scorerJobTitle: "Reading Specialist",
+        # scorerEducation: "M.A. in Reading Instruction (DePaul)",
+        # scorerExperience: "7 years at Chicago Ridge",
+        # scorerEmail: "pete@readupnow.com",
+        # scorerFirstName: "Pete",
+        # scorerLastName: "Krason",
+        # scorerFullName: "Pete Krason",
+
 
 
 end
