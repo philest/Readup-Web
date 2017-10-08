@@ -218,7 +218,22 @@ button, .playbookTrigger {
 .metricDescriptionLabel {
 	font-family: 'ProximaNova Semibold';
 	font-size: 1.3em;
+	transition: all .3s;
+
 }
+
+.metricLabelWithDetails {
+	transition: all .3s;
+}
+
+
+.metricLabelWithDetails:hover {
+	transform: translateY(-2px);
+    filter: brightness(135%);
+    transition: all .3s;
+}
+
+
 
 .levelInfoWrapper {
 	display: flex;
