@@ -30,6 +30,17 @@ let rubric
 let numQuestions
 let currAudioPlayer
 
+const backupShowQArr = {
+  0: false,
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+  5: false,
+  6: false,
+}
+
+
 let initShowQArr = {
   0: false,
   1: false,
@@ -37,6 +48,7 @@ let initShowQArr = {
   3: false,
   4: false,
   5: false,
+  6: false,
 }
 
 let trueInitShowQArr = {
@@ -45,7 +57,8 @@ let trueInitShowQArr = {
   2: true,
   3: true,
   4: true,
-  5: false,
+  5: true,
+  6: true,
 }
 
 
@@ -141,6 +154,16 @@ export default class GraderInterface extends React.Component {
     numQuestions = book.numQuestions
 
 
+
+    // But first, reset the state...
+    console.log('resetting state: ', this.state.showQArr)
+    console.log('backupShowQArr: ', backupShowQArr)
+    this.setState({ showQArr: backupShowQArr })
+    console.log('just reset state: ', this.state.showQArr)
+
+
+
+
     // check all of s3 fully once
     for(let q = 0; q <= numQuestions; q++) {
       if (!this.state.showQArr[String(q)] && !this.props.scored) {
@@ -204,7 +227,11 @@ export default class GraderInterface extends React.Component {
       if ((this.state.userCountCurrent != this.props.userCountPrior) && !this.state.showWakeModal) {
         console.log("time to show the wake modal...")
         playSoundAsync('/audio/complete.mp3')
-        this.setState({ showWakeModal: true})
+
+
+
+
+        this.setState({ showWakeModal: true })
       } else {
           console.log("don't trigger wake modal...")
       }
@@ -650,6 +677,12 @@ export default class GraderInterface extends React.Component {
     }).catch(error => {
       console.log(error)
       console.log("couldn't find ", qNum)
+
+      // Reset state if not found...
+      let showQArr = this.state.showQArr
+      showQArr[String(qNum)] = false 
+      this.setState({showQArr: showQArr}) 
+
     })
 
   }
