@@ -137,6 +137,7 @@ export default class GraderInterface extends React.Component {
       hasSeenCompletedModal: this.props.completed,
       showPromptAlert: false,
       showChecklistModal: false,
+      showAudioAlert: false,
     }
         this.tick = this.tick.bind(this);
 
@@ -684,6 +685,7 @@ export default class GraderInterface extends React.Component {
     this.setState({showSubmitAlert: false,
                    showSaveAlert: false,
                    showPromptAlert: false,
+                   showAudioAlert: false,
                  })
   }
 
@@ -713,6 +715,11 @@ export default class GraderInterface extends React.Component {
       if (!isOnPageLoad) {
         console.log("starting to play sound...");
         playSoundAsync('/audio/complete.mp3')
+        this.setState({ showAudioAlert: true })
+        setTimeout(() => {
+          this.setState({ showAudioAlert: false });
+        }, 5000);
+
       }
 
       let showQArr = this.state.showQArr
@@ -1614,6 +1621,15 @@ renderCompQuestions6 = () => {
           </Alert>
         </div>
       }
+
+      {this.state.showAudioAlert &&
+        <div className={styles.alertSuccess}>
+          <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
+            <strong>A new audio response just arrived!</strong>.
+          </Alert>
+        </div>
+      }
+
 
 
 
