@@ -134,6 +134,7 @@ export default class GraderInterface extends React.Component {
       showQArr: this.props.scored ? trueInitShowQArr : initShowQArr,
       showCompletedModal: false,
       hasSeenCompletedModal: this.props.completed,
+      showPromptAlert: false,
     }
         this.tick = this.tick.bind(this);
 
@@ -472,31 +473,61 @@ export default class GraderInterface extends React.Component {
   onPrompt1Clicked = () => {
     const params = { prompt_status: PromptOptions.tellSomeMore }
     updateStudent(params, this.props.studentID)
+    this.setState({ showPromptAlert: true })
+    setTimeout(() => {
+      this.setState({ showPromptAlert: false });
+    }, 2500);
+
   }
 
   onPrompt2Clicked = () => {
     const params = { prompt_status: PromptOptions.whatInStory }
     updateStudent(params, this.props.studentID)
+    this.setState({ showPromptAlert: true })
+    setTimeout(() => {
+      this.setState({ showPromptAlert: false });
+    }, 2500); 
+
   }
 
   onPrompt3Clicked = () => {
     const params = { prompt_status: PromptOptions.whyImportant }
     updateStudent(params, this.props.studentID)
+    this.setState({ showPromptAlert: true })
+    setTimeout(() => {
+      this.setState({ showPromptAlert: false });
+    }, 2500);
+
   }
 
   onPrompt4Clicked = () => {
     const params = { prompt_status: PromptOptions.whyThinkThat }
     updateStudent(params, this.props.studentID)
+    this.setState({ showPromptAlert: true })
+    setTimeout(() => {
+      this.setState({ showPromptAlert: false });
+    }, 2500);
+
   }
 
   onPrompt5Clicked = () => {
     const params = { prompt_status: PromptOptions.repeatQuestion }
     updateStudent(params, this.props.studentID)
+    this.setState({ showPromptAlert: true })
+    setTimeout(() => {
+      this.setState({ showPromptAlert: false });
+    }, 2500);
+
   }
 
   onPrompt6Clicked = () => {
     const params = { prompt_status: PromptOptions.noPromptNeeded }
     updateStudent(params, this.props.studentID)
+    this.setState({ showPromptAlert: true })
+    setTimeout(() => {
+      this.setState({ showPromptAlert: false });
+    }, 2500);
+
   }
 
 
@@ -641,7 +672,8 @@ export default class GraderInterface extends React.Component {
 
   handleAlertDismiss = () => {
     this.setState({showSubmitAlert: false,
-                   showSaveAlert: false
+                   showSaveAlert: false,
+                   showPromptAlert: false,
                  })
   }
 
@@ -1469,6 +1501,14 @@ renderCompQuestions6 = () => {
         <div className={styles.alertSuccess}>
           <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
             <strong>Great!</strong> Your edits were saved successfully.
+          </Alert>
+        </div>
+      }
+
+      {this.state.showPromptAlert &&
+        <div className={styles.alertSuccess}>
+          <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
+            <strong>Great!</strong> Your prompt was sent successfully.
           </Alert>
         </div>
       }
