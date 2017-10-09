@@ -1458,6 +1458,7 @@ renderCompQuestions6 = () => {
               <ul>
               <li>use the proper &ldquo;/sc&rdquo; edit for a self correct?</li>
               <li>phonetically spell-out nonsense words? &nbsp;&nbsp;&nbsp;</li>
+              <li>make sure no edits physically overlapped? &nbsp;&nbsp;&nbsp;</li>
               </ul>
               </li>
               <li>Score each edit with any MSV cues used?&nbsp;</li>
