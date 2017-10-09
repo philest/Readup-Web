@@ -106,6 +106,7 @@ export default class GraderInterface extends React.Component {
     studentID: PropTypes.number,
     bookKey: PropTypes.string,
     waiting: PropTypes.bool,
+    isRemote: PropTypes.bool,
   };
 
 
@@ -1213,6 +1214,48 @@ renderCompQuestions6 = () => {
 
         </div>
       )
+    }
+
+    if (this.props.isRemote) {
+      return (
+        <div>
+          { this.renderNavigationBar(true) }
+
+          <div className={[styles.graderContainer, styles.mobileContainer].join(' ')}>
+            <div className={styles.nameHeading}>
+              { "Demo from " + this.props.shortCreatedAt + " (PST)"}
+            </div>
+
+
+            <h4>Prompts</h4>
+            <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+              <Button href="#" onClick={this.onPrompt1Clicked}>Tell some more</Button>
+              <Button href="#" onClick={this.onPrompt2Clicked}>What in the story makes you think that?</Button>
+              <Button href="#" onClick={this.onPrompt3Clicked}>Why is that important?</Button>
+              <Button href="#" onClick={this.onPrompt4Clicked}>Why do you think that?</Button>
+              <Button href="#" onClick={this.onPrompt5Clicked}>Repeat the question</Button>
+              <Button href="#" onClick={this.onPrompt6Clicked}><strong>No prompt needed</strong></Button>
+            </ButtonGroup>
+
+
+
+          </div>
+
+
+          {this.state.showPromptAlert &&
+            <div className={styles.alertSuccess}>
+              <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
+                <strong>Great!</strong> Your prompt was sent successfully.
+              </Alert>
+            </div>
+          }
+
+
+
+       </div>
+
+      )
+
     }
 
     return (

@@ -26,6 +26,10 @@ body {
 	padding-left: 90px;
 }
 
+.mobileContainer {
+	padding-left: 55px;
+}
+
 .headingContainer {
 	width: 550px;
 	display: inline-block;
@@ -50,6 +54,11 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	margin-bottom: 40px;
+}
+
+
+.remoteContainer {
+	margin-top: 100px;
 }
 
 .nameHeading {

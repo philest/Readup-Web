@@ -74,6 +74,7 @@ Rails.application.routes.draw do
 
 
   get 'grade', to: redirect('/grade/waiting')
+  get 'remote', to: redirect('/grade/remote')
 
 
   get 'fp-report', to: redirect('reports/direct-sample?brand=FP')
