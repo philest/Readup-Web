@@ -135,8 +135,6 @@ button:hover, .btn-primary:hover {
 
 
 .pricingFormButton:hover {
-    background-color: #337ab7;
-    border-color: #2e6da4;
     transform: translateY(-3px);
 	box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
 	filter: brightness(110%);
@@ -145,6 +143,8 @@ button:hover, .btn-primary:hover {
 
 .audioWrapper button:hover, button.miniPlayButton:hover {
 	transform: translateY(0px);
+    background-color: #337ab7;
+    border-color: #2e6da4;
 }
 
 
