@@ -385,6 +385,13 @@ function* definedCompSaga(numQuestions, assessmentId) {
 
   uploadEffects.push( 
     yield takeLatest(TURN_IN_CLICKED, function* () {
+
+      yield call(playSound, '/audio/complete.mp3')
+      yield put({ type: SPINNER_SHOW })
+
+
+
+
       const assID = yield getLastAssessmentID()
        .catch(e => e.request) // TODO
 

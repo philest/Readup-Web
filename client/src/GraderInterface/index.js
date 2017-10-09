@@ -669,6 +669,7 @@ export default class GraderInterface extends React.Component {
       console.log('found s3 for question: ', qNum)
 
       if (!isOnPageLoad) {
+        console.log("starting to play sound...");
         playSoundAsync('/audio/complete.mp3')
       }
 
@@ -710,7 +711,7 @@ export default class GraderInterface extends React.Component {
 
       if (this.state.showQArr[String(q)]) {
         return ( 
-          <div style={{marginBottom: 20}} key={q}>
+          <div style={{marginBottom: 20, marginTop: 20}} key={q}>
             <h5>{label}</h5>
             <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
               <source src={url} />
@@ -771,7 +772,7 @@ export default class GraderInterface extends React.Component {
 
       if (this.state.showQArr[String(q)]) {
         audioPlayers.push (
-          <div style={{marginBottom: 20}} key={q}>
+          <div style={{marginBottom: 20, marginTop: 20}} key={q}>
             <h5>{label}</h5>
             <audio controls ref={"audioPlayer"+String(q)} className={styles.audioElement}>
               <source src={url} />
@@ -1459,7 +1460,7 @@ renderCompQuestions6 = () => {
        {this.state.showSubmitAlert &&
         <div className={styles.alertSuccess}>
           <Alert bsStyle="success" onDismiss={this.handleAlertDismiss}>
-            <strong>Great!</strong> You can see the scored report <a target="_blank" href={`/reports/${this.props.userID}`}>here</a>.
+            <strong>Great!</strong> We successfully sent the scored report. You can see it <a target="_blank" href={`/reports/${this.props.userID}`}>here</a>.
           </Alert>
         </div>
       }
@@ -1467,7 +1468,7 @@ renderCompQuestions6 = () => {
        {this.state.showSaveAlert &&
         <div className={styles.alertSuccess}>
           <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
-            <strong>Great!</strong> your partner was notified and sent all your edits.
+            <strong>Great!</strong> Your edits were saved successfully.
           </Alert>
         </div>
       }
