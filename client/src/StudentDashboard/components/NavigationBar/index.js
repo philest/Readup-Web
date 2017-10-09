@@ -29,7 +29,7 @@ export default class NavigationBar extends React.Component {
     onPreviewClicked: PropTypes.func,
     onSaveClicked: PropTypes.func,
     brand: PropTypes.string,
-    onSubmitClicked: PropTypes.func,
+    showChecklistModal: PropTypes.func,
     hideMenuItems: PropTypes.bool, 
   };
   static defaultProps = {
@@ -123,7 +123,7 @@ export default class NavigationBar extends React.Component {
       rightIconLabel = "Retry demo"
     } 
     else if (this.props.onGrading) {
-      onRightIconClick = this.props.onSubmitClicked
+      onRightIconClick = this.props.showChecklistModal
       rightIconButton = 'fa fa-paper-plane'
       rightIconLabel = "Send to user"
 

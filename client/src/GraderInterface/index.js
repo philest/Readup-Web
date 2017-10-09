@@ -136,6 +136,7 @@ export default class GraderInterface extends React.Component {
       showCompletedModal: false,
       hasSeenCompletedModal: this.props.completed,
       showPromptAlert: false,
+      showChecklistModal: false,
     }
         this.tick = this.tick.bind(this);
 
@@ -193,8 +194,15 @@ export default class GraderInterface extends React.Component {
 
   closeReportReadyModal = () => {
 
-    this.setState({ showReadyForReviewModal: false,
-                  })
+    this.setState({ showReadyForReviewModal: false })
+  }
+
+  closeChecklistModal = () => {
+    this.setState({ showChecklistModal: false })
+  }
+
+  showChecklistModal = () => {
+    this.setState({ showChecklistModal: true })
   }
 
   closeCompletedModal = () => {
@@ -605,7 +613,8 @@ export default class GraderInterface extends React.Component {
 
     markScored(this.props.assessmentID)
     this.setState({showSubmitAlert: true,
-                   showSaveAlert: false
+                   showSaveAlert: false,
+                   showChecklistModal: false,
                   })
 
   }
@@ -848,7 +857,7 @@ export default class GraderInterface extends React.Component {
         onReader: false,
         onPreviewClicked: this.onPreviewClicked,
         onSaveClicked: this.onSaveClicked,
-        onSubmitClicked: this.onSubmitClicked,
+        showChecklistModal: this.showChecklistModal,
         hideMenuItems: isWaiting,
 
     }
@@ -1431,6 +1440,55 @@ renderCompQuestions6 = () => {
         </Modal>
 
 
+       <style type="text/css">{'.modal-backdrop.in { opacity: 0.7; } '}</style>
+        <Modal show={this.state.showChecklistModal} onHide={this.closeChecklistModal} dialogClassName={reportStyles.modalMedium}>
+          <Modal.Header closeButton>
+            <Modal.Title bsClass={[reportStyles.pricingModalTitle, reportStyles.readyModalTitle].join(' ')}>
+              First review this checklist!
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body bsClass={reportStyles.readyModalBody}>
+
+            <div style={{marginTop: 10, marginBottom: 30}}className={reportStyles.pricingFormWrapper}>
+
+              <h4>Did you?...</h4>
+              <ul>
+              <li>Score the oral reading for Additions, Deletions, Substitutions, and Ending early?</li>
+              <li>
+              <ul>
+              <li>use the proper &ldquo;/sc&rdquo; edit for a self correct?</li>
+              <li>phonetically spell-out nonsense words? &nbsp;&nbsp;&nbsp;</li>
+              </ul>
+              </li>
+              <li>Score each edit with any MSV cues used?&nbsp;</li>
+              <li>Give a fluency score?&nbsp;</li>
+              <li>Score each answered comprehension question?&nbsp;</li>
+              <li>
+              <ul>
+              <li>Write out the student response?&nbsp;</li>
+              <li>Mark it as Missed or Correct?</li>
+              <li>(optional) tweak the comment to add one specific detail?&nbsp;</li>
+              </ul>
+              </li>
+              <li>Wait until you got the yellow &ldquo;completed&rdquo; alert?</li>
+              <li>Preview the report and see that everything looks right?&nbsp;</li>
+              </ul>
+
+            </div>
+
+
+                <Button
+                  className={[reportStyles.pricingFormButton, reportStyles.seeYourReportButton].join(' ')}
+                  bsStyle={'success'}
+                  onClick={this.onSubmitClicked}
+                >
+                  Yes, send it! 
+                </Button>
+
+          </Modal.Body>
+        </Modal>
+
+
 
         <div style={{opacity: (this.state.showQArr[String(0)] || !this.props.isPartner) ? 1 : 0.4 }} className={styles.fluencyContainer}>
           <div className={styles.bookInfo}>
@@ -1525,7 +1583,7 @@ renderCompQuestions6 = () => {
           className={styles.unscorableButton}
           bsStyle={'success'}
           bsSize={'small'}
-          onClick={this.onSubmitClicked}
+          onClick={this.showChecklistModal}
         >
           Send to user
         </Button>
