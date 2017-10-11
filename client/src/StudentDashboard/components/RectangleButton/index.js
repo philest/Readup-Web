@@ -49,7 +49,7 @@ function RectangleButton ({
     return (
 
           <ButtonArray
-            titles={['Thinking of next question...']}
+            titles={['Prompting disabled for this demo...']}
             images={['fa-spinner faa-spin animated']}
             actions={[null]}
             inline={true}
