@@ -47,8 +47,6 @@ export default class LevelResult extends React.Component {
 
   }
 
-
-
   getClass() {
    
     if (this.props.reassess === true || this.props.didEndEarly || this.props.yellowColorOverride) {
@@ -102,6 +100,11 @@ export default class LevelResult extends React.Component {
     }
 
 
+    if (this.props.didEndEarly) {
+      title = titleNoFinish
+    } else {
+      title = titleNormal
+    }
 
 
 
@@ -178,7 +181,7 @@ export default class LevelResult extends React.Component {
 
         `}</style>
         <Panel header={title} bsStyle={this.getClass()}>
-          
+          {"test"}
         </Panel>
 
       </div>
