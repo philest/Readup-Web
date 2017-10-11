@@ -47,25 +47,6 @@ export default class LevelResult extends React.Component {
 
   }
 
-  getDelta(difficulty) {
-    if (this.props.reassess || this.props.didEndEarly) {
-      return 0
-    } else if (difficulty === 'Frustrational') {
-      return -1
-    } else {
-      return 1
-    }
-  }
-
-  getNextLevelString(delta, assessmentBrand) {
-    
-    if (assessmentBrand === 'FP'){
-      return "Level " + String.fromCharCode(this.props.currentLevel.charCodeAt(0) + delta)
-    }
-    else {
-      return "STEP " + String(Number(this.props.currentLevel) + delta)
-    }
-  }
 
 
   getClass() {
@@ -121,13 +102,6 @@ export default class LevelResult extends React.Component {
     }
 
 
-    if (this.props.didEndEarly) {
-      title = titleNoFinish
-      nextStepMsg = "Next Step: Reassess at " + this.getNextLevelString(this.getDelta(this.props.difficulty), this.props.assessmentBrand)
-    } else {
-      title = titleNormal
-      nextStepMsg = "Next Step: Assess at " + this.getNextLevelString(this.getDelta(this.props.difficulty), this.props.assessmentBrand)
-    }
 
 
 
@@ -204,7 +178,7 @@ export default class LevelResult extends React.Component {
 
         `}</style>
         <Panel header={title} bsStyle={this.getClass()}>
-          {nextStepMsg}
+          
         </Panel>
 
       </div>

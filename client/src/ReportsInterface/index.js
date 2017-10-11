@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Button, Modal, FormGroup, FormControl, ControlLabel, OverlayTrigger  } from 'react-bootstrap'
+import { Button, Modal, FormGroup, FormControl, ControlLabel, OverlayTrigger, Alert } from 'react-bootstrap'
 
 
 import styles from './styles.css'
@@ -95,6 +95,7 @@ export default class ReportsInterface extends React.Component {
       draftingNote: false,
       noteExists: (this.props.teacherNote !== null),
       teacherNote: this.props.teacherNote,
+      showAssignSuccessAlert: false
     }
     this.tick = this.tick.bind(this);
 
@@ -492,6 +493,17 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  onAssignClicked = () => {
+    this.setState({ showAssignSuccessAlert: true })
+  }
+
+  handleAlertDismiss = () => {
+    this.setState({ showAssignSuccessAlert: false })
+  }
+
+
+
+
 
   _handleKeyDown = (event) => {
     if (this.state.showPricingModal && event.code === 'Enter') {
@@ -779,8 +791,38 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  getNextLevelString(delta, assessmentBrand, bookLevel) {
+    
+    if (assessmentBrand === 'FP'){
+      return "Level " + String.fromCharCode(bookLevel.charCodeAt(0) + delta)
+    }
+    else {
+      return "STEP " + String(Number(bookLevel) + delta)
+    }
+  }
+
+  getDelta(difficulty, didEndEarly) {
+
+    if (this.props.isSample) {
+      return -1
+    }
+
+
+    if (this.props.isUnscorable || didEndEarly) {
+      return 0
+    } else if (difficulty === 'Frustrational') {
+      return -1
+    } else {
+      return 1
+    }
+  }
+
+
+
+
 
   render() {
+
 
 
     let subtotals = this.getSubtotals() 
@@ -842,6 +884,11 @@ export default class ReportsInterface extends React.Component {
 
 
 
+    let nextStepMsg = this.getNextLevelString(this.getDelta(difficulty, itDidEndEarly), this.props.assessmentBrand, bookLevel)
+    // console.log('nextStepMsg: ', nextStepMsg)
+    // console.log('itDidEndEarly: ', itDidEndEarly)
+    // console.log('bookLevel: ', bookLevel)
+    // console.log('difficulty: ', difficulty)
 
 
     return (
@@ -893,13 +940,10 @@ export default class ReportsInterface extends React.Component {
 
               { this.props.userID > 155 &&
                 <div onClick={this.onAssignClicked} className={styles.playbookTrigger}>
-                  Assign STEP 11
+                  Assign {nextStepMsg}
                   <i className={'fa fa-arrow-right'} style={{ marginLeft: 6 }} />
                 </div>
               } 
-
-
-
 
             </div>
 
@@ -1002,6 +1046,15 @@ export default class ReportsInterface extends React.Component {
 
           </div>
 
+
+
+            {this.state.showAssignSuccessAlert &&
+              <div className={styles.alertSuccess}>
+                <Alert bsStyle="success" onDismiss={this.handleAlertDismiss}>
+                  <strong>Great!</strong> They'll get their next assessment when they log in.
+                </Alert>
+              </div>
+            }
 
           <h5 className={styles.sectionHeader}>1. ORAL READING</h5>
 
@@ -1747,7 +1800,6 @@ export default class ReportsInterface extends React.Component {
         </Modal>
 
         <style type="text/css">{'.btn-primary:hover {  background-color: #337ab7; border-color: #2e6da4; }'}</style>
-
 
 
 
