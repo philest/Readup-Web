@@ -842,6 +842,9 @@ const initialState = {
   showSpinner: false,
   countdownValue: -1,
   showVolumeIndicator: true,
+  inComp: false,
+  inSpelling: false,
+  inOralReading: true,
 }
 
 

@@ -66,6 +66,7 @@ function mapStateToProps(state) {
     showSpinner: state.reader.showSpinner,
     countdownValue: state.reader.countdownValue,
     inComp: state.reader.inComp,
+    inSpelling: state.reader.inSpelling,
     showVolumeIndicator: state.reader.showVolumeIndicator,
   }
 }
