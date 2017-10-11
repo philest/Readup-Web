@@ -3,7 +3,7 @@ import RctOnR from 'react-on-rails'
 import axios from 'axios'
 import _forOwn from 'lodash/forOwn'
 
-import { updateStudent } from '../../ReportsInterface/emailHelpers.js'
+import { updateStudent, getAssessmentData } from '../../ReportsInterface/emailHelpers.js'
 
 import {
   PromptOptions,
@@ -123,6 +123,23 @@ export function getLastAssessmentID() {
   })
 
 }
+
+
+export function getIsLiveDemo(assID) {
+
+    let assessment = getAssessmentData(assID)
+
+      assessment.then((assessment) => {
+        console.log('assessment: ', assessment)
+        return assessment.is_live_demo
+
+    }).catch(function(err) {
+      console.log(err)
+      return false 
+    })
+
+}
+
 
 
 

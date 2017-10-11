@@ -44,7 +44,6 @@ Rails.application.routes.draw do
   get 'auth/get_last_student_id', to: 'registration#get_last_student_id'
   get 'auth/get_last_assessment_id', to: 'registration#get_last_assessment_id'
 
-
   get 'auth/user_exists', to: 'users#exists'
   get 'auth/complete_signup', to: 'users#show_complete_signup'
 

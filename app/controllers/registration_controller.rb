@@ -5,6 +5,8 @@ class RegistrationController < ApplicationController
   # TODO PHIL - skip for now 
   skip_before_action :verify_authenticity_token
 
+
+
   def get_user_count
     puts "now getting count...."
 

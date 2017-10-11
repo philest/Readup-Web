@@ -23,6 +23,7 @@ import {
   getLastStudentID,
   getLastAssessmentID,
   markCompleted,
+  getIsLiveDemo,
 } from './networkingHelpers'
 
 import {
@@ -554,6 +555,14 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
   const studentID = yield getLastStudentID()
     .catch(e => e.request) // TODO
+
+  const assID = yield getLastAssessmentID()
+   .catch(e => e.request) // TODO
+
+  let isLiveDemo = yield call(getIsLiveDemo, assID)
+
+  yield clog("LOOK HERE! isLiveDemo: ", isLiveDemo)
+
 
   yield clog('studentID is', studentID)
 
