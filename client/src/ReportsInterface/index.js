@@ -885,10 +885,20 @@ export default class ReportsInterface extends React.Component {
 
 
               { this.props.userID > 155 &&
-                <div onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>See playbook
+                <div onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>
+                  See playbook
                   <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
                 </div>
               } 
+
+              { this.props.userID > 155 &&
+                <div onClick={this.onAssignClicked} className={styles.playbookTrigger}>
+                  Assign STEP 11
+                  <i className={'fa fa-arrow-right'} style={{ marginLeft: 6 }} />
+                </div>
+              } 
+
+
 
 
             </div>
