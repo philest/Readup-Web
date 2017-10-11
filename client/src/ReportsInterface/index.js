@@ -1050,7 +1050,7 @@ export default class ReportsInterface extends React.Component {
 
             {this.state.showAssignSuccessAlert &&
               <div className={styles.alertSuccess}>
-                <Alert bsStyle="success" onDismiss={this.handleAlertDismiss}>
+                <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
                   <strong>Great!</strong> They'll get their next assessment when they log in.
                 </Alert>
               </div>
