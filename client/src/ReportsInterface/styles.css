@@ -117,6 +117,7 @@
 	font-family: 'ProximaNova Semibold';
 	color: #2e6da4;
 	cursor: pointer;
+	width: 9.5em;
 }
 
 .playbookTrigger:hover  {
