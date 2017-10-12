@@ -1,11 +1,12 @@
 // some really smart notes:
 // https://github.com/reactjs/redux/issues/1171
 
-
+import LogRocket from 'logrocket';
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { autoRehydrate } from 'redux-persist'
 import readerReducer from './state'
+
 
 
 // import componentsReducer       from './components/reducer'
@@ -36,6 +37,7 @@ const store = createStore(
   composeEnhancers(
     applyMiddleware(
       sagaMiddleware,
+      LogRocket.reduxMiddleware(),
     ),
     autoRehydrate(),
   ),

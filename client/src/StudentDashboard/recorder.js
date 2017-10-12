@@ -41,6 +41,9 @@ export default class Recorder {
     });
   };
 
+
+
+
   initialize = (callback) => {
 
     if (!!this.rtcRecorder) {
@@ -66,8 +69,8 @@ export default class Recorder {
         callback && callback(null)
         return true
       } catch (err) {
-        sendEmail(err, "captureMedia inner startRecording failed", "philesterman@gmail.com")
-        console.log("captureMedia inner startRecording ERROR: ", err)
+        sendEmail(err, "captureMedia (inner-most) startRecording failed", "philesterman@gmail.com")
+        console.log("captureMedia (inner-most) startRecording ERROR: ", err)
         callback && callback(null)
         return true
       }
@@ -86,19 +89,18 @@ export default class Recorder {
   startRecording = () => {
 
     try {
-    this.captureUserMedia((stream) => {
-      try {
-    	this.rtcRecorder.startRecording()
-      this.recording = true
-      } catch (err) {
-        sendEmail(err, "inner startRecording failed", "philesterman@gmail.com")
-        console.log("inner startRecording ERROR: ", err)
-      }
-
-    });
+      this.captureUserMedia((stream) => {
+        try {
+    	   this.rtcRecorder.startRecording()
+         this.recording = true
+        } catch (err) {
+          sendEmail(err, "inner startRecording failed", "philesterman@gmail.com")
+          console.log("inner startRecording ERROR: ", err)
+        }
+      });
     } catch (err) {
-      sendEmail(err, "startRecording failed", "philesterman@gmail.com")
-      console.log("startRecording ERROR: ", err)
+        sendEmail(err, "startRecording failed", "philesterman@gmail.com")
+        console.log("startRecording ERROR: ", err)
     }
 
   }

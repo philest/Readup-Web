@@ -113,6 +113,7 @@ function getPermission(recorder) {
     recorder.initialize()
     return true
   }).catch(function(err) {
+    console.log('ERROR getting mic permissions : ', err)
     return false
   });
   // return new Promise(function(resolve, reject) {
