@@ -53,6 +53,7 @@ export default class Recorder {
 
     console.log('initialize Recorder -- requestUserMedia')
     this.captureUserMedia((stream, error) => {
+
       if (error) {
         console.log('!!errror capturing user media!!')
         return callback && callback(error)
@@ -64,6 +65,13 @@ export default class Recorder {
       // this.rtcRecorder = RecordRTC(stream, { recorderType: RecordRTC.StereoAudioRecorder, bitsPerSecond: 30000, numberOfAudioChannels: 1, mimeType: 'audio/wav' });
   
       try {
+
+        // the MUAZ KHAN edits
+        var hiddenAudio = document.createElement('audio');
+        hiddenAudio.srcObject = stream // this line is required to make sure stream tracks aren't stopped/released
+        hiddenAudio.muted = true
+        hiddenAudio.play()
+
 
         this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'true' });
         callback && callback(null)
