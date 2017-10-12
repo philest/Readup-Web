@@ -125,21 +125,29 @@ export function getLastAssessmentID() {
 }
 
 
-export function getIsLiveDemo(assID) {
 
-    let assessment = getAssessmentData(assID)
 
-      assessment.then((assessment) => {
-        console.log('assessment: ', assessment)
-        return assessment.is_live_demo
 
-    }).catch(function(err) {
-      console.log(err)
-      return false 
-    })
+export function getIsLiveDemo() {
+
+
+  console.log("Okay, getting live demo...");
+
+  return axios.get(`/auth/get_is_live_demo`, {
+      headers: RctOnR.authenticityHeaders(),
+    }).then(res => {
+
+      
+    return res.data.is_live_demo;
+  })
+  .catch(err => {
+    console.log(err);
+    return false
+  })
+
+
 
 }
-
 
 
 

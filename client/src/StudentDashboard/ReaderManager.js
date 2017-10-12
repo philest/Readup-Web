@@ -67,6 +67,7 @@ function mapStateToProps(state) {
     countdownValue: state.reader.countdownValue,
     inComp: state.reader.inComp,
     showVolumeIndicator: state.reader.showVolumeIndicator,
+    isLiveDemo: state.reader.isLiveDemo,
   }
 }
 
@@ -245,6 +246,7 @@ class StudentDashboard extends React.Component {
           close={this.props.actions.seeBookClicked}
           disabled={(this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.readerState === ReaderStateOptions.talkingAboutStartButton) || (this.props.readerState === ReaderStateOptions.talkingAboutStopButton) || (this.props.readerState === ReaderStateOptions.talkingAboutSeeBook) }
           showSpinner={this.props.showSpinner}
+          showPrompting={this.props.isLiveDemo}
           question={this.props.book.questions[this.props.questionNumber]}
           includeDelay={this.props.questionNumber === 1}
           prompt={this.props.prompt}

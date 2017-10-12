@@ -62,6 +62,7 @@ import {
   LAST_QUESTION_EXITED,
   VOLUME_INDICATOR_HIDDEN,
   BOOK_KEY_SET,
+  LIVE_DEMO_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -76,6 +77,7 @@ import {
   setQuestionNumber,
   setPrompt,
   hideVolumeIndicator,
+  setLiveDemo
 
 } from '../state'
 
@@ -556,12 +558,15 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
   const studentID = yield getLastStudentID()
     .catch(e => e.request) // TODO
 
-  const assID = yield getLastAssessmentID()
-   .catch(e => e.request) // TODO
+ 
+ 
+  let isLiveDemo = yield call(getIsLiveDemo)
 
-  let isLiveDemo = yield call(getIsLiveDemo, assID)
+  yield clog("isLiveDemo: ", isLiveDemo)
 
-  yield clog("LOOK HERE! isLiveDemo: ", isLiveDemo)
+  if (isLiveDemo) {
+    yield put.resolve(setLiveDemo(true))
+  }
 
 
   yield clog('studentID is', studentID)
@@ -593,11 +598,13 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
   yield put({ type: SPINNER_SHOW })
 
+  let waitingTime = (isLiveDemo ? 8000 : 3000)
+  console.log('waitingTime: ', waitingTime)
 
 
   const { prompt, timeout } = yield race({
     prompt: call(newFetchUntilPrompt, studentID),
-    timeout: call(delay, 8000),
+    timeout: call(delay, waitingTime),
   })
 
 
@@ -660,7 +667,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
 
 function* hideVolumeSaga() {
-    yield call(delay, 4700)
+    yield call(delay, 5500)
     yield put.resolve(hideVolumeIndicator())
 }
 

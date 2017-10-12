@@ -67,6 +67,7 @@ export default class Reader extends React.Component {
     currentShowModal: PropTypes.string,
     introAudioSrc: PropTypes.string,
     showVolumeIndicator: PropTypes.bool,
+    isLiveDemo: PropTypes.bool,
   };
 
   static defaultProps = {

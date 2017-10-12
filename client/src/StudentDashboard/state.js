@@ -81,6 +81,8 @@ export const COMP_PAUSE_CLICKED = 'COMP_PAUSE_CLICKED'
 export const LAST_QUESTION_EXITED = 'LAST_QUESTION_EXITED'
 export const VOLUME_INDICATOR_HIDDEN = 'VOLUME_INDICATOR_HIDDEN'
 
+export const LIVE_DEMO_SET = 'LIVE_DEMO_SET'
+
 
 
 export function setReaderState(readerState: ReaderState) {
@@ -91,6 +93,9 @@ export function setReaderState(readerState: ReaderState) {
     },
   }
 }
+
+
+
 
 export function setPageNumber(pageNumber: number) {
   return {
@@ -445,6 +450,16 @@ export function setQuestionNumber(questionNumber: number) {
 export function exitLastQuestion() {
   return {
     type: LAST_QUESTION_EXITED,
+  }
+}
+
+
+export function setLiveDemo(isLiveDemo: boolean) {
+  return {
+    type: LIVE_DEMO_SET,
+    payload: {
+      isLiveDemo,
+    },
   }
 }
 
@@ -842,6 +857,7 @@ const initialState = {
   showSpinner: false,
   countdownValue: -1,
   showVolumeIndicator: true,
+  isLiveDemo: false,
 }
 
 
@@ -1027,6 +1043,10 @@ function reducer(state = initialState, action = {}) {
 
     case IN_COMP_SET: {
       return { ...state, inComp: payload.inComp }
+    }
+
+    case LIVE_DEMO_SET: {
+      return { ...state, isLiveDemo: payload.isLiveDemo }
     }
 
 

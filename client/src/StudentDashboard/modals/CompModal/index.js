@@ -43,6 +43,7 @@ export default class CompModal extends React.Component {
     includeDelay: PropTypes.bool,
     prompt: PropTypes.string,
     onExitLastQuestion: PropTypes.func,
+    showPrompting: PropTypes.bool,
   };
 
   /**
@@ -130,6 +131,7 @@ export default class CompModal extends React.Component {
                 partiallyDisabled={talkingAboutStartButton}
                 onClick={this.props.onStartClicked}
                 showSpinner={this.props.showSpinner}
+                showPrompting={this.props.showPrompting}
               />
 
             }
@@ -144,6 +146,8 @@ export default class CompModal extends React.Component {
                 disabled={this.props.disabled && !talkingAboutStopButton}
                 onClick={this.onStop}
                 showSpinner={this.props.showSpinner}
+                showPrompting={this.props.showPrompting}
+
               />
             }
 

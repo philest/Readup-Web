@@ -176,6 +176,10 @@ export default class GraderInterface extends React.Component {
     }
 
 
+    if (!this.props.isLiveDemo) {
+      this.onIsLiveDemoClicked() // being on grader makes it a live demo 
+    }
+
 
   }
 

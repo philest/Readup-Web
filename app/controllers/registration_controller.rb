@@ -7,6 +7,16 @@ class RegistrationController < ApplicationController
 
 
 
+  def get_is_live_demo
+    puts "now getting live demo...."
+
+    render json: { ok: true, is_live_demo: Assessment.last.is_live_demo }, status: :ok, location: @user
+
+    return Assessment.last.is_live_demo 
+  end
+
+
+
   def get_user_count
     puts "now getting count...."
 

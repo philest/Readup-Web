@@ -15,6 +15,7 @@ type props = {
   style: {},
   showSpinner: boolean,
   id: string,
+  showPrompting: boolean, 
 };
 
 function RectangleButton ({
@@ -27,6 +28,7 @@ function RectangleButton ({
   style = {},
   showSpinner = false,
   id = "",
+  showPrompting = false, 
 
 } : props) {
 
@@ -49,7 +51,7 @@ function RectangleButton ({
     return (
 
           <ButtonArray
-            titles={['Prompting disabled for this demo...']}
+            titles={showPrompting ? ['Thinking of next question...'] : ['Prompting disabled for this demo...']}
             images={['fa-spinner faa-spin animated']}
             actions={[null]}
             inline={true}
