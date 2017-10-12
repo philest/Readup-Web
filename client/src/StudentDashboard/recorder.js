@@ -89,7 +89,14 @@ export default class Recorder {
   startRecording = () => {
 
     try {
-      this.captureUserMedia((stream) => {
+      this.captureUserMedia((stream, error) => {
+
+        if (error) {
+          console.log('error capturing user media (in startRecording)!!')
+          sendEmail(error, 'error capturing user media (in startRecording)', "philesterman@gmail.com")
+          return
+        }
+
         try {
     	   this.rtcRecorder.startRecording()
          this.recording = true
