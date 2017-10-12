@@ -495,7 +495,12 @@ export default class ReportsInterface extends React.Component {
 
   onAssignClicked = () => {
     this.setState({ showAssignSuccessAlert: true })
+
+    setTimeout(() => {
+      this.setState({ showAssignSuccessAlert: false })
+    }, 5500);
   }
+
 
   handleAlertDismiss = () => {
     this.setState({ showAssignSuccessAlert: false })
