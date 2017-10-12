@@ -106,6 +106,7 @@ export default class Recorder {
         }
 
         try {
+         this.initialize()
     	   this.rtcRecorder.startRecording()
          this.recording = true
         } catch (err) {
