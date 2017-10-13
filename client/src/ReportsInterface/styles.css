@@ -81,7 +81,7 @@
 }
 
 .mainHeadingContainer {
-
+	min-width: 266px;
 }
 
 .studentNameHeading {
@@ -242,6 +242,8 @@ button, .playbookTrigger {
 
 .metricLabelWithDetails {
 	transition: all .3s;
+	width: 92px;  /*so the metric caret doesn't break to new line*/
+    text-align: center;
 }
 
 
