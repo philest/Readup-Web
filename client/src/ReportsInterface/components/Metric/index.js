@@ -199,9 +199,9 @@ export default class Metric extends React.Component {
   }
 
   getWCPMColor(wcpm) {
-    if (wcpm >= 25) {
+    if (wcpm >= 51) {
       return 'good'
-    } else if (wcpm >= 15) {
+    } else if (wcpm >= 30) {
       return 'fair'
     } else {
       return 'poor'
