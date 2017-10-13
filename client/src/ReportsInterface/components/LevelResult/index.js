@@ -179,6 +179,16 @@ export default class LevelResult extends React.Component {
           border-color: #d6e9c6;
         }
 
+        .panel-myWarning div.panel-heading {
+          min-width: 280px;
+        }
+
+        .panel-mySuccess {
+          max-width: 250px;
+          min-width: 245px;
+        }
+
+
         `}</style>
         <Panel header={title} bsStyle={this.getClass()}>
           {"test"}
