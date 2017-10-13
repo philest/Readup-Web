@@ -50,6 +50,23 @@
     margin: 0 auto;
   }
 
+  .specialists {
+    font-size: 26px;
+    color: #6ab159;
+  }
+
+  .specialists:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: #77cb63;
+
+  }
+
+  .specialists a {
+    color: #6ab159;
+
+  }
+
   #educatorTrustTitle {
     text-align: left;
     color: #4a4a4a !important;
@@ -379,6 +396,10 @@
       width: 100%;
       font-size: 17px;
       }
+
+    .specialists {
+      font-size: 24px;
+    }
 
     .product-text {
       margin-top: 20px;
@@ -790,6 +811,9 @@ a.demo-button button#new-hero-button {
     margin-bottom: 0px;
     display: none; 
   }
+
+
+
 }
 
 
@@ -835,7 +859,7 @@ a.demo-button button#new-hero-button {
         </h1>
 
           <h4 id="sub-pitch">
-            ReadUp's <span>reading specialists</span> listen to students read and score a full assessment for you with a running record, a comprehension conversation, fluency, miscue analysis, and a recording
+            ReadUp's <span class="specialists"><a href='/reports/direct-sample?brand=<%= @brand[:code]%>'>reading specialists</a></span> listen to students read and score a full assessment for you with a running record, a comprehension conversation, fluency, miscue analysis, and a recording
 
  
            </h4>
