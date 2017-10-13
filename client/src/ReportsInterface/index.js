@@ -95,7 +95,7 @@ export default class ReportsInterface extends React.Component {
       draftingNote: false,
       noteExists: (this.props.teacherNote !== null),
       teacherNote: this.props.teacherNote,
-      showAssignSuccessAlert: false
+      showAssignSuccessAlert: false,
     }
     this.tick = this.tick.bind(this);
 
@@ -846,7 +846,7 @@ export default class ReportsInterface extends React.Component {
 
 
     const acc = getAccuracy(this.state.gradedText)
-    const WCPM = getWCPM(this.state.gradedText)
+    const WCPM = getWCPM(this.state.gradedText, this.props.totalTimeReading, this.props.isSample)
     const comp = 7
 
     let itDidEndEarly = didEndEarly(this.state.gradedText)

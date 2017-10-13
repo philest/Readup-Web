@@ -376,6 +376,7 @@ export default class ReportWithScorer extends React.Component {
             bookKey={this.props.bookKey}
             env={this.props.env}
             teacherNote={this.props.teacherNote}
+            totalTimeReading={this.props.totalTimeReading}
           />
         </div>
 
