@@ -361,6 +361,8 @@ button, .playbookTrigger {
 	font-weight: bold;
 	font-weight: bold;
 	font-size: 1.6em;
+	min-width: 157px;
+
 }
 
 .bookInfoLevel {
@@ -770,3 +772,4 @@ a:hover {
 	}	
 
 }
+

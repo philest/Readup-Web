@@ -224,4 +224,9 @@
 
 }
 
+@media (max-width: 768px) {
+	.tryButton, .tryButtonMuted {
+		display: none;
+	}
+}
 
