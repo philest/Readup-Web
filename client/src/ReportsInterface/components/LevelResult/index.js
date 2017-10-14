@@ -24,6 +24,7 @@ export default class LevelResult extends React.Component {
     didEndEarly: PropTypes.bool,
     yellowColorOverride: PropTypes.bool,
     assessmentBrand: PropTypes.string,
+    userID: PropTypes.number,
   };
 
   static defaultProps = {
@@ -64,7 +65,7 @@ export default class LevelResult extends React.Component {
     if (FPdifficulty === 'Frustrational') {
       return 'Did not achieve'
     } else {
-      return "Achieved"
+      return "Just Achieved"
     }
   }
 
@@ -134,8 +135,6 @@ export default class LevelResult extends React.Component {
 
         .panel-myDanger .panel-body, .panel-myWarning .panel-body, .panel-mySuccess .panel-body {
           padding: 8px 15px 8px 17px;
-          font-style: italic;
-          display: none;
 
         }
 
@@ -184,14 +183,28 @@ export default class LevelResult extends React.Component {
         }
 
         .panel-mySuccess {
-          max-width: 250px;
+          max-width: 300px;
           min-width: 245px;
         }
 
 
         `}</style>
         <Panel header={title} bsStyle={this.getClass()}>
-          {"test"}
+
+          <div onClick={this.props.onAssignClicked} className={styles.playbookTrigger}>
+            Assign {this.props.nextStepMsg}
+            <i className={'fa fa-arrow-right'} style={{ marginLeft: 6 }} />
+          </div>
+
+
+          { 
+            <div onClick={this.props.onPlaybookClicked} className={styles.playbookTrigger}>
+              See strategies
+              <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
+            </div>
+          } 
+
+
         </Panel>
 
       </div>

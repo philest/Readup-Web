@@ -920,10 +920,12 @@ export default class ReportsInterface extends React.Component {
                   didEndEarly={false}
                   yellowColorOverride={true}
                   assessmentBrand={this.props.assessmentBrand}
+                  nextStepMsg={nextStepMsg}
+                  onAssignClicked={this.onAssignClicked}
+                  onPlaybookClicked={this.onPlaybookClicked}
+
                 />
               }
-
-
 
 
               { !this.props.isSample &&
@@ -933,23 +935,14 @@ export default class ReportsInterface extends React.Component {
                   reassess={this.props.isUnscorable}
                   didEndEarly={itDidEndEarly}
                   assessmentBrand={this.props.assessmentBrand}
+                  nextStepMsg={nextStepMsg}
+                  userID={this.props.userID}
+                  onAssignClicked={this.onAssignClicked}
+                  onPlaybookClicked={this.onPlaybookClicked}
                 />
               }
 
 
-              { this.props.userID > 155 &&
-                <div onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>
-                  See playbook
-                  <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
-                </div>
-              } 
-
-              { this.props.userID > 155 &&
-                <div onClick={this.onAssignClicked} className={styles.playbookTrigger}>
-                  Assign {nextStepMsg}
-                  <i className={'fa fa-arrow-right'} style={{ marginLeft: 6 }} />
-                </div>
-              } 
 
             </div>
 
