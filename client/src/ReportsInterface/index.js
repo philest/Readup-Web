@@ -1579,7 +1579,7 @@ export default class ReportsInterface extends React.Component {
             bsStyle={'primary'}
             onClick={this.onAddNoteClicked}
           >
-          Add notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
+          Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
           </Button>
         }
 
@@ -1602,7 +1602,7 @@ export default class ReportsInterface extends React.Component {
 
         { this.state.noteExists && 
           <div>
-            <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
+            <ControlLabel className={styles.noteControlLabel}>{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
             <p className={styles.editTeacherNoteText}>
             { this.state.teacherNote } 
             </p>
