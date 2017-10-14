@@ -773,3 +773,9 @@ a:hover {
 
 }
 
+@media (max-width: 1240px) {
+
+	.strategiesTrigger { 
+		margin-top: 10px;
+	}
+}
