@@ -781,10 +781,8 @@ export default class ReportsInterface extends React.Component {
     let numSections = book.numSections
     let arr = []
 
-      console.log(`here i am in subtoal`)
 
     for (let i = 1; i <= numSections; i++){
-      console.log(`here i am..${i}`)
       const label = book.sections[String(i)]
       const str = String(this.getCompSectionTotal(i)) + '/' + String(this.getCompSectionDenom(i))
       const num = this.getCompSectionTotal(i) / this.getCompSectionDenom(i)
@@ -853,9 +851,6 @@ export default class ReportsInterface extends React.Component {
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
 
-    console.log('total M errors: ', this.getTotalMiscueType('M'))
-
-    console.log('total errors: ', this.getNumErrors())
 
 
     // let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
@@ -891,10 +886,6 @@ export default class ReportsInterface extends React.Component {
 
 
     let nextStepMsg = this.getNextLevelString(this.getDelta(difficulty, itDidEndEarly), this.props.assessmentBrand, bookLevel)
-    // console.log('nextStepMsg: ', nextStepMsg)
-    // console.log('itDidEndEarly: ', itDidEndEarly)
-    // console.log('bookLevel: ', bookLevel)
-    // console.log('difficulty: ', difficulty)
 
 
     return (

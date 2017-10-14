@@ -265,8 +265,6 @@ export default class Metric extends React.Component {
 
   render() {
 
-    console.log(movesSet)
-
 
     const accPopover = (
       <Popover id="popover-positioned-bottom" title="MSV cues used" className={[css.myPopover, css.compPopover].join(' ')}>

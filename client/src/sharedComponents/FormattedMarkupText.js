@@ -26,11 +26,8 @@ export function wasMSVgraded(paragraphs) {
     paragraph.words.forEach(function(wordDict, wordIdx) {
       
         if (wordHasError(wordDict) !== null) {
-          console.log('a word has an error')
           let msvForWord = getMSVforWord(wordDict)
-          console.log('msvForWord is: ', msvForWord)
           if (msvForWord !== '') {
-            console.log('here i am....')
             result = true
           }
         }
