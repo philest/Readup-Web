@@ -839,9 +839,10 @@ export default class ReportsInterface extends React.Component {
     for (let i = 0; i < 3; i++) {
       let label = msv[i]
       let str = String(Math.round((this.getTotalMiscueType(msv[i][0])  / this.getNumErrors()) * 100))
+      let ratioStr = String(this.getTotalMiscueType(msv[i][0])) + '/' + String(this.getNumErrors())
       let num = this.getTotalMiscueType(msv[i][0]) / this.getNumErrors()
 
-      msvArr.push([label, str, num])
+      msvArr.push([label, str, num, ratioStr])
     }
 
 
