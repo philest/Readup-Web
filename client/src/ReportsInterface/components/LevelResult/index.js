@@ -198,7 +198,7 @@ export default class LevelResult extends React.Component {
 
 
           { 
-            <div onClick={this.props.onPlaybookClicked} className={styles.playbookTrigger}>
+            <div onClick={this.props.onPlaybookClicked} className={[styles.playbookTrigger, styles.strategiesTrigger].join(' ')}>
               See strategies
               <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
             </div>
