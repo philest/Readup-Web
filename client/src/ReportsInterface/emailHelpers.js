@@ -349,8 +349,18 @@ export function getAccuracy(evaluationTextData) {
   return Math.round(100 * (getTotalWordsReadCorrectly(evaluationTextData) / getTotalWordsRead(evaluationTextData)))
 }
 
-export function getWCPM(evaluationTextData) {
-  return 74
+export function getWCPM(evaluationTextData, totalTimeReading, isSample) {
+    
+  if (isSample) {
+    return 161
+  }
+  else if (totalTimeReading === null) {
+    return 74
+  }
+  else {
+    return Math.round(getTotalWordsRead(evaluationTextData) / (totalTimeReading / 60))
+  }
+
 }
 
 export function getColorOfAccuracy(accuracy) {

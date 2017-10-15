@@ -156,6 +156,8 @@
 
 .lastNavElt {
 	margin-right: 80px;
+	width: 115px;
+
 }
 
 .barNavy {
@@ -222,4 +224,9 @@
 
 }
 
+@media (max-width: 768px) {
+	.tryButton, .tryButtonMuted {
+		display: none;
+	}
+}
 

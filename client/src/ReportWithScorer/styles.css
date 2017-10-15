@@ -100,3 +100,16 @@ img.reviewerPic {
 	display: inline-block;
 
 }
+
+
+@media (max-width: 728px) {
+
+	.profileContainer {
+		display: none;
+	}
+
+	.container {
+		width: 100%;
+	}
+
+}

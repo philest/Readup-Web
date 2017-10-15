@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Button, Modal, FormGroup, FormControl, ControlLabel, OverlayTrigger  } from 'react-bootstrap'
+import { Button, Modal, FormGroup, FormControl, ControlLabel, OverlayTrigger, Alert } from 'react-bootstrap'
 
 
 import styles from './styles.css'
@@ -95,6 +95,7 @@ export default class ReportsInterface extends React.Component {
       draftingNote: false,
       noteExists: (this.props.teacherNote !== null),
       teacherNote: this.props.teacherNote,
+      showAssignSuccessAlert: false,
     }
     this.tick = this.tick.bind(this);
 
@@ -492,6 +493,22 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  onAssignClicked = () => {
+    this.setState({ showAssignSuccessAlert: true })
+
+    setTimeout(() => {
+      this.setState({ showAssignSuccessAlert: false })
+    }, 5500);
+  }
+
+
+  handleAlertDismiss = () => {
+    this.setState({ showAssignSuccessAlert: false })
+  }
+
+
+
+
 
   _handleKeyDown = (event) => {
     if (this.state.showPricingModal && event.code === 'Enter') {
@@ -764,10 +781,8 @@ export default class ReportsInterface extends React.Component {
     let numSections = book.numSections
     let arr = []
 
-      console.log(`here i am in subtoal`)
 
     for (let i = 1; i <= numSections; i++){
-      console.log(`here i am..${i}`)
       const label = book.sections[String(i)]
       const str = String(this.getCompSectionTotal(i)) + '/' + String(this.getCompSectionDenom(i))
       const num = this.getCompSectionTotal(i) / this.getCompSectionDenom(i)
@@ -779,8 +794,38 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  getNextLevelString(delta, assessmentBrand, bookLevel) {
+    
+    if (assessmentBrand === 'FP'){
+      return "Level " + String.fromCharCode(bookLevel.charCodeAt(0) + delta)
+    }
+    else {
+      return "STEP " + String(Number(bookLevel) + delta)
+    }
+  }
+
+  getDelta(difficulty, didEndEarly) {
+
+    if (this.props.isSample) {
+      return -1
+    }
+
+
+    if (this.props.isUnscorable || didEndEarly) {
+      return 0
+    } else if (difficulty === 'Frustrational') {
+      return -1
+    } else {
+      return 1
+    }
+  }
+
+
+
+
 
   render() {
+
 
 
     let subtotals = this.getSubtotals() 
@@ -792,22 +837,20 @@ export default class ReportsInterface extends React.Component {
     for (let i = 0; i < 3; i++) {
       let label = msv[i]
       let str = String(Math.round((this.getTotalMiscueType(msv[i][0])  / this.getNumErrors()) * 100))
+      let ratioStr = String(this.getTotalMiscueType(msv[i][0])) + '/' + String(this.getNumErrors())
       let num = this.getTotalMiscueType(msv[i][0]) / this.getNumErrors()
 
-      msvArr.push([label, str, num])
+      msvArr.push([label, str, num, ratioStr])
     }
 
 
     const acc = getAccuracy(this.state.gradedText)
-    const WCPM = getWCPM(this.state.gradedText)
+    const WCPM = getWCPM(this.state.gradedText, this.props.totalTimeReading, this.props.isSample)
     const comp = 7
 
     let itDidEndEarly = didEndEarly(this.state.gradedText)
 
 
-    console.log('total M errors: ', this.getTotalMiscueType('M'))
-
-    console.log('total errors: ', this.getNumErrors())
 
 
     // let firstQuestionGraded = (this.props.studentResponses["0"] && this.props.graderComments["0"] && (this.props.compScores["0"] != null))
@@ -842,6 +885,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
+    let nextStepMsg = this.getNextLevelString(this.getDelta(difficulty, itDidEndEarly), this.props.assessmentBrand, bookLevel)
 
 
     return (
@@ -867,10 +911,12 @@ export default class ReportsInterface extends React.Component {
                   didEndEarly={false}
                   yellowColorOverride={true}
                   assessmentBrand={this.props.assessmentBrand}
+                  nextStepMsg={nextStepMsg}
+                  onAssignClicked={this.onAssignClicked}
+                  onPlaybookClicked={this.onPlaybookClicked}
+
                 />
               }
-
-
 
 
               { !this.props.isSample &&
@@ -880,15 +926,13 @@ export default class ReportsInterface extends React.Component {
                   reassess={this.props.isUnscorable}
                   didEndEarly={itDidEndEarly}
                   assessmentBrand={this.props.assessmentBrand}
+                  nextStepMsg={nextStepMsg}
+                  userID={this.props.userID}
+                  onAssignClicked={this.onAssignClicked}
+                  onPlaybookClicked={this.onPlaybookClicked}
                 />
               }
 
-
-              { this.props.userID > 155 &&
-                <span onClick={this.onPlaybookClicked} className={styles.playbookTrigger}>See playbook
-                  <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
-                </span>
-              } 
 
 
             </div>
@@ -992,6 +1036,15 @@ export default class ReportsInterface extends React.Component {
 
           </div>
 
+
+
+            {this.state.showAssignSuccessAlert &&
+              <div className={styles.alertSuccess}>
+                <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}>
+                  <strong>Great!</strong> They'll get their next assessment when they log in.
+                </Alert>
+              </div>
+            }
 
           <h5 className={styles.sectionHeader}>1. ORAL READING</h5>
 
@@ -1517,7 +1570,7 @@ export default class ReportsInterface extends React.Component {
             bsStyle={'primary'}
             onClick={this.onAddNoteClicked}
           >
-          Add notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
+          Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
           </Button>
         }
 
@@ -1540,7 +1593,7 @@ export default class ReportsInterface extends React.Component {
 
         { this.state.noteExists && 
           <div>
-            <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
+            <ControlLabel className={styles.noteControlLabel}>{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
             <p className={styles.editTeacherNoteText}>
             { this.state.teacherNote } 
             </p>
@@ -1737,7 +1790,6 @@ export default class ReportsInterface extends React.Component {
         </Modal>
 
         <style type="text/css">{'.btn-primary:hover {  background-color: #337ab7; border-color: #2e6da4; }'}</style>
-
 
 
 

@@ -234,7 +234,8 @@ class ReportsController < ApplicationController
         isLiveDemo: false,
         bookKey: book_key,
         env: ENV['RAILS_ENV'],
-        teacherNote: @assessment.teacher_note
+        teacherNote: @assessment.teacher_note,
+        totalTimeReading: @assessment.total_time_reading
 
       }
     end

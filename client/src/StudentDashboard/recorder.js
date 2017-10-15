@@ -41,6 +41,9 @@ export default class Recorder {
     });
   };
 
+
+
+
   initialize = (callback) => {
 
     if (!!this.rtcRecorder) {
@@ -50,6 +53,7 @@ export default class Recorder {
 
     console.log('initialize Recorder -- requestUserMedia')
     this.captureUserMedia((stream, error) => {
+
       if (error) {
         console.log('!!errror capturing user media!!')
         return callback && callback(error)
@@ -62,12 +66,19 @@ export default class Recorder {
   
       try {
 
+        // the MUAZ KHAN edits
+        var hiddenAudio = document.createElement('audio');
+        hiddenAudio.srcObject = stream // this line is required to make sure stream tracks aren't stopped/released
+        hiddenAudio.muted = true
+        hiddenAudio.play()
+
+
         this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'true' });
         callback && callback(null)
         return true
       } catch (err) {
-        sendEmail(err, "captureMedia inner startRecording failed", "philesterman@gmail.com")
-        console.log("captureMedia inner startRecording ERROR: ", err)
+        sendEmail(err, "captureMedia (inner-most) startRecording failed", "philesterman@gmail.com")
+        console.log("captureMedia (inner-most) startRecording ERROR: ", err)
         callback && callback(null)
         return true
       }
@@ -86,19 +97,26 @@ export default class Recorder {
   startRecording = () => {
 
     try {
-    this.captureUserMedia((stream) => {
-      try {
-    	this.rtcRecorder.startRecording()
-      this.recording = true
-      } catch (err) {
-        sendEmail(err, "inner startRecording failed", "philesterman@gmail.com")
-        console.log("inner startRecording ERROR: ", err)
-      }
+      this.captureUserMedia((stream, error) => {
 
-    });
+        if (error) {
+          console.log('error capturing user media (in startRecording)!!')
+          sendEmail(error, 'error capturing user media (in startRecording)', "philesterman@gmail.com")
+          return
+        }
+
+        try {
+         this.initialize()
+    	   this.rtcRecorder.startRecording()
+         this.recording = true
+        } catch (err) {
+          sendEmail(err, "inner startRecording failed", "philesterman@gmail.com")
+          console.log("inner startRecording ERROR: ", err)
+        }
+      });
     } catch (err) {
-      sendEmail(err, "startRecording failed", "philesterman@gmail.com")
-      console.log("startRecording ERROR: ", err)
+        sendEmail(err, "startRecording failed", "philesterman@gmail.com")
+        console.log("startRecording ERROR: ", err)
     }
 
   }

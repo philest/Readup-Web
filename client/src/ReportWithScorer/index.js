@@ -44,8 +44,8 @@ export default class ReportWithScorer extends React.Component {
     this.state = {
       showAudioPlayback: false,
       showPricingModal: false,
-      showEmailModal: !this.props.isLiveDemo,
-      showLiveDemoModal: this.props.isLiveDemo,
+      showEmailModal: true,
+      showLiveDemoModal: false,
       showSampleInfoModal: false,
       levelFound: false,
       email: '',
@@ -376,6 +376,7 @@ export default class ReportWithScorer extends React.Component {
             bookKey={this.props.bookKey}
             env={this.props.env}
             teacherNote={this.props.teacherNote}
+            totalTimeReading={this.props.totalTimeReading}
           />
         </div>
 

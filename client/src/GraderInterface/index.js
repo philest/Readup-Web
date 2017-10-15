@@ -107,6 +107,7 @@ export default class GraderInterface extends React.Component {
     bookKey: PropTypes.string,
     waiting: PropTypes.bool,
     isRemote: PropTypes.bool,
+    totalTimeReading: PropTypes.number
   };
 
 
@@ -138,6 +139,7 @@ export default class GraderInterface extends React.Component {
       showPromptAlert: false,
       showChecklistModal: false,
       showAudioAlert: false,
+      totalTimeReading: this.props.totalTimeReading,
     }
         this.tick = this.tick.bind(this);
 
@@ -175,6 +177,10 @@ export default class GraderInterface extends React.Component {
       }
     }
 
+
+    if (!this.props.isLiveDemo) {
+      this.onIsLiveDemoClicked() // being on grader makes it a live demo 
+    }
 
 
   }
@@ -622,6 +628,14 @@ export default class GraderInterface extends React.Component {
 
 
   onSaveClicked = () => {
+
+    console.log('value of totalTimeReading text: ', this.totalTimeReading.value)
+
+
+    if (this.totalTimeReading.value) {
+     updateAssessment( { total_time_reading: this.totalTimeReading.value }, this.props.assessmentID )
+    }
+
     updateScoredText(this.state.evaluationTextData, this.props.assessmentID);
 
     if (this.state.fluencyScore != null) {
@@ -1193,6 +1207,8 @@ renderCompQuestions6 = () => {
 
   render() {
 
+
+
     if (this.props.waiting) {
       return (
         <div className={styles.waitingInfo}>
@@ -1498,6 +1514,27 @@ renderCompQuestions6 = () => {
 
 
 
+
+        <div style={{opacity: (this.state.showQArr[String(0)] || !this.props.isPartner) ? 1 : 0.4 }} className={styles.fluencyContainer}>
+          <div className={styles.bookInfo}>
+            <h3 >
+              Time
+            </h3>
+            <span style={{marginLeft: 0}} className={styles.bookLevelHeading}>
+              How many seconds did the reading take?
+            </span>
+          </div>
+        </div> 
+
+          <FormControl
+            style={{width: 100}}
+            type="text"
+            defaultValue={this.props.totalTimeReading}
+            placeholder="e.g. 74"
+            inputRef={ref => { this.totalTimeReading = ref; }}
+          />
+
+
         <div style={{opacity: (this.state.showQArr[String(0)] || !this.props.isPartner) ? 1 : 0.4 }} className={styles.fluencyContainer}>
           <div className={styles.bookInfo}>
             <h3 >
@@ -1520,6 +1557,11 @@ renderCompQuestions6 = () => {
           <Button active={this.state.fluencyScore === 2} href="#" onClick={() => this.onFluencyScoreClicked(2)}><strong>2</strong> - Good</Button>
           <Button active={this.state.fluencyScore === 3} href="#" onClick={() => this.onFluencyScoreClicked(3)}><strong>3</strong> - Excellent</Button>
         </ButtonGroup>
+
+
+
+
+
 
 
 

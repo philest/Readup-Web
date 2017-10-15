@@ -24,6 +24,7 @@ export default class LevelResult extends React.Component {
     didEndEarly: PropTypes.bool,
     yellowColorOverride: PropTypes.bool,
     assessmentBrand: PropTypes.string,
+    userID: PropTypes.number,
   };
 
   static defaultProps = {
@@ -47,27 +48,6 @@ export default class LevelResult extends React.Component {
 
   }
 
-  getDelta(difficulty) {
-    if (this.props.reassess || this.props.didEndEarly) {
-      return 0
-    } else if (difficulty === 'Frustrational') {
-      return -1
-    } else {
-      return 1
-    }
-  }
-
-  getNextLevelString(delta, assessmentBrand) {
-    
-    if (assessmentBrand === 'FP'){
-      return "Level " + String.fromCharCode(this.props.currentLevel.charCodeAt(0) + delta)
-    }
-    else {
-      return "STEP " + String(Number(this.props.currentLevel) + delta)
-    }
-  }
-
-
   getClass() {
    
     if (this.props.reassess === true || this.props.didEndEarly || this.props.yellowColorOverride) {
@@ -85,7 +65,7 @@ export default class LevelResult extends React.Component {
     if (FPdifficulty === 'Frustrational') {
       return 'Did not achieve'
     } else {
-      return "Achieved"
+      return "Just Achieved"
     }
   }
 
@@ -123,10 +103,8 @@ export default class LevelResult extends React.Component {
 
     if (this.props.didEndEarly) {
       title = titleNoFinish
-      nextStepMsg = "Next Step: Reassess at " + this.getNextLevelString(this.getDelta(this.props.difficulty), this.props.assessmentBrand)
     } else {
       title = titleNormal
-      nextStepMsg = "Next Step: Assess at " + this.getNextLevelString(this.getDelta(this.props.difficulty), this.props.assessmentBrand)
     }
 
 
@@ -157,8 +135,6 @@ export default class LevelResult extends React.Component {
 
         .panel-myDanger .panel-body, .panel-myWarning .panel-body, .panel-mySuccess .panel-body {
           padding: 8px 15px 8px 17px;
-          font-style: italic;
-          display: none;
 
         }
 
@@ -202,9 +178,33 @@ export default class LevelResult extends React.Component {
           border-color: #d6e9c6;
         }
 
+        .panel-myWarning div.panel-heading {
+          min-width: 280px;
+        }
+
+        .panel-mySuccess {
+          max-width: 300px;
+          min-width: 245px;
+        }
+
+
         `}</style>
         <Panel header={title} bsStyle={this.getClass()}>
-          {nextStepMsg}
+
+          <div onClick={this.props.onAssignClicked} className={styles.playbookTrigger}>
+            Assign {this.props.nextStepMsg}
+            <i className={'fa fa-arrow-right'} style={{ marginLeft: 6 }} />
+          </div>
+
+
+          { 
+            <div onClick={this.props.onPlaybookClicked} className={[styles.playbookTrigger, styles.strategiesTrigger].join(' ')}>
+              See strategies
+              <img className={styles.icon} src="/images/playbook-blue.svg" alt="Playbook icon blue" />
+            </div>
+          } 
+
+
         </Panel>
 
       </div>

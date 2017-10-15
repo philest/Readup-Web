@@ -136,7 +136,7 @@ export default class Metric extends React.Component {
     let detailArr = [] 
     for (let i = 0; i < 3; i++) {
       detailArr.push(
-        <span key={i} className={styles.detail}>{this.props.msvSubtotals[i][0]}:  <span className={this.getGeneralColorClass(this.props.msvSubtotals[i][2])}>{this.props.msvSubtotals[i][1]}%</span></span>
+        <span key={i} className={styles.detail}>{this.props.msvSubtotals[i][0]}:  <span className={this.getGeneralColorClass(this.props.msvSubtotals[i][2])}>{this.props.msvSubtotals[i][3]}</span></span>
       )
 
       if (this.props.showDetails && this.getGeneralColorClass(this.props.msvSubtotals[i][2]) !== styles.goodMetric) {
@@ -199,9 +199,9 @@ export default class Metric extends React.Component {
   }
 
   getWCPMColor(wcpm) {
-    if (wcpm >= 25) {
+    if (wcpm >= 51) {
       return 'good'
-    } else if (wcpm >= 15) {
+    } else if (wcpm >= 30) {
       return 'fair'
     } else {
       return 'poor'
@@ -265,17 +265,15 @@ export default class Metric extends React.Component {
 
   render() {
 
-    console.log(movesSet)
-
 
     const accPopover = (
-      <Popover id="popover-positioned-bottom" title="Cues used" className={[css.myPopover, css.compPopover].join(' ')}>
+      <Popover id="popover-positioned-bottom" title="MSV cues used" className={[css.myPopover, css.compPopover].join(' ')}>
      
         {this.props.isSample &&
           <div>
-          <span className={styles.detail}>Meaning: <span className={styles.fairMetric}>30%</span></span>
-          <span className={styles.detail}>Structure: <span className={styles.goodMetric}>66%</span></span>
-          <span className={styles.detail}>Visual: <span className={styles.goodMetric}>40%</span></span>
+          <span className={styles.detail}>Meaning: <span className={styles.fairMetric}>5/15</span></span>
+          <span className={styles.detail}>Structure: <span className={styles.goodMetric}>10/15</span></span>
+          <span className={styles.detail}>Visual: <span className={styles.goodMetric}>6/15</span></span>
           <hr className={styles.myHr}/>
           <span className={styles.detail}>Self-corrected: <span className={styles.fairMetric}>20%</span></span>
           </div>
@@ -406,7 +404,7 @@ export default class Metric extends React.Component {
         }
 
           { hasDetails && this.props.showDetails && 
-            <OverlayTrigger className={styles.metricTrigger} trigger={['click']} rootClose  placement="bottom" overlay={popoverName}>
+            <OverlayTrigger className={styles.metricTrigger} rootClose  placement="bottom" overlay={popoverName}>
               <div style={{cursor: 'pointer'}} className={[styles.metricDescriptionLabel, styles.metricLabelWithDetails].join(' ')}>{ label }
               <i className={["fa", "fa-caret-down", css.questionIcon].join(" ")} aria-hidden={"true"} />
               </div>
