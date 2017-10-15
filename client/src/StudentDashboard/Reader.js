@@ -7,7 +7,7 @@ import BookCover from './components/BookCover'
 import RectangleButton from './components/RectangleButton'
 import ForwardArrowButton from './components/ForwardArrowButton'
 import BackArrowButton from './components/BackArrowButton'
-
+import SpellingTextField from './components/SpellingTextField'
 
 import styles from './styles.css'
 import css from './components/NavigationBar/styles.css'
@@ -154,7 +154,7 @@ export default class Reader extends React.Component {
     else if (this.props.isLastPage && this.props.inComp) {
       return
     }
-    else if (this.props.showCover && !this.props.inComp) {
+    else if (this.props.showCover && !this.props.inComp && !this.props.inSpelling) {
       return (
         <RectangleButton
           title='Start Recording'
@@ -260,20 +260,17 @@ export default class Reader extends React.Component {
           </div>
         }
 
-        { 
-
-
+        { this.props.inSpelling &&
+          <SpellingTextField />
         }
 
 
 
-         { !this.props.inSpelling &&
           <div className={styles.rightButtonContainer}>
             { 
               this.renderRightButton()
             }
           </div>
-          }
 
         </div>
       </div>

@@ -1,11 +1,18 @@
 
-.fake {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-flow: row;
-	border: 3px solid #937050;
-	border-radius: 5px;
-	box-shadow: -5px 2px 73px 2px rgba(0,0,0,0.65);
+.spellingContainer {
+	margin-top: -10%;
+}
 
+.spellingField {
+	width: 235px;
+    height: 62px;
+    font-size: 48px;
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Comic Neue Angular';
+
+}
+
+.spellingImage {
+	width: 235px;
 }
