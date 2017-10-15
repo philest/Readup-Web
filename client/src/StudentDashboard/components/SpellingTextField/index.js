@@ -19,9 +19,15 @@ export default class SpellingTextField extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {  };
+    this.state = {
+      showHelper: true,
+    };
   }
 
+
+  onInputClicked = () => {
+    this.setState({showHelper: false})
+  }
 
 
   render() {
@@ -47,15 +53,19 @@ export default class SpellingTextField extends React.Component {
           `} 
           </style> 
 
-          <i className{'fa fa-caret-right faa-'}
-
           <FormControl
             className={styles.spellingField}
             type="text"
             placeholder="_____"
             bsSize='lg'
             spellCheck="false"
+            onClick={this.onInputClicked}
           />
+
+          <i className={['fa fa-caret-right faa-passing animated', styles.helper].join(' ')} 
+             style={{ visibility: (this.state.showHelper) ? 'visible' : 'hidden' }}
+          />
+        
 
         </div>
 

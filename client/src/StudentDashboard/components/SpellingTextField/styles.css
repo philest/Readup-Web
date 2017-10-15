@@ -16,3 +16,11 @@
 .spellingImage {
 	width: 235px;
 }
+
+i.helper {
+	color: green;
+    font-size: 70px;
+	position: relative;
+    top: -60px;
+    left: -50px;
+}
