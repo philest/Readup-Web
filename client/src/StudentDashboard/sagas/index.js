@@ -65,6 +65,7 @@ import {
   BOOK_KEY_SET,
   LIVE_DEMO_SET,
   SPELLING_ANSWER_GIVEN_SET,
+  NEXT_WORD_CLICKED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -82,6 +83,8 @@ import {
   setPrompt,
   hideVolumeIndicator,
   setLiveDemo,
+  incrementQuestion,
+  decrementQuestion,
 } from '../state'
 
 
@@ -267,11 +270,12 @@ function* exitClick() {
 
 
 
-function* questionIncrementSaga (action) {
-  yield clog("here in QUESTION_INCREMENT........")
+function* questionIncrementSaga(section) {
+  yield clog("here in QUESTION_INCREMENT........: ", section)
 
   yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS)
-  yield put({ type: QUESTION_INCREMENT })
+
+  yield put.resolve(incrementQuestion(section))
 }
 
 
@@ -659,7 +663,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
     yield put.resolve(setCurrentModal('no-modal'))
 
-    yield* questionIncrementSaga()
+    yield* questionIncrementSaga("comp")
 
     yield cancel(...compEffects)
 
@@ -697,6 +701,14 @@ function* assessThenSubmitSaga(assessmentId) {
   // Test
   yield put.resolve(setInSpelling(true))
   yield put.resolve(setSpellingAnswerGiven(false))
+
+  effects.push(
+    yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, 'spelling'),
+  )
+
+
+
+
 
   yield put(setCurrentOverlay('no-overlay'))
 

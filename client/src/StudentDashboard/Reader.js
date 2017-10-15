@@ -58,6 +58,7 @@ export default class Reader extends React.Component {
     onStopClicked: PropTypes.func,
     onStartClicked: PropTypes.func,
     onNextPageClicked: PropTypes.func,
+    onNextWordClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
     onSeeCompClicked: PropTypes.func,
@@ -174,7 +175,7 @@ export default class Reader extends React.Component {
         subtitle={this.props.inSpelling ? 'word' : 'page'}
         style={{ width: 145, height: 120 }}
         disabled={this.props.disabled}
-        onClick={this.props.onNextPageClicked}
+        onClick={this.props.inSpelling ? this.props.onNextWordClicked : this.props.onNextPageClicked}
       />
     );
   }

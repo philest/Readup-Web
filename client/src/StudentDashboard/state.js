@@ -86,7 +86,7 @@ export const VOLUME_INDICATOR_HIDDEN = 'VOLUME_INDICATOR_HIDDEN'
 export const LIVE_DEMO_SET = 'LIVE_DEMO_SET'
 
 export const SPELLING_ANSWER_GIVEN_SET = 'SPELLING_ANSWER_GIVEN_SET'
-
+export const NEXT_WORD_CLICKED = 'NEXT_WORD_CLICKED'
 
 
 export function setReaderState(readerState: ReaderState) {
@@ -241,6 +241,14 @@ export function previousPageClicked() {
     type: PREVIOUS_PAGE_CLICKED,
   }
 }
+
+
+export function nextWordClicked() {
+  return {
+    type: NEXT_WORD_CLICKED,
+  }
+}
+
 
 export function exitClicked() {
   return {
@@ -447,9 +455,12 @@ export function seeCompClicked() {
 }
 
 
-export function incrementQuestion() {
+export function incrementQuestion(section: string) {
   return {
     type: QUESTION_INCREMENT,
+    payload: {
+      section,
+    },
   }
 }
 
@@ -686,9 +697,8 @@ export const stepBook = {
       standard: 'CCRA.R.4 and CCRA.R.1',
       section: 3,
     },
-
-
   },
+  numSpellingQuestions: 15,
 
 };
 
@@ -884,6 +894,7 @@ const initialState = {
   inOralReading: true,
   isLiveDemo: false,
   spellingAnswerGiven: false,
+  spellingQuestionNumber: 1,
 }
 
 
@@ -997,8 +1008,16 @@ function reducer(state = initialState, action = {}) {
     }
 
     case QUESTION_INCREMENT: {
+
       // TODO add history here.
-      return { ...state, questionNumber: state.questionNumber + 1 }
+      if (payload.section === 'comp') {
+        return { ...state, questionNumber: state.questionNumber + 1 }
+      }
+
+      if (payload.section === 'spelling') {
+        return { ...state, spellingQuestionNumber: state.spellingQuestionNumber + 1 }
+      }
+
     }
 
     case QUESTION_DECREMENT: {
