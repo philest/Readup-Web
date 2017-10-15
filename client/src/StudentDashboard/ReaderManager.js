@@ -69,6 +69,7 @@ function mapStateToProps(state) {
     inSpelling: state.reader.inSpelling,
     showVolumeIndicator: state.reader.showVolumeIndicator,
     isLiveDemo: state.reader.isLiveDemo,
+    spellingAnswerGiven: state.reader.spellingAnswerGiven,
   }
 }
 
@@ -138,7 +139,7 @@ class StudentDashboard extends React.Component {
       bookAuthor: this.props.book.author,
       isWideBook: this.props.book.isWideBook,
       showBookInfo: ((this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart) && !this.props.inComp),
-      disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
+      disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.inSpelling && !this.props.spellingAnswerGiven),
       onExitClicked: this.props.actions.exitClicked,
       onNextPageClicked: this.props.actions.nextPageClicked,
       onSeeCompClicked: this.props.actions.seeCompClicked,
@@ -146,6 +147,7 @@ class StudentDashboard extends React.Component {
       onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL 
       currentShowModal: this.props.currentShowModal,
       inSpelling: this.props.inSpelling,
+      onSpellingAnswerGiven: this.props.actions.setSpellingAnswerGiven
 
 
     }

@@ -85,6 +85,8 @@ export const VOLUME_INDICATOR_HIDDEN = 'VOLUME_INDICATOR_HIDDEN'
 
 export const LIVE_DEMO_SET = 'LIVE_DEMO_SET'
 
+export const SPELLING_ANSWER_GIVEN_SET = 'SPELLING_ANSWER_GIVEN_SET'
+
 
 
 export function setReaderState(readerState: ReaderState) {
@@ -96,6 +98,14 @@ export function setReaderState(readerState: ReaderState) {
   }
 }
 
+export function setSpellingAnswerGiven(spellingAnswerGiven: boolean) {
+  return {
+    type: SPELLING_ANSWER_GIVEN_SET,
+    payload: {
+      spellingAnswerGiven,
+    },
+  } 
+}
 
 
 
@@ -873,6 +883,7 @@ const initialState = {
   inSpelling: true,
   inOralReading: true,
   isLiveDemo: false,
+  spellingAnswerGiven: false,
 }
 
 
@@ -903,6 +914,10 @@ function reducer(state = initialState, action = {}) {
       console.log('SET PROMPT: ', payload.prompt)
       return { ...state, prompt: payload.prompt }
 
+    }
+
+    case SPELLING_ANSWER_GIVEN_SET: {
+      return { ...state, spellingAnswerGiven: payload.spellingAnswerGiven }     
     }
 
 

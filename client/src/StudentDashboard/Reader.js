@@ -69,6 +69,7 @@ export default class Reader extends React.Component {
     showVolumeIndicator: PropTypes.bool,
     isLiveDemo: PropTypes.bool,
     inSpelling: PropTypes.bool,
+    onSpellingAnswerGiven: PropTypes.func,
   };
 
   static defaultProps = {
@@ -170,7 +171,7 @@ export default class Reader extends React.Component {
     return (
       <ForwardArrowButton
         title='Next'
-        subtitle='page'
+        subtitle={this.props.inSpelling ? 'word' : 'page'}
         style={{ width: 145, height: 120 }}
         disabled={this.props.disabled}
         onClick={this.props.onNextPageClicked}
@@ -260,13 +261,15 @@ export default class Reader extends React.Component {
           </div>
         }
 
-        { this.props.inSpelling &&
-          <SpellingTextField />
+        { this.props.inSpelling && 
+          <SpellingTextField
+            onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+          />
         }
 
 
 
-          <div className={styles.rightButtonContainer}>
+          <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
             { 
               this.renderRightButton()
             }

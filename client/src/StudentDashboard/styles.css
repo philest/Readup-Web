@@ -56,6 +56,13 @@
 	margin-top: 30%;
 }
 
+.spellingRightButtonContainer {
+	min-width: 200px;
+	margin: 30px;
+	margin-top: 10%;
+}
+
+
 .bookpageContainer {
 	width: 31.5%;
 	height: 80%;

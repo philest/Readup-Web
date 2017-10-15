@@ -64,6 +64,7 @@ import {
   VOLUME_INDICATOR_HIDDEN,
   BOOK_KEY_SET,
   LIVE_DEMO_SET,
+  SPELLING_ANSWER_GIVEN_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -76,6 +77,7 @@ import {
   setCountdownValue,
   setInComp,
   setInSpelling,
+  setSpellingAnswerGiven,
   setQuestionNumber,
   setPrompt,
   hideVolumeIndicator,
@@ -694,6 +696,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
   // Test
   yield put.resolve(setInSpelling(true))
+  yield put.resolve(setSpellingAnswerGiven(false))
 
   yield put(setCurrentOverlay('no-overlay'))
 

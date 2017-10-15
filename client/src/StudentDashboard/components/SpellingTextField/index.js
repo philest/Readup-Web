@@ -9,6 +9,7 @@ import { FormControl } from 'react-bootstrap'
 export default class SpellingTextField extends React.Component {
   static propTypes = {
     pageNumber: PropTypes.number,
+    onSpellingAnswerGiven: PropTypes.func,
   };
   static defaultProps = {
 }
@@ -27,6 +28,7 @@ export default class SpellingTextField extends React.Component {
 
   onInputClicked = () => {
     this.setState({showHelper: false})
+    this.props.onSpellingAnswerGiven(true)
   }
 
 
