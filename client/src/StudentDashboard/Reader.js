@@ -68,6 +68,7 @@ export default class Reader extends React.Component {
     introAudioSrc: PropTypes.string,
     showVolumeIndicator: PropTypes.bool,
     isLiveDemo: PropTypes.bool,
+    inSpelling: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -89,7 +90,7 @@ export default class Reader extends React.Component {
 
   renderLeftButton = () => {
 
-    if (this.props.showCover && !this.props.inComp && this.props.showVolumeIndicator) {
+    if (this.props.showCover && (!this.props.inComp && !this.props.inSpelling) && this.props.showVolumeIndicator) {
       return (
         <div>
         <span className={styles.volumeHeading}> Turn on volume </span>
@@ -214,6 +215,7 @@ export default class Reader extends React.Component {
       onPauseClicked: (this.props.inComp ? this.props.onCompPauseClicked : this.props.onPauseClicked),
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
+      inSpelling: this.props.inSpelling,
     }
 
     return <NavigationBar {...navProps} />
@@ -249,15 +251,29 @@ export default class Reader extends React.Component {
             { this.renderLeftButton() }
           </div>
 
+         { !this.props.inSpelling &&
+
           <div className={this.props.isWideBook ? wideContainerClass : styles.bookpageContainer}>
             <RouteTransition {...transitionProps}>
                 { this.renderCenterDisplay() }
             </RouteTransition>
           </div>
+        }
 
+        { 
+
+
+        }
+
+
+
+         { !this.props.inSpelling &&
           <div className={styles.rightButtonContainer}>
-            { this.renderRightButton() }
+            { 
+              this.renderRightButton()
+            }
           </div>
+          }
 
         </div>
       </div>

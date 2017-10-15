@@ -70,6 +70,8 @@ export const BOOK_KEY_SET = 'BOOK_KEY_SET'
 export const BOOK_SET = 'BOOK_SET'
 
 export const IN_COMP_SET = 'IN_COMP_SET'
+export const IN_SPELLING_SET = 'IN_SPELLING_SET'
+
 export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
 
 export const QUESTION_INCREMENT = 'QUESTION_INCREMENT'
@@ -414,6 +416,16 @@ export function setInComp(inComp: boolean) {
     type: IN_COMP_SET,
     payload: {
       inComp,
+    },
+  }
+}
+
+
+export function setInSpelling(inSpelling: boolean) {
+  return {
+    type: IN_SPELLING_SET,
+    payload: {
+      inSpelling,
     },
   }
 }
@@ -858,7 +870,7 @@ const initialState = {
   countdownValue: -1,
   showVolumeIndicator: true,
   inComp: false,
-  inSpelling: false,
+  inSpelling: true,
   inOralReading: true,
   isLiveDemo: false,
 }
@@ -1047,6 +1059,11 @@ function reducer(state = initialState, action = {}) {
     case IN_COMP_SET: {
       return { ...state, inComp: payload.inComp }
     }
+
+    case IN_SPELLING_SET: {
+      return { ...state, inSpelling: payload.inSpelling }
+    }
+
 
     case LIVE_DEMO_SET: {
       return { ...state, isLiveDemo: payload.isLiveDemo }

@@ -55,6 +55,7 @@ import {
   SPINNER_HIDE,
   DEMO_SUBMITTED_LOGOUT_CLICKED,
   IN_COMP_SET,
+  IN_SPELLING_SET,
   SEE_COMP_CLICKED,
   HEAR_QUESTION_AGAIN_CLICKED,
   QUESTION_INCREMENT,
@@ -74,11 +75,11 @@ import {
   setCurrentOverlay,
   setCountdownValue,
   setInComp,
+  setInSpelling,
   setQuestionNumber,
   setPrompt,
   hideVolumeIndicator,
-  setLiveDemo
-
+  setLiveDemo,
 } from '../state'
 
 
@@ -690,6 +691,9 @@ function* assessThenSubmitSaga(assessmentId) {
   yield put.resolve(setInComp(false))
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
+
+  // Test
+  yield put.resolve(setInSpelling(true))
 
   yield put(setCurrentOverlay('no-overlay'))
 

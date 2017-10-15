@@ -33,6 +33,14 @@ export const MicPermissionsStatusOptions = {
 export type MicPermissionsStatus = Keys<typeof MicPermissionsStatusOptions>;
 
 
+export const AssessmentSectionOptions = {
+  oralReading: 'ASSESSMENT_SECTION_ORAL_READING',
+  comp: 'ASSESSMENT_SECTION_COMP',
+  spelling: 'ASSESSMENT_SECTION_SPELLING',
+}
+export type AssessmentSection = Keys<typeof AssessmentSectionOptions>;
+
+
 export const PromptOptions = {
   awaitingPrompt: 'AWAITING_PROMPT',
   tellSomeMore: 'TELL_SOME_MORE',
