@@ -82,6 +82,7 @@ export const PROMPT_SET = 'PROMPT_SET'
 export const COMP_PAUSE_CLICKED = 'COMP_PAUSE_CLICKED'
 export const LAST_QUESTION_EXITED = 'LAST_QUESTION_EXITED'
 export const VOLUME_INDICATOR_HIDDEN = 'VOLUME_INDICATOR_HIDDEN'
+export const VOLUME_INDICATOR_SHOWN = 'VOLUME_INDICATOR_SHOWN'
 
 export const LIVE_DEMO_SET = 'LIVE_DEMO_SET'
 
@@ -302,6 +303,12 @@ export function setRecordingURL(recordingURL: string, comp: boolean) {
 export function hideVolumeIndicator() {
   return {
     type: VOLUME_INDICATOR_HIDDEN,
+  }
+}
+
+export function showVolumeIndicator() {
+  return {
+    type: VOLUME_INDICATOR_SHOWN,
   }
 }
 
@@ -897,7 +904,7 @@ const initialState = {
   inOralReading: true,
   isLiveDemo: false,
   spellingAnswerGiven: false,
-  spellingQuestionNumber: 1,
+  spellingQuestionNumber: 0, // start at 0 for the sample question— 1 is the real question. 
 }
 
 
@@ -991,6 +998,10 @@ function reducer(state = initialState, action = {}) {
 
     case VOLUME_INDICATOR_HIDDEN: {
         return { ...state, showVolumeIndicator: false }
+    }
+
+    case VOLUME_INDICATOR_SHOWN: {
+        return { ...state, showVolumeIndicator: true }
     }
 
     case COUNTDOWN_VALUE_SET: {

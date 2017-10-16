@@ -32,3 +32,20 @@ i.helper {
     top: -60px;
     left: -50px;
 }
+
+.volumeHeading {
+    color: white;
+    font-family: 'ProximaNova Semibold';
+    position: relative;
+    left: -33px;
+    bottom: 8px;
+    font-size: 16px;
+}
+
+
+.introVolume {
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+
+}

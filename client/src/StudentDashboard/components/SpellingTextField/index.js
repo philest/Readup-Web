@@ -10,6 +10,7 @@ export default class SpellingTextField extends React.Component {
   static propTypes = {
     spellingQuestionNumber: PropTypes.number,
     onSpellingAnswerGiven: PropTypes.func,
+    showVolumeIndicator: PropTypes.bool,
   };
   static defaultProps = {
 }
@@ -43,9 +44,16 @@ export default class SpellingTextField extends React.Component {
 
     return (
 
-        <div className={styles.spellingContainer}>
+        <div className={[styles.spellingContainer].join(' ')}>
 
           <img className={styles.spellingImage} src={`/images/dashboard/spelling/${(this.props.spellingQuestionNumber % 3) + 1}.png`} />
+
+          
+            <div className={styles.introVolume} style={{ visibility: this.props.showVolumeIndicator ? 'visible' : 'hidden' }}>
+            <br />
+            <i className={["fa fa-volume-up faa-pulse animated fa-3x faa-fast"].join(' ')} style={{ color: "white" }} aria-hidden="true"></i>
+            </div>
+
 
           <style type='text/css'> 
           {`

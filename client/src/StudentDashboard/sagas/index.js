@@ -66,6 +66,7 @@ import {
   LIVE_DEMO_SET,
   SPELLING_ANSWER_GIVEN_SET,
   NEXT_WORD_CLICKED,
+  VOLUME_INDICATOR_SHOWN,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -82,6 +83,7 @@ import {
   setQuestionNumber,
   setPrompt,
   hideVolumeIndicator,
+  showVolumeIndicator,
   setLiveDemo,
   incrementQuestion,
   decrementQuestion,
@@ -351,6 +353,23 @@ function* newFetchUntilPrompt(studentID){
 }
 
 
+
+function* spellingInstructionSaga() {
+
+  yield call(playSoundAsync, '/audio/step/spelling/spellingIntro.mp3')
+
+  yield put.resolve(hideVolumeIndicator())
+  yield call(delay, 3000)
+  yield put.resolve(showVolumeIndicator())
+  yield call(delay, 1500)
+  yield put.resolve(hideVolumeIndicator())
+
+
+  yield take(NEXT_WORD_CLICKED)
+  yield call(playSound, '/audio/complete.mp3')
+
+
+}
 
 
 function* instructionSaga() {
@@ -723,6 +742,9 @@ function* assessThenSubmitSaga(assessmentId) {
   // Test
   yield put.resolve(setInSpelling(true))
   yield put.resolve(setSpellingAnswerGiven(false))
+
+  yield call(spellingInstructionSaga)
+
   yield call(playSpellingQuestionSaga)
 
   effects.push(
