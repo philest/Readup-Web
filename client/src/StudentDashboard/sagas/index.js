@@ -100,6 +100,7 @@ import {
   getIsDemo,
   getNumQuestions,
   getQuestionNumber,
+  getSpellingQuestionNumber,
   getBook,
   getInComp
 } from './selectors'
@@ -280,6 +281,14 @@ function* questionIncrementSaga(section) {
   // redisable button
   if (section === 'spelling') {
     yield put.resolve(setSpellingAnswerGiven(false))
+
+    let audiofile
+    const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
+    const book = yield select(getBook)
+    audiofile = `/audio/${book.bookKey}/spelling/${spellingQuestionNumber % 3 + 1}.mp3`
+
+    yield call(playSound, audiofile)
+
   }
 
 }

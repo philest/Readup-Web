@@ -64,7 +64,6 @@ export default class SpellingTextField extends React.Component {
           <FormControl
             className={styles.spellingField}
             type="text"
-            placeholder="_____"
             bsSize='lg'
             spellCheck="false"
             onClick={this.onInputClicked}

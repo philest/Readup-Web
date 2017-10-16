@@ -6,3 +6,4 @@ export const getNumQuestions = state => state.reader.book.numQuestions
 export const getQuestionNumber = state => state.reader.questionNumber
 export const getBook = state => state.reader.book
 export const getInComp = state => state.reader.inComp
+export const getSpellingQuestionNumber = state => state.reader.spellingQuestionNumber

@@ -503,6 +503,7 @@ export function setLiveDemo(isLiveDemo: boolean) {
 export const fireflyBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
+  bookKey: 'demo',
   numPages: 3, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
@@ -572,6 +573,7 @@ export const fireflyBook = {
 export const stepBook = {
   title: "Upside Down",
   author: 'Stefan Olson',
+  bookKey: 'step',
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: '/images/dashboard/step/step-cover.jpg',
@@ -711,6 +713,7 @@ export const stepBook = {
 export const fpBook = {
   title: "Bedtime for Nick",
   author: 'Steve Olson',
+  bookKey: 'demo',
   numPages: 10, // if you want a shorter book for testing purposes just change this
   isWideBook: true,
   coverImage: '/images/dashboard/bedtime-large.jpg',
