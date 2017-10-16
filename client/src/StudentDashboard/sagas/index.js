@@ -282,6 +282,14 @@ function* questionIncrementSaga(section) {
   if (section === 'spelling') {
     yield put.resolve(setSpellingAnswerGiven(false))
 
+    yield call(playSpellingQuestionSaga)
+
+  }
+
+}
+
+
+function* playSpellingQuestionSaga() {
     let audiofile
     const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
     const book = yield select(getBook)
@@ -289,10 +297,7 @@ function* questionIncrementSaga(section) {
 
     yield call(playSound, audiofile)
 
-  }
-
 }
-
 
 
 
@@ -716,6 +721,7 @@ function* assessThenSubmitSaga(assessmentId) {
   // Test
   yield put.resolve(setInSpelling(true))
   yield put.resolve(setSpellingAnswerGiven(false))
+  yield call(playSpellingQuestionSaga)
 
   effects.push(
     yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, 'spelling'),
