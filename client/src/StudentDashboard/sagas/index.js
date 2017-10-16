@@ -274,6 +274,8 @@ function* exitClick() {
 function* questionIncrementSaga(section) {
   yield clog("here in QUESTION_INCREMENT........: ", section)
 
+  yield call(playSound, '/audio/complete.mp3')
+
   yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS)
 
   yield put.resolve(incrementQuestion(section))
