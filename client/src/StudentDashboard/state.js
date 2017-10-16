@@ -904,7 +904,7 @@ const initialState = {
   inOralReading: true,
   isLiveDemo: false,
   spellingAnswerGiven: false,
-  spellingQuestionNumber: 0, // start at 0 for the sample question— 1 is the real question. 
+  spellingQuestionNumber: 1,
 }
 
 

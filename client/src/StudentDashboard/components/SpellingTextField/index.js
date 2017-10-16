@@ -35,6 +35,7 @@ export default class SpellingTextField extends React.Component {
 
 
   onInputClicked = () => {
+
     this.setState({showHelper: false})
     this.props.onSpellingAnswerGiven(true)
   }

@@ -297,7 +297,7 @@ function* playSpellingQuestionSaga() {
     let audiofile
     const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
     const book = yield select(getBook)
-    audiofile = `/audio/${book.bookKey}/spelling/${spellingQuestionNumber % 3 + 1}.mp3`
+    audiofile = `/audio/${book.bookKey}/spelling/${spellingQuestionNumber % 3}.mp3`
 
     yield call(playSound, audiofile)
 
@@ -370,20 +370,17 @@ function* spellingInstructionSaga() {
     ReaderStateOptions.talkingAboutSpellingBox,
   ))
 
-  yield call(delay, 6000)
+  yield call(delay, 5000)
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.talkingAboutNextButton,
   ))
 
-  yield call(delay, 1500)
+  yield call(delay, 2000)
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.done,
   ))
-
-  yield take(NEXT_WORD_CLICKED)
-  yield call(playSound, '/audio/complete.mp3')
 
 
 }
