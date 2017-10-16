@@ -25,6 +25,13 @@ export default class SpellingTextField extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber) {
+      console.log('hereeee')
+      this.form.value = ''
+    }
+  }
+
 
   onInputClicked = () => {
     this.setState({showHelper: false})
@@ -62,6 +69,7 @@ export default class SpellingTextField extends React.Component {
             bsSize='lg'
             spellCheck="false"
             onClick={this.onInputClicked}
+            inputRef={ref => { this.form = ref; }}
           />
 
           <i className={['fa fa-caret-right faa-passing animated', styles.helper].join(' ')} 
