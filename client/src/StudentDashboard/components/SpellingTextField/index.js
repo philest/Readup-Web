@@ -8,7 +8,7 @@ import { FormControl } from 'react-bootstrap'
 
 export default class SpellingTextField extends React.Component {
   static propTypes = {
-    pageNumber: PropTypes.number,
+    spellingQuestionNumber: PropTypes.number,
     onSpellingAnswerGiven: PropTypes.func,
   };
   static defaultProps = {
@@ -39,7 +39,7 @@ export default class SpellingTextField extends React.Component {
 
         <div className={styles.spellingContainer}>
 
-          <img className={styles.spellingImage} src='/images/dashboard/spelling/1-hay.png' />
+          <img className={styles.spellingImage} src={`/images/dashboard/spelling/${(this.props.spellingQuestionNumber % 3) + 1}.png`} />
 
           <style type='text/css'> 
           {`

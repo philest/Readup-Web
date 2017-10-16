@@ -71,6 +71,7 @@ export default class Reader extends React.Component {
     isLiveDemo: PropTypes.bool,
     inSpelling: PropTypes.bool,
     onSpellingAnswerGiven: PropTypes.func,
+    spellingQuestionNumber: PropTypes.number,
   };
 
   static defaultProps = {
@@ -265,6 +266,7 @@ export default class Reader extends React.Component {
         { this.props.inSpelling && 
           <SpellingTextField
             onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+            spellingQuestionNumber={this.props.spellingQuestionNumber}
           />
         }
 

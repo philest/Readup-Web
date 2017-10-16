@@ -70,6 +70,7 @@ function mapStateToProps(state) {
     showVolumeIndicator: state.reader.showVolumeIndicator,
     isLiveDemo: state.reader.isLiveDemo,
     spellingAnswerGiven: state.reader.spellingAnswerGiven,
+    spellingQuestionNumber: state.reader.spellingQuestionNumber, 
   }
 }
 
@@ -148,9 +149,8 @@ class StudentDashboard extends React.Component {
       onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL 
       currentShowModal: this.props.currentShowModal,
       inSpelling: this.props.inSpelling,
-      onSpellingAnswerGiven: this.props.actions.setSpellingAnswerGiven
-
-
+      onSpellingAnswerGiven: this.props.actions.setSpellingAnswerGiven,
+      spellingQuestionNumber: this.props.spellingQuestionNumber,
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader
