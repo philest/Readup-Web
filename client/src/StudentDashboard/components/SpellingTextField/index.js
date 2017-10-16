@@ -27,7 +27,6 @@ export default class SpellingTextField extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber) {
-      console.log('hereeee')
       this.form.value = ''
     }
   }

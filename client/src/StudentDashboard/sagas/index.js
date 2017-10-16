@@ -276,6 +276,12 @@ function* questionIncrementSaga(section) {
   yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS)
 
   yield put.resolve(incrementQuestion(section))
+
+  // redisable button
+  if (section === 'spelling') {
+    yield put.resolve(setSpellingAnswerGiven(false))
+  }
+
 }
 
 
