@@ -11,6 +11,7 @@ export default class SpellingTextField extends React.Component {
     spellingQuestionNumber: PropTypes.number,
     onSpellingAnswerGiven: PropTypes.func,
     showVolumeIndicator: PropTypes.bool,
+    showSpellingBoxIndicator: PropTypes.bool,
   };
   static defaultProps = {
 }
@@ -79,7 +80,7 @@ export default class SpellingTextField extends React.Component {
           />
 
           <i className={['fa fa-caret-right faa-passing animated', styles.helper].join(' ')} 
-             style={{ visibility: (this.state.showHelper) ? 'visible' : 'hidden' }}
+             style={{ visibility: (this.props.showSpellingBoxIndicator) ? 'visible' : 'hidden' }}
           />
         
 

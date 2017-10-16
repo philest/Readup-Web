@@ -361,9 +361,26 @@ function* spellingInstructionSaga() {
   yield put.resolve(hideVolumeIndicator())
   yield call(delay, 3000)
   yield put.resolve(showVolumeIndicator())
-  yield call(delay, 1500)
+  yield call(delay, 2000)
   yield put.resolve(hideVolumeIndicator())
 
+  yield call(delay, 6000)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.talkingAboutSpellingBox,
+  ))
+
+  yield call(delay, 6000)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.talkingAboutNextButton,
+  ))
+
+  yield call(delay, 1500)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.done,
+  ))
 
   yield take(NEXT_WORD_CLICKED)
   yield call(playSound, '/audio/complete.mp3')

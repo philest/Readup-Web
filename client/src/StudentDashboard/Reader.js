@@ -268,6 +268,7 @@ export default class Reader extends React.Component {
             onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
             spellingQuestionNumber={this.props.spellingQuestionNumber}
             showVolumeIndicator={this.props.showVolumeIndicator}
+            showSpellingBoxIndicator={this.props.readerState === 'READER_STATE_TALKING_ABOUT_SPELLING_BOX'}
           />
         }
 

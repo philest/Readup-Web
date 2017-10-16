@@ -140,7 +140,7 @@ class StudentDashboard extends React.Component {
       bookAuthor: this.props.book.author,
       isWideBook: this.props.book.isWideBook,
       showBookInfo: ((this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart) && !this.props.inComp),
-      disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.inSpelling && !this.props.spellingAnswerGiven),
+      disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.inSpelling && !this.props.spellingAnswerGiven && this.props.readerState !== 'READER_STATE_TALKING_ABOUT_NEXT_BUTTON'),
       onExitClicked: this.props.actions.exitClicked,
       onNextPageClicked: this.props.actions.nextPageClicked,
       onNextWordClicked: this.props.actions.nextWordClicked,
