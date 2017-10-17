@@ -1046,6 +1046,9 @@ export default class ReportsInterface extends React.Component {
               </div>
             }
 
+          <hr className={styles.summaryDivider} />
+
+
           <h5 className={styles.sectionHeader}>1. ORAL READING</h5>
 
           <div className={styles.bookInfoHeader}>
