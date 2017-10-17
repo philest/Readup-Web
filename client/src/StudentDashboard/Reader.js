@@ -92,7 +92,7 @@ export default class Reader extends React.Component {
     if (this.props.showCover && !this.props.inComp && this.props.showVolumeIndicator) {
       return (
         <div>
-        <span className={styles.volumeHeading}> Turn on volume </span>
+        <span className={styles.volumeHeading}> Turn on your volume </span>
         <br />
         <i className="fa fa-volume-up faa-pulse animated fa-3x faa-fast" style={{ color: "white" }} aria-hidden="true"></i>
         </div>
