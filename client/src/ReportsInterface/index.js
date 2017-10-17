@@ -1129,7 +1129,7 @@ export default class ReportsInterface extends React.Component {
                         <p>Playback not supported</p>
                       </audio>
                     }
-                  <p className={styles.compCorrect}><span className={styles.correct}>3 of 3 points:</span> Shows excellent undestanding of the passage, including three critical plot details, as well as sequence and characters.</p> 
+                  <p className={styles.compCorrect}><span className={styles.correct}>2 of 3 points:</span> Response demonstrates a good understanding of the passage. Includes three major plot events in sequence, and shows insight into Chris’s actions. Lacks some important details to enrich the retelling, such as details on setting.</p> 
                 </div>
             </div>
 
@@ -1150,7 +1150,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Shows strong undertanding of character and plot regarding Chris's mom.</p> 
+                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Response shows a strong undertanding of character and plot regarding Chris's mom. Correctly identifies key point that Mom wants to get Chris a new bike so he stops worrying about his lost one.</p> 
                 </div>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (1 point)</span></h4>
@@ -1167,7 +1167,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Missed key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
+                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Response does not demonstrate proficiency in understanding whether Chris will keep looking. Misses key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike. Response suggests student could benefit from reviewing the text before answering.</p> 
                 </div>
             </div>
 
@@ -1189,7 +1189,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
+                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Response does not demonstrate proficiency in inferring the meaning behind Chris’s dad's response. Student misses key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 point)</span></h4>
@@ -1208,7 +1208,7 @@ export default class ReportsInterface extends React.Component {
                     }
 
 
-                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Reflects excellent understanding of the text. Includes details on Chris’s mixed feelings and evidence from the text.</p> 
+                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span>  Reflects an excellent understanding of the text. Includes details on Chris’s mixed feelings and strong evidence from the text. Student shows strong ability to understand character motivation and reference the passage.</p> 
 
                 </div>
             </div>
