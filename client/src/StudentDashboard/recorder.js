@@ -109,9 +109,15 @@ export default class Recorder {
          this.initialize()
     	   this.rtcRecorder.startRecording()
          this.recording = true
-        } catch (err) {
-          sendEmail(err, "inner startRecording failed", "philesterman@gmail.com")
-          console.log("inner startRecording ERROR: ", err)
+        }
+        catch (err) {
+          try {
+            sendEmail(err, "inner startRecording failed", "philesterman@gmail.com")
+            console.log("inner startRecording ERROR: ", err)
+          }
+          catch (err2) {
+            console.log("inner startRecording ERROR and sendEmail failed: ", err2)
+          }
         }
       });
     } catch (err) {
