@@ -544,6 +544,12 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
       yield put.resolve(setReaderState(
         ReaderStateOptions.inProgress,
       ))
+
+      // reset it so that you get expected pausing behavior
+      yield put.resolve(setPrompt(
+        PromptOptions.awaitingPrompt,
+      ))
+
     } catch (err) {
       yield clog("ERROR: ", err)
       yield call(sendEmail, err, "Recorder failed to resume in comp...", "philesterman@gmail.com") // move here so don't break

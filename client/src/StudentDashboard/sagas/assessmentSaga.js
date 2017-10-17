@@ -35,6 +35,7 @@ import {
 import {
   getRecorder,
   getIsDemo,
+  getPrompt,
 } from './selectors'
 
 import {
@@ -105,10 +106,13 @@ function* resumeAssessmentSaga (action) {
 
   try {
     const recorder = yield select(getRecorder)
+    const prompt = yield select(getPrompt)
+
 
     yield clog ('recorder: ', recorder)
 
-    if (recorder.rtcRecorder.state === "paused") {
+    // only resume if it's pause and in progres— this makes sure prompt recordings (where the recorder is paused) and resumed when they never stared.
+    if (recorder.rtcRecorder.state === "paused" && prompt === 'AWAITING_PROMPT') {
       yield call(recorder.resumeRecording)
       yield put.resolve(setReaderState(
         ReaderStateOptions.inProgress,
