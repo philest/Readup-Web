@@ -4,6 +4,8 @@ import styles from './styles.css'
 
 import { FormControl } from 'react-bootstrap'
 
+import { updateAssessment, getAssessmentData } from '../../../ReportsInterface/emailHelpers'
+import { getLastAssessmentID } from '../../sagas/networkingHelpers'
 
 
 export default class SpellingTextField extends React.Component {
@@ -12,6 +14,7 @@ export default class SpellingTextField extends React.Component {
     onSpellingAnswerGiven: PropTypes.func,
     showVolumeIndicator: PropTypes.bool,
     showSpellingBoxIndicator: PropTypes.bool,
+    spellingQuestionNumber: PropTypes.number,
   };
   static defaultProps = {
 }
@@ -27,8 +30,46 @@ export default class SpellingTextField extends React.Component {
     };
   }
 
+
+  saveSpellingResponse = (value) => {
+
+      let realID
+      let assID = getLastAssessmentID()
+      assID.then( (id) => {
+        console.log('id: ', id)
+
+        let ass = getAssessmentData(id)
+
+        ass.then( (assessment) => {
+          console.log('assessment: ', assessment)
+
+          let spellingResponses = assessment.spelling_responses
+
+          if (!spellingResponses) {
+            spellingResponses = { }
+          }
+
+         spellingResponses[String(this.props.spellingQuestionNumber)] = value // set new response  
+         updateAssessment({
+          spelling_responses: spellingResponses,
+                          },
+                          id,
+                          )
+
+        }).catch(function (err) {
+          console.log(err)
+        })
+
+      })   
+
+
+
+  }
+
+
   componentWillReceiveProps(nextProps) {
     if (this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber) {
+      this.saveSpellingResponse(this.form.value)
       this.form.value = ''
     }
   }
