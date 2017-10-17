@@ -5,6 +5,7 @@
 // cd client && yarn run build:client
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
 
+const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
@@ -121,6 +122,11 @@ module.exports = merge(config, {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
     new ExtractTextPlugin({
       filename: '[name]-[hash].css',
       allChunks: true
