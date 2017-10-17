@@ -348,7 +348,7 @@ export default class GraderInterface extends React.Component {
 
 
     }
-    else if (event.code === 'ArrowLeft' && event.ctrlKey) {
+    else if (event.code === 'ArrowLeft' && event.shiftKey) {
       if (currAudioPlayer.currentTime < 2) {
         currAudioPlayer.currentTime = 0;
       }
@@ -356,7 +356,7 @@ export default class GraderInterface extends React.Component {
         currAudioPlayer.currentTime -= 2;
       }
     }
-    else if (event.code === 'ArrowRight' && event.ctrlKey) {
+    else if (event.code === 'ArrowRight' && event.shiftKey) {
       if (currAudioPlayer.currentTime > currAudioPlayer.duration - 2) {
         currAudioPlayer.currentTime = currAudioPlayer.duration
       }
@@ -365,25 +365,25 @@ export default class GraderInterface extends React.Component {
       }
 
     }
-    else if (event.code === 'Digit0' && event.ctrlKey) {
+    else if (event.code === 'Digit0' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer0
     }    
-    else if (event.code === 'Digit1' && event.ctrlKey) {
+    else if (event.code === 'Digit1' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer1
     }
-    else if (event.code === 'Digit2' && event.ctrlKey) {
+    else if (event.code === 'Digit2' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer2
     }
-    else if (event.code === 'Digit3' && event.ctrlKey) {
+    else if (event.code === 'Digit3' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer3
     }
-    else if (event.code === 'Digit4' && event.ctrlKey) {
+    else if (event.code === 'Digit4' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer4
     }
-    else if (event.code === 'Digit5' && event.ctrlKey) {
+    else if (event.code === 'Digit5' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer5
     }
-    else if (event.code === 'Digit6' && event.ctrlKey) {
+    else if (event.code === 'Digit6' && event.shiftKey) {
       currAudioPlayer = this.refs.audioPlayer6
     }
 
@@ -773,6 +773,11 @@ export default class GraderInterface extends React.Component {
     }
 
       if (this.state.showQArr[String(q)]) {
+
+        if (q === 0) {
+          currAudioPlayer = this.refs.audioPlayer0
+        }
+
         return ( 
           <div style={{marginBottom: 20, marginTop: 20}} key={q}>
             <h5>{label}</h5>
