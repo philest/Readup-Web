@@ -681,7 +681,7 @@ export default class ReportsInterface extends React.Component {
         } else if (score >= 1) {
           colorClass = styles.compFair
         } else {
-          colorClass = styles.compMissed
+          colorClass = styles.compFair
         }
     }
     else {
@@ -690,7 +690,7 @@ export default class ReportsInterface extends React.Component {
         colorClass = styles.compCorrect
       }
       else {
-        colorClass = styles.compMissed
+        colorClass = styles.compFair
       }
 
     }
@@ -1170,7 +1170,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Missed key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
+                  <p className={styles.compFair}><span className={styles.missed}>0 of 1 point:</span> Missed key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike.</p> 
                 </div>
             </div>
 
@@ -1192,7 +1192,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
+                  <p className={styles.compFair}><span className={styles.missed}>0 of 1 point:</span> Missed key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 point)</span></h4>
@@ -1293,7 +1293,7 @@ export default class ReportsInterface extends React.Component {
                       </audio>
                     }
 
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in understanding whether Chris will keep looking. Misses key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike. Response suggests student could benefit from reviewing the text before answering.</p> 
+                  <p className={styles.compFair}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in understanding whether Chris will keep looking. Misses key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike. Response suggests student could benefit from reviewing the text before answering.</p> 
                 </div>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
                   <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (CCRA.R.4)</span></h4>
@@ -1309,7 +1309,7 @@ export default class ReportsInterface extends React.Component {
                         <p>Playback not supported</p>
                       </audio>
                     }
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in inferring the meaning behind Chris’s dad's response. Student misses key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
+                  <p className={styles.compFair}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in inferring the meaning behind Chris’s dad's response. Student misses key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>                
             </div>
 
