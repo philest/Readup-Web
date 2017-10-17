@@ -432,12 +432,17 @@ export default class GraderInterface extends React.Component {
       // toggle
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted = !evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].wordDeleted
 
+      this.setState({evaluationTextData: evaluationTextData})
+    }
+
+    else if (event.code === 'KeyD' && !this.state.highlightedIsSpace && event.shiftKey) {
+
       // kill any substitutions
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].substituteWord = null
 
-      
       this.setState({evaluationTextData: evaluationTextData})
     }
+
     else if (event.code === 'KeyD' && this.state.highlightedIsSpace) {
       // kill additions 
       evaluationTextData.paragraphs[this.state.highlightedParagraphIndex].words[this.state.highlightedWordIndex].addAfterWord = null
