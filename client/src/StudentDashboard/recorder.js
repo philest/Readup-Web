@@ -5,7 +5,7 @@ import DetectRTC from 'detectrtc'
 import { sendEmail } from '../ReportsInterface/emailHelpers'
 
 
-export default class Recorder {
+class Recorder {
 
   constructor() {
     this.rtcRecorder = null
@@ -33,7 +33,12 @@ export default class Recorder {
 
   captureUserMedia(callback) {
     var params = { audio: true, video: false };
-
+    navigator.getUserMedia(params, (stream) => {
+      callback(stream)
+    }, (err) =>  {
+      callback(null, err)
+    })
+return
     navigator.getUserMedia(params, callback, (error) => {
       // alert(JSON.stringify(error));
       console.log('USER MEDIA ERROR::   ' + JSON.stringify(error))
@@ -67,13 +72,15 @@ export default class Recorder {
       try {
 
         // the MUAZ KHAN edits
-        var hiddenAudio = document.createElement('audio');
+      /*  var hiddenAudio = document.createElement('audio');
+        hiddenAudio.style.visibility = 'hidden';
+        document.body.appendChild(hiddenAudio)
         hiddenAudio.srcObject = stream // this line is required to make sure stream tracks aren't stopped/released
         hiddenAudio.muted = true
         hiddenAudio.play()
+*/
 
-
-        this.rtcRecorder = RecordRTC(stream,  { audio: 'true', mimeType: 'audio/webm', checkForInactiveTracks: 'true' });
+        this.rtcRecorder = RecordRTC(stream,  { type: 'audio', mimeType: 'audio/webm', checkForInactiveTracks: true });
         callback && callback(null)
         return true
       } catch (err) {
@@ -175,3 +182,6 @@ export default class Recorder {
   }
 
 }
+
+global.Recorder = Recorder
+export default Recorder
