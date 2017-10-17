@@ -768,6 +768,12 @@ export const fpBook = {
     },
 
   },
+  numSections: 2,
+  sections: {
+    1: 'Within the Text',
+    2: 'Beyond and About the Text',
+  },
+
   numQuestions: 4,
   questions: {
     1: {
@@ -782,6 +788,7 @@ export const fpBook = {
               },
       points: 3,
       standard: 'CCRA.R.1 and CCRA.R.3',
+      section: 1, 
     },
     2: {
       title: "What is the real reason Nick can’t sleep?",
@@ -792,7 +799,7 @@ export const fpBook = {
       },
       points: 1,
       standard: 'CCRA.R.2',
-
+      section: 2, 
     },
     3: {
       title: "How do you think Nick feels about Wags?",
@@ -803,6 +810,7 @@ export const fpBook = {
               },
       points: 1,
       standard: 'CCRA.R.4',
+      section: 2,       
     },
     4: {
       title: "Tell about a time when you had trouble with something.",
@@ -814,6 +822,7 @@ export const fpBook = {
               },
       points: 1,
       standard: 'CCRA.R.9',
+      section: 2, 
     },
 
   },
