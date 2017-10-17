@@ -22,6 +22,36 @@
       text-decoration:none;
   }
 
+
+
+  @keyframes wiggle{
+    42%{transform:rotate(0deg)}
+    46%{transform:rotate(5deg)}
+    50%{transform:rotate(-5deg)}
+    54%{transform:rotate(5deg)}
+    58%{transform:rotate(-5deg)}
+    62%{transform:rotate(5deg)}
+    66%{transform:rotate(-5deg)}
+    70%{transform:rotate(0deg)}
+  }
+
+  .wiggler {
+
+  /*    -webkit-animation: wiggle 5s infinite;*/
+      animation: wiggle 5s infinite;
+
+  }
+
+
+  .wiggler:hover {
+    transform: translateY(0px);
+    transition: all .3s;
+
+  }
+
+
+
+
   .form-container {
     position: absolute;
     margin: 0 auto;
@@ -184,13 +214,19 @@
 
   button#new-hero-button.primary-btn {
         color: white;
+        transition: all .3s;
 
   }
 
-  button#new-hero-button.primary-btn:hover {
+  button#new-hero-button.primary-btn:hover, button:hover {
         color: #f3f3f3;
+        transform: translateY(-3px);
+        filter: brightness(120%);
+        transition: all .3s;
+  }
 
-
+  button { 
+    transition: all .3s;
   }
 
 
@@ -1004,7 +1040,10 @@ a.demo-button button#new-hero-button {
   }
 
 
- 
+  window.setTimeout(function(){
+    console.log('happening now')
+    $('#new-hero-button').addClass("wiggler");
+  }, 9000);
 
 
 
