@@ -154,7 +154,7 @@ export default class NavigationBar extends React.Component {
     <Popover className={questionCSS.sharePopover} id="popover-trigger-click-root-close" >
       <a href={window.location.href}><strong>{window.location.protocol + '//' + window.location.host + window.location.pathname}</strong></a>
       <br/>
-      Copy and paste this link to share this screen with students, parents, and administrators.
+      Copy and paste this link to share this screen with <span className={css.recipient}>students</span>, <span className={css.recipient}>parents</span>, and <span className={css.recipient}>administrators</span>.
     </Popover>
   );
 
