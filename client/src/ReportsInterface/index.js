@@ -9,7 +9,7 @@ import styles from './styles.css'
 import InfoBar from './components/InfoBar'
 import LevelResult from './components/LevelResult'
 import Metric from './components/Metric'
-
+import SpellingReport from '../sharedComponents/SpellingReport'
 
 import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
 
@@ -1579,6 +1579,24 @@ export default class ReportsInterface extends React.Component {
           </div>
 
         }
+
+        { this.props.assessmentBrand === 'STEP' && this.props.isSample && 
+          <div className={styles.spellingWrapper}>
+            <hr className={styles.metricsDivider}/>
+
+            <h5 className={styles.sectionHeader}>3. SPELLING</h5>
+
+            <div className={styles.bookInfoHeader}>
+              <div className={styles.bookInfoWrapper}>
+                <div className={styles.bookInfoTitle}>Developmental Spelling</div>
+              </div>
+            </div>
+
+            <SpellingReport />
+
+          </div>
+        }
+
 
 
         <hr className={styles.metricsDivider}/>
