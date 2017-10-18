@@ -1021,6 +1021,7 @@ export default class ReportsInterface extends React.Component {
                   showDetails={this.props.isSample}
                   compSubtotals={subtotals}
                   isSample={this.props.isSample}
+                  brand={this.props.assessmentBrand}
 
                 />
             }
@@ -1047,6 +1048,8 @@ export default class ReportsInterface extends React.Component {
                 showDetails={this.props.userID > 155}
                 compSubtotals={subtotals}
                 isSample={this.props.isSample}
+                brand={this.props.assessmentBrand}
+
               />
             }
 

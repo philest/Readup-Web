@@ -88,10 +88,12 @@ export default class Metric extends React.Component {
     msvSubtotals: PropTypes.array,
     showPlaybook: PropTypes.bool,
     onPlaybookClose: PropTypes.func,
+    brand: PropTypes.string,
   };
 
   static defaultProps = {
     showDetails: false,
+    brand: 'FP',
  }
 
 
@@ -292,7 +294,7 @@ export default class Metric extends React.Component {
     const lastPopover = (
       <Popover id="popover-positioned-bottom" title="Breakdown" className={[css.myPopover, css.compPopover].join(' ')}>
      
-        {this.props.isSample &&
+        {this.props.isSample && this.props.brand === 'STEP' &&
           <div>
           <span className={styles.detail}>Retell: <span className={styles.goodMetric}>2/3</span></span>
           <span className={styles.detail}>Factual: <span className={styles.goodMetric}>1/1</span></span>
@@ -300,6 +302,16 @@ export default class Metric extends React.Component {
           <span className={styles.detail}>Critical Thinking: <span className={styles.goodMetric}>1/1</span></span>
           </div>
         }
+
+
+        {this.props.isSample && this.props.brand === 'FP' &&
+          <div>
+          <span className={styles.detail}>Retell: <span className={styles.goodMetric}>2/3</span></span>
+          <span className={styles.detail}>Within the Text: <span className={styles.fairMetric}>1/2</span></span>
+          <span className={styles.detail}>Beyond the Text: <span className={styles.fairMetric}>1/2</span></span>
+          </div>
+        }
+
 
      
         {!this.props.isSample && this.props.label === 'Comp.' &&
