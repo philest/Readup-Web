@@ -1581,6 +1581,8 @@ export default class ReportsInterface extends React.Component {
         }
 
 
+        <hr className={styles.metricsDivider}/>
+        
 
         { this.state.noNoteStarted &&
           <Button
