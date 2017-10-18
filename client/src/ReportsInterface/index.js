@@ -1143,7 +1143,7 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.compPart}>
               <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
+                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (CCRA.R.2 and CCRA.R.3)</span></h4>
                   <p className={styles.studentResponse}>Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike.</p> 
  
                     { !this.state.showCompAudioPlayback[1] &&
@@ -1163,7 +1163,7 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Within the Text</h2>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>1. How is the narrator's mom trying to make him feel better?<span className={styles.pointValue}> (1 point)</span></h4>
+                  <h4 className={styles.questionText}>1. How is the narrator's mom trying to make him feel better?<span className={styles.pointValue}> (CCRA.R.2)</span></h4>
                   <p className={styles.studentResponse}>Chris's mom is trying to make him feel better by buying him a new bike.</p> 
 
                     { !this.state.showCompAudioPlayback[2] &&
@@ -1180,7 +1180,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Response shows a strong undertanding of character and plot regarding Chris's mom. Correctly identifies key point that Mom wants to get Chris a new bike so he stops worrying about his lost one.</p> 
                 </div>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (1 point)</span></h4>
+                  <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (CCRA.R.1)</span></h4>
                   <p className={styles.studentResponse}>Chris will stop looking because he still hasn’t found it.</p> 
 
                     { !this.state.showCompAudioPlayback[3] &&
@@ -1202,7 +1202,7 @@ export default class ReportsInterface extends React.Component {
             <div className={styles.compPart}>
               <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (1 point)</span></h4>
+                  <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (CCRA.R.4)</span></h4>
                   <p className={styles.studentResponse}>He thinks Mr. Podler once saw a ghost.</p> 
 
                    { !this.state.showCompAudioPlayback[4] &&
@@ -1219,7 +1219,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.compMissed}><span className={styles.missed}>0 of 1 point:</span> Response does not demonstrate proficiency in inferring the meaning behind Chris’s dad's response. Student misses key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
                 </div>
                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (1 point)</span></h4>
+                  <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (CCRA.R.1)</span></h4>
                   <p className={styles.studentResponse}>He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first.</p> 
 
 
