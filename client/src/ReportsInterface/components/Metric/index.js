@@ -355,6 +355,16 @@ export default class Metric extends React.Component {
       metricFigureLabel: true,
     });
 
+    let spellingMetricClass = cx({
+        goodMetric: true,
+        metricFigureLabel: true,
+
+      // goodMetric: this.getCompColor(this.props.number, this.props.denominator) == 'good',
+      // fairMetric: this.getCompColor(this.props.number, this.props.denominator) == 'fair',
+      // poorMetric: this.getCompColor(this.props.number, this.props.denominator) == 'poor',
+    });
+
+
 
     const label = this.props.label
     let number = this.props.number
@@ -390,13 +400,19 @@ export default class Metric extends React.Component {
         // hasPopover = true
         hasDetails = true 
         popoverName = fluencyPopover
+        break
 
+      case 'Spelling': 
+        metricClass = spellingMetricClass;
+        number = (number.toString() + ("/" + this.props.denominator.toString()))
+        hasDetails = true 
+        popoverName = lastPopover
         break
     }
 
     return (
 
-      <div className={styles.metricWrapper}>
+      <div className={[styles.metricWrapper].join(' ')}>
         <div className={metricClass}>{ number }</div>
 
         { (!hasDetails || !this.props.showDetails) && 
