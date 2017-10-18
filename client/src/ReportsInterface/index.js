@@ -30,7 +30,7 @@ const ADMIN_EMAIL = "philesterman@gmail.com"
 
 let book
 let numQuestions
-
+let firstName
 
 
 
@@ -137,6 +137,11 @@ export default class ReportsInterface extends React.Component {
 
     numQuestions = book.numQuestions
 
+
+    firstName = this.props.name.split(' ')[0]
+    if (firstName === 'Demo') {
+      firstName = 'Student'
+    }
 
 
     // Set the footer label and button 
@@ -635,7 +640,7 @@ export default class ReportsInterface extends React.Component {
             }
 
             { !this.state.showCompAudioPlayback[questionNum + 1] &&
-            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton, (!this.existTranscription(questionNum) ? styles.noTranscriptionMiniPlayButton : '')].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton, (!this.existTranscription(questionNum) ? styles.noTranscriptionMiniPlayButton : '')].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
             }
             { this.state.showCompAudioPlayback[questionNum + 1] &&
               this.renderCompAudio(questionNum + 1)
@@ -1082,7 +1087,7 @@ export default class ReportsInterface extends React.Component {
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
                 >
-                  { (this.props.name.split(' ')[0] !== 'Demo') ? `Hear ${this.props.name.split(' ')[0]} Read` : 'Hear Student Read'}
+                  { `Hear ${firstName} Read` }
 
                    &nbsp;&nbsp;<i className={["fa", "fa-play", 'animated', 'faa-pulse'].join(" ")} aria-hidden={"true"} />
                 </Button>
@@ -1095,8 +1100,8 @@ export default class ReportsInterface extends React.Component {
                   bsSize={'large'}
                   onClick={this.onPlayRecordingClicked}
                 >
-                  { (this.props.name.split(' ')[0] !== 'Demo') ? `Hear ${this.props.name.split(' ')[0]} Read` : 'Hear Student Read'}
-                
+                  { `Hear ${firstName} Read` }
+
                    &nbsp;&nbsp;<i className={["fa", "fa-play", 'animated', 'faa-pulse'].join(" ")} aria-hidden={"true"} />
                 </Button>
               }
@@ -1142,7 +1147,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.studentResponse}>Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike.</p> 
  
                     { !this.state.showCompAudioPlayback[1] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[1] &&
@@ -1162,7 +1167,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.studentResponse}>Chris's mom is trying to make him feel better by buying him a new bike.</p> 
 
                     { !this.state.showCompAudioPlayback[2] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(2)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(2)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[2] &&
@@ -1179,7 +1184,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.studentResponse}>Chris will stop looking because he still hasn’t found it.</p> 
 
                     { !this.state.showCompAudioPlayback[3] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(3)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(3)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[3] &&
@@ -1201,7 +1206,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.studentResponse}>He thinks Mr. Podler once saw a ghost.</p> 
 
                    { !this.state.showCompAudioPlayback[4] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(4)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(4)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[4] &&
@@ -1219,7 +1224,7 @@ export default class ReportsInterface extends React.Component {
 
 
                    { !this.state.showCompAudioPlayback[5] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(5)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(5)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[5] &&
@@ -1258,7 +1263,7 @@ export default class ReportsInterface extends React.Component {
 
 
                     { !this.state.showCompAudioPlayback[1] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[1] &&
@@ -1281,7 +1286,7 @@ export default class ReportsInterface extends React.Component {
    
 
                     { !this.state.showCompAudioPlayback[2] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(2)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(2)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[2] &&
@@ -1302,7 +1307,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.studentResponse}>Chris will stop looking because he still hasn’t found it.</p> 
  
                     { !this.state.showCompAudioPlayback[3] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(3)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(3)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[3] &&
@@ -1319,7 +1324,7 @@ export default class ReportsInterface extends React.Component {
                   <p className={styles.studentResponse}>He thinks Mr. Podler once saw a ghost.</p> 
 
                     { !this.state.showCompAudioPlayback[4] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(4)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(4)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[4] &&
@@ -1342,7 +1347,7 @@ export default class ReportsInterface extends React.Component {
  
 
                     { !this.state.showCompAudioPlayback[5] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(5)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear it <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
+                      <Button onClick={() => this.onCompPlayRecordingClicked(5)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
                     }
 
                     { this.state.showCompAudioPlayback[5] &&
