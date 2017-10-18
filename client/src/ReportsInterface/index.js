@@ -1020,6 +1020,20 @@ export default class ReportsInterface extends React.Component {
                 />
             }
 
+            { this.props.isSample && this.props.assessmentBrand === 'STEP' && 
+                <Metric
+                  label="Comp."
+                  number={13}
+                  denominator={15}
+                  showDetails={this.props.isSample}
+                  compSubtotals={subtotals}
+                  isSample={this.props.isSample}
+
+                />
+            }
+
+
+
             { (!this.props.isSample && (this.props.compScores["0"] != null)) &&
               <Metric
                 label="Comp."

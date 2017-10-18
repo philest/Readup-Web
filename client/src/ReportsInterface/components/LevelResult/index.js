@@ -163,6 +163,8 @@ export default class LevelResult extends React.Component {
         .panel-myWarning {
 
           border-color: #faebcc;
+          min-width: 294px;
+     
         }
 
 

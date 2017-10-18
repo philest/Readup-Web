@@ -125,6 +125,11 @@ body {
 	display: inline-block;
 }
 
+.strategiesTrigger {
+	width: 9.05em;
+}
+
+
 .playbookTrigger:hover  {
 	transform: translateY(-3px);
     filter: brightness(120%);
