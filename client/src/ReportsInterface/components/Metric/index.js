@@ -315,6 +315,33 @@ export default class Metric extends React.Component {
 
 
 
+    const spellingPopover = (
+      <Popover id="popover-positioned-bottom" title="Breakdown" className={[css.myPopover, css.compPopover].join(' ')}>
+     
+        {this.props.isSample &&
+          <div>
+          <span className={styles.detail}>Short Vowel Sounds: <span className={styles.goodMetric}>7/8</span></span>
+          <span className={styles.detail}>Initial Blends: <span className={styles.fairMetric}>3/4</span></span>
+          <span className={styles.detail}>Final Blends: <span className={styles.goodMetric}>4/4</span></span>
+          </div>
+        }
+
+     
+        {!this.props.isSample && this.props.label === 'Comp.' &&
+          <div>
+          {
+            this.renderCompDetails()
+          }
+          </div>
+        }
+
+      </Popover>
+    );
+
+
+
+
+
     let fluencyPopover = (
         <Popover id="popover-positioned-bottom" title={(this.props.label === 'Fluency') ? fluencyLibrary[String(this.props.number)].title : ''} className={[css.myPopover, css.compPopover].join(' ')}>
           {(this.props.label === 'Fluency') ? fluencyLibrary[String(this.props.number)].details : ''}
@@ -406,7 +433,7 @@ export default class Metric extends React.Component {
         metricClass = spellingMetricClass;
         number = (number.toString() + ("/" + this.props.denominator.toString()))
         hasDetails = true 
-        popoverName = lastPopover
+        popoverName = spellingPopover
         break
     }
 
