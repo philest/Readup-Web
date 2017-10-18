@@ -215,8 +215,8 @@ export default class NavigationBar extends React.Component {
           { this.props.onReport &&
             <OverlayTrigger  trigger="click" rootClose placement="bottom" overlay={popoverClickRootClose}>
               <span className={this.props.beforeStudentDemo ? css.lastNavElt : ''}>
-                <span className={css.shareLabel}>Share report</span>
-                <i className={[css.logoutIcon, 'fa fa-share', css.shareIcon].join(' ')} />
+                <span className={css.shareLabel}>Send to others</span>
+                <i className={[css.logoutIcon, 'fa fa-paper-plane', css.shareIcon].join(' ')} />
               </span>
             </OverlayTrigger>
           }
