@@ -781,14 +781,15 @@ a:hover {
 
 }
 
-@media (max-width: 1168px) {
 
-	.miniPlayButton, .compAudioElement {
-		margin-top: 10px;
-		margin-bottom: 15px;
-	}	
+.miniPlayButton, .compAudioElement {
+margin-top: 10px;
+margin-bottom: 15px;
+display: block;
+margin-left: 20px;
 
-}
+}	
+
 
 @media (max-width: 1240px) {
 
