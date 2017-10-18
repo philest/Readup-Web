@@ -53,6 +53,16 @@ body {
 	color: #4a4a4a;
 }
 
+.switchSTEPheading {
+	position: relative;
+    top: 80px;
+    text-align: center;
+    font-size: 14px;
+    color: #31708E;
+    cursor: pointer;
+    transition: all .3s;
+}
+
 .navBar {
 	height: 60px;
 	z-index: 100;
@@ -130,7 +140,7 @@ body {
 }
 
 
-.playbookTrigger:hover  {
+.playbookTrigger:hover, .switchSTEPheading:hover  {
 	transform: translateY(-3px);
     filter: brightness(120%);
     transition: all .3s;

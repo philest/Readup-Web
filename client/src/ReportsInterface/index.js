@@ -897,7 +897,9 @@ export default class ReportsInterface extends React.Component {
 
       <div className={styles.reportsContainer}>
 
-
+        { this.props.isSample && this.props.assessmentBrand === 'FP' && this.props.isDirectSample &&
+          <h4 onClick={() => {window.location.href = '/reports/direct-sample?brand=STEP'} } className={styles.switchSTEPheading}>Using STEP? Click here</h4> 
+        }
 
         <div className={styles.contentWrapper} style={{ paddingTop: this.props.fullPage ? 130 + "px" : 110 + "px", paddingLeft: this.props.fullPage ? 110 + "px" : 60 + "px"  } }>
 

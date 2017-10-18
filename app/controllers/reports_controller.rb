@@ -135,7 +135,7 @@ class ReportsController < ApplicationController
       else 
         recordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm"
         compRecordingURL = "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/comp/recording.webm"
-        assessmentBrand ||= "STEP"
+        assessmentBrand ||= "FP"
       end 
 
 

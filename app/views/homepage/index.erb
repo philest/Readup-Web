@@ -916,7 +916,7 @@ a.demo-button button#new-hero-button {
     <div class="title">
       <div id="myTitleText" class="pure-u-1 pure-u-md-3-5">
 
-        <% @brand = {name: 'F&P and STEP', code: 'STEP'}; @brand3 = {name: 'STEP', code: 'STEP'}; @brand2 = {name: 'F&P', code: 'FP'} 
+        <% @brand = {name: 'F&P and STEP', code: 'FP'}; @brand3 = {name: 'STEP', code: 'STEP'}; @brand2 = {name: 'F&P', code: 'FP'} 
 
         %>
 
@@ -927,7 +927,7 @@ a.demo-button button#new-hero-button {
           <h4 id="sub-pitch">
             ReadUp's trusted <span class="specialists"><a href='/reports/direct-sample?brand=<%= @brand[:code]%>'>reading specialists</a></span> give and score full F&amp;P and STEP assessments so teachers can spend less time testing and <span> more time teaching.</span>
            </h4>
-      <a class="demo-button" href="/reports/direct-sample?brand=<%= @brand[:code]%> ">
+      <a class="demo-button" href="/reports/direct-sample?brand=FP">
         <button class="primary-btn" id="new-hero-button" onclick="demoClicked()"> 
         Try a Demo
         <i class="fa fa-angle-right faa-pulse animated fa-lg" id="btn-icon"></i>
