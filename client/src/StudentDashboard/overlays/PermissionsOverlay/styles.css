@@ -24,3 +24,14 @@
 	width: 60px;
 	animation: upAndDown 1s infinite alternate;
 }
+
+.reloadHelper {
+    position: fixed;
+    top: 70px;
+    left: 228px;
+    color: white;
+    font-family: 'ProximaNova Semibold';
+    font-size: 14px;
+    cursor: pointer;
+
+}

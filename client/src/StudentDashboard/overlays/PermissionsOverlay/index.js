@@ -9,7 +9,6 @@ const THIS_OVERLAY_ID = 'overlay-permissions'
 export default class PermissionsModal extends React.Component {
   static propTypes = {
     onArrowClicked: PropTypes.func,
-
     currentShowOverlay: PropTypes.string,
   };
 
@@ -19,7 +18,17 @@ export default class PermissionsModal extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {  };
+    this.state = {
+      showReloadHelper: false,
+    };
+  }
+
+  componentDidMount() {
+    setTimeout( () => { this.setState({showReloadHelper: true})}, 3000)
+  }
+
+  reloadPage = () => {
+    window.location.reload();
   }
 
   render() {
@@ -33,6 +42,9 @@ export default class PermissionsModal extends React.Component {
         <h1 style={{ color: 'white', fontSize: '2.5em' }}>
           Click "<i>Allow</i>" in the box above.
         </h1>
+        { this.state.showReloadHelper && 
+        <h4 onClick={this.reloadPage} className={styles.reloadHelper}>If no box shows, click here</h4>
+        }
         <img src="/images/dashboard/green-up-arrow.png" className={styles.upArrow} onClick={this.props.onArrowClicked} />
       </div>
 
