@@ -123,8 +123,11 @@ export default class Metric extends React.Component {
       )  
  
       if (this.getGeneralColorClass(this.props.compSubtotals[i][2]) !== styles.goodMetric) {
-        movesSet.add(playbookDict[String(this.props.compSubtotals[i][0]).replace(/ /g,'').toLowerCase()])
-        console.log(`just added ${String(this.props.compSubtotals[i][0])}`)
+
+        if (this.props.number) { // dont add strategies when no comp 
+          movesSet.add(playbookDict[String(this.props.compSubtotals[i][0]).replace(/ /g,'').toLowerCase()])
+          console.log(`just added ${String(this.props.compSubtotals[i][0])}`)
+        }
       }
 
 
@@ -142,8 +145,12 @@ export default class Metric extends React.Component {
       )
 
       if (this.props.showDetails && this.getGeneralColorClass(this.props.msvSubtotals[i][2]) !== styles.goodMetric) {
-        movesSet.add(playbookDict[String(this.props.msvSubtotals[i][0]).toLowerCase()])
-        console.log(`just added ${String(this.props.msvSubtotals[i][0])}`)
+     
+        if (this.props.number && this.props.number !== 100) { // dont add strategies when no MSV 
+          movesSet.add(playbookDict[String(this.props.msvSubtotals[i][0]).toLowerCase()])
+          console.log(`just added ${String(this.props.msvSubtotals[i][0])}`)
+        }
+
       }
 
 
