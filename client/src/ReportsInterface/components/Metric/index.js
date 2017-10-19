@@ -330,11 +330,14 @@ export default class Metric extends React.Component {
     const spellingPopover = (
       <Popover id="popover-positioned-bottom" title="Breakdown" className={[css.myPopover, css.compPopover].join(' ')}>
      
-        {this.props.isSample &&
+
+
+       {this.props.isSample &&
           <div>
-          <span className={styles.detail}>Short Vowel Sounds: <span className={styles.goodMetric}>7/8</span></span>
-          <span className={styles.detail}>Initial Blends: <span className={styles.fairMetric}>3/4</span></span>
-          <span className={styles.detail}>Final Blends: <span className={styles.goodMetric}>4/4</span></span>
+          <span className={styles.detail}>-ed/ing Endings: <span className={styles.fairMetric}>4/5</span></span>
+          <span className={styles.detail}>Doubling at Syllable Juncture: <span className={styles.goodMetric}>5/5</span></span>
+          <span className={styles.detail}>Long-Vowel Two-Syllable Words: <span className={styles.fairMetric}>3/5</span></span>
+          <span className={styles.detail}>R-Controlled Two-Syllable Words: <span className={styles.goodMetric}>5/4</span></span>
           </div>
         }
 

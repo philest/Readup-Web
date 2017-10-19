@@ -3,20 +3,25 @@ import React from 'react';
 import styles from './styles.css'
 
 
-// const words = ['shaking', 'bagged', 'batter', 'running', 'bitter', 'hiking', 'tennis', 'gripped', 'warning', 'dinner', 'retain', 'happen', 'explode', 'disturb', 'review', 'survive', 'explain', 'return', 'complain', 'boring']
-// const responses = ['shaking', 'bagged', 'batter', 'running', 'bitter', 'hiking', 'tennis', 'gripped', 'warning', 'dinner', 'retain', 'happen', 'explode', 'disturb', 'review', 'survive', 'explain', 'return', 'complain', 'boring']
+const words = ['shaking', 'bagged', 'batter', 'running', 'bitter', 'hiking', 'tennis', 'gripped', 'warning', 'dinner', 'retain', 'happen', 'explode', 'disturb', 'review', 'survive', 'explain', 'return', 'complain', 'boring']
+const responses = ['shaking', 'bagged', 'bater', 'running', 'bitter', 'hiking', 'tennis', 'gripped', 'warning', 'dinner', 'retane', 'happen', 'explode', 'disturb', 'review', 'survive', 'explane', 'return', 'complain', 'boring']
 
-const words = ['shaking', 'bagged', 'batter']
-const responses = ['shaking', 'bagged', 'battir']
-const titles = ['Words', 'Student Responses', '-ed/ing Endings', 'Doubling at Syllable Juncture', 'Long-Vowel Two-syllable Words', 'R-Controlled Two-Syllable Words' ]
+const titles = ['Words', 'Student Responses', '-ed/ing Endings', 'Doubling at Syllable Juncture', 'Long-Vowel Two-syllable Words', 'R-Controlled Two-Syllable Words']
+
+const isSpelledCorrectlyArr = [true, true, false, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true]
 
 
-const isSpelledCorrectlyArr = [true, true, false]
+const endings = [true, true, null, false, null, true, null, true, null, null, null, null, null, null, null, null, null, null, null, null]
 
-const endings = [true, true, null]
-const doubling = [false, false, null]
-const long = [true, null, false]
-const rControlled = [false, true, true]
+const doubling = [null, null, true, null, true, null, true, null, null, true, null, true, null, null, null, null, null, null, null, null]
+
+const long = [null, null, null, null, null, null, null, null, null, null, false, null, true, null, true, null, false, null, true, null]
+
+
+const rControlled = [null, null, null, null, null, null, null, null, true, null, null, null, null, true, null, true, null, true, null, true]
+
+
+
 
 export default class SpellingReport extends React.Component {
   static propTypes = {
