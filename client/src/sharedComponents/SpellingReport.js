@@ -63,22 +63,53 @@ export default class SpellingReport extends React.Component {
   }
 
 
+  renderWordColumn = (words, colNum) => {
+    let arr = []
+
+    for (let i = 0, len = words.length; i < len; i++) {
+      arr.push(<li key={i}>{words[i]}</li>)
+    }
+
+    return (<div className={styles.fullColumn}>
+              <h4 className={styles.columnTitle}>{titles[colNum - 1]}</h4>
+              <ol className={styles.unstyledList} > {arr} </ol>
+            </div>)
+  }
+
+
   render() {
 
 
     return (
 
       <div> 
-        <div className={styles.titleWrapper}>
-          {
 
-            this.renderColumnTitles(titles)
+        <div className={styles.colsWrapper}>
+
+          {
+            this.renderWordColumn(words, 1)
+          }
+
+          {
+            this.renderWordColumn(words, 2)
+          }
+
+          {
+            this.renderWordColumn(words, 3)
+          }
+
+          {
+            this.renderWordColumn(words, 4)
+          }
+
+          {
+            this.renderWordColumn(words, 5)
+          }
+
+          {
+            this.renderWordColumn(words, 6)
           }
         </div>
-
-        {
-          this.renderWordRows(words, responses)
-        }
 
       </div>
 

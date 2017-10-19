@@ -203,12 +203,29 @@
 
 }
 
+.colsWrapper {
+	display: flex;
+	justify-content: space-between;
+	flex-flow: row;
+}
+
+
 .columnTitle {
 	display: inline-block;
 	max-width: 150px;
     text-align: center;
     font-family: 'proximanova semibold';
+    height: 40px;
 
+
+}
+
+.unstyledList {
+	margin-top: 0;
+    margin-bottom: 10px;
+    list-style-type: none;
+    padding-left: 0px;
+    text-align: center;
 }
 
 

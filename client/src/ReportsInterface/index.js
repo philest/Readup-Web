@@ -1028,7 +1028,7 @@ export default class ReportsInterface extends React.Component {
                 />
             }
 
-            { false && this.props.isSample && this.props.assessmentBrand === 'STEP' && 
+            { this.props.isSample && this.props.assessmentBrand === 'STEP' && 
                 <Metric
                   label="Spelling"
                   number={14}
@@ -1594,13 +1594,13 @@ export default class ReportsInterface extends React.Component {
 
         }
 
-        { false && this.props.assessmentBrand === 'STEP' && this.props.isSample && 
+        { this.props.assessmentBrand === 'STEP' && this.props.isSample && 
           <div className={styles.spellingWrapper}>
             <hr className={styles.metricsDivider}/>
 
             <h5 className={styles.sectionHeader}>3. SPELLING</h5>
 
-            <div className={styles.bookInfoHeader}>
+            <div className={styles.sectionLargeTitle}>
               <div className={styles.bookInfoWrapper}>
                 <div className={styles.bookInfoTitle}>Developmental Spelling</div>
               </div>

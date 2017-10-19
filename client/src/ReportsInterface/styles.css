@@ -373,6 +373,11 @@ button, .playbookTrigger {
 	margin-bottom: 60px;
 }
 
+.sectionLargeTitle {
+	margin-top: 25px;
+    margin-bottom: 30px;
+}
+
 .bookInfoWrapper {
 
 }
