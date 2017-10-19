@@ -22,6 +22,34 @@ const rControlled = [null, null, null, null, null, null, null, null, true, null,
 
 
 
+export const spellingObj = {
+  numWords: 20,
+  words: words,
+  responses: responses,
+  numSections: 4,
+  sections: {
+    1: {
+      title: '-ed/ing Endings',
+      statusArr: endings,
+    },
+    2: {
+      title: 'Doubling at Syllable Juncture',
+      statusArr: doubling,
+    },
+    3: {
+      title: 'Long-Vowel Two-syllable Words',
+      statusArr: long,
+    },
+    4: {
+      title: 'R-Controlled Two-Syllable Words',
+      statusArr: rControlled,
+    },
+
+  },
+
+}
+
+
 
 export default class SpellingReport extends React.Component {
   static propTypes = {
@@ -54,9 +82,12 @@ export default class SpellingReport extends React.Component {
   }
 
 
+  isCorrectSpelling(word, response) {
+    return word === response 
+  }
 
 
-  renderWordColumn = (words, colNum) => {
+  renderWordColumn = (words) => {
     let arr = []
 
     for (let i = 0, len = words.length; i < len; i++) {
@@ -64,20 +95,20 @@ export default class SpellingReport extends React.Component {
     }
 
     return (<div className={styles.fullColumn}>
-              <h4 className={styles.columnTitle}>{titles[colNum - 1]}</h4>
+              <h4 className={styles.columnTitle}>Words</h4>
               <ol className={[styles.unstyledList, styles.numberedList].join(' ')} > {arr} </ol>
             </div>)
   }
 
-  renderResponsesColumn = (responses, isSpelledCorrectlyArr) => {
+  renderResponsesColumn = (words, responses) => {
     let arr = []
 
     for (let i = 0, len = responses.length; i < len; i++) {
-      arr.push(<li className={[styles.listElt, styles.studentResponse, (isSpelledCorrectlyArr[i] ? styles.goodMetric : ([styles.fairMetric, styles.wrong].join(' ')) ) ].join(' ')} key={i}>{responses[i]}</li>)
+      arr.push(<li className={[styles.listElt, styles.studentResponse, (words[i] === responses[i] ? styles.goodMetric : ([styles.fairMetric, styles.wrong].join(' ')) ) ].join(' ')} key={i}>{responses[i]}</li>)
     }
 
     return (<div className={styles.fullColumn}>
-              <h4 className={styles.columnTitle}>{titles[1]}</h4>
+              <h4 className={styles.columnTitle}>Student Responses</h4>
               <ol className={styles.unstyledList} > {arr} </ol>
             </div>)
   }
@@ -122,11 +153,11 @@ export default class SpellingReport extends React.Component {
         <div className={styles.colsWrapper}>
 
           {
-            this.renderWordColumn(words, 1)
+            this.renderWordColumn(spellingObj.words)
           }
 
           {
-            this.renderResponsesColumn(responses, isSpelledCorrectlyArr)
+            this.renderResponsesColumn(words, responses)
           }
 
           {
