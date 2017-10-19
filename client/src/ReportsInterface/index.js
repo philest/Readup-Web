@@ -371,7 +371,7 @@ export default class ReportsInterface extends React.Component {
     for(let i = 0; i < numQuestions; i++) {
       total += book.questions[String(i + 1)].points
     } 
-    
+
     return total
 
   }
@@ -978,7 +978,7 @@ export default class ReportsInterface extends React.Component {
               <Metric
                 label="Accuracy"
                 number={acc}
-                showDetails={this.props.userID > 155 && wasMSVgraded(this.state.gradedText.paragraphs)}
+                showDetails={this.props.userID > 155 && (wasMSVgraded(this.state.gradedText.paragraphs) || acc === 100)}
                 isSample={this.props.isSample}
                 msvSubtotals={msvArr}
                 showPlaybook={this.state.showPlaybook}
