@@ -158,6 +158,7 @@ export default class Metric extends React.Component {
       goodMetric: percent >= .66,
       fairMetric: percent < .66 && percent >= .5, 
       poorMetric: percent < .5,
+      nullMetric: !this.props.number,
     });
 
 
