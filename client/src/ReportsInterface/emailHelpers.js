@@ -335,7 +335,7 @@ export function didEndEarly(evaluationTextData) {
     const endPindex = evaluationTextData.readingEndIndex.paragraphIndex
     const numParagraphs = evaluationTextData.paragraphs.length
 
-    if (endPindex < 2) {
+    if (endPindex <= 2) {
       return true
     }
     else {

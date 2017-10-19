@@ -52,7 +52,7 @@ export default class LevelResult extends React.Component {
    
     if (this.props.reassess === true || this.props.didEndEarly || this.props.yellowColorOverride) {
       return "myWarning"
-    } else if (this.props.difficulty == 'Frustrational') {
+    } else if (this.props.difficulty === 'Frustrational') {
       // trying warning to be more friendly
       return "myWarning"
     } else  {
@@ -101,10 +101,10 @@ export default class LevelResult extends React.Component {
     }
 
 
-    if (this.props.didEndEarly) {
+    if (this.props.didEndEarly && this.props.difficulty !== 'Frustrational') {
       title = titleNoFinish
     } else {
-      title = titleNormal
+      title = titleNormal // allow Frustrational to override did end early
     }
 
 
