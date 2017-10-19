@@ -128,18 +128,28 @@ export default class SpellingReport extends React.Component {
     }
   }
 
-  renderPhoneticColumn = (phonetics, colNum) => {
+  renderPhoneticColumn = (statusArr, title) => {
     let arr = []
 
-    for (let i = 0, len = phonetics.length; i < len; i++) {
-      arr.push(<li className={styles.listElt} key={i}>{this.getSymbol(phonetics[i])}</li>)
+    for (let i = 0, len = statusArr.length; i < len; i++) {
+      arr.push(<li className={styles.listElt} key={i}>{this.getSymbol(statusArr[i])}</li>)
     }
 
     return (<div className={styles.fullColumn}>
-              <h4 className={styles.columnTitle}>{titles[colNum - 1]}</h4>
+              <h4 className={styles.columnTitle}>{title}</h4>
               <ol className={styles.unstyledList} > {arr} </ol>
             </div>)
 
+  }
+
+  renderSections = () => {
+    let arr = []
+
+    for (let i = 1, len = spellingObj.numSections; i <= len; i++) {
+      arr.push(this.renderPhoneticColumn(spellingObj.sections[String(i)].statusArr, spellingObj.sections[i].title))
+    }
+
+    return arr 
   }
 
 
@@ -157,23 +167,11 @@ export default class SpellingReport extends React.Component {
           }
 
           {
-            this.renderResponsesColumn(words, responses)
+            this.renderResponsesColumn(spellingObj.words, spellingObj.responses)
           }
 
           {
-            this.renderPhoneticColumn(endings, 3)
-          }
-
-          {
-            this.renderPhoneticColumn(doubling, 4)
-          }
-
-          {
-            this.renderPhoneticColumn(long, 5)
-          }
-
-          {
-            this.renderPhoneticColumn(rControlled, 6)
+            this.renderSections()
           }
         </div>
 
