@@ -356,7 +356,7 @@ function* newFetchUntilPrompt(studentID){
 
 function* spellingInstructionSaga() {
 
-  yield call(playSoundAsync, '/audio/step/spelling/spellingIntro.mp3')
+  yield call(playSoundAsync, '/audio/spelling-intro.mp3')
 
   yield put.resolve(hideVolumeIndicator())
   yield call(delay, 3000)
