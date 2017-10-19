@@ -1617,7 +1617,7 @@ export default class ReportsInterface extends React.Component {
 
         }
 
-        { this.props.assessmentBrand === 'STEP' && this.props.isSample && 
+        { this.props.isSample && 
           <div className={styles.spellingWrapper}>
             <hr className={styles.metricsDivider}/>
 
@@ -1625,7 +1625,10 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.sectionLargeTitle}>
               <div className={styles.bookInfoWrapper}>
-                <div className={styles.bookInfoTitle}>Developmental Spelling</div>
+                <div className={styles.bookInfoTitle}>Developmental Spelling</div> 
+                { this.props.assessmentBrand === 'FP' &&
+                    <span className={styles.optional}>(Optional)</span>
+                }
               </div>
             </div>
 

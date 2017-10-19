@@ -391,7 +391,15 @@ button, .playbookTrigger {
 	font-weight: bold;
 	font-size: 1.6em;
 	min-width: 157px;
+	display: inline-block;
 
+}
+
+.optional {
+	margin-left: 10px;
+    font-size: 19px;
+    color: grey;
+    font-style: italic;
 }
 
 .bookInfoLevel {
