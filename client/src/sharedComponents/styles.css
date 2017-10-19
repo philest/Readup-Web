@@ -249,6 +249,14 @@
 	color: #982e2b;
 }
 
+.studentResponse {
+	font-family: 'ProximaNova Semibold'
+}
+
+.wrong {
+	font-style: italic;
+}
+
 @media (max-width: 1024px) {
 	.rightSide {
 		display: none;

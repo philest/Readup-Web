@@ -10,6 +10,9 @@ const words = ['shaking', 'bagged', 'batter']
 const responses = ['shaking', 'bagged', 'battir']
 const titles = ['Words', 'Student Responses', '-ed/ing Endings', 'Doubling at Syllable Juncture', 'Long-Vowel Two-syllable Words', 'R-Controlled Two-Syllable Words' ]
 
+
+const isSpelledCorrectlyArr = [true, true, false]
+
 const endings = [true, true, null]
 const doubling = [false, false, null]
 const long = [true, null, false]
@@ -80,25 +83,11 @@ export default class SpellingReport extends React.Component {
             </div>)
   }
 
-  renderResponsesColumn = (responses) => {
+  renderResponsesColumn = (responses, isSpelledCorrectlyArr) => {
     let arr = []
 
     for (let i = 0, len = responses.length; i < len; i++) {
-      arr.push(<li className={styles.listElt} key={i}>{responses[i]}</li>)
-    }
-
-    return (<div className={styles.fullColumn}>
-              <h4 className={styles.columnTitle}>{titles[1]}</h4>
-              <ol className={styles.unstyledList} > {arr} </ol>
-            </div>)
-  }
-
-
-  renderResponsesColumn = (responses) => {
-    let arr = []
-
-    for (let i = 0, len = responses.length; i < len; i++) {
-      arr.push(<li className={styles.listElt} key={i}>{responses[i]}</li>)
+      arr.push(<li className={[styles.listElt, styles.studentResponse, (isSpelledCorrectlyArr[i] ? styles.goodMetric : ([styles.fairMetric, styles.wrong].join(' ')) ) ].join(' ')} key={i}>{responses[i]}</li>)
     }
 
     return (<div className={styles.fullColumn}>
@@ -142,7 +131,7 @@ export default class SpellingReport extends React.Component {
 
     return (
 
-      <div> 
+      <div>
 
         <div className={styles.colsWrapper}>
 
@@ -151,7 +140,7 @@ export default class SpellingReport extends React.Component {
           }
 
           {
-            this.renderResponsesColumn(responses)
+            this.renderResponsesColumn(responses, isSpelledCorrectlyArr)
           }
 
           {
