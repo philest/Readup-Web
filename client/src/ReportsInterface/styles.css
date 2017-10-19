@@ -402,6 +402,14 @@ button, .playbookTrigger {
     font-style: italic;
 }
 
+.optionalSmall {
+	font-size: 12px;
+    color: grey;
+    height: 0px;
+    left: -4px;
+    opacity: 0.7;
+}
+
 .bookInfoLevel {
 	font-size: 1.2em;
 	font-family: 'ProximaNova';

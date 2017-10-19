@@ -486,6 +486,10 @@ export default class Metric extends React.Component {
             </OverlayTrigger>
           }  
 
+          { this.props.label === 'Spelling' && this.props.brand === 'FP' &&
+            <span className={styles.optionalSmall} >Optional</span>
+          }
+
 
        <style type="text/css">{'.modal-backdrop.in { opacity: 0.6; } '}</style>
         <Modal dialogClassName={styles.modalLg}  show={this.props.showPlaybook}   onHide={this.props.onPlaybookClose} >

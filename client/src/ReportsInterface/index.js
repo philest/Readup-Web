@@ -1033,7 +1033,7 @@ export default class ReportsInterface extends React.Component {
                 />
             }
 
-            { this.props.isSample && this.props.assessmentBrand === 'STEP' && 
+            { this.props.isSample && 
                 <Metric
                   label="Spelling"
                   number={17}
@@ -1041,6 +1041,7 @@ export default class ReportsInterface extends React.Component {
                   showDetails={this.props.isSample}
                   compSubtotals={subtotals}
                   isSample={this.props.isSample}
+                  brand={this.props.assessmentBrand}
 
                 />
             }
