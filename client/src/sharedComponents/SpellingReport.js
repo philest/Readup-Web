@@ -48,26 +48,7 @@ export default class SpellingReport extends React.Component {
 
   }
 
-  renderWordRows = (words, responses) => {
-    let arr = []
 
-    for (let i = 0, len = words.length; i < len; i++) {
-      arr.push(
-        <div className={styles.titleWrapper}>
-          <h4 className={styles.columnTitle}>{words[i]}</h4>
-          <h4 className={styles.columnTitle}>{responses[i]}</h4>
-          <h4 className={styles.columnTitle}>{'x'}</h4>
-          <h4 className={styles.columnTitle}>{'x'}</h4>
-          <h4 className={styles.columnTitle}>{'x'}</h4>
-          <h4 className={styles.columnTitle}>{'x'}</h4>
-
-        </div>
-      )
-    }
-
-    return arr
-
-  }
 
 
   renderWordColumn = (words, colNum) => {
@@ -79,7 +60,7 @@ export default class SpellingReport extends React.Component {
 
     return (<div className={styles.fullColumn}>
               <h4 className={styles.columnTitle}>{titles[colNum - 1]}</h4>
-              <ol className={styles.unstyledList} > {arr} </ol>
+              <ol className={[styles.unstyledList, styles.numberedList].join(' ')} > {arr} </ol>
             </div>)
   }
 

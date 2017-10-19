@@ -228,6 +228,12 @@
     text-align: center;
 }
 
+.numberedList {
+    list-style-type: decimal;
+    padding-left: 13px;
+    color: #525252;
+}
+
 .listElt {
 	margin-bottom: 10px;
 }
