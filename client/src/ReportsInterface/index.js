@@ -10,6 +10,7 @@ import InfoBar from './components/InfoBar'
 import LevelResult from './components/LevelResult'
 import Metric from './components/Metric'
 import SpellingReport from '../sharedComponents/SpellingReport'
+import { sampleSpellingObj } from '../sharedComponents/sampleSpellingObj'
 
 import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
 
@@ -108,6 +109,8 @@ export default class ReportsInterface extends React.Component {
 
 
   componentWillMount() {
+
+    console.log('sampleSpellingObj: ', sampleSpellingObj)
 
     stopAudio()
 
@@ -1633,7 +1636,9 @@ export default class ReportsInterface extends React.Component {
               </div>
             </div>
 
-            <SpellingReport />
+            <SpellingReport
+              spellingObj={sampleSpellingObj}
+            />
 
           </div>
         }

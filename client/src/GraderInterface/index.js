@@ -8,6 +8,9 @@ import { Button, ButtonGroup, Alert, OverlayTrigger, Popover, Modal, FormGroup, 
 
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newSampleEvaluationText, stepMarkup } from '../sharedComponents/stepMarkup'
+
+import SpellingReport from '../sharedComponents/SpellingReport'
+
 import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
 import NavigationBar from '../StudentDashboard/components/NavigationBar'

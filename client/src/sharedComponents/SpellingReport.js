@@ -3,56 +3,12 @@ import React from 'react';
 import styles from './styles.css'
 
 
-const words = ['shaking', 'bagged', 'batter', 'running', 'bitter', 'hiking', 'tennis', 'gripped', 'warning', 'dinner', 'retain', 'happen', 'explode', 'disturb', 'review', 'survive', 'explain', 'return', 'complain', 'boring']
-const responses = ['shaking', 'bagged', 'bater', 'running', 'bitter', 'hiking', 'tennis', 'gripped', 'warning', 'dinner', 'retane', 'happen', 'explode', 'disturb', 'review', 'survive', 'explane', 'return', 'complain', 'boring']
-
-const titles = ['Words', 'Student Responses', '-ed/ing Endings', 'Doubling at Syllable Juncture', 'Long-Vowel Two-syllable Words', 'R-Controlled Two-Syllable Words']
-
-const isSpelledCorrectlyArr = [true, true, false, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true]
-
-
-const endings = [true, true, null, false, null, true, null, true, null, null, null, null, null, null, null, null, null, null, null, null]
-
-const doubling = [null, null, true, null, true, null, true, null, null, true, null, true, null, null, null, null, null, null, null, null]
-
-const long = [null, null, null, null, null, null, null, null, null, null, false, null, true, null, true, null, false, null, true, null]
-
-
-const rControlled = [null, null, null, null, null, null, null, null, true, null, null, null, null, true, null, true, null, true, null, true]
-
-
-
-export const spellingObj = {
-  numWords: 20,
-  words: words,
-  responses: responses,
-  numSections: 4,
-  sections: {
-    1: {
-      title: '-ed/ing Endings',
-      statusArr: endings,
-    },
-    2: {
-      title: 'Doubling at Syllable Juncture',
-      statusArr: doubling,
-    },
-    3: {
-      title: 'Long-Vowel Two-syllable Words',
-      statusArr: long,
-    },
-    4: {
-      title: 'R-Controlled Two-Syllable Words',
-      statusArr: rControlled,
-    },
-
-  },
-
-}
 
 
 
 export default class SpellingReport extends React.Component {
   static propTypes = {
+    spellingObj: PropTypes.object.isRequired,
   };
   static defaultProps = {
   };
@@ -64,9 +20,8 @@ export default class SpellingReport extends React.Component {
   }
 
 
-  renderRow = () => {
-
-
+  componentWillMount() {
+    console.log('spellingObj: ', this.props.spellingObj)
   }
 
 
@@ -145,8 +100,8 @@ export default class SpellingReport extends React.Component {
   renderSections = () => {
     let arr = []
 
-    for (let i = 1, len = spellingObj.numSections; i <= len; i++) {
-      arr.push(this.renderPhoneticColumn(spellingObj.sections[String(i)].statusArr, spellingObj.sections[i].title))
+    for (let i = 1, len = this.props.spellingObj.numSections; i <= len; i++) {
+      arr.push(this.renderPhoneticColumn(this.props.spellingObj.sections[String(i)].statusArr, this.props.spellingObj.sections[i].title))
     }
 
     return arr 
@@ -163,11 +118,11 @@ export default class SpellingReport extends React.Component {
         <div className={styles.colsWrapper}>
 
           {
-            this.renderWordColumn(spellingObj.words)
+            this.renderWordColumn(this.props.spellingObj.words)
           }
 
           {
-            this.renderResponsesColumn(spellingObj.words, spellingObj.responses)
+            this.renderResponsesColumn(this.props.spellingObj.words, this.props.spellingObj.responses)
           }
 
           {
