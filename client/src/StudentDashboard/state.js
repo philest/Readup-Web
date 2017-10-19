@@ -535,6 +535,30 @@ export const fireflyBook = {
 };
 
 
+export const peterSpellingObj = {
+  numWords: 15,
+  words: ["pest", "chip", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
+  responses: ["pest", "chip", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
+  numSections: 3,
+  sections: {
+    1: {
+      title: 'Short-Vowel Sound',
+      statusArr: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+    },
+    2: {
+      title: 'Initial Blend/Digraph',
+      statusArr: [null, true, null, null, true, true, true, null, null, true, true, null, null, true, true],
+    },
+    3: {
+      title: 'Final Blend/Digraph',
+      statusArr: [true, null, true, true, null, null, null, true, true, null, null, true, true, null, null],
+    },
+
+  },
+
+}
+
+
 
 export const stepBook = {
   title: "Upside Down",
@@ -672,29 +696,6 @@ export const stepBook = {
 };
 
 
-
-export const peterSpellingObj = {
-  numWords: 15,
-  words: ["pest", "chip", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
-  responses: [],
-  numSections: 3,
-  sections: {
-    1: {
-      title: 'Short-Vowel Sound',
-      statusArr: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-    },
-    2: {
-      title: 'Initial Blend/Digraph',
-      statusArr: [null, true, null, null, true, true, true, null, null, true, true, null, null, true, true],
-    },
-    3: {
-      title: 'Final Blend/Digraph',
-      statusArr: [true, null, true, true, null, null, null, true, true, null, null, true, true, null, null],
-    },
-
-  },
-
-}
 
 
 

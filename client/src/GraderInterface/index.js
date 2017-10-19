@@ -1648,7 +1648,7 @@ renderCompQuestions6 = () => {
             </div>
 
             <SpellingReport
-              spellingObj={sampleSpellingObj}
+              spellingObj={book.spellingObj}
             />
 
           </div>
