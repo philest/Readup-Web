@@ -63,10 +63,10 @@ const playbookDict = {
   visual:  <span key={1} className={styles.detail}> <span className={styles.poorMetric}>Visual Cues (Accuracy):  </span>Build self-monitoring based on checking first letters and pictures</span> ,
   structure:  <span key={2}  className={styles.detail}> <span className={styles.poorMetric}>Structure cues (Accuracy):  </span>Build self-monitoring based on checking if the sentence sounds right</span>,
   meaning:  <span key={3}  className={styles.detail}> <span className={styles.poorMetric}>Meaning cues (Accuracy):  </span>Build self-monitoring based on checking if the sentence makes sense</span>,
-  inferential: <span  key={4} className={styles.detail}> <span className={styles.fairMetric}>Inferential Comp:  </span>Focus on solving inferential questions by checking back at the text</span>, 
+  inferential: <span  key={4} className={styles.detail}> <span className={styles.fairMetric}>Persisting in a difficult text (Comp.):  </span>Teach student to self-monitor: Where do they get confused? Can they put the difficult sentence in their own words? Do earlier pages give clues? What about later pages?</span>, 
   factual: <span key={5}  className={styles.detail}> <span className={styles.fairMetric}>Factual Comp:  </span>Focus on solving factual questions by practicing retelling texts</span>, 
   critical: <span  key={6} className={styles.detail}> <span className={styles.fairMetric}>Critical Thinking:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
-  fluency:  <span key={7} className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>,
+  fluency:  <span key={7} className={styles.detail}> <span className={styles.fairMetric}>Flow and Meaning (Fluency):  </span>Invite your student to reread familar texts out loud for audiences. Let other students model reading with meaning and flow.</span>,
   criticalthinking: <span key={8}  className={styles.detail}> <span className={styles.fairMetric}>Comp:  </span>Focus on solving critical thinking questions by making and checking predictions about the text</span>, 
   nothing: <span key={9}  className={styles.detail}> No moves added yet. Check back soon!</span>,
 }
@@ -504,8 +504,9 @@ export default class Metric extends React.Component {
             <div className={styles.playbookMoves}>
             <span className={styles.detail}> <span className={styles.poorMetric}>Visual cues (Accuracy):  </span>Build self-monitoring based on checking first letters and pictures</span>
             <span className={styles.detail}> <span className={styles.poorMetric}>Structure cues (Accuracy):  </span>Build self-monitoring based on checking if the sentence sounds right</span>
-            <span className={styles.detail}> <span className={styles.fairMetric}>Inferential Comp:  </span>Focus on solving inferential questions by checking back at the text</span>
-            <span className={styles.detail}> <span className={styles.fairMetric}>Fluency:  </span>Practice with high frequency words to build recognition</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>Persisting in a difficult text (Comp.):  </span>Teach student to self-monitor: Where do they get confused? Can they put the difficult sentence in their own words? Do earlier pages give clues? What about later pages?</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>Meaning and Flow (Fluency):  </span>Invite your student to reread familar texts out loud for audiences. Let other students model reading with meaning and flow</span>
+            <span className={styles.detail}> <span className={styles.fairMetric}>R-Controlled Two-Syllable Words (Spelling):  </span>During shared reading, give the student extra chances to read r-controlled two-syllable words</span>
             </div>
           }
 
