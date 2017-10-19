@@ -11,9 +11,9 @@ export const titles = ['Words', 'Student Responses', '-ed/ing Endings', 'Doublin
 export const isSpelledCorrectlyArr = [true, true, false, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true]
 
 
-export const endings = [true, true, null, false, null, true, null, true, null, null, null, null, null, null, null, null, null, null, null, null]
+export const endings = [true, true, true, true, null, true, null, true, null, null, null, null, null, null, null, null, null, null, null, null]
 
-export const doubling = [null, null, true, null, true, null, true, null, null, true, null, true, null, null, null, null, null, null, null, null]
+export const doubling = [null, null, false, null, true, null, true, null, null, true, null, true, null, null, null, null, null, null, null, null]
 
 export const long = [null, null, null, null, null, null, null, null, null, null, false, null, true, null, true, null, false, null, true, null]
 

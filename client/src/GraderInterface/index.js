@@ -10,6 +10,7 @@ import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 import { newSampleEvaluationText, stepMarkup } from '../sharedComponents/stepMarkup'
 
 import SpellingReport from '../sharedComponents/SpellingReport'
+import { sampleSpellingObj } from '../sharedComponents/sampleSpellingObj'
 
 import { updateStudent, updateAssessment, updateScoredText, markScored, markUnscorable, updateFluencyScore, getFluencyScore, getAssessmentData} from '../ReportsInterface/emailHelpers'
 
@@ -1631,25 +1632,28 @@ renderCompQuestions6 = () => {
         <br/><br/>
         <br/><br/>
 
-        <Button
-          className={styles.submitButton}
-          bsStyle={'primary'}
-          bsSize={'large'}
-          active={this.state.hasSavedRecently}
-          onClick={this.onSaveClicked}
-        >
-          Save edits
-        </Button>
+
+          <div className={styles.spellingWrapper}>
+            <hr className={styles.metricsDivider}/>
+
+            <h5 className={styles.sectionHeader}>3. SPELLING</h5>
+
+            <div className={styles.sectionLargeTitle}>
+              <div className={styles.bookInfoWrapper}>
+                <div className={styles.bookInfoTitle}>Developmental Spelling</div> 
+                { this.props.assessmentBrand === 'FP' &&
+                    <span className={styles.optional}>(Optional)</span>
+                }
+              </div>
+            </div>
+
+            <SpellingReport
+              spellingObj={sampleSpellingObj}
+            />
+
+          </div>
 
 
-        <Button
-          className={styles.unscorableButton}
-          bsStyle={'success'}
-          bsSize={'small'}
-          onClick={this.showChecklistModal}
-        >
-          Send to user
-        </Button>
 
 
        
