@@ -7,9 +7,10 @@ import styles from './styles.css'
 // const responses = ['shaking', 'bagged', 'batter', 'running', 'bitter', 'hiking', 'tennis', 'gripped', 'warning', 'dinner', 'retain', 'happen', 'explode', 'disturb', 'review', 'survive', 'explain', 'return', 'complain', 'boring']
 
 const words = ['shaking', 'bagged', 'batter']
-const responses = ['shaking', 'bagged', 'batter']
+const responses = ['shaking', 'bagged', 'battir']
 const titles = ['Words', 'Student Responses', '-ed/ing Endings', 'Doubling at Syllable Juncture', 'Long-Vowel Two-syllable Words', 'R-Controlled Two-Syllable Words' ]
 
+const endings = [true, true, null]
 
 export default class SpellingReport extends React.Component {
   static propTypes = {
@@ -67,13 +68,69 @@ export default class SpellingReport extends React.Component {
     let arr = []
 
     for (let i = 0, len = words.length; i < len; i++) {
-      arr.push(<li key={i}>{words[i]}</li>)
+      arr.push(<li className={styles.listElt} key={i}>{words[i]}</li>)
     }
 
     return (<div className={styles.fullColumn}>
               <h4 className={styles.columnTitle}>{titles[colNum - 1]}</h4>
               <ol className={styles.unstyledList} > {arr} </ol>
             </div>)
+  }
+
+  renderResponsesColumn = (responses) => {
+    let arr = []
+
+    for (let i = 0, len = responses.length; i < len; i++) {
+      arr.push(<li className={styles.listElt} key={i}>{responses[i]}</li>)
+    }
+
+    return (<div className={styles.fullColumn}>
+              <h4 className={styles.columnTitle}>{titles[1]}</h4>
+              <ol className={styles.unstyledList} > {arr} </ol>
+            </div>)
+  }
+
+
+  renderResponsesColumn = (responses) => {
+    let arr = []
+
+    for (let i = 0, len = responses.length; i < len; i++) {
+      arr.push(<li className={styles.listElt} key={i}>{responses[i]}</li>)
+    }
+
+    return (<div className={styles.fullColumn}>
+              <h4 className={styles.columnTitle}>{titles[1]}</h4>
+              <ol className={styles.unstyledList} > {arr} </ol>
+            </div>)
+  }
+
+
+  getSymbol = (data) => {
+    if (data === true) {
+      return (<i className={'fa fa-check'} />)
+    }
+
+    if (data === null) {
+      return (<span className={styles.emptyPhonetics}>{"—"}</span>)
+    }
+
+    if (data === false) {
+      return (<i className={'fa fa-times'} />)
+    }
+  }
+
+  renderPhoneticColumn = (phonetics) => {
+    let arr = []
+
+    for (let i = 0, len = phonetics.length; i < len; i++) {
+      arr.push(<li className={styles.listElt} key={i}>{this.getSymbol(phonetics[i])}</li>)
+    }
+
+    return (<div className={styles.fullColumn}>
+              <h4 className={styles.columnTitle}>{titles[2]}</h4>
+              <ol className={styles.unstyledList} > {arr} </ol>
+            </div>)
+
   }
 
 
@@ -91,11 +148,11 @@ export default class SpellingReport extends React.Component {
           }
 
           {
-            this.renderWordColumn(words, 2)
+            this.renderResponsesColumn(responses)
           }
 
           {
-            this.renderWordColumn(words, 3)
+            this.renderPhoneticColumn(endings)
           }
 
           {

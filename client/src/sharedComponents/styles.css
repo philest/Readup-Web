@@ -228,6 +228,13 @@
     text-align: center;
 }
 
+.listElt {
+	margin-bottom: 10px;
+}
+
+.emptyPhonetics {
+	color: #bbb;
+}
 
 @media (max-width: 1024px) {
 	.rightSide {
