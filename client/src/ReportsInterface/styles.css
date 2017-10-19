@@ -233,6 +233,9 @@ button, .playbookTrigger {
 	color: #982e2b;
 }
 
+.nullMetric {
+	color: #bbb;
+}
 
 .detail {
 	font-weight: 100;

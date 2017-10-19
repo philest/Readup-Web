@@ -394,6 +394,7 @@ export default class Metric extends React.Component {
       goodMetric: this.getCompColor(this.props.number, this.props.denominator) == 'good',
       fairMetric: this.getCompColor(this.props.number, this.props.denominator) == 'fair',
       poorMetric: this.getCompColor(this.props.number, this.props.denominator) == 'poor',
+      nullMetric: !this.props.number,
       metricFigureLabel: true,
     });
 
@@ -432,7 +433,14 @@ export default class Metric extends React.Component {
         break
       case 'Comp.':
         metricClass = compMetricClass;
-        number = (number.toString() + ("/" + this.props.denominator.toString()))
+
+        if (number === null) {
+          number = "—"
+        }
+        else {
+          number = (number.toString() + ("/" + this.props.denominator.toString()))
+        }
+
         hasDetails = true 
         popoverName = lastPopover
         break

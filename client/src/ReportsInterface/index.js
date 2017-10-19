@@ -1055,6 +1055,24 @@ export default class ReportsInterface extends React.Component {
               />
             }
 
+
+
+
+            { (!this.props.isSample && (this.props.compScores["0"] === null)) &&
+              <Metric
+                label="Comp."
+                number={this.getCompTotal()}
+                denominator={this.getCompDenom()}
+                showDetails={this.props.userID > 155}
+                compSubtotals={subtotals}
+                isSample={this.props.isSample}
+                brand={this.props.assessmentBrand}
+
+              />
+            }
+
+
+
             </div>
           }
 
