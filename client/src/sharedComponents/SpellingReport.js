@@ -11,6 +11,9 @@ const responses = ['shaking', 'bagged', 'battir']
 const titles = ['Words', 'Student Responses', '-ed/ing Endings', 'Doubling at Syllable Juncture', 'Long-Vowel Two-syllable Words', 'R-Controlled Two-Syllable Words' ]
 
 const endings = [true, true, null]
+const doubling = [false, false, null]
+const long = [true, null, false]
+const rControlled = [false, true, true]
 
 export default class SpellingReport extends React.Component {
   static propTypes = {
@@ -107,7 +110,7 @@ export default class SpellingReport extends React.Component {
 
   getSymbol = (data) => {
     if (data === true) {
-      return (<i className={'fa fa-check'} />)
+      return (<i className={['fa fa-check', styles.goodMetric].join(' ')} />)
     }
 
     if (data === null) {
@@ -115,11 +118,11 @@ export default class SpellingReport extends React.Component {
     }
 
     if (data === false) {
-      return (<i className={'fa fa-times'} />)
+      return (<i className={['fa fa-times', styles.fairMetric].join(' ')} />)
     }
   }
 
-  renderPhoneticColumn = (phonetics) => {
+  renderPhoneticColumn = (phonetics, colNum) => {
     let arr = []
 
     for (let i = 0, len = phonetics.length; i < len; i++) {
@@ -127,7 +130,7 @@ export default class SpellingReport extends React.Component {
     }
 
     return (<div className={styles.fullColumn}>
-              <h4 className={styles.columnTitle}>{titles[2]}</h4>
+              <h4 className={styles.columnTitle}>{titles[colNum - 1]}</h4>
               <ol className={styles.unstyledList} > {arr} </ol>
             </div>)
 
@@ -152,19 +155,19 @@ export default class SpellingReport extends React.Component {
           }
 
           {
-            this.renderPhoneticColumn(endings)
+            this.renderPhoneticColumn(endings, 3)
           }
 
           {
-            this.renderWordColumn(words, 4)
+            this.renderPhoneticColumn(doubling, 4)
           }
 
           {
-            this.renderWordColumn(words, 5)
+            this.renderPhoneticColumn(long, 5)
           }
 
           {
-            this.renderWordColumn(words, 6)
+            this.renderPhoneticColumn(rControlled, 6)
           }
         </div>
 

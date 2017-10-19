@@ -236,6 +236,19 @@
 	color: #bbb;
 }
 
+
+.goodMetric {
+	color: #249C44;
+}
+
+.fairMetric {
+	color: #D97F0F;
+}
+
+.poorMetric { 
+	color: #982e2b;
+}
+
 @media (max-width: 1024px) {
 	.rightSide {
 		display: none;
