@@ -88,7 +88,7 @@ export const LIVE_DEMO_SET = 'LIVE_DEMO_SET'
 
 export const SPELLING_ANSWER_GIVEN_SET = 'SPELLING_ANSWER_GIVEN_SET'
 export const NEXT_WORD_CLICKED = 'NEXT_WORD_CLICKED'
-
+export const FINAL_SPELLING_QUESTION_ANSWERED = 'FINAL_SPELLING_QUESTION_ANSWERED'
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -158,6 +158,14 @@ export function stopRecordingClicked() {
     type: STOP_RECORDING_CLICKED,
   }
 }
+
+export function finalSpellingQuestionAnswered() {
+  return {
+    type: FINAL_SPELLING_QUESTION_ANSWERED,
+  }
+}
+
+
 
 export function setCountdownValue(countdownValue: number) {
   return {

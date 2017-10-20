@@ -67,6 +67,7 @@ import {
   SPELLING_ANSWER_GIVEN_SET,
   NEXT_WORD_CLICKED,
   VOLUME_INDICATOR_SHOWN,
+  FINAL_SPELLING_QUESTION_ANSWERED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -273,12 +274,22 @@ function* exitClick() {
 
 
 
-function* questionIncrementSaga(section) {
+function* questionIncrementSaga(section, spellingEffects) {
   yield clog("here in QUESTION_INCREMENT........: ", section)
 
   yield call(playSound, '/audio/complete.mp3')
 
   yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS)
+
+
+  // if we just answered the last question, cancel effects 
+  if (true) {
+
+    yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED })
+    return 
+  }
+
+
 
   yield put.resolve(incrementQuestion(section))
 
@@ -765,6 +776,9 @@ function* assessThenSubmitSaga(assessmentId) {
     yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, 'spelling'),
   )
 
+  yield take(FINAL_SPELLING_QUESTION_ANSWERED)
+
+  yield put.resolve(setInSpelling(false))
 
 
 
