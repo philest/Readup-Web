@@ -28,10 +28,6 @@ class HomepageController < ActionController::Base
     render 'homepage/pages/terms'
   end
 
-  def team
-    render 'team'
-  end
-
   def instructions
     render 'instructions'
   end
@@ -41,33 +37,6 @@ class HomepageController < ActionController::Base
   send_file(pdf_filename, :filename => "ReadUp-Leveled-Books.pdf", :type => "application/pdf", :disposition => 'inline')
   end 
 
-  def product_lead
-    redirect_to 'homepage/pages/product'
-  end
-
-  def developer
-    render 'homepage/pages/jobs/developer'
-  end
-
-  def pilots
-    render 'homepage/pages/jobs/pilots'
-  end
-
-  def schools
-    render 'homepage/pages/jobs/schools'
-  end
-
-  def illustrator
-    render 'homepage/pages/jobs/illustrator'
-  end
-
-  def design
-    render 'homepage/pages/jobs/design'
-  end
-
-  def signup_success
-    render 'homepage/signup/success'
-  end
 
 
 end

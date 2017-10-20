@@ -61,6 +61,9 @@ body {
     color: #31708E;
     cursor: pointer;
     transition: all .3s;
+    width: 190px;
+    margin: 10px auto;
+    font-family: 'ProximaNova semibold';
 }
 
 .navBar {
