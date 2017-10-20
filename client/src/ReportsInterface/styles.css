@@ -195,6 +195,9 @@ button, .playbookTrigger {
 
 }
 
+.stepLevel {
+	font-weight: 100 !important;
+}
 
 
 .metricsHeadingContainer {
