@@ -463,6 +463,15 @@ export function setInSpelling(inSpelling: boolean) {
   }
 }
 
+export function setInOralReading(inOralReading: boolean) {
+  return {
+    type: IN_ORAL_READING_SET,
+    payload: {
+      inOralReading,
+    },
+  }
+}
+
 export function seeCompClicked() {
   return {
     type: SEE_COMP_CLICKED,
@@ -908,7 +917,7 @@ const initialState = {
   countdownValue: -1,
   showVolumeIndicator: true,
   inComp: false,
-  inSpelling: true,
+  inSpelling: false,
   inOralReading: true,
   isLiveDemo: false,
   spellingAnswerGiven: false,
@@ -1120,6 +1129,9 @@ function reducer(state = initialState, action = {}) {
       return { ...state, inSpelling: payload.inSpelling }
     }
 
+    case IN_ORAL_READING_SET: {
+      return { ...state, inOralReading: payload.inOralReading }
+    }
 
     case LIVE_DEMO_SET: {
       return { ...state, isLiveDemo: payload.isLiveDemo }
