@@ -547,11 +547,11 @@ export const peterSpellingObj = {
     },
     2: {
       title: 'Initial Blend/Digraph',
-      statusArr: [null, true, null, null, true, true, true, null, null, true, true, null, null, true, true],
+      statusArr: ['NO_VALUE', true, 'NO_VALUE', 'NO_VALUE', true, true, true, 'NO_VALUE', 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE', true, true],
     },
     3: {
       title: 'Final Blend/Digraph',
-      statusArr: [true, null, true, true, null, null, null, true, true, null, null, true, true, null, null],
+      statusArr: [true, 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE', 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE'],
     },
 
   },

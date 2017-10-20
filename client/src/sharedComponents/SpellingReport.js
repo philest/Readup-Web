@@ -101,7 +101,7 @@ export default class SpellingReport extends React.Component {
       return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-check', styles.goodMetric, (this.isStatusGradable(wordIdx) ? styles.clickable : '')].join(' ')} />)
     }
 
-    if (data === null) {
+    if (data === null || data === 'NO_VALUE') {
       return (<span className={styles.emptyPhonetics}>{"—"}</span>)
     }
 
