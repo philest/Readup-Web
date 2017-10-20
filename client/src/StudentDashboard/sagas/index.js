@@ -68,6 +68,7 @@ import {
   NEXT_WORD_CLICKED,
   VOLUME_INDICATOR_SHOWN,
   FINAL_SPELLING_QUESTION_ANSWERED,
+  SECTION_SKIPPED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,

@@ -145,3 +145,13 @@
     font-size: 16px;
 }
 
+.skipPrompt {
+	font-size: 16px;
+	font-style: italic;
+	color: white;
+	position: relative;
+	top: -40vh;
+	cursor: pointer; 
+
+}
+
