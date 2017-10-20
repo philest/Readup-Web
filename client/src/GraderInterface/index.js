@@ -684,10 +684,16 @@ export default class GraderInterface extends React.Component {
             
     let compScores = this.state.compScores
 
+
+    // update spelling 
+    const scoredSpelling = this.state.scoredSpelling
+
+
     updateAssessment( {
                        student_responses: studentResponses,
                        grader_comments: graderComments,
                        comp_scores: compScores,
+                       scored_spelling: scoredSpelling,
                       },
                        this.props.assessmentID,
                     )
