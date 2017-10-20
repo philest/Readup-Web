@@ -15,6 +15,7 @@ export default class SpellingTextField extends React.Component {
     showVolumeIndicator: PropTypes.bool,
     showSpellingBoxIndicator: PropTypes.bool,
     spellingQuestionNumber: PropTypes.number,
+    onEnterPressed: PropTypes.func,
   };
   static defaultProps = {
 }
@@ -33,37 +34,17 @@ export default class SpellingTextField extends React.Component {
 
   saveSpellingResponse = (value) => {
 
-      let realID
-      let assID = getLastAssessmentID()
-      assID.then( (id) => {
-        console.log('id: ', id)
+    console.log('TODO: upload spelling')
 
-        let ass = getAssessmentData(id)
+  }
 
-        ass.then( (assessment) => {
-          console.log('assessment: ', assessment)
+  componentWillMount() {
+    document.addEventListener("keydown", this._handleKeyDown);
 
-          let spellingResponses = assessment.spelling_responses
+  }
 
-          if (!spellingResponses) {
-            spellingResponses = { }
-          }
-
-         spellingResponses[String(this.props.spellingQuestionNumber)] = value // set new response  
-         updateAssessment({
-          spelling_responses: spellingResponses,
-                          },
-                          id,
-                          )
-
-        }).catch(function (err) {
-          console.log(err)
-        })
-
-      })   
-
-
-
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this._handleKeyDown);
   }
 
 
@@ -74,12 +55,26 @@ export default class SpellingTextField extends React.Component {
     }
   }
 
+  _handleKeyDown = (event) => {
+
+    if (event.which == 13 || event.keyCode == 13 || event.code == 'Enter') {
+      this.props.onEnterPressed()
+    }
+  }
+
+
 
   onInputClicked = () => {
 
     this.setState({showHelper: false})
     this.props.onSpellingAnswerGiven(true)
   }
+
+  handleSpellingChange = () => {
+    this.setState({showHelper: false})
+    this.props.onSpellingAnswerGiven(true)    
+  }
+
 
 
   render() {
@@ -89,7 +84,7 @@ export default class SpellingTextField extends React.Component {
 
         <div className={[styles.spellingContainer].join(' ')}>
 
-          <img className={styles.spellingImage} src={`/images/dashboard/spelling/${(this.props.spellingQuestionNumber % 3) + 1}.png`} />
+          <img className={styles.spellingImage} src={`/images/dashboard/spelling/${(this.props.spellingQuestionNumber)}.png`} />
 
           
             <div className={styles.introVolume} style={{ visibility: this.props.showVolumeIndicator ? 'visible' : 'hidden' }}>
@@ -119,6 +114,7 @@ export default class SpellingTextField extends React.Component {
             spellCheck="false"
             onClick={this.onInputClicked}
             inputRef={ref => { this.form = ref; }}
+            onChange={this.handleSpellingChange}
           />
 
           <i className={['fa fa-caret-right faa-passing animated', styles.helper].join(' ')} 

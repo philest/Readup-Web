@@ -297,7 +297,7 @@ function* playSpellingQuestionSaga() {
     let audiofile
     const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
     const book = yield select(getBook)
-    audiofile = `/audio/${book.bookKey}/spelling/${spellingQuestionNumber % 3}.mp3`
+    audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
 
     yield call(playSound, audiofile)
 

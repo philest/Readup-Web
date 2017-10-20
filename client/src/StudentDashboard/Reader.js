@@ -269,6 +269,7 @@ export default class Reader extends React.Component {
             spellingQuestionNumber={this.props.spellingQuestionNumber}
             showVolumeIndicator={this.props.showVolumeIndicator}
             showSpellingBoxIndicator={this.props.readerState === 'READER_STATE_TALKING_ABOUT_SPELLING_BOX'}
+            onEnterPressed={this.props.onNextWordClicked}
           />
         }
 
