@@ -538,7 +538,7 @@ export const fireflyBook = {
 export const peterSpellingObj = {
   numWords: 15,
   words: ["pest", "chip", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
-  responses: ["pest", "chip", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
+  responses: ["pest", "chap", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
   numSections: 3,
   sections: {
     1: {

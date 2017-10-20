@@ -24,7 +24,9 @@ export default class SpellingReport extends React.Component {
 
   toggleSpellingError = (sectionNum, wordIdx) => {
 
-    if (!this.props.isInteractive) {
+    if (!this.isStatusGradable(wordIdx)) {
+      console.log(sectionNum)
+      console.log(wordIdx)
       return 
     }
 
@@ -37,6 +39,12 @@ export default class SpellingReport extends React.Component {
     this.setState({ spellingObj: stateHolder })
   }
 
+
+
+  isStatusGradable(wordIdx) {
+    // is there an error + it's interactive? 
+    return (this.state.spellingObj.words[wordIdx] !== this.state.spellingObj.responses[wordIdx] && this.props.isInteractive)
+  }
 
 
   componentWillMount() {
@@ -90,7 +98,7 @@ export default class SpellingReport extends React.Component {
 
   getSymbol = (data, sectionNum, wordIdx) => {
     if (data === true) {
-      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-check', styles.goodMetric, (this.props.isInteractive ? styles.clickable : '')].join(' ')} />)
+      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-check', styles.goodMetric, (this.isStatusGradable(wordIdx) ? styles.clickable : '')].join(' ')} />)
     }
 
     if (data === null) {
@@ -98,7 +106,7 @@ export default class SpellingReport extends React.Component {
     }
 
     if (data === false) {
-      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-times', styles.fairMetric, (this.props.isInteractive ? styles.clickable : '')].join(' ')} />)
+      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-times', styles.fairMetric, (this.isStatusGradable(wordIdx) ? styles.clickable : '')].join(' ')} />)
     }
   }
 
