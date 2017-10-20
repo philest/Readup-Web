@@ -114,8 +114,7 @@ CREATE TABLE assessments (
     brand character varying DEFAULT 'FP'::character varying,
     is_live_demo boolean DEFAULT false,
     teacher_note text,
-    total_time_reading integer,
-    spelling_responses json
+    total_time_reading integer
 );
 
 
@@ -680,7 +679,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170920164606'),
 ('20170921210711'),
 ('20170929030106'),
-('20171013204045'),
-('20171016223733');
+('20171013204045');
 
 
