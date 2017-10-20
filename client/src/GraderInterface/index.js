@@ -1649,6 +1649,7 @@ renderCompQuestions6 = () => {
 
             <SpellingReport
               spellingObj={book.spellingObj}
+              isInteractive={true}
             />
 
           </div>

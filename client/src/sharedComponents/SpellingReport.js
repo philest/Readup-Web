@@ -9,8 +9,10 @@ import styles from './styles.css'
 export default class SpellingReport extends React.Component {
   static propTypes = {
     spellingObj: PropTypes.object.isRequired,
+    isInteractive: PropTypes.bool,
   };
   static defaultProps = {
+    isInteractive: false,
   };
 
   constructor(props) {
@@ -21,6 +23,10 @@ export default class SpellingReport extends React.Component {
   }
 
   toggleSpellingError = (sectionNum, wordIdx) => {
+
+    if (!this.props.isInteractive) {
+      return 
+    }
 
     let stateHolder = this.state.spellingObj 
 
@@ -84,7 +90,7 @@ export default class SpellingReport extends React.Component {
 
   getSymbol = (data, sectionNum, wordIdx) => {
     if (data === true) {
-      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-check', styles.goodMetric, styles.clickable].join(' ')} />)
+      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-check', styles.goodMetric, (this.props.isInteractive ? styles.clickable : '')].join(' ')} />)
     }
 
     if (data === null) {
@@ -92,7 +98,7 @@ export default class SpellingReport extends React.Component {
     }
 
     if (data === false) {
-      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-times', styles.fairMetric, styles.clickable].join(' ')} />)
+      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-times', styles.fairMetric, (this.props.isInteractive ? styles.clickable : '')].join(' ')} />)
     }
   }
 
