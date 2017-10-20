@@ -161,6 +161,14 @@
 	top: -40vh;
 	cursor: pointer; 
 	opacity: 0.8;
+    transition: all .3s;
+    display: block;
+    width: 125px;
+}
 
+.skipPrompt:hover {
+	transform: translateY(-3px);
+    filter: brightness(124%);
+    transition: all .3s;
 }
 

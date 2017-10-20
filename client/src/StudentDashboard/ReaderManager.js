@@ -142,6 +142,7 @@ class StudentDashboard extends React.Component {
       showBookInfo: ((this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart) && !this.props.inComp),
       disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.inSpelling && !this.props.spellingAnswerGiven && this.props.readerState !== 'READER_STATE_TALKING_ABOUT_NEXT_BUTTON'),
       onExitClicked: this.props.actions.exitClicked,
+      onSkipClicked: this.props.actions.skipClicked, 
       onNextPageClicked: this.props.actions.nextPageClicked,
       onNextWordClicked: this.props.actions.nextWordClicked,
       onSeeCompClicked: this.props.actions.seeCompClicked,

@@ -62,6 +62,7 @@ export default class Reader extends React.Component {
     onPreviousPageClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
     onSeeCompClicked: PropTypes.func,
+    onSkipClicked: PropTypes.func,
 
     //Phil 
     inComp: PropTypes.bool,
@@ -277,7 +278,7 @@ export default class Reader extends React.Component {
 
           <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
             { this.props.pageNumber >= 1 &&
-              <span onClick={this.props.onStopClicked} className={styles.skipPrompt}>Skip section <i className="fa fa-caret-right" aria-hidden="true"></i></span>
+              <span onClick={this.props.onSkipClicked} className={styles.skipPrompt}>Skip section <i className="fa fa-caret-right" aria-hidden="true"></i></span>
             }
             { 
               this.renderRightButton()

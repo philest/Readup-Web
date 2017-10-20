@@ -69,6 +69,7 @@ import {
   VOLUME_INDICATOR_SHOWN,
   FINAL_SPELLING_QUESTION_ANSWERED,
   SECTION_SKIPPED,
+  SKIP_CLICKED,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -90,6 +91,7 @@ import {
   incrementQuestion,
   decrementQuestion,
   setInOralReading,
+  stopRecordingClicked,
 } from '../state'
 
 
@@ -253,10 +255,13 @@ function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean, questionN
 
 
 function* skipClick() {
+  
+   // set page because of skipping 
   const book = yield select(getBook)
   const lastPage = book.numPages
   yield put.resolve(setPageNumber(lastPage))
-
+ 
+  yield put.resolve(stopRecordingClicked())
 
 } 
 
@@ -893,11 +898,11 @@ function* assessThenSubmitSaga(assessmentId) {
   )
 
 
-  // 
-  // effects.push(
-  //   yield takeLatest(SKIP_SECTION_CLICKED, skipClick),
-  // )
 
+  // set up skipping 
+  effects.push(
+    yield takeLatest(SKIP_CLICKED, skipClick),
+  )
 
 
 
@@ -934,11 +939,6 @@ function* assessThenSubmitSaga(assessmentId) {
   let compBlobArray
 
   if (endRecording) {
-
-    // set page because of skipping 
-    const book = yield select(getBook)
-    const lastPage = book.numPages
-    yield put.resolve(setPageNumber(lastPage))
 
 
     yield put.resolve(setReaderState(

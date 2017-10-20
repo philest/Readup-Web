@@ -91,6 +91,8 @@ export const NEXT_WORD_CLICKED = 'NEXT_WORD_CLICKED'
 export const FINAL_SPELLING_QUESTION_ANSWERED = 'FINAL_SPELLING_QUESTION_ANSWERED'
 export const SECTION_SKIPPED = 'SECTION_SKIPPED'
 export const IN_ORAL_READING_SET = 'IN_ORAL_READING_SET'
+export const SKIP_CLICKED = 'SKIP_CLICKED'
+
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -526,6 +528,12 @@ export function setLiveDemo(isLiveDemo: boolean) {
 export function skipSection() {
   return {
     type: SECTION_SKIPPED,
+  }
+}
+
+export function skipClicked() {
+  return {
+    type: SKIP_CLICKED,
   }
 }
 
