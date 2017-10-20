@@ -276,8 +276,9 @@ export default class Reader extends React.Component {
 
 
           <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
+            { this.props.pageNumber >= 1 &&
               <span onClick={this.props.onStopClicked} className={styles.skipPrompt}>Skip section <i className="fa fa-caret-right" aria-hidden="true"></i></span>
-
+            }
             { 
               this.renderRightButton()
             }

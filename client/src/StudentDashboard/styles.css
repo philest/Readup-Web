@@ -143,6 +143,14 @@
     left: -33px;
     bottom: 8px;
     font-size: 16px;
+
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+
 }
 
 .skipPrompt {
@@ -152,6 +160,7 @@
 	position: relative;
 	top: -40vh;
 	cursor: pointer; 
+	opacity: 0.8;
 
 }
 
