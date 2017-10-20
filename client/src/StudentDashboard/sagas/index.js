@@ -109,7 +109,9 @@ import {
   getQuestionNumber,
   getSpellingQuestionNumber,
   getBook,
-  getInComp
+  getInComp,
+  getInOralReading,
+  getInSpelling,
 } from './selectors'
 
 import assessmentSaga from './assessmentSaga'
@@ -256,12 +258,16 @@ function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean, questionN
 
 function* skipClick() {
   
-   // set page because of skipping 
-  const book = yield select(getBook)
-  const lastPage = book.numPages
-  yield put.resolve(setPageNumber(lastPage))
+  const inOralReading = yield select(getInOralReading)
+
+  if (inOralReading) {
+    // set page because of skipping 
+    const book = yield select(getBook)
+    const lastPage = book.numPages
+    yield put.resolve(setPageNumber(lastPage))
  
-  yield put.resolve(stopRecordingClicked())
+    yield put.resolve(stopRecordingClicked())
+  }
 
 } 
 
@@ -939,6 +945,8 @@ function* assessThenSubmitSaga(assessmentId) {
   let compBlobArray
 
   if (endRecording) {
+
+    yield put.resolve(setInOralReading(false))
 
 
     yield put.resolve(setReaderState(
