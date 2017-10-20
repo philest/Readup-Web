@@ -282,12 +282,17 @@ function* questionIncrementSaga(section, spellingEffects) {
   yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS)
 
 
-  // if we just answered the last question, cancel effects 
-  if (true) {
+  // if we just answered the last question, exit spelling
 
+  const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
+  const book = yield select(getBook)
+
+  if (book.numSpellingQuestions === spellingQuestionNumber) {
     yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED })
-    return 
+    return
   }
+
+  // end spelling exit process
 
 
 
