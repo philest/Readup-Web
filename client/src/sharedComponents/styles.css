@@ -270,6 +270,11 @@
 	font-style: italic;
 }
 
+.clickable {
+	cursor: pointer;
+}
+
+
 @media (max-width: 1024px) {
 	.rightSide {
 		display: none;

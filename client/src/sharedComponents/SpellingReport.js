@@ -16,12 +16,25 @@ export default class SpellingReport extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      spellingObj: this.props.spellingObj 
     }
   }
 
+  toggleSpellingError = (sectionNum, wordIdx) => {
+
+    let stateHolder = this.state.spellingObj 
+
+    let arr = stateHolder.sections[String(sectionNum)].statusArr
+
+    arr[wordIdx] = !arr[wordIdx]
+
+    this.setState({ spellingObj: stateHolder })
+  }
+
+
 
   componentWillMount() {
-    console.log('spellingObj: ', this.props.spellingObj)
+    console.log('spellingObj: ', this.state.spellingObj)
   }
 
 
@@ -69,9 +82,9 @@ export default class SpellingReport extends React.Component {
   }
 
 
-  getSymbol = (data) => {
+  getSymbol = (data, sectionNum, wordIdx) => {
     if (data === true) {
-      return (<i className={['fa fa-check', styles.goodMetric].join(' ')} />)
+      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-check', styles.goodMetric, styles.clickable].join(' ')} />)
     }
 
     if (data === null) {
@@ -79,15 +92,15 @@ export default class SpellingReport extends React.Component {
     }
 
     if (data === false) {
-      return (<i className={['fa fa-times', styles.fairMetric].join(' ')} />)
+      return (<i onClick={ () => this.toggleSpellingError(sectionNum, wordIdx)} className={['fa fa-times', styles.fairMetric, styles.clickable].join(' ')} />)
     }
   }
 
-  renderPhoneticColumn = (statusArr, title) => {
+  renderPhoneticColumn = (statusArr, title, sectionNum) => {
     let arr = []
 
     for (let i = 0, len = statusArr.length; i < len; i++) {
-      arr.push(<li className={styles.listElt} key={i}>{this.getSymbol(statusArr[i])}</li>)
+      arr.push(<li className={styles.listElt} key={i}>{this.getSymbol(statusArr[i], sectionNum, i)}</li>)
     }
 
     return (<div className={styles.fullColumn}>
@@ -100,8 +113,8 @@ export default class SpellingReport extends React.Component {
   renderSections = () => {
     let arr = []
 
-    for (let i = 1, len = this.props.spellingObj.numSections; i <= len; i++) {
-      arr.push(this.renderPhoneticColumn(this.props.spellingObj.sections[String(i)].statusArr, this.props.spellingObj.sections[i].title))
+    for (let i = 1, len = this.state.spellingObj.numSections; i <= len; i++) {
+      arr.push(this.renderPhoneticColumn(this.state.spellingObj.sections[String(i)].statusArr, this.state.spellingObj.sections[i].title, i))
     }
 
     return arr 
@@ -118,11 +131,11 @@ export default class SpellingReport extends React.Component {
         <div className={styles.colsWrapper}>
 
           {
-            this.renderWordColumn(this.props.spellingObj.words)
+            this.renderWordColumn(this.state.spellingObj.words)
           }
 
           {
-            this.renderResponsesColumn(this.props.spellingObj.words, this.props.spellingObj.responses)
+            this.renderResponsesColumn(this.state.spellingObj.words, this.state.spellingObj.responses)
           }
 
           {
