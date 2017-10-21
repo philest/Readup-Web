@@ -624,7 +624,7 @@ export const fireflyBook = {
   },
   
   spellingObj: peterSpellingObj,
-  numSpellingQuestions: 6,
+  numSpellingQuestions: 15,
 
 
 };
@@ -786,7 +786,7 @@ export const stepBook = {
     },
   },
   spellingObj: peterSpellingObj,
-  numSpellingQuestions: 6,
+  numSpellingQuestions: 15,
 
 };
 
@@ -947,7 +947,7 @@ export const fpBook = {
   },
   spellingObj: peterSpellingObj,
 
-  numSpellingQuestions: 6,
+  numSpellingQuestions: 15,
 
 
 };
