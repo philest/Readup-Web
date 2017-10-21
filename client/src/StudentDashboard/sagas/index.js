@@ -278,6 +278,41 @@ function* skipClick() {
     yield call(playSound, '/audio/complete.mp3')
     yield call(delay, 500)
 
+
+    // halt the recorder if it's still going 
+    let recorder = yield select(getRecorder)
+
+    if (recorder.recording) {
+       const uploadEffects = []
+
+       const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, false);
+
+       let newBlob
+
+       try {
+          newBlob = recorder.getBlob()
+       } catch (err) {
+          yield clog ('err: ', err)
+          newBlob = 'it broke'
+       }
+
+      const assessmentId = yield getLastAssessmentID()
+       .catch(e => e.request) // TODO
+
+      const currQ = yield select(getQuestionNumber)
+
+       uploadEffects.push(
+          yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
+       )
+
+       yield call(delay, 1000)
+
+       yield cancel(...uploadEffects)
+
+    }
+
+
+
     yield put({ type: FINAL_COMP_QUESTION_ANSWERED })
 
   }
@@ -288,6 +323,7 @@ function* skipClick() {
 
     yield call(playSound, '/audio/complete.mp3')
     yield call(delay, 500)
+
 
     yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED })
 
