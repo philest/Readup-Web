@@ -106,7 +106,7 @@ export default class Reader extends React.Component {
         )
     }
 
-    if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp)) {
+    if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp) || this.props.inSpelling) {
       return null
     }
 
