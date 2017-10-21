@@ -42,8 +42,16 @@
     font-family: 'Proximanova';
     src: font-url('Proxima-Nova-Semibold.eot');
     src: local('☺'), font-url('Proxima-Nova-Semibold.woff') format('woff'), font-url('Proxima-Nova-Semibold.ttf') format('truetype'), font-url('Proxima-Nova-Semibold.svg') format('svg');
-    font-weight: 300;
+    font-weight: 600;
 }
+
+@font-face {
+    font-family: 'Proximanova';
+    src: font-url('Proxima-Nova-Semibold.eot');
+    src: local('☺'), font-url('Proxima-Nova-Semibold.woff') format('woff'), font-url('Proxima-Nova-Semibold.ttf') format('truetype'), font-url('Proxima-Nova-Semibold.svg') format('svg');
+    font-weight: 500;
+}
+
 
 
 @font-face {
