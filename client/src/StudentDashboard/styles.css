@@ -55,6 +55,13 @@ body {
 	margin-top: 30%;
 }
 
+.spellingRightButtonContainer {
+	min-width: 200px;
+	margin: 30px;
+	margin-top: 10%;
+}
+
+
 .bookpageContainer {
 	width: 31.5%;
 	height: 80%;
@@ -135,5 +142,32 @@ body {
     left: -53px;
     bottom: 8px;
     font-size: 16px;
+
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+
+}
+
+.skipPrompt {
+	font-size: 16px;
+	font-style: italic;
+	color: white;
+	position: relative;
+	top: -40vh;
+	cursor: pointer; 
+	opacity: 0.8;
+    transition: all .3s;
+    display: block;
+    width: 185px;
+}
+
+.skipPrompt:hover {
+	transform: translateY(-3px);
+    filter: brightness(124%);
+    transition: all .3s;
 }
 

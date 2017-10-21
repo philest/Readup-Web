@@ -1,0 +1,51 @@
+
+.spellingContainer {
+	margin-top: -10%;
+}
+
+.spellingField {
+	width: 235px;
+    height: 62px;
+    font-size: 48px;
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Comic Neue Angular';
+
+}
+
+.spellingImage {
+	width: 235px;
+	height: 235px;
+
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+i.helper {
+	color: green;
+    font-size: 70px;
+	position: relative;
+    top: -60px;
+    left: -50px;
+}
+
+.volumeHeading {
+    color: white;
+    font-family: 'ProximaNova Semibold';
+    position: relative;
+    left: -33px;
+    bottom: 8px;
+    font-size: 16px;
+}
+
+
+.introVolume {
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+
+}

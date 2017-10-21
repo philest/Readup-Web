@@ -7,7 +7,7 @@ import BookCover from './components/BookCover'
 import RectangleButton from './components/RectangleButton'
 import ForwardArrowButton from './components/ForwardArrowButton'
 import BackArrowButton from './components/BackArrowButton'
-
+import SpellingTextField from './components/SpellingTextField'
 
 import styles from './styles.css'
 import css from './components/NavigationBar/styles.css'
@@ -58,16 +58,23 @@ export default class Reader extends React.Component {
     onStopClicked: PropTypes.func,
     onStartClicked: PropTypes.func,
     onNextPageClicked: PropTypes.func,
+    onNextWordClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
     onSeeCompClicked: PropTypes.func,
+    onSkipClicked: PropTypes.func,
 
     //Phil 
     inComp: PropTypes.bool,
+    inOralReading: PropTypes.bool,
     currentShowModal: PropTypes.string,
     introAudioSrc: PropTypes.string,
     showVolumeIndicator: PropTypes.bool,
+    showSkipPrompt: PropTypes.bool,
     isLiveDemo: PropTypes.bool,
+    inSpelling: PropTypes.bool,
+    onSpellingAnswerGiven: PropTypes.func,
+    spellingQuestionNumber: PropTypes.number,
   };
 
   static defaultProps = {
@@ -89,7 +96,7 @@ export default class Reader extends React.Component {
 
   renderLeftButton = () => {
 
-    if (this.props.showCover && !this.props.inComp && this.props.showVolumeIndicator) {
+    if (this.props.showCover && (!this.props.inComp && !this.props.inSpelling) && this.props.showVolumeIndicator) {
       return (
         <div style={{ marginLeft: 44 }}>
         <span className={styles.volumeHeading}> Turn on your volume </span>
@@ -99,7 +106,7 @@ export default class Reader extends React.Component {
         )
     }
 
-    if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp)) {
+    if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp) || this.props.inSpelling) {
       return null
     }
 
@@ -153,7 +160,7 @@ export default class Reader extends React.Component {
     else if (this.props.isLastPage && this.props.inComp) {
       return
     }
-    else if (this.props.showCover && !this.props.inComp) {
+    else if (this.props.showCover && !this.props.inComp && !this.props.inSpelling) {
       return (
         <RectangleButton
           title='Start Recording'
@@ -169,10 +176,10 @@ export default class Reader extends React.Component {
     return (
       <ForwardArrowButton
         title='Next'
-        subtitle='page'
+        subtitle={this.props.inSpelling ? 'word' : 'page'}
         style={{ width: 145, height: 120 }}
         disabled={this.props.disabled}
-        onClick={this.props.onNextPageClicked}
+        onClick={this.props.inSpelling ? this.props.onNextWordClicked : this.props.onNextPageClicked}
       />
     );
   }
@@ -201,6 +208,18 @@ export default class Reader extends React.Component {
 
   }
 
+  getNextSection = () => {
+    if (this.props.inOralReading) {
+      return 'comprehension'
+    }
+    else if (this.props.inComp) {
+      return 'spelling'
+    }
+    else {
+      return 'end'
+    }
+  }
+
   renderNavigationBar = () => {
 
     const navProps = {
@@ -214,6 +233,7 @@ export default class Reader extends React.Component {
       onPauseClicked: (this.props.inComp ? this.props.onCompPauseClicked : this.props.onPauseClicked),
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
+      inSpelling: this.props.inSpelling,
     }
 
     return <NavigationBar {...navProps} />
@@ -249,14 +269,36 @@ export default class Reader extends React.Component {
             { this.renderLeftButton() }
           </div>
 
+         { (this.props.inOralReading || this.props.inComp) &&
+
           <div className={this.props.isWideBook ? wideContainerClass : styles.bookpageContainer}>
             <RouteTransition {...transitionProps}>
                 { this.renderCenterDisplay() }
             </RouteTransition>
           </div>
+        }
 
-          <div className={styles.rightButtonContainer}>
-            { this.renderRightButton() }
+        { this.props.inSpelling && 
+          <SpellingTextField
+            onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+            spellingQuestionNumber={this.props.spellingQuestionNumber}
+            showVolumeIndicator={this.props.showVolumeIndicator}
+            showSpellingBoxIndicator={this.props.readerState === 'READER_STATE_TALKING_ABOUT_SPELLING_BOX'}
+            onEnterPressed={this.props.onNextWordClicked}
+          />
+        }
+
+
+
+          <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
+            { (this.props.showSkipPrompt) &&
+              <span style={{ top: (this.props.inSpelling) ? -20 + "vh" : -40 + "vh" }} onClick={this.props.onSkipClicked} className={styles.skipPrompt}>
+                Skip to {this.getNextSection()} <i className="fa fa-caret-right" aria-hidden="true"></i>
+              </span>
+            }
+            { (this.props.inSpelling || this.props.inComp || this.props.inOralReading) && 
+              this.renderRightButton()
+            }
           </div>
 
         </div>

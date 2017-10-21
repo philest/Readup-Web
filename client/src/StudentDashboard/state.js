@@ -70,6 +70,8 @@ export const BOOK_KEY_SET = 'BOOK_KEY_SET'
 export const BOOK_SET = 'BOOK_SET'
 
 export const IN_COMP_SET = 'IN_COMP_SET'
+export const IN_SPELLING_SET = 'IN_SPELLING_SET'
+
 export const SEE_COMP_CLICKED = 'SEE_COMP_CLICKED'
 
 export const QUESTION_INCREMENT = 'QUESTION_INCREMENT'
@@ -80,10 +82,21 @@ export const PROMPT_SET = 'PROMPT_SET'
 export const COMP_PAUSE_CLICKED = 'COMP_PAUSE_CLICKED'
 export const LAST_QUESTION_EXITED = 'LAST_QUESTION_EXITED'
 export const VOLUME_INDICATOR_HIDDEN = 'VOLUME_INDICATOR_HIDDEN'
+export const VOLUME_INDICATOR_SHOWN = 'VOLUME_INDICATOR_SHOWN'
 
 export const LIVE_DEMO_SET = 'LIVE_DEMO_SET'
 
+export const SPELLING_ANSWER_GIVEN_SET = 'SPELLING_ANSWER_GIVEN_SET'
+export const NEXT_WORD_CLICKED = 'NEXT_WORD_CLICKED'
+export const FINAL_SPELLING_QUESTION_ANSWERED = 'FINAL_SPELLING_QUESTION_ANSWERED'
+export const FINAL_COMP_QUESTION_ANSWERED = 'FINAL_COMP_QUESTION_ANSWERED'
 
+export const SECTION_SKIPPED = 'SECTION_SKIPPED'
+export const IN_ORAL_READING_SET = 'IN_ORAL_READING_SET'
+export const SKIP_CLICKED = 'SKIP_CLICKED'
+
+
+export const SHOW_SKIP_PROMPT_SET = 'SHOW_SKIP_PROMPT_SET'
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -94,6 +107,23 @@ export function setReaderState(readerState: ReaderState) {
   }
 }
 
+export function setShowSkipPrompt(showSkipPrompt: boolean) {
+  return {
+    type: SHOW_SKIP_PROMPT_SET,
+    payload: {
+      showSkipPrompt,
+    },
+  }
+}
+
+export function setSpellingAnswerGiven(spellingAnswerGiven: boolean) {
+  return {
+    type: SPELLING_ANSWER_GIVEN_SET,
+    payload: {
+      spellingAnswerGiven,
+    },
+  } 
+}
 
 
 
@@ -145,6 +175,19 @@ export function stopRecordingClicked() {
     type: STOP_RECORDING_CLICKED,
   }
 }
+
+export function finalSpellingQuestionAnswered() {
+  return {
+    type: FINAL_SPELLING_QUESTION_ANSWERED,
+  }
+}
+
+export function finalCompQuestionAnswered() {
+  return {
+    type: FINAL_COMP_QUESTION_ANSWERED,
+  }
+}
+
 
 export function setCountdownValue(countdownValue: number) {
   return {
@@ -230,6 +273,14 @@ export function previousPageClicked() {
   }
 }
 
+
+export function nextWordClicked() {
+  return {
+    type: NEXT_WORD_CLICKED,
+  }
+}
+
+
 export function exitClicked() {
   return {
     type: EXIT_CLICKED,
@@ -282,6 +333,12 @@ export function setRecordingURL(recordingURL: string, comp: boolean) {
 export function hideVolumeIndicator() {
   return {
     type: VOLUME_INDICATOR_HIDDEN,
+  }
+}
+
+export function showVolumeIndicator() {
+  return {
+    type: VOLUME_INDICATOR_SHOWN,
   }
 }
 
@@ -418,6 +475,25 @@ export function setInComp(inComp: boolean) {
   }
 }
 
+
+export function setInSpelling(inSpelling: boolean) {
+  return {
+    type: IN_SPELLING_SET,
+    payload: {
+      inSpelling,
+    },
+  }
+}
+
+export function setInOralReading(inOralReading: boolean) {
+  return {
+    type: IN_ORAL_READING_SET,
+    payload: {
+      inOralReading,
+    },
+  }
+}
+
 export function seeCompClicked() {
   return {
     type: SEE_COMP_CLICKED,
@@ -425,9 +501,12 @@ export function seeCompClicked() {
 }
 
 
-export function incrementQuestion() {
+export function incrementQuestion(section: string) {
   return {
     type: QUESTION_INCREMENT,
+    payload: {
+      section,
+    },
   }
 }
 
@@ -464,12 +543,24 @@ export function setLiveDemo(isLiveDemo: boolean) {
 }
 
 
+export function skipSection() {
+  return {
+    type: SECTION_SKIPPED,
+  }
+}
+
+export function skipClicked() {
+  return {
+    type: SKIP_CLICKED,
+  }
+}
 
 
 
 export const fireflyBook = {
   title: "Firefly Night",
   author: 'Dianne Ochiltree',
+  bookKey: 'demo',
   numPages: 3, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: '/images/dashboard/sample-book-assets/firefly-cover.png',
@@ -527,10 +618,14 @@ export const fireflyBook = {
       rubric: {
         1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
         0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
-      },      
+      }, 
     },
 
   },
+  
+  spellingObj: peterSpellingObj,
+  numSpellingQuestions: 6,
+
 
 };
 
@@ -563,6 +658,7 @@ export const peterSpellingObj = {
 export const stepBook = {
   title: "Upside Down",
   author: 'Stefan Olson',
+  bookKey: 'step',
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: '/images/dashboard/step/step-cover.jpg',
@@ -688,10 +784,9 @@ export const stepBook = {
       standard: 'CCRA.R.4 and CCRA.R.1',
       section: 3,
     },
-
-
   },
   spellingObj: peterSpellingObj,
+  numSpellingQuestions: 6,
 
 };
 
@@ -703,6 +798,7 @@ export const stepBook = {
 export const fpBook = {
   title: "Bedtime for Nick",
   author: 'Steve Olson',
+  bookKey: 'demo',
   numPages: 10, // if you want a shorter book for testing purposes just change this
   isWideBook: true,
   coverImage: '/images/dashboard/bedtime-large.jpg',
@@ -848,9 +944,11 @@ export const fpBook = {
       standard: 'CCRA.R.9',
       section: 2, 
     },
-
   },
   spellingObj: peterSpellingObj,
+
+  numSpellingQuestions: 6,
+
 
 };
 
@@ -891,7 +989,13 @@ const initialState = {
   showSpinner: false,
   countdownValue: -1,
   showVolumeIndicator: true,
+  showSkipPrompt: false,
+  inComp: false,
+  inSpelling: false,
+  inOralReading: true,
   isLiveDemo: false,
+  spellingAnswerGiven: false,
+  spellingQuestionNumber: 1,
 }
 
 
@@ -922,6 +1026,10 @@ function reducer(state = initialState, action = {}) {
       console.log('SET PROMPT: ', payload.prompt)
       return { ...state, prompt: payload.prompt }
 
+    }
+
+    case SPELLING_ANSWER_GIVEN_SET: {
+      return { ...state, spellingAnswerGiven: payload.spellingAnswerGiven }     
     }
 
 
@@ -983,6 +1091,10 @@ function reducer(state = initialState, action = {}) {
         return { ...state, showVolumeIndicator: false }
     }
 
+    case VOLUME_INDICATOR_SHOWN: {
+        return { ...state, showVolumeIndicator: true }
+    }
+
     case COUNTDOWN_VALUE_SET: {
       return { ...state, countdownValue: payload.countdownValue}
     }
@@ -1001,8 +1113,16 @@ function reducer(state = initialState, action = {}) {
     }
 
     case QUESTION_INCREMENT: {
+
       // TODO add history here.
-      return { ...state, questionNumber: state.questionNumber + 1 }
+      if (payload.section === 'comp') {
+        return { ...state, questionNumber: state.questionNumber + 1 }
+      }
+
+      if (payload.section === 'spelling') {
+        return { ...state, spellingQuestionNumber: state.spellingQuestionNumber + 1 }
+      }
+
     }
 
     case QUESTION_DECREMENT: {
@@ -1012,6 +1132,10 @@ function reducer(state = initialState, action = {}) {
 
     case QUESTION_NUMBER_SET: {
       return { ...state, questionNumber: payload.questionNumber }
+    }
+
+    case SHOW_SKIP_PROMPT_SET: {
+      return { ...state, showSkipPrompt: payload.showSkipPrompt}
     }
 
 
@@ -1077,6 +1201,14 @@ function reducer(state = initialState, action = {}) {
 
     case IN_COMP_SET: {
       return { ...state, inComp: payload.inComp }
+    }
+
+    case IN_SPELLING_SET: {
+      return { ...state, inSpelling: payload.inSpelling }
+    }
+
+    case IN_ORAL_READING_SET: {
+      return { ...state, inOralReading: payload.inOralReading }
     }
 
     case LIVE_DEMO_SET: {

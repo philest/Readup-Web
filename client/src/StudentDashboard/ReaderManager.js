@@ -66,8 +66,13 @@ function mapStateToProps(state) {
     showSpinner: state.reader.showSpinner,
     countdownValue: state.reader.countdownValue,
     inComp: state.reader.inComp,
+    inSpelling: state.reader.inSpelling,
+    inOralReading: state.reader.inOralReading,
     showVolumeIndicator: state.reader.showVolumeIndicator,
+    showSkipPrompt: state.reader.showSkipPrompt,
     isLiveDemo: state.reader.isLiveDemo,
+    spellingAnswerGiven: state.reader.spellingAnswerGiven,
+    spellingQuestionNumber: state.reader.spellingQuestionNumber,
   }
 }
 
@@ -137,15 +142,20 @@ class StudentDashboard extends React.Component {
       bookAuthor: this.props.book.author,
       isWideBook: this.props.book.isWideBook,
       showBookInfo: ((this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.awaitingStart) && !this.props.inComp),
-      disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro),
+      disabled: (this.props.readerState === ReaderStateOptions.countdownToStart || this.props.readerState === ReaderStateOptions.playingBookIntro) || (this.props.inSpelling && !this.props.spellingAnswerGiven && this.props.readerState !== 'READER_STATE_TALKING_ABOUT_NEXT_BUTTON'),
       onExitClicked: this.props.actions.exitClicked,
+      onSkipClicked: this.props.actions.skipClicked, 
       onNextPageClicked: this.props.actions.nextPageClicked,
+      onNextWordClicked: this.props.actions.nextWordClicked,
       onSeeCompClicked: this.props.actions.seeCompClicked,
       inComp: this.props.inComp,
       onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL 
       currentShowModal: this.props.currentShowModal,
-
-
+      inSpelling: this.props.inSpelling,
+      onSpellingAnswerGiven: this.props.actions.setSpellingAnswerGiven,
+      spellingQuestionNumber: this.props.spellingQuestionNumber,
+      inOralReading: this.props.inOralReading,
+      showSkipPrompt: this.props.showSkipPrompt,
     }
 
     let readerProps = basicReaderProps // reader props is augmented then stuck into Reader

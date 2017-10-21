@@ -55,6 +55,7 @@ import {
   SPINNER_HIDE,
   DEMO_SUBMITTED_LOGOUT_CLICKED,
   IN_COMP_SET,
+  IN_SPELLING_SET,
   SEE_COMP_CLICKED,
   HEAR_QUESTION_AGAIN_CLICKED,
   QUESTION_INCREMENT,
@@ -63,6 +64,14 @@ import {
   VOLUME_INDICATOR_HIDDEN,
   BOOK_KEY_SET,
   LIVE_DEMO_SET,
+  SPELLING_ANSWER_GIVEN_SET,
+  NEXT_WORD_CLICKED,
+  VOLUME_INDICATOR_SHOWN,
+  FINAL_SPELLING_QUESTION_ANSWERED,
+  FINAL_COMP_QUESTION_ANSWERED,
+  SECTION_SKIPPED,
+  SKIP_CLICKED,
+  SHOW_SKIP_PROMPT_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -74,11 +83,18 @@ import {
   setCurrentOverlay,
   setCountdownValue,
   setInComp,
+  setInSpelling,
+  setSpellingAnswerGiven,
   setQuestionNumber,
   setPrompt,
   hideVolumeIndicator,
-  setLiveDemo
-
+  showVolumeIndicator,
+  setLiveDemo,
+  incrementQuestion,
+  decrementQuestion,
+  setInOralReading,
+  stopRecordingClicked,
+  setShowSkipPrompt,
 } from '../state'
 
 
@@ -94,8 +110,11 @@ import {
   getIsDemo,
   getNumQuestions,
   getQuestionNumber,
+  getSpellingQuestionNumber,
   getBook,
-  getInComp
+  getInComp,
+  getInOralReading,
+  getInSpelling,
 } from './selectors'
 
 import assessmentSaga from './assessmentSaga'
@@ -240,7 +259,80 @@ function* turnInAudio(blob, assessmentId: number, isCompBlob: boolean, questionN
 
 
 
+function* skipClick() {
+  
+  const inOralReading = yield select(getInOralReading)
 
+  if (inOralReading) {
+    // set page because of skipping 
+    const book = yield select(getBook)
+    const lastPage = book.numPages
+    yield put.resolve(setPageNumber(lastPage))
+ 
+    yield put.resolve(stopRecordingClicked())
+  }
+
+
+  const inComp = yield select(getInComp)
+
+  if (inComp) {
+
+    yield call(playSound, '/audio/complete.mp3')
+    yield call(delay, 500)
+
+
+    // halt the recorder if it's still going 
+    let recorder = yield select(getRecorder)
+
+    if (recorder.recording || recorder.rtcRecorder.state === 'paused') { // if in middle of prompt thing
+       const uploadEffects = []
+
+       const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, false);
+
+       let newBlob
+
+       try {
+          newBlob = recorder.getBlob()
+       } catch (err) {
+          yield clog ('err: ', err)
+          newBlob = 'it broke'
+       }
+
+      const assessmentId = yield getLastAssessmentID()
+       .catch(e => e.request) // TODO
+
+      const currQ = yield select(getQuestionNumber)
+
+       uploadEffects.push(
+          yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
+       )
+
+       yield call(delay, 1000)
+
+       yield cancel(...uploadEffects)
+
+    }
+
+
+
+    yield put({ type: FINAL_COMP_QUESTION_ANSWERED })
+
+  }
+
+  const inSpelling = yield select(getInSpelling)
+
+  if (inSpelling) {
+
+    yield call(playSound, '/audio/complete.mp3')
+    yield call(delay, 500)
+
+
+    yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED })
+
+  }
+
+
+}
 
 
 function* exitClick() {
@@ -264,13 +356,53 @@ function* exitClick() {
 
 
 
-function* questionIncrementSaga (action) {
-  yield clog("here in QUESTION_INCREMENT........")
+function* questionIncrementSaga(section, spellingEffects) {
+  yield clog("here in QUESTION_INCREMENT........: ", section)
+
+  yield call(playSound, '/audio/complete.mp3')
 
   yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS)
-  yield put({ type: QUESTION_INCREMENT })
+
+
+  // if we just answered the last question, exit spelling
+
+  const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
+  const book = yield select(getBook)
+
+  if (book.numSpellingQuestions === spellingQuestionNumber) {
+    yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED })
+    return
+  }
+
+  // end spelling exit process
+
+
+
+  yield put.resolve(incrementQuestion(section))
+
+  // redisable button
+  if (section === 'spelling') {
+    yield put.resolve(setSpellingAnswerGiven(false))
+
+    yield call(playSpellingQuestionSaga)
+
+  }
+
 }
 
+
+function* playSpellingQuestionSaga() {
+    let audiofile
+    const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
+    const book = yield select(getBook)
+    // audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
+
+    audiofile = `/audio/spelling/${spellingQuestionNumber}.mp3`
+
+
+    yield call(playSound, audiofile)
+
+}
 
 
 
@@ -322,6 +454,37 @@ function* newFetchUntilPrompt(studentID){
 }
 
 
+
+function* spellingInstructionSaga() {
+
+  yield call(playSoundAsync, '/audio/spelling-intro.mp3')
+
+  yield put.resolve(hideVolumeIndicator())
+  yield call(delay, 3000)
+  yield put.resolve(showVolumeIndicator())
+  yield call(delay, 2000)
+  yield put.resolve(hideVolumeIndicator())
+
+  yield call(delay, 6000)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.talkingAboutSpellingBox,
+  ))
+
+  yield call(delay, 5000)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.talkingAboutNextButton,
+  ))
+
+  yield call(delay, 2000)
+
+  yield put.resolve(setReaderState(
+    ReaderStateOptions.done,
+  ))
+
+
+}
 
 
 function* instructionSaga() {
@@ -380,12 +543,11 @@ function* instructionSaga() {
 
 
 // assumes at least one question...
-function* definedCompSaga(numQuestions, assessmentId) {
+function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
   
-  let uploadEffects = []
 
   let compBlobArray = []
-
+ 
 
   uploadEffects.push( 
     yield takeLatest(TURN_IN_CLICKED, function* () {
@@ -439,6 +601,19 @@ function* definedCompSaga(numQuestions, assessmentId) {
       yield call(recorder.initialize)
   }
 
+
+  const questionNumber = yield select(getQuestionNumber)
+  const book = yield select(getBook)
+
+  if (book.numQuestions <= questionNumber) {
+    console.log('in this ending part......')
+    yield cancel(...uploadEffects)
+    yield put({ type: FINAL_COMP_QUESTION_ANSWERED })
+    return compBlobArray
+  }
+
+
+
   yield cancel(...uploadEffects)
 
   return compBlobArray
@@ -468,6 +643,9 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
     let audioFile = book.questions[String(currQ)].audioSrc
 
     yield call(playSound, audioFile)
+
+    yield put.resolve(setShowSkipPrompt(true))    
+
 
     yield put.resolve(setReaderState(
       ReaderStateOptions.awaitingStart,
@@ -662,7 +840,7 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
 
     yield put.resolve(setCurrentModal('no-modal'))
 
-    yield* questionIncrementSaga()
+    yield* questionIncrementSaga("comp")
 
     yield cancel(...compEffects)
 
@@ -694,8 +872,12 @@ function* assessThenSubmitSaga(assessmentId) {
   ))
 
   yield put.resolve(setInComp(false))
+  yield put.resolve(setInSpelling(false))
+  yield put.resolve(setInOralReading(true))
+
   yield put.resolve(setHasRecordedSomething(false))
   yield put.resolve(setCurrentModal('no-modal'))
+
 
   yield put(setCurrentOverlay('no-overlay'))
 
@@ -783,7 +965,7 @@ function* assessThenSubmitSaga(assessmentId) {
   yield put.resolve(setCurrentModal('no-modal'))
 
 
-
+  yield put.resolve(setShowSkipPrompt(true))
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
@@ -807,6 +989,15 @@ function* assessThenSubmitSaga(assessmentId) {
   effects.push(
     yield fork(assessmentSaga),
   )
+
+
+
+  // set up skipping 
+  effects.push(
+    yield takeLatest(SKIP_CLICKED, skipClick),
+  )
+
+
 
 
   const { endRecording } = yield race({
@@ -842,6 +1033,9 @@ function* assessThenSubmitSaga(assessmentId) {
 
   if (endRecording) {
 
+    yield put.resolve(setShowSkipPrompt(false))
+
+
     yield put.resolve(setReaderState(
       ReaderStateOptions.playingBookIntro,
     ))
@@ -870,29 +1064,59 @@ function* assessThenSubmitSaga(assessmentId) {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
+    yield put.resolve(setInOralReading(false))
+
 
     const numQuestions = yield select(getNumQuestions)
-    let uploadEffects = []
 
-    compBlobArray = yield call(definedCompSaga, numQuestions, assessmentId)
+    const uploadEffects = []
+
+    effects.push(
+      compBlobArray = yield fork(definedCompSaga, numQuestions, assessmentId, uploadEffects)
+    )
+
+    yield clog('okay, waiting ')
+
+    yield take(FINAL_COMP_QUESTION_ANSWERED)
+
+    yield put.resolve(setShowSkipPrompt(false))
 
 
+    yield cancel(...uploadEffects)
+
+
+    yield clog('okay, GOT IT ')
 
 
     yield put({ type: SPINNER_HIDE })
 
 
-    // let compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true);
-    // yield clog('url for comp recording!!!', compRecordingURL)
 
-    // try {
-    //   compBlob = recorder.getBlob()
-    // }
-    // catch (err) {
-    //   combBlob = 'it broke'
-    //   yield clog('err:', err) 
-    // } 
+    yield put.resolve(setInComp(false))
 
+
+
+   // Spelling! 
+    yield put.resolve(setInSpelling(true))
+    yield put.resolve(setSpellingAnswerGiven(false))
+
+    yield call(spellingInstructionSaga)
+
+    yield call(playSpellingQuestionSaga)
+
+    yield put.resolve(setShowSkipPrompt(true))
+
+
+    effects.push(
+      yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, 'spelling'),
+    )
+
+    yield take(FINAL_SPELLING_QUESTION_ANSWERED)
+
+    yield put.resolve(setShowSkipPrompt(false))
+
+    yield put.resolve(setInSpelling(false))
+    // End Spelling 
 
 
 

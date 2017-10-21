@@ -8,6 +8,8 @@ export const ReaderStateOptions = {
   talkingAboutStartButton: 'READER_STATE_TALKING_ABOUT_START_BUTTON',
   talkingAboutStopButton: 'READER_STATE_TALKING_ABOUT_STOP_BUTTON',
   talkingAboutSeeBook: 'READER_STATE_TALKING_ABOUT_SEE_BOOK',
+  talkingAboutSpellingBox: 'READER_STATE_TALKING_ABOUT_SPELLING_BOX',
+  talkingAboutNextButton: 'READER_STATE_TALKING_ABOUT_NEXT_BUTTON',
   awaitingStart: 'READER_STATE_AWAITING_START',
   countdownToStart: 'READER_STATE_COUNTDOWN_TO_START',
   inProgress: 'READER_STATE_IN_PROGRESS',
@@ -31,6 +33,14 @@ export const MicPermissionsStatusOptions = {
   blocked: 'MIC_PERMISSIONS_STATUS_BLOCKED',
 }
 export type MicPermissionsStatus = Keys<typeof MicPermissionsStatusOptions>;
+
+
+export const AssessmentSectionOptions = {
+  oralReading: 'ASSESSMENT_SECTION_ORAL_READING',
+  comp: 'ASSESSMENT_SECTION_COMP',
+  spelling: 'ASSESSMENT_SECTION_SPELLING',
+}
+export type AssessmentSection = Keys<typeof AssessmentSectionOptions>;
 
 
 export const PromptOptions = {
