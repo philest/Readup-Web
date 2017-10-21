@@ -618,10 +618,13 @@ export const fireflyBook = {
       rubric: {
         1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
         0: "Response does not indicate understanding of Firefly Night. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
-      },      
+      }, 
     },
 
   },
+
+  numSpellingQuestions: 15,
+
 
 };
 
@@ -907,8 +910,10 @@ export const fpBook = {
       points: 1,
       standard: 'CCRA.R.9',
     },
-
   },
+
+  numSpellingQuestions: 15,
+
 
 };
 
