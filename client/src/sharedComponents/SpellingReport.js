@@ -18,9 +18,17 @@ export default class SpellingReport extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      spellingObj: this.props.spellingObj 
+      spellingObj: this.props.spellingObj,
+      showSkippedWords: false,
     }
   }
+
+
+  toggleShowSkippedWords = () => {
+    this.setState({ showSkippedWords: !this.state.showSkippedWords })
+  }
+
+
 
   toggleSpellingError = (sectionNum, wordIdx) => {
 
@@ -55,16 +63,22 @@ export default class SpellingReport extends React.Component {
 
   renderWordColumn = (words, numResponses) => {
     let arr = []
+    let skippedArr = [] 
 
     for (let i = 0, len = words.length; i < len; i++) {
       if (i < numResponses) {
         arr.push(<li className={styles.listElt} key={i}>{words[i]}</li>)
       }
       else { // it's a skipped word 
-        arr.push(<li className={[styles.listElt, styles.skippedWord].join(' ')} key={i}>{words[i]}</li>)
+        skippedArr.push(<li className={[styles.listElt, styles.skippedWord].join(' ')} key={i}>{words[i]}</li>)
       }
 
     }
+
+    if (this.state.showSkippedWords) {
+      arr = arr.concat(skippedArr)
+    }
+
 
     return (<div className={styles.fullColumn}>
               <h4 className={styles.columnTitle}>Words</h4>
@@ -146,8 +160,18 @@ export default class SpellingReport extends React.Component {
 
           {
             this.renderSections()
-          }
+          }          
         </div>
+
+
+      { !this.state.showSkippedWords && (this.state.spellingObj.responses.length !== this.state.spellingObj.words.length) &&
+        <span className={styles.toggleText} onClick={this.toggleShowSkippedWords}> See skipped words <i className={"fa fa-caret-down " + styles.caret} aria-hidden="true"></i>
+        </span>
+      }
+      { this.state.showSkippedWords && (this.state.spellingObj.responses.length !== this.state.spellingObj.words.length) &&
+        <span className={styles.toggleText} onClick={this.toggleShowSkippedWords}> Hide skipped words <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
+        </span>
+      }
 
       </div>
 
