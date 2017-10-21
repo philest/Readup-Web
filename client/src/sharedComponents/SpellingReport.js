@@ -6,7 +6,7 @@ import styles from './styles.css'
 
 
 
-export default class SpellingReport extends React.Component {
+export default class CompReport extends React.Component {
   static propTypes = {
     spellingObj: PropTypes.object.isRequired,
     isInteractive: PropTypes.bool,
