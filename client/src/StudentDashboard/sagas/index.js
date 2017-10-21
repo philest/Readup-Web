@@ -270,7 +270,31 @@ function* skipClick() {
     yield put.resolve(stopRecordingClicked())
   }
 
-} 
+
+  const inComp = yield select(getInComp)
+
+  if (inComp) {
+
+    yield call(playSound, '/audio/complete.mp3')
+    yield call(delay, 500)
+
+    yield put({ type: FINAL_COMP_QUESTION_ANSWERED })
+
+  }
+
+  const inSpelling = yield select(getInSpelling)
+
+  if (inSpelling) {
+
+    yield call(playSound, '/audio/complete.mp3')
+    yield call(delay, 500)
+
+    yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED })
+
+  }
+
+
+}
 
 
 function* exitClick() {
@@ -994,7 +1018,9 @@ function* assessThenSubmitSaga(assessmentId) {
 
     const numQuestions = yield select(getNumQuestions)
 
-    compBlobArray = yield call(definedCompSaga, numQuestions, assessmentId)
+    effects.push(
+      compBlobArray = yield fork(definedCompSaga, numQuestions, assessmentId)
+    )
 
     yield clog('okay, waiting ')
 
