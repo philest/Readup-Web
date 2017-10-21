@@ -579,6 +579,7 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
       if (isFirstTime) { // first time, play instructions 
           yield put.resolve(setCurrentModal('modal-comp'))
           yield call(instructionSaga)
+          yield put.resolve(setShowSkipPrompt(true))    
       }
 
 
@@ -1061,8 +1062,6 @@ function* assessThenSubmitSaga(assessmentId) {
     const numQuestions = yield select(getNumQuestions)
 
     const uploadEffects = []
-
-    yield put.resolve(setShowSkipPrompt(true))
 
     effects.push(
       compBlobArray = yield fork(definedCompSaga, numQuestions, assessmentId, uploadEffects)
