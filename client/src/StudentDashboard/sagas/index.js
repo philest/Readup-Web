@@ -68,6 +68,7 @@ import {
   NEXT_WORD_CLICKED,
   VOLUME_INDICATOR_SHOWN,
   FINAL_SPELLING_QUESTION_ANSWERED,
+  FINAL_COMP_QUESTION_ANSWERED,
   SECTION_SKIPPED,
   SKIP_CLICKED,
   startCountdownToStart,
@@ -536,6 +537,19 @@ function* definedCompSaga(numQuestions, assessmentId) {
       yield call(recorder.initialize)
   }
 
+
+  const questionNumber = yield select(getQuestionNumber)
+  const book = yield select(getBook)
+
+  if (book.numQuestions <= questionNumber) {
+    console.log('in this ending part......')
+    yield cancel(...uploadEffects)
+    yield put({ type: FINAL_COMP_QUESTION_ANSWERED })
+    return compBlobArray
+  }
+
+
+
   yield cancel(...uploadEffects)
 
   return compBlobArray
@@ -982,7 +996,16 @@ function* assessThenSubmitSaga(assessmentId) {
 
     compBlobArray = yield call(definedCompSaga, numQuestions, assessmentId)
 
+    yield clog('okay, waiting ')
+
+    yield take(FINAL_COMP_QUESTION_ANSWERED)
+
+    yield clog('okay, GOT IT ')
+
+
     yield put({ type: SPINNER_HIDE })
+
+
 
     yield put.resolve(setInComp(false))
 

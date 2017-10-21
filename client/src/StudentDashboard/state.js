@@ -89,6 +89,8 @@ export const LIVE_DEMO_SET = 'LIVE_DEMO_SET'
 export const SPELLING_ANSWER_GIVEN_SET = 'SPELLING_ANSWER_GIVEN_SET'
 export const NEXT_WORD_CLICKED = 'NEXT_WORD_CLICKED'
 export const FINAL_SPELLING_QUESTION_ANSWERED = 'FINAL_SPELLING_QUESTION_ANSWERED'
+export const FINAL_COMP_QUESTION_ANSWERED = 'FINAL_COMP_QUESTION_ANSWERED'
+
 export const SECTION_SKIPPED = 'SECTION_SKIPPED'
 export const IN_ORAL_READING_SET = 'IN_ORAL_READING_SET'
 export const SKIP_CLICKED = 'SKIP_CLICKED'
@@ -169,6 +171,11 @@ export function finalSpellingQuestionAnswered() {
   }
 }
 
+export function finalCompQuestionAnswered() {
+  return {
+    type: FINAL_COMP_QUESTION_ANSWERED,
+  }
+}
 
 
 export function setCountdownValue(countdownValue: number) {
