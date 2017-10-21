@@ -52,28 +52,18 @@ export default class SpellingReport extends React.Component {
   }
 
 
-  renderColumnTitles = (titles) => {
-    let arr = []
 
-    for (let i = 0, len = titles.length; i < len; i++) {
-      arr.push(<h4 className={styles.columnTitle}>{titles[i]}</h4>)
-    }
-
-    return arr
-
-  }
-
-
-  isCorrectSpelling(word, response) {
-    return word === response 
-  }
-
-
-  renderWordColumn = (words) => {
+  renderWordColumn = (words, numResponses) => {
     let arr = []
 
     for (let i = 0, len = words.length; i < len; i++) {
-      arr.push(<li className={styles.listElt} key={i}>{words[i]}</li>)
+      if (i < numResponses) {
+        arr.push(<li className={styles.listElt} key={i}>{words[i]}</li>)
+      }
+      else { // it's a skipped word 
+        arr.push(<li className={[styles.listElt, styles.skippedWord].join(' ')} key={i}>{words[i]}</li>)
+      }
+
     }
 
     return (<div className={styles.fullColumn}>
@@ -110,11 +100,13 @@ export default class SpellingReport extends React.Component {
     }
   }
 
-  renderPhoneticColumn = (statusArr, title, sectionNum) => {
+  renderPhoneticColumn = (statusArr, title, sectionNum, numResponses) => {
     let arr = []
 
     for (let i = 0, len = statusArr.length; i < len; i++) {
-      arr.push(<li className={styles.listElt} key={i}>{this.getSymbol(statusArr[i], sectionNum, i)}</li>)
+      if (i < numResponses) {
+        arr.push(<li className={styles.listElt} key={i}>{this.getSymbol(statusArr[i], sectionNum, i)}</li>)
+      }
     }
 
     return (<div className={styles.fullColumn}>
@@ -128,7 +120,7 @@ export default class SpellingReport extends React.Component {
     let arr = []
 
     for (let i = 1, len = this.state.spellingObj.numSections; i <= len; i++) {
-      arr.push(this.renderPhoneticColumn(this.state.spellingObj.sections[String(i)].statusArr, this.state.spellingObj.sections[i].title, i))
+      arr.push(this.renderPhoneticColumn(this.state.spellingObj.sections[String(i)].statusArr, this.state.spellingObj.sections[i].title, i, this.state.spellingObj.responses.length))
     }
 
     return arr 
@@ -145,7 +137,7 @@ export default class SpellingReport extends React.Component {
         <div className={styles.colsWrapper}>
 
           {
-            this.renderWordColumn(this.state.spellingObj.words)
+            this.renderWordColumn(this.state.spellingObj.words, this.state.spellingObj.responses.length)
           }
 
           {
