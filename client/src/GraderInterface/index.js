@@ -166,9 +166,7 @@ export default class GraderInterface extends React.Component {
     numQuestions = book.numQuestions
 
 
-    if (!this.props.scoredSpelling) {
-      this.setState({ scoredSpelling: book.spellingObj })
-    }
+
 
 
     // But first, reset the state...
@@ -1644,6 +1642,7 @@ renderCompQuestions6 = () => {
         <br/><br/>
         <br/><br/>
 
+        { this.props.scoredSpelling && 
 
           <div className={styles.spellingWrapper}>
             <hr className={styles.metricsDivider}/>
@@ -1665,6 +1664,7 @@ renderCompQuestions6 = () => {
             />
 
           </div>
+        }
 
 
 
