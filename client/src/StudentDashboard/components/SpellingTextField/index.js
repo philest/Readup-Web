@@ -57,7 +57,7 @@ export default class SpellingTextField extends React.Component {
             scoredSpellingHolder = peterSpellingObj
           }
 
-          scoredSpellingHolder.responses.unshift(value)
+          scoredSpellingHolder.responses.push(value)
 
           // An alternate approach: 
           // let arr = stateHolder.sections[String(sectionNum)].statusArr
