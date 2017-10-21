@@ -235,7 +235,8 @@ class ReportsController < ApplicationController
         bookKey: book_key,
         env: ENV['RAILS_ENV'],
         teacherNote: @assessment.teacher_note,
-        totalTimeReading: @assessment.total_time_reading
+        totalTimeReading: @assessment.total_time_reading,
+        scoredSpelling: @assessment.scored_spelling,
 
       }
     end

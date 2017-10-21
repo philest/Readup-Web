@@ -377,6 +377,7 @@ export default class ReportWithScorer extends React.Component {
             env={this.props.env}
             teacherNote={this.props.teacherNote}
             totalTimeReading={this.props.totalTimeReading}
+            scoredSpelling={this.props.scoredSpelling}
           />
         </div>
 

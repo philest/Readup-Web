@@ -1644,6 +1644,30 @@ export default class ReportsInterface extends React.Component {
           </div>
         }
 
+        { !this.props.isSample && this.props.scoredSpelling &&
+          <div className={styles.spellingWrapper}>
+            <hr className={styles.metricsDivider}/>
+
+            <h5 className={styles.sectionHeader}>3. SPELLING</h5>
+
+            <div className={styles.sectionLargeTitle}>
+              <div className={styles.bookInfoWrapper}>
+                <div className={styles.bookInfoTitle}>Developmental Spelling</div> 
+                { this.props.assessmentBrand === 'FP' &&
+                    <span className={styles.optional}>(Optional)</span>
+                }
+              </div>
+            </div>
+
+            <SpellingReport
+              spellingObj={this.props.scoredSpelling}
+            />
+
+          </div>
+        }
+
+
+
 
 
         <hr className={styles.metricsDivider}/>

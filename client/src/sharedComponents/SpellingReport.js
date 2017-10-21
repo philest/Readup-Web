@@ -169,7 +169,7 @@ export default class SpellingReport extends React.Component {
         </span>
       }
       { this.state.showSkippedWords && (this.state.spellingObj.responses.length !== this.state.spellingObj.words.length) &&
-        <span className={styles.toggleText} onClick={this.toggleShowSkippedWords}> Hide skipped words <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
+        <span className={styles.toggleText} onClick={this.toggleShowSkippedWords}>Hide skipped words <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
         </span>
       }
 
