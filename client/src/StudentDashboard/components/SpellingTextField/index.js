@@ -34,7 +34,36 @@ export default class SpellingTextField extends React.Component {
 
   saveSpellingResponse = (value) => {
 
-    console.log('TODO: upload spelling')
+
+    // get spelling object 
+    // save it temporarily 
+    // push in a new response 
+    // get assessment ID 
+    // update assessment 
+
+    
+
+
+    let stateHolder = this.state.spellingObj 
+
+    let arr = stateHolder.sections[String(sectionNum)].statusArr
+
+    arr[wordIdx] = !arr[wordIdx]
+
+    this.setState({ spellingObj: stateHolder })
+
+
+
+    updateAssessment( {
+                       student_responses: studentResponses,
+                       grader_comments: graderComments,
+                       comp_scores: compScores,
+                       scored_spelling: scoredSpelling,
+                      },
+                       this.props.assessmentID,
+                    )
+
+
 
   }
 
