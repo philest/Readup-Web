@@ -6,7 +6,7 @@ import { FormControl } from 'react-bootstrap'
 
 import { updateAssessment, getAssessmentData } from '../../../ReportsInterface/emailHelpers'
 import { getLastAssessmentID } from '../../sagas/networkingHelpers'
-
+import { peterSpellingObj } from '../../state'
 
 export default class SpellingTextField extends React.Component {
   static propTypes = {
@@ -41,31 +41,42 @@ export default class SpellingTextField extends React.Component {
     // get assessment ID 
     // update assessment 
 
-    
 
+      const assessmentID = getLastAssessmentID()
+      assessmentID.then( (id) => {
+        console.log('id: ', id)
 
-    let stateHolder = this.state.spellingObj 
+        const assessment = getAssessmentData(id)
 
-    let arr = stateHolder.sections[String(sectionNum)].statusArr
+        assessment.then( (assessment) => {
+          console.log('assessment: ', assessment)
 
-    arr[wordIdx] = !arr[wordIdx]
+          let scoredSpellingHolder = assessment.scored_spelling
 
-    this.setState({ spellingObj: stateHolder })
+          if (!scoredSpellingHolder) {
+            scoredSpellingHolder = peterSpellingObj
+          }
 
+          scoredSpellingHolder.responses.unshift(value)
 
+          // An alternate approach: 
+          // let arr = stateHolder.sections[String(sectionNum)].statusArr
+          // arr[wordIdx] = !arr[wordIdx]
 
-    updateAssessment( {
-                       student_responses: studentResponses,
-                       grader_comments: graderComments,
-                       comp_scores: compScores,
-                       scored_spelling: scoredSpelling,
-                      },
-                       this.props.assessmentID,
-                    )
+         updateAssessment({
+          scored_spelling: scoredSpellingHolder,
+                          },
+                          id,
+                          )
 
+        }).catch(function (err) {
+          console.log(err)
+        })
 
-
+      })
   }
+
+
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
