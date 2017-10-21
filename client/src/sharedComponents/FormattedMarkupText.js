@@ -308,11 +308,11 @@ export default class FormattedMarkupText extends React.Component {
         ))}
 
       { this.state.hideUnread && this.props.showSeeMore &&
-        <span className={styles.toggleText} onClick={this.toggleHideUnread}> See more <i className={"fa fa-caret-down " + styles.caret} aria-hidden="true"></i>
+        <span className={styles.toggleText} onClick={this.toggleHideUnread}> See silent reading <i className={"fa fa-caret-down " + styles.caret} aria-hidden="true"></i>
         </span>
       }
       { !this.state.hideUnread && this.props.showSeeMore &&
-        <span className={styles.toggleText} onClick={this.toggleHideUnread}> See Less <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
+        <span className={styles.toggleText} onClick={this.toggleHideUnread}> Hide silent reading <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
  </span>
       }
 
