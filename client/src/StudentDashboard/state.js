@@ -623,7 +623,7 @@ export const fireflyBook = {
 
   },
 
-  numSpellingQuestions: 15,
+  numSpellingQuestions: 6,
 
 
 };
@@ -760,7 +760,7 @@ export const stepBook = {
       section: 3,
     },
   },
-  numSpellingQuestions: 15,
+  numSpellingQuestions: 6,
 
 };
 
@@ -912,7 +912,7 @@ export const fpBook = {
     },
   },
 
-  numSpellingQuestions: 15,
+  numSpellingQuestions: 6,
 
 
 };
