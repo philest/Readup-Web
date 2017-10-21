@@ -71,6 +71,7 @@ import {
   FINAL_COMP_QUESTION_ANSWERED,
   SECTION_SKIPPED,
   SKIP_CLICKED,
+  SHOW_SKIP_PROMPT_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -93,6 +94,7 @@ import {
   decrementQuestion,
   setInOralReading,
   stopRecordingClicked,
+  setShowSkipPrompt,
 } from '../state'
 
 
@@ -954,7 +956,7 @@ function* assessThenSubmitSaga(assessmentId) {
   yield put.resolve(setCurrentModal('no-modal'))
 
 
-
+  yield put.resolve(setShowSkipPrompt(true))
 
   yield put.resolve(setReaderState(
     ReaderStateOptions.inProgress,
@@ -1022,6 +1024,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
   if (endRecording) {
 
+    yield put.resolve(setShowSkipPrompt(false))
+
 
     yield put.resolve(setReaderState(
       ReaderStateOptions.playingBookIntro,
@@ -1058,6 +1062,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
     const uploadEffects = []
 
+    yield put.resolve(setShowSkipPrompt(true))
+
     effects.push(
       compBlobArray = yield fork(definedCompSaga, numQuestions, assessmentId, uploadEffects)
     )
@@ -1065,6 +1071,9 @@ function* assessThenSubmitSaga(assessmentId) {
     yield clog('okay, waiting ')
 
     yield take(FINAL_COMP_QUESTION_ANSWERED)
+
+    yield put.resolve(setShowSkipPrompt(false))
+
 
     yield cancel(...uploadEffects)
 
@@ -1088,11 +1097,16 @@ function* assessThenSubmitSaga(assessmentId) {
 
     yield call(playSpellingQuestionSaga)
 
+    yield put.resolve(setShowSkipPrompt(true))
+
+
     effects.push(
       yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, 'spelling'),
     )
 
     yield take(FINAL_SPELLING_QUESTION_ANSWERED)
+
+    yield put.resolve(setShowSkipPrompt(false))
 
     yield put.resolve(setInSpelling(false))
     // End Spelling 

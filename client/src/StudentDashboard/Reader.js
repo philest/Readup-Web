@@ -70,6 +70,7 @@ export default class Reader extends React.Component {
     currentShowModal: PropTypes.string,
     introAudioSrc: PropTypes.string,
     showVolumeIndicator: PropTypes.bool,
+    showSkipPrompt: PropTypes.bool,
     isLiveDemo: PropTypes.bool,
     inSpelling: PropTypes.bool,
     onSpellingAnswerGiven: PropTypes.func,
@@ -278,7 +279,7 @@ export default class Reader extends React.Component {
 
 
           <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
-            { (this.props.pageNumber >= 1 || !this.props.inOralReading) &&
+            { (this.props.showSkipPrompt) &&
               <span style={{ top: (this.props.inSpelling) ? -20 + "vh" : -40 + "vh" }} onClick={this.props.onSkipClicked} className={styles.skipPrompt}>Skip section <i className="fa fa-caret-right" aria-hidden="true"></i></span>
             }
             { (this.props.inSpelling || this.props.inComp || this.props.inOralReading) && 

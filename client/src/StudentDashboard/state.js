@@ -96,11 +96,22 @@ export const IN_ORAL_READING_SET = 'IN_ORAL_READING_SET'
 export const SKIP_CLICKED = 'SKIP_CLICKED'
 
 
+export const SHOW_SKIP_PROMPT_SET = 'SHOW_SKIP_PROMPT_SET'
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
     payload: {
       readerState,
+    },
+  }
+}
+
+export function setShowSkipPrompt(showSkipPrompt: boolean) {
+  return {
+    type: SHOW_SKIP_PROMPT_SET,
+    payload: {
+      showSkipPrompt,
     },
   }
 }
@@ -938,6 +949,7 @@ const initialState = {
   showSpinner: false,
   countdownValue: -1,
   showVolumeIndicator: true,
+  showSkipPrompt: false,
   inComp: false,
   inSpelling: false,
   inOralReading: true,
@@ -1080,6 +1092,10 @@ function reducer(state = initialState, action = {}) {
 
     case QUESTION_NUMBER_SET: {
       return { ...state, questionNumber: payload.questionNumber }
+    }
+
+    case SHOW_SKIP_PROMPT_SET: {
+      return { ...state, showSkipPrompt: payload.showSkipPrompt}
     }
 
 
