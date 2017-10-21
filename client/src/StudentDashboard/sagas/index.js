@@ -579,7 +579,6 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
       if (isFirstTime) { // first time, play instructions 
           yield put.resolve(setCurrentModal('modal-comp'))
           yield call(instructionSaga)
-          yield put.resolve(setShowSkipPrompt(true))    
       }
 
 
@@ -644,6 +643,9 @@ function* compSaga(firstTime: boolean, isPrompt: boolean, isOnFirstQuestion: boo
     let audioFile = book.questions[String(currQ)].audioSrc
 
     yield call(playSound, audioFile)
+
+    yield put.resolve(setShowSkipPrompt(true))    
+
 
     yield put.resolve(setReaderState(
       ReaderStateOptions.awaitingStart,

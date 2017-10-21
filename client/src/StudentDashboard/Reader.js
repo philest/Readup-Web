@@ -208,6 +208,18 @@ export default class Reader extends React.Component {
 
   }
 
+  getNextSection = () => {
+    if (this.props.inOralReading) {
+      return 'comprehension'
+    }
+    else if (this.props.inComp) {
+      return 'spelling'
+    }
+    else {
+      return 'end'
+    }
+  }
+
   renderNavigationBar = () => {
 
     const navProps = {
@@ -280,7 +292,9 @@ export default class Reader extends React.Component {
 
           <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
             { (this.props.showSkipPrompt) &&
-              <span style={{ top: (this.props.inSpelling) ? -20 + "vh" : -40 + "vh" }} onClick={this.props.onSkipClicked} className={styles.skipPrompt}>Skip section <i className="fa fa-caret-right" aria-hidden="true"></i></span>
+              <span style={{ top: (this.props.inSpelling) ? -20 + "vh" : -40 + "vh" }} onClick={this.props.onSkipClicked} className={styles.skipPrompt}>
+                Skip to {this.getNextSection()} <i className="fa fa-caret-right" aria-hidden="true"></i>
+              </span>
             }
             { (this.props.inSpelling || this.props.inComp || this.props.inOralReading) && 
               this.renderRightButton()
