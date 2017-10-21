@@ -282,7 +282,7 @@ function* skipClick() {
     // halt the recorder if it's still going 
     let recorder = yield select(getRecorder)
 
-    if (recorder.recording) {
+    if (recorder.recording || recorder.rtcRecorder.state === 'paused') { // if in middle of prompt thing
        const uploadEffects = []
 
        const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(recorder, true, false);
@@ -393,7 +393,10 @@ function* playSpellingQuestionSaga() {
     let audiofile
     const spellingQuestionNumber = yield select(getSpellingQuestionNumber)
     const book = yield select(getBook)
-    audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
+    // audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
+
+    audiofile = `/audio/spelling/${2}.mp3`
+
 
     yield call(playSound, audiofile)
 
@@ -538,12 +541,11 @@ function* instructionSaga() {
 
 
 // assumes at least one question...
-function* definedCompSaga(numQuestions, assessmentId) {
+function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
   
-  let uploadEffects = []
 
   let compBlobArray = []
-
+ 
 
   uploadEffects.push( 
     yield takeLatest(TURN_IN_CLICKED, function* () {
@@ -1020,8 +1022,6 @@ function* assessThenSubmitSaga(assessmentId) {
 
   if (endRecording) {
 
-    yield put.resolve(setInOralReading(false))
-
 
     yield put.resolve(setReaderState(
       ReaderStateOptions.playingBookIntro,
@@ -1051,16 +1051,23 @@ function* assessThenSubmitSaga(assessmentId) {
 
     yield playSound('/audio/VB/min/VB-now-questions.mp3')
 
+    yield put.resolve(setInOralReading(false))
+
 
     const numQuestions = yield select(getNumQuestions)
 
+    const uploadEffects = []
+
     effects.push(
-      compBlobArray = yield fork(definedCompSaga, numQuestions, assessmentId)
+      compBlobArray = yield fork(definedCompSaga, numQuestions, assessmentId, uploadEffects)
     )
 
     yield clog('okay, waiting ')
 
     yield take(FINAL_COMP_QUESTION_ANSWERED)
+
+    yield cancel(...uploadEffects)
+
 
     yield clog('okay, GOT IT ')
 

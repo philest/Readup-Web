@@ -256,7 +256,7 @@ export default class Reader extends React.Component {
             { this.renderLeftButton() }
           </div>
 
-         { !this.props.inSpelling &&
+         { (this.props.inOralReading || this.props.inComp) &&
 
           <div className={this.props.isWideBook ? wideContainerClass : styles.bookpageContainer}>
             <RouteTransition {...transitionProps}>
@@ -279,9 +279,9 @@ export default class Reader extends React.Component {
 
           <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
             { (this.props.pageNumber >= 1 || !this.props.inOralReading) &&
-              <span onClick={this.props.onSkipClicked} className={styles.skipPrompt}>Skip section <i className="fa fa-caret-right" aria-hidden="true"></i></span>
+              <span style={{ top: (this.props.inSpelling) ? -20 + "vh" : -40 + "vh" }} onClick={this.props.onSkipClicked} className={styles.skipPrompt}>Skip section <i className="fa fa-caret-right" aria-hidden="true"></i></span>
             }
-            { 
+            { (this.props.inSpelling || this.props.inComp || this.props.inOralReading) && 
               this.renderRightButton()
             }
           </div>
