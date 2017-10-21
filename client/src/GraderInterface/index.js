@@ -144,6 +144,8 @@ export default class GraderInterface extends React.Component {
       showChecklistModal: false,
       showAudioAlert: false,
       totalTimeReading: this.props.totalTimeReading,
+      scoredSpelling: (!this.props.scoredSpelling) ? null : this.props.scoredSpelling,
+
     }
         this.tick = this.tick.bind(this);
 
@@ -163,6 +165,10 @@ export default class GraderInterface extends React.Component {
     rubric = book.rubric
     numQuestions = book.numQuestions
 
+
+    if (!this.props.scoredSpelling) {
+      this.setState({ scoredSpelling: book.spellingObj })
+    }
 
 
     // But first, reset the state...
@@ -678,10 +684,16 @@ export default class GraderInterface extends React.Component {
             
     let compScores = this.state.compScores
 
+
+    // update spelling 
+    const scoredSpelling = this.state.scoredSpelling
+
+
     updateAssessment( {
                        student_responses: studentResponses,
                        grader_comments: graderComments,
                        comp_scores: compScores,
+                       scored_spelling: scoredSpelling,
                       },
                        this.props.assessmentID,
                     )
@@ -1648,7 +1660,8 @@ renderCompQuestions6 = () => {
             </div>
 
             <SpellingReport
-              spellingObj={book.spellingObj}
+              spellingObj={this.state.scoredSpelling}
+              isInteractive={true}
             />
 
           </div>

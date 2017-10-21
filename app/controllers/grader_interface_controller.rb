@@ -125,7 +125,8 @@ class GraderInterfaceController < ApplicationController
         isPartner: params['partner'] == 'true',
         isRemote: params['user_id'] == "remote",
         completed: @assessment.completed,
-        totalTimeReading: (@assessment.total_time_reading)
+        totalTimeReading: (@assessment.total_time_reading),
+        scoredSpelling: @assessment.scored_spelling
       }
       
     end

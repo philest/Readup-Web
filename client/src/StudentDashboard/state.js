@@ -633,7 +633,7 @@ export const fireflyBook = {
 export const peterSpellingObj = {
   numWords: 15,
   words: ["pest", "chip", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
-  responses: ["pest", "chip", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
+  responses: ["pest", "chap", 'sand', 'lump', 'shop', 'plum', 'club', 'wish', 'ramp', 'drip', 'smog', 'bath', 'rent', 'trot', 'shed'],
   numSections: 3,
   sections: {
     1: {
@@ -642,11 +642,11 @@ export const peterSpellingObj = {
     },
     2: {
       title: 'Initial Blend/Digraph',
-      statusArr: [null, true, null, null, true, true, true, null, null, true, true, null, null, true, true],
+      statusArr: ['NO_VALUE', true, 'NO_VALUE', 'NO_VALUE', true, true, true, 'NO_VALUE', 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE', true, true],
     },
     3: {
       title: 'Final Blend/Digraph',
-      statusArr: [true, null, true, true, null, null, null, true, true, null, null, true, true, null, null],
+      statusArr: [true, 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE', 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE', true, true, 'NO_VALUE', 'NO_VALUE'],
     },
 
   },
