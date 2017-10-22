@@ -9,9 +9,9 @@ import { Button } from 'react-bootstrap'
 
 export default class CompQuestion extends React.Component {
   static propTypes = {
-    studentResponse: PropTypes.object,
-    graderComment: PropTypes.object,
-    compScore: PropTypes.object,
+    studentResponse: PropTypes.string,
+    graderComment: PropTypes.string,
+    compScore: PropTypes.number,
     pointsPossible: PropTypes.number,
     academicStandard: PropTypes.string,
     questionNum: PropTypes.number,

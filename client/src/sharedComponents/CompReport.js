@@ -44,6 +44,30 @@ export default class CompReport extends React.Component {
     return (this.props.graderComments[String(qNum - 1)] && (this.props.compScores[String(qNum - 1)] != null))
   }
 
+  renderCompQuestion = (qNum) => {
+
+    return (
+        <CompQuestion
+          studentResponse={this.props.studentResponses[qNum - 1]}
+          graderComment={this.props.graderComments[qNum - 1]}
+          compScore={this.props.compScores[qNum - 1]}
+          pointsPossible={this.props.book.questions[qNum].points}
+          academicStandard={this.props.book.questions[qNum].standard}
+          questionNum={qNum}
+          isGraded={this.isQuestionGraded(qNum)}
+          title={this.props.book.questions[qNum].title}
+          subtitle={this.props.book.questions[qNum].subtitle}
+          showCompAudioPlayback={this.props.showCompAudioPlaybackHash[qNum]}
+          onCompPlayRecordingClicked={this.props.onCompPlayRecordingClicked}
+          renderCompAudio={this.props.renderCompAudio}
+          studentFirstName={this.props.studentFirstName}
+          isInteractive={false}                    
+        />
+    )
+
+
+  }
+
 
   render() {
 
@@ -51,25 +75,7 @@ export default class CompReport extends React.Component {
     return (
 
       <div>
-
-        <CompQuestion
-          studentResponse={this.props.studentResponses["0"]}
-          graderComment={this.props.graderComments["0"]}
-          compScore={this.props.compScores["0"]}
-          pointsPossible={this.props.book.questions["1"].points}
-          academicStandard={this.props.book.questions["1"].standard}
-          questionNum={1}
-          isGraded={this.isQuestionGraded(1)}
-          title={this.props.book.questions["1"].title}
-          subtitle={this.props.book.questions["1"].subtitle}
-          showCompAudioPlayback={this.props.showCompAudioPlaybackHash['1']}
-          onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
-          renderCompAudio={this.renderCompAudio} 
-          studentFirstName={this.props.studentFirstName}
-          isInteractive={false}                    
-        />
-
-
+        {this.renderCompQuestion(1)}
       </div>
 
     )
