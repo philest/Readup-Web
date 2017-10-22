@@ -111,7 +111,7 @@ export default class GraderInterface extends React.Component {
     bookKey: PropTypes.string,
     waiting: PropTypes.bool,
     isRemote: PropTypes.bool,
-    totalTimeReading: PropTypes.number
+    totalTimeReading: PropTypes.number,
   };
 
 
@@ -137,6 +137,7 @@ export default class GraderInterface extends React.Component {
       assessmentBrand: this.props.assessmentBrand,
       isLiveDemo: this.props.isLiveDemo,
       graderComments: this.props.graderCommentsPrior,
+      studentResponses: this.props.studentResponsesPrior,
       showQArr: this.props.scored ? trueInitShowQArr : initShowQArr,
       showCompletedModal: false,
       hasSeenCompletedModal: this.props.completed,
@@ -910,9 +911,9 @@ export default class GraderInterface extends React.Component {
     return <NavigationBar {...navProps} />
   }
 
-  handleGraderCommentChange = (event, id) => {
+  handleGraderCommentChange = (event, qIdx) => {
     let graderComments = this.state.graderComments
-    graderComments[String(id)] = event.target.value
+    graderComments[String(qIdx)] = event.target.value
     this.setState({ graderComments: graderComments })
   }
 
@@ -934,6 +935,17 @@ export default class GraderInterface extends React.Component {
     )
 
   }
+
+
+  handleStudentResponseChange = (event, qIdx) => {
+
+    let holder = this.state.studentResponses
+
+    holder[qIdx] = event.target.value
+
+    this.setState({ studentResponses: holder })
+  }
+
 
   renderCompQuestions1 = () => {
     let q = 1
@@ -957,7 +969,7 @@ export default class GraderInterface extends React.Component {
 
             <FormGroup controlId="studentResponse">
               <ControlLabel>Student Response</ControlLabel>
-              <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} defaultValue={this.props.studentResponsesPrior[q - 1]} inputRef={ref => { this.studentResponsesInput1 = ref; }} placeholder="Student response" />
+              <FormControl className={styles.tallTextArea} componentClass="textarea" className={styles.myTextArea} value={this.state.studentResponses[q - 1]} onChange={(event) => this.handleStudentResponseChange(event, q - 1)} placeholder="Student response" />
             </FormGroup>
 
 
@@ -972,7 +984,7 @@ export default class GraderInterface extends React.Component {
             
             <FormGroup controlId="graderComments">
               <ControlLabel>Your comments</ControlLabel>
-              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  inputRef={ref => { this.graderCommentsInput1 = ref; }} placeholder="Your comments" />
+              <FormControl value={this.state.graderComments[String(q - 1)]} onChange={(event) => this.handleGraderCommentChange(event, q - 1)} componentClass="textarea" className={styles.myTextArea}  placeholder="Your comments" />
             </FormGroup>
 
 
