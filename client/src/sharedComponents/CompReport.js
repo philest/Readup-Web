@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styles from './styles.css'
+import styles from '../ReportsInterface/styles.css'
 
 import CompQuestion from './CompQuestion'
 
@@ -64,8 +64,28 @@ export default class CompReport extends React.Component {
           isInteractive={false}                    
         />
     )
+  }
 
 
+  renderCompSection = (sectionNum) => {
+    let qArr = []
+
+
+    for (let q = 1, len = this.props.numQuestions; q <= len; q++) {
+      if (this.props.questions[q].section === sectionNum) { 
+        qArr.push(this.renderCompQuestion(q))
+      }
+    }
+
+    return (
+    <div className={ [styles.showQ, styles.compPart].join(' ') }>
+      <h2 className={[styles.compPartHeader, styles.retellHeader, (this.isQuestionGraded(1) ? '' : styles.fadedComp)].join(' ')}>{this.props.sections[sectionNum]}</h2> 
+
+        <div>
+          {qArr}
+        </div>
+    </div> 
+    )
   }
 
 
@@ -75,7 +95,7 @@ export default class CompReport extends React.Component {
     return (
 
       <div>
-        {this.renderCompQuestion(1)}
+        {this.renderCompSection(1)}
       </div>
 
     )

@@ -1579,8 +1579,6 @@ export default class ReportsInterface extends React.Component {
            <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
 
 
-            <div className={ [styles.showQ, styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader, (this.isQuestionGraded(1) ? '' : styles.fadedComp)].join(' ')}>Factual</h2>
 
                 <CompReport
                     studentResponses={this.props.studentResponses}
@@ -1598,15 +1596,7 @@ export default class ReportsInterface extends React.Component {
                     isInteractive={false}                   
                 />
 
-                {
-                  this.renderFullQuestion(1)
-                }
-
-                {
-                  this.renderFullQuestion(3)
-                }
-
-            </div>
+  
 
 
             <div className={[styles.compPart, (styles.showQ)].join(' ')}>

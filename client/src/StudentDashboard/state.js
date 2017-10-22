@@ -759,7 +759,7 @@ export const stepBook = {
         },
       points: 1,
       standard: 'CCRA.R.2',
-      section: 2,
+      section: 1,
     },
     5: {
       title: "Why does Peter say, \"Will her hat fall off?\"",
