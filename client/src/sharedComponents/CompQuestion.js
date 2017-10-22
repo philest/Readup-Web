@@ -125,10 +125,12 @@ export default class CompQuestion extends React.Component {
             }
 
             <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {graderComment}</p>
-            { this.state.savedNewScore && // TODO created DB column to track this stateless. 
-              <span className={styles.rescoreIndicator}>Rescored by you</span> 
-            }
-            <span onClick={this.onShowRescoreModal} className={styles.rescore}>Give a different score</span>
+            <span className={styles.rescoringLabels}> 
+              { this.state.savedNewScore && // TODO created DB column to track this stateless. 
+                <span className={styles.rescoreIndicator}>Rescored</span> 
+              }
+              <span onClick={this.onShowRescoreModal} className={styles.rescore}>Give a different score</span>
+            </span> 
             </div>
           )
   }

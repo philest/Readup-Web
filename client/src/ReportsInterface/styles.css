@@ -844,7 +844,6 @@ margin-left: 20px;
 }
 
 .rescore {
-	margin-left: 20px;
     font-style: italic;
     font-size: .8em;
     cursor: pointer;
@@ -856,12 +855,16 @@ margin-left: 20px;
 
 }
 
+.rescoringLabels {
+	margin-left: 20px;
+}
+
 .rescoreIndicator {
 	display: inline-block;
-    margin-left: 20px;
     font-size: 11px;
     font-family: 'ProximaNova SemiBold';
     color: grey;
+    margin-right: 10px;
 }
 
 .rescoringContainer {
