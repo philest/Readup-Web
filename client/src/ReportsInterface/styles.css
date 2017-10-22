@@ -835,7 +835,15 @@ margin-bottom: 15px;
 display: block;
 margin-left: 20px;
 
-}	
+}
+
+.rescore {
+	margin-left: 20px;
+    font-style: italic;
+    font-size: .8em;
+    cursor: pointer;
+    color: #347BB8;
+}
 
 
 @media (max-width: 1240px) {

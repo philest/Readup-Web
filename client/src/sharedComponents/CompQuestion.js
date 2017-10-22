@@ -113,6 +113,7 @@ export default class CompQuestion extends React.Component {
             }
 
             <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {this.props.graderComment}</p>
+            <span className={styles.rescore}>Give a different score</span>
             </div>
           )
   }
