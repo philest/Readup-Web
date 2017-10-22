@@ -1045,6 +1045,96 @@ export const sampleReportBookFP = {
 
 
 
+export const sampleReportBookSTEP = {
+  title: "No More Magic",
+  author: 'Avi',
+  bookKey: 'sample',
+  numPages: null, // if you want a shorter book for testing purposes just change this
+  isWideBook: false,
+  coverImage: null,
+  introAudioSrc: null,
+  markup: sampleWithMSV,
+  pages: null,
+  numSections: 3,
+  sections: {
+    1: 'Retell',
+    2: 'Factual',
+    3: 'Inferential',
+    4: 'Critical Thinking',
+  },
+
+  numQuestions: 5,
+  questions: {
+    1: {
+      title: "Tell as much as you can about the passage you just read.",
+      subtitle: "Be sure to include the beginning, middle and end",
+      audioSrc: '/audio/VB/VB-retell-full.mp3',
+      rubric: {
+                3: "Response shows excellent understanding of Bedtime For Nick. Includes all major events of plot in sequence, and shows insight into Nick's actions. Uses important details to enrich the retelling.",
+                2: "Response shows good understanding of Bedtime For Nick. Includes major events of plot in sequence. Describes Nick's actions and character, and uses some details to support the retelling.",
+                1: "Response shows partial understanding of Bedtime For Nick. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
+                0: "Response does not indicate understanding of Bedtime For Nick. Includes only a part of a major event, and mentions main characters in a limited way. Facts stated are not in sequence, and important ones are left out.",
+              },
+      points: 3,
+      standard: 'CCRA.R.1 and CCRA.R.3',
+      section: 1,
+    },
+    2: {
+      title: "How is the narrator's mom trying to make him feel better?",
+      audioSrc: '/audio/VB/nick/nick-real-reason.mp3',
+      rubric: {
+        0: "Response does not demonstrate proficiency in understanding why Nick can’t sleep . Misses key point that Nick can’t sleep because he misses Wags. Doesn’t use concrete details to support the answer, such as noting that Nick is only able to sleep when Wags returns.",
+        1: "Response demonstrates proficiency in understanding why Nick can’t sleep. Correctly identifies that Nick can’t sleep because he misses Wags. Offers concrete details to support this answer, noting that Nick is only able to sleep when Wags returns.",
+      },
+      points: 1,
+      standard: 'CCRA.R.2',
+      section: 2,
+    },
+    3: {
+      title: "Will Chris stop looking for his old bike when he gets a new one? How do you know?",
+      audioSrc: '/audio/VB/nick/nick-how-feels.mp3',
+      rubric: {
+                0: "Response does not demonstrate a proficient understanding of Nick’s feelings about Wags. Misses key point that Nick loves Wags and misses him, and lacks strong supporting details (like the fact that Nick is only able to sleep when Wags returns.",
+                1: "Response demonstrates an excellent understanding of Nick’s feelings about Wags. Correctly identifies that Nick loves Wags and misses him. Offers strong supporting details for this answer and notes Nick is only able to sleep when Wags comes back.",
+              },
+      points: 1,
+      standard: 'CCRA.R.1',
+      section: 3,
+    },
+    4: {
+      title: "Chris\'s dad says, \"We all know about Mr. Podler…Someday I\'ll tell you about the ghosts he saw in City Hall.\" What do you think he means?.",
+      subtitle: "Was your problem like Nick’s? Why or why not?",
+      audioSrc: '/audio/VB/nick/nick-tell-about-a-time.mp3',
+      rubric: {
+                0: "Response does not demonstrate a proficiency in thinking beyond the text. Misses a logical connection between the student’s experiences and Nick’s story, and lacks important supporting details.",
+                1: "Response demonstrates a very strong ability to think beyond the text. Makes a strong logical connection between personal experiences and Nick’s story, and gives important supporting details.",
+              },
+      points: 1,
+      standard: 'CCRA.R.4',
+      section: 3,
+    },
+    5: {
+      title: "How do you think Chris feels about getting a new bike? What makes you think this?",
+      audioSrc: '/audio/VB/nick/nick-tell-about-a-time.mp3',
+      rubric: {
+                0: "Response does not demonstrate a proficiency in thinking beyond the text. Misses a logical connection between the student’s experiences and Nick’s story, and lacks important supporting details.",
+                1: "Response demonstrates a very strong ability to think beyond the text. Makes a strong logical connection between personal experiences and Nick’s story, and gives important supporting details.",
+              },
+      points: 1,
+      standard: 'CCRA.R.1',
+      section: 4,
+    }
+  },
+  spellingObj: peterSpellingObj,
+
+  numSpellingQuestions: 15,
+
+
+};
+
+
+
+
 
 
 

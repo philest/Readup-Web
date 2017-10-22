@@ -28,7 +28,7 @@ import { sampleStudentResponses, sampleGraderComments, sampleCompScores } from '
 import { updateAssessment, sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { stopAudio, playSoundAsync } from '../StudentDashboard/audioPlayer'
 
-import { fpBook, fireflyBook, stepBook, library, sampleReportBookFP } from '../StudentDashboard/state.js'
+import { fpBook, fireflyBook, stepBook, library, sampleReportBookFP, sampleReportBookSTEP } from '../StudentDashboard/state.js'
 
 import {wasMSVgraded} from '../sharedComponents/FormattedMarkupText'
 
@@ -142,8 +142,12 @@ export default class ReportsInterface extends React.Component {
       book = fireflyBook
     }
 
-    if (this.props.isSample) {
+    if (this.props.isSample && this.props.assessmentBrand === 'FP') {
       book = sampleReportBookFP
+    }
+
+    if (this.props.isSample && this.props.assessmentBrand === 'STEP') {
+      book = sampleReportBookSTEP
     }
 
 
@@ -1184,7 +1188,7 @@ export default class ReportsInterface extends React.Component {
           />
 
 
-        {this.props.isSample && this.props.assessmentBrand === 'FP' &&
+        {this.props.isSample && 
    
            <CompReport
               studentResponses={sampleStudentResponses}
@@ -1203,129 +1207,6 @@ export default class ReportsInterface extends React.Component {
           />
 
         }
-
-        {this.props.isSample && this.props.assessmentBrand === 'STEP' &&
-   
-          <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
-            
-            <hr className={styles.compDivider}/>
-
-
-           <h5 className={[styles.sectionHeader, (true ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
-
-            <div className={ [(true ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (CCRA.R.2 and CCRA.R.3)</span></h4>
-                  <p className={styles.studentResponse}>Chris’s mom tells him he can get a new bike and his Dad agrees. Chris is still nervous about getting a new bike because he still wants to search for the old one he likes. Then Chris and his Mom go out to get the new bike.</p> 
-
-
-
-
-                    { !this.state.showCompAudioPlayback[1] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-
-                    { this.state.showCompAudioPlayback[1] &&
-                      <audio controls autoPlay preload="auto" className={[styles.compAudioElement].join(' ')}>
-                        <source src={'/audio/sample/recording.mp3'} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-
-                 
-                  <p className={styles.compCorrect}><span className={styles.correct}>2 of 3 points:</span> Response demonstrates a good understanding of the passage. Includes three major plot events in sequence, and shows insight into Chris’s actions. Lacks some important details to enrich the retelling, such as details on setting.</p> 
-                </div>
-            </div>
-
-            <div className={styles.compPart}>
-              <h2 className={styles.compPartHeader}>Factual</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>1. How is the narrator's mom trying to make him feel better?<span className={styles.pointValue}> (CCRA.R.2)</span></h4>
-                  <p className={styles.studentResponse}>Chris's mom is trying to make him feel better by buying him a new bike.</p> 
-   
-
-                    { !this.state.showCompAudioPlayback[2] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(2)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-
-                    { this.state.showCompAudioPlayback[2] &&
-                      <audio controls autoPlay preload="auto" className={[styles.compAudioElement].join(' ')}>
-                        <source src={'/audio/sample/1.mp3'} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-
-                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 points:</span> Response shows a strong undertanding of character and plot regarding Chris's mom. Correctly identifies key point that Mom wants to get Chris a new bike so he stops worrying about his lost one.</p> 
-                </div>
-            </div>
-
-            <div className={styles.compPart}>
-              <h2 className={styles.compPartHeader}>Inferential</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>2. Will Chris stop looking for his old bike when he gets a new one? How do you know?<span className={styles.pointValue}> (CCRA.R.1)</span></h4>
-                  <p className={styles.studentResponse}>Chris will stop looking because he still hasn’t found it.</p> 
- 
-                    { !this.state.showCompAudioPlayback[3] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(3)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-
-                    { this.state.showCompAudioPlayback[3] &&
-                      <audio controls autoPlay preload="auto" className={[styles.compAudioElement].join(' ')}>
-                        <source src={'/audio/sample/2.mp3'} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in understanding whether Chris will keep looking. Misses key point that Chris will likely not stop looking for his old bike because he says that nothing will replace his old bike. Response suggests student could benefit from reviewing the text before answering.</p> 
-                </div>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>3. Chris’s dad says, “We all know about Mr. Podler…Someday I’ll tell you about the ghosts he saw in City Hall.” What do you think he means?<span className={styles.pointValue}> (CCRA.R.4)</span></h4>
-                  <p className={styles.studentResponse}>He thinks Mr. Podler once saw a ghost.</p> 
-
-                    { !this.state.showCompAudioPlayback[4] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(4)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-
-                    { this.state.showCompAudioPlayback[4] &&
-                      <audio controls autoPlay preload="auto" className={[styles.compAudioElement].join(' ')}>
-                        <source src={'/audio/sample/3.mp3'} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-                  <p className={styles.compMissed}><span className={styles.missed}>0 of 1 points:</span> Response does not demonstrate proficiency in inferring the meaning behind Chris’s dad's response. Student misses key point that Chris thinks Mr. Podler believes things that aren’t true.</p> 
-                </div>                
-            </div>
-
-
-
-            <div className={styles.compPart}>
-              <h2 className={styles.compPartHeader}>Critical Thinking</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>4. How do you think Chris feels about getting a new bike? What makes you think this?<span className={styles.pointValue}> (CCRA.R.1)</span></h4>
-                  <p className={styles.studentResponse}>He wants a bike so he is happy about getting a new one. But he is also upset because he really wants his old bike back. The story says that he doesn’t say yes to getting the new bike at first.</p> 
- 
-
-                    { !this.state.showCompAudioPlayback[5] &&
-                      <Button onClick={() => this.onCompPlayRecordingClicked(5)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-                    }
-
-                    { this.state.showCompAudioPlayback[5] &&
-                      <audio controls autoPlay preload="auto" className={[styles.compAudioElement].join(' ')}>
-                        <source src={'/audio/sample/4.mp3'} />
-                        <p>Playback not supported</p>
-                      </audio>
-                    }
-
-                  <p className={styles.compCorrect}><span className={styles.missed}>1 of 1 point:</span> Reflects an excellent understanding of the text. Includes details on Chris’s mixed feelings and strong evidence from the text. Student shows strong ability to understand character motivation and reference the passage.</p> 
-
-                </div>
-            </div>
-
-          </div>
-
-        }
-
 
 
 
