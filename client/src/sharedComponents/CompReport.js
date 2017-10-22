@@ -71,16 +71,24 @@ export default class CompReport extends React.Component {
   renderCompSection = (sectionNum) => {
     let qArr = []
 
+    let firstQforSection
+
 
     for (let q = 1, len = this.props.numQuestions; q <= len; q++) {
       if (this.props.questions[q].section === sectionNum) { 
         qArr.push(this.renderCompQuestion(q))
+
+        if (!firstQforSection) {
+          firstQforSection = q
+          console.log('firstQforSection: ', firstQforSection)
+        }
       }
+
     }
 
     return (
     <div className={ [styles.showQ, styles.compPart].join(' ') }>
-      <h2 className={[styles.compPartHeader, styles.retellHeader, (this.isQuestionGraded(1) ? '' : styles.fadedComp)].join(' ')}>{this.props.sections[sectionNum]}</h2> 
+      <h2 className={[styles.compPartHeader, styles.retellHeader, (this.isQuestionGraded(firstQforSection) ? '' : styles.fadedComp)].join(' ')}>{this.props.sections[sectionNum]}</h2> 
 
         <div>
           {qArr}

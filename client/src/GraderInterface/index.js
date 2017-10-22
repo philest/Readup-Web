@@ -656,43 +656,43 @@ export default class GraderInterface extends React.Component {
       updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
     }
 
-    let studentResponses = { 0: this.studentResponsesInput1.value,
-                             1: this.studentResponsesInput2.value,
-                             2: this.studentResponsesInput3.value,
-                            }
-    let graderComments = { 0: this.graderCommentsInput1.value,
-                           1: this.graderCommentsInput2.value,
-                           2: this.graderCommentsInput3.value,
-                            }
+    // let studentResponses = { 0: this.studentResponsesInput1.value,
+    //                          1: this.studentResponsesInput2.value,
+    //                          2: this.studentResponsesInput3.value,
+    //                         }
+    // let graderComments = { 0: this.graderCommentsInput1.value,
+    //                        1: this.graderCommentsInput2.value,
+    //                        2: this.graderCommentsInput3.value,
+    //                         }
 
 
-     if (numQuestions >= 4) {
-      studentResponses["3"] = this.studentResponsesInput4.value
-      graderComments["3"] = this.graderCommentsInput4.value
-     }
+    //  if (numQuestions >= 4) {
+    //   studentResponses["3"] = this.studentResponsesInput4.value
+    //   graderComments["3"] = this.graderCommentsInput4.value
+    //  }
 
-     if (numQuestions >= 5) {
-      studentResponses["4"] = this.studentResponsesInput5.value
-      graderComments["4"] = this.graderCommentsInput5.value
-     }
+    //  if (numQuestions >= 5) {
+    //   studentResponses["4"] = this.studentResponsesInput5.value
+    //   graderComments["4"] = this.graderCommentsInput5.value
+    //  }
                         
-     if (numQuestions >= 6) {
-      studentResponses["5"] = this.studentResponsesInput6.value
-      graderComments["5"] = this.graderCommentsInput6.value
-     }
+    //  if (numQuestions >= 6) {
+    //   studentResponses["5"] = this.studentResponsesInput6.value
+    //   graderComments["5"] = this.graderCommentsInput6.value
+    //  }
             
-    let compScores = this.state.compScores
+    // let compScores = this.state.compScores
 
 
-    // update spelling 
-    const scoredSpelling = this.state.scoredSpelling
+    // // update spelling 
+    // const scoredSpelling = this.state.scoredSpelling
 
 
     updateAssessment( {
-                       student_responses: studentResponses,
-                       grader_comments: graderComments,
-                       comp_scores: compScores,
-                       scored_spelling: scoredSpelling,
+                       student_responses: this.state.studentResponses,
+                       grader_comments: this.state.graderComments,
+                       comp_scores: this.state.compScores,
+                       scored_spelling: this.state.scoredSpelling,
                       },
                        this.props.assessmentID,
                     )
@@ -947,13 +947,11 @@ export default class GraderInterface extends React.Component {
   }
 
 
-  renderCompQuestions1 = () => {
-    let q = 1
-    let questionsArr = []
+  renderCompQuestion = (qNum) => {
+    let q = qNum
+    let questionElt
 
-
-
-      questionsArr.push(
+      questionElt = (
           <div key={q} >
             <br/><br/>
 
@@ -988,12 +986,11 @@ export default class GraderInterface extends React.Component {
             </FormGroup>
 
 
-
-
             <br/><br/><br/>
           </div>
       ) 
-    return questionsArr[0]
+
+    return questionElt
   }
 
 
@@ -1609,14 +1606,14 @@ renderCompQuestions6 = () => {
         { numQuestions >= 1 &&
 
           <div style={{opacity: (this.state.showQArr[String(1)]) ? 1 : 0.4 }}>
-            { this.renderCompQuestions1() }
+            { this.renderCompQuestion(1) }
           </div>
         }
 
         { numQuestions >= 2 &&
 
           <div style={{opacity: (this.state.showQArr[String(2)]) ? 1 : 0.4 }}>
-            { this.renderCompQuestions2() }
+            { this.renderCompQuestion(2) }
           </div>
         }
 
@@ -1624,14 +1621,14 @@ renderCompQuestions6 = () => {
         { numQuestions >= 3 &&
 
           <div style={{opacity: (this.state.showQArr[String(3)]) ? 1 : 0.4 }}>
-            { this.renderCompQuestions3() }
+            { this.renderCompQuestion(3) }
           </div>
         }
 
         { numQuestions >= 4 &&
 
           <div style={{opacity: (this.state.showQArr[String(4)]) ? 1 : 0.4 }}>
-            { this.renderCompQuestions4() }
+            { this.renderCompQuestion(4) }
           </div>
         }
 
@@ -1639,14 +1636,14 @@ renderCompQuestions6 = () => {
         { numQuestions >= 5 &&
 
           <div style={{opacity: (this.state.showQArr[String(5)]) ? 1 : 0.4 }}>
-            { this.renderCompQuestions5() }
+            { this.renderCompQuestion5(5) }
           </div>
         }
 
         { numQuestions >= 6 &&
 
           <div style={{opacity: (this.state.showQArr[String(6)]) ? 1 : 0.4 }}>
-            { this.renderCompQuestions6() }
+            { this.renderCompQuestion(6) }
           </div>
         }
 
