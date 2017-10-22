@@ -80,7 +80,6 @@ export default class CompReport extends React.Component {
 
         if (!firstQforSection) {
           firstQforSection = q
-          console.log('firstQforSection: ', firstQforSection)
         }
       }
 

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from '../ReportsInterface/styles.css'
 
-import { Button } from 'react-bootstrap'
+import { Button, Modal, FormGroup, FormControl, ControlLabel, ButtonGroup } from 'react-bootstrap'
 
 
 
@@ -33,6 +33,9 @@ export default class CompQuestion extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      showRescoreModal: false, 
+      graderComment: this.props.graderComment,
+      compScore: this.props.compScore, 
     }
   }
 
@@ -113,9 +116,33 @@ export default class CompQuestion extends React.Component {
             }
 
             <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {this.props.graderComment}</p>
-            <span className={styles.rescore}>Give a different score</span>
+            <span onClick={this.onShowRescoreModal} className={styles.rescore}>Give a different score</span>
             </div>
           )
+  }
+
+
+
+
+  renderQuestionForRescoring = () => {
+    let pointsLabel = ''
+    let qLabel = `${this.props.questionNum}. `
+
+    let pts = this.props.pointsPossible
+    let standard = this.props.academicStandard
+
+    if (standard) {
+      pointsLabel = `(${standard})`
+    }
+
+    return (
+      <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
+        <h4 className={[styles.questionText, (this.props.isGraded ? '' : styles.fadedComp)].join(' ')}>{qLabel + this.getFullTitle()}
+          <span className={styles.pointValue}> {pointsLabel}</span>
+        </h4>
+      </div>
+    )
+
   }
 
 
@@ -153,6 +180,46 @@ export default class CompQuestion extends React.Component {
 
 
 
+  onHideRescoreModal = () => {
+    this.setState({ showRescoreModal: false })
+  }
+
+  onShowRescoreModal = () => {
+    this.setState({ showRescoreModal: true })
+  }
+
+  handleGraderCommentChange = (event) => {
+    const graderComment = event.target.value
+    this.setState({ graderComment: graderComment })
+  }
+
+  renderScoringButtonsComp = () => {
+    let qNum = this.props.questionNum
+
+    let buttonArr = []
+    let pointsPossible = this.props.pointsPossible
+
+    for (let i = 0; i <= pointsPossible; i++) {
+      buttonArr.push(
+        <Button key={i} active={this.state.compScore === i} href="#" onClick={() => this.onCompScoreClicked(i, qNum - 1)}><strong>{i}</strong> {i === 0 ? ' - Missed' : ' - Correct'}</Button>
+      )
+    }
+
+    return (
+      <div>
+        <ControlLabel>Points</ControlLabel>
+        <br />
+        <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
+          { buttonArr }
+        </ButtonGroup>
+      </div> 
+    )
+
+  }
+
+  onCompScoreClicked = (score) => {
+    this.setState({ compScore: score })
+  }
 
 
   render() {
@@ -161,6 +228,39 @@ export default class CompQuestion extends React.Component {
     return (
       <div>
         { this.renderFullQuestion() }
+
+
+       <style type="text/css">{'.modal-backdrop.in { opacity: 0.6; } '}</style>
+        <Modal dialogClassName={styles.modalLg}  show={this.state.showRescoreModal}   onHide={this.onHideRescoreModal} >
+          <Modal.Header bsClass={[styles.playbookModalHeader, 'modal-header'].join(' ')} closeButton>
+            <Modal.Title>
+              Rescoring this question
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            {this.renderQuestionForRescoring()}
+
+            { this.props.studentResponse &&
+              <p className={styles.studentResponse}>"{this.props.studentResponse}"</p> 
+            }
+
+
+            <hr className={styles.metricsDivider} /> 
+
+
+            <FormGroup controlId="graderComments">
+              <ControlLabel>Your comments</ControlLabel>
+              <FormControl value={this.state.graderComment} onChange={(event) => this.handleGraderCommentChange(event)} componentClass="textarea" className={styles.myTextArea}  placeholder="Your comments" />
+            </FormGroup>
+
+            {this.renderScoringButtonsComp()}
+
+
+          </Modal.Body>
+        </Modal>
+
+
       </div>
     )
   }
