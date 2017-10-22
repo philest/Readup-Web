@@ -1528,7 +1528,7 @@ export default class ReportsInterface extends React.Component {
 
 
 
-       { !this.props.isSample && this.props.bookKey === 'nick' &&
+       { !this.props.isSample &&
    
            <CompReport
               studentResponses={this.props.studentResponses}
@@ -1547,29 +1547,10 @@ export default class ReportsInterface extends React.Component {
           />
 
 
-        }
-
-
-      { this.props.bookKey === 'step' &&
-   
-
-                <CompReport
-                    studentResponses={this.props.studentResponses}
-                    graderComments={this.props.graderComments}
-                    compScores={this.props.compScores}
-                    book={book}
-                    numQuestions={book.numQuestions}
-                    numSections={book.numSections}
-                    questions={book.questions}
-                    sections={book.sections}
-                    showCompAudioPlaybackHash={this.state.showCompAudioPlayback}
-                    onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
-                    renderCompAudio={this.renderCompAudio} 
-                    studentFirstName={firstName}
-                    isInteractive={false}                   
-                />
-
       }
+
+
+
 
         { this.props.isSample && 
           <div className={styles.spellingWrapper}>
