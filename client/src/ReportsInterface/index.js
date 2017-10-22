@@ -1188,7 +1188,7 @@ export default class ReportsInterface extends React.Component {
           />
 
 
-        {this.props.isSample && 
+        { this.props.isSample && 
    
            <CompReport
               studentResponses={sampleStudentResponses}
@@ -1209,126 +1209,6 @@ export default class ReportsInterface extends React.Component {
         }
 
 
-
-
-       { !this.props.isSample && this.props.assessmentBrand === 'STEP' && this.props.bookKey === 'firefly' &&
-   
-          <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
-            
-            <hr className={styles.compDivider}/>
-
-
-           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
-
-            <div className={ [(this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
-                 
-                  { this.isQuestionGraded(1) &&
-                    this.renderGradedPartOfQuestion(0)
-                  }
-                  
-
-
-                </div>
-            </div>
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Factual</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>1. Why did the girl and her dad go outside?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>2. Talk about how the story ended.<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-            </div>
-
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Inferential</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>3. Why do you think the girl liked catching fireflies?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>4. Why did the girl feel like opening her jar and letting the fireflies go?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-            </div>
-
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Critical Thinking</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>5. Does it seem like the girl and her Dad have caught fireflies before? Why do you think that?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>6. Do you agree with the girl’s decision to let the fireflies go? Why? <span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-            </div>
-
-
-
-          </div>
-
-        }
-
-       { !this.props.isSample && this.props.assessmentBrand === 'FP' && this.props.bookKey !== 'nick' &&
-   
-          <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
-            
-            <hr className={styles.compDivider}/>
-
-
-           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
-
-            <div className={ [(styles.showQ), styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Retell</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={[(this.isQuestionGraded(1) ? '' : styles.fadedComp), styles.questionText].join(' ')}>Tell as much as you can about the passage you just read. Be sure to include the beginning, middle and end.<span className={styles.pointValue}> (3 points)</span></h4>
-                 
-                  { this.isQuestionGraded(1) &&
-                    this.renderGradedPartOfQuestion(0)
-                  }
-                  
-
-
-                </div>
-            </div>
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Within the Text</h2>
-                {
-                  this.renderFullQuestion(1)
-                }
-                 <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>2. Talk about how the story ended.<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>3. Why do you think the girl liked catching fireflies?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-            </div>
-
-
-
-            <div className={[styles.compPart, styles.fadedComp].join(' ')}>
-              <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>4. Why did the girl feel like opening her jar and letting the fireflies go?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>5. Does it seem like the girl and her Dad have caught fireflies before? Why do you think that?<span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-                <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-                  <h4 className={styles.questionText}>6. Do you agree with the girl’s decision to let the fireflies go? Why? <span className={styles.pointValue}> (1 point)</span></h4>
-                </div>
-            </div>
-
-
-
-          </div>
-
-        }
 
 
 
@@ -1352,8 +1232,6 @@ export default class ReportsInterface extends React.Component {
 
 
       }
-
-
 
 
         { this.props.isSample && 
