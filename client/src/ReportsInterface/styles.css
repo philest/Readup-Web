@@ -845,6 +845,41 @@ margin-left: 20px;
     color: #347BB8;
 }
 
+.rescoringContainer {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.rescoringStudentResponse {
+	margin-left: 9px;
+	margin-top: 0px;
+}
+
+.rescoringDivider {
+	margin-bottom: 2.5em;
+    margin-top: 2em;
+    opacity: .66;
+}
+
+.rescoringQuestionBlock {
+	margin-bottom: 13px;
+}
+
+.rescoringGraderCommentForm {
+	height: 85px !important;
+}
+
+.saveNewScoreButton {
+	margin: 3em 0px 1em;
+}
+
+.tophalfRescoring {
+
+}
+
+.rescoringQuestionText {
+	font-size: 14px;
+}
 
 @media (max-width: 1240px) {
 

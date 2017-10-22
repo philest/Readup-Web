@@ -35,7 +35,7 @@ export default class CompQuestion extends React.Component {
     this.state = {
       showRescoreModal: false, 
       graderComment: this.props.graderComment,
-      compScore: this.props.compScore, 
+      compScore: null, 
     }
   }
 
@@ -126,7 +126,6 @@ export default class CompQuestion extends React.Component {
 
   renderQuestionForRescoring = () => {
     let pointsLabel = ''
-    let qLabel = `${this.props.questionNum}. `
 
     let pts = this.props.pointsPossible
     let standard = this.props.academicStandard
@@ -136,8 +135,8 @@ export default class CompQuestion extends React.Component {
     }
 
     return (
-      <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-        <h4 className={[styles.questionText, (this.props.isGraded ? '' : styles.fadedComp)].join(' ')}>{qLabel + this.getFullTitle()}
+      <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow', styles.rescoringQuestionBlock].join(' ')}>
+        <h4 className={[styles.questionText, styles.rescoringQuestionText, (this.props.isGraded ? '' : styles.fadedComp)].join(' ')}>{this.getFullTitle()}
           <span className={styles.pointValue}> {pointsLabel}</span>
         </h4>
       </div>
@@ -201,13 +200,13 @@ export default class CompQuestion extends React.Component {
 
     for (let i = 0; i <= pointsPossible; i++) {
       buttonArr.push(
-        <Button key={i} active={this.state.compScore === i} href="#" onClick={() => this.onCompScoreClicked(i, qNum - 1)}><strong>{i}</strong> {i === 0 ? ' - Missed' : ' - Correct'}</Button>
+        <Button key={i} active={this.state.compScore === i} href="#" onClick={() => this.onCompScoreClicked(i, qNum - 1)}><strong>{i}</strong> {i === 0 ? ' points' : ' points'}</Button>
       )
     }
 
     return (
       <div>
-        <ControlLabel>Points</ControlLabel>
+        <ControlLabel>Updated Score</ControlLabel>
         <br />
         <ButtonGroup className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(' ')}>
           { buttonArr }
@@ -234,27 +233,41 @@ export default class CompQuestion extends React.Component {
         <Modal dialogClassName={styles.modalLg}  show={this.state.showRescoreModal}   onHide={this.onHideRescoreModal} >
           <Modal.Header bsClass={[styles.playbookModalHeader, 'modal-header'].join(' ')} closeButton>
             <Modal.Title>
-              Rescoring this question
+              Rescoring Question {this.props.questionNum}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <div className={styles.rescoringContainer} > 
 
-            {this.renderQuestionForRescoring()}
+              <div className={styles.tophalfRescoring}>
+                {this.renderQuestionForRescoring()}
 
-            { this.props.studentResponse &&
-              <p className={styles.studentResponse}>"{this.props.studentResponse}"</p> 
-            }
+                { this.props.studentResponse &&
+                  <p className={[styles.studentResponse, styles.rescoringStudentResponse].join(' ')}>"{this.props.studentResponse}"</p> 
+                }
+              </div>
+
+              <hr className={styles.rescoringDivider} /> 
 
 
-            <hr className={styles.metricsDivider} /> 
+              <FormGroup controlId="graderComments">
+                <ControlLabel>Updated comments</ControlLabel>
+                <FormControl styles={{height: 100}} componentClass="textarea" className={styles.rescoringGraderCommentForm} value={this.state.graderComment} onChange={(event) => this.handleGraderCommentChange(event)} placeholder="Your comments" />
+              </FormGroup>
+
+              {this.renderScoringButtonsComp()}
 
 
-            <FormGroup controlId="graderComments">
-              <ControlLabel>Your comments</ControlLabel>
-              <FormControl value={this.state.graderComment} onChange={(event) => this.handleGraderCommentChange(event)} componentClass="textarea" className={styles.myTextArea}  placeholder="Your comments" />
-            </FormGroup>
+              <Button
+                className={[styles.saveNoteButton, styles.saveNewScoreButton].join(' ')} 
+                bsStyle={'primary'}
+                onClick={this.onSaveNoteClicked}
+              >
+              Save new score <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
+              </Button>
 
-            {this.renderScoringButtonsComp()}
+
+            </div> 
 
 
           </Modal.Body>
