@@ -143,11 +143,17 @@ body {
 }
 
 
-.playbookTrigger:hover, .switchSTEPheading:hover  {
+.playbookTrigger:hover, .switchSTEPheading:hover {
 	transform: translateY(-3px);
     filter: brightness(120%);
     transition: all .3s;
 
+}
+
+
+.rescore:hover  {
+    filter: brightness(120%);
+    transition: all .3s;
 }
 
 .alertSuccess {
@@ -843,6 +849,11 @@ margin-left: 20px;
     font-size: .8em;
     cursor: pointer;
     color: #347BB8;
+    transition: all .3s;
+
+    display: block;
+    width: 125px;
+
 }
 
 .rescoringContainer {

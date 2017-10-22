@@ -252,7 +252,7 @@ export default class CompQuestion extends React.Component {
 
               <FormGroup controlId="graderComments">
                 <ControlLabel>Updated comments</ControlLabel>
-                <FormControl styles={{height: 100}} componentClass="textarea" className={styles.rescoringGraderCommentForm} value={this.state.graderComment} onChange={(event) => this.handleGraderCommentChange(event)} placeholder="Your comments" />
+                <FormControl componentClass="textarea" className={styles.rescoringGraderCommentForm} value={this.state.graderComment} onChange={(event) => this.handleGraderCommentChange(event)} placeholder="Your comments" />
               </FormGroup>
 
               {this.renderScoringButtonsComp()}
