@@ -656,36 +656,6 @@ export default class GraderInterface extends React.Component {
       updateFluencyScore(this.state.fluencyScore, this.props.assessmentID)
     }
 
-    // let studentResponses = { 0: this.studentResponsesInput1.value,
-    //                          1: this.studentResponsesInput2.value,
-    //                          2: this.studentResponsesInput3.value,
-    //                         }
-    // let graderComments = { 0: this.graderCommentsInput1.value,
-    //                        1: this.graderCommentsInput2.value,
-    //                        2: this.graderCommentsInput3.value,
-    //                         }
-
-
-    //  if (numQuestions >= 4) {
-    //   studentResponses["3"] = this.studentResponsesInput4.value
-    //   graderComments["3"] = this.graderCommentsInput4.value
-    //  }
-
-    //  if (numQuestions >= 5) {
-    //   studentResponses["4"] = this.studentResponsesInput5.value
-    //   graderComments["4"] = this.graderCommentsInput5.value
-    //  }
-                        
-    //  if (numQuestions >= 6) {
-    //   studentResponses["5"] = this.studentResponsesInput6.value
-    //   graderComments["5"] = this.graderCommentsInput6.value
-    //  }
-            
-    // let compScores = this.state.compScores
-
-
-    // // update spelling 
-    // const scoredSpelling = this.state.scoredSpelling
 
 
     updateAssessment( {
