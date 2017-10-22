@@ -266,6 +266,15 @@ export default class CompQuestion extends React.Component {
               Save new score <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
               </Button>
 
+              <Button
+                className={[styles.saveNoteButton, styles.saveNewScoreButton].join(' ')} 
+                bsStyle={'default'}
+                onClick={this.onHideRescoreModal}
+              >
+              Cancel <i className={"fa fa-ban"} style={{marginLeft: 4}} aria-hidden="true"></i>
+              </Button>
+
+
 
             </div> 
 

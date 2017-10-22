@@ -882,6 +882,12 @@ margin-left: 20px;
 
 .saveNewScoreButton {
 	margin: 3em 0px 1em;
+	margin-right: 10px;
+
+}
+
+.saveNewScoreButton:focus {
+	outline: none !important;
 }
 
 .tophalfRescoring {
