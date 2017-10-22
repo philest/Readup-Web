@@ -577,6 +577,18 @@ export default class ReportsInterface extends React.Component {
 
   renderCompAudio = (questionNum) => {
 
+
+    if (this.props.isSample) {
+      return (
+        <audio controls autoPlay preload="auto" className={[styles.compAudioElement, (!this.existTranscription(questionNum - 1) ? styles.noTranscriptionMiniPlayButton : '')].join(' ')}>
+          <source src={`/audio/sample/${questionNum}.mp3`} />
+          <p>Playback not supported</p>
+        </audio>
+      )
+    }
+
+
+
     let compURL 
 
     if (this.props.userID < 156) {
