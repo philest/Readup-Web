@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from '../ReportsInterface/styles.css'
+import sharedStyles from '../sharedComponents/styles.css'
 
 import CompQuestion from './CompQuestion'
 
@@ -95,7 +96,13 @@ export default class CompReport extends React.Component {
       sectionArr.push(this.renderCompSection(s))
     }
 
-    return sectionArr
+    return (
+      <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>    
+        <hr className={styles.compDivider}/>
+        <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+        {sectionArr}
+      </div>
+    )
 
   }
 

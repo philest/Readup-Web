@@ -1571,14 +1571,6 @@ export default class ReportsInterface extends React.Component {
 
       { this.props.bookKey === 'step' &&
    
-          <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
-            
-            <hr className={styles.compDivider}/>
-
-
-           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
-
-
 
                 <CompReport
                     studentResponses={this.props.studentResponses}
@@ -1596,9 +1588,7 @@ export default class ReportsInterface extends React.Component {
                     isInteractive={false}                   
                 />
 
-          </div>
-
-        }
+      }
 
         { this.props.isSample && 
           <div className={styles.spellingWrapper}>
