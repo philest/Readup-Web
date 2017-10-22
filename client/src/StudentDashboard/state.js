@@ -625,7 +625,7 @@ export const fireflyBook = {
     3: {
       title: "Why do you think the girl chose to let the fireflies go?",
       audioSrc: '/audio/VB/firefly/why-chose.mp3',
-      points: 1,
+      points: 2,
       section: 3,
       rubric: {
         1: "Response shows partial understanding of Firefly Night. Includes one major event, but doesn't discuss others in-depth. Mentions main characters, but omits some details. Could use more focus on other parts of the story, but a good start.",
