@@ -1596,35 +1596,6 @@ export default class ReportsInterface extends React.Component {
                     isInteractive={false}                   
                 />
 
-  
-
-
-            <div className={[styles.compPart, (styles.showQ)].join(' ')}>
-              <h2 className={[(this.isQuestionGraded(3) ? '' : styles.fadedComp), styles.compPartHeader].join(' ')}>Inferential</h2>
-
-                {
-                  this.renderFullQuestion(2)
-                }
-
-                {
-                  this.renderFullQuestion(4)
-                }
-
-            </div>
-
-
-            <div className={[styles.compPart, styles.showQ].join(' ')}>
-              <h2 className={[(this.isQuestionGraded(6) ? '' : styles.fadedComp), styles.compPartHeader].join(' ')}>Critical Thinking</h2>
-
-                {
-                  this.renderFullQuestion(5)
-                }
-
-
-            </div>
-
-
-
           </div>
 
         }

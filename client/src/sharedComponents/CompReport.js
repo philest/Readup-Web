@@ -88,6 +88,18 @@ export default class CompReport extends React.Component {
     )
   }
 
+  renderAllSections = () => {
+    let sectionArr = []
+
+    for (let s = 1, len = this.props.numSections; s <= len; s++) {
+      sectionArr.push(this.renderCompSection(s))
+    }
+
+    return sectionArr
+
+  }
+
+
 
   render() {
 
@@ -95,7 +107,7 @@ export default class CompReport extends React.Component {
     return (
 
       <div>
-        {this.renderCompSection(1)}
+        {this.renderAllSections()}
       </div>
 
     )
