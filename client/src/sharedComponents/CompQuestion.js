@@ -53,12 +53,11 @@ export default class CompQuestion extends React.Component {
 
   renderFullQuestion = () => {
 
-    let pointsLabel
+    let pointsLabel = ''
     let qLabel = `${this.props.questionNum}. `
 
     let pts = this.props.pointsPossible
     let standard = this.props.academicStandard
-    let pointsLabel = ""
 
     if (standard) {
       pointsLabel = `(${standard})`

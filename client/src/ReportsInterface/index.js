@@ -10,6 +10,9 @@ import InfoBar from './components/InfoBar'
 import LevelResult from './components/LevelResult'
 import Metric from './components/Metric'
 import SpellingReport from '../sharedComponents/SpellingReport'
+import CompQuestion from '../sharedComponents/CompQuestion'
+
+
 import { sampleSpellingObj } from '../sharedComponents/sampleSpellingObj'
 
 import studentDashboardIndexStyles from '../StudentDashboard/styles.css'
@@ -1577,9 +1580,23 @@ export default class ReportsInterface extends React.Component {
 
             <div className={ [styles.showQ, styles.compPart].join(' ') }>
               <h2 className={[styles.compPartHeader, styles.retellHeader, (this.isQuestionGraded(1) ? '' : styles.fadedComp)].join(' ')}>Factual</h2>
-                {
-                  this.renderFullQuestion(0)
-                }
+
+                <CompQuestion
+                  studentResponse={this.props.studentResponses["0"]}
+                  graderComment={this.props.graderComments["0"]}
+                  compScore={this.props.graderComments["0"]}
+                  pointsPossible={book.questions["1"].points}
+                  academicStandard={book.questions["1"].standard}
+                  questionNum={1}
+                  isGraded={this.isQuestionGraded(1)}
+                  title={book.questions["1"].title}
+                  subtitle={book.questions["1"].subtitle}
+                  showCompAudioPlayback={this.state.showCompAudioPlayback['1']}
+                  onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
+                  renderCompAudio={this.renderCompAudio} 
+                  studentFirstName={firstName}
+                  isInteractive={false}                    
+                />
 
                 {
                   this.renderFullQuestion(1)
