@@ -23,11 +23,12 @@ import sharedStyles from '../sharedComponents/styles.css'
 import FormattedMarkupText from '../sharedComponents/FormattedMarkupText'
 
 import { sampleWithMSV } from '../sharedComponents/sampleWithMSV'
+import { sampleStudentResponses, sampleGraderComments, sampleCompScores } from '../sharedComponents/sampleWithMSV'
 
 import { updateAssessment, sendEmail, didEndEarly, getScoredText, getAssessmentUpdateTimestamp, updateUserEmail, getTotalWordsInText, getTotalWordsReadCorrectly, getAccuracy, getWCPM } from './emailHelpers'
 import { stopAudio, playSoundAsync } from '../StudentDashboard/audioPlayer'
 
-import { fpBook, fireflyBook, stepBook, library } from '../StudentDashboard/state.js'
+import { fpBook, fireflyBook, stepBook, library, sampleReportBookFP } from '../StudentDashboard/state.js'
 
 import {wasMSVgraded} from '../sharedComponents/FormattedMarkupText'
 
@@ -139,6 +140,10 @@ export default class ReportsInterface extends React.Component {
     }
     else {
       book = fireflyBook
+    }
+
+    if (this.props.isSample) {
+      book = sampleReportBookFP
     }
 
 
