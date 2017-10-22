@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../ReportsInterface/styles.css'
 
 import { Button, Modal, FormGroup, FormControl, ControlLabel, ButtonGroup } from 'react-bootstrap'
-
+import { updateAssessment, getAssessmentData } from '../ReportsInterface/emailHelpers'
 
 
 
@@ -22,6 +22,7 @@ export default class CompQuestion extends React.Component {
     onCompPlayRecordingClicked: PropTypes.func,
     renderCompAudio: PropTypes.func, 
     studentFirstName: PropTypes.string,
+    assessmentID: PropTypes.number,
 
     isInteractive: PropTypes.bool,
   };
@@ -220,6 +221,37 @@ export default class CompQuestion extends React.Component {
     this.setState({ compScore: score })
   }
 
+  onSaveNewScoreClicked = () => {
+  
+
+    let assessment = getAssessmentData(this.props.assessmentID)
+
+    assessment.then( (assessment) => {
+      console.log('got assessment: ', assessment)
+      let compScoresHolder = assessment.comp_scores
+      let graderCommentsHolder = assessment.grader_comments
+
+      compScoresHolder[this.props.questionNum - 1] = this.state.compScore
+      graderCommentsHolder[this.props.questionNum - 1] = this.state.graderComment
+
+
+      updateAssessment( {
+                         grader_comments: graderCommentsHolder,
+                         comp_scores: compScoresHolder,
+                        },
+                         this.props.assessmentID,
+                      )
+    })
+
+
+    this.onHideRescoreModal()
+    // update the assessment 
+  
+
+
+
+  }
+
 
   render() {
 
@@ -261,7 +293,7 @@ export default class CompQuestion extends React.Component {
               <Button
                 className={[styles.saveNoteButton, styles.saveNewScoreButton].join(' ')} 
                 bsStyle={'primary'}
-                onClick={this.onSaveNoteClicked}
+                onClick={this.onSaveNewScoreClicked}
               >
               Save new score <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
               </Button>

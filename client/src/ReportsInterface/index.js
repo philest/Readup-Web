@@ -1130,6 +1130,7 @@ export default class ReportsInterface extends React.Component {
               onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
               renderCompAudio={this.renderCompAudio} 
               studentFirstName={firstName}
+              assessmentID={this.props.assessmentID}
               isInteractive={false}                   
           />
 

@@ -22,6 +22,7 @@ export default class CompReport extends React.Component {
     numQuestions: PropTypes.number,
     sections: PropTypes.object,
     questions: PropTypes.object,
+    assessmentID: PropTypes.number,
 
     isInteractive: PropTypes.bool,
   };
@@ -62,6 +63,7 @@ export default class CompReport extends React.Component {
           onCompPlayRecordingClicked={this.props.onCompPlayRecordingClicked}
           renderCompAudio={this.props.renderCompAudio}
           studentFirstName={this.props.studentFirstName}
+          assessmentID={this.props.assessmentID}
           isInteractive={false}                    
         />
     )
