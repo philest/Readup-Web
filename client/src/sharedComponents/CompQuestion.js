@@ -34,9 +34,10 @@ export default class CompQuestion extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showRescoreModal: false, 
+      showRescoreModal: false,
       graderComment: this.props.graderComment,
-      compScore: null, 
+      compScore: null,
+      savedNewScore: false,
     }
   }
 
@@ -89,15 +90,22 @@ export default class CompQuestion extends React.Component {
 
     let pts = this.props.pointsPossible
 
+    let compScore = this.props.compScore
+    let graderComment = this.props.graderComment
+
+    if (this.state.savedNewScore) { // Use their new scoring instead 
+      compScore = this.state.compScore
+      graderComment = this.state.graderComment
+    }
 
     if (pts === 3) {
-      scoreLabel = this.props.compScore + ' of 3' + ' points'
-      colorClass = this.getColorClass(this.props.compScore, true)
+      scoreLabel = compScore + ' of 3' + ' points'
+      colorClass = this.getColorClass(compScore, true)
 
     }
     else {
-      scoreLabel = this.props.compScore + ' of 1' + ' points'
-      colorClass = this.getColorClass(this.props.compScore, false)
+      scoreLabel = compScore + ' of 1' + ' points'
+      colorClass = this.getColorClass(compScore, false)
     } 
 
     return (
@@ -116,7 +124,10 @@ export default class CompQuestion extends React.Component {
               this.props.renderCompAudio(questionNum)
             }
 
-            <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {this.props.graderComment}</p>
+            <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {graderComment}</p>
+            { this.state.savedNewScore && // TODO created DB column to track this stateless. 
+              <span className={styles.rescoreIndicator}>Rescored by you</span> 
+            }
             <span onClick={this.onShowRescoreModal} className={styles.rescore}>Give a different score</span>
             </div>
           )
@@ -223,26 +234,28 @@ export default class CompQuestion extends React.Component {
 
   onSaveNewScoreClicked = () => {
   
+    if (this.props.assessmentID) {// non-sample only 
+      let assessment = getAssessmentData(this.props.assessmentID)
 
-    let assessment = getAssessmentData(this.props.assessmentID)
+      assessment.then( (assessment) => {
+        console.log('got assessment: ', assessment)
+        let compScoresHolder = assessment.comp_scores
+        let graderCommentsHolder = assessment.grader_comments
 
-    assessment.then( (assessment) => {
-      console.log('got assessment: ', assessment)
-      let compScoresHolder = assessment.comp_scores
-      let graderCommentsHolder = assessment.grader_comments
-
-      compScoresHolder[this.props.questionNum - 1] = this.state.compScore
-      graderCommentsHolder[this.props.questionNum - 1] = this.state.graderComment
+        compScoresHolder[this.props.questionNum - 1] = this.state.compScore
+        graderCommentsHolder[this.props.questionNum - 1] = this.state.graderComment
 
 
-      updateAssessment( {
-                         grader_comments: graderCommentsHolder,
-                         comp_scores: compScoresHolder,
-                        },
-                         this.props.assessmentID,
-                      )
-    })
+        updateAssessment( {
+                           grader_comments: graderCommentsHolder,
+                           comp_scores: compScoresHolder,
+                          },
+                           this.props.assessmentID,
+                        )
+      })
+    }
 
+    this.setState({ savedNewScore: true })
 
     this.onHideRescoreModal()
     // update the assessment 

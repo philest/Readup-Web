@@ -851,9 +851,17 @@ margin-left: 20px;
     color: #347BB8;
     transition: all .3s;
 
-    display: block;
+    display: inline-block;
     width: 125px;
 
+}
+
+.rescoreIndicator {
+	display: inline-block;
+    margin-left: 20px;
+    font-size: 11px;
+    font-family: 'ProximaNova SemiBold';
+    color: grey;
 }
 
 .rescoringContainer {
