@@ -1528,43 +1528,24 @@ export default class ReportsInterface extends React.Component {
 
 
 
-       { !this.props.isSample && this.props.assessmentBrand === 'FP' && this.props.bookKey === 'nick' &&
+       { !this.props.isSample && this.props.bookKey === 'nick' &&
    
-          <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>
-            
-            <hr className={styles.compDivider}/>
+           <CompReport
+              studentResponses={this.props.studentResponses}
+              graderComments={this.props.graderComments}
+              compScores={this.props.compScores}
+              book={book}
+              numQuestions={book.numQuestions}
+              numSections={book.numSections}
+              questions={book.questions}
+              sections={book.sections}
+              showCompAudioPlaybackHash={this.state.showCompAudioPlayback}
+              onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
+              renderCompAudio={this.renderCompAudio} 
+              studentFirstName={firstName}
+              isInteractive={false}                   
+          />
 
-
-           <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
-
-            <div className={ [(this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp), styles.compPart].join(' ') }>
-              <h2 className={[styles.compPartHeader, styles.retellHeader].join(' ')}>Within the Text</h2>
-                {
-                  this.renderFullQuestion(0)
-                }
-
-            </div>
-
-
-            <div className={[styles.compPart, (this.isQuestionGraded(2) ? styles.showQ : styles.fadedComp)].join(' ')}>
-              <h2 className={styles.compPartHeader}>Beyond and About the Text</h2>
-                {
-                  this.renderFullQuestion(1)
-                }
-
-                {
-                  this.renderFullQuestion(2)
-                }
-
-
-                {
-                  this.renderFullQuestion(3)
-                }
-
-            </div>
-
-
-          </div>
 
         }
 
