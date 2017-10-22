@@ -611,73 +611,8 @@ export default class ReportsInterface extends React.Component {
 
   }
 
-  renderFullQuestion = (questionNum, isGraded) => {
-
-    let pointsLabel
-    let qLabel = (questionNum + 1) + '. '
-
-    let pts = book.questions[String(questionNum + 1)].points
-    let standard = book.questions[String(questionNum + 1)].standard
 
 
-    if (standard) {
-      pointsLabel = `(${standard})`
-    } else {
-      pointsLabel = ""
-    }
-
-
-    return (
-      <div className={[styles.questionBlock, 'faa-parent animated-hover faa-slow'].join(' ')}>
-        <h4 className={[styles.questionText, (this.isQuestionGraded(questionNum + 1) ? '' : styles.fadedComp)].join(' ')}>{qLabel + getFullTitle(book.questions[String(questionNum + 1)])}<span className={styles.pointValue}> {pointsLabel}</span></h4>
-       
-        { this.isQuestionGraded(questionNum + 1) &&
-          this.renderGradedPartOfQuestion(questionNum)
-        }
-        
-      </div>
-    )
-
-
-  }
-
-
-
-  renderGradedPartOfQuestion = (questionNum) => {
-    let scoreLabel
-    let colorClass
-
-    let pts = book.questions[String(questionNum + 1)].points
-
-
-    if (pts === 3) {
-      scoreLabel = this.props.compScores[String(questionNum)] + ' of 3' + ' points'
-      colorClass = this.getColorClass(this.props.compScores[String(questionNum)], true)
-
-    }
-    else {
-      scoreLabel = this.props.compScores[String(questionNum)] + ' of 1' + ' points'
-      colorClass = this.getColorClass(this.props.compScores[String(questionNum)], false)
-    } 
-
-    return (
-            <div className={'faa-parent animated-hover faa-slow'}>
-            
-            { this.existTranscription(questionNum) &&
-              <p className={styles.studentResponse}>"{ this.props.studentResponses[String(questionNum)] }"</p> 
-            }
-
-            { !this.state.showCompAudioPlayback[questionNum + 1] &&
-            <Button onClick={() => this.onCompPlayRecordingClicked(questionNum + 1)} className={['fa faa-horizontal faa-slow', styles.miniPlayButton, (!this.existTranscription(questionNum) ? styles.noTranscriptionMiniPlayButton : '')].join(' ')} bsStyle="primary">Hear {firstName} <i className={["fa", "fa-play", 'animated', 'faa-pulse', styles.miniPlayIcon].join(" ")} /> </Button> 
-            }
-            { this.state.showCompAudioPlayback[questionNum + 1] &&
-              this.renderCompAudio(questionNum + 1)
-            }
-
-            <p className={colorClass}><span className={styles.correct}>{scoreLabel}:</span> {this.props.graderComments[String(questionNum)]}</p>
-            </div>
-          )
-  }
 
 
   existTranscription(questionNum) {
@@ -699,38 +634,6 @@ export default class ReportsInterface extends React.Component {
     return true 
   }
 
-
-
-
-
-  getColorClass(score, isRetell) {
-    let colorClass
-
-    if (isRetell) {
-
-        if (score >= 2) {
-          colorClass = styles.compCorrect
-
-        } else if (score >= 1) {
-          colorClass = styles.compFair
-        } else {
-          colorClass = styles.compMissed
-        }
-    }
-    else {
-
-      if (score === 1) {
-        colorClass = styles.compCorrect
-      }
-      else {
-        colorClass = styles.compMissed
-      }
-
-    }
-
-    return colorClass
-
-  }
 
 
 
