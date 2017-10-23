@@ -1066,6 +1066,8 @@ export default class ReportsInterface extends React.Component {
             >
             Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
             </Button>
+          </div>
+        }
 
         { this.state.noteExists && 
           <div>
@@ -1272,15 +1274,12 @@ export default class ReportsInterface extends React.Component {
               >
                 { this.state.footerButtonText}
               </Button>
-
-
             </div>
-
-
           </div>
 
-
         </div>
+
+
 
         <style type="text/css">{'.modal-backdrop.in { opacity: 0.9; } '}</style>
         <Modal show={this.state.showEmailModal} dialogClassName={styles.modalMedium}>
