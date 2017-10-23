@@ -47,5 +47,8 @@ i.helper {
     display: inline-block;
     position: relative;
     margin-left: 10px;
+}
 
+.clickable {
+    cursor: pointer;
 }

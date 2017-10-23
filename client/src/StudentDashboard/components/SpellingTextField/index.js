@@ -7,6 +7,8 @@ import { FormControl } from 'react-bootstrap'
 import { updateAssessment, getAssessmentData } from '../../../ReportsInterface/emailHelpers'
 import { getLastAssessmentID } from '../../sagas/networkingHelpers'
 import { peterSpellingObj } from '../../state'
+import { playSound, playSoundAsync } from '../../audioPlayer'
+
 
 export default class SpellingTextField extends React.Component {
   static propTypes = {
@@ -127,9 +129,9 @@ export default class SpellingTextField extends React.Component {
           <img className={styles.spellingImage} src={`/images/dashboard/spelling/${(this.props.spellingQuestionNumber)}.png`} />
 
           
-            <div className={styles.introVolume} style={{ visibility: this.props.showVolumeIndicator ? 'visible' : 'hidden' }}>
+            <div className={styles.introVolume} >
             <br />
-            <i className={["fa fa-volume-up faa-pulse animated fa-3x faa-fast"].join(' ')} style={{ color: "white" }} aria-hidden="true"></i>
+            <i onClick={ () => {playSoundAsync(`/audio/spelling/${this.props.spellingQuestionNumber}.mp3`)}} className={["fa fa-volume-up fa-3x", styles.clickable, (this.props.showVolumeIndicator ? 'faa-pulse animated faa-fast' : '')].join(' ')} style={{ color: "white" }} aria-hidden="true"></i>
             </div>
 
 
