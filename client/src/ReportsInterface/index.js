@@ -3,6 +3,8 @@ import React from 'react';
 
 import { Button, Modal, FormGroup, FormControl, ControlLabel, OverlayTrigger, Alert } from 'react-bootstrap'
 
+import ShowMore from 'react-show-more';
+
 
 import styles from './styles.css'
 
@@ -763,6 +765,10 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  // renderFirstCharacters = () => {
+  //   return
+  // }
+
 
 
 
@@ -1046,7 +1052,7 @@ export default class ReportsInterface extends React.Component {
         { this.state.draftingNote && 
           <div>
             <FormGroup controlId="teacherNote">
-              <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
+              <ControlLabel className={styles.noteControlLabel} >{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
               <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.state.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
             </FormGroup>
 
@@ -1063,20 +1069,17 @@ export default class ReportsInterface extends React.Component {
         { this.state.noteExists && 
           <div>
             <ControlLabel className={styles.noteControlLabel}>{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
-            <p className={styles.editTeacherNoteText}>
-            { this.state.teacherNote } 
-            </p>
 
-            { !this.state.showLongNote && (201 > 200) &&
-              <span onClick={this.toggleShowLongNote} className={styles.noteToggleText}> See full <i className={"fa fa-caret-down " + styles.caret} aria-hidden="true"></i>
-              </span>
-            }
-            { this.state.showLongNote && (201 > 200) &&
-              <span onClick={this.toggleShowLongNote} className={styles.noteToggleText}> Hide full <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
-              </span>
-            }
+            <ShowMore
+              lines={2}
+              more='Show more'
+              less='Show less'
+              anchorClass=''
+            >
+              {this.state.teacherNote}
+            </ShowMore>
 
-
+            
             <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
             </span>
           </div>

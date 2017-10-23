@@ -639,6 +639,8 @@ span.missed, span.correct {
 .editSpan {
 	color: #377BB5;
 	cursor: pointer;
+    margin-top: 10px;
+    display: inline-block;
 }
 
 .noteControlLabel {
