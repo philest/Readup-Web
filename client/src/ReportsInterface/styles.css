@@ -654,6 +654,13 @@ span.missed, span.correct {
 	cursor: pointer; 
 }
 
+.myPopover {
+	font-family: 'ProximaNova';
+	min-width: 600px;
+	z-index: 1;
+	color: #4a4a4a;
+}
+
 .editTeacherNoteText {
 	line-height: 1.5em;
 }
