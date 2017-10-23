@@ -646,12 +646,15 @@ span.missed, span.correct {
 }
 
 .noteTextArea {
-	width: 400px;
     height: 100px !important;
 }
 
+.noteToggleText {
+	margin-right: 13px;
+	cursor: pointer; 
+}
+
 .editTeacherNoteText {
-	width: 400px;
 	line-height: 1.5em;
 }
 

@@ -102,6 +102,7 @@ export default class ReportsInterface extends React.Component {
       noteExists: (this.props.teacherNote !== null),
       teacherNote: this.props.teacherNote,
       showAssignSuccessAlert: false,
+      showLongNote: false,
     }
     this.tick = this.tick.bind(this);
 
@@ -466,6 +467,11 @@ export default class ReportsInterface extends React.Component {
     this.setState({ noNoteStarted: false,
                     draftingNote: true
                   })
+  }
+
+  toggleShowLongNote = () => { 
+    console.log('toggggling')
+    this.setState({ showLongNote: !this.state.showLongNote })
   }
 
   onSaveNoteClicked = () => {
@@ -1026,6 +1032,61 @@ export default class ReportsInterface extends React.Component {
             }
 
 
+
+        { this.state.noNoteStarted &&
+          <Button
+            className={styles.addNoteButton} 
+            bsStyle={'primary'}
+            onClick={this.onAddNoteClicked}
+          >
+          Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
+          </Button>
+        }
+
+        { this.state.draftingNote && 
+          <div>
+            <FormGroup controlId="teacherNote">
+              <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
+              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.state.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
+            </FormGroup>
+
+            <Button
+              className={styles.saveNoteButton} 
+              bsStyle={'primary'}
+              onClick={this.onSaveNoteClicked}
+            >
+            Save note <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
+            </Button>
+          </div> 
+        }
+
+        { this.state.noteExists && 
+          <div>
+            <ControlLabel className={styles.noteControlLabel}>{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
+            <p className={styles.editTeacherNoteText}>
+            { this.state.teacherNote } 
+            </p>
+
+            { !this.state.showLongNote && (201 > 200) &&
+              <span onClick={this.toggleShowLongNote} className={styles.noteToggleText}> See full <i className={"fa fa-caret-down " + styles.caret} aria-hidden="true"></i>
+              </span>
+            }
+            { this.state.showLongNote && (201 > 200) &&
+              <span onClick={this.toggleShowLongNote} className={styles.noteToggleText}> Hide full <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
+              </span>
+            }
+
+
+            <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
+            </span>
+          </div>
+        }
+
+
+
+
+
+
           <hr className={styles.metricsDivider}/>
 
 
@@ -1189,43 +1250,7 @@ export default class ReportsInterface extends React.Component {
         <hr className={styles.metricsDivider}/>
         
 
-        { this.state.noNoteStarted &&
-          <Button
-            className={styles.addNoteButton} 
-            bsStyle={'primary'}
-            onClick={this.onAddNoteClicked}
-          >
-          Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
-          </Button>
-        }
 
-        { this.state.draftingNote && 
-          <div>
-            <FormGroup controlId="teacherNote">
-              <ControlLabel className={styles.noteControlLabel} >Your Notes</ControlLabel>
-              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.state.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
-            </FormGroup>
-
-            <Button
-              className={styles.saveNoteButton} 
-              bsStyle={'primary'}
-              onClick={this.onSaveNoteClicked}
-            >
-            Save note <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
-            </Button>
-          </div> 
-        }
-
-        { this.state.noteExists && 
-          <div>
-            <ControlLabel className={styles.noteControlLabel}>{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
-            <p className={styles.editTeacherNoteText}>
-            { this.state.teacherNote } 
-            </p>
-            <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
-            </span>
-          </div>
-        }
 
 
           
