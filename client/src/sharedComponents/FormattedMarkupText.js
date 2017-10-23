@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css'
 
+import { Popover, OverlayTrigger } from 'react-bootstrap'
+
 import MarkupWord from '../sharedComponents/MarkupWord'
 // import { nickLines, sampleLines } from '../sharedComponents/MarkupWord'
 
@@ -248,6 +250,14 @@ export default class FormattedMarkupText extends React.Component {
 
   render() {
 
+    const popoverTop = (
+      <Popover id="popover-positioned-top">
+        <strong>Sorry!</strong> Rescoring the running record is disabled for this demo.
+      </Popover>
+    );
+
+
+
     const endPindex = this.props.endParagraphIndex //shorthands for ease
     const endWindex = this.props.endWordIndex
 
@@ -314,6 +324,12 @@ export default class FormattedMarkupText extends React.Component {
       { !this.state.hideUnread && this.props.showSeeMore &&
         <span className={styles.toggleText} onClick={this.toggleHideUnread}> Hide silent reading <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
  </span>
+      }
+
+      { !this.props.isInteractive &&
+        <OverlayTrigger rootClose trigger="click" placement="top" overlay={popoverTop}>
+          <span onClick={this.onShowRescoreModal} className={styles.RRrescore}>Give a different score</span>
+        </OverlayTrigger> 
       }
 
       </div>
