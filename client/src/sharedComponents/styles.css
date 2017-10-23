@@ -137,6 +137,7 @@
 	opacity: .6;
 	font-size: 12px;
 	cursor: pointer;
+	margin-right: 20px;
 }
 
 .caret {
@@ -289,7 +290,7 @@
     transition: all .3s;
 
     display: inline-block;
-    width: 125px;
+    width: 130px;
     margin-left: 20px;
 
 }
@@ -302,7 +303,7 @@
     transition: all .3s;
 
     display: inline-block;
-    width: 125px;
+    width: 128px;
 
 }
 

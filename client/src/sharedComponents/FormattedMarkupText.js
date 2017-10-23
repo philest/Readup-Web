@@ -323,12 +323,12 @@ export default class FormattedMarkupText extends React.Component {
       }
       { !this.state.hideUnread && this.props.showSeeMore &&
         <span className={styles.toggleText} onClick={this.toggleHideUnread}> Hide silent reading <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
- </span>
+        </span>
       }
 
       { !this.props.isInteractive &&
         <OverlayTrigger rootClose trigger="click" placement="top" overlay={popoverTop}>
-          <span onClick={this.onShowRescoreModal} className={styles.RRrescore}>Give a different score</span>
+          <span onClick={this.onShowRescoreModal} className={styles.spellingRescore}>Give a different score</span>
         </OverlayTrigger> 
       }
 
