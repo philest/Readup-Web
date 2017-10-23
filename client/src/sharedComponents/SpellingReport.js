@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './styles.css'
 
 
+import { Popover, OverlayTrigger } from 'react-bootstrap'
 
 
 
@@ -143,6 +144,12 @@ export default class CompReport extends React.Component {
 
   render() {
 
+    const popoverTop = (
+      <Popover id="popover-positioned-top">
+        <strong>Sorry!</strong> Rescoring developmental spelling is disabled for this demo.
+      </Popover>
+    );
+
 
     return (
 
@@ -172,6 +179,13 @@ export default class CompReport extends React.Component {
         <span className={styles.toggleText} onClick={this.toggleShowSkippedWords}>Hide skipped words <i className={"fa fa-caret-up " + styles.caret} aria-hidden="true"></i>
         </span>
       }
+
+      { !this.props.isInteractive &&
+        <OverlayTrigger rootClose trigger="click" placement="top" overlay={popoverTop}>
+          <span onClick={this.onShowRescoreModal} styles={{ marginLeft: 0 }} className={styles.spellingRescore}>Give a different score</span>
+        </OverlayTrigger> 
+      }
+
 
       </div>
 

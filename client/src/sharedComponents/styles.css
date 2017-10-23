@@ -294,6 +294,17 @@
 
 }
 
+.spellingRescore {
+    font-style: italic;
+    font-size: .8em;
+    cursor: pointer;
+    color: #347BB8;
+    transition: all .3s;
+
+    display: inline-block;
+    width: 125px;
+
+}
 
 @media (max-width: 1024px) {
 	.rightSide {
