@@ -1062,9 +1062,9 @@ export default class ReportsInterface extends React.Component {
             <Button
               className={styles.addNoteButton} 
               bsStyle={'primary'}
-              onClick={this.onAddNoteClicked}
+              onClick={this.onSaveNoteClicked}
             >
-            Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
+            Save note <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
             </Button>
           </div>
         }
