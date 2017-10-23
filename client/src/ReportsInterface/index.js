@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Button, Modal, FormGroup, FormControl, ControlLabel, OverlayTrigger, Popover, Alert } from 'react-bootstrap'
+import { Button, Modal, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap'
+
+import ShowMore from 'react-show-more';
 
 
 import styles from './styles.css'
@@ -763,6 +765,10 @@ export default class ReportsInterface extends React.Component {
   }
 
 
+  // renderFirstCharacters = () => {
+  //   return
+  // }
+
 
 
 
@@ -835,44 +841,6 @@ export default class ReportsInterface extends React.Component {
     let nextStepMsg = this.getNextLevelString(this.getDelta(difficulty, itDidEndEarly), this.props.assessmentBrand, bookLevel)
 
 
-    const popoverRight = (
-
-
-      <Popover className={styles.myPopover} id="popover-positioned-right" title={this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}>
-       
-        { !this.state.draftingNote && 
-          <div>
-            <p className={styles.editTeacherNoteText}>
-            { this.state.teacherNote } 
-            </p>
-
-            <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
-            </span>
-          </div>
-        }
-
-
-        { this.state.draftingNote && 
-          <div>
-            <FormGroup controlId="teacherNote">
-              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.state.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
-            </FormGroup>
-
-            <Button
-              className={styles.saveNoteButton} 
-              bsStyle={'primary'}
-              onClick={this.onSaveNoteClicked}
-            >
-            Save note <i className={"fa fa-bookmark"} style={{marginLeft: 4}} aria-hidden="true"></i>
-            </Button>
-          </div> 
-        }
-
-
-
-
-      </Popover>
-    );
 
 
 
@@ -1074,8 +1042,22 @@ export default class ReportsInterface extends React.Component {
 
 
 
-        { (this.state.noNoteStarted) && 
-          <OverlayTrigger trigger={'click'} className={styles.metricTrigger} rootClose  placement="right" overlay={popoverRight}>
+        { this.state.noNoteStarted &&
+          <Button
+            className={styles.addNoteButton} 
+            bsStyle={'primary'}
+            onClick={this.onAddNoteClicked}
+          >
+          Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
+          </Button>
+        }
+
+        { this.state.draftingNote && 
+          <div>
+            <FormGroup controlId="teacherNote">
+              <ControlLabel className={styles.noteControlLabel} >{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
+              <FormControl className={styles.noteTextArea} componentClass="textarea" defaultValue={this.state.teacherNote} inputRef={ref => { this.noteInput = ref; }} placeholder="Your note" />
+            </FormGroup>
 
             <Button
               className={styles.addNoteButton} 
@@ -1084,22 +1066,23 @@ export default class ReportsInterface extends React.Component {
             >
             Add your notes <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
             </Button>
-          </OverlayTrigger> 
 
-        }
-
-
-        { (this.state.noteExists || this.state.draftingNote) && 
+        { this.state.noteExists && 
           <div>
-            <OverlayTrigger trigger={'click'} className={styles.metricTrigger} rootClose  placement="right" overlay={popoverRight}>
-              <Button
-                className={styles.saveNoteButton} 
-                bsStyle={'primary'}
-              >
-              {this.props.isSample ? 'See Classroom Teacher Notes' : 'See Your Notes' } <i className={"fa fa-pencil"} style={{marginLeft: 4}} aria-hidden="true"></i>
-              </Button>
-            </OverlayTrigger> 
+            <ControlLabel className={styles.noteControlLabel}>{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
 
+            <ShowMore
+              lines={2}
+              more='Show more'
+              less='Show less'
+              anchorClass=''
+            >
+              {this.state.teacherNote}
+            </ShowMore>
+
+            
+            <span className={styles.editSpan} onClick={this.onEditClicked}> Edit <i className={"fa fa-pencil " + styles.caret} aria-hidden="true"></i>
+            </span>
           </div>
         }
 
