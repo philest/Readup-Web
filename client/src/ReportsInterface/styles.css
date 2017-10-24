@@ -643,6 +643,10 @@ span.missed, span.correct {
     display: inline-block;
 }
 
+.block {
+	display: block; 
+}
+
 .noteControlLabel {
 	font-size: 1.1em;
 	margin-top: 13px;

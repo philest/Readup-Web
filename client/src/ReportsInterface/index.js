@@ -1075,9 +1075,9 @@ export default class ReportsInterface extends React.Component {
 
             <ShowMore
               lines={1}
-              more='More'
-              less='Less'
-              anchorClass=''
+              more='See More'
+              less='See Less'
+              anchorClass={styles.block}
             >
               {this.state.teacherNote}
             </ShowMore>
