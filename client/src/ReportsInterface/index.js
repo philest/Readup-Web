@@ -1074,9 +1074,9 @@ export default class ReportsInterface extends React.Component {
             <ControlLabel className={styles.noteControlLabel}>{this.props.isSample ? "Classroom Teacher Notes" : "Your Notes"}</ControlLabel>
 
             <ShowMore
-              lines={2}
-              more='Show more'
-              less='Show less'
+              lines={1}
+              more='More'
+              less='Less'
               anchorClass=''
             >
               {this.state.teacherNote}

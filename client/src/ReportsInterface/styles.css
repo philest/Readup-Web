@@ -639,7 +639,7 @@ span.missed, span.correct {
 .editSpan {
 	color: #377BB5;
 	cursor: pointer;
-    margin-top: 10px;
+    margin-top: 14px;
     display: inline-block;
 }
 
