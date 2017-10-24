@@ -266,7 +266,9 @@ export default class Reader extends React.Component {
 
           <div className={ (this.props.inComp && this.props.currentShowModal !== "modal-comp") ? styles.leftDoubleButtonContainer : styles.leftButtonContainer}>
             { this.renderUpperLeftButton() }
-            { this.renderLeftButton() }
+            { (this.props.inSpelling || this.props.inComp || this.props.inOralReading) &&
+              this.renderLeftButton()
+            }
           </div>
 
          { (this.props.inOralReading || this.props.inComp) &&
