@@ -641,10 +641,14 @@ span.missed, span.correct {
 	cursor: pointer;
     margin-top: 14px;
     display: inline-block;
+    font-size: 12px;
+    font-family: 'proximaNova semibold';    
 }
 
 .block {
 	display: block; 
+	font-size: 12px;
+	font-family: 'ProximaNova Semibold';
 }
 
 .noteControlLabel {
