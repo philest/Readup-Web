@@ -646,6 +646,7 @@ span.missed, span.correct {
 .noteControlLabel {
 	font-size: 1.2em;
 	margin-top: 12px;
+	font-family: 'ProximaNova Semibold';
 }
 
 .noteTextArea {
