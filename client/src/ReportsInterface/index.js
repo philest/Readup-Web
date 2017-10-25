@@ -1079,7 +1079,7 @@ export default class ReportsInterface extends React.Component {
               less='See Less'
               anchorClass={styles.block}
             >
-              {this.state.teacherNote}
+              {<p className={styles.grey}>{this.state.teacherNote}</p>}
             </ShowMore>
 
             

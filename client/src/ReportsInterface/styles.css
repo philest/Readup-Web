@@ -654,6 +654,12 @@ span.missed, span.correct {
 .noteControlLabel {
 	font-size: 1.1em;
 	margin-top: 13px;
+	color: #757575;
+}
+
+.grey {
+    color: #757575;
+	line-height: 1.5em;
 }
 
 .noteTextArea {
