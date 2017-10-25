@@ -478,7 +478,7 @@ export default class Metric extends React.Component {
         }
 
           { hasDetails && this.props.showDetails && 
-            <OverlayTrigger className={styles.metricTrigger} rootClose  placement="bottom" overlay={popoverName}>
+            <OverlayTrigger className={styles.metricTrigger}  placement="bottom" overlay={popoverName}>
               <div style={{cursor: 'pointer'}} className={[styles.metricDescriptionLabel, styles.metricLabelWithDetails].join(' ')}>{ label }
               <i className={["fa", "fa-caret-down", css.questionIcon].join(" ")} aria-hidden={"true"} />
               </div>
