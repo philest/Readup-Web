@@ -24,7 +24,7 @@ export default class PermissionsModal extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout( () => { this.setState({showReloadHelper: true})}, 3000)
+    setTimeout( () => { this.setState({showReloadHelper: true})}, 1800)
   }
 
   reloadPage = () => {
