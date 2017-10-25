@@ -39,84 +39,12 @@ class Recorder {
         console.error(error);
         callback(null, error);
       });
-    return;
-
-    var params = { audio: true, video: false };
-    navigator.getUserMedia(
-      params,
-      stream => {
-        callback(stream);
-      },
-      err => {
-        debugger;
-        callback(null, err);
-      }
-    );
-    return;
-    navigator.getUserMedia(params, callback, error => {
-      // alert(JSON.stringify(error));
-      console.log("USER MEDIA ERROR::   " + JSON.stringify(error));
-      callback(null, error);
-    });
   }
-
-  initialize = callback => {
-    return;
-    if (!!this.rtcRecorder) {
-      console.log(
-        "Attempted to initialize an already initialized recorder but that's expected"
-      );
-      return;
-    }
-
-    console.log("initialize Recorder -- requestUserMedia");
-    this.captureUserMedia((stream, error) => {
-      if (error) {
-        console.log("!!errror capturing user media!!");
-        return callback && callback(error);
-      }
-
-      // TODO: detect if system can play webms
-
-      // <-- smaller filesize
-      // this.rtcRecorder = RecordRTC(stream, { recorderType: RecordRTC.StereoAudioRecorder, bitsPerSecond: 30000, numberOfAudioChannels: 1, mimeType: 'audio/wav' });
-
-      try {
-        // the MUAZ KHAN edits
-        /*  var hiddenAudio = document.createElement('audio');
-        hiddenAudio.style.visibility = 'hidden';
-        document.body.appendChild(hiddenAudio)
-        hiddenAudio.srcObject = stream // this line is required to make sure stream tracks aren't stopped/released
-        hiddenAudio.muted = true
-        hiddenAudio.play()
-*/
-
-        this.rtcRecorder = RecordRTC(stream, { type: "audio" });
-        callback && callback(null);
-        return true;
-      } catch (err) {
-        sendEmail(
-          err,
-          "captureMedia (inner-most) startRecording failed",
-          "philesterman@gmail.com"
-        );
-        console.log("captureMedia (inner-most) startRecording ERROR: ", err);
-        callback && callback(null);
-        return true;
-      }
-    });
-  };
-
-  reset = () => {
-    if (this.recording) {
-      this.stopRecording();
-    }
-    this.rtcRecorder.reset();
-  };
 
   startRecording = () => {
     const audio = (this.audio = document.createElement("audio"));
     document.body.appendChild(audio);
+
     try {
       this.captureUserMedia((stream, error) => {
         if (error) {
