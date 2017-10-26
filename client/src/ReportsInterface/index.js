@@ -353,15 +353,17 @@ export default class ReportsInterface extends React.Component {
   }
 
   onExportClicked = () => {
-    this.setState({ showExportLoading: true });
-    setTimeout(
-      () =>
-        this.setState({
-          showExportSuccess: true,
-          showExportLoading: false
-        }),
-      2000
-    );
+    if (!this.state.showExportSuccess) {
+      this.setState({ showExportLoading: true });
+      setTimeout(
+        () =>
+          this.setState({
+            showExportSuccess: true,
+            showExportLoading: false
+          }),
+        2000
+      );
+    }
   };
 
   onLogoutClicked = () => {};
@@ -802,36 +804,40 @@ export default class ReportsInterface extends React.Component {
             </h4>
           )}
 
-        <Button
-          className={styles.exportButton}
-          bsSize={"sm"}
-          onClick={this.onExportClicked}
-          bsClass={styles.exportButton}
-        >
-          {"Export to STEP Tool"}
+        {this.props.isSample && (
+          <Button
+            className={styles.exportButton}
+            bsSize={"sm"}
+            onClick={this.onExportClicked}
+            bsClass={styles.exportButton}
+          >
+            {this.props.assessmentBrand === "FP"
+              ? "Export to F&P Data Manager"
+              : "Export to STEP Tool"}
 
-          {this.state.showExportLoading && (
-            <i
-              style={{ marginLeft: 7 }}
-              className={[
-                "fa",
-                "fa-refresh",
-                "animated",
-                "faa-spin",
-                "faa-slow"
-              ].join(" ")}
-              aria-hidden={"true"}
-            />
-          )}
+            {this.state.showExportLoading && (
+              <i
+                style={{ marginLeft: 7 }}
+                className={[
+                  "fa",
+                  "fa-refresh",
+                  "animated",
+                  "faa-spin",
+                  "faa-slow"
+                ].join(" ")}
+                aria-hidden={"true"}
+              />
+            )}
 
-          {this.state.showExportSuccess && (
-            <i
-              style={{ marginLeft: 7 }}
-              className={["fa", "fa-check"].join(" ")}
-              aria-hidden={"true"}
-            />
-          )}
-        </Button>
+            {this.state.showExportSuccess && (
+              <i
+                style={{ marginLeft: 7 }}
+                className={["fa", "fa-check"].join(" ")}
+                aria-hidden={"true"}
+              />
+            )}
+          </Button>
+        )}
 
         <div
           className={styles.contentWrapper}
