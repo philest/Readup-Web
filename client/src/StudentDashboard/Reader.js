@@ -1,31 +1,25 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import NavigationBar from './components/NavigationBar'
-import BookPage from './components/BookPage'
-import BookCover from './components/BookCover'
-import RectangleButton from './components/RectangleButton'
-import ForwardArrowButton from './components/ForwardArrowButton'
-import BackArrowButton from './components/BackArrowButton'
-import SpellingTextField from './components/SpellingTextField'
+import NavigationBar from "./components/NavigationBar";
+import BookPage from "./components/BookPage";
+import BookCover from "./components/BookCover";
+import RectangleButton from "./components/RectangleButton";
+import ForwardArrowButton from "./components/ForwardArrowButton";
+import BackArrowButton from "./components/BackArrowButton";
+import SpellingTextField from "./components/SpellingTextField";
 
-import styles from './styles.css'
-import css from './components/NavigationBar/styles.css'
-import ReportStyles from '../ReportsInterface/styles.css'
+import styles from "./styles.css";
+import css from "./components/NavigationBar/styles.css";
+import ReportStyles from "../ReportsInterface/styles.css";
 
-import { RouteTransition, presets } from 'react-router-transition';
+import { RouteTransition, presets } from "react-router-transition";
 
-import { Modal, Button, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Modal, Button, Popover, OverlayTrigger } from "react-bootstrap";
 
+import { Link, Redirect } from "react-router-dom";
 
-import {
-  Link,
-  Redirect,
-} from 'react-router-dom'
-
-
-import { playSoundAsync, stopAudio } from './audioPlayer.js'
-
+import { playSoundAsync, stopAudio } from "./audioPlayer.js";
 
 export default class Reader extends React.Component {
   static propTypes = {
@@ -64,7 +58,7 @@ export default class Reader extends React.Component {
     onSeeCompClicked: PropTypes.func,
     onSkipClicked: PropTypes.func,
 
-    //Phil 
+    //Phil
     inComp: PropTypes.bool,
     inOralReading: PropTypes.bool,
     currentShowModal: PropTypes.string,
@@ -74,7 +68,7 @@ export default class Reader extends React.Component {
     isLiveDemo: PropTypes.bool,
     inSpelling: PropTypes.bool,
     onSpellingAnswerGiven: PropTypes.func,
-    spellingQuestionNumber: PropTypes.number,
+    spellingQuestionNumber: PropTypes.number
   };
 
   static defaultProps = {
@@ -85,52 +79,63 @@ export default class Reader extends React.Component {
     isFirstPage: false,
     isLastPage: false,
     showPauseButton: true,
-    disabled: false,
-  }
+    disabled: false
+  };
 
   constructor(props, _railsContext) {
     super(props);
   }
 
-
-
   renderLeftButton = () => {
-
-    if (this.props.showCover && (!this.props.inComp && !this.props.inSpelling) && this.props.showVolumeIndicator) {
+    if (
+      this.props.showCover &&
+      (!this.props.inComp && !this.props.inSpelling) &&
+      this.props.showVolumeIndicator
+    ) {
       return (
         <div style={{ marginLeft: 44 }}>
-        <span className={styles.volumeHeading}> Turn on your volume </span>
-        <br />
-        <i className="fa fa-volume-up faa-pulse animated fa-3x faa-fast" style={{ color: "white" }} aria-hidden="true"></i>
+          <span className={styles.volumeHeading}> Turn on your volume </span>
+          <br />
+          <i
+            className="fa fa-volume-up faa-pulse animated fa-3x faa-fast"
+            style={{ color: "white" }}
+            aria-hidden="true"
+          />
         </div>
-        )
+      );
     }
 
-    if (this.props.showCover || (this.props.isFirstPage && !this.props.inComp) || this.props.inSpelling) {
-      return null
+    if (
+      this.props.showCover ||
+      (this.props.isFirstPage && !this.props.inComp) ||
+      this.props.inSpelling
+    ) {
+      return null;
     }
-
 
     return (
       <BackArrowButton
-        title='Back'
-        subtitle='page'
+        title="Back"
+        subtitle="page"
         style={{ width: 120, height: 95 }}
         onClick={this.props.onPreviousPageClicked}
         disabled={this.props.disabled}
       />
-    )
-  }
+    );
+  };
 
   renderCenterDisplay = () => {
     if (this.props.showCover) {
-
-      if (!this.props.inComp && (this.props.readerState === 'READER_STATE_AWAITING_START') && this.props.showVolumeIndicator ){
-        stopAudio()
-        playSoundAsync(this.props.introAudioSrc)
+      if (
+        !this.props.inComp &&
+        this.props.readerState === "READER_STATE_AWAITING_START" &&
+        this.props.showVolumeIndicator
+      ) {
+        stopAudio();
+        playSoundAsync(this.props.introAudioSrc);
       }
 
-      return <BookCover imageURL={this.props.coverImageURL} />
+      return <BookCover imageURL={this.props.coverImageURL} />;
     }
 
     return (
@@ -141,30 +146,32 @@ export default class Reader extends React.Component {
         isWideBook={this.props.isWideBook}
       />
     );
-  }
+  };
 
   renderRightButton = () => {
     if (this.props.isLastPage && !this.props.inComp) {
       return (
         <RectangleButton
-          title='Stop'
-          subtitle='recording'
-          style={{ width: 200, height: 70, backgroundColor: '#982E2B' }}
+          title="Stop"
+          subtitle="recording"
+          style={{ width: 200, height: 70, backgroundColor: "#982E2B" }}
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onStopClicked}
-          visibility={(this.props.inComp ? 'hidden' : 'inherit')}
+          visibility={this.props.inComp ? "hidden" : "inherit"}
         />
       );
-    }
-    else if (this.props.isLastPage && this.props.inComp) {
-      return
-    }
-    else if (this.props.showCover && !this.props.inComp && !this.props.inSpelling) {
+    } else if (this.props.isLastPage && this.props.inComp) {
+      return;
+    } else if (
+      this.props.showCover &&
+      !this.props.inComp &&
+      !this.props.inSpelling
+    ) {
       return (
         <RectangleButton
-          title='Start Recording'
-          style={{ width: 230, height: 70, backgroundColor: '#249C44' }}
+          title="Start Recording"
+          style={{ width: 230, height: 70, backgroundColor: "#249C44" }}
           pulsatingArrow={true}
           disabled={this.props.disabled}
           onClick={this.props.onStartClicked}
@@ -172,56 +179,65 @@ export default class Reader extends React.Component {
       );
     }
 
-
     return (
       <ForwardArrowButton
-        title='Next'
-        subtitle={this.props.inSpelling ? 'word' : 'page'}
+        title="Next"
+        subtitle={this.props.inSpelling ? "word" : "page"}
         style={{ width: 145, height: 120 }}
         disabled={this.props.disabled}
-        onClick={this.props.inSpelling ? this.props.onNextWordClicked : this.props.onNextPageClicked}
+        onClick={
+          this.props.inSpelling
+            ? this.props.onNextWordClicked
+            : this.props.onNextPageClicked
+        }
       />
     );
-  }
+  };
 
-
-  renderUpperLeftButton = () => { 
-    
-    if (this.props.inComp && (this.props.currentShowModal !== "modal-comp")) {
+  renderUpperLeftButton = () => {
+    if (this.props.inComp && this.props.currentShowModal !== "modal-comp") {
       return (
-
-          <div className={css.subContainer}>
-            <div className={[css.centerDisplayContainer].join(' ')}>
-              <RectangleButton
-                title='See'
-                subtitle='Question'
-                style={{ width: 200, height: 70, backgroundColor: '#F5F5F5', color: '#4a4a4a' }}
-                pulsatingArrow={false}
-                disabled={this.props.disabled}
-                onClick={this.props.onSeeCompClicked}
-              />
-              <i className={["fa", "fa-question", 'faa-pulse animated', styles.myQuestionMarkIcon].join(" ")} aria-hidden={"true"} />
-            </div>
+        <div className={css.subContainer}>
+          <div className={[css.centerDisplayContainer].join(" ")}>
+            <RectangleButton
+              title="See"
+              subtitle="Question"
+              style={{
+                width: 200,
+                height: 70,
+                backgroundColor: "#F5F5F5",
+                color: "#4a4a4a"
+              }}
+              pulsatingArrow={false}
+              disabled={this.props.disabled}
+              onClick={this.props.onSeeCompClicked}
+            />
+            <i
+              className={[
+                "fa",
+                "fa-question",
+                "faa-pulse animated",
+                styles.myQuestionMarkIcon
+              ].join(" ")}
+              aria-hidden={"true"}
+            />
           </div>
-      );      
-    }    
-
-  }
+        </div>
+      );
+    }
+  };
 
   getNextSection = () => {
     if (this.props.inOralReading) {
-      return 'comprehension'
+      return "comprehension";
+    } else if (this.props.inComp) {
+      return "spelling";
+    } else {
+      return "end";
     }
-    else if (this.props.inComp) {
-      return 'spelling'
-    }
-    else {
-      return 'end'
-    }
-  }
+  };
 
   renderNavigationBar = () => {
-
     const navProps = {
       className: styles.navBar,
       studentName: this.props.studentName,
@@ -230,83 +246,105 @@ export default class Reader extends React.Component {
       bookTitle: this.props.bookTitle,
       bookAuthor: this.props.bookAuthor,
       isCoverPage: this.props.showCover,
-      onPauseClicked: (this.props.inComp ? this.props.onCompPauseClicked : this.props.onPauseClicked),
+      onPauseClicked: this.props.inComp
+        ? this.props.onCompPauseClicked
+        : this.props.onPauseClicked,
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
-      inSpelling: this.props.inSpelling,
-    }
+      inSpelling: this.props.inSpelling
+    };
 
-    return <NavigationBar {...navProps} />
-  }
+    return <NavigationBar {...navProps} />;
+  };
 
   render() {
+    console.log("Rerendering Reader, pageNumber is: " + this.props.pageNumber);
 
-    console.log('Rerendering Reader, pageNumber is: ' + this.props.pageNumber)
-
-    let wideContainerClass
+    let wideContainerClass;
 
     if (this.props.showCover) {
-      wideContainerClass = styles.largeWideBookpageContainer
+      wideContainerClass = styles.largeWideBookpageContainer;
     } else {
-      wideContainerClass = styles.wideBookpageContainer
+      wideContainerClass = styles.wideBookpageContainer;
     }
 
-
     // const transitionPreset = this.props.location.action === 'POP' ? presets.slideLeft : presets.slideRight;
-    const transitionProps = {...presets.pop, pathname: this.props.pathname, className: styles.routeTransition}
+    const transitionProps = {
+      ...presets.pop,
+      pathname: this.props.pathname,
+      className: styles.routeTransition
+    };
 
     return (
-
       <div className={styles.fullHeight}>
-
-
-        { this.renderNavigationBar() }
+        {this.renderNavigationBar()}
 
         <div className={styles.contentContainer}>
-
-          <div className={ (this.props.inComp && this.props.currentShowModal !== "modal-comp") ? styles.leftDoubleButtonContainer : styles.leftButtonContainer}>
-            { this.renderUpperLeftButton() }
-            { (this.props.inSpelling || this.props.inComp || this.props.inOralReading) &&
-              this.renderLeftButton()
+          <div
+            className={
+              this.props.inComp && this.props.currentShowModal !== "modal-comp"
+                ? styles.leftDoubleButtonContainer
+                : styles.leftButtonContainer
             }
+          >
+            {this.renderUpperLeftButton()}
+            {(this.props.inSpelling ||
+              this.props.inComp ||
+              this.props.inOralReading) &&
+              this.renderLeftButton()}
           </div>
 
-         { (this.props.inOralReading || this.props.inComp) &&
+          {(this.props.inOralReading || this.props.inComp) && (
+            <div
+              className={
+                this.props.isWideBook
+                  ? wideContainerClass
+                  : styles.bookpageContainer
+              }
+            >
+              <RouteTransition {...transitionProps}>
+                {this.renderCenterDisplay()}
+              </RouteTransition>
+            </div>
+          )}
 
-          <div className={this.props.isWideBook ? wideContainerClass : styles.bookpageContainer}>
-            <RouteTransition {...transitionProps}>
-                { this.renderCenterDisplay() }
-            </RouteTransition>
-          </div>
-        }
+          {this.props.inSpelling && (
+            <SpellingTextField
+              onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+              spellingQuestionNumber={this.props.spellingQuestionNumber}
+              showVolumeIndicator={this.props.showVolumeIndicator}
+              showSpellingBoxIndicator={
+                this.props.readerState ===
+                "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
+              }
+              onEnterPressed={this.props.onNextWordClicked}
+            />
+          )}
 
-        { this.props.inSpelling && 
-          <SpellingTextField
-            onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
-            spellingQuestionNumber={this.props.spellingQuestionNumber}
-            showVolumeIndicator={this.props.showVolumeIndicator}
-            showSpellingBoxIndicator={this.props.readerState === 'READER_STATE_TALKING_ABOUT_SPELLING_BOX'}
-            onEnterPressed={this.props.onNextWordClicked}
-          />
-        }
-
-
-
-          <div className={(this.props.inSpelling) ? styles.spellingRightButtonContainer : styles.rightButtonContainer}>
-            { (this.props.showSkipPrompt) &&
-              <span style={{ top: (this.props.inSpelling) ? -20 + "vh" : -40 + "vh" }} onClick={this.props.onSkipClicked} className={styles.skipPrompt}>
-                Skip to {this.getNextSection()} <i className="fa fa-caret-right" aria-hidden="true"></i>
+          <div
+            className={
+              this.props.inSpelling
+                ? styles.spellingRightButtonContainer
+                : styles.rightButtonContainer
+            }
+          >
+            {this.props.showSkipPrompt && (
+              <span
+                style={{ top: this.props.inSpelling ? -10 + "vh" : -40 + "vh" }}
+                onClick={this.props.onSkipClicked}
+                className={styles.skipPrompt}
+              >
+                Skip to {this.getNextSection()}{" "}
+                <i className="fa fa-caret-right" aria-hidden="true" />
               </span>
-            }
-            { (this.props.inSpelling || this.props.inComp || this.props.inOralReading) && 
-              this.renderRightButton()
-            }
+            )}
+            {(this.props.inSpelling ||
+              this.props.inComp ||
+              this.props.inOralReading) &&
+              this.renderRightButton()}
           </div>
-
         </div>
       </div>
-
-
     );
   }
 }

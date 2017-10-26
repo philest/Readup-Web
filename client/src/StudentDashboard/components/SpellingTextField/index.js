@@ -1,14 +1,16 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import styles from './styles.css'
+import PropTypes from "prop-types";
+import React from "react";
+import styles from "./styles.css";
 
-import { FormControl } from 'react-bootstrap'
+import { FormControl } from "react-bootstrap";
 
-import { updateAssessment, getAssessmentData } from '../../../ReportsInterface/emailHelpers'
-import { getLastAssessmentID } from '../../sagas/networkingHelpers'
-import { peterSpellingObj } from '../../state'
-import { playSound, playSoundAsync } from '../../audioPlayer'
-
+import {
+  updateAssessment,
+  getAssessmentData
+} from "../../../ReportsInterface/emailHelpers";
+import { getLastAssessmentID } from "../../sagas/networkingHelpers";
+import { peterSpellingObj } from "../../state";
+import { playSound, playSoundAsync } from "../../audioPlayer";
 
 export default class SpellingTextField extends React.Component {
   static propTypes = {
@@ -17,10 +19,9 @@ export default class SpellingTextField extends React.Component {
     showVolumeIndicator: PropTypes.bool,
     showSpellingBoxIndicator: PropTypes.bool,
     spellingQuestionNumber: PropTypes.number,
-    onEnterPressed: PropTypes.func,
+    onEnterPressed: PropTypes.func
   };
-  static defaultProps = {
-}
+  static defaultProps = {};
 
   /**
    * @param props - Comes from your rails view.
@@ -29,113 +30,110 @@ export default class SpellingTextField extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      showHelper: true,
+      showHelper: true
     };
   }
 
+  saveSpellingResponse = value => {
+    // get spelling object
+    // save it temporarily
+    // push in a new response
+    // get assessment ID
+    // update assessment
 
-  saveSpellingResponse = (value) => {
+    const assessmentID = getLastAssessmentID();
+    assessmentID.then(id => {
+      console.log("id: ", id);
 
+      const assessment = getAssessmentData(id);
 
-    // get spelling object 
-    // save it temporarily 
-    // push in a new response 
-    // get assessment ID 
-    // update assessment 
+      assessment
+        .then(assessment => {
+          console.log("assessment: ", assessment);
 
-
-      const assessmentID = getLastAssessmentID()
-      assessmentID.then( (id) => {
-        console.log('id: ', id)
-
-        const assessment = getAssessmentData(id)
-
-        assessment.then( (assessment) => {
-          console.log('assessment: ', assessment)
-
-          let scoredSpellingHolder = assessment.scored_spelling
+          let scoredSpellingHolder = assessment.scored_spelling;
 
           if (!scoredSpellingHolder) {
-            scoredSpellingHolder = peterSpellingObj
+            scoredSpellingHolder = peterSpellingObj;
           }
 
-          scoredSpellingHolder.responses.push(value)
+          scoredSpellingHolder.responses.push(value);
 
-          // An alternate approach: 
+          // An alternate approach:
           // let arr = stateHolder.sections[String(sectionNum)].statusArr
           // arr[wordIdx] = !arr[wordIdx]
 
-         updateAssessment({
-          scored_spelling: scoredSpellingHolder,
-                          },
-                          id,
-                          )
-
-        }).catch(function (err) {
-          console.log(err)
+          updateAssessment(
+            {
+              scored_spelling: scoredSpellingHolder
+            },
+            id
+          );
         })
-
-      })
-  }
-
-
+        .catch(function(err) {
+          console.log(err);
+        });
+    });
+  };
 
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
-
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
   }
 
-
   componentWillReceiveProps(nextProps) {
-    if (this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber) {
-      this.saveSpellingResponse(this.form.value)
-      this.form.value = ''
+    if (
+      this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber
+    ) {
+      this.saveSpellingResponse(this.form.value);
+      this.form.value = "";
     }
   }
 
-  _handleKeyDown = (event) => {
-
-    if (event.which == 13 || event.keyCode == 13 || event.code == 'Enter') {
-      this.props.onEnterPressed()
+  _handleKeyDown = event => {
+    if (event.which == 13 || event.keyCode == 13 || event.code == "Enter") {
+      this.props.onEnterPressed();
     }
-  }
-
-
+  };
 
   onInputClicked = () => {
-
-    this.setState({showHelper: false})
-    this.props.onSpellingAnswerGiven(true)
-  }
+    this.setState({ showHelper: false });
+    this.props.onSpellingAnswerGiven(true);
+  };
 
   handleSpellingChange = () => {
-    this.setState({showHelper: false})
-    this.props.onSpellingAnswerGiven(true)    
-  }
-
-
+    this.setState({ showHelper: false });
+    this.props.onSpellingAnswerGiven(true);
+  };
 
   render() {
-
-
     return (
+      <div className={[styles.spellingContainer].join(" ")}>
+        <div className={styles.introVolume}>
+          <br />
+          <i
+            onClick={() => {
+              playSoundAsync(
+                `/audio/spelling/${this.props.spellingQuestionNumber}.mp3`
+              );
+            }}
+            className={[
+              "fa fa-volume-up fa-3x",
+              styles.clickable,
+              styles.volumeIcon,
+              this.props.showVolumeIndicator
+                ? "faa-pulse animated faa-fast"
+                : ""
+            ].join(" ")}
+            style={{ color: "white" }}
+            aria-hidden="true"
+          />
+        </div>
 
-        <div className={[styles.spellingContainer].join(' ')}>
-
-          <img className={styles.spellingImage} src={`/images/dashboard/spelling/${(this.props.spellingQuestionNumber)}.png`} />
-
-          
-            <div className={styles.introVolume} >
-            <br />
-            <i onClick={ () => {playSoundAsync(`/audio/spelling/${this.props.spellingQuestionNumber}.mp3`)}} className={["fa fa-volume-up fa-3x", styles.clickable, (this.props.showVolumeIndicator ? 'faa-pulse animated faa-fast' : '')].join(' ')} style={{ color: "white" }} aria-hidden="true"></i>
-            </div>
-
-
-          <style type='text/css'> 
+        <style type="text/css">
           {`
             .form-control:focus {
               -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0px 26px rgba(102,175,233,.6);
@@ -146,26 +144,33 @@ export default class SpellingTextField extends React.Component {
               transition: all .3s;
             }
 
-          `} 
-          </style> 
+          `}
+        </style>
 
-          <FormControl
-            className={styles.spellingField}
-            type="text"
-            bsSize='lg'
-            spellCheck="false"
-            onClick={this.onInputClicked}
-            inputRef={ref => { this.form = ref; }}
-            onChange={this.handleSpellingChange}
-          />
+        <FormControl
+          className={styles.spellingField}
+          type="text"
+          bsSize="lg"
+          spellCheck="false"
+          onClick={this.onInputClicked}
+          inputRef={ref => {
+            this.form = ref;
+          }}
+          onChange={this.handleSpellingChange}
+        />
 
-          <i className={['fa fa-caret-right faa-passing animated', styles.helper].join(' ')} 
-             style={{ visibility: (this.props.showSpellingBoxIndicator) ? 'visible' : 'hidden' }}
-          />
-        
-
-        </div>
-
+        <i
+          className={[
+            "fa fa-caret-right faa-passing animated",
+            styles.helper
+          ].join(" ")}
+          style={{
+            visibility: this.props.showSpellingBoxIndicator
+              ? "visible"
+              : "hidden"
+          }}
+        />
+      </div>
     );
   }
 }
