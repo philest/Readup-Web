@@ -78,6 +78,28 @@ body {
 	font-family: "ProximaNova semibold";
 }
 
+.exportButton {
+	top: 93px;
+	position: relative;
+	right: 80px;
+	transition: all 0.3s;
+	text-align: right;
+	display: inline-block;
+	float: right;
+	font-family: "ProximaNova semibold";
+	font-size: 14px;
+	background-color: #9b9b9b;
+	color: white;
+
+	color: #fff;
+	background-color: #9b9b9b;
+	border-color: #7c7c7c;
+	border: 0;
+	border-bottom: 2px solid #7c7c7c;
+	border-radius: 2px;
+	padding: 9px 15px 8px 15px;
+}
+
 .navBar {
 	height: 60px;
 	z-index: 100;
