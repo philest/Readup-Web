@@ -120,7 +120,9 @@ export default class ReportsInterface extends React.Component {
       noteExists: this.props.teacherNote !== null,
       teacherNote: this.props.teacherNote,
       showAssignSuccessAlert: false,
-      showNote: false
+      showNote: false,
+      showExportLoading: false,
+      showExportSuccess: false
     };
     this.tick = this.tick.bind(this);
   }
@@ -349,6 +351,18 @@ export default class ReportsInterface extends React.Component {
   hideReportReadyModal() {
     this.setState({ showReportReadyModal: false });
   }
+
+  onExportClicked = () => {
+    this.setState({ showExportLoading: true });
+    setTimeout(
+      () =>
+        this.setState({
+          showExportSuccess: true,
+          showExportLoading: false
+        }),
+      2000
+    );
+  };
 
   onLogoutClicked = () => {};
 
@@ -791,16 +805,29 @@ export default class ReportsInterface extends React.Component {
         <Button
           className={styles.exportButton}
           bsSize={"sm"}
-          onClick={""}
+          onClick={this.onExportClicked}
           bsClass={styles.exportButton}
         >
           {"Export to STEP Tool"}
-          {false && (
-            <i className={["fa", "fa-check"].join(" ")} aria-hidden={"true"} />
-          )}
-          {false && (
+
+          {this.state.showExportLoading && (
             <i
-              className={["fa", "fa-refresh"].join(" ")}
+              style={{ marginLeft: 7 }}
+              className={[
+                "fa",
+                "fa-refresh",
+                "animated",
+                "faa-spin",
+                "faa-slow"
+              ].join(" ")}
+              aria-hidden={"true"}
+            />
+          )}
+
+          {this.state.showExportSuccess && (
+            <i
+              style={{ marginLeft: 7 }}
+              className={["fa", "fa-check"].join(" ")}
               aria-hidden={"true"}
             />
           )}

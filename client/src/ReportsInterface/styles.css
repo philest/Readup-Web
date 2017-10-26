@@ -912,6 +912,10 @@ a:hover {
 	outline: none !important;
 }
 
+button:focus {
+	outline: none !important;
+}
+
 .tophalfRescoring {
 }
 
