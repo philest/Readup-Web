@@ -1,21 +1,13 @@
+import isSafari from "./isSafari";
+
 export const DEV_DISABLE_VOICE_INSTRUCTIONS = false;
 
 let audio = null;
 
-// Safari 3.0+ "[object HTMLElementConstructor]"
-var isSafari =
-  /constructor/i.test(window.HTMLElement) ||
-  (function(p) {
-    return p.toString() === "[object SafariRemoteNotification]";
-  })(
-    !window["safari"] ||
-      (typeof safari !== "undefined" && safari.pushNotification)
-  );
-
 // TODO: Daniel fix this pls
 export function playSound(file, onEnd) {
   if (isSafari) {
-    return;
+    return Promise.resolve(true);
   }
 
   return new Promise((resolve, reject) => {

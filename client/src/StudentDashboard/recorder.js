@@ -1,9 +1,10 @@
 import RecordRTC from "recordrtc";
 import DetectRTC from "detectrtc";
 
+import isSafari from "./isSafari";
 import { sendEmail } from "../ReportsInterface/emailHelpers";
 
-global.RecordRTC = RecordRTC;
+const emptyFn = () => {};
 
 class Recorder {
   constructor() {
@@ -31,6 +32,10 @@ class Recorder {
   }
 
   captureUserMedia(callback) {
+    if (this.stream) {
+      callback(this.stream);
+      return;
+    }
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(callback)
@@ -41,10 +46,11 @@ class Recorder {
       });
   }
 
-  startRecording = () => {
-    const audio = (this.audio = document.createElement("audio"));
-    document.body.appendChild(audio);
+  initialize(callback) {
+    return true;
+  }
 
+  startRecording = () => {
     try {
       this.captureUserMedia((stream, error) => {
         if (error) {
@@ -56,19 +62,17 @@ class Recorder {
           );
           return;
         }
-        this.stream = stream;
-        audio.muted = true;
-        audio.srcObject = stream;
 
-        audio.play();
+        this.stream = stream;
 
         try {
-          this.rtcRecorder =
-            this.rtcRecorder ||
-            RecordRTC(stream, {
-              recorderType: RecordRTC.StereoAudioRecorder,
-              mimeType: "audio/webm"
-            });
+          this.rtcRecorder = RecordRTC(stream, {
+            recorderType: isSafari
+              ? RecordRTC.StereoAudioRecorder
+              : RecordRTC.MediaStreamRecorder,
+            type: "audio",
+            mimeType: "audio/webm"
+          });
           this.rtcRecorder.startRecording();
           this.recording = true;
         } catch (err) {
@@ -93,22 +97,13 @@ class Recorder {
     }
   };
 
-  stopRecording = callback => {
+  stopRecording = (callback = emptyFn) => {
     try {
       if (this.recording === true || this.rtcRecorder.state === "paused") {
-        /* let tracks = this.stream.getTracks();
-
-        tracks.forEach(function(track) {
-          track.stop();
-        })*/
-
-        this.stream.stop();
-        // this.audio.stop();
-        this.audio.srcObject = null;
         this.rtcRecorder.stopRecording(() => {
           this.recording = false;
           this.blobURL = URL.createObjectURL(this.rtcRecorder.getBlob());
-          callback && callback(this.blobURL);
+          callback(this.blobURL);
         });
       } else {
         sendEmail(
@@ -117,13 +112,20 @@ class Recorder {
           "philesterman@gmail.com"
         );
         console.log("startRecording ERROR: ", "startRecording");
-        callback && callback("it broke");
+        callback("it broke");
       }
     } catch (err) {
       sendEmail(err, "stopRecording failed", "philesterman@gmail.com");
       console.log("stopRecording ERROR: ", err);
-      callback && callback("it broke");
+      callback("it broke");
     }
+  };
+
+  reset = () => {
+    if (this.recording) {
+      this.stopRecording();
+    }
+    this.rtcRecorder.reset();
   };
 
   pauseRecording = () => {
@@ -150,7 +152,7 @@ class Recorder {
 
   forceDownloadRecording(filename) {
     console.log(this.getBlobURL());
-    var anchor = document.createElement("a");
+    const anchor = document.createElement("a");
     anchor.href = this.blobURL;
     anchor.target = "_blank";
     anchor.download = filename || "output.wav";
@@ -158,5 +160,4 @@ class Recorder {
   }
 }
 
-global.Recorder = Recorder;
 export default Recorder;
