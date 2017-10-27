@@ -1,39 +1,28 @@
 // @flow
 
-import React from 'react';
-import styles from './styles.css'
+import React from "react";
+import styles from "./styles.css";
 
 type props = {
   title: string,
   subtitle: string,
-  style: {},
+  style: {}
 };
 
-function BookInfoHeader ({
-  title = "",
-  subtitle = "",
-  style = {},
-} : props) {
+function BookInfoHeader({ title = "", subtitle = "", style = {} }: props) {
   return (
-    <div
-      className={styles.bookInfoHeaderContainer}
-      style={style}
-    >
+    <div className={styles.bookInfoHeaderContainer} style={style}>
+      <div className={styles.bookInfoHeaderContainerTitle}>{title}</div>
 
-      
-      <div className={styles.bookInfoHeaderContainerTitle}>
-        {title}
-      </div>
-
-      {
-        subtitle
-        && (subtitle !== '')
-        && <div className={styles.bookInfoHeaderContainerSubtitle}> {subtitle} </div>
-      }
-
+      {subtitle &&
+        subtitle !== "" && (
+          <div className={styles.bookInfoHeaderContainerSubtitle}>
+            {" "}
+            {subtitle}{" "}
+          </div>
+        )}
     </div>
-  )
+  );
 }
 
-export default BookInfoHeader
-
+export default BookInfoHeader;
