@@ -360,7 +360,7 @@ function* playSpellingQuestionSaga() {
 
 function* playPromptSaga(prompt, studentID) {
   // in case we're coming from the comp paused modal...
-  yield put.resolve(setCurrentModal("modal-comp"));
+  // yield put.resolve(setCurrentModal("modal-comp"));
 
   let audiofile;
   if (prompt === PromptOptions.repeatQuestion) {
@@ -459,7 +459,7 @@ function* instructionSaga() {
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    yield put.resolve(setCurrentModal("modal-comp"));
+    // yield put.resolve(setCurrentModal("modal-comp"));
 
     yield call(delay, 500);
   }
@@ -489,7 +489,7 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
     let isFirstTime = currQ === 1;
     if (isFirstTime) {
       // first time, play instructions
-      yield put.resolve(setCurrentModal("modal-comp"));
+      // yield put.resolve(setCurrentModal("modal-comp"));
       yield call(instructionSaga);
     }
 
@@ -536,7 +536,7 @@ function* compSaga(
 
   yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-  yield put.resolve(setCurrentModal("modal-comp"));
+  // yield put.resolve(setCurrentModal("modal-comp"));
 
   if (!isPrompt) {
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
@@ -576,7 +576,7 @@ function* compSaga(
 
   compEffects.push(
     yield takeLatest(SEE_COMP_CLICKED, function*() {
-      yield put.resolve(setCurrentModal("modal-comp"));
+      // yield put.resolve(setCurrentModal("modal-comp"));
     })
   );
 
@@ -776,6 +776,8 @@ function* assessThenSubmitSaga(assessmentId) {
   yield call(delay, 3000);
 
   yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+
+  yield call(playSound, "/audio/complete.mp3");
 
   yield clog("UNset it");
 

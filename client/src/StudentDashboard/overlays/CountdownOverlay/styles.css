@@ -4,7 +4,7 @@
 	right: 0;
 	left: 0;
 	bottom: 0;
-	background-color: transparent;
+	background-color: rgba(0, 0, 0, 0.3);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -16,13 +16,15 @@
 	height: 200px;
 	background-color: white;
 	border-radius: 10px;
-	color: #9D2C28;
+	color: #9d2c28;
 	display: flex;
 	flex-flow: column;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;
-	box-shadow: 0px 0px 10px 2px #5B5B5B;
+	box-shadow: 0px 0px 10px 2px #5b5b5b;
+	position: relative;
+	top: -60px;
 }
 
 .countdownTitle {

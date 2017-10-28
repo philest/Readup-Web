@@ -134,8 +134,9 @@ export default class Reader extends React.Component {
     }
 
     if (
-      this.props.readerState === "READER_STATE_INITIALIZING" ||
-      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
+      this.props.inOralReading &&
+      (this.props.readerState === "READER_STATE_INITIALIZING" ||
+        this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")
     ) {
       return (
         <div
@@ -150,7 +151,10 @@ export default class Reader extends React.Component {
       );
     }
 
-    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON") {
+    if (
+      this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON" ||
+      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
+    ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
           <RectangleButton
@@ -315,7 +319,11 @@ export default class Reader extends React.Component {
   };
 
   renderUpperLeftButton = () => {
-    if (this.props.inComp && this.props.currentShowModal !== "modal-comp") {
+    if (
+      false &&
+      this.props.inComp &&
+      this.props.currentShowModal !== "modal-comp"
+    ) {
       return (
         <div className={css.subContainer}>
           <div className={[css.centerDisplayContainer].join(" ")}>

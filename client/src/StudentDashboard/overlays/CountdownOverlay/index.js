@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import styles from './styles.css'
-import commonStyles from '../../modals/commonstyles.css'
+import styles from "./styles.css";
+import commonStyles from "../../modals/commonstyles.css";
 export default class CountdownModal extends React.Component {
   static propTypes = {
-    countdownValue: PropTypes.number.isRequired,
+    countdownValue: PropTypes.number.isRequired
   };
 
   /**
@@ -16,20 +16,13 @@ export default class CountdownModal extends React.Component {
     super(props);
   }
 
-
   render() {
     return (
       <div className={styles.countdownWrapper}>
         <div className={styles.countdownContentCountainer}>
-          <div className={styles.countdownTitle}>
-
-            Recording in...
-
-          </div>
+          <div className={styles.countdownTitle}>Recording in...</div>
           <div className={styles.countdownNumber}>
-
             {this.props.countdownValue}
-
           </div>
         </div>
       </div>

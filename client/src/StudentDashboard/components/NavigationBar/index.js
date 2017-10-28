@@ -192,7 +192,7 @@ export default class NavigationBar extends React.Component {
               )}
             >
               <RectangleButton
-                title={"Pause"}
+                title={"Pause Recording"}
                 id="navigation-button"
                 onClick={this.props.onPauseClicked}
               />

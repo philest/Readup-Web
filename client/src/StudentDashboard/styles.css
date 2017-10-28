@@ -39,6 +39,10 @@ body {
 	height: 65vh;
 	justify-content: space-between;
 	margin-left: 10px;
+
+	/*STUFF INCLUDED FOR NEW FORMAT PHYSICAL BOOK*/
+	min-width: 200px;
+	margin: 30px;
 }
 
 .rightButtonContainer {
