@@ -88,24 +88,6 @@ export default class Reader extends React.Component {
 
   renderLeftButton = () => {
     if (
-      this.props.showCover &&
-      (!this.props.inComp && !this.props.inSpelling) &&
-      this.props.showVolumeIndicator
-    ) {
-      return (
-        <div className={styles.volumeContainer}>
-          <span className={styles.volumeHeading}> Turn on your volume </span>
-          <br />
-          <i
-            className="fa fa-volume-up faa-pulse animated fa-3x faa-fast"
-            style={{ color: "white" }}
-            aria-hidden="true"
-          />
-        </div>
-      );
-    }
-
-    if (
       this.props.showCover ||
       (this.props.isFirstPage && !this.props.inComp) ||
       this.props.inSpelling
@@ -276,9 +258,56 @@ export default class Reader extends React.Component {
         </div>
       );
     }
+
+    // default
+    return (
+      <div className={[styles.buttonContainer].join(" ")}>
+        <RectangleButton
+          title="Start Recording"
+          pulsatingArrow={false && true}
+          disabled={this.props.disabled}
+          partiallyDisabled
+          isLarge
+          isGreen
+        />
+
+        <div
+          className={
+            this.props.isWideBook
+              ? [
+                  wideContainerClass,
+                  styles.disabledLargeWideBookpageContainer
+                ].join(" ")
+              : styles.bookpageContainer
+          }
+        >
+          <BookCover imageURL={this.props.coverImageURL} />;
+        </div>
+      </div>
+    );
   };
 
   renderRightButton = () => {
+    if (
+      this.props.showCover &&
+      (!this.props.inComp && !this.props.inSpelling) &&
+      this.props.showVolumeIndicator
+    ) {
+      return (
+        <div className={styles.volumeContainer}>
+          <span className={styles.volumeHeading}> Turn on your volume </span>
+          <br />
+          <i
+            className="fa fa-volume-up faa-pulse animated fa-3x faa-fast"
+            style={{ color: "white", fontSize: 5 + "em" }}
+            aria-hidden="true"
+          />
+        </div>
+      );
+    }
+
+    return null;
+
     if (this.props.isLastPage && !this.props.inComp) {
       return (
         <RectangleButton
@@ -453,7 +482,7 @@ export default class Reader extends React.Component {
                 <i className="fa fa-caret-right" aria-hidden="true" />
               </span>
             )}
-            {false &&
+            {true &&
               (this.props.inSpelling ||
                 this.props.inComp ||
                 this.props.inOralReading) &&
