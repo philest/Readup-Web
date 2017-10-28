@@ -209,21 +209,20 @@ export default class NavigationBar extends React.Component {
             </div>
           )}
 
-        {(this.props.isCoverPage || this.props.showBookInfo) &&
-          (!this.props.inComp && !this.props.inSpelling) && (
-            <div className={css.subContainer}>
-              <div
-                className={[css.centerDisplayContainer, css.headerTabBlue].join(
-                  " "
-                )}
-              >
-                <BookInfoHeader
-                  title={this.props.bookTitle}
-                  subtitle={"by " + this.props.bookAuthor}
-                />
-              </div>
+        {this.props.showBookInfo && (
+          <div className={css.subContainer}>
+            <div
+              className={[css.centerDisplayContainer, css.headerTabBlue].join(
+                " "
+              )}
+            >
+              <BookInfoHeader
+                title={this.props.bookTitle}
+                subtitle={"by " + this.props.bookAuthor}
+              />
             </div>
-          )}
+          </div>
+        )}
 
         <div className={css.subContainer}>
           <div

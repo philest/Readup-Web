@@ -134,6 +134,7 @@ export default class Reader extends React.Component {
     }
 
     if (
+      this.props.showCover &&
       this.props.inOralReading &&
       (this.props.readerState === "READER_STATE_INITIALIZING" ||
         this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")
@@ -242,7 +243,12 @@ export default class Reader extends React.Component {
       );
     }
 
-    if (true || this.props.readerState === "READER_STATE_IN_PROGRESS") {
+    if (
+      this.props.readerState === "READER_STATE_IN_PROGRESS" ||
+      this.props.readerState === "READER_STATE_COUNTDOWN_TO_START" ||
+      (this.props.inOralReading &&
+        this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")
+    ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
           <RectangleButton
@@ -416,21 +422,6 @@ export default class Reader extends React.Component {
           </div>
 
           {this.renderCenterDisplay()}
-
-          {false &&
-            (this.props.inOralReading || this.props.inComp) && (
-              <div
-                className={
-                  this.props.isWideBook
-                    ? wideContainerClass
-                    : styles.bookpageContainer
-                }
-              >
-                <RouteTransition {...transitionProps}>
-                  {this.renderCenterDisplay()}
-                </RouteTransition>
-              </div>
-            )}
 
           {this.props.inSpelling && (
             <SpellingTextField
