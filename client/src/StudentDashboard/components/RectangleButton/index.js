@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./styles.css";
+import css from "../NavigationBar/styles.css";
 
 import ButtonArray from "../../modals/subcomponents/ButtonArray";
 
@@ -11,6 +12,7 @@ type props = {
   onClick: Function,
   disabled: boolean,
   pulsatingArrow: boolean,
+  pulsatingCircle: boolean,
   partiallyDisabled: boolean,
   style: {},
   showSpinner: boolean,
@@ -30,6 +32,7 @@ function RectangleButton({
   disabled = false,
   partiallyDisabled = false,
   pulsatingArrow = false,
+  pulsatingCircle = false,
   style = {},
   showSpinner = false,
   id = "",
@@ -106,6 +109,8 @@ function RectangleButton({
       onClick={() => !disabled && !partiallyDisabled && onClick()}
     >
       <div className={titleClass.join(" ")}>
+        {pulsatingCircle && <div className={styles.pulsatingCircle}> </div>}
+
         {pulsatingArrow &&
           !disabled && (
             <i

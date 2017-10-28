@@ -111,6 +111,7 @@
 	z-index: 100;
 	color: white;
 	border-radius: 5px;
+	margin: 0 auto;
 
 	opacity: 0.4;
 
@@ -136,7 +137,7 @@
 	border-radius: 5px;
 	margin: 0 auto;
 
-	opacity: 0.8;
+	opacity: 0.5;
 	cursor: default;
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
@@ -211,4 +212,35 @@
 	position: relative;
 	left: -15px;
 	animation: pulse-right 800ms infinite alternate;
+}
+
+@keyframes pulseOut {
+	0% {
+		transform: scale(1);
+	}
+	40% {
+		transform: scale(1.5);
+	}
+	50% {
+		transform: scale(1.5);
+	}
+	90% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.pulsatingCircle {
+	/*background-color: green;*/
+	color: white;
+	height: 14px;
+	width: 14px;
+	display: inline-block;
+	margin-right: 26px;
+	margin-bottom: 6px;
+	border-radius: 7px;
+	background-color: white;
+	animation: pulseOut 2s infinite;
 }

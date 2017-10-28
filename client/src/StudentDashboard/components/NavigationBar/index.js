@@ -187,17 +187,15 @@ export default class NavigationBar extends React.Component {
         {this.props.showPauseButton && (
           <div className={css.subContainer}>
             <div
-              className={[css.centerDisplayContainer, css.headerTabRed].join(
+              className={[css.centerDisplayContainer, css.headerTabBlue].join(
                 " "
               )}
             >
               <RectangleButton
-                title={"Stop"}
-                subtitle={"recording"}
+                title={"Pause"}
                 id="navigation-button"
                 onClick={this.props.onPauseClicked}
               />
-              <div className={css.pulsatingCircle}> </div>
             </div>
           </div>
         )}

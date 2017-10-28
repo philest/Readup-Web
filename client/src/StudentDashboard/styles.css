@@ -167,6 +167,9 @@ body {
 .volumeContainer {
 	position: relative;
 	left: 200px;
+	-ms-transform: rotate(-4deg);
+	-webkit-transform: rotate(-4deg);
+	transform: rotate(-4deg);
 }
 
 .skipPrompt {

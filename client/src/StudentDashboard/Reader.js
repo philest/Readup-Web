@@ -238,14 +238,34 @@ export default class Reader extends React.Component {
       );
     }
 
-    return (
-      <BookPage
-        pageNumber={this.props.pageNumber}
-        textLines={this.props.textLines}
-        imageURL={this.props.imageURL}
-        isWideBook={this.props.isWideBook}
-      />
-    );
+    if (true || this.props.readerState === "READER_STATE_IN_PROGRESS") {
+      return (
+        <div className={[styles.buttonContainer].join(" ")}>
+          <RectangleButton
+            title="Stop Recording"
+            pulsatingArrow={false}
+            pulsatingCircle={!this.props.disabled}
+            disabled={this.props.disabled}
+            isLarge
+            isRed
+            onClick={this.props.onStopClicked}
+          />
+
+          <div
+            className={
+              this.props.isWideBook
+                ? [
+                    wideContainerClass,
+                    styles.disabledLargeWideBookpageContainer
+                  ].join(" ")
+                : styles.bookpageContainer
+            }
+          >
+            <BookCover imageURL={this.props.coverImageURL} />;
+          </div>
+        </div>
+      );
+    }
   };
 
   renderRightButton = () => {
