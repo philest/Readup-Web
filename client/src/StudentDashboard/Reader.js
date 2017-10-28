@@ -93,7 +93,7 @@ export default class Reader extends React.Component {
       this.props.showVolumeIndicator
     ) {
       return (
-        <div style={{ marginLeft: 44 }}>
+        <div className={styles.volumeContainer}>
           <span className={styles.volumeHeading}> Turn on your volume </span>
           <br />
           <i

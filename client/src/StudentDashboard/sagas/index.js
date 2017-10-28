@@ -768,11 +768,11 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStartButton));
 
-  yield call(delay, 2000);
+  yield call(delay, 6000);
 
   yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStopButton));
 
-  yield call(delay, 2000);
+  yield call(delay, 3000);
 
   yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
