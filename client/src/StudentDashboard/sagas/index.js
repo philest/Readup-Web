@@ -445,13 +445,13 @@ function* instructionSaga() {
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    yield call(playSoundAsync, "/audio/see-book.mp3");
+    // yield call(playSoundAsync, "/audio/see-book.mp3");
 
-    yield call(delay, 3300);
+    // yield call(delay, 3300);
 
-    yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutSeeBook));
+    // yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutSeeBook));
 
-    yield call(delay, 1500);
+    // yield call(delay, 1500);
 
     yield put.resolve(setCurrentModal("no-modal"));
 
