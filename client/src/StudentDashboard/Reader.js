@@ -125,16 +125,28 @@ export default class Reader extends React.Component {
   };
 
   renderCenterDisplay = () => {
-    if (this.props.showCover) {
-      if (
-        !this.props.inComp &&
-        this.props.readerState === "READER_STATE_AWAITING_START" &&
-        this.props.showVolumeIndicator
-      ) {
-        stopAudio();
-        playSoundAsync(this.props.introAudioSrc);
-      }
+    // if (this.props.showCover) {
+    //   if (
+    //     !this.props.inComp &&
+    //     this.props.readerState === "READER_STATE_AWAITING_START" &&
+    //     this.props.showVolumeIndicator
+    //   ) {
+    //     stopAudio();
+    //     playSoundAsync(this.props.introAudioSrc);
+    //   }
 
+    return (
+      <RectangleButton
+        title="Start Recording"
+        style={{ backgroundColor: "#249C44" }}
+        pulsatingArrow={false && true}
+        disabled={this.props.disabled}
+        onClick={this.props.onStartClicked}
+        isLarge
+      />
+    );
+
+    if (this.props.showCover) {
       return <BookCover imageURL={this.props.coverImageURL} />;
     }
 
@@ -286,6 +298,7 @@ export default class Reader extends React.Component {
                 ? styles.leftDoubleButtonContainer
                 : styles.leftButtonContainer
             }
+            style={{ marginTop: 4 + "%" }}
           >
             {this.renderUpperLeftButton()}
             {(this.props.inSpelling ||
@@ -294,19 +307,22 @@ export default class Reader extends React.Component {
               this.renderLeftButton()}
           </div>
 
-          {(this.props.inOralReading || this.props.inComp) && (
-            <div
-              className={
-                this.props.isWideBook
-                  ? wideContainerClass
-                  : styles.bookpageContainer
-              }
-            >
-              <RouteTransition {...transitionProps}>
-                {this.renderCenterDisplay()}
-              </RouteTransition>
-            </div>
-          )}
+          {this.renderCenterDisplay()}
+
+          {false &&
+            (this.props.inOralReading || this.props.inComp) && (
+              <div
+                className={
+                  this.props.isWideBook
+                    ? wideContainerClass
+                    : styles.bookpageContainer
+                }
+              >
+                <RouteTransition {...transitionProps}>
+                  {this.renderCenterDisplay()}
+                </RouteTransition>
+              </div>
+            )}
 
           {this.props.inSpelling && (
             <SpellingTextField
@@ -338,9 +354,10 @@ export default class Reader extends React.Component {
                 <i className="fa fa-caret-right" aria-hidden="true" />
               </span>
             )}
-            {(this.props.inSpelling ||
-              this.props.inComp ||
-              this.props.inOralReading) &&
+            {false &&
+              (this.props.inSpelling ||
+                this.props.inComp ||
+                this.props.inOralReading) &&
               this.renderRightButton()}
           </div>
         </div>

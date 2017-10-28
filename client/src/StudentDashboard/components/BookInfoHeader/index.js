@@ -13,14 +13,6 @@ function BookInfoHeader({ title = "", subtitle = "", style = {} }: props) {
   return (
     <div className={styles.bookInfoHeaderContainer} style={style}>
       <div className={styles.bookInfoHeaderContainerTitle}>{title}</div>
-
-      {subtitle &&
-        subtitle !== "" && (
-          <div className={styles.bookInfoHeaderContainerSubtitle}>
-            {" "}
-            {subtitle}{" "}
-          </div>
-        )}
     </div>
   );
 }
