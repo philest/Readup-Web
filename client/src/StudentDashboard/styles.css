@@ -22,6 +22,7 @@ body {
 	z-index: 1;
 	justify-content: space-around;
 	align-items: center;
+	overflow-y: hidden;
 }
 
 .leftButtonContainer {
@@ -74,10 +75,29 @@ body {
 }
 
 .largeWideBookpageContainer {
-	width: 53%;
-	height: 85%;
+	width: 45%;
+	height: 70%;
 	background-color: white;
 	border-radius: 5px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.disabledLargeWideBookpageContainer {
+	width: 80%;
+	height: 60%;
+	background-color: white;
+	border-radius: 5px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 100px;
+	margin-bottom: -80px;
+	opacity: 0.5;
+}
+
+.buttonContainer {
+	display: block;
+	margin-top: 360px;
 }
 
 .routeTransition,

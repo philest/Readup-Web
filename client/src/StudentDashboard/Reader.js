@@ -152,43 +152,88 @@ export default class Reader extends React.Component {
 
     if (this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON") {
       return (
-        <RectangleButton
-          title="Start Recording"
-          pulsatingArrow={false && true}
-          disabled={this.props.disabled}
-          onClick={this.props.onStartClicked}
-          partiallyDisabled
-          isLarge
-          isGreen
-        />
+        <div className={[styles.buttonContainer].join(" ")}>
+          <RectangleButton
+            title="Start Recording"
+            pulsatingArrow={false && true}
+            disabled={this.props.disabled}
+            partiallyDisabled
+            isLarge
+            isGreen
+          />
+
+          <div
+            className={
+              this.props.isWideBook
+                ? [
+                    wideContainerClass,
+                    styles.disabledLargeWideBookpageContainer
+                  ].join(" ")
+                : styles.bookpageContainer
+            }
+          >
+            <BookCover imageURL={this.props.coverImageURL} />;
+          </div>
+        </div>
       );
     }
 
     if (this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON") {
       return (
-        <RectangleButton
-          title="Stop Recording"
-          pulsatingArrow={false && true}
-          disabled={this.props.disabled}
-          onClick={this.props.onStartClicked}
-          partiallyDisabled
-          isLarge
-          isRed
-        />
+        <div className={[styles.buttonContainer].join(" ")}>
+          <RectangleButton
+            title="Stop Recording"
+            pulsatingArrow={false && true}
+            disabled={this.props.disabled}
+            partiallyDisabled
+            isLarge
+            isRed
+          />
+
+          <div
+            className={
+              this.props.isWideBook
+                ? [
+                    wideContainerClass,
+                    styles.disabledLargeWideBookpageContainer
+                  ].join(" ")
+                : styles.bookpageContainer
+            }
+          >
+            <BookCover imageURL={this.props.coverImageURL} />;
+          </div>
+        </div>
       );
     }
 
     if (this.props.readerState === "READER_STATE_AWAITING_START") {
       return (
-        <div className={ReportStyles.wiggler}>
-          <RectangleButton
-            title="Start Recording"
-            pulsatingArrow={false && true}
-            disabled={this.props.disabled}
-            onClick={this.props.onStartClicked}
-            isLarge
-            isGreen
-          />
+        <div>
+          <div
+            className={[ReportStyles.wiggler, styles.buttonContainer].join(" ")}
+          >
+            <RectangleButton
+              title="Start Recording"
+              pulsatingArrow={false && true}
+              disabled={this.props.disabled}
+              onClick={this.props.onStartClicked}
+              isLarge
+              isGreen
+            />
+          </div>
+
+          <div
+            className={
+              this.props.isWideBook
+                ? [
+                    wideContainerClass,
+                    styles.disabledLargeWideBookpageContainer
+                  ].join(" ")
+                : styles.bookpageContainer
+            }
+          >
+            <BookCover imageURL={this.props.coverImageURL} />;
+          </div>
         </div>
       );
     }

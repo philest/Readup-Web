@@ -25,6 +25,7 @@
 	z-index: 100;
 	color: white;
 	border-radius: 3px;
+	margin: 0 auto;
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
 	-webkit-touch-callout: none; /* iOS Safari */
@@ -133,6 +134,7 @@
 	z-index: 100;
 	color: white;
 	border-radius: 5px;
+	margin: 0 auto;
 
 	opacity: 0.8;
 	cursor: default;
