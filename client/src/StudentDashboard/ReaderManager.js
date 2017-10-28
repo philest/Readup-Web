@@ -129,7 +129,7 @@ class StudentDashboard extends React.Component {
       bookTitle: this.props.book.title,
       bookAuthor: this.props.book.author,
       isWideBook: this.props.book.isWideBook,
-      showBookInfo: this.props.readerState === ReaderStateOptions.inProgress,
+      showBookInfo: false,
       disabled:
         this.props.readerState === ReaderStateOptions.countdownToStart ||
         this.props.readerState === ReaderStateOptions.playingBookIntro ||
