@@ -728,6 +728,7 @@ function* assessThenSubmitSaga(assessmentId) {
   yield put.resolve(setInComp(false));
   yield put.resolve(setInSpelling(false));
   yield put.resolve(setInOralReading(true));
+  yield put.resolve(setShowSkipPrompt(false));
 
   yield put.resolve(setHasRecordedSomething(false));
   yield put.resolve(setCurrentModal("no-modal"));
