@@ -1,3 +1,19 @@
+.greenButton {
+	border-color: #145726;
+	border: 0;
+	border-bottom: 5px solid #145726;
+	border-radius: 3px;
+	background-color: #249c44;
+}
+
+.redButton {
+	border-color: #4f1210;
+	border: 0;
+	border-bottom: 5px solid #4f1210;
+	border-radius: 3px;
+	background-color: #9d2d28;
+}
+
 .largeRectangleButtonContainer {
 	width: 460px;
 	height: 140px;

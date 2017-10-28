@@ -16,7 +16,9 @@ type props = {
   showSpinner: boolean,
   id: string,
   showPrompting: boolean,
-  isLarge: boolean
+  isLarge: boolean,
+  isGreen: boolean,
+  isRed: boolean
 };
 
 function RectangleButton({
@@ -32,7 +34,9 @@ function RectangleButton({
   showSpinner = false,
   id = "",
   showPrompting = false,
-  isLarge = false
+  isLarge = false,
+  isGreen = true,
+  isRed = false
 }: props) {
   let containerStyle;
 
@@ -47,6 +51,16 @@ function RectangleButton({
   } else {
     containerStyle = styles.rectangleButtonContainer;
   }
+
+  console.log(containerStyle);
+
+  if (isGreen) {
+    containerStyle = [containerStyle, styles.greenButton].join(" ");
+  } else if (isRed) {
+    containerStyle = [containerStyle, styles.redButton].join(" ");
+  }
+
+  console.log("final: ", containerStyle);
 
   let isNavButton = id === "navigation-button";
 

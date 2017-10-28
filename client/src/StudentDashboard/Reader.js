@@ -138,11 +138,11 @@ export default class Reader extends React.Component {
     return (
       <RectangleButton
         title="Start Recording"
-        style={{ backgroundColor: "#249C44" }}
         pulsatingArrow={false && true}
         disabled={this.props.disabled}
         onClick={this.props.onStartClicked}
         isLarge
+        isGreen
       />
     );
 
