@@ -125,29 +125,72 @@ export default class Reader extends React.Component {
   };
 
   renderCenterDisplay = () => {
-    // if (this.props.showCover) {
-    //   if (
-    //     !this.props.inComp &&
-    //     this.props.readerState === "READER_STATE_AWAITING_START" &&
-    //     this.props.showVolumeIndicator
-    //   ) {
-    //     stopAudio();
-    //     playSoundAsync(this.props.introAudioSrc);
-    //   }
-
-    return (
-      <RectangleButton
-        title="Start Recording"
-        pulsatingArrow={false && true}
-        disabled={this.props.disabled}
-        onClick={this.props.onStartClicked}
-        isLarge
-        isGreen
-      />
-    );
+    let wideContainerClass;
 
     if (this.props.showCover) {
-      return <BookCover imageURL={this.props.coverImageURL} />;
+      wideContainerClass = styles.largeWideBookpageContainer;
+    } else {
+      wideContainerClass = styles.wideBookpageContainer;
+    }
+
+    if (
+      this.props.readerState === "READER_STATE_INITIALIZING" ||
+      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
+    ) {
+      return (
+        <div
+          className={
+            this.props.isWideBook
+              ? wideContainerClass
+              : styles.bookpageContainer
+          }
+        >
+          <BookCover imageURL={this.props.coverImageURL} />;
+        </div>
+      );
+    }
+
+    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON") {
+      return (
+        <RectangleButton
+          title="Start Recording"
+          pulsatingArrow={false && true}
+          disabled={this.props.disabled}
+          onClick={this.props.onStartClicked}
+          partiallyDisabled
+          isLarge
+          isGreen
+        />
+      );
+    }
+
+    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON") {
+      return (
+        <RectangleButton
+          title="Stop Recording"
+          pulsatingArrow={false && true}
+          disabled={this.props.disabled}
+          onClick={this.props.onStartClicked}
+          partiallyDisabled
+          isLarge
+          isRed
+        />
+      );
+    }
+
+    if (this.props.readerState === "READER_STATE_AWAITING_START") {
+      return (
+        <div className={ReportStyles.wiggler}>
+          <RectangleButton
+            title="Start Recording"
+            pulsatingArrow={false && true}
+            disabled={this.props.disabled}
+            onClick={this.props.onStartClicked}
+            isLarge
+            isGreen
+          />
+        </div>
+      );
     }
 
     return (
@@ -271,14 +314,6 @@ export default class Reader extends React.Component {
 
   render() {
     console.log("Rerendering Reader, pageNumber is: " + this.props.pageNumber);
-
-    let wideContainerClass;
-
-    if (this.props.showCover) {
-      wideContainerClass = styles.largeWideBookpageContainer;
-    } else {
-      wideContainerClass = styles.wideBookpageContainer;
-    }
 
     // const transitionPreset = this.props.location.action === 'POP' ? presets.slideLeft : presets.slideRight;
     const transitionProps = {

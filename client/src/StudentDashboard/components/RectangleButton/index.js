@@ -35,13 +35,15 @@ function RectangleButton({
   id = "",
   showPrompting = false,
   isLarge = false,
-  isGreen = true,
+  isGreen = false,
   isRed = false
 }: props) {
   let containerStyle;
 
   if (disabled && isLarge) {
     containerStyle = styles.largeDisabledButtonContainer;
+  } else if (partiallyDisabled && isLarge) {
+    containerStyle = styles.largePartiallyDisabledButtonContainer;
   } else if (disabled) {
     containerStyle = styles.disabledButtonContainer;
   } else if (partiallyDisabled) {

@@ -751,7 +751,7 @@ function* assessThenSubmitSaga(assessmentId) {
   let recorder = yield select(getRecorder);
   yield call(recorder.initialize);
 
-  yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+  // yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
   effects.push(yield fork(hideVolumeSaga));
 
@@ -764,7 +764,16 @@ function* assessThenSubmitSaga(assessmentId) {
   yield call(stopAudio);
   yield call(playSoundAsync, book.introAudioSrc);
 
-  yield call(delay, 12000);
+  yield call(delay, 10000);
+
+  yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStartButton));
+
+  yield call(delay, 2000);
+
+  yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStopButton));
+
+  yield call(delay, 2000);
+
   yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
   yield clog("UNset it");
