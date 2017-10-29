@@ -113,7 +113,7 @@
 	border-radius: 5px;
 	margin: 0 auto;
 
-	opacity: 0.4;
+	opacity: 0.65;
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
 	-webkit-touch-callout: none; /* iOS Safari */
@@ -137,7 +137,7 @@
 	border-radius: 5px;
 	margin: 0 auto;
 
-	opacity: 0.5;
+	opacity: 0.75;
 	cursor: default;
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
