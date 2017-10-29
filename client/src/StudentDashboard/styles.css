@@ -89,14 +89,11 @@ body {
 
 .disabledLargeWideBookpageContainer {
 	width: 80%;
-	height: 60%;
+	height: 70%;
 	background-color: white;
 	border-radius: 5px;
 	text-align: center;
 	margin: 0 auto;
-	margin-top: 100px;
-	margin-bottom: -80px;
-	opacity: 0.5;
 }
 
 .buttonContainer {
@@ -170,7 +167,6 @@ body {
 
 .volumeContainer {
 	position: relative;
-	left: 30px;
 	-ms-transform: rotate(-4deg);
 	-webkit-transform: rotate(-4deg);
 	transform: rotate(-4deg);
