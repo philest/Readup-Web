@@ -699,7 +699,7 @@ export const stepBook = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step/step-cover.jpg",
-  introAudioSrc: "/audio/step/intro.mp3",
+  introAudioSrc: "/audio/phil-intro-peter.m4a",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
