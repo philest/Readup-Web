@@ -401,21 +401,11 @@ function* newFetchUntilPrompt(studentID) {
 function* spellingInstructionSaga() {
   yield call(playSoundAsync, "/audio/spelling-intro.mp3");
 
-  yield put.resolve(hideVolumeIndicator());
-  yield call(delay, 2500);
-  yield put.resolve(showVolumeIndicator());
-  yield call(delay, 2000);
-  yield put.resolve(hideVolumeIndicator());
-
-  yield call(delay, 5500);
+  yield call(delay, 5000);
 
   yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutSpellingBox));
 
-  yield call(delay, 4000);
-
-  yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutNextButton));
-
-  yield call(delay, 1500);
+  yield call(delay, 3500);
 
   yield put.resolve(setReaderState(ReaderStateOptions.done));
 }
