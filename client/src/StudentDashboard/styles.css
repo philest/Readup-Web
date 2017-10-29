@@ -94,11 +94,17 @@ body {
 	border-radius: 5px;
 	text-align: center;
 	margin: 0 auto;
+
+	position: relative;
+	top: -290px;
+	z-index: -1;
+
+	opacity: 0.5;
 }
 
 .buttonContainer {
 	display: block;
-	margin-top: 360px;
+	margin-top: 65%;
 }
 
 .routeTransition,
