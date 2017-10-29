@@ -150,7 +150,8 @@ class StudentDashboard extends React.Component {
       spellingQuestionNumber: this.props.spellingQuestionNumber,
       inOralReading: this.props.inOralReading,
       showSkipPrompt: this.props.showSkipPrompt,
-      readerState: this.props.readerState
+      readerState: this.props.readerState,
+      onStopClicked: this.props.actions.stopRecordingClicked
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader

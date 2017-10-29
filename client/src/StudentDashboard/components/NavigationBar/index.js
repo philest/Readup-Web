@@ -203,11 +203,7 @@ export default class NavigationBar extends React.Component {
         {!this.props.showBookInfo &&
           this.props.onReader &&
           !this.props.showPauseButton &&
-          this.props.inComp && (
-            <div className={css.notRecordingSubContainer}>
-              <span className={css.notRecording}>Not recording</span>
-            </div>
-          )}
+          this.props.inComp && <div className={css.notRecordingSubContainer} />}
 
         {this.props.showBookInfo && (
           <div className={css.subContainer}>

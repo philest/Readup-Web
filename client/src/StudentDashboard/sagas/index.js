@@ -455,13 +455,9 @@ function* instructionSaga() {
 
     yield put.resolve(setCurrentModal("no-modal"));
 
-    yield call(delay, 1250);
-
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
     // yield put.resolve(setCurrentModal("modal-comp"));
-
-    yield call(delay, 500);
   }
 }
 
@@ -657,6 +653,8 @@ function* compSaga(
 
   yield put({ type: SPINNER_SHOW });
 
+  yield put.resolve(setCurrentOverlay("overlay-spinner"));
+
   let waitingTime = isLiveDemo ? 8000 : 3000;
   console.log("waitingTime: ", waitingTime);
 
@@ -664,6 +662,8 @@ function* compSaga(
     prompt: call(newFetchUntilPrompt, studentID),
     timeout: call(delay, waitingTime)
   });
+
+  yield put.resolve(setCurrentOverlay("no-overlay"));
 
   yield put({ type: SPINNER_HIDE });
 
@@ -746,8 +746,6 @@ function* assessThenSubmitSaga(assessmentId) {
   }
 
   yield put(setCurrentOverlay("no-overlay"));
-
-  yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
   // permission was granted!!!!
 

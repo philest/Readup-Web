@@ -107,6 +107,10 @@ export default class Reader extends React.Component {
   };
 
   renderCenterDisplay = () => {
+    if (this.props.inSpelling) {
+      return null;
+    }
+
     let wideContainerClass;
 
     if (this.props.showCover) {
