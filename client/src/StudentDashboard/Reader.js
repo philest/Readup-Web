@@ -123,6 +123,7 @@ export default class Reader extends React.Component {
     ) {
       return (
         <div
+          className={[styles.buttonContainer].join(" ")}
           className={
             this.props.isWideBook
               ? wideContainerClass
@@ -195,10 +196,8 @@ export default class Reader extends React.Component {
 
     if (this.props.readerState === "READER_STATE_AWAITING_START") {
       return (
-        <div>
-          <div
-            className={[ReportStyles.wiggler, styles.buttonContainer].join(" ")}
-          >
+        <div className={[styles.buttonContainer].join(" ")}>
+          <div className={ReportStyles.wiggler}>
             <RectangleButton
               title="Start Recording"
               pulsatingArrow={false && true}
