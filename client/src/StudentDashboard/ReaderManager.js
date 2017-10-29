@@ -27,6 +27,7 @@ import SubmittedOverlay from "./overlays/SubmittedOverlay";
 import DemoSubmittedOverlay from "./overlays/DemoSubmittedOverlay";
 import PermissionsOverlay from "./overlays/PermissionsOverlay";
 import CountdownOverlay from "./overlays/CountdownOverlay";
+import SpinnerOverlay from "./overlays/SpinnerOverlay";
 
 import { Modal } from "react-bootstrap";
 
@@ -295,6 +296,12 @@ class StudentDashboard extends React.Component {
         {this.props.readerState === ReaderStateOptions.countdownToStart && (
           <CountdownOverlay countdownValue={this.props.countdownValue} />
         )}
+
+        <SpinnerOverlay
+          showPrompting={this.props.isLiveDemo}
+          currentShowOverlay={this.props.currentShowOverlay}
+          text={"Spinner message goes here"}
+        />
       </div>
     );
   }; // END renderOverlayOrNullBasedOnState = () => {

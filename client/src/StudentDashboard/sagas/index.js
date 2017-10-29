@@ -747,6 +747,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield put(setCurrentOverlay("no-overlay"));
 
+  yield put.resolve(setCurrentOverlay("overlay-spinner"));
+
   // permission was granted!!!!
 
   let recorder = yield select(getRecorder);
