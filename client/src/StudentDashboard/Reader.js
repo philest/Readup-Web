@@ -87,6 +87,8 @@ export default class Reader extends React.Component {
   }
 
   renderLeftButton = () => {
+    return null;
+
     if (
       this.props.showCover ||
       (this.props.isFirstPage && !this.props.inComp) ||
@@ -120,10 +122,13 @@ export default class Reader extends React.Component {
     }
 
     if (
-      this.props.showCover &&
-      this.props.inOralReading &&
-      (this.props.readerState === "READER_STATE_INITIALIZING" ||
-        this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")
+      (this.props.showCover &&
+        this.props.inOralReading &&
+        (this.props.readerState === "READER_STATE_INITIALIZING" ||
+          this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")) ||
+      (!this.props.inOralReading &&
+        !this.props.inComp &&
+        !this.props.inSpelling)
     ) {
       return (
         <div
@@ -309,6 +314,22 @@ export default class Reader extends React.Component {
       );
     }
 
+    if (this.props.inSpelling) {
+      return (
+        <ForwardArrowButton
+          title="Next"
+          subtitle={this.props.inSpelling ? "word" : "page"}
+          style={{ width: 145, height: 120 }}
+          disabled={this.props.disabled}
+          onClick={
+            this.props.inSpelling
+              ? this.props.onNextWordClicked
+              : this.props.onNextPageClicked
+          }
+        />
+      );
+    }
+
     return null;
 
     if (this.props.isLastPage && !this.props.inComp) {
@@ -340,20 +361,6 @@ export default class Reader extends React.Component {
         />
       );
     }
-
-    return (
-      <ForwardArrowButton
-        title="Next"
-        subtitle={this.props.inSpelling ? "word" : "page"}
-        style={{ width: 145, height: 120 }}
-        disabled={this.props.disabled}
-        onClick={
-          this.props.inSpelling
-            ? this.props.onNextWordClicked
-            : this.props.onNextPageClicked
-        }
-      />
-    );
   };
 
   renderUpperLeftButton = () => {
@@ -477,7 +484,7 @@ export default class Reader extends React.Component {
           >
             {this.props.showSkipPrompt && (
               <span
-                style={{ top: this.props.inSpelling ? -10 + "vh" : -40 + "vh" }}
+                style={{ top: this.props.inSpelling ? -10 + "vh" : 0 + "vh" }}
                 onClick={this.props.onSkipClicked}
                 className={styles.skipPrompt}
               >

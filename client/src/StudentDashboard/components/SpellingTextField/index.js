@@ -112,17 +112,18 @@ export default class SpellingTextField extends React.Component {
   render() {
     return (
       <div className={[styles.spellingContainer].join(" ")}>
-        <div className={styles.introVolume}>
+        <div
+          onClick={() => {
+            playSoundAsync(
+              `/audio/spelling/${this.props.spellingQuestionNumber}.mp3`
+            );
+          }}
+          className={[styles.introVolume, styles.clickable].join(" ")}
+        >
           <br />
           <i
-            onClick={() => {
-              playSoundAsync(
-                `/audio/spelling/${this.props.spellingQuestionNumber}.mp3`
-              );
-            }}
             className={[
               "fa fa-volume-up fa-3x",
-              styles.clickable,
               styles.volumeIcon,
               this.props.showVolumeIndicator
                 ? "faa-pulse animated faa-fast"
@@ -131,6 +132,7 @@ export default class SpellingTextField extends React.Component {
             style={{ color: "white" }}
             aria-hidden="true"
           />
+          <h4 className={styles.volumeLabel}>Hear again</h4>
         </div>
 
         <style type="text/css">

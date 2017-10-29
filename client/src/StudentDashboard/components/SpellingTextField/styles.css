@@ -3,8 +3,8 @@
 }
 
 .spellingField {
-    width: 235px;
-    height: 62px;
+    width: 368px;
+    height: 92px;
     font-size: 48px;
     text-align: center;
     margin-top: 50px;
@@ -25,24 +25,22 @@
 
 i.helper {
     color: green;
-    font-size: 70px;
+    font-size: 85px;
     position: relative;
-    top: -60px;
-    left: -50px;
+    top: -84px;
+    left: -55px;
 }
 
-.volumeHeading {
+.volumeLabel {
     color: white;
     font-family: "ProximaNova Semibold";
-    position: relative;
-    left: -33px;
-    bottom: 8px;
     font-size: 16px;
 }
 
 .introVolume {
     position: relative;
     text-align: center;
+    transform: rotate(-2deg);
 }
 
 .volumeIcon {
