@@ -65,10 +65,21 @@ body {
 }
 
 .bookpageContainer {
-	width: 31.5%;
-	height: 80%;
+	width: 31.5vw;
+	height: 75vh;
 	background-color: white;
 	border-radius: 5px;
+}
+
+.disabledBookpageContainer {
+	width: 31.5vw;
+	height: 75vh;
+	background-color: white;
+	border-radius: 5px;
+	opacity: 0.5;
+	position: relative;
+	z-index: -1;
+	top: -40vh;
 }
 
 .wideBookpageContainer {

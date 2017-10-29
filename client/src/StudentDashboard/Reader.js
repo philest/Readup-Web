@@ -166,7 +166,10 @@ export default class Reader extends React.Component {
                     wideContainerClass,
                     styles.disabledLargeWideBookpageContainer
                   ].join(" ")
-                : styles.bookpageContainer
+                : [
+                    styles.bookpageContainer,
+                    styles.disabledBookpageContainer
+                  ].join(" ")
             }
           >
             <BookCover imageURL={this.props.coverImageURL} />;
@@ -194,7 +197,10 @@ export default class Reader extends React.Component {
                     wideContainerClass,
                     styles.disabledLargeWideBookpageContainer
                   ].join(" ")
-                : styles.bookpageContainer
+                : [
+                    styles.bookpageContainer,
+                    styles.disabledBookpageContainer
+                  ].join(" ")
             }
           >
             <BookCover imageURL={this.props.coverImageURL} />;
@@ -224,7 +230,10 @@ export default class Reader extends React.Component {
                     wideContainerClass,
                     styles.disabledLargeWideBookpageContainer
                   ].join(" ")
-                : styles.bookpageContainer
+                : [
+                    styles.bookpageContainer,
+                    styles.disabledBookpageContainer
+                  ].join(" ")
             }
           >
             <BookCover imageURL={this.props.coverImageURL} />;
@@ -258,7 +267,10 @@ export default class Reader extends React.Component {
                     wideContainerClass,
                     styles.disabledLargeWideBookpageContainer
                   ].join(" ")
-                : styles.bookpageContainer
+                : [
+                    styles.bookpageContainer,
+                    styles.disabledBookpageContainer
+                  ].join(" ")
             }
           >
             <BookCover imageURL={this.props.coverImageURL} />;
@@ -286,7 +298,10 @@ export default class Reader extends React.Component {
                   wideContainerClass,
                   styles.disabledLargeWideBookpageContainer
                 ].join(" ")
-              : styles.bookpageContainer
+              : [
+                  styles.bookpageContainer,
+                  styles.disabledBookpageContainer
+                ].join(" ")
           }
         >
           <BookCover imageURL={this.props.coverImageURL} />;

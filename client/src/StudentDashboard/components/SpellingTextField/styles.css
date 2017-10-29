@@ -49,4 +49,11 @@ i.helper {
 
 .clickable {
     cursor: pointer;
+    transition: all 0.3s;
+}
+
+.clickable:hover {
+    transition: all 0.3s;
+    transform: translateY(-3px);
+    filter: brightness(120%);
 }
