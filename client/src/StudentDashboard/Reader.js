@@ -166,14 +166,16 @@ export default class Reader extends React.Component {
             <BookCover imageURL={this.props.coverImageURL} />;
           </div>
 
-          <RectangleButton
-            title="Start Recording"
-            pulsatingArrow={false && true}
-            disabled={this.props.disabled}
-            partiallyDisabled
-            isLarge
-            isGreen
-          />
+          <div className={[styles.buttonPlacement].join(" ")}>
+            <RectangleButton
+              title="Start Recording"
+              pulsatingArrow={false && true}
+              disabled={this.props.disabled}
+              partiallyDisabled
+              isLarge
+              isGreen
+            />
+          </div>
         </div>
       );
     }
@@ -197,14 +199,16 @@ export default class Reader extends React.Component {
             <BookCover imageURL={this.props.coverImageURL} />;
           </div>
 
-          <RectangleButton
-            title="Stop Recording"
-            pulsatingArrow={false && true}
-            disabled={this.props.disabled}
-            partiallyDisabled
-            isLarge
-            isRed
-          />
+          <div className={[styles.buttonPlacement].join(" ")}>
+            <RectangleButton
+              title="Stop Recording"
+              pulsatingArrow={false && true}
+              disabled={this.props.disabled}
+              partiallyDisabled
+              isLarge
+              isRed
+            />
+          </div>
         </div>
       );
     }
