@@ -523,7 +523,13 @@ export default class Reader extends React.Component {
       <div className={styles.fullHeight}>
         {this.renderNavigationBar()}
 
-        <div className={styles.contentContainer}>
+        <div
+          className={
+            this.props.inSpelling
+              ? styles.spellingContentContainer
+              : styles.contentContainer
+          }
+        >
           <div
             className={
               this.props.inComp && this.props.currentShowModal !== "modal-comp"

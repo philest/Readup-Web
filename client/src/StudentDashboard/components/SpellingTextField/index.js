@@ -115,6 +115,8 @@ export default class SpellingTextField extends React.Component {
       <div className={[styles.spellingContainer].join(" ")}>
         <div
           onClick={() => {
+            this.form.focus();
+
             playSoundAsync(
               `/audio/spelling/${this.props.spellingQuestionNumber}.mp3`
             );
