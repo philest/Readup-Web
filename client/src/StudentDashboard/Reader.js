@@ -150,6 +150,22 @@ export default class Reader extends React.Component {
     ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
+          <div
+            className={
+              this.props.isWideBook
+                ? [
+                    wideContainerClass,
+                    styles.disabledLargeWideBookpageContainer
+                  ].join(" ")
+                : [
+                    styles.bookpageContainer,
+                    styles.disabledBookpageContainer
+                  ].join(" ")
+            }
+          >
+            <BookCover imageURL={this.props.coverImageURL} />;
+          </div>
+
           <RectangleButton
             title="Start Recording"
             pulsatingArrow={false && true}
@@ -158,7 +174,13 @@ export default class Reader extends React.Component {
             isLarge
             isGreen
           />
+        </div>
+      );
+    }
 
+    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON") {
+      return (
+        <div className={[styles.buttonContainer].join(" ")}>
           <div
             className={
               this.props.isWideBook
@@ -174,13 +196,7 @@ export default class Reader extends React.Component {
           >
             <BookCover imageURL={this.props.coverImageURL} />;
           </div>
-        </div>
-      );
-    }
 
-    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON") {
-      return (
-        <div className={[styles.buttonContainer].join(" ")}>
           <RectangleButton
             title="Stop Recording"
             pulsatingArrow={false && true}
@@ -189,22 +205,6 @@ export default class Reader extends React.Component {
             isLarge
             isRed
           />
-
-          <div
-            className={
-              this.props.isWideBook
-                ? [
-                    wideContainerClass,
-                    styles.disabledLargeWideBookpageContainer
-                  ].join(" ")
-                : [
-                    styles.bookpageContainer,
-                    styles.disabledBookpageContainer
-                  ].join(" ")
-            }
-          >
-            <BookCover imageURL={this.props.coverImageURL} />;
-          </div>
         </div>
       );
     }
@@ -212,31 +212,37 @@ export default class Reader extends React.Component {
     if (this.props.readerState === "READER_STATE_AWAITING_START") {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
-          <div className={ReportStyles.wiggler}>
-            <RectangleButton
-              title="Start Recording"
-              pulsatingArrow={false && true}
-              disabled={this.props.disabled}
-              onClick={this.props.onStartClicked}
-              isLarge
-              isGreen
-            />
-          </div>
+          <div>
+            <div
+              className={
+                this.props.isWideBook
+                  ? [
+                      wideContainerClass,
+                      styles.disabledLargeWideBookpageContainer
+                    ].join(" ")
+                  : [
+                      styles.bookpageContainer,
+                      styles.disabledBookpageContainer
+                    ].join(" ")
+              }
+            >
+              <BookCover imageURL={this.props.coverImageURL} />;
+            </div>
 
-          <div
-            className={
-              this.props.isWideBook
-                ? [
-                    wideContainerClass,
-                    styles.disabledLargeWideBookpageContainer
-                  ].join(" ")
-                : [
-                    styles.bookpageContainer,
-                    styles.disabledBookpageContainer
-                  ].join(" ")
-            }
-          >
-            <BookCover imageURL={this.props.coverImageURL} />;
+            <div
+              className={[ReportStyles.wiggler, styles.buttonPlacement].join(
+                " "
+              )}
+            >
+              <RectangleButton
+                title="Start Recording"
+                pulsatingArrow={false && true}
+                disabled={this.props.disabled}
+                onClick={this.props.onStartClicked}
+                isLarge
+                isGreen
+              />
+            </div>
           </div>
         </div>
       );
@@ -250,16 +256,6 @@ export default class Reader extends React.Component {
     ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
-          <RectangleButton
-            title="Stop Recording"
-            pulsatingArrow={false}
-            pulsatingCircle={!this.props.disabled}
-            disabled={this.props.disabled}
-            isLarge
-            isRed
-            onClick={this.props.onStopClicked}
-          />
-
           <div
             className={
               this.props.isWideBook
@@ -275,6 +271,16 @@ export default class Reader extends React.Component {
           >
             <BookCover imageURL={this.props.coverImageURL} />;
           </div>
+
+          <RectangleButton
+            title="Stop Recording"
+            pulsatingArrow={false}
+            pulsatingCircle={!this.props.disabled}
+            disabled={this.props.disabled}
+            isLarge
+            isRed
+            onClick={this.props.onStopClicked}
+          />
         </div>
       );
     }
@@ -282,15 +288,6 @@ export default class Reader extends React.Component {
     // default
     return (
       <div className={[styles.buttonContainer].join(" ")}>
-        <RectangleButton
-          title="Start Recording"
-          pulsatingArrow={false && true}
-          disabled={this.props.disabled}
-          partiallyDisabled
-          isLarge
-          isGreen
-        />
-
         <div
           className={
             this.props.isWideBook
@@ -306,6 +303,15 @@ export default class Reader extends React.Component {
         >
           <BookCover imageURL={this.props.coverImageURL} />;
         </div>
+
+        <RectangleButton
+          title="Start Recording"
+          pulsatingArrow={false && true}
+          disabled={this.props.disabled}
+          partiallyDisabled
+          isLarge
+          isGreen
+        />
       </div>
     );
   };
