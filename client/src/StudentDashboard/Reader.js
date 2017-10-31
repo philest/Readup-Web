@@ -365,6 +365,34 @@ export default class Reader extends React.Component {
       );
     }
 
+    if (this.props.inComp) {
+      return (
+        <div
+          onClick={() => {
+            playSoundAsync(
+              this.props.book.questions[String(this.props.questionNumber)]
+                .audioSrc
+            );
+          }}
+          className={[styles.volumeContainer, styles.clickable].join(" ")}
+          style={{
+            visibility:
+              this.props.readerState === "READER_STATE_AWAITING_START"
+                ? "visible"
+                : "hidden"
+          }}
+        >
+          <i
+            className="fa fa-volume-up fa-3x fake"
+            style={{ color: "white", fontSize: 5 + "em" }}
+            aria-hidden="true"
+          />
+          <br />
+          <span className={styles.volumeHeadingHearAgain}> Hear again </span>
+        </div>
+      );
+    }
+
     if (this.props.inSpelling) {
       return (
         <ForwardArrowButton
@@ -535,7 +563,11 @@ export default class Reader extends React.Component {
           >
             {this.props.showSkipPrompt && (
               <span
-                style={{ top: this.props.inSpelling ? -10 + "vh" : 0 + "vh" }}
+                style={{
+                  top: this.props.inSpelling
+                    ? -10 + "vh"
+                    : this.props.inComp ? -5 + "vh" : 0 + "vh"
+                }}
                 onClick={this.props.onSkipClicked}
                 className={styles.skipPrompt}
               >

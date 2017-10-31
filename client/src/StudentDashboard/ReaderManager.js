@@ -152,7 +152,9 @@ class StudentDashboard extends React.Component {
       showSkipPrompt: this.props.showSkipPrompt,
       readerState: this.props.readerState,
       onStopClicked: this.props.actions.stopRecordingClicked,
-      onStartOverClicked: this.props.actions.restartRecordingClicked
+      onStartOverClicked: this.props.actions.restartRecordingClicked,
+      book: this.props.book,
+      questionNumber: this.props.questionNumber
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
