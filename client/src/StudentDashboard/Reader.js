@@ -329,7 +329,7 @@ export default class Reader extends React.Component {
       this.props.showCover &&
       (!this.props.inComp && !this.props.inSpelling) &&
       this.props.showVolumeIndicator &&
-      this.props.readerState !== "READER_STATE_AWAITING_START"
+      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
     ) {
       return (
         <div className={styles.volumeContainer}>
@@ -347,8 +347,7 @@ export default class Reader extends React.Component {
     if (
       this.props.showCover &&
       (!this.props.inComp && !this.props.inSpelling) &&
-      this.props.showVolumeIndicator &&
-      this.props.readerState === "READER_STATE_AWAITING_START"
+      this.props.showVolumeIndicator
     ) {
       return (
         <div

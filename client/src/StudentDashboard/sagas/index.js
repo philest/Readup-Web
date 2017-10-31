@@ -757,6 +757,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield call(delay, 11500);
 
+  yield put.resolve(showVolumeIndicator());
+
   yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStartButton));
 
   yield call(delay, 5300);
@@ -770,8 +772,6 @@ function* assessThenSubmitSaga(assessmentId) {
   yield call(playSound, "/audio/complete.mp3");
 
   yield clog("UNset it");
-
-  yield put.resolve(showVolumeIndicator());
 
   // before assessment has started, clicking exit immediately quits app
   // I guess. We will probably change this
@@ -788,6 +788,8 @@ function* assessThenSubmitSaga(assessmentId) {
   // ])
 
   yield call(stopAudio);
+
+  yield put.resolve(hideVolumeIndicator());
 
   // the app will end :O
   if (exit) {
