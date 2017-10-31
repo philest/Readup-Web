@@ -15,12 +15,14 @@ class Recorder {
 
   /* eslint-disable */
   static browserSupportsRecording() {
-    return !!(
-      navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia
-    );
+    return (
+      !!(
+        navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia
+      ) && !isSafari
+    ); // disable Safari because autoplaying does not work
   }
   /*eslint-enable */
 
