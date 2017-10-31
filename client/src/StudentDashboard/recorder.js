@@ -127,7 +127,10 @@ class Recorder {
     if (this.recording) {
       this.stopRecording();
     }
-    this.rtcRecorder.reset();
+
+    if (this.rtcRecorder) {
+      this.rtcRecorder.reset();
+    }
   };
 
   pauseRecording = () => {

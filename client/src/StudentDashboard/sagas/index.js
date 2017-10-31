@@ -1040,8 +1040,11 @@ function* rootSaga() {
     }
 
     if (restartAssessment) {
+      yield clog("here i am?????");
       const recorder = yield select(getRecorder);
-      yield call(recorder.reset);
+      if (recorder) {
+        yield call(recorder.reset);
+      }
       yield put.resolve(setCurrentModal("no-modal"));
       yield put(setCurrentOverlay("no-overlay"));
     } else {

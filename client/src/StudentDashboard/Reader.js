@@ -310,14 +310,16 @@ export default class Reader extends React.Component {
           <BookCover imageURL={this.props.coverImageURL} />;
         </div>
 
-        <RectangleButton
-          title="Start Recording"
-          pulsatingArrow={false && true}
-          disabled={this.props.disabled}
-          partiallyDisabled
-          isLarge
-          isGreen
-        />
+        <div className={[styles.buttonPlacement].join(" ")}>
+          <RectangleButton
+            title="Start Recording"
+            pulsatingArrow={false && true}
+            disabled={this.props.disabled}
+            partiallyDisabled
+            isLarge
+            isGreen
+          />
+        </div>
       </div>
     );
   };
@@ -349,7 +351,10 @@ export default class Reader extends React.Component {
       this.props.readerState === "READER_STATE_AWAITING_START"
     ) {
       return (
-        <div className={[styles.volumeContainer, styles.clickable].join(" ")}>
+        <div
+          onClick={this.props.onStartOverClicked}
+          className={[styles.volumeContainer, styles.clickable].join(" ")}
+        >
           <i
             className="fa fa-volume-up fa-3x"
             style={{ color: "white", fontSize: 5 + "em" }}
