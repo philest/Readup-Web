@@ -90,6 +90,7 @@ export default class SpellingTextField extends React.Component {
     ) {
       this.saveSpellingResponse(this.form.value);
       this.form.value = "";
+      this.form.focus();
     }
   }
 
@@ -159,6 +160,7 @@ export default class SpellingTextField extends React.Component {
             this.form = ref;
           }}
           onChange={this.handleSpellingChange}
+          autoFocus
         />
 
         <i
