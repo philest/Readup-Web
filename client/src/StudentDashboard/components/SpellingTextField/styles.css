@@ -57,3 +57,8 @@ i.helper {
     transform: translateY(-3px);
     filter: brightness(120%);
 }
+
+.clickable:active {
+    transition: all 0.3s;
+    opacity: 0.8;
+}
