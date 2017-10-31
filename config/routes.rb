@@ -74,6 +74,9 @@ Rails.application.routes.draw do
   get 'step', to: redirect('/student_dashboard/#/story/step')
 
 
+  get 'step5', to: redirect('/student_dashboard/#/story/step5')
+
+
   get 'grade', to: redirect('/grade/waiting')
   get 'remote', to: redirect('/grade/remote')
 
