@@ -276,15 +276,17 @@ export default class Reader extends React.Component {
             <BookCover imageURL={this.props.coverImageURL} />;
           </div>
 
-          <RectangleButton
-            title="Stop Recording"
-            pulsatingArrow={false}
-            pulsatingCircle={!this.props.disabled}
-            disabled={this.props.disabled}
-            isLarge
-            isRed
-            onClick={this.props.onStopClicked}
-          />
+          <div className={[styles.buttonPlacement].join(" ")}>
+            <RectangleButton
+              title="Stop Recording"
+              pulsatingArrow={false}
+              pulsatingCircle={!this.props.disabled}
+              disabled={this.props.disabled}
+              isLarge
+              isRed
+              onClick={this.props.onStopClicked}
+            />
+          </div>
         </div>
       );
     }
@@ -324,7 +326,8 @@ export default class Reader extends React.Component {
     if (
       this.props.showCover &&
       (!this.props.inComp && !this.props.inSpelling) &&
-      this.props.showVolumeIndicator
+      this.props.showVolumeIndicator &&
+      this.props.readerState !== "READER_STATE_AWAITING_START"
     ) {
       return (
         <div className={styles.volumeContainer}>
@@ -335,6 +338,25 @@ export default class Reader extends React.Component {
             style={{ color: "white", fontSize: 5 + "em" }}
             aria-hidden="true"
           />
+        </div>
+      );
+    }
+
+    if (
+      this.props.showCover &&
+      (!this.props.inComp && !this.props.inSpelling) &&
+      this.props.showVolumeIndicator &&
+      this.props.readerState === "READER_STATE_AWAITING_START"
+    ) {
+      return (
+        <div className={[styles.volumeContainer, styles.clickable].join(" ")}>
+          <i
+            className="fa fa-volume-up fa-3x"
+            style={{ color: "white", fontSize: 5 + "em" }}
+            aria-hidden="true"
+          />
+          <br />
+          <span className={styles.volumeHeadingHearAgain}> Hear again </span>
         </div>
       );
     }

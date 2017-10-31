@@ -771,6 +771,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield clog("UNset it");
 
+  yield put.resolve(showVolumeIndicator());
+
   // before assessment has started, clicking exit immediately quits app
   // I guess. We will probably change this
   const { exit } = yield race({
