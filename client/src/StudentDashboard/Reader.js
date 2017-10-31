@@ -15,7 +15,13 @@ import ReportStyles from "../ReportsInterface/styles.css";
 
 import { RouteTransition, presets } from "react-router-transition";
 
-import { Modal, Button, Popover, OverlayTrigger } from "react-bootstrap";
+import {
+  Modal,
+  Button,
+  Popover,
+  OverlayTrigger,
+  ProgressBar
+} from "react-bootstrap";
 
 import { Link, Redirect } from "react-router-dom";
 
@@ -545,8 +551,6 @@ export default class Reader extends React.Component {
               this.renderLeftButton()}
           </div>
 
-          {this.renderCenterDisplay()}
-
           {this.props.inSpelling && (
             <SpellingTextField
               onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
@@ -557,8 +561,15 @@ export default class Reader extends React.Component {
                 "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
               }
               onEnterPressed={this.props.onNextWordClicked}
+              progressNum={
+                this.props.spellingQuestionNumber /
+                this.props.book.numSpellingQuestions *
+                100
+              }
             />
           )}
+
+          {this.renderCenterDisplay()}
 
           <div
             className={

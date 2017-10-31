@@ -1,5 +1,3 @@
-
-
 /*  NAVIGATION BAR  */
 
 .navContainer {
@@ -11,7 +9,6 @@
 	align-items: center;
 	z-index: 100;
 }
-
 
 .recipient {
 	font-weight: 800;
@@ -30,7 +27,14 @@
 
 .notRecording {
 	color: white;
-	opacity: .6;
+	opacity: 0.6;
+}
+
+.progress {
+	width: 30vw;
+	position: relative;
+	top: 8px;
+	opacity: 0.5;
 }
 
 .brandText {
@@ -39,7 +43,7 @@
 	margin-left: 60px;
 	/*background-color: red;*/
 	margin-right: auto;
-	font-family: 'Proximanova Semibold';
+	font-family: "Proximanova Semibold";
 	cursor: pointer;
 }
 
@@ -71,8 +75,6 @@
 	/*background-color: green;*/
 }
 
-
-
 .userNameLabel {
 	font-style: italic;
 }
@@ -80,7 +82,6 @@
 .shareLabel {
 	cursor: pointer;
 }
-
 
 .logoutButton {
 	margin-left: 40px;
@@ -118,20 +119,20 @@
 
 @keyframes pulseOut {
 	0% {
-		transform: scale(1.0)
+		transform: scale(1);
 	}
 	40% {
-		transform: scale(1.5)
+		transform: scale(1.5);
 	}
 	50% {
-		transform: scale(1.5)
+		transform: scale(1.5);
 	}
 	90% {
-		transform: scale(1.0)
+		transform: scale(1);
 	}
 	100% {
-		transform: scale(1.0)
-	}	
+		transform: scale(1);
+	}
 }
 
 .pulsatingCircle {
@@ -147,20 +148,17 @@
 	animation: pulseOut 2s infinite;
 }
 
-
 .reportNav {
-	    -webkit-box-shadow: 1px 10px 19px -8px rgba(84,84,84,.5);
-    -moz-box-shadow: 1px 10px 19px -8px rgba(84,84,84,.5);
-    box-shadow: 1px 10px 19px -8px rgba(84,84,84,.5);
-    position: fixed;
-    width: 100%;
+	-webkit-box-shadow: 1px 10px 19px -8px rgba(84, 84, 84, 0.5);
+	-moz-box-shadow: 1px 10px 19px -8px rgba(84, 84, 84, 0.5);
+	box-shadow: 1px 10px 19px -8px rgba(84, 84, 84, 0.5);
+	position: fixed;
+	width: 100%;
 }
-
 
 .lastNavElt {
 	margin-right: 80px;
 	width: 132px;
-
 }
 
 .barNavy {
@@ -170,7 +168,7 @@
 
 .barWhite {
 	background-color: white;
-	color: #0F72AF;
+	color: #0f72af;
 }
 
 .textWhite {
@@ -178,45 +176,41 @@
 }
 
 .textNavy {
-	color: #0F72AF;
+	color: #0f72af;
 }
 
-.tryButton { 
-    margin-right: 30px;
-    color: #133246;
-    font-family: 'Proximanova Semibold';
-    font-size: 1.2em;
-    border: none;
-    transition: all .3s;
+.tryButton {
+	margin-right: 30px;
+	color: #133246;
+	font-family: "Proximanova Semibold";
+	font-size: 1.2em;
+	border: none;
+	transition: all 0.3s;
 	outline: none !important;
 }
 
 .tryButtonMuted {
-    margin-right: 30px;
-    color: white;
-    background-color: #133246;
-    font-family: 'Proximanova Semibold';
-    font-size: 1.2em;
-    border: none;
-    transition: all .3s;
-   	outline: none !important;
+	margin-right: 30px;
+	color: white;
+	background-color: #133246;
+	font-family: "Proximanova Semibold";
+	font-size: 1.2em;
+	border: none;
+	transition: all 0.3s;
+	outline: none !important;
 }
-
 
 .delay {
 	-webkit-animation-delay: 10s; /* Safari 4.0 - 8.0 */
-    animation-delay: 10s;
-
+	animation-delay: 10s;
 }
-
 
 @keyframes pulse-right {
 	from {
-		transform: translateX(0.1em) 
-		scale(1.1)
+		transform: translateX(0.1em) scale(1.1);
 	}
 	to {
-		transform: translateX(-0.1em)
+		transform: translateX(-0.1em);
 	}
 }
 
@@ -224,12 +218,11 @@
 	position: relative;
 	animation-delay: 10s;
 	animation: pulse-right 800ms infinite alternate;
-
 }
 
 @media (max-width: 768px) {
-	.tryButton, .tryButtonMuted {
+	.tryButton,
+	.tryButtonMuted {
 		display: none;
 	}
 }
-

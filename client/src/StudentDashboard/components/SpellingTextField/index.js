@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./styles.css";
 
-import { FormControl } from "react-bootstrap";
+import { FormControl, ProgressBar } from "react-bootstrap";
 
 import {
   updateAssessment,
@@ -176,6 +176,10 @@ export default class SpellingTextField extends React.Component {
               : "hidden"
           }}
         />
+
+        <div className={styles.progress}>
+          <ProgressBar now={this.props.progressNum} />
+        </div>
       </div>
     );
   }

@@ -48,6 +48,13 @@ body {
 	margin: 30px;
 }
 
+.progress {
+	width: 30vw;
+	position: relative;
+	top: 8px;
+	opacity: 0.5;
+}
+
 .leftDoubleButtonContainer {
 	margin-top: 0px;
 	display: flex;

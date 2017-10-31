@@ -3,7 +3,7 @@ import React from "react";
 import RectangleButton from "../RectangleButton";
 import BookInfoHeader from "../BookInfoHeader";
 import css from "./styles.css";
-import { Button, Popover, OverlayTrigger } from "react-bootstrap";
+import { Button, Popover, OverlayTrigger, ProgressBar } from "react-bootstrap";
 import questionCSS from "../../../ReportsInterface/components/Metric/styles.css";
 
 export default class NavigationBar extends React.Component {
@@ -30,6 +30,7 @@ export default class NavigationBar extends React.Component {
     showChecklistModal: PropTypes.func,
     hideMenuItems: PropTypes.bool
   };
+
   static defaultProps = {
     showPauseButton: true,
     isCoverPage: false,

@@ -31,6 +31,13 @@ i.helper {
     left: -55px;
 }
 
+.progress {
+    width: 368px;
+    position: relative;
+    top: 98px;
+    opacity: 0.4;
+}
+
 .volumeLabel {
     color: white;
     font-family: "ProximaNova Semibold";
