@@ -233,14 +233,13 @@
 }
 
 .pulsatingCircle {
-	/*background-color: green;*/
 	color: white;
-	height: 14px;
-	width: 14px;
+	height: 20px;
+	width: 20px;
 	display: inline-block;
 	margin-right: 26px;
-	margin-bottom: 6px;
-	border-radius: 7px;
+	margin-bottom: 2px;
+	border-radius: 10px;
 	background-color: white;
 	animation: pulseOut 2s infinite;
 }
