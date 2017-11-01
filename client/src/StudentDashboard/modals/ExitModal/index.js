@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import styles from './styles.css'
-import commonStyles from '../commonstyles.css'
+import styles from "./styles.css";
+import commonStyles from "../commonstyles.css";
 
-import ModalHeader from '../subcomponents/ModalHeader'
-import RectangleButton from 'StudentDashboard/components/RectangleButton'
-import ButtonArray from '../subcomponents/ButtonArray'
+import ModalHeader from "../subcomponents/ModalHeader";
+import RectangleButton from "StudentDashboard/components/RectangleButton";
+import ButtonArray from "../subcomponents/ButtonArray";
 
-import BaseModal from '../BaseModal'
+import BaseModal from "../BaseModal";
 
-const THIS_MODAL_ID = 'modal-exit'
+const THIS_MODAL_ID = "modal-exit";
 
 export default class ExitModal extends React.Component {
   static propTypes = {
@@ -21,11 +21,10 @@ export default class ExitModal extends React.Component {
 
     currentShowModal: PropTypes.string,
     modalType: PropTypes.string,
-        onTurnInClicked: PropTypes.func,
-
+    onTurnInClicked: PropTypes.func
   };
   static defaultProps = {
-    startedRecording: false,
+    startedRecording: false
   };
   /**
    * @param props - Comes from your rails view.
@@ -35,10 +34,8 @@ export default class ExitModal extends React.Component {
     super(props);
   }
 
-
   render() {
-
-    let exitAction
+    let exitAction;
 
     // if (this.props.startedRecording) {
     //   exitAction = this.props.onExitAndUploadClicked
@@ -46,28 +43,29 @@ export default class ExitModal extends React.Component {
     //   exitAction = this.props.onExitNoUploadClicked
     // }
 
-    exitAction = this.props.onExitNoUploadClicked // Keep this because it's more expected by user
+    exitAction = this.props.onExitNoUploadClicked; // Keep this because it's more expected by user
 
     return (
-      <BaseModal title="Exit?" show={(this.props.currentShowModal === THIS_MODAL_ID)} modalType="danger">
-
-
+      <BaseModal
+        title="Exit?"
+        show={this.props.currentShowModal === THIS_MODAL_ID}
+        modalType="danger"
+      >
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
-            titles={['Keep reading', 'Turn in early', 'Exit book']}
-            images={['fa-play', 'fa-check', 'fa-times']}
-            actions={[this.props.onContinueClicked, this.props.onExitAndUploadClicked, exitAction]}
+            titles={["Keep reading", "Turn in early", "Exit book"]}
+            images={["fa-arrow-left", "fa-check", "fa-times"]}
+            actions={[
+              this.props.onContinueClicked,
+              this.props.onExitAndUploadClicked,
+              exitAction
+            ]}
             enlargeFirst={true}
             fontAwesome={true}
-            modalType={'danger'}
+            modalType={"danger"}
           />
         </div>
-
-
-
       </BaseModal>
-
-
     );
   }
 }
