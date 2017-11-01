@@ -165,8 +165,16 @@ function* getMicPermissionsSaga() {
   yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.awaiting));
   yield put.resolve(setCurrentOverlay("overlay-permissions"));
 
+  // an asynchronous play helper in 8 seconds that then...
+  // const permissionEffects = []
+  // permissionEffects.push(yield fork(playPermissionsInstructionSaga ));
+  yield call(playSoundAsync, "/audio/2-allow.m4a");
+
   const recorder = yield select(getRecorder);
   const getPermissionSuccess = yield getPermission(recorder);
+
+  // ...is cancelled after a student clicks a permission button.
+  yield call(stopAudio);
 
   const micPermissions = getPermissionSuccess
     ? MicPermissionsStatusOptions.granted
@@ -396,6 +404,11 @@ function* newFetchUntilPrompt(studentID) {
   }
 
   return fetchedPrompt; // a meaningful prompt was found
+}
+
+function* helperInstructionSaga() {
+  yield call(delay, 6000);
+  yield call(playSoundAsync, "/audio/1-read.m4a");
 }
 
 function* spellingInstructionSaga() {
@@ -731,6 +744,7 @@ function* assessThenSubmitSaga(assessmentId) {
   // TODO: some loop here :)
   while (!permissionsGranted) {
     yield put(setCurrentOverlay("overlay-blocked-mic"));
+    yield call(playSound, "/audio/3-help.m4a");
     yield take("ickkkkk");
     return;
   }
@@ -773,6 +787,10 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield clog("UNset it");
 
+  const helperEffect = [];
+  helperEffect.push(yield fork(helperInstructionSaga));
+  // set a 8 second saga in background
+
   // before assessment has started, clicking exit immediately quits app
   // I guess. We will probably change this
   const { exit } = yield race({
@@ -780,12 +798,8 @@ function* assessThenSubmitSaga(assessmentId) {
     startAssessment: take(START_RECORDING_CLICKED)
   });
 
-  // const { exit, fake } = yield all([
-  //   race({
-  //     exit: take(EXIT_CLICKED),
-  //     startAssessment: take(START_RECORDING_CLICKED),
-  //   })
-  // ])
+  // cancel that saga.
+  yield cancel(...helperEffect);
 
   yield call(stopAudio);
 

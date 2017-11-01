@@ -57,15 +57,11 @@ function RectangleButton({
     containerStyle = styles.rectangleButtonContainer;
   }
 
-  console.log(containerStyle);
-
   if (isGreen) {
     containerStyle = [containerStyle, styles.greenButton].join(" ");
   } else if (isRed) {
     containerStyle = [containerStyle, styles.redButton].join(" ");
   }
-
-  console.log("final: ", containerStyle);
 
   let isNavButton = id === "navigation-button";
 
