@@ -407,7 +407,7 @@ function* newFetchUntilPrompt(studentID) {
 }
 
 function* helperInstructionSaga() {
-  yield call(delay, 6000);
+  yield call(delay, 5000);
   yield call(playSoundAsync, "/audio/1-read.m4a");
 }
 
