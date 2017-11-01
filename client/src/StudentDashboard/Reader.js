@@ -290,7 +290,7 @@ export default class Reader extends React.Component {
               disabled={this.props.disabled}
               isLarge
               isRed
-              onClick={this.props.onStopClicked}
+              onClick={this.props.onCompPauseClicked}
             />
           </div>
         </div>
@@ -506,7 +506,7 @@ export default class Reader extends React.Component {
       isCoverPage: this.props.showCover,
       onPauseClicked: this.props.inComp
         ? this.props.onCompPauseClicked
-        : this.props.onPauseClicked,
+        : this.props.onCompPauseClicked,
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
       inSpelling: this.props.inSpelling

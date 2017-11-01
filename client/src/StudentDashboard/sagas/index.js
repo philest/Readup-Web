@@ -640,6 +640,9 @@ function* compSaga(
 
   yield take(STOP_RECORDING_CLICKED);
 
+  // for the physical book version
+  yield put.resolve(setCurrentModal("no-modal"));
+
   yield call(stopAudio);
 
   recorder = yield select(getRecorder);
@@ -866,6 +869,9 @@ function* assessThenSubmitSaga(assessmentId) {
     turnItIn: take(TURN_IN_CLICKED),
     endRecording: take(STOP_RECORDING_CLICKED)
   });
+
+  // to hide the comp pause modal
+  yield put.resolve(setCurrentModal("no-modal"));
 
   recorder = yield select(getRecorder);
 
