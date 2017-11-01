@@ -168,7 +168,7 @@ function* getMicPermissionsSaga() {
   // an asynchronous play helper in 8 seconds that then...
   // const permissionEffects = []
   // permissionEffects.push(yield fork(playPermissionsInstructionSaga ));
-  yield call(playSoundAsync, "/audio/2-allow.m4a");
+  yield call(playSoundAsync, "/audio/allow.mp3");
 
   const recorder = yield select(getRecorder);
   const getPermissionSuccess = yield getPermission(recorder);
@@ -408,7 +408,7 @@ function* newFetchUntilPrompt(studentID) {
 
 function* helperInstructionSaga() {
   yield call(delay, 5000);
-  yield call(playSoundAsync, "/audio/1-read.m4a");
+  yield call(playSoundAsync, "/audio/click-start.mp3");
 }
 
 function* spellingInstructionSaga() {
@@ -747,7 +747,7 @@ function* assessThenSubmitSaga(assessmentId) {
   // TODO: some loop here :)
   while (!permissionsGranted) {
     yield put(setCurrentOverlay("overlay-blocked-mic"));
-    yield call(playSound, "/audio/3-help.m4a");
+    yield call(playSound, "/audio/teacher-help.mp3");
     yield take("ickkkkk");
     return;
   }
