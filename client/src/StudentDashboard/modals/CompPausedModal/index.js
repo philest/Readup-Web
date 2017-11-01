@@ -11,6 +11,8 @@ import ButtonArray from "../subcomponents/ButtonArray";
 
 import BaseModal from "../BaseModal";
 
+import { playSoundAsync } from "../../audioPlayer.js";
+
 const THIS_MODAL_ID = "modal-comp-paused";
 
 export default class CompPausedModal extends React.Component {
@@ -31,7 +33,23 @@ export default class CompPausedModal extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {};
+    this.state = {
+      seenBefore: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("here i am...");
+    console.log("show modal?", this.props.currentShowModal);
+    console.log("seen before?", this.state.seenBefore);
+    if (
+      nextProps.currentShowModal === THIS_MODAL_ID &&
+      !this.state.seenBefore
+    ) {
+      console.log("WOW here!!! ");
+      this.setState({ seenBefore: true });
+      playSoundAsync("/audio/4-pause.m4a");
+    }
   }
 
   onStop = () => {
