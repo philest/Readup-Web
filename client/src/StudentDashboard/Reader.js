@@ -403,7 +403,7 @@ export default class Reader extends React.Component {
       return (
         <ForwardArrowButton
           title="Next"
-          subtitle={this.props.inSpelling ? "word" : "page"}
+          subtitle={this.props.inSpelling ? null : "page"}
           style={{ width: 145, height: 120 }}
           disabled={this.props.disabled}
           onClick={
