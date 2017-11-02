@@ -430,7 +430,7 @@ function* instructionSaga() {
   if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
     yield call(delay, 500);
 
-    yield call(playSound, "/audio/inst.m4a");
+    yield call(playSound, "/audio/comp-instructions.mp3");
 
     // yield call(delay, 1400);
 
@@ -1111,7 +1111,7 @@ function* rootSaga() {
         const res = yield call(markCompleted, assID);
         yield clog("marked it as completed!: ", res);
 
-        yield call(playSound, "/audio/celebration.m4a");
+        yield call(playSound, "/audio/celebration.mp3");
 
         if (isDemo) {
           yield clog("oh hey you r done");
