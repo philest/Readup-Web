@@ -150,10 +150,7 @@ export default class Reader extends React.Component {
       );
     }
 
-    if (
-      this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON" ||
-      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
-    ) {
+    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON") {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
           <div
@@ -186,7 +183,12 @@ export default class Reader extends React.Component {
       );
     }
 
-    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON") {
+    if (
+      this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON" ||
+      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO" ||
+      this.props.readerState === "READER_STATE_DONE" ||
+      this.props.readerState === "READER_STATE_PAUSED"
+    ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
           <div
@@ -383,7 +385,7 @@ export default class Reader extends React.Component {
           className={[styles.volumeContainer, styles.clickable].join(" ")}
           style={{
             visibility:
-              this.props.readerState === "READER_STATE_AWAITING_START"
+              this.props.readerState === "READER_STATE_IN_PROGRESS"
                 ? "visible"
                 : "hidden"
           }}

@@ -430,21 +430,21 @@ function* instructionSaga() {
   if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
     yield call(delay, 500);
 
-    yield call(playSoundAsync, "/audio/VB/min/VB-comp-instructions.mp3");
+    yield call(playSound, "/audio/inst.m4a");
 
-    yield call(delay, 1400);
+    // yield call(delay, 1400);
 
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutStartButton)
-    );
+    // yield put.resolve(
+    //   setReaderState(ReaderStateOptions.talkingAboutStartButton)
+    // );
 
-    yield call(delay, 2480);
+    // yield call(delay, 2480);
 
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutStopButton)
-    );
+    // yield put.resolve(
+    //   setReaderState(ReaderStateOptions.talkingAboutStopButton)
+    // );
 
-    yield call(delay, 1900);
+    // yield call(delay, 1900);
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
@@ -547,10 +547,10 @@ function* compSaga(
 
     yield put.resolve(setShowSkipPrompt(true));
 
-    yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+    // yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
   }
 
-  yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+  // yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
   // yield put.resolve(setReaderState(
   //   ReaderStateOptions.playingBookIntro,
@@ -581,7 +581,7 @@ function* compSaga(
 
   // END the former compSeeBookSaga
 
-  yield take(START_RECORDING_CLICKED);
+  // yield take(START_RECORDING_CLICKED);
 
   yield call(stopAudio);
 
@@ -1110,6 +1110,8 @@ function* rootSaga() {
 
         const res = yield call(markCompleted, assID);
         yield clog("marked it as completed!: ", res);
+
+        yield call(playSound, "/audio/celebration.m4a");
 
         if (isDemo) {
           yield clog("oh hey you r done");
