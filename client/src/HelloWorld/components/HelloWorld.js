@@ -1,10 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import styles from "./poop.css";
-// import twilioStuff from "./twilio-stuff.js";
-
-let room;
-let identity;
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -28,9 +23,6 @@ export default class HelloWorld extends React.Component {
   };
 
   componentDidMount() {
-    room = this.props.room;
-    identity = this.props.identity;
-
     const Video = require("twilio-video");
 
     console.log("IT LOADED");
@@ -210,27 +202,27 @@ export default class HelloWorld extends React.Component {
       });
     }
 
-    // Preview LocalParticipant's Tracks.
-    document.getElementById("button-preview").onclick = function() {
-      console.log("I CLICKED IT PREVIEW");
-      var localTracksPromise = previewTracks
-        ? Promise.resolve(previewTracks)
-        : Video.createLocalTracks();
+    // // Preview LocalParticipant's Tracks.
+    // document.getElementById("button-preview").onclick = function() {
+    //   console.log("I CLICKED IT PREVIEW");
+    //   var localTracksPromise = previewTracks
+    //     ? Promise.resolve(previewTracks)
+    //     : Video.createLocalTracks();
 
-      localTracksPromise.then(
-        function(tracks) {
-          window.previewTracks = previewTracks = tracks;
-          var previewContainer = document.getElementById("local-media");
-          if (!previewContainer.querySelector("video")) {
-            attachTracks(tracks, previewContainer);
-          }
-        },
-        function(error) {
-          console.error("Unable to access local media", error);
-          log("Unable to access Camera and Microphone");
-        }
-      );
-    };
+    //   localTracksPromise.then(
+    //     function(tracks) {
+    //       window.previewTracks = previewTracks = tracks;
+    //       var previewContainer = document.getElementById("local-media");
+    //       if (!previewContainer.querySelector("video")) {
+    //         attachTracks(tracks, previewContainer);
+    //       }
+    //     },
+    //     function(error) {
+    //       console.error("Unable to access local media", error);
+    //       log("Unable to access Camera and Microphone");
+    //     }
+    //   );
+    // };
 
     // Activity log.
     function log(message) {
@@ -334,6 +326,14 @@ div#controls div#preview div#local-media {
   background-position: center;
   background-repeat: no-repeat;
   margin: 0 auto;
+
+    width: 100px;
+    height: 75px;
+    position: fixed;
+    right: 36px;
+    top: 49px;
+
+
 }
 
 div#controls div#preview div#local-media video {
@@ -402,9 +402,7 @@ div#controls div#log p {
         <div id="remote-media" />
         <div id="controls">
           <div id="preview">
-            <p className="instructions">Hello Beautiful</p>
             <div id="local-media" />
-            <button id="button-preview">Preview My Camera</button>
           </div>
           <div id="log" style={{ visibility: "visible" }} />
         </div>

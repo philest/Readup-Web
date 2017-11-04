@@ -8,8 +8,8 @@ class VideoController < ApplicationController
 def token 
 
 # Required for Video
-identity = params[:identity] || 'defaultUser'
-room = params[:room] || 'coolRoom'
+identity = params[:identity] 
+room = params[:room] 
 
 
 
