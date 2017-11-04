@@ -26,7 +26,10 @@ token = Twilio::JWT::AccessToken.new(
 puts 'JWT token: ', token.to_jwt
 puts "Token: ", token 
 
-token.to_jwt
+respond_to do |format|
+	msg = { :identity => identity, :token => token.to_jwt }
+	format.json  { render :json => msg } # don't do msg.to_json
+end
 
 
 end 
