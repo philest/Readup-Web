@@ -254,15 +254,7 @@ export default class HelloWorld extends React.Component {
           {`
         @import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
 
-body,
-p {
-  padding: 0;
-  margin: 0;
-}
 
-body {
-  background: #272726;
-}
 
 div#remote-media {
   height: 43%;
@@ -389,6 +381,11 @@ div#controls div#log {
   padding: 1.5em;
   float: right;
   overflow-y: scroll;
+
+    position: fixed;
+    right: 10px;
+    top: 230px;
+
 }
 
 div#controls div#log p {
@@ -409,7 +406,7 @@ div#controls div#log p {
             <div id="local-media" />
             <button id="button-preview">Preview My Camera</button>
           </div>
-          <div id="log" />
+          <div id="log" style={{ visibility: "visible" }} />
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" />
       </div>
