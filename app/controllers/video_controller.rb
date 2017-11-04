@@ -9,10 +9,13 @@ def token
 
 # Required for Video
 identity = params[:identity] || 'defaultUser'
+room = params[:room] || 'coolRoom'
+
+
 
 # Create Video grant for our token
 video_grant = Twilio::JWT::AccessToken::VideoGrant.new
-video_grant.room = 'coolRoom'
+video_grant.room = room
 
 # Create an Access Token
 token = Twilio::JWT::AccessToken.new(

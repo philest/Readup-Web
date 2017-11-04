@@ -67,45 +67,49 @@ export default class HelloWorld extends React.Component {
     window.addEventListener("beforeunload", leaveRoomIfJoined);
 
     // Obtain a token from the server in order to connect to the Room.
-    $.getJSON("/token?identity=alice&room=example", function(data) {
-      identity = data.identity;
+    $.getJSON(
+      `/token?identity=${this.props.identity || "alice"}&room=${this.props
+        .room || "coolRoom"}`,
+      function(data) {
+        identity = data.identity;
 
-      document.getElementById("room-controls").style.display = "block";
+        document.getElementById("room-controls").style.display = "block";
 
-      // Bind button to join Room.
-      document.getElementById("button-join").onclick = function() {
-        roomName = document.getElementById("room-name").value;
-        if (!roomName) {
-          alert("Please enter a room name.");
-          return;
-        }
+        // Bind button to join Room.
+        document.getElementById("button-join").onclick = function() {
+          roomName = document.getElementById("room-name").value;
+          if (!roomName) {
+            alert("Please enter a room name.");
+            return;
+          }
 
-        log("Joining room '" + roomName + "'...");
-        var connectOptions = {
-          name: roomName,
-          logLevel: "debug"
+          log("Joining room '" + roomName + "'...");
+          var connectOptions = {
+            name: roomName,
+            logLevel: "debug"
+          };
+
+          if (previewTracks) {
+            connectOptions.tracks = previewTracks;
+          }
+
+          // Join the Room with the token from the server and the
+          // LocalParticipant's Tracks.
+
+          Video.connect(data.token, connectOptions).then(roomJoined, function(
+            error
+          ) {
+            log("Could not connect to Twilio: " + error.message);
+          });
         };
 
-        if (previewTracks) {
-          connectOptions.tracks = previewTracks;
-        }
-
-        // Join the Room with the token from the server and the
-        // LocalParticipant's Tracks.
-
-        Video.connect(data.token, connectOptions).then(roomJoined, function(
-          error
-        ) {
-          log("Could not connect to Twilio: " + error.message);
-        });
-      };
-
-      // Bind button to leave Room.
-      document.getElementById("button-leave").onclick = function() {
-        log("Leaving room...");
-        activeRoom.disconnect();
-      };
-    });
+        // Bind button to leave Room.
+        document.getElementById("button-leave").onclick = function() {
+          log("Leaving room...");
+          activeRoom.disconnect();
+        };
+      }
+    );
 
     // Successfully connected!
     function roomJoined(room) {
