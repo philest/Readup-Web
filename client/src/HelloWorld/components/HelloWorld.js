@@ -79,14 +79,13 @@ export default class HelloWorld extends React.Component {
       function(data) {
         identity = data.identity;
 
-        document.getElementById("room-controls").style.display = "block";
+        // document.getElementById("room-controls").style.display = "block";
 
         // console.log(data);
         // console.log(room);
         // console.log(identity);
 
         // attempt at autojoin
-        roomName = document.getElementById("room-name").value;
         roomName = data.room; //temporarily hardcode
 
         if (!roomName) {
@@ -113,39 +112,39 @@ export default class HelloWorld extends React.Component {
           log("Could not connect to Twilio: " + error.message);
         });
 
-        // Bind button to join Room.
-        document.getElementById("button-join").onclick = function() {
-          roomName = document.getElementById("room-name").value;
-          if (!roomName) {
-            alert("Please enter a room name.");
-            return;
-          }
+        // // Bind button to join Room.
+        // document.getElementById("button-join").onclick = function() {
+        //   roomName = document.getElementById("room-name").value;
+        //   if (!roomName) {
+        //     alert("Please enter a room name.");
+        //     return;
+        //   }
 
-          log("Joining room '" + roomName + "'...");
-          var connectOptions = {
-            name: roomName,
-            logLevel: "debug"
-          };
+        //   log("Joining room '" + roomName + "'...");
+        //   var connectOptions = {
+        //     name: roomName,
+        //     logLevel: "debug"
+        //   };
 
-          if (previewTracks) {
-            connectOptions.tracks = previewTracks;
-          }
+        //   if (previewTracks) {
+        //     connectOptions.tracks = previewTracks;
+        //   }
 
-          // Join the Room with the token from the server and the
-          // LocalParticipant's Tracks.
+        //   // Join the Room with the token from the server and the
+        //   // LocalParticipant's Tracks.
 
-          Video.connect(data.token, connectOptions).then(roomJoined, function(
-            error
-          ) {
-            log("Could not connect to Twilio: " + error.message);
-          });
-        };
+        //   Video.connect(data.token, connectOptions).then(roomJoined, function(
+        //     error
+        //   ) {
+        //     log("Could not connect to Twilio: " + error.message);
+        //   });
+        // };
 
-        // Bind button to leave Room.
-        document.getElementById("button-leave").onclick = function() {
-          log("Leaving room...");
-          activeRoom.disconnect();
-        };
+        // // Bind button to leave Room.
+        // document.getElementById("button-leave").onclick = function() {
+        //   log("Leaving room...");
+        //   activeRoom.disconnect();
+        // };
       }
     );
 
@@ -154,8 +153,8 @@ export default class HelloWorld extends React.Component {
       window.room = activeRoom = room;
 
       log("Joined as '" + identity + "'");
-      document.getElementById("button-join").style.display = "none";
-      document.getElementById("button-leave").style.display = "inline";
+      // document.getElementById("button-join").style.display = "none";
+      // document.getElementById("button-leave").style.display = "inline";
 
       // Attach LocalParticipant's Tracks, if not already attached.
       var previewContainer = document.getElementById("local-media");
@@ -409,12 +408,6 @@ div#controls div#log p {
             <p className="instructions">Hello Beautiful</p>
             <div id="local-media" />
             <button id="button-preview">Preview My Camera</button>
-          </div>
-          <div id="room-controls">
-            <p className="instructions">Room Name:</p>
-            <input id="room-name" type="text" placeholder="Enter a room name" />
-            <button id="button-join">Join Room</button>
-            <button id="button-leave">Leave Room</button>
           </div>
           <div id="log" />
         </div>
