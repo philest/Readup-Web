@@ -5,55 +5,6 @@ import styles from "./poop.css";
 
 const Video = require("twilio-video");
 
-console.log("starting...");
-
-$.getJSON("/token?identity=user&room=example", function(data) {
-  const Video = require("twilio-video");
-
-  console.log("Data is: ", data);
-
-  Video.connect(data.token, { name: "example" }).then(room => {
-    console.log('Connected to Room "%s"', room.name);
-
-    room.participants.forEach(participantConnected);
-    room.on("participantConnected", participantConnected);
-
-    room.on("participantDisconnected", participantDisconnected);
-    room.once("disconnected", error =>
-      room.participants.forEach(participantDisconnected)
-    );
-  });
-});
-
-function participantConnected(participant) {
-  console.log('Participant "%s" connected', participant.identity);
-
-  const div = document.createElement("div");
-  div.id = participant.sid;
-  div.innerText = participant.identity;
-
-  participant.on("trackAdded", track => trackAdded(div, track));
-  participant.tracks.forEach(track => trackAdded(div, track));
-  participant.on("trackRemoved", trackRemoved);
-
-  document.body.appendChild(div);
-}
-
-function participantDisconnected(participant) {
-  console.log('Participant "%s" disconnected', participant.identity);
-
-  participant.tracks.forEach(trackRemoved);
-  document.getElementById(participant.sid).remove();
-}
-
-function trackAdded(div, track) {
-  div.appendChild(track.attach());
-}
-
-function trackRemoved(track) {
-  track.detach().forEach(element => element.remove());
-}
-
 export default class HelloWorld extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired // this is passed from the Rails view
@@ -74,6 +25,15 @@ export default class HelloWorld extends React.Component {
   updateName = name => {
     this.setState({ name });
   };
+
+  componentWillMount() {
+    const script = document.createElement("script");
+
+    script.src = "http://localhost:3000/js/twilio-new.js";
+    script.async = false;
+
+    document.body.appendChild(script);
+  }
 
   render() {
     return (
@@ -242,6 +202,7 @@ div#controls div#log p {
           <div id="log" />
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" />
+        <script>{console.log("test")}</script>
       </div>
     );
   }
