@@ -1,7 +1,59 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styles from "./poop.css";
-import twilioStuff from "./twilio-stuff.js";
+// import twilioStuff from "./twilio-stuff.js";
+
+console.log("starting...");
+
+$.getJSON("/token?identity=user&room=example", function(data) {
+  const Video = require("twilio-video");
+
+  console.log("Data is: ", data);
+
+  Video.connect(
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTSzUwMjhlYjlmY2YxOTE5MWU1OTkzOTM0MjM1M2FjYmQ4LTE1MDk4MTc4MjciLCJncmFudHMiOnsiaWRlbnRpdHkiOiJ1c2VyIiwidmlkZW8iOnsicm9vbSI6ImNvb2xSb29tIn19LCJpc3MiOiJTSzUwMjhlYjlmY2YxOTE5MWU1OTkzOTM0MjM1M2FjYmQ4IiwibmJmIjoxNTA5ODE3ODI3LCJleHAiOjE1MDk4MjE0MjcsInN1YiI6IkFDZWExN2UwYmJhMzA2NjA3NzBmNjJiMWUyOGUxMjY5NDQifQ.Fz7jklBLZLtbHK54uGj8RBuDFNqJqz3tNZWnOUBemwY",
+    { name: "example" }
+  ).then(room => {
+    console.log('Connected to Room "%s"', room.name);
+
+    room.participants.forEach(participantConnected);
+    room.on("participantConnected", participantConnected);
+
+    room.on("participantDisconnected", participantDisconnected);
+    room.once("disconnected", error =>
+      room.participants.forEach(participantDisconnected)
+    );
+  });
+});
+
+function participantConnected(participant) {
+  console.log('Participant "%s" connected', participant.identity);
+
+  const div = document.createElement("div");
+  div.id = participant.sid;
+  div.innerText = participant.identity;
+
+  participant.on("trackAdded", track => trackAdded(div, track));
+  participant.tracks.forEach(track => trackAdded(div, track));
+  participant.on("trackRemoved", trackRemoved);
+
+  document.body.appendChild(div);
+}
+
+function participantDisconnected(participant) {
+  console.log('Participant "%s" disconnected', participant.identity);
+
+  participant.tracks.forEach(trackRemoved);
+  document.getElementById(participant.sid).remove();
+}
+
+function trackAdded(div, track) {
+  div.appendChild(track.attach());
+}
+
+function trackRemoved(track) {
+  track.detach().forEach(element => element.remove());
+}
 
 export default class HelloWorld extends React.Component {
   static propTypes = {

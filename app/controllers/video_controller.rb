@@ -12,7 +12,7 @@ identity = 'user'
 
 # Create Video grant for our token
 video_grant = Twilio::JWT::AccessToken::VideoGrant.new
-video_grant.room = 'cool room'
+video_grant.room = 'coolRoom'
 
 # Create an Access Token
 token = Twilio::JWT::AccessToken.new(
@@ -23,8 +23,11 @@ token = Twilio::JWT::AccessToken.new(
   identity: identity
 )
 
-puts token.to_jwt
+puts 'JWT token: ', token.to_jwt
+puts "Token: ", token 
+
 token.to_jwt
+
 
 end 
 
