@@ -3,6 +3,8 @@ import React from "react";
 import styles from "./poop.css";
 // import twilioStuff from "./twilio-stuff.js";
 
+const Video = require("twilio-video");
+
 console.log("starting...");
 
 $.getJSON("/token?identity=user&room=example", function(data) {

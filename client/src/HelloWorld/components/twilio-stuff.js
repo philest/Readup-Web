@@ -1,5 +1,3 @@
-var Video = require("twilio-video");
-
 var activeRoom;
 var previewTracks;
 var identity;
@@ -38,7 +36,7 @@ function detachParticipantTracks(participant) {
 window.addEventListener("beforeunload", leaveRoomIfJoined);
 
 // Obtain a token from the server in order to connect to the Room.
-$.getJSON("/token?identity=alice&room=example", function(data) {
+$.getJSON("/token?identity=user&room=example", function(data) {
   identity = "alice";
 
   // identity = data.identity;
