@@ -269,6 +269,8 @@ class ReportsController < ApplicationController
 
     # In case an email submit 
     if params["message"] && (ENV['RAILS_ENV'] == 'production')
+
+      puts 'In prod!'
       puts "Pony is sending this message....\n\n" + params["message"]
 
       Pony.mail(to: 'philesterman@gmail.com',
@@ -301,6 +303,8 @@ class ReportsController < ApplicationController
 
     # Send non-Demo-start alerts when in development
     if params["message"] && !(params["message"].include? "Demo") && (ENV['RAILS_ENV'] == 'development')
+
+      puts 'In dev!'
       puts "Pony is sending this message....\n\n" + params["message"]
 
       Pony.mail(to: 'philesterman@gmail.com',
