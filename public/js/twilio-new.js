@@ -1,9 +1,3 @@
-asdfmnasnlkmdsaflmkafsd;
-asdfmnasnlkmdsaflmkafsd;
-cons.log.fake.die;
-
-fsdf;
-
 console.log("IT LODED");
 
 var activeRoom;

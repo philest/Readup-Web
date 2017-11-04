@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./poop.css";
 // import twilioStuff from "./twilio-stuff.js";
-
 const Video = require("twilio-video");
 
 export default class HelloWorld extends React.Component {
