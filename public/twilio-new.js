@@ -1,4 +1,6 @@
-console.log("IT LODED");
+const Video = require("twilio-video");
+
+console.log("IT LOADED");
 
 var activeRoom;
 var previewTracks;
