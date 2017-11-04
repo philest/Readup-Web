@@ -3,6 +3,9 @@ import React from "react";
 import styles from "./poop.css";
 // import twilioStuff from "./twilio-stuff.js";
 
+let room;
+let identity;
+
 export default class HelloWorld extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired // this is passed from the Rails view
@@ -25,6 +28,9 @@ export default class HelloWorld extends React.Component {
   };
 
   componentDidMount() {
+    room = this.props.room;
+    identity = this.props.identity;
+
     const Video = require("twilio-video");
 
     console.log("IT LOADED");
@@ -74,6 +80,38 @@ export default class HelloWorld extends React.Component {
         identity = data.identity;
 
         document.getElementById("room-controls").style.display = "block";
+
+        // console.log(data);
+        // console.log(room);
+        // console.log(identity);
+
+        // attempt at autojoin
+        roomName = document.getElementById("room-name").value;
+        roomName = data.room; //temporarily hardcode
+
+        if (!roomName) {
+          alert("Please enter a room name.");
+          return;
+        }
+
+        log("Joining room '" + roomName + "'...");
+        var connectOptions = {
+          name: roomName,
+          logLevel: "debug"
+        };
+
+        if (previewTracks) {
+          connectOptions.tracks = previewTracks;
+        }
+
+        // Join the Room with the token from the server and the
+        // LocalParticipant's Tracks.
+
+        Video.connect(data.token, connectOptions).then(roomJoined, function(
+          error
+        ) {
+          log("Could not connect to Twilio: " + error.message);
+        });
 
         // Bind button to join Room.
         document.getElementById("button-join").onclick = function() {
@@ -236,12 +274,16 @@ div#remote-media {
 }
 
 div#remote-media video {
-  border: 1px solid #272726;
-  margin: 3em 2em;
-  height: 70%;
-  max-width: 27% !important;
-  background-color: #272726;
-  background-repeat: no-repeat;
+    border: 1px solid #272726;
+    margin: 3em 2em;
+    /* height: 70%; */
+    max-width: 27% !important;
+    background-color: #272726;
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 270px;
+    float: right;
+    right: 0px;
 }
 
 div#controls {

@@ -30,7 +30,7 @@ puts 'JWT token: ', token.to_jwt
 puts "Token: ", token 
 
 respond_to do |format|
-	msg = { :identity => identity, :token => token.to_jwt }
+	msg = { :identity => identity, :token => token.to_jwt, :room => room}
 	format.json  { render :json => msg } # don't do msg.to_json
 end
 
