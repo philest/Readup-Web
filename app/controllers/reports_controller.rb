@@ -268,7 +268,7 @@ class ReportsController < ApplicationController
     end 
 
     # In case an email submit 
-   if params["message"] && (ENV['RAILS_ENV'] == 'production')
+    if params["message"] && (ENV['RAILS_ENV'] == 'production')
       puts "Pony is sending this message....\n\n" + params["message"]
 
       Pony.mail(to: 'philesterman@gmail.com',
@@ -282,6 +282,38 @@ class ReportsController < ApplicationController
       auth_token = ENV['TWILIO_AUTH_TOKEN'] # Your Auth Token from www.twilio.com/console
 
 
+      @client = Twilio::REST::Client.new account_sid, auth_token
+      message = @client.messages.create(
+          body: "#{params["message"]}",
+          to: "+15612125831",    # Replace with your phone number
+          from: "+12033035711")  # Replace with your Twilio number
+
+      puts message.sid
+
+      # Think it might skip the previous 
+      # call = @client.calls.create(
+      #     :url => "http://demo.twilio.com/docs/voice.xml",
+      #     :to => "+15612125831",
+      #     :from => "+12033035711")
+      # puts call.to
+
+    end
+
+    # Send non-Demo-start alerts when in development
+    if params["message"] && !(params["message"].include? "Demo") && (ENV['RAILS_ENV'] == 'development')
+      puts "Pony is sending this message....\n\n" + params["message"]
+
+      Pony.mail(to: 'philesterman@gmail.com',
+                 subject: "#{params["subject"]}",
+                 body: "#{params["message"]}",
+                 from: 'noreply@yoursammybird.com')
+
+
+
+      account_sid = ENV['TWILIO_ACCOUNT_SID'] # Your Account SID from www.twilio.com/console
+      auth_token = ENV['TWILIO_AUTH_TOKEN'] # Your Auth Token from www.twilio.com/console
+
+      
       @client = Twilio::REST::Client.new account_sid, auth_token
       message = @client.messages.create(
           body: "#{params["message"]}",
