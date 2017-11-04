@@ -8,7 +8,7 @@ class VideoController < ApplicationController
 def token 
 
 # Required for Video
-identity = 'user'
+identity = params[:identity] || 'defaultUser'
 
 # Create Video grant for our token
 video_grant = Twilio::JWT::AccessToken::VideoGrant.new

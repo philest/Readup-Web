@@ -41,9 +41,7 @@ window.addEventListener("beforeunload", leaveRoomIfJoined);
 
 // Obtain a token from the server in order to connect to the Room.
 $.getJSON("/token?identity=alice&room=example", function(data) {
-  identity = "alice";
-
-  // identity = data.identity;
+  identity = data.identity;
 
   document.getElementById("room-controls").style.display = "block";
 
@@ -68,16 +66,9 @@ $.getJSON("/token?identity=alice&room=example", function(data) {
     // Join the Room with the token from the server and the
     // LocalParticipant's Tracks.
 
-    token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2ZjZjM4NmFlNjlkMGEzMWE5ZGUxZTA5Y2MwZDFhMThjLTE1MDk3NzUzNDAiLCJpc3MiOiJTS2ZjZjM4NmFlNjlkMGEzMWE5ZGUxZTA5Y2MwZDFhMThjIiwic3ViIjoiQUNlYTE3ZTBiYmEzMDY2MDc3MGY2MmIxZTI4ZTEyNjk0NCIsImV4cCI6MTUwOTc3ODk0MCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiYWxpY2UiLCJ2aWRlbyI6eyJyb29tIjoidGVzdCJ9fX0.IOoO17qIL16nlkiBJnU_ebggd6dxFHrVuHOtfM0qjOA";
-
-    Video.connect(token, connectOptions).then(roomJoined, function(error) {
+    Video.connect(data.token, connectOptions).then(roomJoined, function(error) {
       log("Could not connect to Twilio: " + error.message);
     });
-
-    // Video.connect(data.token, connectOptions).then(roomJoined, function(error) {
-    //   log("Could not connect to Twilio: " + error.message);
-    // });
   };
 
   // Bind button to leave Room.
