@@ -61,6 +61,7 @@
     "redux-saga": "^0.15.6",
     "style-loader": "^0.13.1",
     "turbolinks": "^5.0.3",
+    "twilio-video": "^1.6.0",
     "ujs": "^0.33.0",
     "webpack": "2",
     "webpack-manifest-plugin": "^1.1.0",

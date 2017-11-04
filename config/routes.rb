@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get 'success', to: 'homepage#signup_success'
   get 'library', to: 'homepage#library'
 
+  get 'token', to: 'video#token' 
+
   # user stuff including auth
 
   resources :users
