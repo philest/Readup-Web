@@ -96,7 +96,8 @@ import {
   setInOralReading,
   stopRecordingClicked,
   setShowSkipPrompt,
-  setAssessmentID
+  setAssessmentID,
+  setAssessmentSubmitted
 } from "../state";
 
 import {
@@ -479,6 +480,7 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
 
       const res = yield call(markCompleted, assID);
       yield clog("marked it as completed!: ", res);
+      yield put(setAssessmentSubmitted(true));
 
       window.location.href = "/reports/sample";
     })
@@ -740,6 +742,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield put.resolve(setHasRecordedSomething(false));
   yield put.resolve(setCurrentModal("no-modal"));
+  yield put(setAssessmentSubmitted(false));
 
   yield put(setCurrentOverlay("no-overlay"));
 
@@ -1121,6 +1124,8 @@ function* rootSaga() {
         const res = yield call(markCompleted, assID);
         yield clog("marked it as completed!: ", res);
 
+        yield put(setAssessmentSubmitted(true));
+
         yield call(playSound, "/audio/celebration.mp3");
 
         if (isDemo) {
@@ -1132,11 +1137,12 @@ function* rootSaga() {
           // TODO where to redirect?
           // window.location.href = "/reports/1"
         } else {
-          yield put(setCurrentOverlay("overlay-submitted"));
-          setTimeout(() => {
-            // TODO where to redirect?
-            window.location.href = "/"; // eslint-disable-line
-          }, 10000);
+          //Keep them waiting here forever as proof they finished.
+
+          // setTimeout(() => {
+          //   // TODO where to redirect?
+          //   window.location.href = "/"; // eslint-disable-line
+          // }, 10000);
           return;
         }
 

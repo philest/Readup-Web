@@ -106,11 +106,22 @@ export const SHOW_SKIP_PROMPT_SET = "SHOW_SKIP_PROMPT_SET";
 
 export const ASSESSMENT_ID_SET = "ASSESSMENT_ID_SET";
 
+export const ASSESSMENT_SUBMITTED_SET = "ASSESSMENT_SUBMITTED_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
     payload: {
       readerState
+    }
+  };
+}
+
+export function setAssessmentSubmitted(assessmentSubmitted: boolean) {
+  return {
+    type: ASSESSMENT_SUBMITTED_SET,
+    payload: {
+      assessmentSubmitted
     }
   };
 }
@@ -1325,7 +1336,8 @@ const initialState = {
   isLiveDemo: false,
   spellingAnswerGiven: false,
   spellingQuestionNumber: 1,
-  assessmentID: null
+  assessmentID: null,
+  assessmentSubmitted: false
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -1337,8 +1349,13 @@ function reducer(state = initialState, action = {}) {
 
   switch (type) {
     case READER_STATE_SET: {
-      console.log("SET READER STATE:: " + payload.readerState);
+      console.log("SET READER STATE: " + payload.readerState);
       return { ...state, readerState: payload.readerState };
+    }
+
+    case ASSESSMENT_SUBMITTED_SET: {
+      console.log("SET ASSESSMENT SUBMITTED: " + payload.assessmentSubmitted);
+      return { ...state, assessmentSubmitted: payload.assessmentSubmitted };
     }
 
     case ASSESSMENT_ID_SET: {

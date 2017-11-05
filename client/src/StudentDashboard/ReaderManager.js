@@ -66,7 +66,8 @@ function mapStateToProps(state) {
     isLiveDemo: state.reader.isLiveDemo,
     spellingAnswerGiven: state.reader.spellingAnswerGiven,
     spellingQuestionNumber: state.reader.spellingQuestionNumber,
-    assessmentID: state.reader.assessmentID
+    assessmentID: state.reader.assessmentID,
+    assessmentSubmitted: state.reader.assessmentSubmitted
   };
 }
 
@@ -248,6 +249,7 @@ class StudentDashboard extends React.Component {
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
           showSpinner={this.props.showSpinner}
+          showCheck={this.props.assessmentSubmitted}
         />
 
         <CompModal

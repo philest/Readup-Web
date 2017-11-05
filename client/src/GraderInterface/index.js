@@ -1120,7 +1120,7 @@ export default class GraderInterface extends React.Component {
 
           {!this.props.isPartner && (
             <div className={styles.philControls}>
-              <style>{`.btn-group .btn {z-index: -1;}`}</style>
+              <style>{`.btn-group .btn {z-index: 0;}`}</style>
               <div className={[styles.compPromptContainer, styles.block]}>
                 <h4>Prompts</h4>
                 <ButtonGroup

@@ -535,7 +535,7 @@ export default class Reader extends React.Component {
         {this.renderNavigationBar()}
 
         {this.props.assessmentID &&
-          this.props.isDemo && (
+          !this.props.isDemo && (
             <div style={{ display: "none" }}>
               <VideoChat
                 identity={"student"}
