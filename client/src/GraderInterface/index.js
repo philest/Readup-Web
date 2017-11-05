@@ -1089,14 +1089,18 @@ export default class GraderInterface extends React.Component {
       <div>
         {this.renderNavigationBar(false)}
 
-        <VideoChat
-          identity={"grader" + String(Math.random())}
-          assessmentID={this.props.assessmentID}
-          room={`Assessment-${this.props.assessmentID}-Room`}
-          logs={false}
-          pictureInPicture={false}
-          hide={true}
-        />
+        {true && (
+          <div style={{ display: "none" }}>
+            <VideoChat
+              identity={"grader" + String(Math.random())}
+              assessmentID={this.props.assessmentID}
+              room={`Assessment-${this.props.assessmentID}-Room`}
+              logs={false}
+              pictureInPicture={false}
+              hide={false}
+            />
+          </div>
+        )}
 
         <div className={styles.graderContainer}>
           <div className={styles.headingContainer}>

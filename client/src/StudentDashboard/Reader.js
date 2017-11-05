@@ -27,6 +27,8 @@ import { Link, Redirect } from "react-router-dom";
 
 import { playSoundAsync, stopAudio } from "./audioPlayer.js";
 
+import VideoChat from "../sharedComponents/VideoChat";
+
 export default class Reader extends React.Component {
   static propTypes = {
     isDemo: PropTypes.bool,
@@ -530,6 +532,15 @@ export default class Reader extends React.Component {
     return (
       <div className={styles.fullHeight}>
         {this.renderNavigationBar()}
+
+        <VideoChat
+          identity={"student"}
+          assessmentID={2224}
+          room={`Assessment-${2224}-Room`}
+          logs={false}
+          pictureInPicture={false}
+          hide={true}
+        />
 
         <div
           className={
