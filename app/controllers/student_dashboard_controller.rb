@@ -7,9 +7,12 @@ class StudentDashboardController < ApplicationController
 
 
   def index
+
+
+
    return @student_dashboard_props = {
       studentName: "Demo Student",
-      teacherName: "Sum Dum Teachum"
+      teacherName: "Sum Dum Teachum",
     }
 
     if (params)
@@ -21,7 +24,7 @@ class StudentDashboardController < ApplicationController
     if stu
       @student_dashboard_props = {
         studentName: "#{stu.first_name} #{stu.last_name}",
-        teacherName: stu.teachers.first.signature
+        teacherName: stu.teachers.first.signature,
       }
     else
       render inline: "Uh oh... Something went wrong..."

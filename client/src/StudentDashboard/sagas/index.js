@@ -1014,7 +1014,7 @@ function* rootSaga() {
 
   // yield call(setAssessmentID, assessmentId);
 
-  yield put(setAssessmentID(assessmentId));
+  yield put(setAssessmentID(assessmentId + 1));
 
   yield clog("Assessment ID:", assessmentId);
 

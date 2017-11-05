@@ -1095,7 +1095,7 @@ export default class GraderInterface extends React.Component {
               identity={"grader" + String(Math.random())}
               assessmentID={this.props.assessmentID}
               room={`Assessment-${this.props.assessmentID}-Room`}
-              logs={false}
+              logs={true}
               pictureInPicture={false}
               hide={false}
             />

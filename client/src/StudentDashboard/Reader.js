@@ -534,16 +534,18 @@ export default class Reader extends React.Component {
       <div className={styles.fullHeight}>
         {this.renderNavigationBar()}
 
-        <div style={{ display: "none" }}>
-          <VideoChat
-            identity={"student"}
-            assessmentID={this.props.assessmentID}
-            room={`Assessment-${this.props.assessmentID}-Room`}
-            logs={false}
-            pictureInPicture={false}
-            hide
-          />
-        </div>
+        {this.props.assessmentID && (
+          <div style={{ display: "none" }}>
+            <VideoChat
+              identity={"student"}
+              assessmentID={this.props.assessmentID}
+              room={`Assessment-${this.props.assessmentID}-Room`}
+              logs={false}
+              pictureInPicture={false}
+              hide
+            />
+          </div>
+        )}
 
         <div
           className={

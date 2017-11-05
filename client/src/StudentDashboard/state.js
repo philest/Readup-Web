@@ -1342,7 +1342,7 @@ function reducer(state = initialState, action = {}) {
     }
 
     case ASSESSMENT_ID_SET: {
-      console.log("SET ASSESSMENT_ID:: " + payload.assessmentID);
+      console.log("SET ASSESSMENT ID: " + payload.assessmentID);
       return { ...state, assessmentID: payload.assessmentID };
     }
 
