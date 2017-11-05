@@ -1,6 +1,9 @@
 require 'twilio-ruby'
-require 'dotenv'
-Dotenv.load
+
+if ENV['RAILS_ENV'] != 'production'
+	require 'dotenv'
+	Dotenv.load
+end 
 
 
 class VideoController < ApplicationController
