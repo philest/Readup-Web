@@ -70,7 +70,9 @@ export default class CompPausedModal extends React.Component {
 
     return (
       <div>
-        <style type="text/css">{".modal-dialog { margin-top: 20vh; } "}</style>
+        <style type="text/css">
+          {".modal-dialog { margin-top: 20vh; margin: 20vh auto 0px; } "}
+        </style>
         <BaseModal
           title="Done with answer?"
           show={this.props.currentShowModal === THIS_MODAL_ID}
