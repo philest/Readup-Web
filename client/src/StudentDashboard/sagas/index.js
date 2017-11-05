@@ -72,6 +72,7 @@ import {
   SECTION_SKIPPED,
   SKIP_CLICKED,
   SHOW_SKIP_PROMPT_SET,
+  ASSESSMENT_ID_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -94,7 +95,8 @@ import {
   decrementQuestion,
   setInOralReading,
   stopRecordingClicked,
-  setShowSkipPrompt
+  setShowSkipPrompt,
+  setAssessmentID
 } from "../state";
 
 import {
@@ -1005,6 +1007,14 @@ function* rootSaga() {
   const assessmentId = yield requestNewAssessment(newBookKey).catch(
     e => e.request
   ); // TODO
+
+  yield clog("HERE I AM : ", assessmentId);
+
+  yield clog("assessmentID is: ", assessmentId);
+
+  // yield call(setAssessmentID, assessmentId);
+
+  yield put(setAssessmentID(assessmentId));
 
   yield clog("Assessment ID:", assessmentId);
 

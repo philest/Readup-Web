@@ -1090,7 +1090,7 @@ export default class GraderInterface extends React.Component {
         {this.renderNavigationBar(false)}
 
         {true && (
-          <div style={{ display: "none" }}>
+          <div>
             <VideoChat
               identity={"grader" + String(Math.random())}
               assessmentID={this.props.assessmentID}

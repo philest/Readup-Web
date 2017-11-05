@@ -76,7 +76,8 @@ export default class Reader extends React.Component {
     isLiveDemo: PropTypes.bool,
     inSpelling: PropTypes.bool,
     onSpellingAnswerGiven: PropTypes.func,
-    spellingQuestionNumber: PropTypes.number
+    spellingQuestionNumber: PropTypes.number,
+    assessmentID: PropTypes.number
   };
 
   static defaultProps = {
@@ -533,14 +534,16 @@ export default class Reader extends React.Component {
       <div className={styles.fullHeight}>
         {this.renderNavigationBar()}
 
-        <VideoChat
-          identity={"student"}
-          assessmentID={2224}
-          room={`Assessment-${2224}-Room`}
-          logs={false}
-          pictureInPicture={false}
-          hide={true}
-        />
+        <div style={{ display: "none" }}>
+          <VideoChat
+            identity={"student"}
+            assessmentID={this.props.assessmentID}
+            room={`Assessment-${this.props.assessmentID}-Room`}
+            logs={false}
+            pictureInPicture={false}
+            hide
+          />
+        </div>
 
         <div
           className={

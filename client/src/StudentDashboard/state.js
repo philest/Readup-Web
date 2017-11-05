@@ -104,11 +104,22 @@ export const SKIP_CLICKED = "SKIP_CLICKED";
 
 export const SHOW_SKIP_PROMPT_SET = "SHOW_SKIP_PROMPT_SET";
 
+export const ASSESSMENT_ID_SET = "ASSESSMENT_ID_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
     payload: {
       readerState
+    }
+  };
+}
+
+export function setAssessmentID(assessmentID: number) {
+  return {
+    type: ASSESSMENT_ID_SET,
+    payload: {
+      assessmentID
     }
   };
 }
@@ -1313,7 +1324,8 @@ const initialState = {
   inOralReading: true,
   isLiveDemo: false,
   spellingAnswerGiven: false,
-  spellingQuestionNumber: 1
+  spellingQuestionNumber: 1,
+  assessmentID: null
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -1327,6 +1339,11 @@ function reducer(state = initialState, action = {}) {
     case READER_STATE_SET: {
       console.log("SET READER STATE:: " + payload.readerState);
       return { ...state, readerState: payload.readerState };
+    }
+
+    case ASSESSMENT_ID_SET: {
+      console.log("SET ASSESSMENT_ID:: " + payload.assessmentID);
+      return { ...state, assessmentID: payload.assessmentID };
     }
 
     case PAGE_NUMBER_SET: {
