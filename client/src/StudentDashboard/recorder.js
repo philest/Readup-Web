@@ -26,11 +26,21 @@ class Recorder {
   }
   /*eslint-enable */
 
-  static hasRecordingPermissions(callback) {
-    DetectRTC.load(function() {
-      const hasPermissions = DetectRTC.isWebsiteHasMicrophonePermissions;
-      callback(hasPermissions);
-    });
+  static hasRecordingPermissions(callback, isDemo) {
+    if (isDemo) {
+      DetectRTC.load(function() {
+        const hasPermissions = DetectRTC.isWebsiteHasMicrophonePermissions;
+        callback(hasPermissions);
+      });
+    } else {
+      // need both permissions
+      DetectRTC.load(function() {
+        const hasPermissions =
+          DetectRTC.isWebsiteHasMicrophonePermissions &&
+          DetectRTC.isWebsiteHasWebcamPermissions;
+        callback(hasPermissions);
+      });
+    }
   }
 
   captureUserMedia(callback) {

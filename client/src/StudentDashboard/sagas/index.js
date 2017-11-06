@@ -126,9 +126,11 @@ import { sendEmail } from "../../ReportsInterface/emailHelpers";
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
 
-function getPermission(recorder) {
+function getPermission(recorder, isDemo) {
+  console.log("Here in getPerm, we say isDemo: ", isDemo);
+
   return navigator.mediaDevices
-    .getUserMedia({ audio: true })
+    .getUserMedia({ audio: true, video: !isDemo })
     .then(function(yay) {
       recorder.initialize();
       return true;
@@ -137,14 +139,6 @@ function getPermission(recorder) {
       console.log("ERROR getting mic permissions : ", err);
       return false;
     });
-  // return new Promise(function(resolve, reject) {
-  //   console.log('hihihih');
-
-  //   const result = recorder.initialize((error) => {
-  //     resolve(error)
-  //   })
-  //   console.log('CLOG', result);
-  // });
 }
 
 function* playSoundAsync(sound) {
@@ -174,7 +168,10 @@ function* getMicPermissionsSaga() {
   yield call(playSoundAsync, "/audio/allow.mp3");
 
   const recorder = yield select(getRecorder);
-  const getPermissionSuccess = yield getPermission(recorder);
+
+  const isDemo = yield select(getIsDemo);
+
+  const getPermissionSuccess = yield getPermission(recorder, isDemo);
 
   // ...is cancelled after a student clicks a permission button.
   yield call(stopAudio);
