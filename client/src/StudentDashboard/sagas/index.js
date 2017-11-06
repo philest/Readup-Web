@@ -121,7 +121,7 @@ import {
 
 import assessmentSaga from "./assessmentSaga";
 
-import { sendEmail } from "../../ReportsInterface/emailHelpers";
+import { sendEmail, sendCall } from "../../ReportsInterface/emailHelpers";
 
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
@@ -818,10 +818,12 @@ function* assessThenSubmitSaga(assessmentId) {
   // now we start the assessment for real
   effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
 
+  const isDemo = yield select(getIsDemo);
+
   yield call(
     sendEmail,
-    "Demo started",
-    "Demo was started",
+    `${isDemo ? "Demo" : "Real student session"} started`,
+    `${isDemo ? "Demo" : "Real student"} started`,
     "philesterman@gmail.com"
   ); // move here so don't break
 
@@ -1032,6 +1034,13 @@ function* rootSaga() {
   }).fail(function(xhr, status, err) {
     console.log(err);
   });
+
+  // Call Phil to alert if it's a live student test
+
+  if (!isDemo) {
+    yield clog("Call if in production...");
+    yield call(sendCall);
+  }
 
   /*
    ****************
