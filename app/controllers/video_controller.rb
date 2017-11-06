@@ -29,6 +29,25 @@ token = Twilio::JWT::AccessToken.new(
   identity: identity
 )
 
+
+# Create the room here, instead of on join. 
+
+client = Twilio::REST::Client.new(ENV['TWILIO_API_KEY'], ENV['TWILIO_API_SECRET'])
+
+
+rooms = client.video.rooms.list(unique_name: room)
+
+puts "Rooms with name #{room}: ", rooms
+
+if (!rooms)
+	group_room = client.video.rooms.create(
+	  unique_name: room,
+	  type: 'group',
+	  record_participants_on_connect: true
+	)
+end
+
+
 puts 'JWT token: ', token.to_jwt
 puts "Token: ", token 
 
