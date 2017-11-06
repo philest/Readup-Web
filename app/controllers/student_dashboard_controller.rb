@@ -41,18 +41,23 @@ class StudentDashboardController < ApplicationController
 
     if book_key
       render json: { assessment_id: Assessment.last.id }
-    end 
-
-    if stu_id && book_key
-      # TODO PHIL --- FIX THIS HACK 
-      # a = Assessment.new(book_key: book_key)
-      # Student.find_by(id: stu_id).assessments << a
-      # a.save!
-      render json: { assessment_id: Assessment.last.id }
-      # render json: { assessment_id: a.id }
     else
-      render status: 401, json: { error: "You're not logged in or you didn't supply a book_key", student_id: stu_id, book_key: book_key }
+      render status: 401, json: { error: "You didn't supply a book_key", book_key: book_key }
     end
+
+
+
+
+    # if stu_id && book_key
+    #   # TODO PHIL --- FIX THIS HACK 
+    #   # a = Assessment.new(book_key: book_key)
+    #   # Student.find_by(id: stu_id).assessments << a
+    #   # a.save!
+    #   render json: { assessment_id: Assessment.last.id }
+    #   # render json: { assessment_id: a.id }
+    # else
+    #   render status: 401, json: { error: "You're not logged in or you didn't supply a book_key", student_id: stu_id, book_key: book_key }
+    # end
   end
 
   def confirm_assessment_completion
