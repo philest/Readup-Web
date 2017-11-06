@@ -77,7 +77,8 @@ export default class Reader extends React.Component {
     inSpelling: PropTypes.bool,
     onSpellingAnswerGiven: PropTypes.func,
     spellingQuestionNumber: PropTypes.number,
-    assessmentID: PropTypes.number
+    assessmentID: PropTypes.number,
+    micPermissionsStatus: PropTypes.string
   };
 
   static defaultProps = {
@@ -535,7 +536,9 @@ export default class Reader extends React.Component {
         {this.renderNavigationBar()}
 
         {this.props.assessmentID &&
-          !this.props.isDemo && (
+          !this.props.isDemo &&
+          this.props.micPermissionsStatus ===
+            "MIC_PERMISSIONS_STATUS_GRANTED" && (
             <div style={{ display: "none" }}>
               <VideoChat
                 identity={"student"}
