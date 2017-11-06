@@ -32,12 +32,16 @@ class StudentDashboardController < ApplicationController
   end
 
   def create_assessment
-    stu_id = session[:student_id]
+    # stu_id = session[:student_id]
     book_key = params["book_key"]
 
     # TODO PHIL: this is just a hack to save the assessment 
     # a = Assessment.new(book_key: book_key)
     # a.save! 
+
+    if book_key
+      render json: { assessment_id: Assessment.last.id }
+    end 
 
     if stu_id && book_key
       # TODO PHIL --- FIX THIS HACK 

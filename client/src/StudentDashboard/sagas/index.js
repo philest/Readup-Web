@@ -1002,9 +1002,8 @@ function* rootSaga() {
 
   yield clog("Root Saga Started");
 
-  const newBookKey = isDemo ? "demo" : "unclear";
-  yield clog("Generating assessment... newBookKey:", newBookKey);
-  const assessmentId = yield requestNewAssessment(newBookKey).catch(
+  yield clog("Generating assessment... bookKey:", bookKey);
+  const assessmentId = yield requestNewAssessment(bookKey).catch(
     e => e.request
   ); // TODO
 
