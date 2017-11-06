@@ -277,7 +277,7 @@ div#remote-media {
 
 div#remote-media video {
     border: 1px solid #272726;
-    margin: 3em 2em;
+    margin: 4.4em 2em;
     /* height: 70%; */
     max-width: 27% !important;
     background-color: #272726;
