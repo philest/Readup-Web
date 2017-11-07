@@ -229,16 +229,24 @@ export default class VideoChat extends React.Component {
       });
 
       document.getElementById("audio-toggle-off").onclick = function() {
-        console.log("muting this users audio");
-        room.localParticipant.audioTracks.forEach(function(trackId, track) {
-          track.disable();
+        room.localParticipant.audioTracks.forEach(function(
+          audioTrack,
+          key,
+          map
+        ) {
+          console.log("muting this users audio");
+          audioTrack.disable();
         });
       };
 
       document.getElementById("audio-toggle-on").onclick = function() {
-        console.log("enabling this users audio");
-        room.localParticipant.audioTracks.forEach(function(trackId, track) {
-          track.enable();
+        room.localParticipant.audioTracks.forEach(function(
+          audioTrack,
+          key,
+          map
+        ) {
+          console.log("enabling this users audio");
+          audioTrack.enable();
         });
       };
     }
