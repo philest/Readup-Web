@@ -227,6 +227,20 @@ export default class VideoChat extends React.Component {
         document.getElementById("button-join").style.display = "inline";
         document.getElementById("button-leave").style.display = "none";
       });
+
+      document.getElementById("audio-toggle-off").onclick = function() {
+        console.log("muting this users audio");
+        room.localParticipant.audioTracks.forEach(function(trackId, track) {
+          track.disable();
+        });
+      };
+
+      document.getElementById("audio-toggle-on").onclick = function() {
+        console.log("enabling this users audio");
+        room.localParticipant.audioTracks.forEach(function(trackId, track) {
+          track.enable();
+        });
+      };
     }
 
     // // Preview LocalParticipant's Tracks.
@@ -433,7 +447,7 @@ div#controls div#log p {
 #audio-toggle {
 }
 
-#audio-toggle:hover {
+#audio-toggle-on:hover, #audio-toggle-off:hover {
   transform: translateY(0px);
 }
 
@@ -446,18 +460,28 @@ div#controls div#log p {
               <div id="local-media" />
             </div>
           )}
-          {this.props.audioToggleButton &&
-            this.state.localAudioEnabled && (
-              <Button id="audio-toggle" onClick={this.onToggleAudioClicked}>
-                Turn off your Audio
-              </Button>
-            )}
-          {this.props.audioToggleButton &&
-            !this.state.localAudioEnabled && (
-              <Button id="audio-toggle" onClick={this.onToggleAudioClicked}>
-                Turn on your Audio
-              </Button>
-            )}
+          {this.props.audioToggleButton && (
+            <Button
+              style={{
+                visibility: this.state.localAudioEnabled ? "visible" : "hidden"
+              }}
+              id="audio-toggle-off"
+              onClick={this.onToggleAudioClicked}
+            >
+              Turn off your Audio
+            </Button>
+          )}
+          {this.props.audioToggleButton && (
+            <Button
+              style={{
+                visibility: !this.state.localAudioEnabled ? "visible" : "hidden"
+              }}
+              id="audio-toggle-on"
+              onClick={this.onToggleAudioClicked}
+            >
+              Turn on your Audio
+            </Button>
+          )}
           {this.props.logs && (
             <div id="log" style={{ visibility: "visible" }} />
           )}

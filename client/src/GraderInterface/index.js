@@ -1092,7 +1092,7 @@ export default class GraderInterface extends React.Component {
         {true && (
           <div>
             <VideoChat
-              identity={"grader" + String(Math.random())}
+              identity={"grader" + String(Math.floor(Math.random() * 100) + 1)}
               assessmentID={this.props.assessmentID}
               room={`Assessment-${this.props.assessmentID}-Room`}
               logs={true}
