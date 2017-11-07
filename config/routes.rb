@@ -72,6 +72,15 @@ Rails.application.routes.draw do
   get 'fp', to: redirect('/student_dashboard/#/story/nick')
   get 'nick', to: redirect('/student_dashboard/#/story/nick')
 
+
+
+  # The student testing the program... 
+
+  get 'brian', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner')
+
+
+
+
   get 'firefly', to: redirect('/student_dashboard/#/story/demo')
   get 'test', to: redirect('/student_dashboard/#/story/demo')
 
