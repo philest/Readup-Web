@@ -53,13 +53,21 @@ class RegistrationController < ApplicationController
       # Create the dummy user linked to the real assesment. Dummy user updated after email collected. 
       User.create(first_name: "Dummy", last_name: "Teacher", name: "Dummy Teacher", password: "12345678", email:"dummy#{rand(1000000)}@gmail.com")
 
+
+      student_name = params["student_name"] || "Demo Student"
+
+      student_name = student_name.split.map(&:capitalize).join(' ')
+
+      puts "Here's the student name: ", student_name
+
+
       classroom_options = {
         classroom_name: "Demo Homeroom",
         user_id: User.last.id,
         school_id: School.find_by(name: 'Demo School'),
         grade: 2,
         teacher_signature: "Mrs. Demo",
-        student_list: ["Demo Student"]
+        student_list: [ student_name ]
       }
 
       if @new_classroom = Classroom.create_with_teacher_and_students(classroom_options)
@@ -67,7 +75,10 @@ class RegistrationController < ApplicationController
         t = @new_classroom.teachers.first
         demo_student = @new_classroom.students.find_by(last_name: "Student", first_name: "Demo")
 
-        session[:student_id] = demo_student.id || nil
+        if (demo_student)
+          session[:student_id] = demo_student.id || nil
+        end
+
       end
 
       Student.last.assessments.create(scored_text: "BLANK_SCORED_TEXT")
@@ -84,15 +95,11 @@ class RegistrationController < ApplicationController
           book_key = 'firefly'
       end 
 
-      # TODO PHIL NOTE: An atrocious hack. Hijacking the book key to start AWS URL of recording
-
       Assessment.last.update(scored_text: scored_text, book_key: book_key)
 
       if (brand)
         Assessment.last.update(brand: brand)
       end  
-
-
 
       puts "Created this assessment:\n#{User.last.teachers.last.classrooms.last.students.last.assessments.last}"
   end 

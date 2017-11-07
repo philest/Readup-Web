@@ -74,6 +74,7 @@ export const PERMISSIONS_ARROW_CLICKED = "PERMISSIONS_ARROW_CLICKED";
 export const IS_DEMO_SET = "IS_DEMO_SET";
 export const BOOK_KEY_SET = "BOOK_KEY_SET";
 export const BOOK_SET = "BOOK_SET";
+export const STUDENT_NAME_SET = "STUDENT_NAME_SET";
 
 export const IN_COMP_SET = "IN_COMP_SET";
 export const IN_SPELLING_SET = "IN_SPELLING_SET";
@@ -454,6 +455,15 @@ export function setBookKey(bookKey) {
     type: BOOK_KEY_SET,
     payload: {
       bookKey
+    }
+  };
+}
+
+export function setStudentName(studentName) {
+  return {
+    type: STUDENT_NAME_SET,
+    payload: {
+      studentName
     }
   };
 }
@@ -1553,6 +1563,10 @@ function reducer(state = initialState, action = {}) {
 
     case BOOK_KEY_SET: {
       return { ...state, bookKey: payload.bookKey };
+    }
+
+    case STUDENT_NAME_SET: {
+      return { ...state, studentName: payload.studentName };
     }
 
     case BOOK_SET: {

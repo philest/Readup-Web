@@ -28,6 +28,12 @@ getUserCount().then(res => {
 
 storeConfig.runSaga(rootSaga);
 
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
 function Root({ store, rorProps }) {
   console.log(store);
   return (
@@ -35,13 +41,29 @@ function Root({ store, rorProps }) {
       <HashRouter>
         <Switch>
           <Route
+            path="/story/:story_id/demo/:is_demo/page/:page_number/:student_name"
+            render={props => {
+              let readerManagerProps = {
+                ...props,
+                ...rorProps,
+                storyID: props.match.params.story_id,
+                isDemo: props.match.params.is_demo === "true",
+                studentName:
+                  toTitleCase(props.match.params.student_name) || "Demo Student"
+              }; //router: this.props.history}
+              return <ReaderManager {...readerManagerProps} />;
+            }}
+          />
+
+          <Route
             path="/story/:story_id/demo/:is_demo/page/:page_number"
             render={props => {
               let readerManagerProps = {
                 ...props,
                 ...rorProps,
                 storyID: props.match.params.story_id,
-                isDemo: props.match.params.is_demo === "true"
+                isDemo: props.match.params.is_demo === "true",
+                studentName: "Demo Student"
               }; //router: this.props.history}
               return <ReaderManager {...readerManagerProps} />;
             }}

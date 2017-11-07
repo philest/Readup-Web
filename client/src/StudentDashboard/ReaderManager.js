@@ -89,7 +89,8 @@ class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
     isDemo: PropTypes.bool,
-    storyID: PropTypes.string
+    storyID: PropTypes.string,
+    studentName: PropTypes.string
   };
 
   constructor(props, _railsContext) {
@@ -100,6 +101,7 @@ class StudentDashboard extends React.Component {
     this.props.actions.setIsDemo(this.props.isDemo);
     this.props.actions.setBookKey(this.props.storyID);
     this.props.actions.setBook(this.props.storyID);
+    this.props.actions.setStudentName(this.props.studentName);
 
     if (!Recorder.browserSupportsRecording()) {
       alert(

@@ -63,6 +63,7 @@ import {
   LAST_QUESTION_EXITED,
   VOLUME_INDICATOR_HIDDEN,
   BOOK_KEY_SET,
+  STUDENT_NAME_SET,
   LIVE_DEMO_SET,
   SPELLING_ANSWER_GIVEN_SET,
   NEXT_WORD_CLICKED,
@@ -997,6 +998,7 @@ function* assessThenSubmitSaga(assessmentId) {
 function* rootSaga() {
   const { payload: { isDemo } } = yield take(IS_DEMO_SET);
   const { payload: { bookKey } } = yield take(BOOK_KEY_SET);
+  const { payload: { studentName } } = yield take(STUDENT_NAME_SET);
 
   yield clog("isDemo: ", isDemo);
 
@@ -1029,7 +1031,7 @@ function* rootSaga() {
   // CREATE THE USER
 
   $.ajax({
-    url: "/auth/phil_setup_demo?book_key=" + bookKey,
+    url: `/auth/phil_setup_demo?book_key=${bookKey}&student_name=${studentName}`,
     type: "post"
   }).fail(function(xhr, status, err) {
     console.log(err);
