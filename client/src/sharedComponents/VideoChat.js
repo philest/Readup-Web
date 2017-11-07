@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 let showLogs;
 let hide;
 let audioToggleButton;
+let videoToggleButton;
 
 export default class VideoChat extends React.Component {
   static propTypes = {
@@ -15,7 +16,8 @@ export default class VideoChat extends React.Component {
     logs: PropTypes.bool,
     pictureInPicture: PropTypes.bool,
     hide: PropTypes.bool,
-    audioToggleButton: PropTypes.bool
+    audioToggleButton: PropTypes.bool,
+    videoToggleButton: PropTypes.bool
   };
 
   static defaultProps = {
@@ -23,7 +25,8 @@ export default class VideoChat extends React.Component {
     logs: false,
     pictureInPicture: true,
     hide: false,
-    audioToggleButton: false
+    audioToggleButton: false,
+    videoToggleButton: false
   };
 
   /**
@@ -33,19 +36,26 @@ export default class VideoChat extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      localAudioEnabled: !this.props.audioToggleButton // If there's a toggle button, start on mute (grader)
+      localAudioEnabled: !this.props.audioToggleButton, // If there's a toggle button, start on mute (grader)
+      localVideoEnabled: !this.props.videoToggleButton
     };
   }
 
   onToggleAudioClicked = () => {
-    console.log("here in toggle..");
+    console.log("here in audio toggle..");
     this.setState({ localAudioEnabled: !this.state.localAudioEnabled });
+  };
+
+  onToggleVideoClicked = () => {
+    console.log("here in video toggle..");
+    this.setState({ localVideoEnabled: !this.state.localVideoEnabled });
   };
 
   componentDidMount() {
     showLogs = this.props.logs;
     hide = this.props.hide;
     audioToggleButton = this.props.audioToggleButton;
+    videoToggleButton = this.props.videoToggleButton;
 
     const Video = require("twilio-video");
 
@@ -169,10 +179,6 @@ export default class VideoChat extends React.Component {
 
       log("Joined as '" + identity + "'");
 
-      if (hide) {
-        return;
-      }
-
       // document.getElementById("button-join").style.display = "none";
       // document.getElementById("button-leave").style.display = "inline";
 
@@ -242,6 +248,17 @@ export default class VideoChat extends React.Component {
         });
       }
 
+      if (videoToggleButton) {
+        room.localParticipant.videoTracks.forEach(function(
+          videoTrack,
+          key,
+          map
+        ) {
+          console.log("muting this users video");
+          videoTrack.disable();
+        });
+      }
+
       document.getElementById("audio-toggle-off").onclick = function() {
         room.localParticipant.audioTracks.forEach(function(
           audioTrack,
@@ -261,6 +278,28 @@ export default class VideoChat extends React.Component {
         ) {
           console.log("enabling this users audio");
           audioTrack.enable();
+        });
+      };
+
+      document.getElementById("video-toggle-off").onclick = function() {
+        room.localParticipant.videoTracks.forEach(function(
+          videoTrack,
+          key,
+          map
+        ) {
+          console.log("muting this users video");
+          videoTrack.disable();
+        });
+      };
+
+      document.getElementById("video-toggle-on").onclick = function() {
+        room.localParticipant.videoTracks.forEach(function(
+          videoTrack,
+          key,
+          map
+        ) {
+          console.log("enabling this users video");
+          videoTrack.enable();
         });
       };
     }
@@ -482,6 +521,7 @@ div#controls div#log p {
               <div id="local-media" />
             </div>
           )}
+
           {this.props.audioToggleButton && (
             <Button
               style={{
@@ -504,6 +544,30 @@ div#controls div#log p {
               Turn on your Audio
             </Button>
           )}
+
+          {this.props.videoToggleButton && (
+            <Button
+              style={{
+                visibility: this.state.localVideoEnabled ? "visible" : "hidden"
+              }}
+              id="video-toggle-off"
+              onClick={this.onToggleVideoClicked}
+            >
+              Turn off your video
+            </Button>
+          )}
+          {this.props.videoToggleButton && (
+            <Button
+              style={{
+                visibility: !this.state.localVideoEnabled ? "visible" : "hidden"
+              }}
+              id="video-toggle-on"
+              onClick={this.onToggleVideoClicked}
+            >
+              Turn on your video
+            </Button>
+          )}
+
           {this.props.logs && (
             <div id="log" style={{ visibility: "visible" }} />
           )}

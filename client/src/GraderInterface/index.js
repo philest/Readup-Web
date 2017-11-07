@@ -1099,6 +1099,7 @@ export default class GraderInterface extends React.Component {
               pictureInPicture={false}
               hide={false}
               audioToggleButton
+              videoToggleButton
             />
           </div>
         )}
