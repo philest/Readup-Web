@@ -259,49 +259,53 @@ export default class VideoChat extends React.Component {
         });
       }
 
-      document.getElementById("audio-toggle-off").onclick = function() {
-        room.localParticipant.audioTracks.forEach(function(
-          audioTrack,
-          key,
-          map
-        ) {
-          console.log("muting this users audio");
-          audioTrack.disable();
-        });
-      };
+      if (audioToggleButton) {
+        document.getElementById("audio-toggle-off").onclick = function() {
+          room.localParticipant.audioTracks.forEach(function(
+            audioTrack,
+            key,
+            map
+          ) {
+            console.log("muting this users audio");
+            audioTrack.disable();
+          });
+        };
 
-      document.getElementById("audio-toggle-on").onclick = function() {
-        room.localParticipant.audioTracks.forEach(function(
-          audioTrack,
-          key,
-          map
-        ) {
-          console.log("enabling this users audio");
-          audioTrack.enable();
-        });
-      };
+        document.getElementById("audio-toggle-on").onclick = function() {
+          room.localParticipant.audioTracks.forEach(function(
+            audioTrack,
+            key,
+            map
+          ) {
+            console.log("enabling this users audio");
+            audioTrack.enable();
+          });
+        };
+      }
 
-      document.getElementById("video-toggle-off").onclick = function() {
-        room.localParticipant.videoTracks.forEach(function(
-          videoTrack,
-          key,
-          map
-        ) {
-          console.log("muting this users video");
-          videoTrack.disable();
-        });
-      };
+      if (videoToggleButton) {
+        document.getElementById("video-toggle-off").onclick = function() {
+          room.localParticipant.videoTracks.forEach(function(
+            videoTrack,
+            key,
+            map
+          ) {
+            console.log("muting this users video");
+            videoTrack.disable();
+          });
+        };
 
-      document.getElementById("video-toggle-on").onclick = function() {
-        room.localParticipant.videoTracks.forEach(function(
-          videoTrack,
-          key,
-          map
-        ) {
-          console.log("enabling this users video");
-          videoTrack.enable();
-        });
-      };
+        document.getElementById("video-toggle-on").onclick = function() {
+          room.localParticipant.videoTracks.forEach(function(
+            videoTrack,
+            key,
+            map
+          ) {
+            console.log("enabling this users video");
+            videoTrack.enable();
+          });
+        };
+      }
     }
 
     // // Preview LocalParticipant's Tracks.
