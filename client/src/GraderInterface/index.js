@@ -1107,7 +1107,10 @@ export default class GraderInterface extends React.Component {
         <div className={styles.graderContainer}>
           <div className={styles.headingContainer}>
             <div className={styles.nameHeading}>
-              {"Demo from " + this.props.shortCreatedAt + " (PST)"}
+              {this.props.name === "Demo Student" &&
+                "Demo from " + this.props.shortCreatedAt + " (PST)"}
+              {this.props.name !== "Demo Student" &&
+                `${this.props.name} at ${this.props.shortCreatedAt} (PST)`}
             </div>
             {this.props.scored && (
               <div className={styles.emailHeading}>{this.props.email}</div>

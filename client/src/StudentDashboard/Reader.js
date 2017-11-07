@@ -541,7 +541,7 @@ export default class Reader extends React.Component {
             "MIC_PERMISSIONS_STATUS_GRANTED" && (
             <div style={{ display: "none" }}>
               <VideoChat
-                identity={"student"}
+                identity={this.props.studentName}
                 assessmentID={this.props.assessmentID}
                 room={`Assessment-${this.props.assessmentID}-Room`}
                 logs={false}
