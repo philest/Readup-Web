@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { Button } from "react-bootstrap";
+
 let showLogs;
 let hide;
 
@@ -11,14 +13,16 @@ export default class VideoChat extends React.Component {
     room: PropTypes.string,
     logs: PropTypes.bool,
     pictureInPicture: PropTypes.bool,
-    hide: PropTypes.bool
+    hide: PropTypes.bool,
+    audioToggleButton: PropTypes.bool
   };
 
   static defaultProps = {
     identity: "student",
     logs: false,
     pictureInPicture: true,
-    hide: false
+    hide: false,
+    audioToggleButton: false
   };
 
   /**
@@ -27,7 +31,15 @@ export default class VideoChat extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
+    this.state = {
+      localAudioEnabled: !this.props.audioToggleButton // If there's a toggle button, start on mute (grader)
+    };
   }
+
+  onToggleAudioClicked = () => {
+    console.log("here in toggle..");
+    this.setState({ localAudioEnabled: !this.state.localAudioEnabled });
+  };
 
   componentDidMount() {
     showLogs = this.props.logs;
@@ -417,6 +429,14 @@ div#controls div#log p {
   text-indent: -1.25em;
   width: 90%;
 }
+
+#audio-toggle {
+}
+
+#audio-toggle:hover {
+  transform: translateY(0px);
+}
+
 `}
         </style>
         <div id="remote-media" />
@@ -426,6 +446,18 @@ div#controls div#log p {
               <div id="local-media" />
             </div>
           )}
+          {this.props.audioToggleButton &&
+            this.state.localAudioEnabled && (
+              <Button id="audio-toggle" onClick={this.onToggleAudioClicked}>
+                Turn off your Audio
+              </Button>
+            )}
+          {this.props.audioToggleButton &&
+            !this.state.localAudioEnabled && (
+              <Button id="audio-toggle" onClick={this.onToggleAudioClicked}>
+                Turn on your Audio
+              </Button>
+            )}
           {this.props.logs && (
             <div id="log" style={{ visibility: "visible" }} />
           )}
