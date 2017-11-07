@@ -546,7 +546,6 @@ export default class Reader extends React.Component {
                 room={`Assessment-${this.props.assessmentID}-Room`}
                 logs={false}
                 pictureInPicture={false}
-                hide
               />
             </div>
           )}

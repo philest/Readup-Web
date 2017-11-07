@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 
 let showLogs;
 let hide;
+let audioToggleButton;
 
 export default class VideoChat extends React.Component {
   static propTypes = {
@@ -44,6 +45,7 @@ export default class VideoChat extends React.Component {
   componentDidMount() {
     showLogs = this.props.logs;
     hide = this.props.hide;
+    audioToggleButton = this.props.audioToggleButton;
 
     const Video = require("twilio-video");
 
@@ -227,6 +229,18 @@ export default class VideoChat extends React.Component {
         document.getElementById("button-join").style.display = "inline";
         document.getElementById("button-leave").style.display = "none";
       });
+
+      // start on mute for the grader
+      if (audioToggleButton) {
+        room.localParticipant.audioTracks.forEach(function(
+          audioTrack,
+          key,
+          map
+        ) {
+          console.log("muting this users audio");
+          audioTrack.disable();
+        });
+      }
 
       document.getElementById("audio-toggle-off").onclick = function() {
         room.localParticipant.audioTracks.forEach(function(
