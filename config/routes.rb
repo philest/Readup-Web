@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   get 'library', to: 'homepage#library'
 
   get 'token', to: 'video#token' 
+  get 'room_events', to: 'video#room_events'
+  post 'room_events', to: 'video#room_events'
 
   # user stuff including auth
 
