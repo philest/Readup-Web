@@ -7,6 +7,7 @@ let showLogs;
 let hide;
 let audioToggleButton;
 let videoToggleButton;
+let onlyLocalAudioTrack;
 
 export default class VideoChat extends React.Component {
   static propTypes = {
@@ -17,7 +18,8 @@ export default class VideoChat extends React.Component {
     pictureInPicture: PropTypes.bool,
     hide: PropTypes.bool,
     audioToggleButton: PropTypes.bool,
-    videoToggleButton: PropTypes.bool
+    videoToggleButton: PropTypes.bool,
+    onlyLocalAudioTrack: PropTypes.bool
   };
 
   static defaultProps = {
@@ -26,7 +28,8 @@ export default class VideoChat extends React.Component {
     pictureInPicture: true,
     hide: false,
     audioToggleButton: false,
-    videoToggleButton: false
+    videoToggleButton: false,
+    onlyLocalAudioTrack: false
   };
 
   /**
@@ -56,6 +59,7 @@ export default class VideoChat extends React.Component {
     hide = this.props.hide;
     audioToggleButton = this.props.audioToggleButton;
     videoToggleButton = this.props.videoToggleButton;
+    onlyLocalAudioTrack = this.props.onlyLocalAudioTrack;
 
     const Video = require("twilio-video");
 
