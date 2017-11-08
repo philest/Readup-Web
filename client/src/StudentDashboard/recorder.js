@@ -83,7 +83,8 @@ class Recorder {
               ? RecordRTC.StereoAudioRecorder
               : RecordRTC.MediaStreamRecorder,
             type: "audio",
-            mimeType: "audio/webm"
+            mimeType: "audio/webm",
+            ignoreMutedMedia: false // Attempt at solving the zero-byte problem
           });
           this.rtcRecorder.startRecording();
           this.recording = true;
