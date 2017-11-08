@@ -76,6 +76,40 @@ def room_events
 end 
 
 
+def list_active_rooms 
+
+
+	puts "in list_active_rooms..."
+
+	# Get your Account Sid and Auth Token from https://www.twilio.com/console
+	client = Twilio::REST::Client.new(ENV['TWILIO_API_KEY'], ENV['TWILIO_API_SECRET'])
+
+	rooms_by_status = client.video.rooms.list(status: 'in-progress')
+
+	puts rooms_by_status
+
+	if (!rooms_by_status) 
+		puts "No active rooms."
+	end 
+
+	rooms_by_status.each do |room|
+	  puts room.sid
+	end
+
+
+    msg = { :status => "ok", :numActiveRooms => "#{rooms_by_status ? rooms_by_status.length : 0}",
+    		:name => "#{rooms_by_status ? rooms_by_status.first.unique_name : nil}", :roomSID => "#{rooms_by_status ? rooms_by_status.first.sid : nil}"
+     }
+    render :json => msg
+
+	# respond_to do |format|
+	# 	msg = { :numRoomsActive => rooms_by_status.length}
+	# 	format.json  { render :json => msg } # don't do msg.to_json
+	# end
+
+
+end 
+
 
 
 

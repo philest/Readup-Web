@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   get 'token', to: 'video#token' 
   get 'room_events', to: 'video#room_events'
   post 'room_events', to: 'video#room_events'
+  get 'list_active_rooms', to: 'video#list_active_rooms'
+
 
   # user stuff including auth
 
