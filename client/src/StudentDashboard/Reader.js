@@ -536,7 +536,6 @@ export default class Reader extends React.Component {
         {this.renderNavigationBar()}
 
         {this.props.assessmentID &&
-          !this.props.isDemo &&
           this.props.micPermissionsStatus ===
             "MIC_PERMISSIONS_STATUS_GRANTED" && (
             <div style={{ display: "none" }}>
@@ -546,6 +545,7 @@ export default class Reader extends React.Component {
                 room={`Assessment-${this.props.assessmentID}-Room`}
                 logs={false}
                 pictureInPicture={false}
+                localVideo={!this.props.isDemo}
               />
             </div>
           )}

@@ -7,7 +7,8 @@ let showLogs;
 let hide;
 let audioToggleButton;
 let videoToggleButton;
-let onlyLocalAudioTrack;
+let localVideo;
+let localAudio;
 
 export default class VideoChat extends React.Component {
   static propTypes = {
@@ -19,7 +20,8 @@ export default class VideoChat extends React.Component {
     hide: PropTypes.bool,
     audioToggleButton: PropTypes.bool,
     videoToggleButton: PropTypes.bool,
-    onlyLocalAudioTrack: PropTypes.bool
+    localVideo: PropTypes.bool,
+    localAudio: PropTypes.bool
   };
 
   static defaultProps = {
@@ -29,7 +31,8 @@ export default class VideoChat extends React.Component {
     hide: false,
     audioToggleButton: false,
     videoToggleButton: false,
-    onlyLocalAudioTrack: false
+    localVideo: true,
+    localAudio: true
   };
 
   /**
@@ -59,7 +62,8 @@ export default class VideoChat extends React.Component {
     hide = this.props.hide;
     audioToggleButton = this.props.audioToggleButton;
     videoToggleButton = this.props.videoToggleButton;
-    onlyLocalAudioTrack = this.props.onlyLocalAudioTrack;
+    localAudio = this.props.localAudio;
+    localVideo = this.props.localVideo;
 
     const Video = require("twilio-video");
 
@@ -125,7 +129,9 @@ export default class VideoChat extends React.Component {
         log("Joining room '" + roomName + "'...");
         var connectOptions = {
           name: roomName,
-          logLevel: "debug"
+          logLevel: "debug",
+          video: localVideo,
+          audio: localAudio
         };
 
         if (previewTracks) {
