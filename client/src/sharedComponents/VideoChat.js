@@ -179,6 +179,8 @@ export default class VideoChat extends React.Component {
 
       log("Joined as '" + identity + "'");
 
+      log("RoomSID: " + room.sid);
+
       // document.getElementById("button-join").style.display = "none";
       // document.getElementById("button-leave").style.display = "inline";
 
