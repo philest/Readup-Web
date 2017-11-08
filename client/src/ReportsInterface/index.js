@@ -177,7 +177,7 @@ export default class ReportsInterface extends React.Component {
     if (this.props.isDirectSample) {
       footerLabelText = "Try out a student demo of ReadUp";
       footerButtonText = "See demo";
-      footerLink = "/step";
+      footerLink = this.props.assessmentBrand === "FP" ? "/fp" : "/step";
     } else {
       footerLabelText = "See our progress monitoring texts";
       footerButtonText = "See F&P leveled texts";
@@ -385,7 +385,8 @@ export default class ReportsInterface extends React.Component {
 
   onFooterClicked = () => {
     if (this.props.isDirectSample) {
-      window.location.href = "/step";
+      window.location.href =
+        this.props.assessmentBrand === "FP" ? "/fp" : "/step";
     } else {
       this.setState({ showBookModal: true });
     }
