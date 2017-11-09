@@ -40,6 +40,12 @@ Rails.application.routes.draw do
   get 'list_active_rooms', to: 'video#list_active_rooms'
 
 
+  # recording stuff 
+  get 'last_completed_room_sid', to: 'video#last_completed_room_sid'
+  get 'recording_sid', to: 'video#recording_sid'
+  get 'actual_recording', to: 'video#actual_recording'
+
+
   # user stuff including auth
 
   resources :users
