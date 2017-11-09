@@ -73,6 +73,7 @@ export const RECORDING_PLAYBACK = "RECORDING_PLAYBACK";
 export const PERMISSIONS_ARROW_CLICKED = "PERMISSIONS_ARROW_CLICKED";
 export const IS_DEMO_SET = "IS_DEMO_SET";
 export const BOOK_KEY_SET = "BOOK_KEY_SET";
+export const IS_WARMUP_SET = "IS_WARMUP_SET";
 export const BOOK_SET = "BOOK_SET";
 export const STUDENT_NAME_SET = "STUDENT_NAME_SET";
 
@@ -446,6 +447,15 @@ export function setIsDemo(isDemo) {
     type: IS_DEMO_SET,
     payload: {
       isDemo
+    }
+  };
+}
+
+export function setIsWarmup(isWarmup) {
+  return {
+    type: IS_WARMUP_SET,
+    payload: {
+      isWarmup
     }
   };
 }
@@ -1559,6 +1569,11 @@ function reducer(state = initialState, action = {}) {
 
     case IS_DEMO_SET: {
       return { ...state, isDemo: payload.isDemo };
+    }
+
+    case IS_WARMUP_SET: {
+      console.log("Setting the warmup here...");
+      return { ...state, isWarmup: payload.isWarmup };
     }
 
     case BOOK_KEY_SET: {
