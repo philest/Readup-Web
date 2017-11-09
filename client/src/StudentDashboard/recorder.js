@@ -81,10 +81,13 @@ class Recorder {
           this.rtcRecorder = RecordRTC(stream, {
             recorderType: isSafari
               ? RecordRTC.StereoAudioRecorder
-              : RecordRTC.MediaStreamRecorder,
+              : RecordRTC.StereoAudioRecorder, // StereoAudioRecorder seems to be able to solve the 0 byte problem -Muaz Khan
+            // : RecordRTC.MediaStreamRecorder,
             type: "audio",
             mimeType: "audio/webm",
-            ignoreMutedMedia: false // Attempt at solving the zero-byte problem
+            ignoreMutedMedia: false, // Attempt at solving the zero-byte problem
+            numberOfAudioChannels: 1,
+            audioBitsPerSecond: 32000
           });
           this.rtcRecorder.startRecording();
           this.recording = true;
