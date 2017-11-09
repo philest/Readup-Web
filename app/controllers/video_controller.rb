@@ -129,7 +129,7 @@ def last_completed_room_sid
 	end 
 
 
-    msg = { :status => "ok", :name => "#{rooms_by_status ? rooms_by_status.first.unique_name : nil}", :roomSID => "#{rooms_by_status ? rooms_by_status.first.sid : nil}" }
+    msg = { :status => "ok", :name => "#{rooms_by_status ? rooms_by_status.first.unique_name : nil}", :room_sid => "#{rooms_by_status ? rooms_by_status.first.sid : nil}" }
     render :json => msg
 
 	# respond_to do |format|
@@ -155,7 +155,7 @@ def recording_sid
 	  puts recording.sid
 	end
 
-    msg = { :status => "ok", :roomRecordings => "#{room_recordings}", }
+    msg = { :status => "ok", :room_sid => room_sid,  :room_recordings => "#{room_recordings}", :room_recording_sid => "#{room_recordings.first.sid}",}
     render :json => msg
 
 end 
@@ -178,13 +178,15 @@ def actual_recording
 
 	puts uri 
 
-	response = client.request(method: 'GET', uri: uri)
+
+	response = client.request(method: 'POST', uri: uri)
 	media_location = JSON.parse(response.body)['location']
 
 	media_content = Net::HTTP.get(URI(media_location))
 	puts media_content
 
 end 
+
 
 
 

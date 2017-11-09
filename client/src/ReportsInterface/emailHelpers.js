@@ -120,6 +120,39 @@ export function markScored(assessmentID) {
     });
 }
 
+export function getFullAssessmentSequence(assessmentID) {
+  console.log("Okay, the full assessment sequnece..");
+
+  return axios
+    .get(`/last_completed_room_sid`, {
+      headers: RctOnR.authenticityHeaders()
+    })
+    .then(res => {
+      const params = {
+        room_sid: res.room_sid
+      };
+
+      axios
+        .get(`/recording_sid`, {
+          headers: RctOnR.authenticityHeaders()
+        })
+        .then(res => {
+          const params = {
+            recording_sid: res.room_recording_sid, // aribtrary choose first
+            room_sid: res.room_sid
+          };
+
+          axios
+            .get(`/actual_recording`, {
+              headers: RctOnR.authenticityHeaders()
+            })
+            .then(res => {
+              console.log("should have retrieved actual recording...", res);
+            });
+        });
+    });
+}
+
 export function isScored(assessmentID) {
   return axios
     .get(`/assessments/${assessmentID}`, {
