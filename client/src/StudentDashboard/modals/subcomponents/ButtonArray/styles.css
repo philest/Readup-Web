@@ -1,23 +1,21 @@
-
 .buttonArrayWrapper {
 	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-flow: row;
-	justify-content: space-evenly;
+	justify-content: space-evenly !important; /*important tag beacuse broke on Chrome 56*/
 	align-items: center;
 	padding-left: 30px;
 	padding-right: 30px;
 }
-
 
 .inlineButtonArrayWrapper {
 	display: flex;
 	flex-flow: row;
 	justify-content: space-around;
 	align-items: center;
-    padding-left: 70px;
-    padding-right: 45px;
+	padding-left: 70px;
+	padding-right: 45px;
 }
 
 .buttonWrapper {
@@ -27,44 +25,42 @@
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
-    transition: all .3s;
+	transition: all 0.3s;
 	max-width: 160px;
 	text-align: center;
-
 }
 
 .buttonWrapper:hover {
 	transform: translateY(-3px);
-    filter: brightness(120%);
-    transition: all .3s;
-    opacity: 1;
-
+	filter: brightness(120%);
+	transition: all 0.3s;
+	opacity: 1;
 }
 
 .buttonWrapper:hover .obscure {
 	opacity: 1;
-	transition: all .3s;
+	transition: all 0.3s;
 }
 
-.buttonWrapper:hover .smallIcon, .buttonWrapper:hover .icon, .buttonWrapper:hover .blueIcon {
+.buttonWrapper:hover .smallIcon,
+.buttonWrapper:hover .icon,
+.buttonWrapper:hover .blueIcon {
 	opacity: 1;
-	transition: all .3s;
+	transition: all 0.3s;
 	color: rgb(36, 95, 146);
 }
 
 .buttonWrapper:hover .greenIcon {
 	opacity: 1;
-	transition: all .3s;
-	color: #50B250;
+	transition: all 0.3s;
+	color: #50b250;
 }
 
 .buttonWrapper:hover .redIcon {
 	opacity: 1;
-	transition: all .3s;
-    color: #a94442;
+	transition: all 0.3s;
+	color: #a94442;
 }
-
-
 
 .buttonImage {
 	width: 60px;
@@ -74,8 +70,8 @@
 
 .smallButtonImage {
 	width: 50px;
-    height: 50px;
-    margin: 0px; 
+	height: 50px;
+	margin: 0px;
 }
 
 .largeButtonImage {
@@ -90,57 +86,50 @@
 	font-size: 1.1em;
 	margin: 10px;
 	margin-top: 8px;
-	font-family: 'Proximanova Semibold';
+	font-family: "Proximanova Semibold";
 	color: #4a4a4a;
 }
-
-
 
 .largeButtonText {
 	font-weight: bold;
 	font-style: italic;
 	font-size: 1.3em;
 	margin: 10px;
-	font-family: 'Proximanova Semibold';
+	font-family: "Proximanova Semibold";
 	color: #4a4a4a;
 }
 
 .smallButtonText {
-    font-weight: bold;
-    font-style: italic;
-    font-size: 0.8em;
-    margin: 10px;
-    margin-top: 5px;
-    font-family: 'Proximanova Semibold';
-    color: #4a4a4a;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 0.8em;
+	margin: 10px;
+	margin-top: 5px;
+	font-family: "Proximanova Semibold";
+	color: #4a4a4a;
 }
-
-
 
 .largeIcon {
 	color: rgb(36, 95, 146);
-    font-size: 5.4em;
+	font-size: 5.4em;
 }
 
 .icon {
 	color: rgb(36, 95, 146);
-    font-size: 3.8em;
+	font-size: 3.8em;
 }
 
 .smallIcon {
 	color: rgb(36, 95, 146);
-    font-size: 2.5em;
+	font-size: 2.5em;
 }
 
 .obscure {
-	opacity: .8;
-	transition: all .3s;
-
+	opacity: 0.8;
+	transition: all 0.3s;
 }
 
-
 .disabledButtonWrapper {
-
 	display: flex;
 	flex-flow: column;
 	/*background-color: yellow;*/
@@ -151,22 +140,20 @@
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
 	-webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently */
-
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently */
 }
 
 .greenIcon {
-	color: #50B250;
+	color: #50b250;
 }
 
 .redIcon {
 	color: red;
 }
-
 
 .lightgrayIcon {
 	color: #a2a2a2;
@@ -175,7 +162,6 @@
 .noTransform {
 	transform: none;
 }
-
 
 /*.doneModal {
 	display: block; 

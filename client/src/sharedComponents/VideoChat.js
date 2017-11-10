@@ -129,7 +129,6 @@ export default class VideoChat extends React.Component {
         log("Joining room '" + roomName + "'...");
         var connectOptions = {
           name: roomName,
-          logLevel: "debug",
           video: localVideo,
           audio: localAudio
         };

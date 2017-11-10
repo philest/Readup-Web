@@ -21,10 +21,10 @@ class GraderInterfaceController < ApplicationController
     elsif params['user_id'].to_i > 0 || params['user_id'] == 'latest' || params['user_id'] == "waiting" || params['user_id'] == "remote"# Not the email_submit hack 
       @student = @user.teachers.last.classrooms.last.students.last
       @assessment = @student.assessments.last
-      created_at = User.last.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')
 
 
-      short_created_at = User.last.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%l:%M %p')
+      created_at = @user.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')
+      short_created_at = @user.created_at.in_time_zone('Pacific Time (US & Canada)').to_time.strftime('%l:%M %p')
 
 
 
