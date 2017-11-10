@@ -21,7 +21,8 @@ export default class VideoChat extends React.Component {
     audioToggleButton: PropTypes.bool,
     videoToggleButton: PropTypes.bool,
     localVideo: PropTypes.bool,
-    localAudio: PropTypes.bool
+    localAudio: PropTypes.bool,
+    studentDash: PropTypes.bool
   };
 
   static defaultProps = {
@@ -32,7 +33,8 @@ export default class VideoChat extends React.Component {
     audioToggleButton: false,
     videoToggleButton: false,
     localVideo: true,
-    localAudio: true
+    localAudio: true,
+    studentDash: false
   };
 
   /**
@@ -378,17 +380,22 @@ div#remote-media {
 }
 
 div#remote-media video {
-    border: 1px solid #272726;
-    margin: 4.4em 2em;
+    /* border: 1px solid #272726; */
+    margin: ${this.props.studentDash ? "1em" : "4.4em 2em"} ;
     /* height: 70%; */
     max-width: 27% !important;
-    background-color: #272726;
+    background-color: #0c1f2d;
     background-repeat: no-repeat;
     position: fixed;
-    width: 270px;
+    width: ${this.props.studentDash ? "185px" : "270px"};
     float: right;
     right: 0px;
+    z-index: 999;
 }
+
+
+
+
 
 div#controls {
   padding: 3em;

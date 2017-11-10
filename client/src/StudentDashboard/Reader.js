@@ -538,7 +538,7 @@ export default class Reader extends React.Component {
         {this.props.assessmentID &&
           this.props.micPermissionsStatus ===
             "MIC_PERMISSIONS_STATUS_GRANTED" && (
-            <div style={{ display: "none" }}>
+            <div style={{ height: 0 }}>
               <VideoChat
                 identity={this.props.studentName}
                 assessmentID={this.props.assessmentID}
@@ -546,6 +546,7 @@ export default class Reader extends React.Component {
                 logs={false}
                 pictureInPicture={false}
                 localVideo={!this.props.isDemo}
+                studentDash
               />
             </div>
           )}
