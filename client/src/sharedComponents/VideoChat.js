@@ -10,6 +10,8 @@ let videoToggleButton;
 let localVideo;
 let localAudio;
 
+let onToggleShowVideo;
+
 export default class VideoChat extends React.Component {
   static propTypes = {
     identity: PropTypes.string,
@@ -45,7 +47,8 @@ export default class VideoChat extends React.Component {
     super(props);
     this.state = {
       localAudioEnabled: !this.props.audioToggleButton, // If there's a toggle button, start on mute (grader)
-      localVideoEnabled: !this.props.videoToggleButton
+      localVideoEnabled: !this.props.videoToggleButton,
+      showVideo: !this.props.studentDash // Hide the video for students, until told to
     };
   }
 
@@ -59,6 +62,11 @@ export default class VideoChat extends React.Component {
     this.setState({ localVideoEnabled: !this.state.localVideoEnabled });
   };
 
+  onToggleShowVideo = () => {
+    console.log("here in SHOW video toggle.");
+    this.setState({ showVideo: !this.state.showVideo });
+  };
+
   componentDidMount() {
     showLogs = this.props.logs;
     hide = this.props.hide;
@@ -66,6 +74,8 @@ export default class VideoChat extends React.Component {
     videoToggleButton = this.props.videoToggleButton;
     localAudio = this.props.localAudio;
     localVideo = this.props.localVideo;
+
+    onToggleShowVideo = this.onToggleShowVideo;
 
     const Video = require("twilio-video");
 
@@ -79,7 +89,9 @@ export default class VideoChat extends React.Component {
     // Attach the Tracks to the DOM.
     function attachTracks(tracks, container) {
       tracks.forEach(function(track) {
-        container.appendChild(track.attach());
+        if (track.kind !== "data") {
+          container.appendChild(track.attach());
+        }
       });
     }
 
@@ -108,6 +120,20 @@ export default class VideoChat extends React.Component {
     // from the room, if joined.
     window.addEventListener("beforeunload", leaveRoomIfJoined);
 
+    /**
+     * Setup a LocalAudioTrack and LocalVideoTrack to render to a <video> element.
+     * @param {HTMLVideoElement} video
+     * @returns {Promise<Array<LocalAudioTrack|LocalVideoTrack>>} audioAndVideoTrack
+     */
+    async function setupLocalAudioAndVideoTracks(video) {
+      const audioAndVideoTrack = await createLocalTracks();
+      audioAndVideoTrack.forEach(track => track.attach(video));
+      return audioAndVideoTrack;
+    }
+
+    // scope it up here
+    var dataTrack = new Video.LocalDataTrack();
+
     // Obtain a token from the server in order to connect to the Room.
     $.getJSON(
       `/token?identity=${this.props.identity}&room=${this.props.room}`,
@@ -132,7 +158,8 @@ export default class VideoChat extends React.Component {
         var connectOptions = {
           name: roomName,
           video: localVideo,
-          audio: localAudio
+          audio: localAudio,
+          logLevel: "debug"
         };
 
         if (previewTracks) {
@@ -192,6 +219,9 @@ export default class VideoChat extends React.Component {
 
       log("RoomSID: " + room.sid);
 
+      // add the dataTrack after the room is joined
+      room.localParticipant.addTrack(dataTrack);
+
       // document.getElementById("button-join").style.display = "none";
       // document.getElementById("button-leave").style.display = "inline";
 
@@ -218,6 +248,15 @@ export default class VideoChat extends React.Component {
       room.on("trackAdded", function(track, participant) {
         log(participant.identity + " added track: " + track.kind);
         var previewContainer = document.getElementById("remote-media");
+
+        if (track.kind === "data") {
+          track.on("message", data => {
+            console.log("receiving a data track");
+            console.log(data);
+            onToggleShowVideo();
+          });
+        }
+
         attachTracks([track], previewContainer);
       });
 
@@ -298,6 +337,8 @@ export default class VideoChat extends React.Component {
 
       if (videoToggleButton) {
         document.getElementById("video-toggle-off").onclick = function() {
+          dataTrack.send("VIDEO-OFF");
+
           room.localParticipant.videoTracks.forEach(function(
             videoTrack,
             key,
@@ -309,6 +350,8 @@ export default class VideoChat extends React.Component {
         };
 
         document.getElementById("video-toggle-on").onclick = function() {
+          dataTrack.send("VIDEO-ON");
+
           room.localParticipant.videoTracks.forEach(function(
             videoTrack,
             key,
@@ -391,6 +434,7 @@ div#remote-media video {
     float: right;
     right: 0px;
     z-index: 999;
+    display: ${this.state.showVideo ? "block" : "none"}
 }
 
 
