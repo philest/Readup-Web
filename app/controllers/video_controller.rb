@@ -47,7 +47,7 @@ def token
 		  unique_name: room,
 		  type: 'group',
 		  record_participants_on_connect: true,
-		  status_callback: "https://www.readupnow.com/room_events",
+		  status_callback: "https://requestb.in/p1zyktp2",
 		  status_callback_method: 'POST'
 		)
 	end
