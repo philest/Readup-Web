@@ -446,21 +446,23 @@ function* instructionSaga() {
     const isWarmup = yield select(getIsWarmup);
 
     if (!isWarmup) {
-      yield call(playSoundAsync, "/audio/comp-instructions.mp3");
+      // yield call(playSoundAsync, "/audio/comp-instructions.mp3");
+      yield call(playSoundAsync, "/audio/VB/min/VB-comp-instructions.mp3");
+
+      yield call(delay, 1400);
+
+      yield put.resolve(
+        setReaderState(ReaderStateOptions.talkingAboutStartButton)
+      );
+
+      yield call(delay, 2480);
+
+      yield put.resolve(
+        setReaderState(ReaderStateOptions.talkingAboutStopButton)
+      );
+
+      yield call(delay, 1900);
     }
-    yield call(delay, 1400);
-
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutStartButton)
-    );
-
-    yield call(delay, 2480);
-
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutStopButton)
-    );
-
-    yield call(delay, 1900);
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
@@ -951,7 +953,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    yield playSound("/audio/complete.mp3");
+    yield call(playSound, "/audio/complete.mp3");
 
     // now start submitting it!
 
