@@ -391,7 +391,8 @@ export default class Reader extends React.Component {
           className={[styles.volumeContainer, styles.clickable].join(" ")}
           style={{
             visibility:
-              this.props.readerState === "READER_STATE_IN_PROGRESS"
+              this.props.readerState === "READER_STATE_IN_PROGRESS" ||
+              this.props.readerState === "READER_STATE_AWAITING_START"
                 ? "visible"
                 : "hidden"
           }}
