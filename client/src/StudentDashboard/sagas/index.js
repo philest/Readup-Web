@@ -433,8 +433,11 @@ function* instructionSaga() {
   if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
     yield call(delay, 500);
 
-    yield call(playSound, "/audio/comp-instructions.mp3");
+    const isWarmup = yield select(getIsWarmup);
 
+    if (!isWarmup) {
+      yield call(playSound, "/audio/comp-instructions.mp3");
+    }
     // yield call(delay, 1400);
 
     // yield put.resolve(
