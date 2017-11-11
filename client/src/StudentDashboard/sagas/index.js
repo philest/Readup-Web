@@ -826,6 +826,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield call(stopAudio);
 
+  yield call(delay, 1350);
+
   if (isWarmup) {
     yield call(playSound, "/audio/warmup/warmup-1-hey.mp3");
     yield call(playSound, "/audio/warmup/warmup-2-read-book.mp3");
