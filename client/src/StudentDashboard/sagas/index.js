@@ -441,9 +441,10 @@ function* spellingInstructionSaga() {
     yield put.resolve(
       setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
     );
-    yield call(delay, 3500);
-
+    yield call(delay, 3100);
     yield put.resolve(setReaderState(ReaderStateOptions.done));
+
+    yield call(playSound, "/audio/say-sounds-slowly.mp3");
   } else {
     yield call(playSound, "/audio/spelling-intro-transition.mp3");
     yield put.resolve(
