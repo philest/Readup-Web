@@ -84,7 +84,7 @@ Rails.application.routes.draw do
 
   # The student testing the program... 
 
-  get 'brian', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner')
+  get 'brian', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner/warmup/true')
 
 
 

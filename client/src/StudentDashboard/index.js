@@ -14,6 +14,8 @@ import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { getUserCount } from "../ReportsInterface/emailHelpers.js";
 
+const queryString = require("query-string");
+
 let userCount;
 
 getUserCount().then(res => {
@@ -41,7 +43,7 @@ function Root({ store, rorProps }) {
       <HashRouter>
         <Switch>
           <Route
-            path="/story/:story_id/demo/:is_demo/page/:page_number/:student_name"
+            path="/story/:story_id/demo/:is_demo/page/:page_number/:student_name/warmup/:is_warmup"
             render={props => {
               let readerManagerProps = {
                 ...props,
@@ -49,8 +51,11 @@ function Root({ store, rorProps }) {
                 storyID: props.match.params.story_id,
                 isDemo: props.match.params.is_demo === "true",
                 studentName:
-                  toTitleCase(props.match.params.student_name) || "Demo Student"
+                  toTitleCase(props.match.params.student_name) ||
+                  "Demo Student",
+                isWarmup: props.match.params.is_warmup === "true"
               }; //router: this.props.history}
+
               return <ReaderManager {...readerManagerProps} />;
             }}
           />
