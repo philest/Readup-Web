@@ -284,23 +284,6 @@ export default class GraderInterface extends React.Component {
       .catch(function(err) {
         console.log(err);
       });
-
-    // if ( && !this.state.showWakeModal) {
-    //   console.log("time to show the wake modal...")
-    //   playSoundAsync('/audio/complete.mp3')
-    //   this.setState({ showWakeModal: true})
-    // } else {
-    //     console.log("don't trigger wake modal...")
-    // }
-
-    // check status of each file
-
-    for (let q = 0; q <= numQuestions; q++) {
-      if (!this.state.showQArr[String(q)] && !this.props.scored) {
-        this.checkS3(q, false);
-        break;
-      }
-    }
   }
 
   assessmentSavedThisSession(id) {
@@ -491,54 +474,14 @@ export default class GraderInterface extends React.Component {
     });
   };
 
-  onPrompt1Clicked = () => {
-    const params = { prompt_status: PromptOptions.tellSomeMore };
-    updateStudent(params, this.props.studentID);
-    this.setState({ showPromptAlert: true });
-    setTimeout(() => {
-      this.setState({ showPromptAlert: false });
-    }, 2500);
-  };
+  onPromptClicked = (promptNumber, isImmediate) => {
+    let promptStatus = PromptOptions[promptNumber];
+    const params = { prompt_status: promptStatus };
 
-  onPrompt2Clicked = () => {
-    const params = { prompt_status: PromptOptions.whatInStory };
-    updateStudent(params, this.props.studentID);
-    this.setState({ showPromptAlert: true });
-    setTimeout(() => {
-      this.setState({ showPromptAlert: false });
-    }, 2500);
-  };
+    if (!isImmediate) {
+      updateStudent(params, this.props.studentID);
+    }
 
-  onPrompt3Clicked = () => {
-    const params = { prompt_status: PromptOptions.whyImportant };
-    updateStudent(params, this.props.studentID);
-    this.setState({ showPromptAlert: true });
-    setTimeout(() => {
-      this.setState({ showPromptAlert: false });
-    }, 2500);
-  };
-
-  onPrompt4Clicked = () => {
-    const params = { prompt_status: PromptOptions.whyThinkThat };
-    updateStudent(params, this.props.studentID);
-    this.setState({ showPromptAlert: true });
-    setTimeout(() => {
-      this.setState({ showPromptAlert: false });
-    }, 2500);
-  };
-
-  onPrompt5Clicked = () => {
-    const params = { prompt_status: PromptOptions.repeatQuestion };
-    updateStudent(params, this.props.studentID);
-    this.setState({ showPromptAlert: true });
-    setTimeout(() => {
-      this.setState({ showPromptAlert: false });
-    }, 2500);
-  };
-
-  onPrompt6Clicked = () => {
-    const params = { prompt_status: PromptOptions.noPromptNeeded };
-    updateStudent(params, this.props.studentID);
     this.setState({ showPromptAlert: true });
     setTimeout(() => {
       this.setState({ showPromptAlert: false });
@@ -1053,22 +996,22 @@ export default class GraderInterface extends React.Component {
                 styles.promptButtonGroup
               ].join(" ")}
             >
-              <Button href="#" onClick={this.onPrompt1Clicked}>
+              <Button href="#" onClick={() => this.onPromptClicked(1)}>
                 Tell some more
               </Button>
-              <Button href="#" onClick={this.onPrompt2Clicked}>
+              <Button href="#" onClick={() => this.onPromptClicked(2)}>
                 What in the story makes you think that?
               </Button>
-              <Button href="#" onClick={this.onPrompt3Clicked}>
+              <Button href="#" onClick={() => this.onPromptClicked(3)}>
                 Why is that important?
               </Button>
-              <Button href="#" onClick={this.onPrompt4Clicked}>
+              <Button href="#" onClick={() => this.onPromptClicked(4)}>
                 Why do you think that?
               </Button>
-              <Button href="#" onClick={this.onPrompt5Clicked}>
+              <Button href="#" onClick={() => this.onPromptClicked(5)}>
                 Repeat the question
               </Button>
-              <Button href="#" onClick={this.onPrompt6Clicked}>
+              <Button href="#" onClick={() => this.onPromptClicked(6)}>
                 <strong>No prompt needed</strong>
               </Button>
             </ButtonGroup>
@@ -1127,29 +1070,29 @@ export default class GraderInterface extends React.Component {
             <div className={styles.philControls}>
               <style>{`.btn-group .btn {z-index: 0;}`}</style>
               <div className={[styles.compPromptContainer, styles.block]}>
-                <h4>Prompts</h4>
+                <h4>Post-Question Prompts</h4>
                 <ButtonGroup
                   className={[
                     styles.fluencyButtonGroup,
                     styles.promptButtonGroup
                   ].join(" ")}
                 >
-                  <Button href="#" onClick={this.onPrompt1Clicked}>
+                  <Button href="#" onClick={() => this.onPromptClicked(1)}>
                     Tell some more
                   </Button>
-                  <Button href="#" onClick={this.onPrompt2Clicked}>
+                  <Button href="#" onClick={() => this.onPromptClicked(2)}>
                     What in the story makes you think that?
                   </Button>
-                  <Button href="#" onClick={this.onPrompt3Clicked}>
+                  <Button href="#" onClick={() => this.onPromptClicked(3)}>
                     Why is that important?
                   </Button>
-                  <Button href="#" onClick={this.onPrompt4Clicked}>
+                  <Button href="#" onClick={() => this.onPromptClicked(4)}>
                     Why do you think that?
                   </Button>
-                  <Button href="#" onClick={this.onPrompt5Clicked}>
+                  <Button href="#" onClick={() => this.onPromptClicked(5)}>
                     Repeat the question
                   </Button>
-                  <Button href="#" onClick={this.onPrompt6Clicked}>
+                  <Button href="#" onClick={() => this.onPromptClicked(6)}>
                     <strong>No prompt needed</strong>
                   </Button>
                 </ButtonGroup>

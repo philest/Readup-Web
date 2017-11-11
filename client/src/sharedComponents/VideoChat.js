@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import { Button } from "react-bootstrap";
+import styles from "../GraderInterface/styles.css";
+
+import { Button, ButtonGroup } from "react-bootstrap";
+
+import { playSound } from "../StudentDashboard/audioPlayer.js";
+import { PromptAudioOptions } from "../StudentDashboard/types";
+
+const Video = require("twilio-video");
 
 let showLogs;
 let hide;
@@ -11,6 +18,9 @@ let localVideo;
 let localAudio;
 
 let onToggleShowVideo;
+
+// scope it up here
+var dataTrack = new Video.LocalDataTrack();
 
 export default class VideoChat extends React.Component {
   static propTypes = {
@@ -65,6 +75,23 @@ export default class VideoChat extends React.Component {
   onToggleShowVideo = () => {
     console.log("here in SHOW video toggle.");
     this.setState({ showVideo: !this.state.showVideo });
+  };
+
+  onPromptClicked = (promptNumber, isImmediate) => {
+    console.log("clicked immediate prompt ");
+    dataTrack.send(`PROMPT-${promptNumber}`);
+
+    // let promptStatus = PromptOptions[promptNumber];
+    // const params = { prompt_status: promptStatus };
+
+    // if (!isImmediate) {
+    //   updateStudent(params, this.props.studentID);
+    // }
+
+    // this.setState({ showPromptAlert: true });
+    // setTimeout(() => {
+    //   this.setState({ showPromptAlert: false });
+    // }, 2500);
   };
 
   componentDidMount() {
@@ -131,8 +158,8 @@ export default class VideoChat extends React.Component {
       return audioAndVideoTrack;
     }
 
-    // scope it up here
-    var dataTrack = new Video.LocalDataTrack();
+    // // scope it up here
+    // var dataTrack = new Video.LocalDataTrack();
 
     // Obtain a token from the server in order to connect to the Room.
     $.getJSON(
@@ -251,9 +278,28 @@ export default class VideoChat extends React.Component {
 
         if (track.kind === "data") {
           track.on("message", data => {
-            console.log("receiving a data track");
+            console.log("getting a data track message");
             console.log(data);
-            onToggleShowVideo();
+            if (data.includes("VIDEO")) {
+              onToggleShowVideo();
+            }
+
+            if (data.includes("PROMPT")) {
+              let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
+
+              console.log(PromptAudioOptions);
+              console.log(promptNum);
+              console.log(
+                PromptAudioOptions[
+                  Object.keys(PromptAudioOptions)[promptNum - 1]
+                ]
+              );
+              playSound(
+                PromptAudioOptions[
+                  Object.keys(PromptAudioOptions)[promptNum - 1]
+                ]
+              );
+            }
           });
         }
 
@@ -632,6 +678,37 @@ div#controls div#log p {
             >
               Turn on your video
             </Button>
+          )}
+
+          {!this.props.studentDash && (
+            <div className={[styles.compPromptContainer, styles.block]}>
+              <h4>Immediate, Live Prompts</h4>
+              <ButtonGroup
+                className={[
+                  styles.fluencyButtonGroup,
+                  styles.promptButtonGroup
+                ].join(" ")}
+              >
+                <Button href="#" onClick={() => this.onPromptClicked(1, true)}>
+                  Tell some more
+                </Button>
+                <Button href="#" onClick={() => this.onPromptClicked(2, true)}>
+                  What in the story makes you think that?
+                </Button>
+                <Button href="#" onClick={() => this.onPromptClicked(3, true)}>
+                  Why is that important?
+                </Button>
+                <Button href="#" onClick={() => this.onPromptClicked(4, true)}>
+                  Why do you think that?
+                </Button>
+                <Button href="#" onClick={() => this.onPromptClicked(5, true)}>
+                  Repeat the question
+                </Button>
+                <Button href="#" onClick={() => this.onPromptClicked(6, true)}>
+                  <strong>No prompt needed</strong>
+                </Button>
+              </ButtonGroup>
+            </div>
           )}
 
           {this.props.logs && (
