@@ -74,6 +74,7 @@ import {
   SKIP_CLICKED,
   SHOW_SKIP_PROMPT_SET,
   ASSESSMENT_ID_SET,
+  IS_WARMUP_SET,
   startCountdownToStart,
   setMicPermissions,
   setHasRecordedSomething,
@@ -111,6 +112,7 @@ import {
 import {
   getRecorder,
   getIsDemo,
+  getIsWarmup,
   getNumQuestions,
   getQuestionNumber,
   getSpellingQuestionNumber,
@@ -767,25 +769,29 @@ function* assessThenSubmitSaga(assessmentId) {
   effects.push(yield fork(hideVolumeSaga));
 
   const book = yield select(getBook);
+  const isWarmup = yield select(getIsWarmup);
 
   yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
   yield clog("set it");
 
   yield call(stopAudio);
-  yield call(playSoundAsync, book.introAudioSrc);
 
-  yield call(delay, 11500);
+  yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
 
   yield put.resolve(showVolumeIndicator());
 
+  yield call(playSound, book.introAudioSrc);
+
   yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStartButton));
 
-  yield call(delay, 5300);
+  yield put.resolve(showVolumeIndicator());
+
+  yield call(playSound, "/audio/intro-click-start.mp3");
 
   yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStopButton));
 
-  yield call(delay, 2100);
+  yield call(playSound, "/audio/intro-click-stop.mp3");
 
   yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
@@ -999,6 +1005,7 @@ function* rootSaga() {
   const { payload: { isDemo } } = yield take(IS_DEMO_SET);
   const { payload: { bookKey } } = yield take(BOOK_KEY_SET);
   const { payload: { studentName } } = yield take(STUDENT_NAME_SET);
+  const { payload: { isWarmup } } = yield take(IS_WARMUP_SET);
 
   yield clog("isDemo: ", isDemo);
 

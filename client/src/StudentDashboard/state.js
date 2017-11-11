@@ -743,7 +743,7 @@ export const stepBook = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step/step-cover.jpg",
-  introAudioSrc: "/audio/peter-intro-new.mp3",
+  introAudioSrc: "/audio/peter-intro-short.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -990,7 +990,7 @@ export const fpBook = {
   numPages: 10, // if you want a shorter book for testing purposes just change this
   isWideBook: true,
   coverImage: "/images/dashboard/bedtime-large.jpg",
-  introAudioSrc: "/audio/nick-intro-new.mp3",
+  introAudioSrc: "/audio/intro-nick-short.mp3",
   markup: nickMarkup,
   pages: {
     1: {
