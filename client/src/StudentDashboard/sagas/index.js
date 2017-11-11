@@ -777,27 +777,40 @@ function* assessThenSubmitSaga(assessmentId) {
 
   yield call(stopAudio);
 
-  yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
+  if (isWarmup) {
+    yield call(playSound, "/audio/warmup/warmup-1-hey.mp3");
+    yield call(playSound, "/audio/warmup/warmup-2-read-book.mp3");
+    yield put.resolve(
+      setReaderState(ReaderStateOptions.talkingAboutStartButton)
+    );
+    yield call(playSound, "/audio/warmup/warmup-3-click-start.mp3");
+    yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+    yield call(playSound, "/audio/complete.mp3");
+  } else {
+    yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
 
-  yield put.resolve(showVolumeIndicator());
+    yield put.resolve(showVolumeIndicator());
 
-  yield call(playSound, book.introAudioSrc);
+    yield call(playSound, book.introAudioSrc);
 
-  yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStartButton));
+    yield put.resolve(
+      setReaderState(ReaderStateOptions.talkingAboutStartButton)
+    );
 
-  yield put.resolve(showVolumeIndicator());
+    yield put.resolve(showVolumeIndicator());
 
-  yield call(playSound, "/audio/intro-click-start.mp3");
+    yield call(playSound, "/audio/intro-click-start.mp3");
 
-  yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutStopButton));
+    yield put.resolve(
+      setReaderState(ReaderStateOptions.talkingAboutStopButton)
+    );
 
-  yield call(playSound, "/audio/intro-click-stop.mp3");
+    yield call(playSound, "/audio/intro-click-stop.mp3");
 
-  yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+    yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
-  yield call(playSound, "/audio/complete.mp3");
-
-  yield clog("UNset it");
+    yield call(playSound, "/audio/complete.mp3");
+  }
 
   const helperEffect = [];
   helperEffect.push(yield fork(helperInstructionSaga));
@@ -856,6 +869,11 @@ function* assessThenSubmitSaga(assessmentId) {
   yield put.resolve(setShowSkipPrompt(true));
 
   yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
+
+  if (isWarmup) {
+    yield call(playSound, "/audio/warmup/warmup-4-recording-now.mp3");
+  } else {
+  }
 
   // this ensures that effects are canceleld
   // while (true) {
@@ -928,7 +946,11 @@ function* assessThenSubmitSaga(assessmentId) {
 
     yield call(delay, 300);
 
-    yield playSound("/audio/VB/min/VB-now-questions.mp3");
+    if (isWarmup) {
+      yield playSound("/audio/warmup/warmup-6.5-now-questions.mp3");
+    } else {
+      yield playSound("/audio/VB/min/VB-now-questions.mp3");
+    }
 
     yield put.resolve(setInOralReading(false));
 
