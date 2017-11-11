@@ -459,7 +459,12 @@ function* instructionSaga() {
       );
 
       yield call(playSound, "/audio/new-comp-stop.mp3");
-      yield call(delay, 500);
+
+      yield call(delay, 150);
+
+      yield call(playSound, "/audio/look-back-book.mp3");
+
+      yield call(delay, 700);
     }
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
