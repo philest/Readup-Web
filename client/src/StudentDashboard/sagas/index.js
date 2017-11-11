@@ -899,8 +899,7 @@ function* assessThenSubmitSaga(assessmentId) {
   yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
 
   if (isWarmup) {
-    yield call(playSound, "/audio/warmup/warmup-4-recording-now.mp3");
-  } else {
+    yield call(playSoundAsync, "/audio/warmup/warmup-4-recording-now.mp3");
   }
 
   // this ensures that effects are canceleld
@@ -1035,7 +1034,7 @@ function* assessThenSubmitSaga(assessmentId) {
     yield call(delay, 200);
 
     if (isWarmup) {
-      yield playSoundAsync("/audio/warmup/warmup-12-way-to-go-done.mp3");
+      yield playSoundAsync("/audio/warmup/warmup-12-turn-in-now.mp3");
     } else {
       yield playSoundAsync("/audio/VB/VB-done.mp3");
     }
@@ -1195,7 +1194,11 @@ function* rootSaga() {
 
         yield put(setAssessmentSubmitted(true));
 
-        yield call(playSound, "/audio/celebration.mp3");
+        if (isWarmup) {
+          yield call(playSound, "/audio/warmup/warmup-13-ready-for-real.mp3");
+        } else {
+          yield call(playSound, "/audio/celebration.mp3");
+        }
 
         if (isDemo) {
           yield clog("oh hey you r done");
@@ -1205,6 +1208,9 @@ function* rootSaga() {
 
           // TODO where to redirect?
           // window.location.href = "/reports/1"
+        } else if (isWarmup) {
+          window.location.href = "/brian-real";
+          yield put({ type: SPINNER_SHOW });
         } else {
           //Keep them waiting here forever as proof they finished.
 

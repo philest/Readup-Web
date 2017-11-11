@@ -86,7 +86,7 @@ Rails.application.routes.draw do
 
   get 'brian', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner/warmup/true')
 
-
+  get 'brian-real', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner/warmup/false')
 
 
   get 'firefly', to: redirect('/student_dashboard/#/story/demo')
