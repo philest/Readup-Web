@@ -48,7 +48,10 @@ export default class CompPausedModal extends React.Component {
     ) {
       console.log("WOW here!!! ");
       this.setState({ seenBefore: true });
-      playSoundAsync("/audio/comp-pause-intro.mp3");
+
+      setTimeout(() => {
+        playSoundAsync("/audio/comp-pause-intro.mp3");
+      }, 1000);
     }
   }
 

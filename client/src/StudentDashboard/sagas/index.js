@@ -446,31 +446,23 @@ function* instructionSaga() {
     const isWarmup = yield select(getIsWarmup);
 
     if (!isWarmup) {
-      yield call(playSound, "/audio/comp-instructions.mp3");
+      yield call(playSoundAsync, "/audio/comp-instructions.mp3");
     }
-    // yield call(delay, 1400);
+    yield call(delay, 1400);
 
-    // yield put.resolve(
-    //   setReaderState(ReaderStateOptions.talkingAboutStartButton)
-    // );
+    yield put.resolve(
+      setReaderState(ReaderStateOptions.talkingAboutStartButton)
+    );
 
-    // yield call(delay, 2480);
+    yield call(delay, 2480);
 
-    // yield put.resolve(
-    //   setReaderState(ReaderStateOptions.talkingAboutStopButton)
-    // );
+    yield put.resolve(
+      setReaderState(ReaderStateOptions.talkingAboutStopButton)
+    );
 
-    // yield call(delay, 1900);
+    yield call(delay, 1900);
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
-
-    // yield call(playSoundAsync, "/audio/see-book.mp3");
-
-    // yield call(delay, 3300);
-
-    // yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutSeeBook));
-
-    // yield call(delay, 1500);
 
     yield put.resolve(setCurrentModal("no-modal"));
 
@@ -579,10 +571,12 @@ function* compSaga(
 
     yield put.resolve(setShowSkipPrompt(true));
 
-    // yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+    yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
   }
 
-  // yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+  yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+
+  yield call(playSoundAsync, "/audio/complete.mp3");
 
   // yield put.resolve(setReaderState(
   //   ReaderStateOptions.playingBookIntro,
@@ -613,7 +607,7 @@ function* compSaga(
 
   // END the former compSeeBookSaga
 
-  // yield take(START_RECORDING_CLICKED);
+  yield take(START_RECORDING_CLICKED);
 
   yield call(stopAudio);
 

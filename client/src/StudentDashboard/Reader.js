@@ -154,7 +154,10 @@ export default class Reader extends React.Component {
       );
     }
 
-    if (this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON") {
+    if (
+      this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON" ||
+      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
+    ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
           <div
@@ -189,7 +192,6 @@ export default class Reader extends React.Component {
 
     if (
       this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON" ||
-      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO" ||
       this.props.readerState === "READER_STATE_DONE" ||
       this.props.readerState === "READER_STATE_PAUSED"
     ) {
