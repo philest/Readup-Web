@@ -341,7 +341,12 @@ function* questionIncrementSaga(section, spellingEffects) {
   const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
   const book = yield select(getBook);
 
-  if (book.numSpellingQuestions === spellingQuestionNumber) {
+  const isWarmup = yield select(getIsWarmup);
+
+  if (
+    book.numSpellingQuestions === spellingQuestionNumber ||
+    (isWarmup && spellingQuestionNumber === 2)
+  ) {
     yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
     return;
   }
@@ -415,8 +420,13 @@ function* helperInstructionSaga() {
 }
 
 function* spellingInstructionSaga() {
-  yield call(playSoundAsync, "/audio/spelling-intro.mp3");
+  const isWarmup = yield select(getIsWarmup);
 
+  if (isWarmup) {
+    yield call(playSoundAsync, "/audio/warmup/warmup-9-for-spelling-intro.mp3");
+  } else {
+    yield call(playSoundAsync, "/audio/spelling-intro.mp3");
+  }
   yield call(delay, 5000);
 
   yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutSpellingBox));
@@ -489,6 +499,10 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
     })
   );
 
+  const isWarmup = yield select(getIsWarmup);
+
+  numQuestions = isWarmup ? 2 : numQuestions;
+
   for (let currQ = 1; currQ <= numQuestions; currQ++) {
     yield clog("currQ IS", currQ);
 
@@ -520,7 +534,10 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
   const questionNumber = yield select(getQuestionNumber);
   const book = yield select(getBook);
 
-  if (book.numQuestions <= questionNumber) {
+  if (
+    book.numQuestions <= questionNumber ||
+    (isWarmup && questionNumber >= 2)
+  ) {
     console.log("in this ending part......");
     yield cancel(...uploadEffects);
     yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
@@ -550,7 +567,15 @@ function* compSaga(
     let book = yield select(getBook);
     let audioFile = book.questions[String(currQ)].audioSrc;
 
-    yield call(playSound, audioFile);
+    const isWarmup = yield select(getIsWarmup);
+
+    if (isWarmup && currQ === 1) {
+      yield call(playSound, "/audio/warmup/warmup-7-q1.mp3");
+    } else if (isWarmup && currQ === 2) {
+      yield call(playSound, "/audio/warmup/warmup-8-q2.mp3");
+    } else {
+      yield call(playSound, audioFile);
+    }
 
     yield put.resolve(setShowSkipPrompt(true));
 
@@ -1008,7 +1033,12 @@ function* assessThenSubmitSaga(assessmentId) {
     yield put.resolve(setCurrentModal("modal-done"));
 
     yield call(delay, 200);
-    yield playSoundAsync("/audio/VB/VB-done.mp3");
+
+    if (isWarmup) {
+      yield playSoundAsync("/audio/warmup/warmup-12-way-to-go-done.mp3");
+    } else {
+      yield playSoundAsync("/audio/VB/VB-done.mp3");
+    }
   }
 
   compBlobArray = compBlobArray || "";
