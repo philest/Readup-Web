@@ -436,16 +436,23 @@ function* spellingInstructionSaga() {
 
   if (isWarmup) {
     yield call(playSoundAsync, "/audio/warmup/warmup-9-for-spelling-intro.mp3");
+    yield call(delay, 5000);
+
+    yield put.resolve(
+      setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
+    );
+    yield call(delay, 3500);
+
+    yield put.resolve(setReaderState(ReaderStateOptions.done));
   } else {
-    yield call(playSoundAsync, "/audio/spelling-intro.mp3");
+    yield call(playSound, "/audio/spelling-intro-transition.mp3");
+    yield put.resolve(
+      setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
+    );
+    yield call(playSound, "/audio/spelling-intro-type-it.mp3");
+    yield put.resolve(setReaderState(ReaderStateOptions.done));
+    yield call(playSound, "/audio/say-sounds-slowly.mp3");
   }
-  yield call(delay, 5000);
-
-  yield put.resolve(setReaderState(ReaderStateOptions.talkingAboutSpellingBox));
-
-  yield call(delay, 3500);
-
-  yield put.resolve(setReaderState(ReaderStateOptions.done));
 }
 
 function* instructionSaga() {
@@ -624,17 +631,17 @@ function* compSaga(
 
   // END the former compSeeBookSaga
 
-  if (firstTime) {
-    const helperEffect = [];
-    helperEffect.push(yield fork(helperInstructionSaga, false, true));
-  }
+  // if (firstTime) {
+  //   const compEffects = [];
+  //   helperEffect.push(yield fork(helperInstructionSaga, false, true));
+  // }
 
   yield take(START_RECORDING_CLICKED);
 
-  if (firstTime) {
-    // cancel that saga.
-    yield cancel(...helperEffect);
-  }
+  // if (firstTime) {
+  //   // cancel that saga.
+  //   yield cancel(...helperEffect);
+  // }
 
   yield call(stopAudio);
 
