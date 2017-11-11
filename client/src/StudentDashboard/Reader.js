@@ -547,6 +547,10 @@ export default class Reader extends React.Component {
                 pictureInPicture={false}
                 localVideo={!this.props.isDemo}
                 studentDash
+                lastQuestionAudioFile={
+                  this.props.book.questions[String(this.props.questionNumber)]
+                    .audioSrc
+                }
               />
             </div>
           )}

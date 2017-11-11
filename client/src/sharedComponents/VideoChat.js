@@ -18,6 +18,7 @@ let localVideo;
 let localAudio;
 
 let onToggleShowVideo;
+let lastQuestionAudioFile;
 
 // scope it up here
 var dataTrack = new Video.LocalDataTrack();
@@ -34,7 +35,8 @@ export default class VideoChat extends React.Component {
     videoToggleButton: PropTypes.bool,
     localVideo: PropTypes.bool,
     localAudio: PropTypes.bool,
-    studentDash: PropTypes.bool
+    studentDash: PropTypes.bool,
+    lastQuestionAudioFile: PropTypes.string
   };
 
   static defaultProps = {
@@ -103,6 +105,7 @@ export default class VideoChat extends React.Component {
     localVideo = this.props.localVideo;
 
     onToggleShowVideo = this.onToggleShowVideo;
+    lastQuestionAudioFile = this.props.lastQuestionAudioFile;
 
     const Video = require("twilio-video");
 
@@ -294,11 +297,17 @@ export default class VideoChat extends React.Component {
                   Object.keys(PromptAudioOptions)[promptNum - 1]
                 ]
               );
-              playSound(
-                PromptAudioOptions[
-                  Object.keys(PromptAudioOptions)[promptNum - 1]
-                ]
-              );
+
+              if (promptNum < 5) {
+                playSound(
+                  PromptAudioOptions[
+                    Object.keys(PromptAudioOptions)[promptNum - 1]
+                  ]
+                );
+              } else {
+                // a repeat prompt
+                playSound(lastQuestionAudioFile);
+              }
             }
           });
         }
