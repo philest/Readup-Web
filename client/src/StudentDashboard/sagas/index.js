@@ -414,9 +414,21 @@ function* newFetchUntilPrompt(studentID) {
   return fetchedPrompt; // a meaningful prompt was found
 }
 
-function* helperInstructionSaga() {
-  yield call(delay, 5000);
-  yield call(playSoundAsync, "/audio/click-start.mp3");
+function* helperInstructionSaga(
+  isStartReading,
+  isStartAnswer,
+  isBlueCheckmark
+) {
+  if (isStartReading) {
+    yield call(delay, 5000);
+    yield call(playSoundAsync, "/audio/click-start.mp3");
+  } else if (isStartAnswer) {
+    yield call(delay, 16000);
+    yield call(playSoundAsync, "/audio/new-comp-start.mp3");
+    yield call(delay, 3400);
+    yield call(playSoundAsync, "/audio/new-comp-stop.mp3");
+  } else if (isBlueCheckmark) {
+  }
 }
 
 function* spellingInstructionSaga() {
@@ -612,7 +624,17 @@ function* compSaga(
 
   // END the former compSeeBookSaga
 
+  if (firstTime) {
+    const helperEffect = [];
+    helperEffect.push(yield fork(helperInstructionSaga, false, true));
+  }
+
   yield take(START_RECORDING_CLICKED);
+
+  if (firstTime) {
+    // cancel that saga.
+    yield cancel(...helperEffect);
+  }
 
   yield call(stopAudio);
 
@@ -840,7 +862,7 @@ function* assessThenSubmitSaga(assessmentId) {
   }
 
   const helperEffect = [];
-  helperEffect.push(yield fork(helperInstructionSaga));
+  helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
   // set a 8 second saga in background
 
   // before assessment has started, clicking exit immediately quits app
