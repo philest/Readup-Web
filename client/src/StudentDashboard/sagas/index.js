@@ -1247,10 +1247,22 @@ function* rootSaga() {
         }
 
         if (isWarmup) {
-          if (bookKey === "nick") {
-            window.location.href = "/nick-no-warmup";
-          } else if (bookKey === "step") {
-            window.location.href = "/step-no-warmup";
+          if (studentName.includes("Brian")) {
+            window.location.href = "/brian-real";
+          }
+
+          if (isDemo) {
+            if (bookKey === "nick") {
+              window.location.href = "/nick-no-warmup";
+            } else if (bookKey === "step") {
+              window.location.href = "/step-no-warmup";
+            }
+          } else {
+            if (bookKey === "nick") {
+              window.location.href = "/nick-no-warmup-no-demo";
+            } else if (bookKey === "step") {
+              window.location.href = "/step-no-warmup-no-demo";
+            }
           }
 
           yield put({ type: SPINNER_SHOW });

@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   get 'fp', to: redirect('/student_dashboard/#/story/nick/demo/true/page/0/demo%20student/warmup/true')
   get 'nick', to: redirect('/student_dashboard/#/story/nick/demo/true/page/0/demo%20student/warmup/true')
   get 'nick-no-warmup', to: redirect('/student_dashboard/#/story/nick/demo/true/page/0/demo%20student/warmup/false')
+  get 'nick-no-warmup-no-demo', to: redirect('/student_dashboard/#/story/nick/demo/false/page/0/demo%20student/warmup/false')
 
 
 
@@ -96,6 +97,8 @@ Rails.application.routes.draw do
   get 'step', to: redirect('/student_dashboard/#/story/step/demo/true/page/0/demo%20student/warmup/true')
 
   get 'step-no-warmup', to: redirect('/student_dashboard/#/story/step/demo/true/page/0/demo%20student/warmup/false')
+
+  get 'step-no-warmup-no-demo', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/demo%20student/warmup/false')
 
 
   get 'step5', to: redirect('/student_dashboard/#/story/step5')
