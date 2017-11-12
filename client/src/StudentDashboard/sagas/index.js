@@ -485,6 +485,21 @@ function* instructionSaga() {
       yield call(playSound, "/audio/look-back-book.mp3");
 
       yield call(delay, 700);
+    } else {
+      yield put.resolve(
+        setReaderState(ReaderStateOptions.talkingAboutStartButton)
+      );
+
+      yield call(playSound, "/audio/warmup/w-6-2.mp3");
+
+      yield put.resolve(
+        setReaderState(ReaderStateOptions.talkingAboutStopButton)
+      );
+      yield call(delay, 250);
+
+      yield call(playSound, "/audio/warmup/w-6-3.mp3");
+
+      yield call(delay, 150);
     }
 
     yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
@@ -1005,7 +1020,7 @@ function* assessThenSubmitSaga(assessmentId) {
     yield call(delay, 300);
 
     if (isWarmup) {
-      yield playSound("/audio/warmup/w-6.mp3");
+      yield playSound("/audio/warmup/w-6-1.mp3");
     } else {
       yield playSound("/audio/VB/min/VB-now-questions.mp3");
     }
