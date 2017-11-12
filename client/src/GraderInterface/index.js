@@ -1616,41 +1616,6 @@ export default class GraderInterface extends React.Component {
 
           <br />
           <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-
-          <hr />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-
-          <embed
-            src="https://s3-us-west-2.amazonaws.com/readup-now/website/Phonemes_Chart.pdf"
-            width="600"
-            height="575"
-            display="inlineBlock"
-            type="application/pdf"
-          />
-          <iframe
-            width="560"
-            height="315"
-            display="inlineBlock"
-            src="https://www.youtube.com/embed/ulQC7LlpfE8?start=8"
-            frameBorder="0"
-            allowFullScreen
-          />
         </div>
       </div>
     );
