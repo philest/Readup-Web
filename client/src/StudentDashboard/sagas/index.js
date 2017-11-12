@@ -837,12 +837,12 @@ function* assessThenSubmitSaga(assessmentId) {
   yield call(delay, 1350);
 
   if (isWarmup) {
-    yield call(playSound, "/audio/warmup/warmup-1-hey.mp3");
-    yield call(playSound, "/audio/warmup/warmup-2-read-book.mp3");
+    yield call(playSound, "/audio/warmup/w-1.mp3");
+    yield call(playSound, "/audio/warmup/w-2.mp3");
     yield put.resolve(
       setReaderState(ReaderStateOptions.talkingAboutStartButton)
     );
-    yield call(playSound, "/audio/warmup/warmup-3-click-start.mp3");
+    yield call(playSound, "/audio/warmup/w-3.mp3");
     yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
     yield call(playSound, "/audio/complete.mp3");
   } else {
@@ -930,7 +930,7 @@ function* assessThenSubmitSaga(assessmentId) {
   yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
 
   if (isWarmup) {
-    yield call(playSoundAsync, "/audio/warmup/warmup-4-recording-now.mp3");
+    yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
   }
 
   // this ensures that effects are canceleld
@@ -1005,7 +1005,7 @@ function* assessThenSubmitSaga(assessmentId) {
     yield call(delay, 300);
 
     if (isWarmup) {
-      yield playSound("/audio/warmup/warmup-6.5-now-questions.mp3");
+      yield playSound("/audio/warmup/w-6.mp3");
     } else {
       yield playSound("/audio/VB/min/VB-now-questions.mp3");
     }
