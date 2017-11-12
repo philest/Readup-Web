@@ -435,7 +435,7 @@ function* spellingInstructionSaga() {
   const isWarmup = yield select(getIsWarmup);
 
   if (isWarmup) {
-    yield call(playSoundAsync, "/audio/warmup/warmup-9-for-spelling-intro.mp3");
+    yield call(playSoundAsync, "/audio/warmup/w-9.mp3");
     yield call(delay, 5000);
 
     yield put.resolve(
@@ -587,9 +587,9 @@ function* compSaga(
     const isWarmup = yield select(getIsWarmup);
 
     if (isWarmup && currQ === 1) {
-      yield call(playSound, "/audio/warmup/warmup-7-q1.mp3");
+      yield call(playSound, "/audio/warmup/w-7.mp3");
     } else if (isWarmup && currQ === 2) {
-      yield call(playSound, "/audio/warmup/warmup-8-q2.mp3");
+      yield call(playSound, "/audio/warmup/w-8.mp3");
     } else {
       yield call(playSound, audioFile);
     }
@@ -1065,7 +1065,7 @@ function* assessThenSubmitSaga(assessmentId) {
     yield call(delay, 200);
 
     if (isWarmup) {
-      yield playSoundAsync("/audio/warmup/warmup-12-turn-in-now.mp3");
+      yield playSoundAsync("/audio/warmup/w-12.mp3");
     } else {
       yield playSoundAsync("/audio/VB/VB-done.mp3");
     }
@@ -1226,7 +1226,7 @@ function* rootSaga() {
         yield put(setAssessmentSubmitted(true));
 
         if (isWarmup) {
-          yield call(playSound, "/audio/warmup/warmup-13-ready-for-real.mp3");
+          yield call(playSound, "/audio/warmup/w-13.mp3");
         } else {
           yield call(playSound, "/audio/celebration.mp3");
         }
