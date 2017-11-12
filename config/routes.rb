@@ -75,10 +75,11 @@ Rails.application.routes.draw do
   get 'student_dashboard/assessment', to: 'student_dashboard#create_assessment'
   post 'student_dashboard/assessment', to: 'student_dashboard#confirm_assessment_completion'
 
-  get 'demo', to: redirect('/student_dashboard/#/story/nick')
+  get 'demo', to: redirect('/student_dashboard/#/story/nick/demo/true/page/0/demo%20student/warmup/true')
 
-  get 'fp', to: redirect('/student_dashboard/#/story/nick')
-  get 'nick', to: redirect('/student_dashboard/#/story/nick')
+  get 'fp', to: redirect('/student_dashboard/#/story/nick/demo/true/page/0/demo%20student/warmup/true')
+  get 'nick', to: redirect('/student_dashboard/#/story/nick/demo/true/page/0/demo%20student/warmup/true')
+  get 'nick-no-warmup', to: redirect('/student_dashboard/#/story/nick/demo/true/page/0/demo%20student/warmup/false')
 
 
 
@@ -92,7 +93,9 @@ Rails.application.routes.draw do
   get 'firefly', to: redirect('/student_dashboard/#/story/demo')
   get 'test', to: redirect('/student_dashboard/#/story/demo')
 
-  get 'step', to: redirect('/student_dashboard/#/story/step')
+  get 'step', to: redirect('/student_dashboard/#/story/step/demo/true/page/0/demo%20student/warmup/true')
+
+  get 'step-no-warmup', to: redirect('/student_dashboard/#/story/step/demo/true/page/0/demo%20student/warmup/false')
 
 
   get 'step5', to: redirect('/student_dashboard/#/story/step5')
