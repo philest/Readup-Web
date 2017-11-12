@@ -250,7 +250,7 @@ export default class VideoChat extends React.Component {
       log("RoomSID: " + room.sid);
 
       // add the dataTrack after the room is joined
-      room.localParticipant.addTrack(dataTrack);
+      room.localParticipant.publishTrack(dataTrack);
 
       // document.getElementById("button-join").style.display = "none";
       // document.getElementById("button-leave").style.display = "inline";

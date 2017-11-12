@@ -1616,6 +1616,16 @@ export default class GraderInterface extends React.Component {
 
           <br />
           <br />
+          <br />
+          <a href="https://s3-us-west-2.amazonaws.com/readup-now/website/Phonemes_Chart.pdf">
+            {" "}
+            Phonemes Chart
+          </a>
+          <br />
+          <a href="https://www.youtube.com/embed/ulQC7LlpfE8?start=8">
+            {" "}
+            YouTube of sounding out phonemes
+          </a>
         </div>
       </div>
     );
