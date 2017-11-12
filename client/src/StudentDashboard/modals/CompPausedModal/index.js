@@ -11,7 +11,7 @@ import ButtonArray from "../subcomponents/ButtonArray";
 
 import BaseModal from "../BaseModal";
 
-import { playSoundAsync } from "../../audioPlayer.js";
+import { playSoundAsync, playSound } from "../../audioPlayer.js";
 
 const THIS_MODAL_ID = "modal-comp-paused";
 
@@ -49,9 +49,7 @@ export default class CompPausedModal extends React.Component {
       console.log("WOW here!!! ");
       this.setState({ seenBefore: true });
 
-      setTimeout(() => {
-        playSoundAsync("/audio/warmup/w-5.mp3");
-      }, 950);
+      playSoundAsync("/audio/warmup/w-5.mp3");
     }
   }
 
