@@ -552,7 +552,10 @@ export default class Reader extends React.Component {
                 studentDash
                 lastQuestionAudioFile={
                   this.props.book.questions[String(this.props.questionNumber)]
-                    .audioSrc
+                    ? this.props.book.questions[
+                        String(this.props.questionNumber)
+                      ].audioSrc
+                    : ""
                 }
               />
             </div>
