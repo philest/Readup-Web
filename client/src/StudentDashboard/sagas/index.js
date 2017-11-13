@@ -553,7 +553,17 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
         yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
       );
     } else {
+      yield put({ type: SPINNER_SHOW });
+      yield put.resolve(setCurrentOverlay("overlay-spinner"));
+
+      yield clog("before turn in");
+
       yield* turnInAudio(newBlob, assessmentId, true, currQ); // wait for the last one
+
+      yield clog("after turn in");
+
+      yield put({ type: SPINNER_HIDE });
+      yield put.resolve(setCurrentOverlay("no-overlay"));
     }
 
     // reset the recorder each time
@@ -733,7 +743,7 @@ function* compSaga(
 
   yield clog("compEffects is....", compEffects);
 
-  yield put({ type: SPINNER_SHOW });
+  // yield put({ type: SPINNER_SHOW });
 
   yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
@@ -747,7 +757,7 @@ function* compSaga(
 
   yield put.resolve(setCurrentOverlay("no-overlay"));
 
-  yield put({ type: SPINNER_HIDE });
+  // yield put({ type: SPINNER_HIDE });
 
   yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
@@ -979,11 +989,19 @@ function* assessThenSubmitSaga(assessmentId) {
 
   recorder = yield select(getRecorder);
 
+  yield put.resolve(setCurrentOverlay("overlay-spinner"));
+
+  yield put({ type: SPINNER_SHOW });
+
   const recordingURL = yield* haltRecordingAndGenerateBlobSaga(
     recorder,
     false,
     false
   );
+
+  yield put({ type: SPINNER_HIDE });
+
+  yield put.resolve(setCurrentOverlay("no-overlay"));
 
   yield clog("url for recording!!!", recordingURL);
 

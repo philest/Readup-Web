@@ -10,7 +10,9 @@ const THIS_OVERLAY_ID = "overlay-spinner";
 export default class SpinnerOverlay extends React.Component {
   static propTypes = {
     text: PropTypes.string,
-    showPrompting: PropTypes.bool
+    showPrompting: PropTypes.bool,
+    slowRotate: PropTypes.bool,
+    isLoadingUpload: PropTypes.bool
   };
 
   /**
@@ -22,6 +24,16 @@ export default class SpinnerOverlay extends React.Component {
   }
 
   render() {
+    let title;
+
+    if (this.props.isLoadingUpload) {
+      title = ["Saving answer..."];
+    } else {
+      title = this.props.showPrompting
+        ? ["Thinking of next question..."]
+        : ["Prompting disabled for this demo..."];
+    }
+
     if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {
       return null;
     }
@@ -30,12 +42,12 @@ export default class SpinnerOverlay extends React.Component {
       <div className={styles.countdownWrapper}>
         <div className={styles.countdownContentCountainer}>
           <ButtonArray
-            titles={
-              this.props.showPrompting
-                ? ["Thinking of next question..."]
-                : ["Prompting disabled for this demo..."]
-            }
-            images={["fa-spinner faa-spin animated"]}
+            titles={title}
+            images={[
+              `fa-spinner faa-spin animated ${this.props.isLoadingUpload
+                ? "faa-slow"
+                : ""}`
+            ]}
             actions={[null]}
             inline={false}
             fontAwesome={true}

@@ -318,6 +318,7 @@ class StudentDashboard extends React.Component {
           showPrompting={this.props.isLiveDemo}
           currentShowOverlay={this.props.currentShowOverlay}
           text={"Spinner message goes here"}
+          isLoadingUpload={this.props.showSpinner}
         />
       </div>
     );
