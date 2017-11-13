@@ -946,6 +946,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
   if (isWarmup) {
     yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
+  } else {
+    yield call(playSound, "/audio/now-recording-read.mp3");
   }
 
   // this ensures that effects are canceleld
