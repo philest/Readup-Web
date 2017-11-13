@@ -1,28 +1,28 @@
 // @flow
 import {
-  fork,
-  call,
-  take,
-  takeLatest,
-  takeEvery,
-  cancel,
-  put,
-  select,
-  race,
-  all
+	fork,
+	call,
+	take,
+	takeLatest,
+	takeEvery,
+	cancel,
+	put,
+	select,
+	race,
+	all
 } from "redux-saga/effects";
 import { delay } from "redux-saga";
 
 import {
-  getS3Presign,
-  sendAudioToS3,
-  requestNewAssessment,
-  getStudentPromptStatus,
-  resetToAwaitingPrompt,
-  getLastStudentID,
-  getLastAssessmentID,
-  markCompleted,
-  getIsLiveDemo
+	getS3Presign,
+	sendAudioToS3,
+	requestNewAssessment,
+	getStudentPromptStatus,
+	resetToAwaitingPrompt,
+	getLastStudentID,
+	getLastAssessmentID,
+	markCompleted,
+	getIsLiveDemo
 } from "./networkingHelpers";
 
 import { clog, isMobileDevice } from "./helpers";
@@ -30,96 +30,96 @@ import { clog, isMobileDevice } from "./helpers";
 import audioEffectsSaga from "./audioEffectsSaga";
 import Recorder from "../recorder";
 import {
-  playSound,
-  stopAudio,
-  playSoundAsync as _pSA,
-  DEV_DISABLE_VOICE_INSTRUCTIONS
+	playSound,
+	stopAudio,
+	playSoundAsync as _pSA,
+	DEV_DISABLE_VOICE_INSTRUCTIONS
 } from "../audioPlayer";
 
 // actions
 import {
-  PERMISSIONS_ARROW_CLICKED,
-  PAUSE_CLICKED,
-  START_RECORDING_CLICKED,
-  STOP_RECORDING_CLICKED,
-  BOOK_INTRO_RECORDING_ENDED,
-  INTRO_CONTINUE_CLICKED,
-  HEAR_RECORDING_CLICKED,
-  SEE_BOOK_CLICKED,
-  COUNTDOWN_ENDED,
-  EXIT_CLICKED,
-  RESTART_RECORDING_CLICKED,
-  TURN_IN_CLICKED,
-  IS_DEMO_SET,
-  SPINNER_SHOW,
-  SPINNER_HIDE,
-  DEMO_SUBMITTED_LOGOUT_CLICKED,
-  IN_COMP_SET,
-  IN_SPELLING_SET,
-  SEE_COMP_CLICKED,
-  HEAR_QUESTION_AGAIN_CLICKED,
-  QUESTION_INCREMENT,
-  QUESTION_DECREMENT,
-  LAST_QUESTION_EXITED,
-  VOLUME_INDICATOR_HIDDEN,
-  BOOK_KEY_SET,
-  STUDENT_NAME_SET,
-  LIVE_DEMO_SET,
-  SPELLING_ANSWER_GIVEN_SET,
-  NEXT_WORD_CLICKED,
-  VOLUME_INDICATOR_SHOWN,
-  FINAL_SPELLING_QUESTION_ANSWERED,
-  FINAL_COMP_QUESTION_ANSWERED,
-  SECTION_SKIPPED,
-  SKIP_CLICKED,
-  SHOW_SKIP_PROMPT_SET,
-  ASSESSMENT_ID_SET,
-  IS_WARMUP_SET,
-  startCountdownToStart,
-  setMicPermissions,
-  setHasRecordedSomething,
-  setReaderState,
-  setPageNumber,
-  setCurrentSound,
-  setRecordingURL,
-  setCurrentModal,
-  setCurrentOverlay,
-  setCountdownValue,
-  setInComp,
-  setInSpelling,
-  setSpellingAnswerGiven,
-  setQuestionNumber,
-  setPrompt,
-  hideVolumeIndicator,
-  showVolumeIndicator,
-  setLiveDemo,
-  incrementQuestion,
-  decrementQuestion,
-  setInOralReading,
-  stopRecordingClicked,
-  setShowSkipPrompt,
-  setAssessmentID,
-  setAssessmentSubmitted
+	PERMISSIONS_ARROW_CLICKED,
+	PAUSE_CLICKED,
+	START_RECORDING_CLICKED,
+	STOP_RECORDING_CLICKED,
+	BOOK_INTRO_RECORDING_ENDED,
+	INTRO_CONTINUE_CLICKED,
+	HEAR_RECORDING_CLICKED,
+	SEE_BOOK_CLICKED,
+	COUNTDOWN_ENDED,
+	EXIT_CLICKED,
+	RESTART_RECORDING_CLICKED,
+	TURN_IN_CLICKED,
+	IS_DEMO_SET,
+	SPINNER_SHOW,
+	SPINNER_HIDE,
+	DEMO_SUBMITTED_LOGOUT_CLICKED,
+	IN_COMP_SET,
+	IN_SPELLING_SET,
+	SEE_COMP_CLICKED,
+	HEAR_QUESTION_AGAIN_CLICKED,
+	QUESTION_INCREMENT,
+	QUESTION_DECREMENT,
+	LAST_QUESTION_EXITED,
+	VOLUME_INDICATOR_HIDDEN,
+	BOOK_KEY_SET,
+	STUDENT_NAME_SET,
+	LIVE_DEMO_SET,
+	SPELLING_ANSWER_GIVEN_SET,
+	NEXT_WORD_CLICKED,
+	VOLUME_INDICATOR_SHOWN,
+	FINAL_SPELLING_QUESTION_ANSWERED,
+	FINAL_COMP_QUESTION_ANSWERED,
+	SECTION_SKIPPED,
+	SKIP_CLICKED,
+	SHOW_SKIP_PROMPT_SET,
+	ASSESSMENT_ID_SET,
+	IS_WARMUP_SET,
+	startCountdownToStart,
+	setMicPermissions,
+	setHasRecordedSomething,
+	setReaderState,
+	setPageNumber,
+	setCurrentSound,
+	setRecordingURL,
+	setCurrentModal,
+	setCurrentOverlay,
+	setCountdownValue,
+	setInComp,
+	setInSpelling,
+	setSpellingAnswerGiven,
+	setQuestionNumber,
+	setPrompt,
+	hideVolumeIndicator,
+	showVolumeIndicator,
+	setLiveDemo,
+	incrementQuestion,
+	decrementQuestion,
+	setInOralReading,
+	stopRecordingClicked,
+	setShowSkipPrompt,
+	setAssessmentID,
+	setAssessmentSubmitted
 } from "../state";
 
 import {
-  ReaderStateOptions,
-  MicPermissionsStatusOptions,
-  PromptOptions,
-  PromptAudioOptions
+	ReaderStateOptions,
+	MicPermissionsStatusOptions,
+	PromptOptions,
+	PromptAudioOptions
 } from "../types";
 
 import {
-  getRecorder,
-  getIsDemo,
-  getIsWarmup,
-  getNumQuestions,
-  getQuestionNumber,
-  getSpellingQuestionNumber,
-  getBook,
-  getInComp,
-  getInOralReading,
-  getInSpelling
+	getRecorder,
+	getIsDemo,
+	getIsWarmup,
+	getNumQuestions,
+	getQuestionNumber,
+	getSpellingQuestionNumber,
+	getBook,
+	getInComp,
+	getInOralReading,
+	getInSpelling
 } from "./selectors";
 
 import assessmentSaga from "./assessmentSaga";
@@ -130,1201 +130,1227 @@ const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
 
 function getPermission(recorder, isDemo) {
-  console.log("Here in getPerm, we say isDemo: ", isDemo);
+	console.log("Here in getPerm, we say isDemo: ", isDemo);
 
-  return navigator.mediaDevices
-    .getUserMedia({ audio: true, video: !isDemo })
-    .then(function(yay) {
-      recorder.initialize();
-      return true;
-    })
-    .catch(function(err) {
-      console.log("ERROR getting mic permissions : ", err);
-      return false;
-    });
+	return navigator.mediaDevices
+		.getUserMedia({ audio: true, video: !isDemo })
+		.then(function(yay) {
+			recorder.initialize();
+			return true;
+		})
+		.catch(function(err) {
+			console.log("ERROR getting mic permissions : ", err);
+			return false;
+		});
 }
 
 function* playSoundAsync(sound) {
-  yield call(_pSA, sound);
-  return;
+	yield call(_pSA, sound);
+	return;
 }
 
 function* getMicPermissionsSaga() {
-  const hasPermissions = yield new Promise((resolve, reject) => {
-    Recorder.hasRecordingPermissions(permissions => {
-      console.log("We have permissions? " + permissions);
-      resolve(permissions);
-    });
-  });
+	const hasPermissions = yield new Promise((resolve, reject) => {
+		Recorder.hasRecordingPermissions(permissions => {
+			console.log("We have permissions? " + permissions);
+			resolve(permissions);
+		});
+	});
 
-  if (hasPermissions) {
-    yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.granted));
-    return true;
-  }
+	if (hasPermissions) {
+		yield put.resolve(
+			setMicPermissions(MicPermissionsStatusOptions.granted)
+		);
+		return true;
+	}
 
-  yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.awaiting));
-  yield put.resolve(setCurrentOverlay("overlay-permissions"));
+	yield put.resolve(setMicPermissions(MicPermissionsStatusOptions.awaiting));
+	yield put.resolve(setCurrentOverlay("overlay-permissions"));
 
-  // an asynchronous play helper in 8 seconds that then...
-  // const permissionEffects = []
-  // permissionEffects.push(yield fork(playPermissionsInstructionSaga ));
-  yield call(playSoundAsync, "/audio/allow.mp3");
+	// an asynchronous play helper in 8 seconds that then...
+	// const permissionEffects = []
+	// permissionEffects.push(yield fork(playPermissionsInstructionSaga ));
+	yield call(playSoundAsync, "/audio/allow.mp3");
 
-  const recorder = yield select(getRecorder);
+	const recorder = yield select(getRecorder);
 
-  const isDemo = yield select(getIsDemo);
+	const isDemo = yield select(getIsDemo);
 
-  const getPermissionSuccess = yield getPermission(recorder, isDemo);
+	const getPermissionSuccess = yield getPermission(recorder, isDemo);
 
-  // ...is cancelled after a student clicks a permission button.
-  yield call(stopAudio);
+	// ...is cancelled after a student clicks a permission button.
+	yield call(stopAudio);
 
-  const micPermissions = getPermissionSuccess
-    ? MicPermissionsStatusOptions.granted
-    : MicPermissionsStatusOptions.blocked;
-  yield put.resolve(setMicPermissions(micPermissions));
+	const micPermissions = getPermissionSuccess
+		? MicPermissionsStatusOptions.granted
+		: MicPermissionsStatusOptions.blocked;
+	yield put.resolve(setMicPermissions(micPermissions));
 
-  return getPermissionSuccess;
+	return getPermissionSuccess;
 }
 
 function errorHandler(error) {
-  console.log("saw this error:", error);
+	console.log("saw this error:", error);
 }
 
 function* haltRecordingAndGenerateBlobSaga(recorder, isCompBlob, firstTime) {
-  yield put.resolve(setReaderState(ReaderStateOptions.done));
+	yield put.resolve(setReaderState(ReaderStateOptions.done));
 
-  let blobURL;
+	let blobURL;
 
-  try {
-    blobURL = yield new Promise(function(resolve, reject) {
-      recorder.stopRecording(blobUrl => {
-        resolve(blobUrl);
-      });
-    });
-  } catch (err) {
-    yield clog("ERROR: ", err);
-  }
+	try {
+		blobURL = yield new Promise(function(resolve, reject) {
+			recorder.stopRecording(blobUrl => {
+				resolve(blobUrl);
+			});
+		});
+	} catch (err) {
+		yield clog("ERROR: ", err);
+	}
 
-  blobURL = blobURL || "fake";
+	blobURL = blobURL || "fake";
 
-  // this is done in the Store because PlaybackModal takes this is a prop
-  if (!isCompBlob) {
-    yield put.resolve(setRecordingURL(blobURL, isCompBlob));
-  } else if (firstTime) {
-    yield put.resolve(setRecordingURL(blobURL, isCompBlob));
-  }
+	// this is done in the Store because PlaybackModal takes this is a prop
+	if (!isCompBlob) {
+		yield put.resolve(setRecordingURL(blobURL, isCompBlob));
+	} else if (firstTime) {
+		yield put.resolve(setRecordingURL(blobURL, isCompBlob));
+	}
 
-  return yield blobURL;
+	return yield blobURL;
 }
 
 function* redirectToHomepage() {
-  yield (window.location.href = "/");
+	yield (window.location.href = "/");
 }
 
 function* turnInAudio(
-  blob,
-  assessmentId: number,
-  isCompBlob: boolean,
-  questionNum: number
+	blob,
+	assessmentId: number,
+	isCompBlob: boolean,
+	questionNum: number
 ) {
-  let numAttempts = 2;
+	let numAttempts = 2;
 
-  if (isCompBlob) {
-    numAttempts = 1;
-  }
+	if (isCompBlob) {
+		numAttempts = 1;
+	}
 
-  yield clog("inside turnInAudio...");
+	yield clog("inside turnInAudio...");
 
-  for (let i = 0; i < numAttempts; i++) {
-    try {
-      const presign = yield getS3Presign(assessmentId, isCompBlob);
-      const res = yield sendAudioToS3(blob, presign, isCompBlob, questionNum);
-      yield clog("yay response!", res);
-      return yield res;
-    } catch (err) {
-      yield clog("turnInAudio error ERR:", err, err.request);
-    }
-  }
-  return yield false; // TODO: this is pretty meh
+	for (let i = 0; i < numAttempts; i++) {
+		try {
+			const presign = yield getS3Presign(assessmentId, isCompBlob);
+			const res = yield sendAudioToS3(
+				blob,
+				presign,
+				isCompBlob,
+				questionNum
+			);
+			yield clog("yay response!", res);
+			return yield res;
+		} catch (err) {
+			yield clog("turnInAudio error ERR:", err, err.request);
+		}
+	}
+	return yield false; // TODO: this is pretty meh
 }
 
 function* skipClick() {
-  const inOralReading = yield select(getInOralReading);
+	const inOralReading = yield select(getInOralReading);
 
-  if (inOralReading) {
-    // set page because of skipping
-    const book = yield select(getBook);
-    const lastPage = book.numPages;
-    yield put.resolve(setPageNumber(lastPage));
+	if (inOralReading) {
+		// set page because of skipping
+		const book = yield select(getBook);
+		const lastPage = book.numPages;
+		yield put.resolve(setPageNumber(lastPage));
 
-    yield put.resolve(stopRecordingClicked());
-  }
+		yield put.resolve(stopRecordingClicked());
+	}
 
-  const inComp = yield select(getInComp);
+	const inComp = yield select(getInComp);
 
-  if (inComp) {
-    yield call(playSound, "/audio/complete.mp3");
-    yield call(delay, 500);
+	if (inComp) {
+		yield call(playSound, "/audio/complete.mp3");
+		yield call(delay, 500);
 
-    // halt the recorder if it's still going
-    let recorder = yield select(getRecorder);
+		// halt the recorder if it's still going
+		let recorder = yield select(getRecorder);
 
-    if (recorder.recording || recorder.rtcRecorder.state === "paused") {
-      // if in middle of prompt thing
-      const uploadEffects = [];
+		if (recorder.recording || recorder.rtcRecorder.state === "paused") {
+			// if in middle of prompt thing
+			const uploadEffects = [];
 
-      const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(
-        recorder,
-        true,
-        false
-      );
+			const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(
+				recorder,
+				true,
+				false
+			);
 
-      let newBlob;
+			let newBlob;
 
-      try {
-        newBlob = recorder.getBlob();
-      } catch (err) {
-        yield clog("err: ", err);
-        newBlob = "it broke";
-      }
+			try {
+				newBlob = recorder.getBlob();
+			} catch (err) {
+				yield clog("err: ", err);
+				newBlob = "it broke";
+			}
 
-      const assessmentId = yield getLastAssessmentID().catch(e => e.request); // TODO
+			const assessmentId = yield getLastAssessmentID().catch(
+				e => e.request
+			); // TODO
 
-      const currQ = yield select(getQuestionNumber);
+			const currQ = yield select(getQuestionNumber);
 
-      uploadEffects.push(
-        yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
-      );
+			uploadEffects.push(
+				yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
+			);
 
-      yield call(delay, 1000);
+			yield call(delay, 1000);
 
-      yield cancel(...uploadEffects);
-    }
+			yield cancel(...uploadEffects);
+		}
 
-    yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
-  }
+		yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
+	}
 
-  const inSpelling = yield select(getInSpelling);
+	const inSpelling = yield select(getInSpelling);
 
-  if (inSpelling) {
-    yield call(playSound, "/audio/complete.mp3");
-    yield call(delay, 500);
+	if (inSpelling) {
+		yield call(playSound, "/audio/complete.mp3");
+		yield call(delay, 500);
 
-    yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
-  }
+		yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
+	}
 }
 
 function* exitClick() {
-  const recorder = yield select(getRecorder);
+	const recorder = yield select(getRecorder);
 
-  if (recorder.recording) {
-    yield call(recorder.pauseRecording);
-    yield put.resolve(setReaderState(ReaderStateOptions.paused));
-  }
+	if (recorder.recording) {
+		yield call(recorder.pauseRecording);
+		yield put.resolve(setReaderState(ReaderStateOptions.paused));
+	}
 
-  yield call(stopAudio);
-  yield call(playSoundAsync, "/audio/bamboo.mp3");
+	yield call(stopAudio);
+	yield call(playSoundAsync, "/audio/bamboo.mp3");
 
-  yield put(setCurrentModal("modal-exit"));
+	yield put(setCurrentModal("modal-exit"));
 }
 
 function* questionIncrementSaga(section, spellingEffects) {
-  yield clog("here in QUESTION_INCREMENT........: ", section);
+	yield clog("here in QUESTION_INCREMENT........: ", section);
 
-  yield call(playSound, "/audio/complete.mp3");
+	yield call(playSound, "/audio/complete.mp3");
 
-  yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
+	yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
 
-  // if we just answered the last question, exit spelling
+	// if we just answered the last question, exit spelling
 
-  const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
-  const book = yield select(getBook);
+	const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
+	const book = yield select(getBook);
 
-  const isWarmup = yield select(getIsWarmup);
+	const isWarmup = yield select(getIsWarmup);
 
-  if (
-    book.numSpellingQuestions === spellingQuestionNumber ||
-    (isWarmup && spellingQuestionNumber === 2)
-  ) {
-    yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
-    return;
-  }
+	if (
+		book.numSpellingQuestions === spellingQuestionNumber ||
+		(isWarmup && spellingQuestionNumber === 2)
+	) {
+		yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
+		return;
+	}
 
-  // end spelling exit process
+	// end spelling exit process
 
-  yield put.resolve(incrementQuestion(section));
+	yield put.resolve(incrementQuestion(section));
 
-  // redisable button
-  if (section === "spelling") {
-    yield put.resolve(setSpellingAnswerGiven(false));
+	// redisable button
+	if (section === "spelling") {
+		yield put.resolve(setSpellingAnswerGiven(false));
 
-    yield call(playSpellingQuestionSaga);
-  }
+		yield call(playSpellingQuestionSaga);
+	}
 }
 
 function* playSpellingQuestionSaga() {
-  let audiofile;
-  const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
-  const book = yield select(getBook);
-  // audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
+	let audiofile;
+	const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
+	const book = yield select(getBook);
+	// audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
 
-  audiofile = `/audio/spelling/${spellingQuestionNumber}.mp3`;
+	audiofile = `/audio/spelling/${spellingQuestionNumber}.mp3`;
 
-  yield call(playSound, audiofile);
+	yield call(playSound, audiofile);
 }
 
 function* playPromptSaga(prompt, studentID) {
-  // in case we're coming from the comp paused modal...
-  // yield put.resolve(setCurrentModal("modal-comp"));
+	// in case we're coming from the comp paused modal...
+	// yield put.resolve(setCurrentModal("modal-comp"));
 
-  let audiofile;
-  if (prompt === PromptOptions.repeatQuestion) {
-    const questionNumber = yield select(getQuestionNumber);
-    const book = yield select(getBook);
-    audiofile = book.questions[questionNumber].audioSrc;
-  } else {
-    audiofile = PromptAudioOptions[prompt];
-  }
+	let audiofile;
+	if (prompt === PromptOptions.repeatQuestion) {
+		const questionNumber = yield select(getQuestionNumber);
+		const book = yield select(getBook);
+		audiofile = book.questions[questionNumber].audioSrc;
+	} else {
+		audiofile = PromptAudioOptions[prompt];
+	}
 
-  yield call(playSound, audiofile);
+	yield call(playSound, audiofile);
 
-  yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+	yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
-  yield call(resetToAwaitingPrompt, studentID);
+	yield call(resetToAwaitingPrompt, studentID);
 }
 
 function* newFetchUntilPrompt(studentID) {
-  let fetchedPrompt = PromptOptions.awaitingPrompt;
+	let fetchedPrompt = PromptOptions.awaitingPrompt;
 
-  while (fetchedPrompt === PromptOptions.awaitingPrompt) {
-    fetchedPrompt = yield getStudentPromptStatus(studentID).catch(
-      e => e.request
-    ); // TODO
+	while (fetchedPrompt === PromptOptions.awaitingPrompt) {
+		fetchedPrompt = yield getStudentPromptStatus(studentID).catch(
+			e => e.request
+		); // TODO
 
-    if (fetchedPrompt === PromptOptions.noPromptNeeded) {
-      yield call(resetToAwaitingPrompt, studentID);
-      return null;
-    }
+		if (fetchedPrompt === PromptOptions.noPromptNeeded) {
+			yield call(resetToAwaitingPrompt, studentID);
+			return null;
+		}
 
-    yield clog("Prompt:", fetchedPrompt);
-    yield call(delay, 1000);
-  }
+		yield clog("Prompt:", fetchedPrompt);
+		yield call(delay, 1000);
+	}
 
-  return fetchedPrompt; // a meaningful prompt was found
+	return fetchedPrompt; // a meaningful prompt was found
 }
 
 function* helperInstructionSaga(
-  isStartReading,
-  isStartAnswer,
-  isBlueCheckmark
+	isStartReading,
+	isStartAnswer,
+	isBlueCheckmark
 ) {
-  if (isStartReading) {
-    yield call(delay, 5000);
-    yield call(playSoundAsync, "/audio/click-start.mp3");
-  } else if (isStartAnswer) {
-    yield call(delay, 16000);
-    yield call(playSoundAsync, "/audio/new-comp-start.mp3");
-    yield call(delay, 3400);
-    yield call(playSoundAsync, "/audio/new-comp-stop.mp3");
-  } else if (isBlueCheckmark) {
-  }
+	if (isStartReading) {
+		yield call(delay, 5000);
+		yield call(playSoundAsync, "/audio/click-start.mp3");
+	} else if (isStartAnswer) {
+		yield call(delay, 16000);
+		yield call(playSoundAsync, "/audio/new-comp-start.mp3");
+		yield call(delay, 3400);
+		yield call(playSoundAsync, "/audio/new-comp-stop.mp3");
+	} else if (isBlueCheckmark) {
+	}
 }
 
 function* spellingInstructionSaga() {
-  const isWarmup = yield select(getIsWarmup);
+	const isWarmup = yield select(getIsWarmup);
 
-  if (isWarmup) {
-    yield call(playSoundAsync, "/audio/warmup/w-9.mp3");
-    yield call(delay, 5000);
+	if (isWarmup) {
+		yield call(playSoundAsync, "/audio/warmup/w-9.mp3");
+		yield call(delay, 5000);
 
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
-    );
-    yield call(delay, 3100);
-    yield put.resolve(setReaderState(ReaderStateOptions.done));
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
+		);
+		yield call(delay, 3100);
+		yield put.resolve(setReaderState(ReaderStateOptions.done));
 
-    yield call(playSound, "/audio/say-sounds-slowly.mp3");
-  } else {
-    yield call(playSound, "/audio/spelling-intro-transition.mp3");
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
-    );
-    yield call(playSound, "/audio/spelling-intro-type-it.mp3");
-    yield put.resolve(setReaderState(ReaderStateOptions.done));
-    yield call(playSound, "/audio/say-sounds-slowly.mp3");
-  }
+		yield call(playSound, "/audio/say-sounds-slowly.mp3");
+	} else {
+		yield call(playSound, "/audio/spelling-intro-transition.mp3");
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
+		);
+		yield call(playSound, "/audio/spelling-intro-type-it.mp3");
+		yield put.resolve(setReaderState(ReaderStateOptions.done));
+		yield call(playSound, "/audio/say-sounds-slowly.mp3");
+	}
 }
 
 function* instructionSaga() {
-  yield put.resolve(setPageNumber(0));
-  yield put.resolve(setInComp(true));
+	yield put.resolve(setPageNumber(0));
+	yield put.resolve(setInComp(true));
 
-  if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
-    yield call(delay, 500);
+	if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
+		yield call(delay, 500);
 
-    const isWarmup = yield select(getIsWarmup);
+		const isWarmup = yield select(getIsWarmup);
 
-    if (!isWarmup) {
-      // yield call(playSoundAsync, "/audio/comp-instructions.mp3");
+		if (!isWarmup) {
+			// yield call(playSoundAsync, "/audio/comp-instructions.mp3");
 
-      yield put.resolve(
-        setReaderState(ReaderStateOptions.talkingAboutStartButton)
-      );
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutStartButton)
+			);
 
-      yield call(playSound, "/audio/new-comp-start.mp3");
+			yield call(playSound, "/audio/new-comp-start.mp3");
 
-      yield put.resolve(
-        setReaderState(ReaderStateOptions.talkingAboutStopButton)
-      );
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutStopButton)
+			);
 
-      yield call(playSound, "/audio/new-comp-stop.mp3");
+			yield call(playSound, "/audio/new-comp-stop.mp3");
 
-      yield call(delay, 150);
+			yield call(delay, 150);
 
-      yield call(playSound, "/audio/look-back-book.mp3");
+			yield call(playSound, "/audio/look-back-book.mp3");
 
-      yield call(delay, 700);
-    } else {
-      yield put.resolve(
-        setReaderState(ReaderStateOptions.talkingAboutStartButton)
-      );
+			yield call(delay, 700);
+		} else {
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutStartButton)
+			);
 
-      yield call(playSound, "/audio/warmup/w-6-2.mp3");
+			yield call(playSound, "/audio/warmup/w-6-2.mp3");
 
-      yield put.resolve(
-        setReaderState(ReaderStateOptions.talkingAboutStopButton)
-      );
-      yield call(delay, 250);
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutStopButton)
+			);
+			yield call(delay, 250);
 
-      yield call(playSound, "/audio/warmup/w-6-3.mp3");
+			yield call(playSound, "/audio/warmup/w-6-3.mp3");
 
-      yield call(delay, 150);
-    }
+			yield call(delay, 150);
+		}
 
-    yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    yield put.resolve(setCurrentModal("no-modal"));
+		yield put.resolve(setCurrentModal("no-modal"));
 
-    yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    // yield put.resolve(setCurrentModal("modal-comp"));
-  }
+		// yield put.resolve(setCurrentModal("modal-comp"));
+	}
 }
 
 // assumes at least one question...
 function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
-  let compBlobArray = [];
+	let compBlobArray = [];
 
-  uploadEffects.push(
-    yield takeLatest(TURN_IN_CLICKED, function*() {
-      yield call(playSound, "/audio/complete.mp3");
-      yield put({ type: SPINNER_SHOW });
+	uploadEffects.push(
+		yield takeLatest(TURN_IN_CLICKED, function*() {
+			yield call(playSound, "/audio/complete.mp3");
+			yield put({ type: SPINNER_SHOW });
 
-      const assID = yield getLastAssessmentID().catch(e => e.request); // TODO
+			const assID = yield getLastAssessmentID().catch(e => e.request); // TODO
 
-      const res = yield call(markCompleted, assID);
-      yield clog("marked it as completed!: ", res);
-      yield put(setAssessmentSubmitted(true));
+			const res = yield call(markCompleted, assID);
+			yield clog("marked it as completed!: ", res);
+			yield put(setAssessmentSubmitted(true));
 
-      window.location.href = "/reports/sample";
-    })
-  );
+			window.location.href = "/reports/sample";
+		})
+	);
 
-  const isWarmup = yield select(getIsWarmup);
+	const isWarmup = yield select(getIsWarmup);
 
-  numQuestions = isWarmup ? 2 : numQuestions;
+	numQuestions = isWarmup ? 2 : numQuestions;
 
-  for (let currQ = 1; currQ <= numQuestions; currQ++) {
-    yield clog("currQ IS", currQ);
+	for (let currQ = 1; currQ <= numQuestions; currQ++) {
+		yield clog("currQ IS", currQ);
 
-    let isFirstTime = currQ === 1;
-    if (isFirstTime) {
-      // first time, play instructions
-      // yield put.resolve(setCurrentModal("modal-comp"));
-      yield call(instructionSaga);
-    }
+		let isFirstTime = currQ === 1;
+		if (isFirstTime) {
+			// first time, play instructions
+			// yield put.resolve(setCurrentModal("modal-comp"));
+			yield call(instructionSaga);
+		}
 
-    let newBlob = yield* compSaga(isFirstTime, false, isFirstTime, currQ);
-    compBlobArray.push(newBlob);
+		let newBlob = yield* compSaga(isFirstTime, false, isFirstTime, currQ);
+		compBlobArray.push(newBlob);
 
-    if (currQ < numQuestions) {
-      uploadEffects.push(
-        yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
-      );
-    } else {
-      yield put({ type: SPINNER_SHOW });
-      yield put.resolve(setCurrentOverlay("overlay-spinner"));
+		if (currQ < numQuestions) {
+			uploadEffects.push(
+				yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
+			);
+		} else {
+			yield put({ type: SPINNER_SHOW });
+			yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
-      yield clog("before turn in");
+			yield clog("before turn in");
 
-      yield* turnInAudio(newBlob, assessmentId, true, currQ); // wait for the last one
+			yield* turnInAudio(newBlob, assessmentId, true, currQ); // wait for the last one
 
-      yield clog("after turn in");
+			yield clog("after turn in");
 
-      yield put({ type: SPINNER_HIDE });
-      yield put.resolve(setCurrentOverlay("no-overlay"));
-    }
+			yield put({ type: SPINNER_HIDE });
+			yield put.resolve(setCurrentOverlay("no-overlay"));
+		}
 
-    // reset the recorder each time
-    let recorder = yield select(getRecorder);
-    yield call(recorder.reset);
-    recorder = yield select(getRecorder);
-    yield call(recorder.initialize);
-  }
+		// reset the recorder each time
+		let recorder = yield select(getRecorder);
+		yield call(recorder.reset);
+		recorder = yield select(getRecorder);
+		yield call(recorder.initialize);
+	}
 
-  const questionNumber = yield select(getQuestionNumber);
-  const book = yield select(getBook);
+	const questionNumber = yield select(getQuestionNumber);
+	const book = yield select(getBook);
 
-  if (
-    book.numQuestions <= questionNumber ||
-    (isWarmup && questionNumber >= 2)
-  ) {
-    console.log("in this ending part......");
-    yield cancel(...uploadEffects);
-    yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
-    return compBlobArray;
-  }
+	if (
+		book.numQuestions <= questionNumber ||
+		(isWarmup && questionNumber >= 2)
+	) {
+		console.log("in this ending part......");
+		yield cancel(...uploadEffects);
+		yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
+		return compBlobArray;
+	}
 
-  yield cancel(...uploadEffects);
+	yield cancel(...uploadEffects);
 
-  return compBlobArray;
+	return compBlobArray;
 }
 
 function* compSaga(
-  firstTime: boolean,
-  isPrompt: boolean,
-  isOnFirstQuestion: boolean,
-  currQ: number
+	firstTime: boolean,
+	isPrompt: boolean,
+	isOnFirstQuestion: boolean,
+	currQ: number
 ) {
-  const compEffects = [];
+	const compEffects = [];
 
-  yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-  // yield put.resolve(setCurrentModal("modal-comp"));
+	// yield put.resolve(setCurrentModal("modal-comp"));
 
-  if (!isPrompt) {
-    yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	if (!isPrompt) {
+		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    let book = yield select(getBook);
-    let audioFile = book.questions[String(currQ)].audioSrc;
+		let book = yield select(getBook);
+		let audioFile = book.questions[String(currQ)].audioSrc;
 
-    const isWarmup = yield select(getIsWarmup);
+		const isWarmup = yield select(getIsWarmup);
 
-    if (isWarmup && currQ === 1) {
-      yield call(playSound, "/audio/warmup/w-7.mp3");
-    } else if (isWarmup && currQ === 2) {
-      yield call(playSound, "/audio/warmup/w-8.mp3");
-    } else {
-      yield call(playSound, audioFile);
-    }
+		if (isWarmup && currQ === 1) {
+			yield call(playSound, "/audio/warmup/w-7.mp3");
+		} else if (isWarmup && currQ === 2) {
+			yield call(playSound, "/audio/warmup/w-8.mp3");
+		} else {
+			yield call(playSound, audioFile);
+		}
 
-    yield put.resolve(setShowSkipPrompt(true));
+		yield put.resolve(setShowSkipPrompt(true));
 
-    yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
-  }
+		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+	}
 
-  yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+	yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
-  yield call(playSoundAsync, "/audio/complete.mp3");
+	yield call(playSoundAsync, "/audio/complete.mp3");
 
-  // yield put.resolve(setReaderState(
-  //   ReaderStateOptions.playingBookIntro,
-  // ))
+	// yield put.resolve(setReaderState(
+	//   ReaderStateOptions.playingBookIntro,
+	// ))
 
-  // // if (firstTime) {
-  // //   yield call(delay, 8200)
-  // // }
+	// // if (firstTime) {
+	// //   yield call(delay, 8200)
+	// // }
 
-  // yield put.resolve(setReaderState(
-  //   ReaderStateOptions.awaitingStart,
-  // ))
+	// yield put.resolve(setReaderState(
+	//   ReaderStateOptions.awaitingStart,
+	// ))
 
-  // BEGIN the former compSeeBookSaga
+	// BEGIN the former compSeeBookSaga
 
-  compEffects.push(
-    yield takeLatest(SEE_BOOK_CLICKED, function*() {
-      yield put.resolve(setCurrentModal("no-modal"));
-      yield call(stopAudio);
-    })
-  );
+	compEffects.push(
+		yield takeLatest(SEE_BOOK_CLICKED, function*() {
+			yield put.resolve(setCurrentModal("no-modal"));
+			yield call(stopAudio);
+		})
+	);
 
-  compEffects.push(
-    yield takeLatest(SEE_COMP_CLICKED, function*() {
-      // yield put.resolve(setCurrentModal("modal-comp"));
-    })
-  );
+	compEffects.push(
+		yield takeLatest(SEE_COMP_CLICKED, function*() {
+			// yield put.resolve(setCurrentModal("modal-comp"));
+		})
+	);
 
-  // END the former compSeeBookSaga
+	// END the former compSeeBookSaga
 
-  // if (firstTime) {
-  //   const compEffects = [];
-  //   helperEffect.push(yield fork(helperInstructionSaga, false, true));
-  // }
+	// if (firstTime) {
+	//   const compEffects = [];
+	//   helperEffect.push(yield fork(helperInstructionSaga, false, true));
+	// }
 
-  yield take(START_RECORDING_CLICKED);
+	yield take(START_RECORDING_CLICKED);
 
-  // if (firstTime) {
-  //   // cancel that saga.
-  //   yield cancel(...helperEffect);
-  // }
+	// if (firstTime) {
+	//   // cancel that saga.
+	//   yield cancel(...helperEffect);
+	// }
 
-  yield call(stopAudio);
+	yield call(stopAudio);
 
-  yield playSoundAsync("/audio/single_countdown.mp3");
+	yield put.resolve(setReaderState(ReaderStateOptions.countdownToStart));
 
-  yield call(delay, 900);
+	yield playSoundAsync("/audio/single_countdown.mp3");
 
-  let recorder = yield select(getRecorder);
+	// yield playSoundAsync("/audio/recording_countdown.mp3");
 
-  if (!isPrompt) {
-    // Start recording
-    try {
-      yield call(recorder.startRecording);
-      yield put.resolve(setHasRecordedSomething(true));
-      yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
-    } catch (err) {
-      yield clog("ERROR: ", err);
-      yield call(
-        sendEmail,
-        err,
-        "Recorder failed to start in comp...",
-        "philesterman@gmail.com"
-      ); // move here so don't break
-    }
-  } else {
-    try {
-      yield call(recorder.resumeRecording);
-      yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
+	if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
+		let countdown = 1;
+		while (countdown > 0) {
+			yield put(setCountdownValue(countdown));
+			yield call(delay, 1000);
+			countdown--;
+		}
+	}
 
-      // reset it so that you get expected pausing behavior
-      yield put.resolve(setPrompt(PromptOptions.awaitingPrompt));
-    } catch (err) {
-      yield clog("ERROR: ", err);
-      yield call(
-        sendEmail,
-        err,
-        "Recorder failed to resume in comp...",
-        "philesterman@gmail.com"
-      ); // move here so don't break
-    }
-  }
+	// yield call(delay, 900);
 
-  // In middle of recording
+	let recorder = yield select(getRecorder);
 
-  const studentID = yield getLastStudentID().catch(e => e.request); // TODO
+	if (!isPrompt) {
+		// Start recording
+		try {
+			yield call(recorder.startRecording);
+			yield put.resolve(setHasRecordedSomething(true));
+			yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
+		} catch (err) {
+			yield clog("ERROR: ", err);
+			yield call(
+				sendEmail,
+				err,
+				"Recorder failed to start in comp...",
+				"philesterman@gmail.com"
+			); // move here so don't break
+		}
+	} else {
+		try {
+			yield call(recorder.resumeRecording);
+			yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
 
-  let isLiveDemo = yield call(getIsLiveDemo);
+			// reset it so that you get expected pausing behavior
+			yield put.resolve(setPrompt(PromptOptions.awaitingPrompt));
+		} catch (err) {
+			yield clog("ERROR: ", err);
+			yield call(
+				sendEmail,
+				err,
+				"Recorder failed to resume in comp...",
+				"philesterman@gmail.com"
+			); // move here so don't break
+		}
+	}
 
-  yield clog("isLiveDemo: ", isLiveDemo);
+	// In middle of recording
 
-  if (isLiveDemo) {
-    yield put.resolve(setLiveDemo(true));
-  }
+	const studentID = yield getLastStudentID().catch(e => e.request); // TODO
 
-  yield clog("studentID is", studentID);
+	let isLiveDemo = yield call(getIsLiveDemo);
 
-  yield take(STOP_RECORDING_CLICKED);
+	yield clog("isLiveDemo: ", isLiveDemo);
 
-  // for the physical book version
-  yield put.resolve(setCurrentModal("no-modal"));
+	if (isLiveDemo) {
+		yield put.resolve(setLiveDemo(true));
+	}
 
-  yield call(stopAudio);
+	yield clog("studentID is", studentID);
 
-  recorder = yield select(getRecorder);
+	yield take(STOP_RECORDING_CLICKED);
 
-  // Pause it for the prompt fetching
-  yield call(recorder.pauseRecording);
-  yield put.resolve(setReaderState(ReaderStateOptions.paused));
+	// for the physical book version
+	yield put.resolve(setCurrentModal("no-modal"));
 
-  yield playSound("/audio/complete.mp3");
+	yield call(stopAudio);
 
-  yield clog("made it here 3");
+	recorder = yield select(getRecorder);
 
-  yield clog("compEffects is....", compEffects);
+	// Pause it for the prompt fetching
+	yield call(recorder.pauseRecording);
+	yield put.resolve(setReaderState(ReaderStateOptions.paused));
 
-  // yield put({ type: SPINNER_SHOW });
+	yield playSound("/audio/complete.mp3");
 
-  yield put.resolve(setCurrentOverlay("overlay-spinner"));
+	yield clog("made it here 3");
 
-  let waitingTime = isLiveDemo ? 8000 : 3000;
-  console.log("waitingTime: ", waitingTime);
+	yield clog("compEffects is....", compEffects);
 
-  const { prompt, timeout } = yield race({
-    prompt: call(newFetchUntilPrompt, studentID),
-    timeout: call(delay, waitingTime)
-  });
+	// yield put({ type: SPINNER_SHOW });
 
-  yield put.resolve(setCurrentOverlay("no-overlay"));
+	yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
-  // yield put({ type: SPINNER_HIDE });
+	let waitingTime = isLiveDemo ? 8000 : 3000;
+	console.log("waitingTime: ", waitingTime);
 
-  yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	const { prompt, timeout } = yield race({
+		prompt: call(newFetchUntilPrompt, studentID),
+		timeout: call(delay, waitingTime)
+	});
 
-  if (prompt) {
-    yield clog("111 We found a prompt!: ", prompt);
+	yield put.resolve(setCurrentOverlay("no-overlay"));
 
-    yield put.resolve(setPrompt(prompt));
+	// yield put({ type: SPINNER_HIDE });
 
-    yield call(playPromptSaga, prompt, studentID);
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    yield cancel(...compEffects);
+	if (prompt) {
+		yield clog("111 We found a prompt!: ", prompt);
 
-    return yield call(compSaga, false, true, firstTime, currQ);
-  } else {
-    yield clog("111 NO PROMPT FOUND");
+		yield put.resolve(setPrompt(prompt));
 
-    // reset.
-    yield put.resolve(setPrompt(PromptOptions.awaitingPrompt));
+		yield call(playPromptSaga, prompt, studentID);
 
-    // stop it
-    const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(
-      recorder,
-      true,
-      isOnFirstQuestion
-    );
-    yield clog("url for comp recording!!!", compRecordingURL);
+		yield cancel(...compEffects);
 
-    let newBlob;
+		return yield call(compSaga, false, true, firstTime, currQ);
+	} else {
+		yield clog("111 NO PROMPT FOUND");
 
-    try {
-      newBlob = recorder.getBlob();
-    } catch (err) {
-      yield clog("err: ", err);
-      newBlob = "it broke";
-    }
+		// reset.
+		yield put.resolve(setPrompt(PromptOptions.awaitingPrompt));
 
-    yield put.resolve(setCurrentModal("no-modal"));
+		// stop it
+		const compRecordingURL = yield* haltRecordingAndGenerateBlobSaga(
+			recorder,
+			true,
+			isOnFirstQuestion
+		);
+		yield clog("url for comp recording!!!", compRecordingURL);
 
-    yield* questionIncrementSaga("comp");
+		let newBlob;
 
-    yield cancel(...compEffects);
+		try {
+			newBlob = recorder.getBlob();
+		} catch (err) {
+			yield clog("err: ", err);
+			newBlob = "it broke";
+		}
 
-    return newBlob;
-  }
+		yield put.resolve(setCurrentModal("no-modal"));
+
+		yield* questionIncrementSaga("comp");
+
+		yield cancel(...compEffects);
+
+		return newBlob;
+	}
 }
 
 function* hideVolumeSaga() {
-  yield call(delay, 5500);
-  yield put.resolve(hideVolumeIndicator());
+	yield call(delay, 5500);
+	yield put.resolve(hideVolumeIndicator());
 }
 
 function* assessThenSubmitSaga(assessmentId) {
-  const effects = [];
+	const effects = [];
 
-  // TODO: convert this into a batched action
-  yield put.resolve(setPageNumber(0));
-  yield put.resolve(setQuestionNumber(1));
-  yield put.resolve(setPrompt(PromptOptions.awaitingPrompt));
+	// TODO: convert this into a batched action
+	yield put.resolve(setPageNumber(0));
+	yield put.resolve(setQuestionNumber(1));
+	yield put.resolve(setPrompt(PromptOptions.awaitingPrompt));
 
-  yield put.resolve(setInComp(false));
-  yield put.resolve(setInSpelling(false));
-  yield put.resolve(setInOralReading(true));
-  yield put.resolve(setShowSkipPrompt(false));
+	yield put.resolve(setInComp(false));
+	yield put.resolve(setInSpelling(false));
+	yield put.resolve(setInOralReading(true));
+	yield put.resolve(setShowSkipPrompt(false));
 
-  yield put.resolve(setHasRecordedSomething(false));
-  yield put.resolve(setCurrentModal("no-modal"));
-  yield put(setAssessmentSubmitted(false));
+	yield put.resolve(setHasRecordedSomething(false));
+	yield put.resolve(setCurrentModal("no-modal"));
+	yield put(setAssessmentSubmitted(false));
 
-  yield put(setCurrentOverlay("no-overlay"));
+	yield put(setCurrentOverlay("no-overlay"));
 
-  const permissionsGranted = yield* getMicPermissionsSaga(); // blocks
+	const permissionsGranted = yield* getMicPermissionsSaga(); // blocks
 
-  // TODO asap as possible
-  // TODO: some loop here :)
-  while (!permissionsGranted) {
-    yield put(setCurrentOverlay("overlay-blocked-mic"));
-    yield call(playSound, "/audio/teacher-help.mp3");
-    yield take("ickkkkk");
-    return;
-  }
+	// TODO asap as possible
+	// TODO: some loop here :)
+	while (!permissionsGranted) {
+		yield put(setCurrentOverlay("overlay-blocked-mic"));
+		yield call(playSound, "/audio/teacher-help.mp3");
+		yield take("ickkkkk");
+		return;
+	}
 
-  yield put(setCurrentOverlay("no-overlay"));
+	yield put(setCurrentOverlay("no-overlay"));
 
-  // permission was granted!!!!
+	// permission was granted!!!!
 
-  let recorder = yield select(getRecorder);
-  yield call(recorder.initialize);
+	let recorder = yield select(getRecorder);
+	yield call(recorder.initialize);
 
-  // yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+	// yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
-  effects.push(yield fork(hideVolumeSaga));
+	effects.push(yield fork(hideVolumeSaga));
 
-  const book = yield select(getBook);
-  const isWarmup = yield select(getIsWarmup);
+	const book = yield select(getBook);
+	const isWarmup = yield select(getIsWarmup);
 
-  yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-  yield clog("set it");
+	yield clog("set it");
 
-  yield call(stopAudio);
+	yield call(stopAudio);
 
-  yield call(delay, 1350);
+	yield call(delay, 1350);
 
-  if (isWarmup) {
-    yield call(playSound, "/audio/warmup/w-1.mp3");
-    yield call(playSound, "/audio/warmup/w-2.mp3");
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutStartButton)
-    );
-    yield call(playSound, "/audio/warmup/w-3.mp3");
-    yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
-    yield call(playSound, "/audio/complete.mp3");
-  } else {
-    yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
+	if (isWarmup) {
+		yield call(playSound, "/audio/warmup/w-1.mp3");
+		yield call(playSound, "/audio/warmup/w-2.mp3");
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutStartButton)
+		);
+		yield call(playSound, "/audio/warmup/w-3.mp3");
+		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+		yield call(playSound, "/audio/complete.mp3");
+	} else {
+		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
 
-    yield put.resolve(showVolumeIndicator());
+		yield put.resolve(showVolumeIndicator());
 
-    yield call(playSound, book.introAudioSrc);
+		yield call(playSound, book.introAudioSrc);
 
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutStartButton)
-    );
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutStartButton)
+		);
 
-    yield put.resolve(showVolumeIndicator());
+		yield put.resolve(showVolumeIndicator());
 
-    yield call(playSound, "/audio/intro-click-start.mp3");
+		yield call(playSound, "/audio/intro-click-start.mp3");
 
-    yield put.resolve(
-      setReaderState(ReaderStateOptions.talkingAboutStopButton)
-    );
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutStopButton)
+		);
 
-    yield call(playSound, "/audio/intro-click-stop.mp3");
+		yield call(playSound, "/audio/intro-click-stop.mp3");
 
-    yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
-    yield call(playSound, "/audio/complete.mp3");
-  }
+		yield call(playSound, "/audio/complete.mp3");
+	}
 
-  const helperEffect = [];
-  helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
-  // set a 8 second saga in background
+	const helperEffect = [];
+	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
+	// set a 8 second saga in background
 
-  // before assessment has started, clicking exit immediately quits app
-  // I guess. We will probably change this
-  const { exit } = yield race({
-    exit: take(EXIT_CLICKED),
-    startAssessment: take(START_RECORDING_CLICKED)
-  });
+	// before assessment has started, clicking exit immediately quits app
+	// I guess. We will probably change this
+	const { exit } = yield race({
+		exit: take(EXIT_CLICKED),
+		startAssessment: take(START_RECORDING_CLICKED)
+	});
 
-  // cancel that saga.
-  yield cancel(...helperEffect);
+	// cancel that saga.
+	yield cancel(...helperEffect);
 
-  yield call(stopAudio);
+	yield call(stopAudio);
 
-  yield put.resolve(hideVolumeIndicator());
+	yield put.resolve(hideVolumeIndicator());
 
-  // the app will end :O
-  if (exit) {
-    yield* redirectToHomepage();
-  }
+	// the app will end :O
+	if (exit) {
+		yield* redirectToHomepage();
+	}
 
-  // now we start the assessment for real
-  effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
+	// now we start the assessment for real
+	effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
 
-  const isDemo = yield select(getIsDemo);
+	const isDemo = yield select(getIsDemo);
 
-  yield call(
-    sendEmail,
-    `${isDemo ? "Demo" : "Real student session"} started`,
-    `${isDemo ? "Demo" : "Real student"} started`,
-    "philesterman@gmail.com"
-  ); // move here so don't break
+	yield call(
+		sendEmail,
+		`${isDemo ? "Demo" : "Real student session"} started`,
+		`${isDemo ? "Demo" : "Real student"} started`,
+		"philesterman@gmail.com"
+	); // move here so don't break
 
-  // TODO: convert the countdown to saga!!!!
-  yield put.resolve(setPageNumber(1));
-  yield put.resolve(setReaderState(ReaderStateOptions.countdownToStart));
+	// TODO: convert the countdown to saga!!!!
+	yield put.resolve(setPageNumber(1));
+	yield put.resolve(setReaderState(ReaderStateOptions.countdownToStart));
 
-  yield playSoundAsync("/audio/recording_countdown.mp3");
+	yield playSoundAsync("/audio/recording_countdown.mp3");
 
-  if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
-    let countdown = 3;
-    while (countdown > 0) {
-      yield put(setCountdownValue(countdown));
-      yield call(delay, 1000);
-      countdown--;
-    }
-  }
+	if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
+		let countdown = 3;
+		while (countdown > 0) {
+			yield put(setCountdownValue(countdown));
+			yield call(delay, 1000);
+			countdown--;
+		}
+	}
 
-  // yield put(setCurrentSound('/audio/book_intro.mp3'))
+	// yield put(setCurrentSound('/audio/book_intro.mp3'))
 
-  yield put.resolve(setCurrentModal("no-modal"));
+	yield put.resolve(setCurrentModal("no-modal"));
 
-  yield put.resolve(setShowSkipPrompt(true));
+	yield put.resolve(setShowSkipPrompt(true));
 
-  yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
+	yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
 
-  if (isWarmup) {
-    yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
-  } else {
-    yield call(playSound, "/audio/now-recording-read.mp3");
-  }
+	if (isWarmup) {
+		yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
+	} else {
+		yield call(playSound, "/audio/now-recording-read.mp3");
+	}
 
-  // this ensures that effects are canceleld
-  // while (true) {
-  //   const {exit} = yield race({
-  //     exit:             take(EXIT_CLICKED),
-  //     assessmentResult: call(assessmentSaga),
-  //   })
+	// this ensures that effects are canceleld
+	// while (true) {
+	//   const {exit} = yield race({
+	//     exit:             take(EXIT_CLICKED),
+	//     assessmentResult: call(assessmentSaga),
+	//   })
 
-  //   if (exit) {
-  //     yield call(exitClick)
-  //   } else {
+	//   if (exit) {
+	//     yield call(exitClick)
+	//   } else {
 
-  //   }
-  // }
-  // starts the recording assessment flow
-  effects.push(yield fork(assessmentSaga));
+	//   }
+	// }
+	// starts the recording assessment flow
+	effects.push(yield fork(assessmentSaga));
 
-  // set up skipping
-  effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
+	// set up skipping
+	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
 
-  const { endRecording } = yield race({
-    turnItIn: take(TURN_IN_CLICKED),
-    endRecording: take(STOP_RECORDING_CLICKED)
-  });
+	const { endRecording } = yield race({
+		turnItIn: take(TURN_IN_CLICKED),
+		endRecording: take(STOP_RECORDING_CLICKED)
+	});
 
-  // to hide the comp pause modal
-  yield put.resolve(setCurrentModal("no-modal"));
+	// to hide the comp pause modal
+	yield put.resolve(setCurrentModal("no-modal"));
 
-  recorder = yield select(getRecorder);
+	recorder = yield select(getRecorder);
 
-  yield put.resolve(setCurrentOverlay("overlay-spinner"));
+	yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
-  yield put({ type: SPINNER_SHOW });
+	yield put({ type: SPINNER_SHOW });
 
-  const recordingURL = yield* haltRecordingAndGenerateBlobSaga(
-    recorder,
-    false,
-    false
-  );
+	const recordingURL = yield* haltRecordingAndGenerateBlobSaga(
+		recorder,
+		false,
+		false
+	);
 
-  yield put({ type: SPINNER_HIDE });
+	yield put({ type: SPINNER_HIDE });
 
-  yield put.resolve(setCurrentOverlay("no-overlay"));
+	yield put.resolve(setCurrentOverlay("no-overlay"));
 
-  yield clog("url for recording!!!", recordingURL);
+	yield clog("url for recording!!!", recordingURL);
 
-  let recordingBlob;
+	let recordingBlob;
 
-  try {
-    recordingBlob = recorder.getBlob();
-  } catch (err) {
-    recordingBlob = "it broke";
-    yield clog("err:", err);
-  }
+	try {
+		recordingBlob = recorder.getBlob();
+	} catch (err) {
+		recordingBlob = "it broke";
+		yield clog("err:", err);
+	}
 
-  let blobAndPrompt;
-  let fetchedPrompt;
-  let compBlobArray;
+	let blobAndPrompt;
+	let fetchedPrompt;
+	let compBlobArray;
 
-  if (endRecording) {
-    yield put.resolve(setShowSkipPrompt(false));
+	if (endRecording) {
+		yield put.resolve(setShowSkipPrompt(false));
 
-    yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-    yield call(playSound, "/audio/complete.mp3");
+		yield call(playSound, "/audio/complete.mp3");
 
-    // now start submitting it!
+		// now start submitting it!
 
-    effects.push(
-      yield fork(turnInAudio, recordingBlob, assessmentId, false, 0)
-    );
+		effects.push(
+			yield fork(turnInAudio, recordingBlob, assessmentId, false, 0)
+		);
 
-    //  reset recorder
-    let recorder = yield select(getRecorder);
-    yield call(recorder.reset);
-    recorder = yield select(getRecorder);
-    yield call(recorder.initialize);
+		//  reset recorder
+		let recorder = yield select(getRecorder);
+		yield call(recorder.reset);
+		recorder = yield select(getRecorder);
+		yield call(recorder.initialize);
 
-    yield call(delay, 300);
+		yield call(delay, 300);
 
-    if (isWarmup) {
-      yield playSound("/audio/warmup/w-6-1.mp3");
-    } else {
-      yield playSound("/audio/VB/min/VB-now-questions.mp3");
-    }
+		if (isWarmup) {
+			yield playSound("/audio/warmup/w-6-1.mp3");
+		} else {
+			yield playSound("/audio/VB/min/VB-now-questions.mp3");
+		}
 
-    yield put.resolve(setInOralReading(false));
+		yield put.resolve(setInOralReading(false));
 
-    const numQuestions = yield select(getNumQuestions);
+		const numQuestions = yield select(getNumQuestions);
 
-    const uploadEffects = [];
+		const uploadEffects = [];
 
-    effects.push(
-      (compBlobArray = yield fork(
-        definedCompSaga,
-        numQuestions,
-        assessmentId,
-        uploadEffects
-      ))
-    );
+		effects.push(
+			(compBlobArray = yield fork(
+				definedCompSaga,
+				numQuestions,
+				assessmentId,
+				uploadEffects
+			))
+		);
 
-    yield clog("okay, waiting ");
+		yield clog("okay, waiting ");
 
-    yield take(FINAL_COMP_QUESTION_ANSWERED);
+		yield take(FINAL_COMP_QUESTION_ANSWERED);
 
-    yield put.resolve(setShowSkipPrompt(false));
+		yield put.resolve(setShowSkipPrompt(false));
 
-    yield cancel(...uploadEffects);
+		yield cancel(...uploadEffects);
 
-    yield clog("okay, GOT IT ");
+		yield clog("okay, GOT IT ");
 
-    yield put({ type: SPINNER_HIDE });
+		yield put({ type: SPINNER_HIDE });
 
-    yield put.resolve(setInComp(false));
+		yield put.resolve(setInComp(false));
 
-    // Spelling!
-    yield put.resolve(setInSpelling(true));
-    yield put.resolve(setSpellingAnswerGiven(false));
+		// Spelling!
+		yield put.resolve(setInSpelling(true));
+		yield put.resolve(setSpellingAnswerGiven(false));
 
-    yield call(spellingInstructionSaga);
+		yield call(spellingInstructionSaga);
 
-    yield call(playSpellingQuestionSaga);
+		yield call(playSpellingQuestionSaga);
 
-    yield put.resolve(setShowSkipPrompt(true));
+		yield put.resolve(setShowSkipPrompt(true));
 
-    effects.push(
-      yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, "spelling")
-    );
+		effects.push(
+			yield takeLatest(
+				NEXT_WORD_CLICKED,
+				questionIncrementSaga,
+				"spelling"
+			)
+		);
 
-    yield take(FINAL_SPELLING_QUESTION_ANSWERED);
+		yield take(FINAL_SPELLING_QUESTION_ANSWERED);
 
-    yield put.resolve(setShowSkipPrompt(false));
+		yield put.resolve(setShowSkipPrompt(false));
 
-    yield put.resolve(setInSpelling(false));
-    // End Spelling
+		yield put.resolve(setInSpelling(false));
+		// End Spelling
 
-    yield put.resolve(setCurrentModal("modal-done"));
+		yield put.resolve(setCurrentModal("modal-done"));
 
-    yield call(delay, 200);
+		yield call(delay, 200);
 
-    if (isWarmup) {
-      yield playSoundAsync("/audio/warmup/w-12.mp3");
-    } else {
-      yield playSoundAsync("/audio/VB/VB-done.mp3");
-    }
-  }
+		if (isWarmup) {
+			yield playSoundAsync("/audio/warmup/w-12.mp3");
+		} else {
+			yield playSoundAsync("/audio/VB/VB-done.mp3");
+		}
+	}
 
-  compBlobArray = compBlobArray || "";
+	compBlobArray = compBlobArray || "";
 
-  // do not delete, this is import :)
-  if (endRecording) {
-    yield take(TURN_IN_CLICKED);
-  }
+	// do not delete, this is import :)
+	if (endRecording) {
+		yield take(TURN_IN_CLICKED);
+	}
 
-  yield cancel(...effects);
+	yield cancel(...effects);
 
-  yield clog("recordingBlob:   ", recordingBlob);
-  yield clog("compblogArray:   ", compBlobArray);
+	yield clog("recordingBlob:   ", recordingBlob);
+	yield clog("compblogArray:   ", compBlobArray);
 
-  return [recordingBlob, compBlobArray];
+	return [recordingBlob, compBlobArray];
 }
 
 function* rootSaga() {
-  const { payload: { isDemo } } = yield take(IS_DEMO_SET);
-  const { payload: { bookKey } } = yield take(BOOK_KEY_SET);
-  const { payload: { studentName } } = yield take(STUDENT_NAME_SET);
-  const { payload: { isWarmup } } = yield take(IS_WARMUP_SET);
+	const { payload: { isDemo } } = yield take(IS_DEMO_SET);
+	const { payload: { bookKey } } = yield take(BOOK_KEY_SET);
+	const { payload: { studentName } } = yield take(STUDENT_NAME_SET);
+	const { payload: { isWarmup } } = yield take(IS_WARMUP_SET);
 
-  yield clog("isDemo: ", isDemo);
+	yield clog("isDemo: ", isDemo);
 
-  yield clog("bookKey: ", bookKey);
+	yield clog("bookKey: ", bookKey);
 
-  yield clog("Root Saga Started");
+	yield clog("Root Saga Started");
 
-  yield clog("Generating assessment... bookKey:", bookKey);
-  const assessmentId = yield requestNewAssessment(bookKey).catch(
-    e => e.request
-  ); // TODO
+	yield clog("Generating assessment... bookKey:", bookKey);
+	const assessmentId = yield requestNewAssessment(bookKey).catch(
+		e => e.request
+	); // TODO
 
-  yield clog("HERE I AM : ", assessmentId);
+	yield clog("HERE I AM : ", assessmentId);
 
-  yield clog("assessmentID is: ", assessmentId);
+	yield clog("assessmentID is: ", assessmentId);
 
-  // yield call(setAssessmentID, assessmentId);
+	// yield call(setAssessmentID, assessmentId);
 
-  yield put(setAssessmentID(assessmentId + 1));
+	yield put(setAssessmentID(assessmentId + 1));
 
-  yield clog("Assessment ID:", assessmentId);
+	yield clog("Assessment ID:", assessmentId);
 
-  // if isMobileDevice, halt
-  const isMobile = yield call(isMobileDevice);
-  if (isMobile) {
-    window.location.href = "/mobile_halt";
-    take("ickkk");
-  }
+	// if isMobileDevice, halt
+	const isMobile = yield call(isMobileDevice);
+	if (isMobile) {
+		window.location.href = "/mobile_halt";
+		take("ickkk");
+	}
 
-  // CREATE THE USER
+	// CREATE THE USER
 
-  $.ajax({
-    url: `/auth/phil_setup_demo?book_key=${bookKey}&student_name=${studentName}`,
-    type: "post"
-  }).fail(function(xhr, status, err) {
-    console.log(err);
-  });
+	$.ajax({
+		url: `/auth/phil_setup_demo?book_key=${bookKey}&student_name=${studentName}`,
+		type: "post"
+	}).fail(function(xhr, status, err) {
+		console.log(err);
+	});
 
-  // Call Phil to alert if it's a live student test
+	// Call Phil to alert if it's a live student test
 
-  if (!isDemo) {
-    yield clog("Call if in production...");
-    yield call(sendCall);
-  }
+	if (!isDemo) {
+		yield clog("Call if in production...");
+		yield call(sendCall);
+	}
 
-  /*
+	/*
    ****************
    * watchers
    *****************
    */
-  // yield* audioEffectsSaga()
+	// yield* audioEffectsSaga()
 
-  yield takeLatest(HEAR_RECORDING_CLICKED, function*() {
-    yield put(setCurrentModal("modal-playback"));
-    yield call(stopAudio);
-  });
+	yield takeLatest(HEAR_RECORDING_CLICKED, function*() {
+		yield put(setCurrentModal("modal-playback"));
+		yield call(stopAudio);
+	});
 
-  // yield takeLatest(PERMISSIONS_ARROW_CLICKED, function* () {
-  //   yield call(playSound, '/audio/click_allow_button.mp3')
-  // })
+	// yield takeLatest(PERMISSIONS_ARROW_CLICKED, function* () {
+	//   yield call(playSound, '/audio/click_allow_button.mp3')
+	// })
 
-  /*
+	/*
    ****************
    * main race
    *****************
    */
-  yield clog("Race About To Start");
-  while (true) {
-    const { restartAssessment, recordingBlobArray, quit } = yield race({
-      restartAssessment: take(RESTART_RECORDING_CLICKED),
-      recordingBlobArray: call(assessThenSubmitSaga, assessmentId),
-      quit: take("QUIT_ASSESSMENT_AND_DESTROY")
-    });
-    yield clog("Race Finished");
+	yield clog("Race About To Start");
+	while (true) {
+		const { restartAssessment, recordingBlobArray, quit } = yield race({
+			restartAssessment: take(RESTART_RECORDING_CLICKED),
+			recordingBlobArray: call(assessThenSubmitSaga, assessmentId),
+			quit: take("QUIT_ASSESSMENT_AND_DESTROY")
+		});
+		yield clog("Race Finished");
 
-    yield clog("made it here 6");
+		yield clog("made it here 6");
 
-    if (quit) {
-      window.location.href = "/"; // eslint-disable-line
-      return;
-    }
+		if (quit) {
+			window.location.href = "/"; // eslint-disable-line
+			return;
+		}
 
-    if (restartAssessment) {
-      yield clog("here i am?????");
-      const recorder = yield select(getRecorder);
-      if (recorder) {
-        yield call(recorder.reset);
-      }
-      yield put.resolve(setCurrentModal("no-modal"));
-      yield put(setCurrentOverlay("no-overlay"));
-    } else {
-      const recordingBlob = recordingBlobArray[0];
-      const compBlobArray = recordingBlobArray[1];
-      const numBlobs = compBlobArray.length;
+		if (restartAssessment) {
+			yield clog("here i am?????");
+			const recorder = yield select(getRecorder);
+			if (recorder) {
+				yield call(recorder.reset);
+			}
+			yield put.resolve(setCurrentModal("no-modal"));
+			yield put(setCurrentOverlay("no-overlay"));
+		} else {
+			const recordingBlob = recordingBlobArray[0];
+			const compBlobArray = recordingBlobArray[1];
+			const numBlobs = compBlobArray.length;
 
-      yield put({ type: SPINNER_SHOW });
+			yield put({ type: SPINNER_SHOW });
 
-      yield playSound("/audio/complete.mp3");
+			yield playSound("/audio/complete.mp3");
 
-      // const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
+			// const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
 
-      let turnInCheck = true; // fake, defaulting to true.
+			let turnInCheck = true; // fake, defaulting to true.
 
-      const fullCompleted = yield select(getInComp);
-      const didEndEarly = !fullCompleted;
+			const fullCompleted = yield select(getInComp);
+			const didEndEarly = !fullCompleted;
 
-      if (didEndEarly) {
-        yield* turnInAudio(recordingBlob, assessmentId, false, 0);
-      }
+			if (didEndEarly) {
+				yield* turnInAudio(recordingBlob, assessmentId, false, 0);
+			}
 
-      // let compTurnedIn = []
+			// let compTurnedIn = []
 
-      // for(let i = 0; i <=  numBlobs; i++) {
-      //   const compBlob = compBlobArray[i]
+			// for(let i = 0; i <=  numBlobs; i++) {
+			//   const compBlob = compBlobArray[i]
 
-      //   const newResult = yield* turnInAudio(compBlob, assessmentId, true, i + 1)
-      //   compTurnedIn.push(newResult)
-      // }
+			//   const newResult = yield* turnInAudio(compBlob, assessmentId, true, i + 1)
+			//   compTurnedIn.push(newResult)
+			// }
 
-      yield put({ type: SPINNER_HIDE });
+			yield put({ type: SPINNER_HIDE });
 
-      // success! TODO better checking of compTurnedIn
-      // if (turnedIn && compTurnedIn) {
-      if (turnInCheck) {
-        yield clog("turned it in!");
+			// success! TODO better checking of compTurnedIn
+			// if (turnedIn && compTurnedIn) {
+			if (turnInCheck) {
+				yield clog("turned it in!");
 
-        // Mark it as completed
-        const assID = yield getLastAssessmentID().catch(e => e.request); // TODO
+				// Mark it as completed
+				const assID = yield getLastAssessmentID().catch(e => e.request); // TODO
 
-        const res = yield call(markCompleted, assID);
-        yield clog("marked it as completed!: ", res);
+				const res = yield call(markCompleted, assID);
+				yield clog("marked it as completed!: ", res);
 
-        yield put(setAssessmentSubmitted(true));
+				yield put(setAssessmentSubmitted(true));
 
-        if (isWarmup) {
-          yield call(playSound, "/audio/warmup/w-13.mp3");
-        } else {
-          yield call(playSound, "/audio/celebration.mp3");
-        }
+				if (isWarmup) {
+					yield call(playSound, "/audio/warmup/w-13.mp3");
+				} else {
+					yield call(playSound, "/audio/celebration.mp3");
+				}
 
-        if (isWarmup) {
-          if (studentName.includes("Brian")) {
-            window.location.href = "/brian-real";
-          }
+				if (isWarmup) {
+					if (studentName.includes("Brian")) {
+						window.location.href = "/brian-real";
+					}
 
-          if (isDemo) {
-            if (bookKey === "nick") {
-              window.location.href = "/nick-no-warmup";
-            } else if (bookKey === "step") {
-              window.location.href = "/step-no-warmup";
-            }
-          } else {
-            if (bookKey === "nick") {
-              window.location.href = "/nick-no-warmup-no-demo";
-            } else if (bookKey === "step") {
-              window.location.href = "/step-no-warmup-no-demo";
-            }
-          }
+					if (isDemo) {
+						if (bookKey === "nick") {
+							window.location.href = "/nick-no-warmup";
+						} else if (bookKey === "step") {
+							window.location.href = "/step-no-warmup";
+						}
+					} else {
+						if (bookKey === "nick") {
+							window.location.href = "/nick-no-warmup-no-demo";
+						} else if (bookKey === "step") {
+							window.location.href = "/step-no-warmup-no-demo";
+						}
+					}
 
-          yield put({ type: SPINNER_SHOW });
-        } else if (isDemo) {
-          yield clog("oh hey you r done");
+					yield put({ type: SPINNER_SHOW });
+				} else if (isDemo) {
+					yield clog("oh hey you r done");
 
-          window.location.href = "/reports/sample";
-          yield put({ type: SPINNER_SHOW });
+					window.location.href = "/reports/sample";
+					yield put({ type: SPINNER_SHOW });
 
-          // TODO where to redirect?
-          // window.location.href = "/reports/1"
-        } else {
-          //Keep them waiting here forever as proof they finished.
+					// TODO where to redirect?
+					// window.location.href = "/reports/1"
+				} else {
+					//Keep them waiting here forever as proof they finished.
 
-          // setTimeout(() => {
-          //   // TODO where to redirect?
-          //   window.location.href = "/"; // eslint-disable-line
-          // }, 10000);
-          return;
-        }
+					// setTimeout(() => {
+					//   // TODO where to redirect?
+					//   window.location.href = "/"; // eslint-disable-line
+					// }, 10000);
+					return;
+				}
 
-        yield put(setReaderState(ReaderStateOptions.submitted));
+				yield put(setReaderState(ReaderStateOptions.submitted));
 
-        yield take("NEVER_PASS");
+				yield take("NEVER_PASS");
 
-        // fail! allow option to turn in again?
-      } else {
-        yield clog("could not turn it in :/");
+				// fail! allow option to turn in again?
+			} else {
+				yield clog("could not turn it in :/");
 
-        // Keep them moving forward anyway...
-        yield call(
-          sendEmail,
-          "Just failed to upload to s3... ",
-          "s3 Upload Failure",
-          "philesterman@gmail.com"
-        ); // move here so don't break
+				// Keep them moving forward anyway...
+				yield call(
+					sendEmail,
+					"Just failed to upload to s3... ",
+					"s3 Upload Failure",
+					"philesterman@gmail.com"
+				); // move here so don't break
 
-        window.location.href = "/reports/sample";
-        yield put({ type: SPINNER_SHOW });
-      }
-    } // END if (restartAssessment)
-  } // END while (true)
+				window.location.href = "/reports/sample";
+				yield put({ type: SPINNER_SHOW });
+			}
+		} // END if (restartAssessment)
+	} // END while (true)
 } // END function* rootSaga()
 
 export default rootSaga;
