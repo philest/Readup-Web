@@ -483,8 +483,11 @@ export default class GraderInterface extends React.Component {
   };
 
   onPromptClicked = (promptNumber, isImmediate) => {
-    let promptStatus = PromptOptions[promptNumber];
+    let promptStatus = PromptOptions[Object.keys(PromptOptions)[promptNumber]];
+
     const params = { prompt_status: promptStatus };
+
+    console.log(params);
 
     if (!isImmediate) {
       updateStudent(params, this.props.studentID);
