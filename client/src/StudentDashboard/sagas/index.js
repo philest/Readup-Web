@@ -380,6 +380,13 @@ function* playSpellingQuestionSaga() {
 
 	audiofile = `/audio/spelling/${spellingQuestionNumber}.mp3`;
 
+	const isWarmup = yield select(getIsWarmup);
+	if (isWarmup && spellingQuestionNumber === 1) {
+		audiofile = "/audio/warmup/w-10.mp3";
+	} else if (isWarmup && spellingQuestionNumber === 2) {
+		audiofile = "/audio/warmup/w-11.mp3";
+	}
+
 	yield call(playSound, audiofile);
 }
 
