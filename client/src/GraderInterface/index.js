@@ -129,7 +129,8 @@ export default class GraderInterface extends React.Component {
     bookKey: PropTypes.string,
     waiting: PropTypes.bool,
     isRemote: PropTypes.bool,
-    totalTimeReading: PropTypes.number
+    totalTimeReading: PropTypes.number,
+    isVideoChat: PropTypes.bool
   };
 
   constructor(props, _railsContext) {
@@ -188,11 +189,12 @@ export default class GraderInterface extends React.Component {
     console.log("backupShowQArr: ", backupShowQArr);
     this.setState({ showQArr: backupShowQArr });
     console.log("just reset state: ", this.state.showQArr);
-
-    // check all of s3 fully once
-    for (let q = 0; q <= numQuestions; q++) {
-      if (!this.state.showQArr[String(q)] && !this.props.scored) {
-        this.checkS3(q, true);
+    if (!this.props.isVideoChat) {
+      // check all of s3 fully once
+      for (let q = 0; q <= numQuestions; q++) {
+        if (!this.state.showQArr[String(q)] && !this.props.scored) {
+          this.checkS3(q, true);
+        }
       }
     }
 
@@ -230,6 +232,10 @@ export default class GraderInterface extends React.Component {
   };
 
   tick() {
+    if (!this.props.isVideoChat) {
+      return;
+    }
+
     const isUpdated = this.assessmentSavedThisSession(this.props.assessmentID);
     const hasSavedRecently = this.state.hasSavedRecently;
     const hasSeenAlert = this.state.hasSeenAlert;
@@ -1032,7 +1038,7 @@ export default class GraderInterface extends React.Component {
       <div>
         {this.renderNavigationBar(false)}
 
-        {true && (
+        {this.props.isVideoChat && (
           <div>
             <VideoChat
               identity={"grader" + String(Math.floor(Math.random() * 100) + 1)}

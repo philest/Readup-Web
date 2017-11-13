@@ -90,7 +90,7 @@ class GraderInterfaceController < ApplicationController
         bookKey = 'firefly'
       end 
 
-     
+  
 
 
       @grader_interface_props = {
@@ -126,7 +126,8 @@ class GraderInterfaceController < ApplicationController
         isRemote: params['user_id'] == "remote",
         completed: @assessment.completed,
         totalTimeReading: (@assessment.total_time_reading),
-        scoredSpelling: @assessment.scored_spelling
+        scoredSpelling: @assessment.scored_spelling,
+        isVideoChat: params["live"] != nil 
       }
       
     end

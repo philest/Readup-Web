@@ -108,6 +108,9 @@ Rails.application.routes.draw do
   get 'remote', to: redirect('/grade/remote')
 
 
+  get 'live', to: redirect('/grade/latest?live=true')
+
+
   get 'fp-report', to: redirect('reports/direct-sample?brand=FP')
 
 
