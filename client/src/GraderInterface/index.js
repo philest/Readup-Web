@@ -189,7 +189,9 @@ export default class GraderInterface extends React.Component {
     console.log("backupShowQArr: ", backupShowQArr);
     this.setState({ showQArr: backupShowQArr });
     console.log("just reset state: ", this.state.showQArr);
+
     if (!this.props.isVideoChat) {
+      // no network calls when video chat.
       // check all of s3 fully once
       for (let q = 0; q <= numQuestions; q++) {
         if (!this.state.showQArr[String(q)] && !this.props.scored) {
@@ -232,7 +234,7 @@ export default class GraderInterface extends React.Component {
   };
 
   tick() {
-    if (!this.props.isVideoChat) {
+    if (this.props.isVideoChat) {
       return;
     }
 
