@@ -122,7 +122,6 @@ export default class VideoChat extends React.Component {
 
     onToggleShowVideo = this.onToggleShowVideo;
     lastQuestionAudioFile = this.props.lastQuestionAudioFile;
-    
 
     const Video = require("twilio-video");
 
@@ -306,13 +305,12 @@ export default class VideoChat extends React.Component {
 
             if (data.includes("jpeg")) {
               console.log("just got a new screenshot...");
-              this.setState({ gotScreenshot: data });
+              $("img")[0].src = data;
 
-this.setState({
-            the_message: response.message
-        });
-    }.bind(this)
-
+              // this.setState({
+              //             gotScreenshot: data
+              //         });
+              //     }.bind(this)
             }
 
             if (data.includes("PROMPT")) {
@@ -770,7 +768,7 @@ div#controls div#log p {
           )}
           {this.props.logs && (
             <div id="screencast">
-              <img src={this.state.gotScreenshot} style={{ width: "100%" }} />
+              <img style={{ width: "100%" }} />
             </div>
           )}
         </div>
