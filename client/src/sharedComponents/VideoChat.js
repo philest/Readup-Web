@@ -8,8 +8,6 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { playSound } from "../StudentDashboard/audioPlayer.js";
 import { PromptAudioOptions } from "../StudentDashboard/types";
 
-import html2canvas from "html2canvas";
-
 const Video = require("twilio-video");
 
 let showLogs;
@@ -66,36 +64,20 @@ export default class VideoChat extends React.Component {
     this.state = {
       localAudioEnabled: !this.props.audioToggleButton, // If there's a toggle button, start on mute (grader)
       localVideoEnabled: !this.props.videoToggleButton,
-      showVideo: !this.props.studentDash // Hide the video for students, until told to
+      showVideo: !this.props.studentDash, // Hide the video for students, until told to
+      gotScreenshot: dataURL
     };
-    this.tick = this.tick.bind(this);
   }
 
-  componentDidMount() {
-    this.interval = setInterval(this.tick, 1000);
-  }
+  componentDidUpdate(nextProps) {
+    console.log(nextProps);
+    console.log(nextProps.screenshotDataURL);
+    console.log("here in did update..");
 
-  // componentDidUpdate(nextProps) {
-  //   if (nextProps.screenshotDataURL) {
-  //     dataURL = nextProps.screenshotDataURL;
-  //   }
-  // }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  tick() {
-    console.log("ticking!!!");
-
-    // if (this.props.studentDash) {
-    //   html2canvas(document.body, { width: 300, height: 300 }).then(canvas => {
-    //     console.log("getting new canvas!...", canvas);
-    //     var imgLink = $("canvas")[0].toDataURL("image/jpeg", 0.05);
-
-    //     dataURL = imgLink;
-    //   });
-    // }
+    if (nextProps.screenshotDataURL) {
+      console.log("Sending a new screenshot over data track...");
+      dataTrack.send(nextProps.screenshotDataURL);
+    }
   }
 
   onToggleAudioClicked = () => {
@@ -140,6 +122,7 @@ export default class VideoChat extends React.Component {
 
     onToggleShowVideo = this.onToggleShowVideo;
     lastQuestionAudioFile = this.props.lastQuestionAudioFile;
+    
 
     const Video = require("twilio-video");
 
@@ -323,7 +306,13 @@ export default class VideoChat extends React.Component {
 
             if (data.includes("jpeg")) {
               console.log("just got a new screenshot...");
-              dataURL = data;
+              this.setState({ gotScreenshot: data });
+
+this.setState({
+            the_message: response.message
+        });
+    }.bind(this)
+
             }
 
             if (data.includes("PROMPT")) {
@@ -781,7 +770,7 @@ div#controls div#log p {
           )}
           {this.props.logs && (
             <div id="screencast">
-              <img src={dataURL} style={{ width: "100%" }} />
+              <img src={this.state.gotScreenshot} style={{ width: "100%" }} />
             </div>
           )}
         </div>

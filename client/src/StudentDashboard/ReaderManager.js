@@ -42,6 +42,9 @@ import html2canvas from "html2canvas";
 // how many images in advance to load
 const PRELOAD_IMAGES_ADVANCE = 3;
 
+let dataURL;
+let canvasCount = 1;
+
 function mapStateToProps(state) {
   return {
     // micEnabled: state.reader.micEnabled,
@@ -125,9 +128,18 @@ class StudentDashboard extends React.Component {
       "ReaderManager updated to pageNumber:  " + this.props.pageNumber
     );
 
-    // html2canvas(document.body, { width: 300, height: 300 }).then(canvas => {
-    //   console.log("getting new canvas!...", canvas);
-    //   var imgLink = $("canvas")[0].toDataURL("image/jpeg", 0.05);
+    html2canvas(document.body, { width: 300, height: 300 }).then(canvas => {
+      console.log("getting new canvas!...", canvas);
+
+      // canvas.id = `canvas${canvasCount}`;
+
+      var imgLink = canvas.toDataURL("image/jpeg", 0.05);
+
+      // var imgLink = $(`#canvas${canvasCount}`)[0].toDataURL("image/jpeg", 0.05);
+      dataURL = imgLink;
+
+      // canvasCount += 1;
+    });
 
     // discard the canvas
 
@@ -196,7 +208,8 @@ class StudentDashboard extends React.Component {
       book: this.props.book,
       questionNumber: this.props.questionNumber,
       assessmentID: this.props.assessmentID,
-      micPermissionsStatus: this.props.micPermissionsStatus
+      micPermissionsStatus: this.props.micPermissionsStatus,
+      screenshotDataURL: dataURL
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
