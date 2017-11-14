@@ -134,9 +134,11 @@ export default class VideoChat extends React.Component {
     // Detach the Tracks from the DOM.
     function detachTracks(tracks) {
       tracks.forEach(function(track) {
-        track.detach().forEach(function(detachedElement) {
-          detachedElement.remove();
-        });
+        if (track.kind !== "data") {
+          track.detach().forEach(function(detachedElement) {
+            detachedElement.remove();
+          });
+        }
       });
     }
 
