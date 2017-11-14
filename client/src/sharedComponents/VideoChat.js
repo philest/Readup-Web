@@ -8,6 +8,15 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { playSound } from "../StudentDashboard/audioPlayer.js";
 import { PromptAudioOptions } from "../StudentDashboard/types";
 
+import Reader from "../StudentDashboard/Reader";
+
+import { fireflyBook, fpBook, library } from "../StudentDashboard/state.js";
+import {
+  ReaderStateOptions,
+  PauseTypeOptions,
+  MicPermissionsStatusOptions
+} from "../StudentDashboard/types";
+
 const Video = require("twilio-video");
 
 let showLogs;
@@ -670,6 +679,12 @@ div#controls div#log p {
 #audio-toggle {
 }
 
+#reader-container div{
+    position: relative;
+    z-index: 9999;
+    width: 100%;
+}
+
 #audio-toggle-on:hover, #audio-toggle-off:hover {
   transform: translateY(0px);
 }
@@ -764,12 +779,38 @@ div#controls div#log p {
           {this.props.logs && (
             <div id="log" style={{ visibility: "visible" }} />
           )}
-          {this.props.logs && (
-            <div id="screencast">
-              <img style={{ width: "100%" }} />
-            </div>
-          )}
         </div>
+        {this.props.logs && (
+          <div id="reader-container">
+            <Reader
+              pageNumber={0}
+              numPages={4}
+              book={fireflyBook}
+              questionNumber={1}
+              readerState={ReaderStateOptions.initializing}
+              pauseType={PauseTypeOptions.fromPauseButton}
+              hasRecordedSomething={false}
+              micPermissionsStatus={MicPermissionsStatusOptions.awaiting}
+              currentSoundId={"no-sound"}
+              currentModalId={"no-modal"}
+              currentOverlayId={"no-overlay"}
+              showSpinner={false}
+              countdownValue={-1}
+              showVolumeIndicator={true}
+              showSkipPrompt={false}
+              inComp={false}
+              inSpelling={false}
+              inOralReading={true}
+              isLiveDemo={false}
+              spellingAnswerGiven={false}
+              spellingQuestionNumber={1}
+              assessmentID={null}
+              assessmentSubmitted={false}
+              studentName={"Demo Student"}
+            />
+          </div>
+        )}
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" />
       </div>
     );
