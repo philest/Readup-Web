@@ -557,6 +557,7 @@ export default class Reader extends React.Component {
                       ].audioSrc
                     : ""
                 }
+                readerProps={this.props}
               />
             </div>
           )}
