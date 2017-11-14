@@ -35,15 +35,10 @@ import { HashRouter, Route, Redirect } from "react-router-dom";
 
 import { fpBook, fireflyBook } from "./state";
 
-import html2canvas from "html2canvas";
-
 // TODO PUT IN OWN FILE
 
 // how many images in advance to load
 const PRELOAD_IMAGES_ADVANCE = 3;
-
-let dataURL;
-let canvasCount = 1;
 
 function mapStateToProps(state) {
   return {
@@ -127,43 +122,6 @@ class StudentDashboard extends React.Component {
     console.log(
       "ReaderManager updated to pageNumber:  " + this.props.pageNumber
     );
-
-    html2canvas(document.body, { width: 300, height: 300 }).then(canvas => {
-      console.log("getting new canvas!...", canvas);
-
-      // canvas.id = `canvas${canvasCount}`;
-
-      var imgLink = canvas.toDataURL("image/jpeg", 0.05);
-
-      // var imgLink = $(`#canvas${canvasCount}`)[0].toDataURL("image/jpeg", 0.05);
-      dataURL = imgLink;
-
-      // canvasCount += 1;
-    });
-
-    // discard the canvas
-
-    // document.body.appendChild(canvas);
-
-    // $("canvas").css("width", "300");
-    // $("canvas").css("position", "relative");
-    // $("canvas").css("z-index", "9999");
-
-    // var imgLink = $("canvas")[0].toDataURL("image/jpeg", 0.05);
-
-    // var z = document.createElement("a");
-    // z.href = imgLink;
-    // z.innerHTML = "here is a image";
-    // document.body.appendChild(z);
-
-    // $("a").css("position", "relative");
-    // $("a").css("color", "white");
-    // $("a").css("z-index", "9999999");
-    // });
-  }
-
-  componentDidMount() {
-    //{ width: 300, height: 300 }
   }
 
   /* Rendering */
@@ -208,8 +166,7 @@ class StudentDashboard extends React.Component {
       book: this.props.book,
       questionNumber: this.props.questionNumber,
       assessmentID: this.props.assessmentID,
-      micPermissionsStatus: this.props.micPermissionsStatus,
-      screenshotDataURL: dataURL
+      micPermissionsStatus: this.props.micPermissionsStatus
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader

@@ -78,8 +78,7 @@ export default class Reader extends React.Component {
     onSpellingAnswerGiven: PropTypes.func,
     spellingQuestionNumber: PropTypes.number,
     assessmentID: PropTypes.number,
-    micPermissionsStatus: PropTypes.string,
-    screenshotDataURL: PropTypes.string
+    micPermissionsStatus: PropTypes.string
   };
 
   static defaultProps = {
@@ -558,7 +557,6 @@ export default class Reader extends React.Component {
                       ].audioSrc
                     : ""
                 }
-                screenshotDataURL={this.props.screenshotDataURL}
               />
             </div>
           )}
