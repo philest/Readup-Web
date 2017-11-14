@@ -70,10 +70,6 @@ export default class VideoChat extends React.Component {
   }
 
   componentDidUpdate(nextProps) {
-    console.log(nextProps);
-    console.log(nextProps.screenshotDataURL);
-    console.log("here in did update..");
-
     if (nextProps.screenshotDataURL) {
       console.log("Sending a new screenshot over data track...");
       dataTrack.send(nextProps.screenshotDataURL);
@@ -150,15 +146,18 @@ export default class VideoChat extends React.Component {
     // Detach the Tracks from the DOM.
     function detachTracks(tracks) {
       tracks.forEach(function(track) {
-        track.detach().forEach(function(detachedElement) {
-          detachedElement.remove();
-        });
+        if (track.kind !== "data") {
+          track.detach().forEach(function(detachedElement) {
+            detachedElement.remove();
+          });
+        }
       });
     }
 
     // Detach the Participant's Tracks from the DOM.
     function detachParticipantTracks(participant) {
       var tracks = Array.from(participant.tracks.values());
+
       detachTracks(tracks);
     }
 
