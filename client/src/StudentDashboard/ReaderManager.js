@@ -35,6 +35,8 @@ import { HashRouter, Route, Redirect } from "react-router-dom";
 
 import { fpBook, fireflyBook } from "./state";
 
+import html2canvas from "html2canvas";
+
 // TODO PUT IN OWN FILE
 
 // how many images in advance to load
@@ -122,6 +124,34 @@ class StudentDashboard extends React.Component {
     console.log(
       "ReaderManager updated to pageNumber:  " + this.props.pageNumber
     );
+
+    // html2canvas(document.body, { width: 300, height: 300 }).then(canvas => {
+    //   console.log("getting new canvas!...", canvas);
+    //   var imgLink = $("canvas")[0].toDataURL("image/jpeg", 0.05);
+
+    // discard the canvas
+
+    // document.body.appendChild(canvas);
+
+    // $("canvas").css("width", "300");
+    // $("canvas").css("position", "relative");
+    // $("canvas").css("z-index", "9999");
+
+    // var imgLink = $("canvas")[0].toDataURL("image/jpeg", 0.05);
+
+    // var z = document.createElement("a");
+    // z.href = imgLink;
+    // z.innerHTML = "here is a image";
+    // document.body.appendChild(z);
+
+    // $("a").css("position", "relative");
+    // $("a").css("color", "white");
+    // $("a").css("z-index", "9999999");
+    // });
+  }
+
+  componentDidMount() {
+    //{ width: 300, height: 300 }
   }
 
   /* Rendering */
