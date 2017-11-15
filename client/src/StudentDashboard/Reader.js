@@ -79,6 +79,8 @@ export default class Reader extends React.Component {
     spellingQuestionNumber: PropTypes.number,
     assessmentID: PropTypes.number,
     micPermissionsStatus: PropTypes.string,
+    onSpellingInputSet: PropTypes.func,
+    spellingInput: PropTypes.string,
 
     isWithinGrader: PropTypes.bool
   };
@@ -603,6 +605,8 @@ export default class Reader extends React.Component {
                 this.props.book.numSpellingQuestions *
                 100
               }
+              onSpellingInputSet={this.props.onSpellingInputSet}
+              spellingInput={this.props.spellingInput}
             />
           )}
 

@@ -65,6 +65,7 @@ function mapStateToProps(state) {
     showSkipPrompt: state.reader.showSkipPrompt,
     isLiveDemo: state.reader.isLiveDemo,
     spellingAnswerGiven: state.reader.spellingAnswerGiven,
+    spellingInput: state.reader.spellingInput,
     spellingQuestionNumber: state.reader.spellingQuestionNumber,
     assessmentID: state.reader.assessmentID,
     assessmentSubmitted: state.reader.assessmentSubmitted,
@@ -158,6 +159,8 @@ export class StudentDashboard extends React.Component {
       currentShowOverlay: this.props.currentShowOverlay, // include to HACK to screenshare redux
       inSpelling: this.props.inSpelling,
       onSpellingAnswerGiven: this.props.actions.setSpellingAnswerGiven,
+      onSpellingInputSet: this.props.actions.setSpellingInput,
+      spellingInput: this.props.spellingInput,
       spellingQuestionNumber: this.props.spellingQuestionNumber,
       inOralReading: this.props.inOralReading,
       showSkipPrompt: this.props.showSkipPrompt,
