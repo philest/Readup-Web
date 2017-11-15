@@ -55,7 +55,8 @@ let newReaderProps = {
   spellingQuestionNumber: 1,
   assessmentID: null,
   assessmentSubmitted: false,
-  studentName: "Demo Student"
+  studentName: "Demo Student",
+  coverImageURL: fireflyBook.coverImage
 };
 
 // scope it up here
@@ -335,7 +336,7 @@ export default class VideoChat extends React.Component {
     roomJoined = roomJoined.bind(this);
   }
 
-  componentDidUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.readerProps && !this.props.isWithinGrader) {
       for (var key in nextProps.readerProps) {
         if (nextProps.readerProps.hasOwnProperty(key)) {
@@ -658,6 +659,7 @@ div#controls div#log p {
     position: relative;
     z-index: -1;
     width: 100%;
+    height: 100vh;
 }
 
 #audio-toggle-on:hover, #audio-toggle-off:hover {
@@ -794,6 +796,7 @@ div#controls div#log p {
                 this.state.newReaderProps.assessmentSubmitted
               }
               studentName={this.state.newReaderProps.studentName}
+              coverImageURL={this.state.newReaderProps.coverImageURL}
               isWithinGrader={true}
             />
           </div>
