@@ -84,15 +84,15 @@ let newReaderProps = {
 };
 
 // scope it up here
-var dataTrack = new Video.LocalDataTrack({
+let dataTrack = new Video.LocalDataTrack({
   maxPacketLifeTime: null,
   maxRetransmits: null
 });
 
-var activeRoom;
-var previewTracks;
-var identity;
-var roomName;
+let activeRoom;
+let previewTracks;
+let identity;
+let roomName;
 
 // Successfully connected!
 export function roomJoined(room) {
@@ -331,13 +331,6 @@ export default class VideoChat extends React.Component {
           }
         }
       }
-
-      // console.log("studentDash just updated to new reader props...");
-      // console.log(nextProps.readerProps);
-
-      // dataTrack.send(JSON.stringify(nextProps.readerProps));
-
-      // dataTrack.send(nextProps.screenshotDataURL);
     }
   }
 
@@ -359,18 +352,6 @@ export default class VideoChat extends React.Component {
   onPromptClicked = (promptNumber, isImmediate) => {
     console.log("clicked immediate prompt ");
     dataTrack.send(`PROMPT-${promptNumber}`);
-
-    // let promptStatus = PromptOptions[promptNumber];
-    // const params = { prompt_status: promptStatus };
-
-    // if (!isImmediate) {
-    //   updateStudent(params, this.props.studentID);
-    // }
-
-    // this.setState({ showPromptAlert: true });
-    // setTimeout(() => {
-    //   this.setState({ showPromptAlert: false });
-    // }, 2500);
   };
 
   componentDidMount() {
@@ -473,9 +454,6 @@ div#remote-media video {
     z-index: 999;
     display: ${this.state.showVideo ? "block" : "none"}
 }
-
-
-
 
 
 div#controls {
