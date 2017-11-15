@@ -37,7 +37,6 @@ import SpinnerOverlay from "../StudentDashboard/overlays/SpinnerOverlay";
 const Video = require("twilio-video");
 
 import {
-  leaveRoomIfJoined,
   log,
   detachParticipantTracks,
   detachTracks,
@@ -262,6 +261,13 @@ export function roomJoined(room) {
         videoTrack.enable();
       });
     };
+  }
+}
+
+// Leave Room.
+export function leaveRoomIfJoined() {
+  if (activeRoom) {
+    activeRoom.disconnect();
   }
 }
 

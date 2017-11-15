@@ -157,6 +157,7 @@ export class StudentDashboard extends React.Component {
       onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL
       currentShowModal: this.props.currentShowModal,
       currentShowOverlay: this.props.currentShowOverlay, // include to HACK to screenshare redux
+      countdownValue: this.props.countdownValue, // include to HACK screenshare
       inSpelling: this.props.inSpelling,
       onSpellingAnswerGiven: this.props.actions.setSpellingAnswerGiven,
       onSpellingInputSet: this.props.actions.setSpellingInput,

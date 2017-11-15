@@ -42,11 +42,5 @@ export function log(message) {
   logDiv.scrollTop = logDiv.scrollHeight;
 }
 
-// Leave Room.
-export function leaveRoomIfJoined() {
-  if (activeRoom) {
-    activeRoom.disconnect();
-  }
-}
 
 

@@ -242,6 +242,7 @@
 	color: white;
 	height: 20px;
 	width: 20px;
+	max-width: 20px;
 	display: inline-block;
 	margin-right: 26px;
 	margin-bottom: 2px;
