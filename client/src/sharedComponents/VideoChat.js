@@ -21,7 +21,6 @@ import {
 const Video = require("twilio-video");
 
 let showLogs;
-let hide;
 let audioToggleButton;
 let videoToggleButton;
 let localVideo;
@@ -55,7 +54,8 @@ let newReaderProps = {
   spellingAnswerGiven: false,
   spellingQuestionNumber: 1,
   assessmentID: null,
-  assessmentSubmitted: false
+  assessmentSubmitted: false,
+  studentName: "Demo Student"
 };
 
 // scope it up here
@@ -142,26 +142,14 @@ function roomJoined(room) {
       log(participant.identity + " added track: " + track.kind);
       var previewContainer = document.getElementById("remote-media");
 
-      this.setState({ newReaderProps: newReaderProps });
-
       if (track.kind === "data") {
         track.on("message", data => {
           console.log("getting a data track message");
           // console.log(data);
 
-          if (data.includes("studentName")) {
-            console.log("WE GOT THE PROPSSSS...");
-
-            newReaderProps = JSON.parse(data);
-            console.log("newReaderProps: ", newReaderProps);
-            this.setState({ newReaderProps: newReaderProps });
-          }
-
           if (data.includes("VIDEO")) {
             onToggleShowVideo();
-          }
-
-          if (data.includes("PROMPT")) {
+          } else if (data.includes("PROMPT")) {
             let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
 
             console.log(PromptAudioOptions);
@@ -180,6 +168,21 @@ function roomJoined(room) {
               // a repeat prompt
               playSound(lastQuestionAudioFile);
             }
+          } else {
+            console.log("WE GOT THE PROPSSSS...");
+            let obj = JSON.parse(data);
+
+            let key = Object.keys(obj);
+            let val = obj[key];
+
+            console.log(obj);
+
+            let myNewReaderProps = newReaderProps;
+            myNewReaderProps[key] = val;
+            this.setState({ newReaderProps: myNewReaderProps });
+
+            console.log(`okay, update state to key: ${key} and val: ${val}`);
+            console.log("New val: ", this.state.newReaderProps[key]);
           }
         });
       }
@@ -212,8 +215,9 @@ function roomJoined(room) {
     detachParticipantTracks(room.localParticipant);
     room.participants.forEach(detachParticipantTracks);
     activeRoom = null;
-    document.getElementById("button-join").style.display = "inline";
-    document.getElementById("button-leave").style.display = "none";
+    console.log("disconnected from room");
+    // document.getElementById("button-join").style.display = "inline";
+    // document.getElementById("button-leave").style.display = "none";
   });
 
   // start on mute for the grader
@@ -293,26 +297,26 @@ export default class VideoChat extends React.Component {
     room: PropTypes.string,
     logs: PropTypes.bool,
     pictureInPicture: PropTypes.bool,
-    hide: PropTypes.bool,
     audioToggleButton: PropTypes.bool,
     videoToggleButton: PropTypes.bool,
     localVideo: PropTypes.bool,
     localAudio: PropTypes.bool,
     studentDash: PropTypes.bool,
     lastQuestionAudioFile: PropTypes.string,
-    screenshotDataURL: PropTypes.string
+    screenshotDataURL: PropTypes.string,
+    isWithinGrader: PropTypes.bool
   };
 
   static defaultProps = {
     identity: "student",
     logs: false,
     pictureInPicture: true,
-    hide: false,
     audioToggleButton: false,
     videoToggleButton: false,
     localVideo: true,
     localAudio: true,
-    studentDash: false
+    studentDash: false,
+    isWithinGrader: true
   };
 
   /**
@@ -332,11 +336,32 @@ export default class VideoChat extends React.Component {
   }
 
   componentDidUpdate(nextProps) {
-    if (nextProps.readerProps) {
-      console.log("just got new reader props...");
-      console.log(nextProps.readerProps);
+    if (nextProps.readerProps && !this.props.isWithinGrader) {
+      for (var key in nextProps.readerProps) {
+        if (nextProps.readerProps.hasOwnProperty(key)) {
+          if (nextProps.readerProps[key] !== this.props.readerProps[key]) {
+            console.log(
+              `The ${key} key is different: It was ${this.props.readerProps[
+                key
+              ]} and now its ${nextProps.readerProps[key]}`
+            );
 
-      dataTrack.send(JSON.stringify(nextProps.readerProps));
+            console.log("studentDash just updated a reader prop...");
+            console.log(nextProps.readerProps[key]);
+
+            let obj = {};
+            obj[key] = nextProps.readerProps[key];
+            console.log(obj);
+
+            dataTrack.send(JSON.stringify(obj));
+          }
+        }
+      }
+
+      // console.log("studentDash just updated to new reader props...");
+      // console.log(nextProps.readerProps);
+
+      // dataTrack.send(JSON.stringify(nextProps.readerProps));
 
       // dataTrack.send(nextProps.screenshotDataURL);
     }
@@ -376,7 +401,6 @@ export default class VideoChat extends React.Component {
 
   componentDidMount() {
     showLogs = this.props.logs;
-    hide = this.props.hide;
     audioToggleButton = this.props.audioToggleButton;
     videoToggleButton = this.props.videoToggleButton;
     localAudio = this.props.localAudio;
@@ -770,6 +794,7 @@ div#controls div#log p {
                 this.state.newReaderProps.assessmentSubmitted
               }
               studentName={this.state.newReaderProps.studentName}
+              isWithinGrader={true}
             />
           </div>
         )}
