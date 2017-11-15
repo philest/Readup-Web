@@ -55,8 +55,7 @@ let newReaderProps = {
   spellingQuestionNumber: 1,
   assessmentID: null,
   assessmentSubmitted: false,
-  studentName: "Demo Student",
-  coverImageURL: fireflyBook.coverImage
+  studentName: "Demo Student"
 };
 
 // scope it up here
@@ -341,6 +340,9 @@ export default class VideoChat extends React.Component {
       for (var key in nextProps.readerProps) {
         if (nextProps.readerProps.hasOwnProperty(key)) {
           if (nextProps.readerProps[key] !== this.props.readerProps[key]) {
+            console.log("next: ", nextProps.readerProps);
+            console.log("current: ", this.props.readerProps);
+
             console.log(
               `The ${key} key is different: It was ${this.props.readerProps[
                 key
@@ -659,7 +661,6 @@ div#controls div#log p {
     position: relative;
     z-index: -1;
     width: 100%;
-    height: 100vh;
 }
 
 #audio-toggle-on:hover, #audio-toggle-off:hover {
@@ -762,7 +763,6 @@ div#controls div#log p {
             <Reader
               pageNumber={this.state.newReaderProps.pageNumber}
               numPages={this.state.newReaderProps.numPages}
-              book={this.state.newReaderProps.book}
               questionNumber={this.state.newReaderProps.questionNumber}
               readerState={this.state.newReaderProps.readerState}
               pauseType={this.state.newReaderProps.pauseType}
@@ -796,7 +796,7 @@ div#controls div#log p {
                 this.state.newReaderProps.assessmentSubmitted
               }
               studentName={this.state.newReaderProps.studentName}
-              coverImageURL={this.state.newReaderProps.coverImageURL}
+              coverImageURL={this.props.book.coverImage}
               isWithinGrader={true}
             />
           </div>
