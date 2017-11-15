@@ -18,6 +18,22 @@ import {
   PromptOptions
 } from "../StudentDashboard/types";
 
+import CompModal from "../StudentDashboard/modals/CompModal";
+import DoneModal from "../StudentDashboard/modals/DoneModal";
+import PausedModal from "../StudentDashboard/modals/PausedModal";
+import CompPausedModal from "../StudentDashboard/modals/CompPausedModal";
+import ExitModal from "../StudentDashboard/modals/ExitModal";
+import MicModal from "../StudentDashboard/modals/MicModal";
+import PlaybackModal from "../StudentDashboard/modals/PlaybackModal";
+
+import IntroOverlay from "../StudentDashboard/overlays/IntroOverlay";
+import BlockedMicOverlay from "../StudentDashboard/overlays/BlockedMicOverlay";
+import SubmittedOverlay from "../StudentDashboard/overlays/SubmittedOverlay";
+import DemoSubmittedOverlay from "../StudentDashboard/overlays/DemoSubmittedOverlay";
+import PermissionsOverlay from "../StudentDashboard/overlays/PermissionsOverlay";
+import CountdownOverlay from "../StudentDashboard/overlays/CountdownOverlay";
+import SpinnerOverlay from "../StudentDashboard/overlays/SpinnerOverlay";
+
 const Video = require("twilio-video");
 
 let showLogs;
@@ -340,9 +356,6 @@ export default class VideoChat extends React.Component {
       for (var key in nextProps.readerProps) {
         if (nextProps.readerProps.hasOwnProperty(key)) {
           if (nextProps.readerProps[key] !== this.props.readerProps[key]) {
-            console.log("next: ", nextProps.readerProps);
-            console.log("current: ", this.props.readerProps);
-
             console.log(
               `The ${key} key is different: It was ${this.props.readerProps[
                 key
@@ -759,46 +772,109 @@ div#controls div#log p {
           )}
         </div>
         {this.props.logs && (
-          <div id="reader-container">
-            <Reader
-              pageNumber={this.state.newReaderProps.pageNumber}
-              numPages={this.state.newReaderProps.numPages}
-              questionNumber={this.state.newReaderProps.questionNumber}
-              readerState={this.state.newReaderProps.readerState}
-              pauseType={this.state.newReaderProps.pauseType}
-              hasRecordedSomething={
-                this.state.newReaderProps.hasRecordedSomething
-              }
-              micPermissionsStatus={
-                this.state.newReaderProps.micPermissionsStatus
-              }
-              currentSoundId={this.state.newReaderProps.currentSoundId}
-              currentModalId={this.state.newReaderProps.currentModalId}
-              currentOverlayId={this.state.newReaderProps.currentOverlayId}
-              showSpinner={this.state.newReaderProps.showSpinner}
-              countdownValue={this.state.newReaderProps.countdownValue}
-              showVolumeIndicator={
-                this.state.newReaderProps.showVolumeIndicator
-              }
-              showSkipPrompt={this.state.newReaderProps.showSkipPrompt}
-              inComp={this.state.newReaderProps.inComp}
-              inSpelling={this.state.newReaderProps.inSpelling}
-              inOralReading={this.state.newReaderProps.inOralReading}
-              isLiveDemo={this.state.newReaderProps.isLiveDemo}
-              spellingAnswerGiven={
-                this.state.newReaderProps.spellingAnswerGiven
-              }
-              spellingQuestionNumber={
-                this.state.newReaderProps.spellingQuestionNumber
-              }
-              assessmentID={this.state.newReaderProps.assessmentID}
-              assessmentSubmitted={
-                this.state.newReaderProps.assessmentSubmitted
-              }
-              studentName={this.state.newReaderProps.studentName}
-              coverImageURL={this.props.book.coverImage}
-              isWithinGrader={true}
-            />
+          <div>
+            <div>
+              <PausedModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+              />
+
+              <CompPausedModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+              />
+
+              <ExitModal
+                startedRecording={
+                  this.state.newReaderProps.hasRecordedSomething
+                }
+                onExitAndUploadClicked={
+                  this.state.newReaderProps.exitAndUploadRecording
+                }
+                onExitNoUploadClicked={this.state.newReaderProps.quitAssessment}
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+              />
+
+              <PlaybackModal
+                audioSrc={this.state.newReaderProps.recordingURL}
+                compAudioSrc={this.state.newReaderProps.compRecordingURL}
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+              />
+
+              <DoneModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+                showCheck={this.state.newReaderProps.assessmentSubmitted}
+              />
+
+              <CompModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                readerState={this.state.newReaderProps.readerState}
+                disabled={
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.playingBookIntro ||
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.talkingAboutStartButton ||
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.talkingAboutStopButton ||
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.talkingAboutSeeBook
+                }
+                showSpinner={this.state.newReaderProps.showSpinner}
+                showPrompting={this.state.newReaderProps.isLiveDemo}
+                question={
+                  this.state.newReaderProps.book.questions[
+                    this.state.newReaderProps.questionNumber
+                  ]
+                }
+                includeDelay={this.state.newReaderProps.questionNumber === 1}
+                prompt={this.state.newReaderProps.prompt}
+              />
+            </div>
+            <div id="reader-container">
+              <Reader
+                pageNumber={this.state.newReaderProps.pageNumber}
+                numPages={this.state.newReaderProps.numPages}
+                questionNumber={this.state.newReaderProps.questionNumber}
+                readerState={this.state.newReaderProps.readerState}
+                pauseType={this.state.newReaderProps.pauseType}
+                hasRecordedSomething={
+                  this.state.newReaderProps.hasRecordedSomething
+                }
+                micPermissionsStatus={
+                  this.state.newReaderProps.micPermissionsStatus
+                }
+                currentSoundId={this.state.newReaderProps.currentSoundId}
+                currentModalId={this.state.newReaderProps.currentModalId}
+                currentOverlayId={this.state.newReaderProps.currentOverlayId}
+                showSpinner={this.state.newReaderProps.showSpinner}
+                countdownValue={this.state.newReaderProps.countdownValue}
+                showVolumeIndicator={
+                  this.state.newReaderProps.showVolumeIndicator
+                }
+                showSkipPrompt={this.state.newReaderProps.showSkipPrompt}
+                inComp={this.state.newReaderProps.inComp}
+                inSpelling={this.state.newReaderProps.inSpelling}
+                inOralReading={this.state.newReaderProps.inOralReading}
+                isLiveDemo={this.state.newReaderProps.isLiveDemo}
+                spellingAnswerGiven={
+                  this.state.newReaderProps.spellingAnswerGiven
+                }
+                spellingQuestionNumber={
+                  this.state.newReaderProps.spellingQuestionNumber
+                }
+                assessmentID={this.state.newReaderProps.assessmentID}
+                assessmentSubmitted={
+                  this.state.newReaderProps.assessmentSubmitted
+                }
+                studentName={this.state.newReaderProps.studentName}
+                coverImageURL={this.props.book.coverImage}
+                book={this.props.book}
+                isWithinGrader={true}
+              />
+            </div>
+            ); };
           </div>
         )}
 
