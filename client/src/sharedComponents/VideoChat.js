@@ -832,6 +832,51 @@ div#controls div#log p {
                 prompt={this.state.newReaderProps.prompt}
               />
             </div>
+            <div>
+              <BlockedMicOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+              />
+
+              <SubmittedOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+              />
+
+              <PermissionsOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+                onArrowClicked={
+                  this.state.newReaderProps.onPermisionsArrowClicked
+                }
+              />
+
+              <DemoSubmittedOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+                studentName={this.state.newReaderProps.studentName}
+              />
+
+              {this.state.newReaderProps.readerState ===
+                ReaderStateOptions.countdownToStart && (
+                <CountdownOverlay
+                  countdownValue={this.state.newReaderProps.countdownValue}
+                />
+              )}
+
+              <SpinnerOverlay
+                showPrompting={this.state.newReaderProps.isLiveDemo}
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+                text={"Spinner message goes here"}
+                isLoadingUpload={this.state.newReaderProps.showSpinner}
+              />
+            </div>
             <div id="reader-container">
               <Reader
                 pageNumber={this.state.newReaderProps.pageNumber}
@@ -848,6 +893,9 @@ div#controls div#log p {
                 currentSoundId={this.state.newReaderProps.currentSoundId}
                 currentModalId={this.state.newReaderProps.currentModalId}
                 currentOverlayId={this.state.newReaderProps.currentOverlayId}
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
                 showSpinner={this.state.newReaderProps.showSpinner}
                 countdownValue={this.state.newReaderProps.countdownValue}
                 showVolumeIndicator={
