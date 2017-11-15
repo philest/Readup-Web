@@ -80,7 +80,8 @@ let newReaderProps = {
   spellingQuestionNumber: 1,
   assessmentID: null,
   assessmentSubmitted: false,
-  studentName: "Demo Student"
+  studentName: "Demo Student",
+  spellingInput: ""
 };
 
 // scope it up here
@@ -606,6 +607,10 @@ div#controls div#log p {
 #audio-toggle {
 }
 
+#reader-container {
+  height: 100vh;
+}
+
 #reader-container div{
     position: relative;
     z-index: -1;
@@ -855,6 +860,7 @@ div#controls div#log p {
                 studentName={this.state.newReaderProps.studentName}
                 coverImageURL={this.props.book.coverImage}
                 book={this.props.book}
+                spellingInput={this.state.newReaderProps.spellingInput}
                 isWithinGrader={true}
               />
             </div>
