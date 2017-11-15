@@ -1,10 +1,9 @@
-
 .textContainer {
 	font-size: 1.15em;
 	width: 430px;
 	margin-top: 30px;
 	cursor: default;
-	font-family: 
+	font-family: ;
 }
 
 .textContainerLarge {
@@ -12,21 +11,19 @@
 }
 
 .compContainerLarger {
-	width: 700px; 
+	width: 700px;
 }
 
 .textParagraph {
 	margin-bottom: 30px;
 	line-height: 3.5em;
-    transition: all .3s;
-
+	transition: all 0.3s;
 }
 
 .textParagraphGrayedOut {
 	margin-bottom: 48px;
-    line-height: 1.5em;
-    transition: all .3s;
-
+	line-height: 1.5em;
+	transition: all 0.3s;
 }
 
 .wordAndSpaceWrapper {
@@ -42,8 +39,7 @@
 	display: inline-block;
 	color: #4a4a4a;
 	font-weight: normal;
-	font-size: 18px
-
+	font-size: 18px;
 }
 
 .textWord:hover {
@@ -63,22 +59,21 @@
 	top: -40px;
 	left: 2px;
 
-	color: #982E2B;
+	color: #982e2b;
 	font-size: 1.1em;
-	font-family: 'gochi-hand';
+	font-family: "gochi-hand";
 	text-decoration: none;
 
 	width: 500px;
-
 }
 
 .wordAboveSpace {
 	position: absolute;
 	top: -25px;
 	line-height: 1.5em;
-	color: #982E2B;
+	color: #982e2b;
 	font-size: 1.1em;
-	font-family: 'gochi-hand';
+	font-family: "gochi-hand";
 	text-decoration: none;
 
 	text-align: center;
@@ -93,83 +88,79 @@
 	not sure why necessary, but without one of them I couldn't get this to work. */
 	width: 500px;
 	/*display: table;*/
-
 }
 
 .addChevron {
 	position: absolute;
-    top: 18px;
-    left: 10px;
-    font-size: 0.5em;
-    left: 50%;
+	top: 18px;
+	left: 10px;
+	font-size: 0.5em;
+	left: 50%;
 	-webkit-transform: translateX(-50%);
-	transform: translateX(-51%)
-
+	transform: translateX(-51%);
 }
 
 .strikethrough {
-	
 }
 
 .strikethrough::after {
-  border-bottom: 2px solid #982E2B;
-  content: "";
-  left: 0;
-  line-height: 1em;
-  margin-top: calc(0.125em / 2 * -1);
-  position: absolute;
-  right: 0;
-  top: 50%;
+	border-bottom: 2px solid #982e2b;
+	content: "";
+	left: 0;
+	line-height: 1em;
+	margin-top: calc(0.125em / 2 * -1);
+	position: absolute;
+	right: 0;
+	top: 50%;
 }
 
 .endingSlashes {
-	color: #982E2B;
+	color: #982e2b;
 	font-size: 1.2em;
 	margin-left: 5px;
 }
 
 .grayedOut {
-	color: #B7B7B7;
+	color: #b7b7b7;
 }
 
 .toggleText {
-	font-family: 'ProximaNova Semibold';
-	opacity: .6;
+	font-family: "ProximaNova Semibold";
+	opacity: 0.6;
 	font-size: 12px;
 	cursor: pointer;
 	margin-right: 20px;
 }
 
 .caret {
-    font-size: 18px;
-    position: relative;
-    top: 2px;
-    left: 2px;
+	font-size: 18px;
+	position: relative;
+	top: 2px;
+	left: 2px;
 }
 
 .rightSide {
 	margin-top: -54px;
-/*    float: right; */  
+	/*    float: right; */
 	width: 85px;
-    float: right;
-    margin-right: 100px;
+	float: right;
+	margin-right: 100px;
 }
 
 .rightBlockContainer {
-    margin-top: 33px;
+	margin-top: 33px;
 }
 
 .rightBlock {
 	float: right;
-    text-align: left;
+	text-align: left;
 }
 
-
 .lineNum {
-    color: #bbb;
-    font-size: 10pt;
-    float: left;
-    margin-top: 25px;
+	color: #bbb;
+	font-size: 10pt;
+	float: left;
+	margin-top: 25px;
 }
 
 .msvContainer {
@@ -179,29 +170,27 @@
 }
 
 .msv {
-	font-family: 'ProximaNova Semibold';
-    letter-spacing: 2px;
-    font-size: 15px;	
-    display: block;
-    margin-top: -5px;
+	font-family: "ProximaNova Semibold";
+	letter-spacing: 2px;
+	font-size: 15px;
+	display: block;
+	margin-top: -5px;
 }
 
 .emptyMSV {
 	color: #bbb;
 	text-align: left;
-	float: left; 
+	float: left;
 }
 
 .msvPara {
 	margin-bottom: 79px;
 }
 
-
 .titleWrapper {
 	display: flex;
 	justify-content: space-between;
 	flex-flow: row;
-
 }
 
 .colsWrapper {
@@ -210,30 +199,27 @@
 	flex-flow: row;
 }
 
-
 .columnTitle {
 	display: inline-block;
 	max-width: 150px;
-    text-align: center;
-    font-family: 'proximanova semibold';
-    height: 40px;
-
-
+	text-align: center;
+	font-family: "proximanova semibold";
+	height: 40px;
 }
 
 .unstyledList {
 	margin-top: 0;
-    margin-bottom: 10px;
-    list-style-type: none;
-    padding-left: 0px;
-    text-align: center;
+	margin-bottom: 10px;
+	list-style-type: none;
+	padding-left: 0px;
+	text-align: center;
 }
 
 .numberedList {
-    list-style-type: decimal;
-    padding-left: 13px;
-    color: #525252;
-    text-align: left;
+	list-style-type: decimal;
+	padding-left: 13px;
+	color: #525252;
+	text-align: left;
 }
 
 .listElt {
@@ -241,34 +227,33 @@
 }
 
 .skippedWord {
-	opacity: .5;
+	opacity: 0.5;
 }
 
 .emptyPhonetics {
 	color: #bbb;
-    user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    cursor: default;	
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	cursor: default;
 }
 
-
 .goodMetric {
-	color: #249C44;
+	color: #249c44;
 }
 
 .fairMetric {
-	color: #D97F0F;
+	color: #d97f0f;
 }
 
-.poorMetric { 
+.poorMetric {
 	color: #982e2b;
 }
 
 .studentResponse {
-	font-family: 'ProximaNova Semibold'
+	font-family: "ProximaNova Semibold";
 }
 
 .wrong {
@@ -277,41 +262,195 @@
 
 .clickable {
 	cursor: pointer;
-	font-size: 2em; 
-	opacity: .5;
+	font-size: 2em;
+	opacity: 0.5;
 }
 
-
 .RRrescore {
-    font-style: italic;
-    font-size: .8em;
-    cursor: pointer;
-    color: #347BB8;
-    transition: all .3s;
+	font-style: italic;
+	font-size: 0.8em;
+	cursor: pointer;
+	color: #347bb8;
+	transition: all 0.3s;
 
-    display: inline-block;
-    width: 130px;
-    margin-left: 20px;
-
+	display: inline-block;
+	width: 130px;
+	margin-left: 20px;
 }
 
 .spellingRescore {
-    font-style: italic;
-    font-size: .8em;
-    cursor: pointer;
-    color: #347BB8;
-    transition: all .3s;
+	font-style: italic;
+	font-size: 0.8em;
+	cursor: pointer;
+	color: #347bb8;
+	transition: all 0.3s;
 
-    display: inline-block;
-    width: 128px;
-
+	display: inline-block;
+	width: 128px;
 }
+
+/*VideoChat.js*/
+div#controls {
+	padding: 3em;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+div#controls div {
+	float: left;
+}
+
+div#controls div#room-controls,
+div#controls div#preview {
+	width: 16em;
+	margin: 0 1.5em;
+	text-align: center;
+}
+
+div#controls p.instructions {
+	text-align: left;
+	margin-bottom: 1em;
+	font-family: Helvetica-LightOblique, Helvetica, sans-serif;
+	font-style: oblique;
+	font-size: 1.25em;
+	color: #777776;
+}
+
+div#controls button {
+	width: 15em;
+	height: 2.5em;
+	margin-top: 1.75em;
+	border-radius: 1em;
+	font-family: "Helvetica Light", Helvetica, sans-serif;
+	font-size: 0.8em;
+	font-weight: lighter;
+	outline: 0;
+}
+
+div#controls div#room-controls input {
+	font-family: Helvetica-LightOblique, Helvetica, sans-serif;
+	font-style: oblique;
+	font-size: 1em;
+}
+
+div#controls button:active {
+	position: relative;
+	top: 1px;
+}
+
+div#controls div#preview div#local-media {
+	width: 270px;
+	height: 202px;
+	border: 1px solid #cececc;
+	box-sizing: border-box;
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjgwcHgiIGhlaWdodD0iODBweCIgdmlld0JveD0iMCAwIDgwIDgwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjEgKDEyMDAyKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5GaWxsIDUxICsgRmlsbCA1MjwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxnIGlkPSJjdW1tYWNrIiBza2V0Y2g6dHlwZT0iTVNMYXllckdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTU5LjAwMDAwMCwgLTE3NDYuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJGaWxsLTUxLSstRmlsbC01MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTU5LjAwMDAwMCwgMTc0Ni4wMDAwMDApIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zOS42ODYsMC43MyBDMTcuODUsMC43MyAwLjA4NSwxOC41IDAuMDg1LDQwLjMzIEMwLjA4NSw2Mi4xNyAxNy44NSw3OS45MyAzOS42ODYsNzkuOTMgQzYxLjUyMiw3OS45MyA3OS4yODcsNjIuMTcgNzkuMjg3LDQwLjMzIEM3OS4yODcsMTguNSA2MS41MjIsMC43MyAzOS42ODYsMC43MyBMMzkuNjg2LDAuNzMgWiBNMzkuNjg2LDEuNzMgQzYxLjAwNSwxLjczIDc4LjI4NywxOS4wMiA3OC4yODcsNDAuMzMgQzc4LjI4Nyw2MS42NSA2MS4wMDUsNzguOTMgMzkuNjg2LDc4LjkzIEMxOC4zNjcsNzguOTMgMS4wODUsNjEuNjUgMS4wODUsNDAuMzMgQzEuMDg1LDE5LjAyIDE4LjM2NywxLjczIDM5LjY4NiwxLjczIEwzOS42ODYsMS43MyBaIiBpZD0iRmlsbC01MSI+PC9wYXRoPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTQ3Ljk2LDUzLjMzNSBMNDcuOTYsNTIuODM1IEwyMC4wOTMsNTIuODM1IEwyMC4wOTMsMjcuODI1IEw0Ny40NiwyNy44MjUgTDQ3LjQ2LDM4LjI1NSBMNTkuMjc5LDMwLjgwNSBMNTkuMjc5LDQ5Ljg1NSBMNDcuNDYsNDIuNDA1IEw0Ny40Niw1My4zMzUgTDQ3Ljk2LDUzLjMzNSBMNDcuOTYsNTIuODM1IEw0Ny45Niw1My4zMzUgTDQ4LjQ2LDUzLjMzNSBMNDguNDYsNDQuMjE1IEw2MC4yNzksNTEuNjY1IEw2MC4yNzksMjguOTk1IEw0OC40NiwzNi40NDUgTDQ4LjQ2LDI2LjgyNSBMMTkuMDkzLDI2LjgyNSBMMTkuMDkzLDUzLjgzNSBMNDguNDYsNTMuODM1IEw0OC40Niw1My4zMzUgTDQ3Ljk2LDUzLjMzNSIgaWQ9IkZpbGwtNTIiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+);
+	background-position: center;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+
+	width: 100px;
+	height: 75px;
+	position: fixed;
+	right: 36px;
+	top: 49px;
+}
+
+div#controls div#preview div#local-media video {
+	max-width: 100%;
+	max-height: 100%;
+	border: none;
+}
+
+div#controls div#preview button#button-preview {
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjE3cHgiIGhlaWdodD0iMTJweCIgdmlld0JveD0iMCAwIDE3IDEyIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjEgKDEyMDAyKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5GaWxsIDM0PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9ImN1bW1hY2siIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMjUuMDAwMDAwLCAtMTkwOS4wMDAwMDApIiBmaWxsPSIjMEEwQjA5Ij4KICAgICAgICAgICAgPHBhdGggZD0iTTEzNi40NzEsMTkxOS44NyBMMTM2LjQ3MSwxOTE5LjYyIEwxMjUuNzY3LDE5MTkuNjIgTDEyNS43NjcsMTkxMC4wOCBMMTM2LjIyMSwxOTEwLjA4IEwxMzYuMjIxLDE5MTQuMTUgTDE0MC43ODUsMTkxMS4yNyBMMTQwLjc4NSwxOTE4LjQyIEwxMzYuMjIxLDE5MTUuNTUgTDEzNi4yMjEsMTkxOS44NyBMMTM2LjQ3MSwxOTE5Ljg3IEwxMzYuNDcxLDE5MTkuNjIgTDEzNi40NzEsMTkxOS44NyBMMTM2LjcyMSwxOTE5Ljg3IEwxMzYuNzIxLDE5MTYuNDUgTDE0MS4yODUsMTkxOS4zMyBMMTQxLjI4NSwxOTEwLjM3IEwxMzYuNzIxLDE5MTMuMjQgTDEzNi43MjEsMTkwOS41OCBMMTI1LjI2NywxOTA5LjU4IEwxMjUuMjY3LDE5MjAuMTIgTDEzNi43MjEsMTkyMC4xMiBMMTM2LjcyMSwxOTE5Ljg3IEwxMzYuNDcxLDE5MTkuODciIGlkPSJGaWxsLTM0IiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=)1em center no-repeat #fff;
+	border: none;
+	padding-left: 1.5em;
+}
+
+div#controls div#log {
+	border: 1px solid #686865;
+}
+
+div#controls div#room-controls {
+	display: none;
+}
+
+div#controls div#room-controls input {
+	width: 100%;
+	height: 2.5em;
+	padding: 0.5em;
+	display: block;
+}
+
+div#controls div#room-controls button {
+	color: #fff;
+	background: 0 0;
+	border: 1px solid #686865;
+}
+
+div#controls div#room-controls button#button-leave {
+	display: none;
+}
+
+div#controls div#log {
+	width: 35%;
+	height: 9.5em;
+	margin-top: 2.75em;
+	text-align: left;
+	padding: 1.5em;
+	float: right;
+	overflow-y: scroll;
+
+	position: fixed;
+	right: 10px;
+	top: 230px;
+	background-color: white;
+}
+
+div#controls div#screencast {
+	width: 35%;
+	height: 14.5em;
+	margin-top: 2.75em;
+	text-align: left;
+	padding: 1.5em;
+	float: right;
+	overflow-y: scroll;
+	position: fixed;
+	right: 10px;
+	top: 370px;
+	background-color: grey;
+}
+
+div#controls div#log p {
+	color: #686865;
+	font-family: "Share Tech Mono", "Courier New", Courier, fixed-width;
+	font-size: 1.25em;
+	line-height: 1.25em;
+	margin-left: 1em;
+	text-indent: -1.25em;
+	width: 90%;
+}
+
+#audio-toggle {
+}
+
+#reader-container div {
+	position: relative;
+	z-index: -1;
+	width: 100%;
+}
+
+#audio-toggle-on:hover,
+#audio-toggle-off:hover {
+	transform: translateY(0px);
+}
+
+/*End VideoChat.js*/
 
 @media (max-width: 1024px) {
 	.rightSide {
 		display: none;
 	}
-
 }
 
 /*.highlightedTextWord {
