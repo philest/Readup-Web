@@ -36,6 +36,15 @@ import SpinnerOverlay from "../StudentDashboard/overlays/SpinnerOverlay";
 
 const Video = require("twilio-video");
 
+import {
+  leaveRoomIfJoined,
+  log,
+  detachParticipantTracks,
+  detachTracks,
+  attachParticipantTracks,
+  attachTracks
+} from "./twilio-video-utilities.js";
+
 let showLogs;
 let audioToggleButton;
 let videoToggleButton;
@@ -85,41 +94,8 @@ var previewTracks;
 var identity;
 var roomName;
 
-// Attach the Tracks to the DOM.
-function attachTracks(tracks, container) {
-  tracks.forEach(function(track) {
-    if (track.kind !== "data") {
-      container.appendChild(track.attach());
-    }
-  });
-}
-
-// Attach the Participant's Tracks to the DOM.
-function attachParticipantTracks(participant, container) {
-  var tracks = Array.from(participant.tracks.values());
-  attachTracks(tracks, container);
-}
-
-// Detach the Tracks from the DOM.
-function detachTracks(tracks) {
-  tracks.forEach(function(track) {
-    if (track.kind !== "data") {
-      track.detach().forEach(function(detachedElement) {
-        detachedElement.remove();
-      });
-    }
-  });
-}
-
-// Detach the Participant's Tracks from the DOM.
-function detachParticipantTracks(participant) {
-  var tracks = Array.from(participant.tracks.values());
-
-  detachTracks(tracks);
-}
-
 // Successfully connected!
-function roomJoined(room) {
+export function roomJoined(room) {
   window.room = activeRoom = room;
 
   log("Joined as '" + identity + "'");
@@ -285,24 +261,6 @@ function roomJoined(room) {
         videoTrack.enable();
       });
     };
-  }
-}
-
-// Activity log.
-function log(message) {
-  if (!showLogs) {
-    return;
-  }
-
-  var logDiv = document.getElementById("log");
-  logDiv.innerHTML += "<p>&gt;&nbsp;" + message + "</p>";
-  logDiv.scrollTop = logDiv.scrollHeight;
-}
-
-// Leave Room.
-function leaveRoomIfJoined() {
-  if (activeRoom) {
-    activeRoom.disconnect();
   }
 }
 
