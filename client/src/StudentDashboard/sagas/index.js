@@ -871,6 +871,10 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put(setCurrentOverlay("no-overlay"));
 
 	// permission was granted!!!!
+	yield put.resolve(hideVolumeIndicator());
+	yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
+
+	yield take("never pass");
 
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);

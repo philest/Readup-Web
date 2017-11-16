@@ -16,7 +16,8 @@ export const ReaderStateOptions = {
   paused: "READER_STATE_PAUSED",
   done: "READER_STATE_DONE",
   doneDisplayingPlayback: "READER_STATE_PLAYBACK",
-  submitted: "READER_STATE_SUBMITTED"
+  submitted: "READER_STATE_SUBMITTED",
+  watchingVideo: "READER_STATE_WATCHING_VIDEO"
 };
 export type ReaderState = Keys<typeof ReaderStateOptions>;
 

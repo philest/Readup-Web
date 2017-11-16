@@ -136,6 +136,18 @@ export default class Reader extends React.Component {
       wideContainerClass = styles.wideBookpageContainer;
     }
 
+    if (this.props.readerState === "READER_STATE_WATCHING_VIDEO") {
+      return (
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/IPfJnp1guPc?rel=0&amp;showinfo=0&amp;start=30&amp;autoplay=1"
+          frameBorder="0"
+          allowFullScreen
+        />
+      );
+    }
+
     if (
       (this.props.inOralReading &&
         this.props.showCover &&
@@ -344,6 +356,20 @@ export default class Reader extends React.Component {
   };
 
   renderRightButton = () => {
+    if (this.props.readerState === "READER_STATE_WATCHING_VIDEO") {
+      return (
+        <ForwardArrowButton
+          title="Next"
+          subtitle={null}
+          style={{ width: 145, height: 120 }}
+          disabled={this.props.disabled}
+          onClick={() => {
+            console.log("okay clicked button");
+          }}
+        />
+      );
+    }
+
     if (
       this.props.showCover &&
       (!this.props.inComp && !this.props.inSpelling) &&
