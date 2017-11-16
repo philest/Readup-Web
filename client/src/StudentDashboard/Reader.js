@@ -137,8 +137,7 @@ export default class Reader extends React.Component {
     }
 
     if (
-      (this.props.showCover &&
-        this.props.inOralReading &&
+      (this.props.inOralReading &&
         (this.props.readerState === "READER_STATE_INITIALIZING" ||
           this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")) ||
       (!this.props.inOralReading &&

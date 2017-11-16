@@ -58,7 +58,7 @@ let newReaderProps = {
   numPages: fireflyBook.numPages,
   book: fireflyBook,
   questionNumber: 1,
-  readerState: ReaderStateOptions.initializing,
+  readerState: ReaderStateOptions.playingBookIntro,
   prompt: PromptOptions.awaitingPrompt,
   pauseType: PauseTypeOptions.fromPauseButton,
   hasRecordedSomething: false,
