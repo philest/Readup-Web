@@ -78,7 +78,11 @@ export default class Reader extends React.Component {
     onSpellingAnswerGiven: PropTypes.func,
     spellingQuestionNumber: PropTypes.number,
     assessmentID: PropTypes.number,
-    micPermissionsStatus: PropTypes.string
+    micPermissionsStatus: PropTypes.string,
+    onSpellingInputSet: PropTypes.func,
+    spellingInput: PropTypes.string,
+
+    isWithinGrader: PropTypes.bool
   };
 
   static defaultProps = {
@@ -89,7 +93,8 @@ export default class Reader extends React.Component {
     isFirstPage: false,
     isLastPage: false,
     showPauseButton: true,
-    disabled: false
+    disabled: false,
+    isWithinGrader: false
   };
 
   constructor(props, _railsContext) {
@@ -132,8 +137,7 @@ export default class Reader extends React.Component {
     }
 
     if (
-      (this.props.showCover &&
-        this.props.inOralReading &&
+      (this.props.inOralReading &&
         (this.props.readerState === "READER_STATE_INITIALIZING" ||
           this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")) ||
       (!this.props.inOralReading &&
@@ -557,6 +561,8 @@ export default class Reader extends React.Component {
                       ].audioSrc
                     : ""
                 }
+                readerProps={this.props}
+                isWithinGrader={this.props.isWithinGrader}
               />
             </div>
           )}
@@ -598,6 +604,8 @@ export default class Reader extends React.Component {
                 this.props.book.numSpellingQuestions *
                 100
               }
+              onSpellingInputSet={this.props.onSpellingInputSet}
+              spellingInput={this.props.spellingInput}
             />
           )}
 

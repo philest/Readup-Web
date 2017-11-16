@@ -19,7 +19,9 @@ export default class SpellingTextField extends React.Component {
     showVolumeIndicator: PropTypes.bool,
     showSpellingBoxIndicator: PropTypes.bool,
     spellingQuestionNumber: PropTypes.number,
-    onEnterPressed: PropTypes.func
+    onEnterPressed: PropTypes.func,
+    onSpellingInputSet: PropTypes.func,
+    spellingInput: PropTypes.string
   };
   static defaultProps = {};
 
@@ -90,6 +92,7 @@ export default class SpellingTextField extends React.Component {
     ) {
       this.saveSpellingResponse(this.form.value);
       this.form.value = "";
+      this.props.onSpellingInputSet(""); // reset to empty
       this.form.focus();
     }
   }
@@ -108,6 +111,8 @@ export default class SpellingTextField extends React.Component {
   handleSpellingChange = () => {
     this.setState({ showHelper: false });
     this.props.onSpellingAnswerGiven(true);
+
+    this.props.onSpellingInputSet(this.form.value); // set to value
   };
 
   render() {
@@ -161,6 +166,7 @@ export default class SpellingTextField extends React.Component {
           inputRef={ref => {
             this.form = ref;
           }}
+          value={this.props.spellingInput}
           onChange={this.handleSpellingChange}
           autoFocus
         />

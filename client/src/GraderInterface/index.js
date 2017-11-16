@@ -986,6 +986,32 @@ export default class GraderInterface extends React.Component {
       );
     }
 
+    if (this.props.isVideoChat) {
+      return (
+        <div>
+          {this.renderNavigationBar(false)}
+
+          {this.props.isVideoChat && (
+            <div>
+              <VideoChat
+                identity={
+                  "grader" + String(Math.floor(Math.random() * 100) + 1)
+                }
+                assessmentID={this.props.assessmentID}
+                room={`Assessment-${this.props.assessmentID}-Room`}
+                logs={true}
+                pictureInPicture={false}
+                hide={false}
+                audioToggleButton
+                videoToggleButton
+                book={book}
+              />
+            </div>
+          )}
+        </div>
+      );
+    }
+
     if (this.props.isRemote) {
       return (
         <div>

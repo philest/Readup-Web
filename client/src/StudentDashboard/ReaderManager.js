@@ -65,6 +65,7 @@ function mapStateToProps(state) {
     showSkipPrompt: state.reader.showSkipPrompt,
     isLiveDemo: state.reader.isLiveDemo,
     spellingAnswerGiven: state.reader.spellingAnswerGiven,
+    spellingInput: state.reader.spellingInput,
     spellingQuestionNumber: state.reader.spellingQuestionNumber,
     assessmentID: state.reader.assessmentID,
     assessmentSubmitted: state.reader.assessmentSubmitted,
@@ -85,7 +86,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 // todo
-class StudentDashboard extends React.Component {
+export class StudentDashboard extends React.Component {
   static propTypes = {
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
     isDemo: PropTypes.bool,
@@ -155,8 +156,12 @@ class StudentDashboard extends React.Component {
       inComp: this.props.inComp,
       onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL
       currentShowModal: this.props.currentShowModal,
+      currentShowOverlay: this.props.currentShowOverlay, // include to HACK to screenshare redux
+      countdownValue: this.props.countdownValue, // include to HACK screenshare
       inSpelling: this.props.inSpelling,
       onSpellingAnswerGiven: this.props.actions.setSpellingAnswerGiven,
+      onSpellingInputSet: this.props.actions.setSpellingInput,
+      spellingInput: this.props.spellingInput,
       spellingQuestionNumber: this.props.spellingQuestionNumber,
       inOralReading: this.props.inOralReading,
       showSkipPrompt: this.props.showSkipPrompt,

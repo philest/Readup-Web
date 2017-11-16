@@ -110,6 +110,8 @@ export const ASSESSMENT_ID_SET = "ASSESSMENT_ID_SET";
 
 export const ASSESSMENT_SUBMITTED_SET = "ASSESSMENT_SUBMITTED_SET";
 
+export const SPELLING_INPUT_SET = "SPELLING_INPUT_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -133,6 +135,15 @@ export function setAssessmentID(assessmentID: number) {
     type: ASSESSMENT_ID_SET,
     payload: {
       assessmentID
+    }
+  };
+}
+
+export function setSpellingInput(spellingInput: string) {
+  return {
+    type: SPELLING_INPUT_SET,
+    payload: {
+      spellingInput
     }
   };
 }
@@ -1357,7 +1368,8 @@ const initialState = {
   spellingAnswerGiven: false,
   spellingQuestionNumber: 1,
   assessmentID: null,
-  assessmentSubmitted: false
+  assessmentSubmitted: false,
+  spellingInput: ""
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -1518,6 +1530,10 @@ function reducer(state = initialState, action = {}) {
 
     case SHOW_SKIP_PROMPT_SET: {
       return { ...state, showSkipPrompt: payload.showSkipPrompt };
+    }
+
+    case SPELLING_INPUT_SET: {
+      return { ...state, spellingInput: payload.spellingInput };
     }
 
     // case RECORDING_COUNTDOWN_TO_START: {

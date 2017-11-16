@@ -8,10 +8,43 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { playSound } from "../StudentDashboard/audioPlayer.js";
 import { PromptAudioOptions } from "../StudentDashboard/types";
 
+import Reader from "../StudentDashboard/Reader";
+
+import { fireflyBook, fpBook, library } from "../StudentDashboard/state.js";
+import {
+  ReaderStateOptions,
+  PauseTypeOptions,
+  MicPermissionsStatusOptions,
+  PromptOptions
+} from "../StudentDashboard/types";
+
+import CompModal from "../StudentDashboard/modals/CompModal";
+import DoneModal from "../StudentDashboard/modals/DoneModal";
+import PausedModal from "../StudentDashboard/modals/PausedModal";
+import CompPausedModal from "../StudentDashboard/modals/CompPausedModal";
+import ExitModal from "../StudentDashboard/modals/ExitModal";
+import MicModal from "../StudentDashboard/modals/MicModal";
+import PlaybackModal from "../StudentDashboard/modals/PlaybackModal";
+
+import IntroOverlay from "../StudentDashboard/overlays/IntroOverlay";
+import BlockedMicOverlay from "../StudentDashboard/overlays/BlockedMicOverlay";
+import SubmittedOverlay from "../StudentDashboard/overlays/SubmittedOverlay";
+import DemoSubmittedOverlay from "../StudentDashboard/overlays/DemoSubmittedOverlay";
+import PermissionsOverlay from "../StudentDashboard/overlays/PermissionsOverlay";
+import CountdownOverlay from "../StudentDashboard/overlays/CountdownOverlay";
+import SpinnerOverlay from "../StudentDashboard/overlays/SpinnerOverlay";
+
 const Video = require("twilio-video");
 
+import {
+  log,
+  detachParticipantTracks,
+  detachTracks,
+  attachParticipantTracks,
+  attachTracks
+} from "./twilio-video-utilities.js";
+
 let showLogs;
-let hide;
 let audioToggleButton;
 let videoToggleButton;
 let localVideo;
@@ -20,8 +53,252 @@ let localAudio;
 let onToggleShowVideo;
 let lastQuestionAudioFile;
 
+let newReaderProps = {
+  pageNumber: 0,
+  numPages: fireflyBook.numPages,
+  book: fireflyBook,
+  questionNumber: 1,
+  readerState: ReaderStateOptions.playingBookIntro,
+  prompt: PromptOptions.awaitingPrompt,
+  pauseType: PauseTypeOptions.fromPauseButton,
+  hasRecordedSomething: false,
+  compRecordingURL: null,
+  micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
+  currentSoundId: "no-sound",
+  currentModalId: "no-modal",
+  currentOverlayId: "no-overlay",
+  showSpinner: false,
+  countdownValue: -1,
+  showVolumeIndicator: true,
+  showSkipPrompt: false,
+  inComp: false,
+  inSpelling: false,
+  inOralReading: true,
+  isLiveDemo: false,
+  spellingAnswerGiven: false,
+  spellingQuestionNumber: 1,
+  assessmentID: null,
+  assessmentSubmitted: false,
+  studentName: "Demo Student",
+  spellingInput: ""
+};
+
+const importantStateKeysToUpdateOnStart = [
+  "inComp",
+  "inSpelling",
+  "inOralReading",
+  "currentModalId",
+  "currentOverlayId",
+  "readerState",
+  "spellingInput"
+];
+
 // scope it up here
-var dataTrack = new Video.LocalDataTrack();
+let dataTrack = new Video.LocalDataTrack({
+  maxPacketLifeTime: null,
+  maxRetransmits: null
+});
+
+let activeRoom;
+let previewTracks;
+let identity;
+let roomName;
+
+// Successfully connected!
+export function roomJoined(room) {
+  window.room = activeRoom = room;
+
+  log("Joined as '" + identity + "'");
+
+  log("RoomSID: " + room.sid);
+
+  // add the dataTrack after the room is joined
+  room.localParticipant.publishTrack(dataTrack);
+
+  while (room.localParticipant.dataTracks.size <= 0) {
+    // try readding it if it did not connect
+    room.localParticipant.publishTrack(dataTrack);
+  }
+
+  // If it's the grader, notify the student that they need to give a full state
+  // update to the grader
+
+  if (identity.toLowerCase().includes("grader")) {
+    setTimeout(() => {
+      console.log("Telling the student to send us all state...");
+      dataTrack.send("SEND-ALL-STATE"); // indicator that they should send all state=
+    }, 5000);
+  }
+
+  // document.getElementById("button-join").style.display = "none";
+  // document.getElementById("button-leave").style.display = "inline";
+
+  // Attach LocalParticipant's Tracks, if not already attached.
+  var previewContainer = document.getElementById("local-media");
+
+  if (previewContainer && !previewContainer.querySelector("video")) {
+    attachParticipantTracks(room.localParticipant, previewContainer);
+  }
+
+  // Attach the Tracks of the Room's Participants.
+  room.participants.forEach(function(participant) {
+    log("Already in Room: '" + participant.identity + "'");
+    var previewContainer = document.getElementById("remote-media");
+    attachParticipantTracks(participant, previewContainer);
+  });
+
+  // When a Participant joins the Room, log the event.
+  room.on("participantConnected", function(participant) {
+    log("Joining: '" + participant.identity + "'");
+  });
+
+  // When a Participant adds a Track, attach it to the DOM.
+  room.on(
+    "trackAdded",
+    function(track, participant) {
+      log(participant.identity + " added track: " + track.kind);
+      var previewContainer = document.getElementById("remote-media");
+
+      if (track.kind === "data") {
+        track.on("message", data => {
+          console.log("getting a data track message");
+          // console.log(data);
+
+          if (data.includes("SEND-ALL-STATE")) {
+            console.log(data);
+            console.log("got a message to send over all state");
+            this.sendAllPropsIndividually(this.props.readerProps);
+          } else if (data.includes("VIDEO")) {
+            onToggleShowVideo();
+          } else if (data.includes("PROMPT")) {
+            let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
+
+            console.log(PromptAudioOptions);
+            console.log(promptNum);
+            console.log(
+              PromptAudioOptions[Object.keys(PromptAudioOptions)[promptNum - 1]]
+            );
+
+            if (promptNum < 5) {
+              playSound(
+                PromptAudioOptions[
+                  Object.keys(PromptAudioOptions)[promptNum - 1]
+                ]
+              );
+            } else {
+              // a repeat prompt
+              playSound(lastQuestionAudioFile);
+            }
+          } else {
+            console.log("WE GOT THE PROPSSSS...");
+            let obj = JSON.parse(data);
+
+            let key = Object.keys(obj);
+            let val = obj[key];
+
+            console.log(obj);
+
+            let myNewReaderProps = newReaderProps;
+            myNewReaderProps[key] = val;
+            this.setState({ newReaderProps: myNewReaderProps });
+
+            console.log(`okay, update state to key: ${key} and val: ${val}`);
+            console.log("New val: ", this.state.newReaderProps[key]);
+          }
+        });
+      }
+
+      attachTracks([track], previewContainer);
+    }.bind(this)
+  );
+
+  // When a Participant removes a Track, detach it from the DOM.
+  room.on("trackRemoved", function(track, participant) {
+    log(participant.identity + " removed track: " + track.kind);
+    detachTracks([track]);
+  });
+
+  // When a Participant leaves the Room, detach its Tracks.
+  room.on("participantDisconnected", function(participant) {
+    log("Participant '" + participant.identity + "' left the room");
+    detachParticipantTracks(participant);
+  });
+
+  // Once the LocalParticipant leaves the room, detach the Tracks
+  // of all Participants, including that of the LocalParticipant.
+  room.on("disconnected", function() {
+    log("Left");
+    if (previewTracks) {
+      previewTracks.forEach(function(track) {
+        track.stop();
+      });
+    }
+    detachParticipantTracks(room.localParticipant);
+    room.participants.forEach(detachParticipantTracks);
+    activeRoom = null;
+    console.log("disconnected from room");
+    // document.getElementById("button-join").style.display = "inline";
+    // document.getElementById("button-leave").style.display = "none";
+  });
+
+  // start on mute for the grader
+  if (audioToggleButton) {
+    room.localParticipant.audioTracks.forEach(function(audioTrack, key, map) {
+      console.log("muting this users audio");
+      audioTrack.disable();
+    });
+  }
+
+  if (videoToggleButton) {
+    room.localParticipant.videoTracks.forEach(function(videoTrack, key, map) {
+      console.log("muting this users video");
+      videoTrack.disable();
+    });
+  }
+
+  if (audioToggleButton) {
+    document.getElementById("audio-toggle-off").onclick = function() {
+      room.localParticipant.audioTracks.forEach(function(audioTrack, key, map) {
+        console.log("muting this users audio");
+        audioTrack.disable();
+      });
+    };
+
+    document.getElementById("audio-toggle-on").onclick = function() {
+      room.localParticipant.audioTracks.forEach(function(audioTrack, key, map) {
+        console.log("enabling this users audio");
+        audioTrack.enable();
+      });
+    };
+  }
+
+  if (videoToggleButton) {
+    document.getElementById("video-toggle-off").onclick = function() {
+      dataTrack.send("VIDEO-OFF");
+
+      room.localParticipant.videoTracks.forEach(function(videoTrack, key, map) {
+        console.log("muting this users video");
+        videoTrack.disable();
+      });
+    };
+
+    document.getElementById("video-toggle-on").onclick = function() {
+      dataTrack.send("VIDEO-ON");
+
+      room.localParticipant.videoTracks.forEach(function(videoTrack, key, map) {
+        console.log("enabling this users video");
+        videoTrack.enable();
+      });
+    };
+  }
+}
+
+// Leave Room.
+export function leaveRoomIfJoined() {
+  if (activeRoom) {
+    activeRoom.disconnect();
+  }
+}
 
 export default class VideoChat extends React.Component {
   static propTypes = {
@@ -30,25 +307,26 @@ export default class VideoChat extends React.Component {
     room: PropTypes.string,
     logs: PropTypes.bool,
     pictureInPicture: PropTypes.bool,
-    hide: PropTypes.bool,
     audioToggleButton: PropTypes.bool,
     videoToggleButton: PropTypes.bool,
     localVideo: PropTypes.bool,
     localAudio: PropTypes.bool,
     studentDash: PropTypes.bool,
-    lastQuestionAudioFile: PropTypes.string
+    lastQuestionAudioFile: PropTypes.string,
+    screenshotDataURL: PropTypes.string,
+    isWithinGrader: PropTypes.bool
   };
 
   static defaultProps = {
     identity: "student",
     logs: false,
     pictureInPicture: true,
-    hide: false,
     audioToggleButton: false,
     videoToggleButton: false,
     localVideo: true,
     localAudio: true,
-    studentDash: false
+    studentDash: false,
+    isWithinGrader: true
   };
 
   /**
@@ -60,8 +338,62 @@ export default class VideoChat extends React.Component {
     this.state = {
       localAudioEnabled: !this.props.audioToggleButton, // If there's a toggle button, start on mute (grader)
       localVideoEnabled: !this.props.videoToggleButton,
-      showVideo: !this.props.studentDash // Hide the video for students, until told to
+      showVideo: !this.props.studentDash, // Hide the video for students, until told to
+      newReaderProps: newReaderProps
     };
+
+    roomJoined = roomJoined.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.readerProps && !this.props.isWithinGrader) {
+      for (var key in nextProps.readerProps) {
+        if (nextProps.readerProps.hasOwnProperty(key)) {
+          if (nextProps.readerProps[key] !== this.props.readerProps[key]) {
+            console.log(
+              `The ${key} key is different: It was ${this.props.readerProps[
+                key
+              ]} and now its ${nextProps.readerProps[key]}`
+            );
+
+            console.log("studentDash just updated a reader prop...");
+            console.log(nextProps.readerProps[key]);
+
+            let obj = {};
+            obj[key] = nextProps.readerProps[key];
+            console.log(obj);
+
+            dataTrack.send(JSON.stringify(obj));
+          }
+        }
+      }
+    }
+  }
+
+  sendAllPropsIndividually(readerProps) {
+    if (!this.props.isWithinGrader) {
+      for (var key in newReaderProps) {
+        //only iterate through the keys in initial state
+        if (
+          readerProps.hasOwnProperty(key) &&
+          importantStateKeysToUpdateOnStart.includes(key)
+        ) {
+          //if its an important state key
+          console.log(`The ${key} key  was ${this.props.readerProps[key]}`);
+
+          console.log(
+            "studentDash just updated a reader prop (sendAllPropsIndividually)..."
+          );
+          console.log(readerProps[key]);
+
+          let obj = {};
+          obj[key] = readerProps[key];
+          console.log(obj);
+
+          dataTrack.send(JSON.stringify(obj));
+        }
+      }
+    }
   }
 
   onToggleAudioClicked = () => {
@@ -82,23 +414,10 @@ export default class VideoChat extends React.Component {
   onPromptClicked = (promptNumber, isImmediate) => {
     console.log("clicked immediate prompt ");
     dataTrack.send(`PROMPT-${promptNumber}`);
-
-    // let promptStatus = PromptOptions[promptNumber];
-    // const params = { prompt_status: promptStatus };
-
-    // if (!isImmediate) {
-    //   updateStudent(params, this.props.studentID);
-    // }
-
-    // this.setState({ showPromptAlert: true });
-    // setTimeout(() => {
-    //   this.setState({ showPromptAlert: false });
-    // }, 2500);
   };
 
   componentDidMount() {
     showLogs = this.props.logs;
-    hide = this.props.hide;
     audioToggleButton = this.props.audioToggleButton;
     videoToggleButton = this.props.videoToggleButton;
     localAudio = this.props.localAudio;
@@ -111,57 +430,13 @@ export default class VideoChat extends React.Component {
 
     console.log("IT LOADED");
 
-    var activeRoom;
-    var previewTracks;
-    var identity;
-    var roomName;
+    this.setUpTracks();
+  }
 
-    // Attach the Tracks to the DOM.
-    function attachTracks(tracks, container) {
-      tracks.forEach(function(track) {
-        if (track.kind !== "data") {
-          container.appendChild(track.attach());
-        }
-      });
-    }
-
-    // Attach the Participant's Tracks to the DOM.
-    function attachParticipantTracks(participant, container) {
-      var tracks = Array.from(participant.tracks.values());
-      attachTracks(tracks, container);
-    }
-
-    // Detach the Tracks from the DOM.
-    function detachTracks(tracks) {
-      tracks.forEach(function(track) {
-        if (track.kind !== "data") {
-          track.detach().forEach(function(detachedElement) {
-            detachedElement.remove();
-          });
-        }
-      });
-    }
-
-    // Detach the Participant's Tracks from the DOM.
-    function detachParticipantTracks(participant) {
-      var tracks = Array.from(participant.tracks.values());
-      detachTracks(tracks);
-    }
-
+  setUpTracks = () => {
     // When we are about to transition away from this page, disconnect
     // from the room, if joined.
     window.addEventListener("beforeunload", leaveRoomIfJoined);
-
-    /**
-     * Setup a LocalAudioTrack and LocalVideoTrack to render to a <video> element.
-     * @param {HTMLVideoElement} video
-     * @returns {Promise<Array<LocalAudioTrack|LocalVideoTrack>>} audioAndVideoTrack
-     */
-    async function setupLocalAudioAndVideoTracks(video) {
-      const audioAndVideoTrack = await createLocalTracks();
-      audioAndVideoTrack.forEach(track => track.attach(video));
-      return audioAndVideoTrack;
-    }
 
     // // scope it up here
     // var dataTrack = new Video.LocalDataTrack();
@@ -206,261 +481,9 @@ export default class VideoChat extends React.Component {
         ) {
           log("Could not connect to Twilio: " + error.message);
         });
-
-        // // Bind button to join Room.
-        // document.getElementById("button-join").onclick = function() {
-        //   roomName = document.getElementById("room-name").value;
-        //   if (!roomName) {
-        //     alert("Please enter a room name.");
-        //     return;
-        //   }
-
-        //   log("Joining room '" + roomName + "'...");
-        //   var connectOptions = {
-        //     name: roomName,
-        //     logLevel: "debug"
-        //   };
-
-        //   if (previewTracks) {
-        //     connectOptions.tracks = previewTracks;
-        //   }
-
-        //   // Join the Room with the token from the server and the
-        //   // LocalParticipant's Tracks.
-
-        //   Video.connect(data.token, connectOptions).then(roomJoined, function(
-        //     error
-        //   ) {
-        //     log("Could not connect to Twilio: " + error.message);
-        //   });
-        // };
-
-        // // Bind button to leave Room.
-        // document.getElementById("button-leave").onclick = function() {
-        //   log("Leaving room...");
-        //   activeRoom.disconnect();
-        // };
       }
     );
-
-    // Successfully connected!
-    function roomJoined(room) {
-      window.room = activeRoom = room;
-
-      log("Joined as '" + identity + "'");
-
-      log("RoomSID: " + room.sid);
-
-      // add the dataTrack after the room is joined
-      room.localParticipant.publishTrack(dataTrack);
-
-      // document.getElementById("button-join").style.display = "none";
-      // document.getElementById("button-leave").style.display = "inline";
-
-      // Attach LocalParticipant's Tracks, if not already attached.
-      var previewContainer = document.getElementById("local-media");
-
-      if (previewContainer && !previewContainer.querySelector("video")) {
-        attachParticipantTracks(room.localParticipant, previewContainer);
-      }
-
-      // Attach the Tracks of the Room's Participants.
-      room.participants.forEach(function(participant) {
-        log("Already in Room: '" + participant.identity + "'");
-        var previewContainer = document.getElementById("remote-media");
-        attachParticipantTracks(participant, previewContainer);
-      });
-
-      // When a Participant joins the Room, log the event.
-      room.on("participantConnected", function(participant) {
-        log("Joining: '" + participant.identity + "'");
-      });
-
-      // When a Participant adds a Track, attach it to the DOM.
-      room.on("trackAdded", function(track, participant) {
-        log(participant.identity + " added track: " + track.kind);
-        var previewContainer = document.getElementById("remote-media");
-
-        if (track.kind === "data") {
-          track.on("message", data => {
-            console.log("getting a data track message");
-            console.log(data);
-            if (data.includes("VIDEO")) {
-              onToggleShowVideo();
-            }
-
-            if (data.includes("PROMPT")) {
-              let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
-
-              console.log(PromptAudioOptions);
-              console.log(promptNum);
-              console.log(
-                PromptAudioOptions[
-                  Object.keys(PromptAudioOptions)[promptNum - 1]
-                ]
-              );
-
-              if (promptNum < 5) {
-                playSound(
-                  PromptAudioOptions[
-                    Object.keys(PromptAudioOptions)[promptNum - 1]
-                  ]
-                );
-              } else {
-                // a repeat prompt
-                playSound(lastQuestionAudioFile);
-              }
-            }
-          });
-        }
-
-        attachTracks([track], previewContainer);
-      });
-
-      // When a Participant removes a Track, detach it from the DOM.
-      room.on("trackRemoved", function(track, participant) {
-        log(participant.identity + " removed track: " + track.kind);
-        detachTracks([track]);
-      });
-
-      // When a Participant leaves the Room, detach its Tracks.
-      room.on("participantDisconnected", function(participant) {
-        log("Participant '" + participant.identity + "' left the room");
-        detachParticipantTracks(participant);
-      });
-
-      // Once the LocalParticipant leaves the room, detach the Tracks
-      // of all Participants, including that of the LocalParticipant.
-      room.on("disconnected", function() {
-        log("Left");
-        if (previewTracks) {
-          previewTracks.forEach(function(track) {
-            track.stop();
-          });
-        }
-        detachParticipantTracks(room.localParticipant);
-        room.participants.forEach(detachParticipantTracks);
-        activeRoom = null;
-        document.getElementById("button-join").style.display = "inline";
-        document.getElementById("button-leave").style.display = "none";
-      });
-
-      // start on mute for the grader
-      if (audioToggleButton) {
-        room.localParticipant.audioTracks.forEach(function(
-          audioTrack,
-          key,
-          map
-        ) {
-          console.log("muting this users audio");
-          audioTrack.disable();
-        });
-      }
-
-      if (videoToggleButton) {
-        room.localParticipant.videoTracks.forEach(function(
-          videoTrack,
-          key,
-          map
-        ) {
-          console.log("muting this users video");
-          videoTrack.disable();
-        });
-      }
-
-      if (audioToggleButton) {
-        document.getElementById("audio-toggle-off").onclick = function() {
-          room.localParticipant.audioTracks.forEach(function(
-            audioTrack,
-            key,
-            map
-          ) {
-            console.log("muting this users audio");
-            audioTrack.disable();
-          });
-        };
-
-        document.getElementById("audio-toggle-on").onclick = function() {
-          room.localParticipant.audioTracks.forEach(function(
-            audioTrack,
-            key,
-            map
-          ) {
-            console.log("enabling this users audio");
-            audioTrack.enable();
-          });
-        };
-      }
-
-      if (videoToggleButton) {
-        document.getElementById("video-toggle-off").onclick = function() {
-          dataTrack.send("VIDEO-OFF");
-
-          room.localParticipant.videoTracks.forEach(function(
-            videoTrack,
-            key,
-            map
-          ) {
-            console.log("muting this users video");
-            videoTrack.disable();
-          });
-        };
-
-        document.getElementById("video-toggle-on").onclick = function() {
-          dataTrack.send("VIDEO-ON");
-
-          room.localParticipant.videoTracks.forEach(function(
-            videoTrack,
-            key,
-            map
-          ) {
-            console.log("enabling this users video");
-            videoTrack.enable();
-          });
-        };
-      }
-    }
-
-    // // Preview LocalParticipant's Tracks.
-    // document.getElementById("button-preview").onclick = function() {
-    //   console.log("I CLICKED IT PREVIEW");
-    //   var localTracksPromise = previewTracks
-    //     ? Promise.resolve(previewTracks)
-    //     : Video.createLocalTracks();
-
-    //   localTracksPromise.then(
-    //     function(tracks) {
-    //       window.previewTracks = previewTracks = tracks;
-    //       var previewContainer = document.getElementById("local-media");
-    //       if (!previewContainer.querySelector("video")) {
-    //         attachTracks(tracks, previewContainer);
-    //       }
-    //     },
-    //     function(error) {
-    //       console.error("Unable to access local media", error);
-    //       log("Unable to access Camera and Microphone");
-    //     }
-    //   );
-    // };
-
-    // Activity log.
-    function log(message) {
-      if (!showLogs) {
-        return;
-      }
-
-      var logDiv = document.getElementById("log");
-      logDiv.innerHTML += "<p>&gt;&nbsp;" + message + "</p>";
-      logDiv.scrollTop = logDiv.scrollHeight;
-    }
-
-    // Leave Room.
-    function leaveRoomIfJoined() {
-      if (activeRoom) {
-        activeRoom.disconnect();
-      }
-    }
-  }
+  };
 
   render() {
     return (
@@ -493,9 +516,6 @@ div#remote-media video {
     z-index: 999;
     display: ${this.state.showVideo ? "block" : "none"}
 }
-
-
-
 
 
 div#controls {
@@ -618,6 +638,23 @@ div#controls div#log {
 
 }
 
+
+div#controls div#screencast {
+    width: 35%;
+    height: 14.5em;
+    margin-top: 2.75em;
+    text-align: left;
+    padding: 1.5em;
+    float: right;
+    overflow-y: scroll;
+    position: fixed;
+    right: 10px;
+    top: 370px;
+    background-color: grey;
+}
+
+
+
 div#controls div#log p {
   color: #686865;
   font-family: "Share Tech Mono", "Courier New", Courier, fixed-width;
@@ -629,6 +666,16 @@ div#controls div#log p {
 }
 
 #audio-toggle {
+}
+
+#reader-container {
+  height: 100vh;
+}
+
+#reader-container > div{
+    position: relative;
+    z-index: -1;
+    width: 100%;
 }
 
 #audio-toggle-on:hover, #audio-toggle-off:hover {
@@ -726,6 +773,162 @@ div#controls div#log p {
             <div id="log" style={{ visibility: "visible" }} />
           )}
         </div>
+        {this.props.logs && (
+          <div>
+            <div>
+              <PausedModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+              />
+
+              <CompPausedModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+              />
+
+              <ExitModal
+                startedRecording={
+                  this.state.newReaderProps.hasRecordedSomething
+                }
+                onExitAndUploadClicked={
+                  this.state.newReaderProps.exitAndUploadRecording
+                }
+                onExitNoUploadClicked={this.state.newReaderProps.quitAssessment}
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+              />
+
+              <PlaybackModal
+                audioSrc={this.state.newReaderProps.recordingURL}
+                compAudioSrc={this.state.newReaderProps.compRecordingURL}
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+              />
+
+              <DoneModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                showSpinner={this.state.newReaderProps.showSpinner}
+                showCheck={this.state.newReaderProps.assessmentSubmitted}
+              />
+
+              <CompModal
+                currentShowModal={this.state.newReaderProps.currentShowModal}
+                readerState={this.state.newReaderProps.readerState}
+                disabled={
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.playingBookIntro ||
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.talkingAboutStartButton ||
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.talkingAboutStopButton ||
+                  this.state.newReaderProps.readerState ===
+                    ReaderStateOptions.talkingAboutSeeBook
+                }
+                showSpinner={this.state.newReaderProps.showSpinner}
+                showPrompting={this.state.newReaderProps.isLiveDemo}
+                question={
+                  this.state.newReaderProps.book.questions[
+                    this.state.newReaderProps.questionNumber
+                  ]
+                }
+                includeDelay={this.state.newReaderProps.questionNumber === 1}
+                prompt={this.state.newReaderProps.prompt}
+              />
+            </div>
+            <div>
+              <BlockedMicOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+              />
+
+              <SubmittedOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+              />
+
+              <PermissionsOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+                onArrowClicked={
+                  this.state.newReaderProps.onPermisionsArrowClicked
+                }
+              />
+
+              <DemoSubmittedOverlay
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+                studentName={this.state.newReaderProps.studentName}
+              />
+
+              {this.state.newReaderProps.readerState ===
+                ReaderStateOptions.countdownToStart && (
+                <CountdownOverlay
+                  countdownValue={this.state.newReaderProps.countdownValue}
+                />
+              )}
+
+              <SpinnerOverlay
+                showPrompting={this.state.newReaderProps.isLiveDemo}
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+                text={"Spinner message goes here"}
+                isLoadingUpload={this.state.newReaderProps.showSpinner}
+              />
+            </div>
+            <div id="reader-container">
+              <Reader
+                pageNumber={this.state.newReaderProps.pageNumber}
+                numPages={this.state.newReaderProps.numPages}
+                questionNumber={this.state.newReaderProps.questionNumber}
+                readerState={this.state.newReaderProps.readerState}
+                pauseType={this.state.newReaderProps.pauseType}
+                hasRecordedSomething={
+                  this.state.newReaderProps.hasRecordedSomething
+                }
+                micPermissionsStatus={
+                  this.state.newReaderProps.micPermissionsStatus
+                }
+                currentSoundId={this.state.newReaderProps.currentSoundId}
+                currentModalId={this.state.newReaderProps.currentModalId}
+                currentOverlayId={this.state.newReaderProps.currentOverlayId}
+                currentShowOverlay={
+                  this.state.newReaderProps.currentShowOverlay
+                }
+                showSpinner={this.state.newReaderProps.showSpinner}
+                countdownValue={this.state.newReaderProps.countdownValue}
+                showVolumeIndicator={
+                  this.state.newReaderProps.showVolumeIndicator
+                }
+                showSkipPrompt={this.state.newReaderProps.showSkipPrompt}
+                inComp={this.state.newReaderProps.inComp}
+                inSpelling={this.state.newReaderProps.inSpelling}
+                inOralReading={this.state.newReaderProps.inOralReading}
+                isLiveDemo={this.state.newReaderProps.isLiveDemo}
+                spellingAnswerGiven={
+                  this.state.newReaderProps.spellingAnswerGiven
+                }
+                spellingQuestionNumber={
+                  this.state.newReaderProps.spellingQuestionNumber
+                }
+                assessmentID={this.state.newReaderProps.assessmentID}
+                assessmentSubmitted={
+                  this.state.newReaderProps.assessmentSubmitted
+                }
+                studentName={this.state.newReaderProps.studentName}
+                coverImageURL={this.props.book.coverImage}
+                book={this.props.book}
+                spellingInput={this.state.newReaderProps.spellingInput}
+                isWithinGrader={true}
+              />
+            </div>
+            ); };
+          </div>
+        )}
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" />
       </div>
     );
