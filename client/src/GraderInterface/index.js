@@ -50,6 +50,7 @@ import { fireflyBook, fpBook, library } from "../StudentDashboard/state.js";
 import { PromptOptions } from "../StudentDashboard/types";
 
 import VideoChat from "../sharedComponents/VideoChat";
+import PromptButtons from "../sharedComponents/PromptButtons";
 
 let book;
 let rubric;
@@ -482,6 +483,13 @@ export default class GraderInterface extends React.Component {
     });
   };
 
+  showPromptAlert = () => {
+    this.setState({ showPromptAlert: true });
+    setTimeout(() => {
+      this.setState({ showPromptAlert: false });
+    }, 2500);
+  };
+
   onPromptClicked = (promptNumber, isImmediate) => {
     let promptStatus = PromptOptions[Object.keys(PromptOptions)[promptNumber]];
 
@@ -493,10 +501,7 @@ export default class GraderInterface extends React.Component {
       updateStudent(params, this.props.studentID);
     }
 
-    this.setState({ showPromptAlert: true });
-    setTimeout(() => {
-      this.setState({ showPromptAlert: false });
-    }, 2500);
+    this.showPromptAlert();
   };
 
   onIsLiveDemoClicked = () => {
@@ -1026,32 +1031,11 @@ export default class GraderInterface extends React.Component {
               {"Demo from " + this.props.shortCreatedAt + " (PST)"}
             </div>
 
-            <h4>Prompts</h4>
-            <ButtonGroup
-              className={[
-                styles.fluencyButtonGroup,
-                styles.promptButtonGroup
-              ].join(" ")}
-            >
-              <Button href="#" onClick={() => this.onPromptClicked(1)}>
-                Tell some more
-              </Button>
-              <Button href="#" onClick={() => this.onPromptClicked(2)}>
-                What in the story makes you think that?
-              </Button>
-              <Button href="#" onClick={() => this.onPromptClicked(3)}>
-                Why is that important?
-              </Button>
-              <Button href="#" onClick={() => this.onPromptClicked(4)}>
-                Why do you think that?
-              </Button>
-              <Button href="#" onClick={() => this.onPromptClicked(5)}>
-                Repeat the question
-              </Button>
-              <Button href="#" onClick={() => this.onPromptClicked(6)}>
-                <strong>No prompt needed</strong>
-              </Button>
-            </ButtonGroup>
+            <PromptButtons
+              immediate={false}
+              showPromptAlert={this.showPromptAlert}
+              studentID={this.props.studentID}
+            />
           </div>
 
           {this.state.showPromptAlert && (
@@ -1106,34 +1090,11 @@ export default class GraderInterface extends React.Component {
           {!this.props.isPartner && (
             <div className={styles.philControls}>
               <style>{`.btn-group .btn {z-index: 0;}`}</style>
-              <div className={[styles.compPromptContainer, styles.block]}>
-                <h4>Post-Question Prompts</h4>
-                <ButtonGroup
-                  className={[
-                    styles.fluencyButtonGroup,
-                    styles.promptButtonGroup
-                  ].join(" ")}
-                >
-                  <Button href="#" onClick={() => this.onPromptClicked(1)}>
-                    Tell some more
-                  </Button>
-                  <Button href="#" onClick={() => this.onPromptClicked(2)}>
-                    What in the story makes you think that?
-                  </Button>
-                  <Button href="#" onClick={() => this.onPromptClicked(3)}>
-                    Why is that important?
-                  </Button>
-                  <Button href="#" onClick={() => this.onPromptClicked(4)}>
-                    Why do you think that?
-                  </Button>
-                  <Button href="#" onClick={() => this.onPromptClicked(5)}>
-                    Repeat the question
-                  </Button>
-                  <Button href="#" onClick={() => this.onPromptClicked(6)}>
-                    <strong>No prompt needed</strong>
-                  </Button>
-                </ButtonGroup>
-              </div>
+              <PromptButtons
+                immediate={false}
+                showPromptAlert={this.showPromptAlert}
+                studentID={this.props.studentID}
+              />
 
               <div className={styles.compPromptContainer}>
                 <h4>Asessment Brand?</h4>
