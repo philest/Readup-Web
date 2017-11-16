@@ -871,10 +871,17 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put(setCurrentOverlay("no-overlay"));
 
 	// permission was granted!!!!
-	yield put.resolve(hideVolumeIndicator());
-	yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
 
-	yield take("never pass");
+	const isDemo = yield select(getIsDemo);
+	const isWarmup = yield select(getIsWarmup);
+
+	if (!isDemo && isWarmup) {
+		// show the video saga
+		yield put.resolve(hideVolumeIndicator());
+		yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
+
+		yield take("never pass");
+	}
 
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
@@ -884,7 +891,6 @@ function* assessThenSubmitSaga(assessmentId) {
 	effects.push(yield fork(hideVolumeSaga));
 
 	const book = yield select(getBook);
-	const isWarmup = yield select(getIsWarmup);
 
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
@@ -954,8 +960,6 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	// now we start the assessment for real
 	effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
-
-	const isDemo = yield select(getIsDemo);
 
 	yield call(
 		sendEmail,
