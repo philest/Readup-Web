@@ -105,6 +105,16 @@ export function roomJoined(room) {
   // add the dataTrack after the room is joined
   room.localParticipant.publishTrack(dataTrack);
 
+  // If it's the grader, notify the student that they need to give a full state
+  // update to the grader
+
+  if (identity.toLowerCase().includes("grader")) {
+    setTimeout(() => {
+      console.log("Telling the student to send us all state...");
+      dataTrack.send("SEND-ALL-STATE"); // indicator that they should send all state=
+    }, 5000);
+  }
+
   // document.getElementById("button-join").style.display = "none";
   // document.getElementById("button-leave").style.display = "inline";
 
@@ -139,7 +149,11 @@ export function roomJoined(room) {
           console.log("getting a data track message");
           // console.log(data);
 
-          if (data.includes("VIDEO")) {
+          if (data.includes("SEND-ALL-STATE")) {
+            console.log(data);
+            console.log("got a message to send over all state");
+            this.sendAllPropsIndividually(this.props.readerProps);
+          } else if (data.includes("VIDEO")) {
             onToggleShowVideo();
           } else if (data.includes("PROMPT")) {
             let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
@@ -336,6 +350,27 @@ export default class VideoChat extends React.Component {
 
             dataTrack.send(JSON.stringify(obj));
           }
+        }
+      }
+    }
+  }
+
+  sendAllPropsIndividually(readerProps) {
+    if (!this.props.isWithinGrader) {
+      for (var key in readerProps) {
+        if (readerProps.hasOwnProperty(key)) {
+          console.log(`The ${key} key  was ${this.props.readerProps[key]}`);
+
+          console.log(
+            "studentDash just updated a reader prop (sendAllPropsIndividually)..."
+          );
+          console.log(readerProps[key]);
+
+          let obj = {};
+          obj[key] = readerProps[key];
+          console.log(obj);
+
+          dataTrack.send(JSON.stringify(obj));
         }
       }
     }
