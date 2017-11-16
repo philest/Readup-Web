@@ -115,6 +115,11 @@ export function roomJoined(room) {
   // add the dataTrack after the room is joined
   room.localParticipant.publishTrack(dataTrack);
 
+  while (room.localParticipant.dataTracks.size <= 0) {
+    // try readding it if it did not connect
+    room.localParticipant.publishTrack(dataTrack);
+  }
+
   // If it's the grader, notify the student that they need to give a full state
   // update to the grader
 
@@ -667,7 +672,7 @@ div#controls div#log p {
   height: 100vh;
 }
 
-#reader-container div{
+#reader-container > div{
     position: relative;
     z-index: -1;
     width: 100%;

@@ -203,6 +203,7 @@
 .singleTitle {
 	font-weight: 100;
 	font-family: "Proximanova Semibold";
+	text-align: center;
 }
 
 @keyframes pulse-right {
