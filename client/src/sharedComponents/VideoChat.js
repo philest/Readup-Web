@@ -34,6 +34,8 @@ import PermissionsOverlay from "../StudentDashboard/overlays/PermissionsOverlay"
 import CountdownOverlay from "../StudentDashboard/overlays/CountdownOverlay";
 import SpinnerOverlay from "../StudentDashboard/overlays/SpinnerOverlay";
 
+import { sendEmail } from "../ReportsInterface/emailHelpers";
+
 const Video = require("twilio-video");
 
 import {
@@ -118,6 +120,22 @@ export function roomJoined(room) {
   while (room.localParticipant.dataTracks.size <= 0) {
     // try readding it if it did not connect
     room.localParticipant.publishTrack(dataTrack);
+  }
+
+  if (localAudio && room.localParticipant.audioTracks.size <= 0) {
+    sendEmail(
+      "The audio track failed to activate",
+      "The audio track failed to activate",
+      "philesterman@gmail.com"
+    );
+  }
+
+  if (localVideo && room.localParticipant.videoTracks.size <= 0) {
+    sendEmail(
+      "The video track failed to activate",
+      "The video track failed to activate",
+      "philesterman@gmail.com"
+    );
   }
 
   // If it's the grader, notify the student that they need to give a full state
