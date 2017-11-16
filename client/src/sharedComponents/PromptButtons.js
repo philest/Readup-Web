@@ -11,7 +11,9 @@ import { PromptOptions } from "../StudentDashboard/types";
 export default class PromptButtons extends React.Component {
   static propTypes = {
     immediate: PropTypes.bool.isRequired, // this is passed from the Rails view
-    showPromptAlert: PropTypes.func
+    showPromptAlert: PropTypes.func,
+    studentID: PropTypes.number,
+    sendPromptDataMessage: PropTypes.func
   };
 
   static defaultProps = {
@@ -31,16 +33,21 @@ export default class PromptButtons extends React.Component {
 
     if (!this.props.immediate) {
       updateStudent(params, this.props.studentID);
+      this.props.showPromptAlert();
+    } else {
+      this.props.sendPromptDataMessage(promptNumber);
     }
-
-    this.props.showPromptAlert();
   };
 
   render() {
     return (
       <div className={[styles.compPromptContainer, styles.block]}>
         <style>{`.btn-group .btn {z-index: 0;}`}</style>
-        <h4>Post-Question -- Prompts</h4>
+        <h4>
+          {this.props.immediate
+            ? "Immediate -- Live Prompts"
+            : "Post-Question -- Prompts"}
+        </h4>
         <ButtonGroup
           className={[styles.fluencyButtonGroup, styles.promptButtonGroup].join(
             " "

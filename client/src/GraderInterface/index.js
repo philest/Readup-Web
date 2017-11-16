@@ -490,20 +490,6 @@ export default class GraderInterface extends React.Component {
     }, 2500);
   };
 
-  onPromptClicked = (promptNumber, isImmediate) => {
-    let promptStatus = PromptOptions[Object.keys(PromptOptions)[promptNumber]];
-
-    const params = { prompt_status: promptStatus };
-
-    console.log(params);
-
-    if (!isImmediate) {
-      updateStudent(params, this.props.studentID);
-    }
-
-    this.showPromptAlert();
-  };
-
   onIsLiveDemoClicked = () => {
     this.setState({ isLiveDemo: true });
     updateAssessment(
@@ -1013,6 +999,14 @@ export default class GraderInterface extends React.Component {
               />
             </div>
           )}
+          <br />
+          <br />
+          <br />
+          <PromptButtons
+            immediate={false}
+            showPromptAlert={this.showPromptAlert}
+            studentID={this.props.studentID}
+          />
         </div>
       );
     }

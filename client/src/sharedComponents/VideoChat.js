@@ -5,7 +5,7 @@ import styles from "../GraderInterface/styles.css";
 
 import { Button, ButtonGroup } from "react-bootstrap";
 
-import { playSound } from "../StudentDashboard/audioPlayer.js";
+import { playSound, stopAudio } from "../StudentDashboard/audioPlayer.js";
 import { PromptAudioOptions } from "../StudentDashboard/types";
 
 import Reader from "../StudentDashboard/Reader";
@@ -45,6 +45,8 @@ import {
   attachParticipantTracks,
   attachTracks
 } from "./twilio-video-utilities.js";
+
+import PromptButtons from "./PromptButtons";
 
 let showLogs;
 let audioToggleButton;
@@ -203,9 +205,11 @@ export function roomJoined(room) {
                   Object.keys(PromptAudioOptions)[promptNum - 1]
                 ]
               );
-            } else {
+            } else if (promptNum === 5) {
               // a repeat prompt
               playSound(lastQuestionAudioFile);
+            } else {
+              stopAudio();
             }
           } else {
             console.log("WE GOT THE PROPSSSS...");
@@ -429,8 +433,8 @@ export default class VideoChat extends React.Component {
     this.setState({ showVideo: !this.state.showVideo });
   };
 
-  onPromptClicked = (promptNumber, isImmediate) => {
-    console.log("clicked immediate prompt ");
+  sendPromptDataMessage = promptNumber => {
+    console.log(`clicked immediate prompt ${promptNumber}`);
     dataTrack.send(`PROMPT-${promptNumber}`);
   };
 
@@ -757,34 +761,10 @@ div#controls div#log p {
           )}
 
           {!this.props.studentDash && (
-            <div className={[styles.compPromptContainer, styles.block]}>
-              <h4>Immediate, Live Prompts</h4>
-              <ButtonGroup
-                className={[
-                  styles.fluencyButtonGroup,
-                  styles.promptButtonGroup
-                ].join(" ")}
-              >
-                <Button href="#" onClick={() => this.onPromptClicked(1, true)}>
-                  Tell some more
-                </Button>
-                <Button href="#" onClick={() => this.onPromptClicked(2, true)}>
-                  What in the story makes you think that?
-                </Button>
-                <Button href="#" onClick={() => this.onPromptClicked(3, true)}>
-                  Why is that important?
-                </Button>
-                <Button href="#" onClick={() => this.onPromptClicked(4, true)}>
-                  Why do you think that?
-                </Button>
-                <Button href="#" onClick={() => this.onPromptClicked(5, true)}>
-                  Repeat the question
-                </Button>
-                <Button href="#" onClick={() => this.onPromptClicked(6, true)}>
-                  <strong>No prompt needed</strong>
-                </Button>
-              </ButtonGroup>
-            </div>
+            <PromptButtons
+              immediate={true}
+              sendPromptDataMessage={this.sendPromptDataMessage}
+            />
           )}
 
           {this.props.logs && (
