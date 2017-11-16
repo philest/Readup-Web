@@ -83,6 +83,16 @@ let newReaderProps = {
   spellingInput: ""
 };
 
+const importantStateKeysToUpdateOnStart = [
+  "inComp",
+  "inSpelling",
+  "inOralReading",
+  "currentModalId",
+  "currentOverlayId",
+  "readerState",
+  "spellingInput"
+];
+
 // scope it up here
 let dataTrack = new Video.LocalDataTrack({
   maxPacketLifeTime: null,
@@ -357,8 +367,13 @@ export default class VideoChat extends React.Component {
 
   sendAllPropsIndividually(readerProps) {
     if (!this.props.isWithinGrader) {
-      for (var key in readerProps) {
-        if (readerProps.hasOwnProperty(key)) {
+      for (var key in newReaderProps) {
+        //only iterate through the keys in initial state
+        if (
+          readerProps.hasOwnProperty(key) &&
+          importantStateKeysToUpdateOnStart.includes(key)
+        ) {
+          //if its an important state key
           console.log(`The ${key} key  was ${this.props.readerProps[key]}`);
 
           console.log(
