@@ -146,7 +146,13 @@ export default class Reader extends React.Component {
           <script src="https://fast.wistia.com/assets/external/E-v1.js" async />
           <div
             className="wistia_responsive_padding"
-            style={{ paddingTop: 56.25 + "%", position: "relative" }}
+            style={{
+              paddingTop: 56.25 + "%",
+              paddingRight: 0,
+              paddingBottom: 0,
+              paddingLeft: 0,
+              position: "relative"
+            }}
           >
             <div
               className="wistia_responsive_wrapper"
