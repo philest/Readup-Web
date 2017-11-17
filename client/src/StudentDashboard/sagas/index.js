@@ -880,7 +880,7 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield put.resolve(hideVolumeIndicator());
 		yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
 
-		yield take("never pass");
+		yield take(START_RECORDING_CLICKED);
 	}
 
 	let recorder = yield select(getRecorder);

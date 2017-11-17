@@ -141,7 +141,7 @@ export default class Reader extends React.Component {
         <iframe
           width="560"
           height="315"
-          src="https://www.youtube.com/embed/IPfJnp1guPc?rel=0&amp;showinfo=0&amp;start=30&amp;autoplay=1"
+          src="https://youtu.be/FmfDDf_Zkbg?rel=0&amp;showinfo=0&amp;start=30&amp;autoplay=1"
           frameBorder="0"
           allowFullScreen
         />
@@ -363,9 +363,7 @@ export default class Reader extends React.Component {
           subtitle={null}
           style={{ width: 145, height: 120 }}
           disabled={this.props.disabled}
-          onClick={() => {
-            console.log("okay clicked button");
-          }}
+          onClick={this.props.onStartClicked}
         />
       );
     }
