@@ -138,13 +138,39 @@ export default class Reader extends React.Component {
 
     if (this.props.readerState === "READER_STATE_WATCHING_VIDEO") {
       return (
-        <iframe
-          width="560"
-          height="315"
-          src="https://youtu.be/FmfDDf_Zkbg?rel=0&amp;showinfo=0&amp;start=30&amp;autoplay=1"
-          frameBorder="0"
-          allowFullScreen
-        />
+        <div>
+          <script
+            src="https://fast.wistia.com/embed/medias/1rokpxeh2j.jsonp"
+            async
+          />
+          <script src="https://fast.wistia.com/assets/external/E-v1.js" async />
+          <div
+            className="wistia_responsive_padding"
+            style={{ paddingTop: 56.25 + "%", position: "relative" }}
+          >
+            <div
+              className="wistia_responsive_wrapper"
+              style={{
+                height: 100 + "%",
+                left: 0,
+                position: "absolute",
+                top: 0,
+                width: 100 + "%"
+              }}
+            >
+              <span
+                className="wistia_embed wistia_async_1rokpxeh2j popover=true popoverAnimateThumbnail=true videoFoam=true"
+                style={{
+                  display: "inline-block",
+                  height: 100 + "%",
+                  width: 100 + "%"
+                }}
+              >
+                &nbsp;
+              </span>
+            </div>
+          </div>
+        </div>
       );
     }
 
