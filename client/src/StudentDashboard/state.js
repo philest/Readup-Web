@@ -1369,7 +1369,8 @@ const initialState = {
   spellingQuestionNumber: 1,
   assessmentID: null,
   assessmentSubmitted: false,
-  spellingInput: ""
+  spellingInput: "",
+  hasLoggedIn: false
 };
 
 // any way to do this other than writing a custom reducer for each?

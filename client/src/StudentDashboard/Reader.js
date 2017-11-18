@@ -8,6 +8,7 @@ import RectangleButton from "./components/RectangleButton";
 import ForwardArrowButton from "./components/ForwardArrowButton";
 import BackArrowButton from "./components/BackArrowButton";
 import SpellingTextField from "./components/SpellingTextField";
+import AvatarContainer from "./components/AvatarContainer";
 
 import styles from "./styles.css";
 import css from "./components/NavigationBar/styles.css";
@@ -124,6 +125,10 @@ export default class Reader extends React.Component {
   };
 
   renderCenterDisplay = () => {
+    if (!this.props.hasLoggedIn) {
+      return <AvatarContainer />;
+    }
+
     if (this.props.inSpelling) {
       return null;
     }
@@ -368,6 +373,10 @@ export default class Reader extends React.Component {
   };
 
   renderRightButton = () => {
+    if (!this.props.hasLoggedIn) {
+      return null;
+    }
+
     if (this.props.readerState === "READER_STATE_WATCHING_VIDEO") {
       return (
         <ForwardArrowButton

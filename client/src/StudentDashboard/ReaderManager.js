@@ -69,7 +69,8 @@ function mapStateToProps(state) {
     spellingQuestionNumber: state.reader.spellingQuestionNumber,
     assessmentID: state.reader.assessmentID,
     assessmentSubmitted: state.reader.assessmentSubmitted,
-    micPermissionsStatus: state.reader.micPermissionsStatus
+    micPermissionsStatus: state.reader.micPermissionsStatus,
+    hasLoggedIn: state.reader.hasLoggedIn
   };
 }
 

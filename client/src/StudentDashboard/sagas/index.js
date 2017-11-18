@@ -119,7 +119,8 @@ import {
 	getBook,
 	getInComp,
 	getInOralReading,
-	getInSpelling
+	getInSpelling,
+	getHasLoggedIn
 } from "./selectors";
 
 import assessmentSaga from "./assessmentSaga";
@@ -874,6 +875,12 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	const isDemo = yield select(getIsDemo);
 	const isWarmup = yield select(getIsWarmup);
+	const hasLoggedIn = yield select(getHasLoggedIn);
+
+	if (!isDemo && isWarmup && !hasLoggedIn) {
+		yield clog("in login world...");
+		yield take("LOG in yo first");
+	}
 
 	if (!isDemo && isWarmup) {
 		// show the video saga

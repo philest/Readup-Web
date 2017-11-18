@@ -1,0 +1,45 @@
+.circle {
+	width: 100px;
+	height: 100px;
+	background: white;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+.innerCircle {
+	width: 90px;
+	height: 90px;
+	background: blue;
+	-moz-border-radius: 45px;
+	-webkit-border-radius: 45px;
+	border-radius: 45px;
+
+	position: relative;
+	top: 5px;
+	left: 4px;
+}
+
+.blue {
+	background-color: #66cbaa;
+}
+
+.dropShadow {
+	-webkit-box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.39);
+	box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.39);
+}
+
+.avatarWhole {
+	margin: 30px;
+	display: inline-block;
+	text-align: center;
+}
+
+.name {
+	position: relative;
+	top: 28px;
+	font-family: "ProximaNova Semibold";
+	font-size: 18px;
+	text-align: center;
+}
