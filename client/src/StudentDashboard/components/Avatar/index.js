@@ -17,6 +17,10 @@ function getColorClass(color) {
     return styles.blue;
   } else if (color === "purple") {
     return styles.purple;
+  } else if (color === "teal") {
+    return styles.teal;
+  } else if (color === "green") {
+    return styles.green;
   }
 }
 

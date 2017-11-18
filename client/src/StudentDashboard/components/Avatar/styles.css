@@ -21,12 +21,20 @@
 	left: 3px;
 }
 
-.blue {
+.teal {
 	background-color: #66cbaa;
+}
+
+.blue {
+	background-color: #5d739d;
 }
 
 .purple {
 	background-color: #8687be;
+}
+
+.green {
+	background-color: #bcd66d;
 }
 
 .dropShadow {
