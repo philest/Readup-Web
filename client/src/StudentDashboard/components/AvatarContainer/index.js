@@ -3,12 +3,26 @@ import React from "react";
 import styles from "./styles.css";
 import Avatar from "../Avatar";
 
+let names =
+  "Alishia Slaton, Annis Miceli, Joetta Cardwell, Willena Braz, Viola Paneto, Shasta Bluhm, Efrain Lukasik, Silva Billings, Woodrow Mcclean, Gertrud Duffer, Denna Gerardi, Rosetta Tondreau, Royce Storie, Juliette Orsi, Davina Johnstone, Truman Benefield, Thora Draper, Dorie Ringgold, Nelda Voisine, Delphia Rudnick";
+let nameArr = names.split(", ");
+
 export default class AvatarContainer extends React.Component {
   static propTypes = {
     test: PropTypes.string
   };
 
   static defaultProps = {};
+
+  renderAvatars = () => {
+    let avatarArray = [];
+
+    for (let i = 0; i < nameArr.length; i++) {
+      avatarArray.push(<Avatar key={i} fullName={nameArr[i]} />);
+    }
+
+    return avatarArray;
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -22,8 +36,7 @@ export default class AvatarContainer extends React.Component {
   render() {
     return (
       <div className={styles.studentAvatarContainer}>
-        <Avatar fullName={"Philip Esterman"} />
-        <Avatar fullName={"Sam Esterman"} color={"purple"} />
+        {this.renderAvatars()}
       </div>
     );
   }
