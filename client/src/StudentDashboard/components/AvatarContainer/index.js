@@ -8,6 +8,7 @@ let names =
 let nameArr = names.split(", ");
 
 let colorArr = ["teal", "purple", "green", "blue"];
+let offsetArr = ["left", "right"];
 
 export default class AvatarContainer extends React.Component {
   static propTypes = {
@@ -21,7 +22,12 @@ export default class AvatarContainer extends React.Component {
 
     for (let i = 0; i < nameArr.length; i++) {
       avatarArray.push(
-        <Avatar key={i} fullName={nameArr[i]} color={colorArr[i % 4]} />
+        <Avatar
+          key={i}
+          fullName={nameArr[i]}
+          color={colorArr[i % 4]}
+          offset={offsetArr[i % 2]}
+        />
       );
     }
 

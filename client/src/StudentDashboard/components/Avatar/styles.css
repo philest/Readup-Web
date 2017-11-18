@@ -15,10 +15,20 @@
 	-moz-border-radius: 45px;
 	-webkit-border-radius: 45px;
 	border-radius: 45px;
-
 	position: relative;
 	top: 5px;
+}
+
+.offsetLeft {
 	left: 3px;
+}
+
+.offsetRight {
+	left: 7px;
+}
+
+.offsetNone {
+	left: 5px;
 }
 
 .teal {

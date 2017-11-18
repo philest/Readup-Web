@@ -24,16 +24,28 @@ function getColorClass(color) {
   }
 }
 
+function getOffsetClass(offset) {
+  if (offset === "left") {
+    return styles.offsetLeft;
+  } else if (offset === "right") {
+    return styles.offsetRight;
+  } else if (offset === "none") {
+    return styles.offsetNone;
+  }
+}
+
 export default class Avatar extends React.Component {
   static propTypes = {
     fullName: PropTypes.string,
     color: PropTypes.string,
-    large: PropTypes.bool
+    large: PropTypes.bool,
+    offest: PropTypes.string
   };
 
   static defaultProps = {
     large: false,
-    color: "blue"
+    color: "blue",
+    offset: "none"
   };
 
   /**
@@ -52,6 +64,7 @@ export default class Avatar extends React.Component {
           <div
             className={[
               styles.innerCircle,
+              getOffsetClass(this.props.offset),
               getColorClass(this.props.color)
             ].join(" ")}
           />
