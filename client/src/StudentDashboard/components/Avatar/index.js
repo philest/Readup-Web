@@ -39,13 +39,15 @@ export default class Avatar extends React.Component {
     fullName: PropTypes.string,
     color: PropTypes.string,
     large: PropTypes.bool,
-    offest: PropTypes.string
+    offest: PropTypes.string,
+    teacher: PropTypes.bool
   };
 
   static defaultProps = {
     large: false,
     color: "blue",
-    offset: "none"
+    offset: "none",
+    teacher: false
   };
 
   /**
@@ -59,7 +61,12 @@ export default class Avatar extends React.Component {
 
   render() {
     return (
-      <div className={styles.avatarWhole}>
+      <div
+        className={[
+          styles.avatarWhole,
+          this.props.teacher ? styles.centered : ""
+        ].join(" ")}
+      >
         <div className={[styles.circle, styles.dropShadow].join(" ")}>
           <div
             className={[

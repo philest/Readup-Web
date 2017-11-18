@@ -92,3 +92,8 @@
 	font-weight: bold;
 	color: white;
 }
+
+.centered {
+	margin: 170px auto 60px;
+	display: block;
+}

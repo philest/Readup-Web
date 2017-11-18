@@ -45,8 +45,12 @@ export default class AvatarContainer extends React.Component {
 
   render() {
     return (
-      <div className={styles.studentAvatarContainer}>
-        {this.renderAvatars()}
+      <div>
+        <Avatar teacher={true} fullName={"Ms. Joyce"} />
+
+        <div className={styles.studentAvatarContainer}>
+          {this.renderAvatars()}
+        </div>
       </div>
     );
   }
