@@ -2,6 +2,24 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./styles.css";
 
+function getShortenedName(fullName) {
+  let res = fullName.split(" ");
+  return res[0] + " " + res[1].charAt(0) + ".";
+}
+
+function getInitials(fullName) {
+  let res = fullName.split(" ");
+  return res[0].charAt(0) + res[1].charAt(0);
+}
+
+function getColorClass(color) {
+  if (color === "blue") {
+    return styles.blue;
+  } else if (color === "purple") {
+    return styles.purple;
+  }
+}
+
 export default class Avatar extends React.Component {
   static propTypes = {
     fullName: PropTypes.string,
@@ -10,7 +28,8 @@ export default class Avatar extends React.Component {
   };
 
   static defaultProps = {
-    large: false
+    large: false,
+    color: "blue"
   };
 
   /**
@@ -26,9 +45,20 @@ export default class Avatar extends React.Component {
     return (
       <div className={styles.avatarWhole}>
         <div className={[styles.circle, styles.dropShadow].join(" ")}>
-          <div className={[styles.innerCircle, styles.blue].join(" ")} />
-          <span className={styles.name}>{this.props.fullName}</span>
+          <div
+            className={[
+              styles.innerCircle,
+              getColorClass(this.props.color)
+            ].join(" ")}
+          />
+          <span className={styles.initials}>
+            {getInitials(this.props.fullName)}
+          </span>
+          <br />
         </div>
+        <span className={styles.name}>
+          {getShortenedName(this.props.fullName)}
+        </span>
       </div>
     );
   }

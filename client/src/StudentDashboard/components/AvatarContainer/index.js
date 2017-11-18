@@ -23,6 +23,7 @@ export default class AvatarContainer extends React.Component {
     return (
       <div className={styles.studentAvatarContainer}>
         <Avatar fullName={"Philip Esterman"} />
+        <Avatar fullName={"Sam Esterman"} color={"purple"} />
       </div>
     );
   }

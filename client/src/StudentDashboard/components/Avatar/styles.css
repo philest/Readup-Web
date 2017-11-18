@@ -5,6 +5,7 @@
 	-moz-border-radius: 50px;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
+	margin: 0 auto;
 }
 
 .innerCircle {
@@ -17,11 +18,15 @@
 
 	position: relative;
 	top: 5px;
-	left: 4px;
+	left: 3px;
 }
 
 .blue {
 	background-color: #66cbaa;
+}
+
+.purple {
+	background-color: #8687be;
 }
 
 .dropShadow {
@@ -34,12 +39,38 @@
 	margin: 30px;
 	display: inline-block;
 	text-align: center;
+
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+
+	transition: all 0.3s;
+}
+
+.avatarWhole:hover {
+	transform: translateY(-3px);
+	filter: brightness(120%);
+	transition: all 0.3s;
 }
 
 .name {
 	position: relative;
-	top: 28px;
+	top: 10px;
 	font-family: "ProximaNova Semibold";
 	font-size: 18px;
 	text-align: center;
+	line-height: 1.4em;
+}
+
+.initials {
+	position: relative;
+	top: -63px;
+	font-family: "ProximaNova";
+	font-size: 38px;
+	text-align: center;
+	font-weight: bold;
+	color: white;
 }
