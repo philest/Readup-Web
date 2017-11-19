@@ -156,6 +156,7 @@ export default class Reader extends React.Component {
             WebkitAllowFullScreen
             oAllowFullScreen
             msAllowFullScreen
+            muted={this.props.isWithinGrader}
             width="640"
             height="360"
             style={{ zIndex: 999999999 }}

@@ -62,37 +62,38 @@ let localAudio;
 let onToggleShowVideo;
 let lastQuestionAudioFile;
 
-let newReaderProps = initialState;
+// let newReaderProps = initialState;
 
-// let newReaderProps = {
-//   pageNumber: 0,
-//   numPages: fireflyBook.numPages,
-//   book: fireflyBook,
-//   questionNumber: 1,
-//   readerState: ReaderStateOptions.playingBookIntro,
-//   prompt: PromptOptions.awaitingPrompt,
-//   pauseType: PauseTypeOptions.fromPauseButton,
-//   hasRecordedSomething: false,
-//   compRecordingURL: null,
-//   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
-//   currentSoundId: "no-sound",
-//   currentModalId: "no-modal",
-//   currentOverlayId: "no-overlay",
-//   showSpinner: false,
-//   countdownValue: -1,
-//   showVolumeIndicator: true,
-//   showSkipPrompt: false,
-//   inComp: false,
-//   inSpelling: false,
-//   inOralReading: true,
-//   isLiveDemo: false,
-//   spellingAnswerGiven: false,
-//   spellingQuestionNumber: 1,
-//   assessmentID: null,
-//   assessmentSubmitted: false,
-//   studentName: "Demo Student",
-//   spellingInput: ""
-// };
+let newReaderProps = {
+  pageNumber: 0,
+  numPages: fireflyBook.numPages,
+  book: fireflyBook,
+  questionNumber: 1,
+  readerState: ReaderStateOptions.playingBookIntro,
+  prompt: PromptOptions.awaitingPrompt,
+  pauseType: PauseTypeOptions.fromPauseButton,
+  hasRecordedSomething: false,
+  compRecordingURL: null,
+  micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
+  currentSoundId: "no-sound",
+  currentModalId: "no-modal",
+  currentOverlayId: "no-overlay",
+  showSpinner: false,
+  countdownValue: -1,
+  showVolumeIndicator: true,
+  showSkipPrompt: false,
+  inComp: false,
+  inSpelling: false,
+  inOralReading: true,
+  isLiveDemo: false,
+  spellingAnswerGiven: false,
+  spellingQuestionNumber: 1,
+  assessmentID: null,
+  assessmentSubmitted: false,
+  studentName: "Demo Student",
+  spellingInput: "",
+  hasLoggedIn: true
+};
 
 const importantStateKeysToUpdateOnStart = [
   "inComp",
@@ -195,9 +196,9 @@ export function roomJoined(room) {
             console.log(data);
             console.log("got a message to send over all state");
             this.sendAllPropsIndividually(this.props.readerProps);
-          } else if (data.includes("VIDEO")) {
+          } else if (data.includes("VIDEO-ON") || data.includes("VIDEO-OFF")) {
             onToggleShowVideo();
-          } else if (data.includes("PROMPT")) {
+          } else if (data.includes("PROMPT-")) {
             let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
 
             console.log(PromptAudioOptions);
@@ -402,6 +403,8 @@ export default class VideoChat extends React.Component {
   sendAllPropsIndividually(readerProps) {
     if (!this.props.isWithinGrader) {
       for (var key in newReaderProps) {
+        console.log("key: ", key);
+
         //only iterate through the keys in initial state
         if (
           readerProps.hasOwnProperty(key) &&
@@ -932,11 +935,8 @@ div#controls div#log p {
                 studentName={this.state.newReaderProps.studentName}
               />
             </div>
-            ); };
           </div>
         )}
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" />
       </div>
     );
   }
