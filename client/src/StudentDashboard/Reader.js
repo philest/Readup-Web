@@ -584,6 +584,49 @@ export default class Reader extends React.Component {
       className: styles.routeTransition
     };
 
+    if (!this.props.hasLoggedIn) {
+      return (
+        <div className={styles.fullHeight}>
+          {this.renderNavigationBar()}
+
+          {this.props.assessmentID &&
+            this.props.micPermissionsStatus ===
+              "MIC_PERMISSIONS_STATUS_GRANTED" && (
+              <div style={{ height: 0 }}>
+                <VideoChat
+                  identity={this.props.studentName}
+                  assessmentID={this.props.assessmentID}
+                  room={`Assessment-${this.props.assessmentID}-Room`}
+                  logs={false}
+                  pictureInPicture={false}
+                  localVideo={!this.props.isDemo}
+                  studentDash
+                  lastQuestionAudioFile={
+                    this.props.book.questions[String(this.props.questionNumber)]
+                      ? this.props.book.questions[
+                          String(this.props.questionNumber)
+                        ].audioSrc
+                      : ""
+                  }
+                  readerProps={this.props}
+                  isWithinGrader={this.props.isWithinGrader}
+                />
+              </div>
+            )}
+
+          <div
+            className={
+              this.props.inSpelling
+                ? styles.spellingContentContainer
+                : styles.contentContainer
+            }
+          >
+            <AvatarContainer />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={styles.fullHeight}>
         {this.renderNavigationBar()}
