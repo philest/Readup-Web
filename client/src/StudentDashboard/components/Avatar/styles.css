@@ -122,6 +122,5 @@
 .centered {
 	display: block;
 	position: relative;
-	/*	top: 60px;
-*/
+	top: -17px;
 }

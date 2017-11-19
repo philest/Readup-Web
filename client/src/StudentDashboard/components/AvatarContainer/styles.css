@@ -17,15 +17,14 @@
 	margin: 0 auto;
 	background-color: white;
 	width: 80%;
-	min-height: 400px;
+	min-height: 360px;
 	border-radius: 9px;
 
-	max-height: 40vh;
+	max-height: 25vh;
 	overflow-y: scroll;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
 
 	position: relative;
-	top: 10px;
 }
