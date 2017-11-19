@@ -40,14 +40,16 @@ export default class Avatar extends React.Component {
     color: PropTypes.string,
     large: PropTypes.bool,
     offest: PropTypes.string,
-    teacher: PropTypes.bool
+    teacher: PropTypes.bool,
+    teacherSignature: PropTypes.string
   };
 
   static defaultProps = {
     large: false,
     color: "blue",
     offset: "none",
-    teacher: false
+    teacher: false,
+    teacherSignature: "Your Teacher"
   };
 
   /**
@@ -96,7 +98,7 @@ export default class Avatar extends React.Component {
         )}
         {this.props.teacher && (
           <span className={[styles.name, styles.largeName].join(" ")}>
-            {this.props.fullName + "'s Class"}
+            {this.props.teacherSignature + "'s Class"}
           </span>
         )}
       </div>
