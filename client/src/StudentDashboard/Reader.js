@@ -35,6 +35,7 @@ export default class Reader extends React.Component {
     isDemo: PropTypes.bool,
     // For displaying the book page
     studentName: PropTypes.string.isRequired, // this is passed from the Rails view
+    teacherName: PropTypes.string,
     pageNumber: PropTypes.number,
     textLines: PropTypes.arrayOf(PropTypes.string),
     imageURL: PropTypes.string,
@@ -623,6 +624,7 @@ export default class Reader extends React.Component {
             <AvatarContainer
               onStudentNameSet={this.props.onStudentNameSet}
               onAvatarClicked={this.props.onAvatarClicked}
+              teacherName={this.props.teacherName}
             />
           </div>
         </div>

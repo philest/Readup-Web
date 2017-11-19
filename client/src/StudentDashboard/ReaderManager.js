@@ -94,7 +94,7 @@ export class StudentDashboard extends React.Component {
     isDemo: PropTypes.bool,
     storyID: PropTypes.string,
     isWarmup: PropTypes.bool,
-    schoolName: PropTypes.string
+    teacherName: PropTypes.string
   };
 
   constructor(props, _railsContext) {
@@ -176,7 +176,8 @@ export class StudentDashboard extends React.Component {
       micPermissionsStatus: this.props.micPermissionsStatus,
       onStudentNameSet: this.props.actions.setStudentName,
       onAvatarClicked: this.props.actions.avatarClicked,
-      hasLoggedIn: this.props.hasLoggedIn
+      hasLoggedIn: this.props.hasLoggedIn,
+      teacherName: this.props.teacherName
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
