@@ -17,8 +17,10 @@ export default class AvatarContainer extends React.Component {
 
   static defaultProps = {};
 
-  renderAvatars = () => {
+  renderAvatars = nameArr => {
     let avatarArray = [];
+
+    nameArr.sort();
 
     for (let i = 0; i < nameArr.length; i++) {
       avatarArray.push(
@@ -49,7 +51,7 @@ export default class AvatarContainer extends React.Component {
         <Avatar teacher={true} teacherSignature={"Ms. Joyce"} />
 
         <div className={styles.studentAvatarContainer}>
-          {this.renderAvatars()}
+          {this.renderAvatars(nameArr)}
         </div>
       </div>
     );
