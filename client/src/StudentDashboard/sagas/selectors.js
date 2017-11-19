@@ -15,3 +15,5 @@ export const getHasLoggedIn = state => state.reader.getHasLoggedIn;
 
 export const getSpellingQuestionNumber = state =>
 	state.reader.spellingQuestionNumber;
+
+export const getStudentName = state => state.reader.studentName;

@@ -10,7 +10,12 @@ import { PromptAudioOptions } from "../StudentDashboard/types";
 
 import Reader from "../StudentDashboard/Reader";
 
-import { fireflyBook, fpBook, library } from "../StudentDashboard/state.js";
+import {
+  fireflyBook,
+  fpBook,
+  library,
+  initialState
+} from "../StudentDashboard/state.js";
 import {
   ReaderStateOptions,
   PauseTypeOptions,
@@ -57,35 +62,37 @@ let localAudio;
 let onToggleShowVideo;
 let lastQuestionAudioFile;
 
-let newReaderProps = {
-  pageNumber: 0,
-  numPages: fireflyBook.numPages,
-  book: fireflyBook,
-  questionNumber: 1,
-  readerState: ReaderStateOptions.playingBookIntro,
-  prompt: PromptOptions.awaitingPrompt,
-  pauseType: PauseTypeOptions.fromPauseButton,
-  hasRecordedSomething: false,
-  compRecordingURL: null,
-  micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
-  currentSoundId: "no-sound",
-  currentModalId: "no-modal",
-  currentOverlayId: "no-overlay",
-  showSpinner: false,
-  countdownValue: -1,
-  showVolumeIndicator: true,
-  showSkipPrompt: false,
-  inComp: false,
-  inSpelling: false,
-  inOralReading: true,
-  isLiveDemo: false,
-  spellingAnswerGiven: false,
-  spellingQuestionNumber: 1,
-  assessmentID: null,
-  assessmentSubmitted: false,
-  studentName: "Demo Student",
-  spellingInput: ""
-};
+let newReaderProps = initialState;
+
+// let newReaderProps = {
+//   pageNumber: 0,
+//   numPages: fireflyBook.numPages,
+//   book: fireflyBook,
+//   questionNumber: 1,
+//   readerState: ReaderStateOptions.playingBookIntro,
+//   prompt: PromptOptions.awaitingPrompt,
+//   pauseType: PauseTypeOptions.fromPauseButton,
+//   hasRecordedSomething: false,
+//   compRecordingURL: null,
+//   micPermissionsStatus: MicPermissionsStatusOptions.awaiting,
+//   currentSoundId: "no-sound",
+//   currentModalId: "no-modal",
+//   currentOverlayId: "no-overlay",
+//   showSpinner: false,
+//   countdownValue: -1,
+//   showVolumeIndicator: true,
+//   showSkipPrompt: false,
+//   inComp: false,
+//   inSpelling: false,
+//   inOralReading: true,
+//   isLiveDemo: false,
+//   spellingAnswerGiven: false,
+//   spellingQuestionNumber: 1,
+//   assessmentID: null,
+//   assessmentSubmitted: false,
+//   studentName: "Demo Student",
+//   spellingInput: ""
+// };
 
 const importantStateKeysToUpdateOnStart = [
   "inComp",
@@ -94,7 +101,7 @@ const importantStateKeysToUpdateOnStart = [
   "currentModalId",
   "currentOverlayId",
   "readerState",
-  "spellingInput"
+  "hasLoggedIn"
 ];
 
 // scope it up here
@@ -921,6 +928,8 @@ div#controls div#log p {
                 book={this.props.book}
                 spellingInput={this.state.newReaderProps.spellingInput}
                 isWithinGrader={true}
+                hasLoggedIn={this.state.newReaderProps.hasLoggedIn}
+                studentName={this.state.newReaderProps.studentName}
               />
             </div>
             ); };

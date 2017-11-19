@@ -555,7 +555,7 @@ export default class Reader extends React.Component {
   };
 
   renderNavigationBar = () => {
-    const navProps = {
+    let navProps = {
       className: styles.navBar,
       studentName: this.props.studentName,
       showPauseButton: this.props.showPauseButton,

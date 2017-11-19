@@ -1348,7 +1348,7 @@ export const library = {
   step5: step5Book
 };
 
-const initialState = {
+export const initialState = {
   pageNumber: 0,
   numPages: fireflyBook.numPages,
   book: fireflyBook,
@@ -1377,7 +1377,8 @@ const initialState = {
   assessmentID: null,
   assessmentSubmitted: false,
   spellingInput: "",
-  hasLoggedIn: false
+  hasLoggedIn: false,
+  studentName: "Demo Student"
 };
 
 // any way to do this other than writing a custom reducer for each?

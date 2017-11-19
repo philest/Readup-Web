@@ -121,7 +121,8 @@ import {
 	getInComp,
 	getInOralReading,
 	getInSpelling,
-	getHasLoggedIn
+	getHasLoggedIn,
+	getStudentName
 } from "./selectors";
 
 import assessmentSaga from "./assessmentSaga";
@@ -885,6 +886,16 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield call(playSoundAsync, "/audio/complete.mp3");
 	}
 
+	const studentName = yield select(getStudentName);
+	const thisBook = yield select(getBook);
+
+	$.ajax({
+		url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
+		type: "post"
+	}).fail(function(xhr, status, err) {
+		console.log(err);
+	});
+
 	if (!isDemo && isWarmup) {
 		// show the video saga
 		yield put.resolve(hideVolumeIndicator());
@@ -1184,7 +1195,6 @@ function* assessThenSubmitSaga(assessmentId) {
 function* rootSaga() {
 	const { payload: { isDemo } } = yield take(IS_DEMO_SET);
 	const { payload: { bookKey } } = yield take(BOOK_KEY_SET);
-	const { payload: { studentName } } = yield take(STUDENT_NAME_SET);
 	const { payload: { isWarmup } } = yield take(IS_WARMUP_SET);
 
 	yield clog("isDemo: ", isDemo);
@@ -1217,12 +1227,12 @@ function* rootSaga() {
 
 	// CREATE THE USER
 
-	$.ajax({
-		url: `/auth/phil_setup_demo?book_key=${bookKey}&student_name=${studentName}`,
-		type: "post"
-	}).fail(function(xhr, status, err) {
-		console.log(err);
-	});
+	// $.ajax({
+	// 	url: `/auth/phil_setup_demo?book_key=${bookKey}&student_name=${studentName}`,
+	// 	type: "post"
+	// }).fail(function(xhr, status, err) {
+	// 	console.log(err);
+	// });
 
 	// Call Phil to alert if it's a live student test
 

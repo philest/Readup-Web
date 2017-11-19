@@ -50,9 +50,9 @@ function Root({ store, rorProps }) {
                 ...rorProps,
                 storyID: props.match.params.story_id,
                 isDemo: props.match.params.is_demo === "true",
-                studentName:
-                  toTitleCase(props.match.params.student_name) ||
-                  "Demo Student",
+                // studentName:
+                //   toTitleCase(props.match.params.student_name) ||
+                //   "Demo Student",
                 isWarmup: props.match.params.is_warmup !== "false"
               }; //router: this.props.history}
 
@@ -67,8 +67,8 @@ function Root({ store, rorProps }) {
                 ...props,
                 ...rorProps,
                 storyID: props.match.params.story_id,
-                isDemo: props.match.params.is_demo === "true",
-                studentName: "Demo Student"
+                isDemo: props.match.params.is_demo === "true"
+                // studentName: "Demo Student"
               }; //router: this.props.history}
               return <ReaderManager {...readerManagerProps} />;
             }}

@@ -70,7 +70,8 @@ function mapStateToProps(state) {
     assessmentID: state.reader.assessmentID,
     assessmentSubmitted: state.reader.assessmentSubmitted,
     micPermissionsStatus: state.reader.micPermissionsStatus,
-    hasLoggedIn: state.reader.hasLoggedIn
+    hasLoggedIn: state.reader.hasLoggedIn,
+    studentName: state.reader.studentName
   };
 }
 
@@ -89,10 +90,9 @@ function mapDispatchToProps(dispatch) {
 // todo
 export class StudentDashboard extends React.Component {
   static propTypes = {
-    studentName: PropTypes.string.isRequired, // this is passed from the Rails view
+    // studentName: PropTypes.string.isRequired, // this is passed from the Rails view
     isDemo: PropTypes.bool,
     storyID: PropTypes.string,
-    studentName: PropTypes.string,
     isWarmup: PropTypes.bool
   };
 
@@ -104,7 +104,7 @@ export class StudentDashboard extends React.Component {
     this.props.actions.setIsDemo(this.props.isDemo);
     this.props.actions.setBookKey(this.props.storyID);
     this.props.actions.setBook(this.props.storyID);
-    this.props.actions.setStudentName(this.props.studentName);
+    // this.props.actions.setStudentName(this.props.studentName);
 
     console.log("isWarmup: ", this.props.isWarmup);
 
