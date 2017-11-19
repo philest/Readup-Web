@@ -93,7 +93,8 @@ export class StudentDashboard extends React.Component {
     // studentName: PropTypes.string.isRequired, // this is passed from the Rails view
     isDemo: PropTypes.bool,
     storyID: PropTypes.string,
-    isWarmup: PropTypes.bool
+    isWarmup: PropTypes.bool,
+    schoolName: PropTypes.string
   };
 
   constructor(props, _railsContext) {

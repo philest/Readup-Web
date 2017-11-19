@@ -156,7 +156,6 @@ export default class Reader extends React.Component {
             WebkitAllowFullScreen
             oAllowFullScreen
             msAllowFullScreen
-            muted={this.props.isWithinGrader}
             width="640"
             height="360"
             style={{ zIndex: 999999999 }}
@@ -575,6 +574,30 @@ export default class Reader extends React.Component {
     return <NavigationBar {...navProps} />;
   };
 
+  renderVideoChat = () => {
+    return (
+      <div style={{ height: 0 }}>
+        <VideoChat
+          identity={this.props.studentName}
+          assessmentID={this.props.assessmentID}
+          room={`Assessment-${this.props.assessmentID}-Room`}
+          logs={false}
+          pictureInPicture={false}
+          localVideo={!this.props.isDemo}
+          studentDash
+          lastQuestionAudioFile={
+            this.props.book.questions[String(this.props.questionNumber)]
+              ? this.props.book.questions[String(this.props.questionNumber)]
+                  .audioSrc
+              : ""
+          }
+          readerProps={this.props}
+          isWithinGrader={this.props.isWithinGrader}
+        />
+      </div>
+    );
+  };
+
   render() {
     console.log("Rerendering Reader, pageNumber is: " + this.props.pageNumber);
 
@@ -585,35 +608,10 @@ export default class Reader extends React.Component {
       className: styles.routeTransition
     };
 
-    if (!this.props.hasLoggedIn) {
+    if (!this.props.hasLoggedIn && !this.props.isDemo) {
       return (
         <div className={styles.fullHeight}>
           {this.renderNavigationBar()}
-
-          {this.props.assessmentID &&
-            this.props.micPermissionsStatus ===
-              "MIC_PERMISSIONS_STATUS_GRANTED" && (
-              <div style={{ height: 0 }}>
-                <VideoChat
-                  identity={this.props.studentName}
-                  assessmentID={this.props.assessmentID}
-                  room={`Assessment-${this.props.assessmentID}-Room`}
-                  logs={false}
-                  pictureInPicture={false}
-                  localVideo={!this.props.isDemo}
-                  studentDash
-                  lastQuestionAudioFile={
-                    this.props.book.questions[String(this.props.questionNumber)]
-                      ? this.props.book.questions[
-                          String(this.props.questionNumber)
-                        ].audioSrc
-                      : ""
-                  }
-                  readerProps={this.props}
-                  isWithinGrader={this.props.isWithinGrader}
-                />
-              </div>
-            )}
 
           <div
             className={
@@ -637,28 +635,8 @@ export default class Reader extends React.Component {
 
         {this.props.assessmentID &&
           this.props.micPermissionsStatus ===
-            "MIC_PERMISSIONS_STATUS_GRANTED" && (
-            <div style={{ height: 0 }}>
-              <VideoChat
-                identity={this.props.studentName}
-                assessmentID={this.props.assessmentID}
-                room={`Assessment-${this.props.assessmentID}-Room`}
-                logs={false}
-                pictureInPicture={false}
-                localVideo={!this.props.isDemo}
-                studentDash
-                lastQuestionAudioFile={
-                  this.props.book.questions[String(this.props.questionNumber)]
-                    ? this.props.book.questions[
-                        String(this.props.questionNumber)
-                      ].audioSrc
-                    : ""
-                }
-                readerProps={this.props}
-                isWithinGrader={this.props.isWithinGrader}
-              />
-            </div>
-          )}
+            "MIC_PERMISSIONS_STATUS_GRANTED" &&
+          this.renderVideoChat()}
 
         <div
           className={
