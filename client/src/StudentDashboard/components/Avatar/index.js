@@ -54,6 +54,16 @@ export default class Avatar extends React.Component {
     teacherSignature: "Your Teacher"
   };
 
+  login = () => {
+    if (this.props.teacher) {
+      return;
+    }
+
+    console.log("just clicked " + this.props.fullName);
+    this.props.onStudentNameSet(this.props.fullName);
+    this.props.onAvatarClicked();
+  };
+
   /**
    * @param props - Comes from your rails view.
    * @param _railsContext - Comes from React on Rails
@@ -70,11 +80,7 @@ export default class Avatar extends React.Component {
           styles.avatarWhole,
           this.props.teacher ? styles.centered : ""
         ].join(" ")}
-        onClick={() => {
-          console.log("just clicked " + this.props.fullName);
-          this.props.onStudentNameSet(this.props.fullName);
-          this.props.onAvatarClicked();
-        }}
+        onClick={this.login}
       >
         <div
           className={[

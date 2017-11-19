@@ -12,7 +12,8 @@ export default class SpinnerOverlay extends React.Component {
     text: PropTypes.string,
     showPrompting: PropTypes.bool,
     slowRotate: PropTypes.bool,
-    isLoadingUpload: PropTypes.bool
+    isLoadingUpload: PropTypes.bool,
+    isLoadingVideo: PropTypes.bool
   };
 
   /**
@@ -32,6 +33,10 @@ export default class SpinnerOverlay extends React.Component {
       title = this.props.showPrompting
         ? ["Thinking of next question..."]
         : ["Prompting disabled for this demo..."];
+    }
+
+    if (this.props.isLoadingVideo) {
+      title = ["Loading video..."];
     }
 
     if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {

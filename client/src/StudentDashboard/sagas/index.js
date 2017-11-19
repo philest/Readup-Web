@@ -879,14 +879,25 @@ function* assessThenSubmitSaga(assessmentId) {
 	const hasLoggedIn = yield select(getHasLoggedIn);
 
 	if (!isDemo && isWarmup && !hasLoggedIn) {
+		yield call(playSoundAsync, "/audio/find-your-name.m4a");
 		yield clog("in login world...");
 		yield take(AVATAR_CLICKED);
+		yield call(playSoundAsync, "/audio/complete.mp3");
 	}
 
 	if (!isDemo && isWarmup) {
 		// show the video saga
 		yield put.resolve(hideVolumeIndicator());
 		yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
+		yield put.resolve(setCurrentOverlay("overlay-spinner"));
+
+		yield put({ type: SPINNER_SHOW });
+
+		yield call(delay, 3500);
+
+		yield put.resolve(setCurrentOverlay("no-overlay"));
+
+		yield put({ type: SPINNER_HIDE });
 
 		yield take(START_RECORDING_CLICKED);
 	}

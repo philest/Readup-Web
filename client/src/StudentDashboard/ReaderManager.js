@@ -328,6 +328,9 @@ export class StudentDashboard extends React.Component {
           currentShowOverlay={this.props.currentShowOverlay}
           text={"Spinner message goes here"}
           isLoadingUpload={this.props.showSpinner}
+          isLoadingVideo={
+            this.props.readerState === ReaderStateOptions.watchingVideo
+          }
         />
       </div>
     );
