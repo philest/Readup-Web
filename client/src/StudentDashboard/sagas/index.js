@@ -76,6 +76,7 @@ import {
 	ASSESSMENT_ID_SET,
 	AVATAR_CLICKED,
 	IS_WARMUP_SET,
+	SPELLING_QUESTION_NUMBER_SET,
 	startCountdownToStart,
 	setMicPermissions,
 	setHasRecordedSomething,
@@ -89,7 +90,9 @@ import {
 	setInComp,
 	setInSpelling,
 	setSpellingAnswerGiven,
+	setSpellingInput,
 	setQuestionNumber,
+	setSpellingQuestionNumber,
 	setPrompt,
 	hideVolumeIndicator,
 	showVolumeIndicator,
@@ -100,7 +103,8 @@ import {
 	stopRecordingClicked,
 	setShowSkipPrompt,
 	setAssessmentID,
-	setAssessmentSubmitted
+	setAssessmentSubmitted,
+	setIsWarmup
 } from "../state";
 
 import {
@@ -857,6 +861,8 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put.resolve(setHasRecordedSomething(false));
 	yield put.resolve(setCurrentModal("no-modal"));
 	yield put(setAssessmentSubmitted(false));
+	yield put.resolve(setSpellingInput(""));
+	yield put.resolve(setSpellingQuestionNumber(1));
 
 	yield put(setCurrentOverlay("no-overlay"));
 
@@ -889,12 +895,15 @@ function* assessThenSubmitSaga(assessmentId) {
 	const studentName = yield select(getStudentName);
 	const thisBook = yield select(getBook);
 
-	$.ajax({
-		url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
-		type: "post"
-	}).fail(function(xhr, status, err) {
-		console.log(err);
-	});
+	if (isWarmup) {
+		// TODO: A more resilient way to create the user only once, if not warmup...
+		$.ajax({
+			url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
+			type: "post"
+		}).fail(function(xhr, status, err) {
+			console.log(err);
+		});
+	}
 
 	if (!isDemo && isWarmup) {
 		// show the video saga
@@ -1337,25 +1346,24 @@ function* rootSaga() {
 				}
 
 				if (isWarmup) {
-					if (studentName.includes("Brian")) {
-						window.location.href = "/brian-real";
-					}
+					yield put.resolve(setIsWarmup(false));
+
+					yield call(assessThenSubmitSaga, assessmentId);
 
 					if (isDemo) {
-						if (bookKey === "nick") {
-							window.location.href = "/nick-no-warmup";
-						} else if (bookKey === "step") {
-							window.location.href = "/step-no-warmup";
-						}
-					} else {
-						if (bookKey === "nick") {
-							window.location.href = "/nick-no-warmup-no-demo";
-						} else if (bookKey === "step") {
-							window.location.href = "/step-no-warmup-no-demo";
-						}
-					}
+						yield clog("oh hey you r done");
 
-					yield put({ type: SPINNER_SHOW });
+						window.location.href = "/reports/sample";
+						yield put({ type: SPINNER_SHOW });
+					} else {
+						//Keep them waiting here forever as proof they finished.
+
+						setTimeout(() => {
+							// TODO where to redirect?
+							window.close(); // eslint-disable-line
+							window.location.href = "/";
+						}, 7500);
+					}
 				} else if (isDemo) {
 					yield clog("oh hey you r done");
 

@@ -113,6 +113,8 @@ export const ASSESSMENT_SUBMITTED_SET = "ASSESSMENT_SUBMITTED_SET";
 export const SPELLING_INPUT_SET = "SPELLING_INPUT_SET";
 export const AVATAR_CLICKED = "AVATAR_CLICKED";
 
+export const SPELLING_QUESTION_NUMBER_SET = "SPELLING_QUESTION_NUMBER_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -558,6 +560,15 @@ export function setQuestionNumber(questionNumber: number) {
     type: QUESTION_NUMBER_SET,
     payload: {
       questionNumber
+    }
+  };
+}
+
+export function setSpellingQuestionNumber(spellingQuestionNumber: number) {
+  return {
+    type: SPELLING_QUESTION_NUMBER_SET,
+    payload: {
+      spellingQuestionNumber
     }
   };
 }
@@ -1535,6 +1546,13 @@ function reducer(state = initialState, action = {}) {
 
     case QUESTION_NUMBER_SET: {
       return { ...state, questionNumber: payload.questionNumber };
+    }
+
+    case SPELLING_QUESTION_NUMBER_SET: {
+      return {
+        ...state,
+        spellingQuestionNumber: payload.spellingQuestionNumber
+      };
     }
 
     case SHOW_SKIP_PROMPT_SET: {
