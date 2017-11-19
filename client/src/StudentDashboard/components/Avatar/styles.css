@@ -8,6 +8,15 @@
 	margin: 0 auto;
 }
 
+.largeCircle {
+	width: 150px;
+	height: 150px;
+	background: white;
+	-moz-border-radius: 75px;
+	-webkit-border-radius: 75px;
+	border-radius: 75px;
+}
+
 .innerCircle {
 	width: 90px;
 	height: 90px;
@@ -17,6 +26,17 @@
 	border-radius: 45px;
 	position: relative;
 	top: 5px;
+}
+
+.largeInnerCircle {
+	width: 135px;
+	height: 135px;
+	-moz-border-radius: 68px;
+	-webkit-border-radius: 68px;
+	border-radius: 68px;
+	position: relative;
+	top: 5px;
+	background-image: url("/images/apple.png");
 }
 
 .offsetLeft {
@@ -81,6 +101,11 @@
 	font-size: 18px;
 	text-align: center;
 	line-height: 1.4em;
+}
+
+.largeName {
+	font-size: 28px;
+	color: white;
 }
 
 .initials {

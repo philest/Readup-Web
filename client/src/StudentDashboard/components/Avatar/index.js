@@ -67,22 +67,38 @@ export default class Avatar extends React.Component {
           this.props.teacher ? styles.centered : ""
         ].join(" ")}
       >
-        <div className={[styles.circle, styles.dropShadow].join(" ")}>
+        <div
+          className={[
+            styles.circle,
+            styles.dropShadow,
+            this.props.teacher ? styles.largeCircle : ""
+          ].join(" ")}
+        >
           <div
             className={[
               styles.innerCircle,
+              this.props.teacher ? styles.largeInnerCircle : "",
               getOffsetClass(this.props.offset),
               getColorClass(this.props.color)
             ].join(" ")}
           />
-          <span className={styles.initials}>
-            {getInitials(this.props.fullName)}
-          </span>
+          {!this.props.teacher && (
+            <span className={styles.initials}>
+              {getInitials(this.props.fullName)}
+            </span>
+          )}
           <br />
         </div>
-        <span className={styles.name}>
-          {getShortenedName(this.props.fullName)}
-        </span>
+        {!this.props.teacher && (
+          <span className={[styles.name].join(" ")}>
+            {getShortenedName(this.props.fullName)}
+          </span>
+        )}
+        {this.props.teacher && (
+          <span className={[styles.name, styles.largeName].join(" ")}>
+            {this.props.fullName + "'s Class"}
+          </span>
+        )}
       </div>
     );
   }
