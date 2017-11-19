@@ -1329,7 +1329,31 @@ function* rootSaga() {
 			// success! TODO better checking of compTurnedIn
 			// if (turnedIn && compTurnedIn) {
 			if (turnInCheck) {
+				if (isWarmup) {
+					yield clog("turned it in!");
+
+					// Mark it as completed
+					const assID = yield getLastAssessmentID().catch(
+						e => e.request
+					); // TODO
+
+					const res = yield call(markCompleted, assID);
+					yield clog("marked it as completed!: ", res);
+
+					yield put(setAssessmentSubmitted(true));
+
+					if (isWarmup) {
+						yield call(playSound, "/audio/warmup/w-13.mp3");
+					} else {
+						yield call(playSound, "/audio/celebration.mp3");
+					}
+
+					yield put.resolve(setIsWarmup(false));
+					yield call(assessThenSubmitSaga, assessmentId);
+				}
+
 				yield clog("turned it in!");
+				yield playSound("/audio/complete.mp3");
 
 				// Mark it as completed
 				const assID = yield getLastAssessmentID().catch(e => e.request); // TODO
@@ -1339,31 +1363,22 @@ function* rootSaga() {
 
 				yield put(setAssessmentSubmitted(true));
 
-				if (isWarmup) {
-					yield call(playSound, "/audio/warmup/w-13.mp3");
-				} else {
-					yield call(playSound, "/audio/celebration.mp3");
-				}
+				yield call(playSound, "/audio/celebration.mp3");
 
 				if (isWarmup) {
-					yield put.resolve(setIsWarmup(false));
-
-					yield call(assessThenSubmitSaga, assessmentId);
-
-					if (isDemo) {
-						yield clog("oh hey you r done");
-
-						window.location.href = "/reports/sample";
-						yield put({ type: SPINNER_SHOW });
-					} else {
-						//Keep them waiting here forever as proof they finished.
-
-						setTimeout(() => {
-							// TODO where to redirect?
-							window.close(); // eslint-disable-line
-							window.location.href = "/";
-						}, 7500);
-					}
+					// yield put.resolve(setIsWarmup(false));
+					// yield call(assessThenSubmitSaga, assessmentId);
+					// if (isDemo) {
+					// 	yield clog("oh hey you r done");
+					// 	window.location.href = "/reports/sample";
+					// 	yield put({ type: SPINNER_SHOW });
+					// } else {
+					// 	//Keep them waiting here forever as proof they finished.
+					setTimeout(() => {
+						// TODO where to redirect?
+						window.location.href = "/";
+					}, 7500);
+					// }
 				} else if (isDemo) {
 					yield clog("oh hey you r done");
 
@@ -1375,10 +1390,11 @@ function* rootSaga() {
 				} else {
 					//Keep them waiting here forever as proof they finished.
 
-					// setTimeout(() => {
-					//   // TODO where to redirect?
-					//   window.location.href = "/"; // eslint-disable-line
-					// }, 10000);
+					setTimeout(() => {
+						// TODO where to redirect?
+						window.close(); // eslint-disable-line
+						window.location.href = "/";
+					}, 7500);
 					return;
 				}
 
