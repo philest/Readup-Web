@@ -1,42 +1,43 @@
 .circle {
-	width: 100px;
-	height: 100px;
+	width: 75px;
+	height: 75px;
 	background: white;
-	-moz-border-radius: 50px;
-	-webkit-border-radius: 50px;
-	border-radius: 50px;
+	-moz-border-radius: 37.5px;
+	-webkit-border-radius: 37.5px;
+	border-radius: 37.5px;
 	margin: 0 auto;
 }
 
 .largeCircle {
-	width: 150px;
-	height: 150px;
+	width: 113px;
+	height: 113px;
 	background: white;
-	-moz-border-radius: 75px;
-	-webkit-border-radius: 75px;
-	border-radius: 75px;
+	-moz-border-radius: 56.5px;
+	-webkit-border-radius: 56.5px;
+	border-radius: 56.5px;
 }
 
 .innerCircle {
-	width: 90px;
-	height: 90px;
+	width: 68px;
+	height: 68px;
 	background: blue;
-	-moz-border-radius: 45px;
-	-webkit-border-radius: 45px;
-	border-radius: 45px;
+	-moz-border-radius: 34px;
+	-webkit-border-radius: 34px;
+	border-radius: 34px;
 	position: relative;
 	top: 5px;
 }
 
 .largeInnerCircle {
-	width: 135px;
-	height: 135px;
-	-moz-border-radius: 68px;
-	-webkit-border-radius: 68px;
-	border-radius: 68px;
+	width: 101px;
+	height: 101px;
+	-moz-border-radius: 50.5px;
+	-webkit-border-radius: 50.5px;
+	border-radius: 50.5px;
 	position: relative;
 	top: 5px;
 	background-image: url("/images/apple.png");
+	background-size: 101px 101px;
 }
 
 .offsetLeft {
@@ -44,11 +45,11 @@
 }
 
 .offsetRight {
-	left: 7px;
+	left: 5px;
 }
 
 .offsetNone {
-	left: 5px;
+	left: 4px;
 }
 
 .teal {
@@ -110,15 +111,15 @@
 
 .initials {
 	position: relative;
-	top: -63px;
+	top: -50px;
 	font-family: "ProximaNova";
-	font-size: 38px;
+	font-size: 30px;
 	text-align: center;
 	font-weight: bold;
 	color: white;
 }
 
 .centered {
-	margin: 170px auto 60px;
+	margin: 170px auto 50px;
 	display: block;
 }
