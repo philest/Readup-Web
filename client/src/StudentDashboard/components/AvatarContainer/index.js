@@ -12,7 +12,8 @@ let offsetArr = ["left", "right"];
 
 export default class AvatarContainer extends React.Component {
   static propTypes = {
-    test: PropTypes.string
+    onStudentNameSet: PropTypes.func.isRequired,
+    onAvatarClicked: PropTypes.func.isRequired
   };
 
   static defaultProps = {};
@@ -29,6 +30,8 @@ export default class AvatarContainer extends React.Component {
           fullName={nameArr[i]}
           color={colorArr[i % 4]}
           offset={offsetArr[i % 2]}
+          onStudentNameSet={this.props.onStudentNameSet}
+          onAvatarClicked={this.props.onAvatarClicked}
         />
       );
     }

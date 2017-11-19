@@ -41,7 +41,9 @@ export default class Avatar extends React.Component {
     large: PropTypes.bool,
     offest: PropTypes.string,
     teacher: PropTypes.bool,
-    teacherSignature: PropTypes.string
+    teacherSignature: PropTypes.string,
+    onAvatarClicked: PropTypes.func,
+    onStudentNameSet: PropTypes.func
   };
 
   static defaultProps = {
@@ -68,6 +70,11 @@ export default class Avatar extends React.Component {
           styles.avatarWhole,
           this.props.teacher ? styles.centered : ""
         ].join(" ")}
+        onClick={() => {
+          console.log("just clicked " + this.props.fullName);
+          this.props.onStudentNameSet(this.props.fullName);
+          this.props.onAvatarClicked();
+        }}
       >
         <div
           className={[

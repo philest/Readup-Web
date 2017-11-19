@@ -74,6 +74,7 @@ import {
 	SKIP_CLICKED,
 	SHOW_SKIP_PROMPT_SET,
 	ASSESSMENT_ID_SET,
+	AVATAR_CLICKED,
 	IS_WARMUP_SET,
 	startCountdownToStart,
 	setMicPermissions,
@@ -879,7 +880,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	if (!isDemo && isWarmup && !hasLoggedIn) {
 		yield clog("in login world...");
-		yield take("LOG in yo first");
+		yield take(AVATAR_CLICKED);
 	}
 
 	if (!isDemo && isWarmup) {

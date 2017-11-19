@@ -83,6 +83,9 @@ export default class Reader extends React.Component {
     onSpellingInputSet: PropTypes.func,
     spellingInput: PropTypes.string,
 
+    onStudentNameSet: PropTypes.func,
+    onAvatarClicked: PropTypes.func,
+
     isWithinGrader: PropTypes.bool
   };
 
@@ -125,10 +128,6 @@ export default class Reader extends React.Component {
   };
 
   renderCenterDisplay = () => {
-    if (!this.props.hasLoggedIn) {
-      return <AvatarContainer />;
-    }
-
     if (this.props.inSpelling) {
       return null;
     }
@@ -621,7 +620,10 @@ export default class Reader extends React.Component {
                 : styles.contentContainer
             }
           >
-            <AvatarContainer />
+            <AvatarContainer
+              onStudentNameSet={this.props.onStudentNameSet}
+              onAvatarClicked={this.props.onAvatarClicked}
+            />
           </div>
         </div>
       );

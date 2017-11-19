@@ -111,6 +111,7 @@ export const ASSESSMENT_ID_SET = "ASSESSMENT_ID_SET";
 export const ASSESSMENT_SUBMITTED_SET = "ASSESSMENT_SUBMITTED_SET";
 
 export const SPELLING_INPUT_SET = "SPELLING_INPUT_SET";
+export const AVATAR_CLICKED = "AVATAR_CLICKED";
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -118,6 +119,12 @@ export function setReaderState(readerState: ReaderState) {
     payload: {
       readerState
     }
+  };
+}
+
+export function avatarClicked() {
+  return {
+    type: AVATAR_CLICKED
   };
 }
 
@@ -1535,6 +1542,10 @@ function reducer(state = initialState, action = {}) {
 
     case SPELLING_INPUT_SET: {
       return { ...state, spellingInput: payload.spellingInput };
+    }
+
+    case AVATAR_CLICKED: {
+      return { ...state, hasLoggedIn: true };
     }
 
     // case RECORDING_COUNTDOWN_TO_START: {
