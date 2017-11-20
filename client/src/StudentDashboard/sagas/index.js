@@ -136,6 +136,12 @@ import { sendEmail, sendCall } from "../../ReportsInterface/emailHelpers";
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
 
+function hasSilentReading(book) {
+	return (
+		book.brand === "STEP" && (book.stepLevel >= 6 && book.stepLevel <= 8)
+	);
+}
+
 function getPermission(recorder, isDemo) {
 	console.log("Here in getPerm, we say isDemo: ", isDemo);
 
@@ -961,13 +967,21 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		yield put.resolve(showVolumeIndicator());
 
-		yield call(playSound, "/audio/intro-click-start.mp3");
+		if (hasSilentReading(book)) {
+			yield call(playSound, "/audio/silent-1.mp3");
+		} else {
+			yield call(playSound, "/audio/intro-click-start.mp3");
+		}
 
 		yield put.resolve(
 			setReaderState(ReaderStateOptions.talkingAboutStopButton)
 		);
 
-		yield call(playSound, "/audio/intro-click-stop.mp3");
+		if (hasSilentReading(book)) {
+			yield call(playSound, "/audio/silent-1-2.mp3");
+		} else {
+			yield call(playSound, "/audio/intro-click-stop.mp3");
+		}
 
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 

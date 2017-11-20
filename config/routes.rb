@@ -83,6 +83,8 @@ Rails.application.routes.draw do
   get 'nick-no-warmup-no-demo', to: redirect('/student_dashboard/#/story/nick/demo/false/page/0/demo%20student/warmup/false')
 
 
+  get 'step6', to: redirect('/student_dashboard/#/story/step6/demo/false/page/0/warmup/false')
+
 
   # The student testing the program... 
 

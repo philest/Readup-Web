@@ -14,11 +14,15 @@ let names2 =
   "Alexandra Aaron, Abe Alexi, Joetta Cardwell, Willena Braz, Abdel Alonzo, Efrain Lukasik, Silva Billings, Woodrow Mcclean, Gertrud Duffer, Denna Gerardi, Rosetta Tondreau, Royce Storie, Juliette Orsi, Davina Johnstone, Truman Benefield, Thora Draper, Dorie Ringgold, Nelda Voisine, Delphia Rudnick";
 let bridgetNameArr = names2.split(", ");
 
+let defaultNameArr = ["Alexandra Aaron", "Abe Alexi", "Joetta Cardwell"];
+
 function getStudentList(teacherName) {
   if (teacherName === "Samantha Kadis") {
     return samanthaNameArr;
   } else if (teacherName === "Bridget Joyce") {
     return bridgetNameArr;
+  } else {
+    return defaultNameArr;
   }
 }
 

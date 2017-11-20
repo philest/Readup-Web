@@ -767,6 +767,7 @@ export const stepBook = {
   title: "Upside Down",
   author: "Stefan Olson",
   bookKey: "step",
+  brand: "STEP",
   stepLevel: 4,
   fpLevel: "E",
   numPages: 6, // if you want a shorter book for testing purposes just change this
@@ -892,8 +893,135 @@ export const step5Book = {
   title: "Saturday Shopping",
   author: "Stefan Olson",
   bookKey: "step5",
+  brand: "STEP",
   stepLevel: 5,
   fpLevel: "G",
+  numPages: 6, // if you want a shorter book for testing purposes just change this
+  isWideBook: false,
+  coverImage: "/images/dashboard/step5/rufus-cover.jpg",
+  introAudioSrc: "/audio/ruffy-intro-new.mp3",
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    },
+    2: {
+      lines: [
+        "Things look different upside down.",
+        "Here is my name upside down."
+      ],
+      img: "/images/dashboard/step/p2.jpg"
+    },
+    3: {
+      lines: ["I see the living room upside down.", "Everything looks funny!"],
+      img: "/images/dashboard/step/p3.jpg"
+    },
+    4: {
+      lines: ["I toss a ball.", "Does it fall up? Or down?"],
+      img: "/images/dashboard/step/p4.jpg"
+    },
+    5: {
+      lines: [
+        "Who is at the door? Wow! It's my friend, Jill!",
+        "But her feet are up, not down. Will her hat fall off?"
+      ],
+      img: "/images/dashboard/step/p5.jpg"
+    },
+    6: {
+      lines: [
+        '"Jill, do you want to play upside down with me?',
+        "Being upside down is fun!'"
+      ],
+      img: "/images/dashboard/step/p6.jpg"
+    }
+  },
+  numQuestions: 6,
+  numSections: 3,
+  sections: {
+    1: "Factual",
+    2: "Inferential",
+    3: "Critical thinking"
+  },
+  questions: {
+    1: {
+      title: "When does Ruffy bark in the car?",
+      audioSrc: "/audio/step5/1.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
+        1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
+      },
+      points: 1,
+      standard: "CCRA.R.1",
+      section: 1
+    },
+    2: {
+      title: "What food does the boy in the story really want to buy?",
+      audioSrc: "/audio/step5/2.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
+        1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
+      },
+      points: 1,
+      standard: "CCRA.R.2",
+      section: 1
+    },
+    3: {
+      title: "Why does Ruffy run into the store?",
+      audioSrc: "/audio/step5/3.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
+        1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
+      },
+      points: 1,
+      standard: "CCRA.R.1",
+      section: 2
+    },
+    4: {
+      title: "Why does the boy think that he and Ruffy are in big trouble?",
+      audioSrc: "/audio/step5/4.mp3",
+      rubric: {
+        0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
+        1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text."
+      },
+      points: 1,
+      standard: "CCRA.R.2",
+      section: 1
+    },
+    5: {
+      title: "Why doesn't the store manager get mad? How do you know?",
+      audioSrc: "/audio/step5/5.mp3",
+      rubric: {
+        0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
+        1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
+      },
+      points: 1,
+      standard: "CCRA.R.4",
+      section: 2
+    },
+    6: {
+      title: "Why does the family think Ruffy is a good dog?",
+      audioSrc: "/audio/step5/6.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
+        1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
+      },
+      points: 1,
+      standard: "CCRA.R.4 and CCRA.R.1",
+      section: 3
+    }
+  },
+  spellingObj: peterSpellingObj,
+  numSpellingQuestions: 15
+};
+
+// Still needs: 1) CCSS, 2) audio for intro and comp, 3) proper rubric, 4) proper sections
+export const step6Book = {
+  title: "Comedy Garagy",
+  author: "Jane Richards",
+  bookKey: "step6",
+  step: "STEP",
+  stepLevel: 6,
+  fpLevel: "I",
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step5/rufus-cover.jpg",
@@ -1016,6 +1144,7 @@ export const fpBook = {
   title: "Bedtime for Nick",
   author: "Steve Olson",
   bookKey: "demo",
+  brand: "FP",
   numPages: 10, // if you want a shorter book for testing purposes just change this
   isWideBook: true,
   coverImage: "/images/dashboard/bedtime-large.jpg",
@@ -1267,6 +1396,7 @@ export const sampleReportBookSTEP = {
   title: "No More Magic",
   author: "Avi",
   bookKey: "sample",
+  brand: "STEP",
   numPages: null, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: null,
@@ -1356,7 +1486,8 @@ export const library = {
   nick: fpBook,
   step: stepBook,
   firefly: fireflyBook,
-  step5: step5Book
+  step5: step5Book,
+  step6: step6Book
 };
 
 export const initialState = {
