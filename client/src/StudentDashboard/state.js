@@ -1019,7 +1019,7 @@ export const step6Book = {
   title: "Comedy Garagy",
   author: "Jane Richards",
   bookKey: "step6",
-  step: "STEP",
+  brand: "STEP",
   stepLevel: 6,
   fpLevel: "I",
   numPages: 6, // if you want a shorter book for testing purposes just change this

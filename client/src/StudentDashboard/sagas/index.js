@@ -891,11 +891,11 @@ function* assessThenSubmitSaga(assessmentId) {
 	const isWarmup = yield select(getIsWarmup);
 	const hasLoggedIn = yield select(getHasLoggedIn);
 
-	if (!isDemo && isWarmup && !hasLoggedIn) {
+	if (!isDemo && !hasLoggedIn) {
 		yield call(playSoundAsync, "/audio/find-your-name.m4a");
 		yield clog("in login world...");
 		yield take(AVATAR_CLICKED);
-		yield call(playSoundAsync, "/audio/complete.mp3");
+		yield call(playSound, "/audio/complete.mp3");
 	}
 
 	const studentName = yield select(getStudentName);
@@ -967,8 +967,11 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		yield put.resolve(showVolumeIndicator());
 
+		yield clog("book: ", book);
+		yield clog("hasSilentReading: ", hasSilentReading(book));
+
 		if (hasSilentReading(book)) {
-			yield call(playSound, "/audio/silent-1.mp3");
+			yield call(playSound, "/audio/silent-new-01.mp3");
 		} else {
 			yield call(playSound, "/audio/intro-click-start.mp3");
 		}
@@ -978,7 +981,7 @@ function* assessThenSubmitSaga(assessmentId) {
 		);
 
 		if (hasSilentReading(book)) {
-			yield call(playSound, "/audio/silent-1-2.mp3");
+			yield call(playSound, "/audio/silent-stop.m4a");
 		} else {
 			yield call(playSound, "/audio/intro-click-stop.mp3");
 		}
@@ -1047,7 +1050,11 @@ function* assessThenSubmitSaga(assessmentId) {
 	if (isWarmup) {
 		yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
 	} else {
-		yield call(playSound, "/audio/now-recording-read.mp3");
+		if (hasSilentReading(book)) {
+			yield call(playSound, "/audio/silent-reading-page-three.mp3");
+		} else {
+			yield call(playSound, "/audio/now-recording-read.mp3");
+		}
 	}
 
 	// this ensures that effects are canceleld
