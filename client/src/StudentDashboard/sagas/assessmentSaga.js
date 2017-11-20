@@ -30,7 +30,7 @@ import {
 
 import { ReaderStateOptions } from "../types";
 
-import { getRecorder, getIsDemo, getPrompt } from "./selectors";
+import { getRecorder, getIsDemo, getPrompt, getReaderState } from "./selectors";
 
 import { clog } from "./helpers";
 
@@ -67,12 +67,16 @@ function* compPauseAssessmentSaga(action) {
     yield clog("err", err);
   }
 
+  const readerState = yield select(getReaderState);
+
   yield delay(300); // delay to prevent phil's voice from getting pick up :/
 
   yield call(playSound, "/audio/complete.mp3");
 
-  // yield call(playSoundAsync, '/audio/paused.mp3')
-  yield put.resolve(setReaderState(ReaderStateOptions.paused));
+  if (readerState === "READER_STATE_IN_PROGRESS") {
+    yield put.resolve(setReaderState(ReaderStateOptions.paused));
+  }
+
   // yield put.resolve(setCurrentSound('/audio/paused.mp3'))
   yield put.resolve(setCurrentModal("modal-comp-paused"));
   return;

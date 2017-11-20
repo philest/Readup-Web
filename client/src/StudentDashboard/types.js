@@ -13,6 +13,7 @@ export const ReaderStateOptions = {
   awaitingStart: "READER_STATE_AWAITING_START",
   countdownToStart: "READER_STATE_COUNTDOWN_TO_START",
   inProgress: "READER_STATE_IN_PROGRESS",
+  awaitingFinishBook: "READER_STATE_AWAITING_FINISH_BOOK",
   paused: "READER_STATE_PAUSED",
   done: "READER_STATE_DONE",
   doneDisplayingPlayback: "READER_STATE_PLAYBACK",

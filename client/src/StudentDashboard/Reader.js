@@ -308,6 +308,7 @@ export default class Reader extends React.Component {
     if (
       this.props.readerState === "READER_STATE_IN_PROGRESS" ||
       this.props.readerState === "READER_STATE_COUNTDOWN_TO_START" ||
+      this.props.readerState === "READER_STATE_AWAITING_FINISH_BOOK" ||
       (this.props.inOralReading &&
         this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")
     ) {

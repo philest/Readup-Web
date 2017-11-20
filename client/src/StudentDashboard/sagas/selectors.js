@@ -3,6 +3,8 @@ export const getRecorder = state => state.reader.recorder;
 export const getIsDemo = state => state.reader.isDemo;
 export const getIsWarmup = state => state.reader.isWarmup;
 
+export const getReaderState = state => state.reader.readerState;
+
 export const getNumQuestions = state => state.reader.book.numQuestions;
 
 export const getQuestionNumber = state => state.reader.questionNumber;

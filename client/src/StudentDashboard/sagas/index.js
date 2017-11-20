@@ -1179,6 +1179,7 @@ function* assessThenSubmitSaga(assessmentId) {
 			yield put.resolve(setInSilentReading(true));
 			yield put.resolve(setInOralReading(true));
 
+			// START: the silent reading of the book
 			yield put.resolve(
 				setReaderState(ReaderStateOptions.playingBookIntro)
 			);
@@ -1191,13 +1192,18 @@ function* assessThenSubmitSaga(assessmentId) {
 
 			yield call(playSound, "/audio/now-silent-read-02.mp3");
 
-			yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.awaitingFinishBook)
+			);
 
 			yield take(STOP_RECORDING_CLICKED);
+			yield put.resolve(setCurrentModal("no-modal"));
 			yield call(playSound, "/audio/complete.mp3");
 
 			yield put.resolve(setInSilentReading(false));
 			yield put.resolve(setInOralReading(false));
+
+			// START the next round of questions for the book
 		}
 
 		// Spelling!
