@@ -86,6 +86,7 @@ export default class Reader extends React.Component {
 
     onStudentNameSet: PropTypes.func,
     onAvatarClicked: PropTypes.func,
+    inSilentReading: PropTypes.bool,
 
     isWithinGrader: PropTypes.bool
   };
@@ -173,7 +174,8 @@ export default class Reader extends React.Component {
           this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")) ||
       (!this.props.inOralReading &&
         !this.props.inComp &&
-        !this.props.inSpelling)
+        !this.props.inSpelling &&
+        !this.props.inSilentReading)
     ) {
       return (
         <div
@@ -250,7 +252,9 @@ export default class Reader extends React.Component {
 
           <div className={[styles.buttonPlacement].join(" ")}>
             <RectangleButton
-              title="Stop Recording"
+              title={
+                this.props.inSilentReading ? "Finish Book" : "Stop Recording"
+              }
               pulsatingArrow={false && true}
               disabled={this.props.disabled}
               partiallyDisabled
@@ -327,9 +331,13 @@ export default class Reader extends React.Component {
 
           <div className={[styles.buttonPlacement].join(" ")}>
             <RectangleButton
-              title="Stop Recording"
+              title={
+                this.props.inSilentReading ? "Finish Book" : "Stop Recording"
+              }
               pulsatingArrow={false}
-              pulsatingCircle={!this.props.disabled}
+              pulsatingCircle={
+                !this.props.disabled && !this.props.inSilentReading
+              }
               disabled={this.props.disabled}
               isLarge
               isRed

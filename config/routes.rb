@@ -95,6 +95,13 @@ Rails.application.routes.draw do
   get 'rmp2', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/samantha%20kadis/warmup/true')
 
 
+
+  get 'RMP1', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/bridget%20joyce/warmup/true')
+
+
+  get 'RMP2', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/samantha%20kadis/warmup/true')
+
+
   get 'brian', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner/warmup/true')
 
   get 'brian-real', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner/warmup/false')

@@ -61,6 +61,7 @@ function mapStateToProps(state) {
     inComp: state.reader.inComp,
     inSpelling: state.reader.inSpelling,
     inOralReading: state.reader.inOralReading,
+    inSilentReading: state.reader.inSilentReading,
     showVolumeIndicator: state.reader.showVolumeIndicator,
     showSkipPrompt: state.reader.showSkipPrompt,
     isLiveDemo: state.reader.isLiveDemo,
@@ -177,7 +178,8 @@ export class StudentDashboard extends React.Component {
       onStudentNameSet: this.props.actions.setStudentName,
       onAvatarClicked: this.props.actions.avatarClicked,
       hasLoggedIn: this.props.hasLoggedIn,
-      teacherName: this.props.teacherName
+      teacherName: this.props.teacherName,
+      inSilentReading: this.props.inSilentReading
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader

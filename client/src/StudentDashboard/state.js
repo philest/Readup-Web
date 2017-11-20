@@ -115,6 +115,8 @@ export const AVATAR_CLICKED = "AVATAR_CLICKED";
 
 export const SPELLING_QUESTION_NUMBER_SET = "SPELLING_QUESTION_NUMBER_SET";
 
+export const IN_SILENT_READING_SET = "IN_SILENT_READING_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -530,6 +532,15 @@ export function setInOralReading(inOralReading: boolean) {
     type: IN_ORAL_READING_SET,
     payload: {
       inOralReading
+    }
+  };
+}
+
+export function setInSilentReading(inSilentReading: boolean) {
+  return {
+    type: IN_SILENT_READING_SET,
+    payload: {
+      inSilentReading
     }
   };
 }
@@ -1061,6 +1072,8 @@ export const step6Book = {
       img: "/images/dashboard/step/p6.jpg"
     }
   },
+  numOralReadingQuestions: 4,
+  numSilentReadingQuestions: 4,
   numQuestions: 6,
   numSections: 3,
   sections: {
@@ -1070,7 +1083,8 @@ export const step6Book = {
   },
   questions: {
     1: {
-      title: "When does Ruffy bark in the car?",
+      title:
+        "What do the kids in the story have to do to get ready for the comedy show?",
       audioSrc: "/audio/step5/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -1081,7 +1095,7 @@ export const step6Book = {
       section: 1
     },
     2: {
-      title: "What food does the boy in the story really want to buy?",
+      title: "Why do the children put Mittens upstairs?",
       audioSrc: "/audio/step5/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -1092,7 +1106,7 @@ export const step6Book = {
       section: 1
     },
     3: {
-      title: "Why does Ruffy run into the store?",
+      title: "What do Max and Linda do at the show?",
       audioSrc: "/audio/step5/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -1103,7 +1117,7 @@ export const step6Book = {
       section: 2
     },
     4: {
-      title: "Why does the boy think that he and Ruffy are in big trouble?",
+      title: "Why do the people think the show is funny?",
       audioSrc: "/audio/step5/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -1114,7 +1128,7 @@ export const step6Book = {
       section: 1
     },
     5: {
-      title: "Why doesn't the store manager get mad? How do you know?",
+      title: "What does Zina do at the show?",
       audioSrc: "/audio/step5/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -1125,7 +1139,31 @@ export const step6Book = {
       section: 2
     },
     6: {
-      title: "Why does the family think Ruffy is a good dog?",
+      title:
+        "Why is the audience surprised when the cat walks across the screen?",
+      audioSrc: "/audio/step5/6.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
+        1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
+      },
+      points: 1,
+      standard: "CCRA.R.4 and CCRA.R.1",
+      section: 3
+    },
+    7: {
+      title: "Why do the children want to put on another show the next week?",
+      audioSrc: "/audio/step5/6.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
+        1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
+      },
+      points: 1,
+      standard: "CCRA.R.4 and CCRA.R.1",
+      section: 3
+    },
+
+    8: {
+      title: "Why do the children promise to let Mittens be in the next show?",
       audioSrc: "/audio/step5/6.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
@@ -1520,7 +1558,8 @@ export const initialState = {
   assessmentSubmitted: false,
   spellingInput: "",
   hasLoggedIn: false,
-  studentName: "Demo Student"
+  studentName: "Demo Student",
+  inSilentReading: false
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -1780,6 +1819,10 @@ function reducer(state = initialState, action = {}) {
 
     case IN_ORAL_READING_SET: {
       return { ...state, inOralReading: payload.inOralReading };
+    }
+
+    case IN_SILENT_READING_SET: {
+      return { ...state, inSilentReading: payload.inSilentReading };
     }
 
     case LIVE_DEMO_SET: {

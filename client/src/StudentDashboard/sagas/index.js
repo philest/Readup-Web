@@ -77,6 +77,7 @@ import {
 	AVATAR_CLICKED,
 	IS_WARMUP_SET,
 	SPELLING_QUESTION_NUMBER_SET,
+	IN_SILENT_READING_SET,
 	startCountdownToStart,
 	setMicPermissions,
 	setHasRecordedSomething,
@@ -100,6 +101,7 @@ import {
 	incrementQuestion,
 	decrementQuestion,
 	setInOralReading,
+	setInSilentReading,
 	stopRecordingClicked,
 	setShowSkipPrompt,
 	setAssessmentID,
@@ -605,10 +607,7 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
 	const questionNumber = yield select(getQuestionNumber);
 	const book = yield select(getBook);
 
-	if (
-		book.numQuestions <= questionNumber ||
-		(isWarmup && questionNumber >= 2)
-	) {
+	if (numQuestions <= questionNumber || (isWarmup && questionNumber >= 2)) {
 		console.log("in this ending part......");
 		yield cancel(...uploadEffects);
 		yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
@@ -863,6 +862,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put.resolve(setInSpelling(false));
 	yield put.resolve(setInOralReading(true));
 	yield put.resolve(setShowSkipPrompt(false));
+	yield put.resolve(setInSilentReading(false));
 
 	yield put.resolve(setHasRecordedSomething(false));
 	yield put.resolve(setCurrentModal("no-modal"));
@@ -967,7 +967,6 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		yield put.resolve(showVolumeIndicator());
 
-		yield clog("book: ", book);
 		yield clog("hasSilentReading: ", hasSilentReading(book));
 
 		if (hasSilentReading(book)) {
@@ -1144,7 +1143,11 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		yield put.resolve(setInOralReading(false));
 
-		const numQuestions = yield select(getNumQuestions);
+		let numQuestions = yield select(getNumQuestions);
+
+		if (hasSilentReading(book)) {
+			numQuestions = book.numOralReadingQuestions;
+		}
 
 		const uploadEffects = [];
 
@@ -1170,6 +1173,32 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield put({ type: SPINNER_HIDE });
 
 		yield put.resolve(setInComp(false));
+
+		//  A possible additional silent reading + comp section...
+		if (hasSilentReading(book)) {
+			yield put.resolve(setInSilentReading(true));
+			yield put.resolve(setInOralReading(true));
+
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.playingBookIntro)
+			);
+
+			yield call(playSound, "/audio/now-silent-read-01.mp3");
+
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutStopButton)
+			);
+
+			yield call(playSound, "/audio/now-silent-read-02.mp3");
+
+			yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
+
+			yield take(STOP_RECORDING_CLICKED);
+			yield call(playSound, "/audio/complete.mp3");
+
+			yield put.resolve(setInSilentReading(false));
+			yield put.resolve(setInOralReading(false));
+		}
 
 		// Spelling!
 		yield put.resolve(setInSpelling(true));
