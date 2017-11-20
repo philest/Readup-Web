@@ -274,9 +274,10 @@ function* turnInAudio(
 function* skipClick() {
 	const inOralReading = yield select(getInOralReading);
 
+	const book = yield select(getBook);
+
 	if (inOralReading) {
 		// set page because of skipping
-		const book = yield select(getBook);
 		const lastPage = book.numPages;
 		yield put.resolve(setPageNumber(lastPage));
 
@@ -288,6 +289,12 @@ function* skipClick() {
 	if (inComp) {
 		yield call(playSound, "/audio/complete.mp3");
 		yield call(delay, 500);
+
+		if (hasSilentReading(book)) {
+			yield put.resolve(
+				setQuestionNumber(book.numOralReadingQuestions + 1)
+			);
+		}
 
 		// halt the recorder if it's still going
 		let recorder = yield select(getRecorder);
@@ -544,7 +551,14 @@ function* instructionSaga() {
 }
 
 // assumes at least one question...
-function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
+function* definedCompSaga(
+	numQuestions,
+	assessmentId,
+	uploadEffects,
+	isSilentReading
+) {
+	yield put.resolve(setInComp(true));
+
 	let compBlobArray = [];
 
 	uploadEffects.push(
@@ -564,9 +578,24 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
 
 	const isWarmup = yield select(getIsWarmup);
 
+	const book = yield select(getBook);
+
+	if (isSilentReading) {
+		numQuestions = book.numQuestions;
+	}
+
 	numQuestions = isWarmup ? 2 : numQuestions;
 
-	for (let currQ = 1; currQ <= numQuestions; currQ++) {
+	// get currentQuestion
+	// initialize currQ to that
+	// if it's silent reading, add something to numQuestions to make it larger --> or just make it the real whole thing...
+
+	let questionNumber = yield select(getQuestionNumber);
+
+	yield clog("questionNumber: ", questionNumber);
+	yield clog("numQuestions: ", numQuestions);
+
+	for (let currQ = questionNumber; currQ <= numQuestions; currQ++) {
 		yield clog("currQ IS", currQ);
 
 		let isFirstTime = currQ === 1;
@@ -604,8 +633,10 @@ function* definedCompSaga(numQuestions, assessmentId, uploadEffects) {
 		yield call(recorder.initialize);
 	}
 
-	const questionNumber = yield select(getQuestionNumber);
-	const book = yield select(getBook);
+	questionNumber = yield select(getQuestionNumber);
+
+	yield clog("numQuestions: ", numQuestions);
+	yield clog("questionNumber: ", questionNumber);
 
 	if (numQuestions <= questionNumber || (isWarmup && questionNumber >= 2)) {
 		console.log("in this ending part......");
@@ -1156,7 +1187,8 @@ function* assessThenSubmitSaga(assessmentId) {
 				definedCompSaga,
 				numQuestions,
 				assessmentId,
-				uploadEffects
+				uploadEffects,
+				false
 			))
 		);
 
@@ -1204,6 +1236,35 @@ function* assessThenSubmitSaga(assessmentId) {
 			yield put.resolve(setInOralReading(false));
 
 			// START the next round of questions for the book
+			yield call(playSound, "/audio/silent-3.mp3");
+
+			const newNumQuestions = book.numQuestions; // total
+
+			const newUploadEffects = [];
+
+			effects.push(
+				(compBlobArray = yield fork(
+					definedCompSaga,
+					newNumQuestions,
+					assessmentId,
+					newUploadEffects,
+					true
+				))
+			);
+
+			yield clog("okay, waiting ");
+
+			yield take(FINAL_COMP_QUESTION_ANSWERED);
+
+			yield put.resolve(setShowSkipPrompt(false));
+
+			yield cancel(...newUploadEffects);
+
+			yield clog("okay, GOT IT ");
+
+			yield put({ type: SPINNER_HIDE });
+
+			yield put.resolve(setInComp(false));
 		}
 
 		// Spelling!

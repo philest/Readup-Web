@@ -1074,7 +1074,7 @@ export const step6Book = {
   },
   numOralReadingQuestions: 4,
   numSilentReadingQuestions: 4,
-  numQuestions: 6,
+  numQuestions: 8,
   numSections: 3,
   sections: {
     1: "Factual",
