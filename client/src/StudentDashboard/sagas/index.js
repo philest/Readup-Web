@@ -922,6 +922,13 @@ function* assessThenSubmitSaga(assessmentId) {
 	const isWarmup = yield select(getIsWarmup);
 	const hasLoggedIn = yield select(getHasLoggedIn);
 
+	yield clog(
+		"hasLoggedIn, isDemo, isWarmup: ",
+		hasLoggedIn,
+		isDemo,
+		isWarmup
+	);
+
 	if (!isDemo && !hasLoggedIn) {
 		yield call(playSoundAsync, "/audio/find-your-name.m4a");
 		yield clog("in login world...");
@@ -1470,7 +1477,7 @@ function* rootSaga() {
 				}
 
 				yield clog("turned it in!");
-				yield playSound("/audio/complete.mp3");
+				yield call(playSound, "/audio/complete.mp3");
 
 				// Mark it as completed
 				const assID = yield getLastAssessmentID().catch(e => e.request); // TODO

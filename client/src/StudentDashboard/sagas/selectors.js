@@ -13,7 +13,7 @@ export const getInComp = state => state.reader.inComp;
 export const getPrompt = state => state.reader.prompt;
 export const getInOralReading = state => state.reader.inOralReading;
 export const getInSpelling = state => state.reader.inSpelling;
-export const getHasLoggedIn = state => state.reader.getHasLoggedIn;
+export const getHasLoggedIn = state => state.reader.hasLoggedIn;
 
 export const getSpellingQuestionNumber = state =>
 	state.reader.spellingQuestionNumber;
