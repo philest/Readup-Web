@@ -969,7 +969,10 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		// IF REAL THING
-		yield call(delay, 20000);
+		if (process.env.NODE_ENV !== "development") {
+			yield call(delay, 20000);
+		}
+
 		yield put.resolve(
 			setReaderState(ReaderStateOptions.watchedMostOfVideo)
 		);
