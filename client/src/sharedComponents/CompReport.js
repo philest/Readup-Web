@@ -1,12 +1,9 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import styles from '../ReportsInterface/styles.css'
-import sharedStyles from '../sharedComponents/styles.css'
+import PropTypes from "prop-types";
+import React from "react";
+import styles from "../ReportsInterface/styles.css";
+import sharedStyles from "../sharedComponents/styles.css";
 
-import CompQuestion from './CompQuestion'
-
-
-
+import CompQuestion from "./CompQuestion";
 
 export default class CompReport extends React.Component {
   static propTypes = {
@@ -24,108 +21,109 @@ export default class CompReport extends React.Component {
     questions: PropTypes.object,
     assessmentID: PropTypes.number,
 
-    isInteractive: PropTypes.bool,
+    isInteractive: PropTypes.bool
   };
   static defaultProps = {
-    isInteractive: false,
+    isInteractive: false
   };
 
   constructor(props) {
-    super(props)
-    this.state = {
-    }
+    super(props);
+    this.state = {};
   }
-
-
-  renderSection = () => {
-
-  }
-
 
   isQuestionGraded(qNum) {
-    return (this.props.graderComments[String(qNum - 1)] && (this.props.compScores[String(qNum - 1)] != null))
-  }
-
-  renderCompQuestion = (qNum) => {
-
     return (
-        <CompQuestion
-          studentResponse={this.props.studentResponses[qNum - 1]}
-          graderComment={this.props.graderComments[qNum - 1]}
-          compScore={this.props.compScores[qNum - 1]}
-          pointsPossible={this.props.book.questions[qNum].points}
-          academicStandard={this.props.book.questions[qNum].standard}
-          questionNum={qNum}
-          isGraded={this.isQuestionGraded(qNum)}
-          title={this.props.book.questions[qNum].title}
-          subtitle={this.props.book.questions[qNum].subtitle}
-          showCompAudioPlayback={this.props.showCompAudioPlaybackHash[qNum]}
-          onCompPlayRecordingClicked={this.props.onCompPlayRecordingClicked}
-          renderCompAudio={this.props.renderCompAudio}
-          studentFirstName={this.props.studentFirstName}
-          assessmentID={this.props.assessmentID}
-          isInteractive={false}                    
-        />
-    )
+      this.props.graderComments[String(qNum - 1)] &&
+      this.props.compScores[String(qNum - 1)] != null
+    );
   }
 
+  renderCompQuestion = qNum => {
+    return (
+      <CompQuestion
+        studentResponse={this.props.studentResponses[qNum - 1]}
+        graderComment={this.props.graderComments[qNum - 1]}
+        compScore={this.props.compScores[qNum - 1]}
+        pointsPossible={this.props.book.questions[qNum].points}
+        academicStandard={this.props.book.questions[qNum].standard}
+        questionNum={qNum}
+        isGraded={this.isQuestionGraded(qNum)}
+        title={this.props.book.questions[qNum].title}
+        subtitle={this.props.book.questions[qNum].subtitle}
+        showCompAudioPlayback={this.props.showCompAudioPlaybackHash[qNum]}
+        onCompPlayRecordingClicked={this.props.onCompPlayRecordingClicked}
+        renderCompAudio={this.props.renderCompAudio}
+        studentFirstName={this.props.studentFirstName}
+        assessmentID={this.props.assessmentID}
+        isInteractive={false}
+        key={`compQ${qNum}`}
+      />
+    );
+  };
 
-  renderCompSection = (sectionNum) => {
-    let qArr = []
+  renderCompSection = sectionNum => {
+    let qArr = [];
 
-    let firstQforSection
-
+    let firstQforSection;
 
     for (let q = 1, len = this.props.numQuestions; q <= len; q++) {
-      if (this.props.questions[q].section === sectionNum) { 
-        qArr.push(this.renderCompQuestion(q))
+      if (this.props.questions[q].section === sectionNum) {
+        qArr.push(this.renderCompQuestion(q));
 
         if (!firstQforSection) {
-          firstQforSection = q
+          firstQforSection = q;
         }
       }
-
     }
 
     return (
-    <div className={ [styles.showQ, styles.compPart].join(' ') }>
-      <h2 className={[styles.compPartHeader, styles.retellHeader, (this.isQuestionGraded(firstQforSection) ? '' : styles.fadedComp)].join(' ')}>{this.props.sections[sectionNum]}</h2> 
+      <div
+        key={`section${sectionNum}`}
+        className={[styles.showQ, styles.compPart].join(" ")}
+      >
+        <h2
+          className={[
+            styles.compPartHeader,
+            styles.retellHeader,
+            this.isQuestionGraded(firstQforSection) ? "" : styles.fadedComp
+          ].join(" ")}
+        >
+          {this.props.sections[sectionNum]}
+        </h2>
 
-        <div>
-          {qArr}
-        </div>
-    </div> 
-    )
-  }
+        <div key={"test" + Math.random()}>{qArr}</div>
+      </div>
+    );
+  };
 
   renderAllSections = () => {
-    let sectionArr = []
+    let sectionArr = [];
 
     for (let s = 1, len = this.props.numSections; s <= len; s++) {
-      sectionArr.push(this.renderCompSection(s))
+      sectionArr.push(this.renderCompSection(s));
     }
 
     return (
-      <div className={[styles.comp, sharedStyles.compContainerLarge].join(' ')}>    
-        <hr className={styles.compDivider}/>
-        <h5 className={[styles.sectionHeader, (this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp)].join(' ')}>2. COMPREHENSION</h5>
+      <div
+        key={"allCompSections"}
+        className={[styles.comp, sharedStyles.compContainerLarge].join(" ")}
+      >
+        <hr className={styles.compDivider} />
+        <h5
+          className={[
+            styles.sectionHeader,
+            this.isQuestionGraded(1) ? styles.showQ : styles.fadedComp
+          ].join(" ")}
+        >
+          2. COMPREHENSION
+        </h5>
         {sectionArr}
       </div>
-    )
-
-  }
-
-
+    );
+  };
 
   render() {
-
-
-    return (
-
-      <div>
-        {this.renderAllSections()}
-      </div>
-
-    )
+    return <div key={"compReport"}>{this.renderAllSections()}</div>;
   }
 }
