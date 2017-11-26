@@ -73,7 +73,6 @@ body {
 	color: #31708e;
 	cursor: pointer;
 	transition: all 0.3s;
-	width: 190px;
 	margin: 0px auto;
 	font-family: "ProximaNova semibold";
 	float: right;
@@ -88,10 +87,11 @@ body {
 }
 
 .switchSTEPheading {
+	margin-right: 20px;
 }
 
 .dataManager {
-	margin-right: 6%;
+	margin-right: 9%;
 }
 
 .exportButton {
@@ -946,7 +946,8 @@ button:focus {
 }
 
 @media (max-width: 960px) {
-	.blueSubHeading {
+	.blueSubHeading,
+	.blueIcon {
 		display: none;
 	}
 }

@@ -799,13 +799,13 @@ export default class ReportsInterface extends React.Component {
               onClick={this.onExportClicked}
             >
               {this.props.assessmentBrand === "FP"
-                ? "Export to F&P Data Manager"
+                ? "Export to Data Manager"
                 : "Export to STEP Tool"}
             </h4>
 
             {this.state.showExportLoading && (
               <i
-                style={{ marginLeft: 7, marginRight: 7 }}
+                style={{ marginLeft: 7, marginRight: 8.5 }}
                 className={[
                   "fa",
                   "fa-refresh",
@@ -820,7 +820,7 @@ export default class ReportsInterface extends React.Component {
 
             {this.state.showExportSuccess && (
               <i
-                style={{ marginLeft: 7, marginRight: 7 }}
+                style={{ marginLeft: 7, marginRight: 8.5 }}
                 className={["fa", "fa-check", styles.blueIcon].join(" ")}
                 aria-hidden={"true"}
               />
