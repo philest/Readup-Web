@@ -153,11 +153,6 @@ export default class Reader extends React.Component {
             scrolling="no"
             className="wistia_embed"
             name="wistia_embed"
-            allowFullScreen
-            mozAllowFullScreen
-            WebkitAllowFullScreen
-            oAllowFullScreen
-            msAllowFullScreen
             width="640"
             height="360"
             style={{ zIndex: 999999999 }}

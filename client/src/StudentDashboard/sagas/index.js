@@ -1432,10 +1432,10 @@ function* rootSaga() {
 
 			let turnInCheck = true; // fake, defaulting to true.
 
-			const fullCompleted = yield select(getInComp);
-			const didEndEarly = !fullCompleted;
+			const endedInOralReading = yield select(getInOralReading);
 
-			if (didEndEarly) {
+			yield clog("endedInOralReading: ", endedInOralReading);
+			if (endedInOralReading) {
 				yield* turnInAudio(recordingBlob, assessmentId, false, 0);
 			}
 
@@ -1463,6 +1463,15 @@ function* rootSaga() {
 
 					const res = yield call(markCompleted, assID);
 					yield clog("marked it as completed!: ", res);
+
+					if (!res) {
+						yield call(
+							sendEmail,
+							"Network timeout failed to mark as completed",
+							"Network timeout failed to mark as completed...",
+							"philesterman@gmail.com"
+						); // move here so don't break
+					}
 
 					yield put(setAssessmentSubmitted(true));
 
