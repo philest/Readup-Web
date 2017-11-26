@@ -455,7 +455,8 @@ function* newFetchUntilPrompt(studentID) {
 function* helperInstructionSaga(
 	isStartReading,
 	isStartAnswer,
-	isBlueCheckmark
+	isBlueCheckmark,
+	isNextButton
 ) {
 	if (isStartReading) {
 		yield call(delay, 5000);
@@ -466,6 +467,9 @@ function* helperInstructionSaga(
 		yield call(delay, 3400);
 		yield call(playSoundAsync, "/audio/new-comp-stop.mp3");
 	} else if (isBlueCheckmark) {
+	} else if (isNextButton) {
+		yield call(delay, 79000);
+		yield call(playSoundAsync, "/audio/next-button.m4a");
 	}
 }
 
@@ -882,7 +886,7 @@ function* hideVolumeSaga() {
 }
 
 function* videoWiggleSaga() {
-	yield call(delay, 60000);
+	yield call(delay, 75000);
 	yield put.resolve(setReaderState(ReaderStateOptions.watchedFullVideo));
 }
 
@@ -970,7 +974,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		// IF REAL THING
 		if (process.env.NODE_ENV !== "development") {
-			yield call(delay, 20000);
+			yield call(delay, 15000);
 		}
 
 		yield put.resolve(
@@ -978,6 +982,8 @@ function* assessThenSubmitSaga(assessmentId) {
 		);
 
 		videoWiggleEffect.push(yield fork(videoWiggleSaga));
+		videoWiggleEffect.push(yield fork(helperInstructionSaga(false,false,false,true))
+
 
 		yield put({ type: SPINNER_HIDE });
 
