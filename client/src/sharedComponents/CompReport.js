@@ -92,7 +92,7 @@ export default class CompReport extends React.Component {
           {this.props.sections[sectionNum]}
         </h2>
 
-        <div key={"test" + Math.random()}>{qArr}</div>
+        <div key={"sectionQarr" + sectionNum}>{qArr}</div>
       </div>
     );
   };

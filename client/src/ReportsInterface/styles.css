@@ -65,7 +65,7 @@ body {
 	color: #4a4a4a;
 }
 
-.switchSTEPheading {
+.blueSubHeading {
 	position: relative;
 	top: 107px;
 	text-align: center;
@@ -76,6 +76,22 @@ body {
 	width: 190px;
 	margin: 0px auto;
 	font-family: "ProximaNova semibold";
+	float: right;
+}
+
+.blueIcon {
+	margin-left: 10px;
+	position: relative;
+	top: 105px;
+	float: right;
+	color: #35728f;
+}
+
+.switchSTEPheading {
+}
+
+.dataManager {
+	margin-right: 6%;
 }
 
 .exportButton {
@@ -172,7 +188,7 @@ body {
 }
 
 .playbookTrigger:hover,
-.switchSTEPheading:hover {
+.blueSubHeading:hover {
 	transform: translateY(-3px);
 	filter: brightness(120%);
 	transition: all 0.3s;
@@ -926,5 +942,11 @@ button:focus {
 @media (max-width: 1240px) {
 	.strategiesTrigger {
 		margin-top: 10px;
+	}
+}
+
+@media (max-width: 960px) {
+	.blueSubHeading {
+		display: none;
 	}
 }

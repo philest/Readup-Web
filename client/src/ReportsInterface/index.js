@@ -792,39 +792,27 @@ export default class ReportsInterface extends React.Component {
 
     return (
       <div className={styles.reportsContainer}>
-        {this.props.isSample &&
-          this.props.assessmentBrand === "FP" &&
-          this.props.isDirectSample && (
-            <h4
-              onClick={() => {
-                window.location.href = "/reports/direct-sample?brand=STEP";
-              }}
-              className={styles.switchSTEPheading}
-            >
-              Using STEP? Click here
-            </h4>
-          )}
-
         {this.props.isSample && (
-          <Button
-            className={styles.exportButton}
-            bsSize={"sm"}
-            onClick={this.onExportClicked}
-            bsClass={styles.exportButton}
-          >
-            {this.props.assessmentBrand === "FP"
-              ? "Export to F&P Data Manager"
-              : "Export to STEP Tool"}
+          <div>
+            <h4
+              className={[styles.blueSubHeading, styles.dataManager].join(" ")}
+              onClick={this.onExportClicked}
+            >
+              {this.props.assessmentBrand === "FP"
+                ? "Export to F&P Data Manager"
+                : "Export to STEP Tool"}
+            </h4>
 
             {this.state.showExportLoading && (
               <i
-                style={{ marginLeft: 7 }}
+                style={{ marginLeft: 7, marginRight: 7 }}
                 className={[
                   "fa",
                   "fa-refresh",
                   "animated",
                   "faa-spin",
-                  "faa-slow"
+                  "faa-slow",
+                  styles.blueIcon
                 ].join(" ")}
                 aria-hidden={"true"}
               />
@@ -832,13 +820,28 @@ export default class ReportsInterface extends React.Component {
 
             {this.state.showExportSuccess && (
               <i
-                style={{ marginLeft: 7 }}
-                className={["fa", "fa-check"].join(" ")}
+                style={{ marginLeft: 7, marginRight: 7 }}
+                className={["fa", "fa-check", styles.blueIcon].join(" ")}
                 aria-hidden={"true"}
               />
             )}
-          </Button>
+          </div>
         )}
+
+        {this.props.isSample &&
+          this.props.assessmentBrand === "FP" &&
+          this.props.isDirectSample && (
+            <h4
+              onClick={() => {
+                window.location.href = "/reports/direct-sample?brand=STEP";
+              }}
+              className={[styles.blueSubHeading, styles.switchSTEPheading].join(
+                " "
+              )}
+            >
+              Using STEP? Click here
+            </h4>
+          )}
 
         <div
           className={styles.contentWrapper}
