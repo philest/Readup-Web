@@ -18,7 +18,9 @@ export const ReaderStateOptions = {
   done: "READER_STATE_DONE",
   doneDisplayingPlayback: "READER_STATE_PLAYBACK",
   submitted: "READER_STATE_SUBMITTED",
-  watchingVideo: "READER_STATE_WATCHING_VIDEO"
+  watchingVideo: "READER_STATE_WATCHING_VIDEO",
+  watchedMostOfVideo: "READER_STATE_WATCHED_MOST_OF_VIDEO",
+  watchedFullVideo: "READER_STATE_WATCHED_FULL_VIDEO"
 };
 export type ReaderState = Keys<typeof ReaderStateOptions>;
 

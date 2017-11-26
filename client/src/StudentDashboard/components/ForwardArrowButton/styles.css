@@ -1,4 +1,3 @@
-
 .arrowButtonContainer {
 	cursor: pointer;
 	width: 100%;
@@ -18,25 +17,21 @@
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
 	-webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 
-
-    transition: all .3s;
-
-
+	transition: all 0.3s;
 }
 
 .arrowButtonContainer:hover {
-
 	transform: translateY(-3px);
-    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
-    filter: brightness(120%);
-    transition: all .3s;
+	box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+	filter: brightness(120%);
+	transition: all 0.3s;
 }
 
 .arrowButtonContainer:active {
@@ -55,18 +50,18 @@
 	border-radius: 5px;
 	background-image: url(/images/dashboard/green-arrow.svg);
 	background-size: 100% 100%;
-    -webkit-filter: drop-shadow(0px 2px 25px rgba(0,0,0,0.66));
-    filter: drop-shadow(0px 2px 25px rgba(0,0,0,0.66));
+	-webkit-filter: drop-shadow(0px 2px 25px rgba(0, 0, 0, 0.66));
+	filter: drop-shadow(0px 2px 25px rgba(0, 0, 0, 0.66));
 
 	opacity: 0.4;
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
 	-webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
 
@@ -84,7 +79,7 @@
 .arrowButtonTitle {
 	font-size: 1.6em;
 	margin-top: 3px;
-	font-family: 'Proximanova Semibold';
+	font-family: "Proximanova Semibold";
 }
 
 .arrowButtonSubtitle {
@@ -94,11 +89,10 @@
 
 @keyframes pulse-right {
 	from {
-		transform: translateX(0.1em) 
-		scale(1.1)
+		transform: translateX(0.1em) scale(1.1);
 	}
 	to {
-		transform: translateX(-0.1em)
+		transform: translateX(-0.1em);
 	}
 }
 
@@ -108,13 +102,34 @@
 	animation: pulse-right 800ms infinite alternate;
 }
 
+@keyframes wiggle {
+	42% {
+		transform: rotate(0deg);
+	}
+	46% {
+		transform: rotate(5deg);
+	}
+	50% {
+		transform: rotate(-5deg);
+	}
+	54% {
+		transform: rotate(5deg);
+	}
+	58% {
+		transform: rotate(-5deg);
+	}
+	62% {
+		transform: rotate(5deg);
+	}
+	66% {
+		transform: rotate(-5deg);
+	}
+	70% {
+		transform: rotate(0deg);
+	}
+}
 
-
-
-
-
-
-
-
-
-
+.wiggler {
+	/*    -webkit-animation: wiggle 5s infinite;*/
+	animation: wiggle 5s infinite;
+}

@@ -881,6 +881,11 @@ function* hideVolumeSaga() {
 	yield put.resolve(hideVolumeIndicator());
 }
 
+function* videoWiggleSaga() {
+	yield call(delay, 60000);
+	yield put.resolve(setReaderState(ReaderStateOptions.watchedFullVideo));
+}
+
 function* assessThenSubmitSaga(assessmentId) {
 	const effects = [];
 
@@ -949,6 +954,8 @@ function* assessThenSubmitSaga(assessmentId) {
 		});
 	}
 
+	const videoWiggleEffect = [];
+
 	if (!isDemo && isWarmup) {
 		// show the video saga
 		yield put.resolve(hideVolumeIndicator());
@@ -961,10 +968,20 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		yield put.resolve(setCurrentOverlay("no-overlay"));
 
+		// IF REAL THING
+		yield call(delay, 20000);
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.watchedMostOfVideo)
+		);
+
+		videoWiggleEffect.push(yield fork(videoWiggleSaga));
+
 		yield put({ type: SPINNER_HIDE });
 
 		yield take(START_RECORDING_CLICKED);
 	}
+
+	yield cancel(...videoWiggleEffect);
 
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);

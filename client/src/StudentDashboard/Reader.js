@@ -16,6 +16,8 @@ import ReportStyles from "../ReportsInterface/styles.css";
 
 import { RouteTransition, presets } from "react-router-transition";
 
+import { ReaderStateOptions } from "./types";
+
 import {
   Modal,
   Button,
@@ -142,7 +144,11 @@ export default class Reader extends React.Component {
       wideContainerClass = styles.wideBookpageContainer;
     }
 
-    if (this.props.readerState === "READER_STATE_WATCHING_VIDEO") {
+    if (
+      this.props.readerState === ReaderStateOptions.watchingVideo ||
+      this.props.readerState === ReaderStateOptions.watchedMostOfVideo ||
+      this.props.readerState === ReaderStateOptions.watchedFullVideo
+    ) {
       return (
         <div>
           <iframe
@@ -382,7 +388,13 @@ export default class Reader extends React.Component {
       return null;
     }
 
-    if (this.props.readerState === "READER_STATE_WATCHING_VIDEO") {
+    if (
+      [
+        ReaderStateOptions.watchingVideo,
+        ReaderStateOptions.watchedMostOfVideo,
+        ReaderStateOptions.watchedFullVideo
+      ].includes(this.props.readerState)
+    ) {
       return (
         <ForwardArrowButton
           title="Next"
@@ -390,6 +402,9 @@ export default class Reader extends React.Component {
           style={{ width: 145, height: 120 }}
           disabled={this.props.disabled}
           onClick={this.props.onStartClicked}
+          wiggle={
+            this.props.readerState === ReaderStateOptions.watchedFullVideo
+          }
         />
       );
     }

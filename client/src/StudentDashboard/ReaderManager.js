@@ -148,6 +148,7 @@ export class StudentDashboard extends React.Component {
       disabled:
         this.props.readerState === ReaderStateOptions.countdownToStart ||
         this.props.readerState === ReaderStateOptions.playingBookIntro ||
+        this.props.readerState === ReaderStateOptions.watchingVideo ||
         (this.props.inSpelling &&
           !this.props.spellingAnswerGiven &&
           this.props.readerState !== "READER_STATE_TALKING_ABOUT_NEXT_BUTTON"),
