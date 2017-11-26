@@ -79,6 +79,7 @@ import {
 	IS_WARMUP_SET,
 	SPELLING_QUESTION_NUMBER_SET,
 	IN_SILENT_READING_SET,
+	avatarClicked,
 	startCountdownToStart,
 	setMicPermissions,
 	setHasRecordedSomething,
@@ -129,12 +130,17 @@ import {
 	getInOralReading,
 	getInSpelling,
 	getHasLoggedIn,
-	getStudentName
+	getStudentName,
+	getAssessmentID
 } from "./selectors";
 
 import assessmentSaga from "./assessmentSaga";
 
-import { sendEmail, sendCall } from "../../ReportsInterface/emailHelpers";
+import {
+	sendEmail,
+	sendCall,
+	getAssessmentData
+} from "../../ReportsInterface/emailHelpers";
 
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
@@ -395,14 +401,30 @@ function* questionIncrementSaga(section, spellingEffects) {
 	}
 }
 
-function* questionDecrementSaga(section, spellingEffects) {
+function* questionDecrementSaga(section) {
 	yield clog("here in QUESTION_DECREMENT........: ", section);
 
-	yield put.resolve(decrementQuestion(section));
+	yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
 
 	// yield call(playSound, "/audio/complete.mp3");
 
-	yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
+	yield put.resolve(decrementQuestion(section));
+
+	const assessmentID = yield select(getAssessmentID);
+
+	const assessment = yield call(getAssessmentData, assessmentID - 1);
+	yield clog("assessment: ", assessment);
+	yield clog("scored_spelling: ", assessment.scored_spelling);
+	yield clog("responses: ", assessment.scored_spelling["responses"]);
+
+	const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
+	yield clog(
+		"prev word: ",
+		assessment.scored_spelling["responses"][spellingQuestionNumber - 1]
+	);
+
+	// 1. Retrieve the last spelling answer (of the last question) via a network call.
+	// 2. Set the spellingInput state to be this state.
 
 	// redisable button
 	if (section === "spelling") {
@@ -949,6 +971,10 @@ function* assessThenSubmitSaga(assessmentId) {
 	const isWarmup = yield select(getIsWarmup);
 	const hasLoggedIn = yield select(getHasLoggedIn);
 
+	if (!isWarmup && isDemo) {
+		yield put.resolve(avatarClicked()); /// log in for them
+	}
+
 	yield clog(
 		"hasLoggedIn, isDemo, isWarmup: ",
 		hasLoggedIn,
@@ -999,17 +1025,21 @@ function* assessThenSubmitSaga(assessmentId) {
 			setReaderState(ReaderStateOptions.watchedMostOfVideo)
 		);
 
-		videoWiggleEffect.push(yield fork(videoWiggleSaga));
-		videoWiggleEffect.push(
-			yield fork(helperInstructionSaga, false, false, false, true)
-		);
+		if (process.env.NODE_ENV !== "development") {
+			videoWiggleEffect.push(yield fork(videoWiggleSaga));
+			videoWiggleEffect.push(
+				yield fork(helperInstructionSaga, false, false, false, true)
+			);
+		}
 
 		yield put({ type: SPINNER_HIDE });
 
 		yield take(START_RECORDING_CLICKED);
 	}
 
-	yield cancel(...videoWiggleEffect);
+	if (videoWiggleEffect.length >= 1) {
+		yield cancel(...videoWiggleEffect);
+	}
 
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);

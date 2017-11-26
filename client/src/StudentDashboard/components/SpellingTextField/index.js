@@ -59,7 +59,11 @@ export default class SpellingTextField extends React.Component {
             scoredSpellingHolder = peterSpellingObj;
           }
 
-          scoredSpellingHolder.responses.push(value);
+          scoredSpellingHolder.responses[
+            this.props.spellingQuestionNumber - 1
+          ] = value;
+
+          // scoredSpellingHolder.responses.push(value);
 
           // An alternate approach:
           // let arr = stateHolder.sections[String(sectionNum)].statusArr
@@ -88,7 +92,7 @@ export default class SpellingTextField extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber
+      this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber // incremented by
     ) {
       this.saveSpellingResponse(this.form.value);
       this.form.value = "";
