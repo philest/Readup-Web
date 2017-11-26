@@ -66,6 +66,7 @@ export default class Reader extends React.Component {
     onNextPageClicked: PropTypes.func,
     onNextWordClicked: PropTypes.func,
     onPreviousPageClicked: PropTypes.func,
+    onPreviousWordClicked: PropTypes.func,
     onExitClicked: PropTypes.func,
     onSeeCompClicked: PropTypes.func,
     onSkipClicked: PropTypes.func,
@@ -110,6 +111,27 @@ export default class Reader extends React.Component {
   }
 
   renderLeftButton = () => {
+    if (this.props.inSpelling) {
+      return (
+        <BackArrowButton
+          title="Back"
+          subtitle={this.props.inSpelling ? null : "page"}
+          style={{
+            width: 95,
+            height: 75,
+            float: "right",
+            visibility:
+              this.props.spellingQuestionNumber <= 1 ? "hidden" : "visible"
+          }}
+          onClick={
+            this.props.inSpelling
+              ? this.props.onPreviousWordClicked
+              : this.props.onPreviousPageClicked
+          }
+        />
+      );
+    }
+
     return null;
 
     if (
@@ -172,7 +194,7 @@ export default class Reader extends React.Component {
       (this.props.inOralReading &&
         this.props.showCover &&
         (this.props.readerState === "READER_STATE_INITIALIZING" ||
-          this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")) ||
+          this.props.readerState === ReaderStateOptions.playingBookIntro)) ||
       (!this.props.inOralReading &&
         !this.props.inComp &&
         !this.props.inSpelling &&
@@ -193,8 +215,8 @@ export default class Reader extends React.Component {
     }
 
     if (
-      this.props.readerState === "READER_STATE_TALKING_ABOUT_START_BUTTON" ||
-      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
+      this.props.readerState === ReaderStateOptions.talkingAboutStartButton ||
+      this.props.readerState === ReaderStateOptions.playingBookIntro
     ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
@@ -311,7 +333,7 @@ export default class Reader extends React.Component {
       this.props.readerState === "READER_STATE_COUNTDOWN_TO_START" ||
       this.props.readerState === "READER_STATE_AWAITING_FINISH_BOOK" ||
       (this.props.inOralReading &&
-        this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO")
+        this.props.readerState === ReaderStateOptions.playingBookIntro)
     ) {
       return (
         <div className={[styles.buttonContainer].join(" ")}>
@@ -413,7 +435,7 @@ export default class Reader extends React.Component {
       this.props.showCover &&
       (!this.props.inComp && !this.props.inSpelling) &&
       this.props.showVolumeIndicator &&
-      this.props.readerState === "READER_STATE_PLAYING_BOOK_INTRO"
+      this.props.readerState === ReaderStateOptions.playingBookIntro
     ) {
       return (
         <div className={styles.volumeContainer}>
@@ -670,9 +692,10 @@ export default class Reader extends React.Component {
             className={
               this.props.inComp && this.props.currentShowModal !== "modal-comp"
                 ? styles.leftDoubleButtonContainer
-                : styles.leftButtonContainer
+                : this.props.inSpelling
+                  ? styles.spellingLeftButtonContainer
+                  : styles.leftButtonContainer
             }
-            style={{ marginTop: 4 + "%" }}
           >
             {this.renderUpperLeftButton()}
             {(this.props.inSpelling ||

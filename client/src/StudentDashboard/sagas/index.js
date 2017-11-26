@@ -67,6 +67,7 @@ import {
 	LIVE_DEMO_SET,
 	SPELLING_ANSWER_GIVEN_SET,
 	NEXT_WORD_CLICKED,
+	PREVIOUS_WORD_CLICKED,
 	VOLUME_INDICATOR_SHOWN,
 	FINAL_SPELLING_QUESTION_ANSWERED,
 	FINAL_COMP_QUESTION_ANSWERED,
@@ -385,6 +386,23 @@ function* questionIncrementSaga(section, spellingEffects) {
 	// end spelling exit process
 
 	yield put.resolve(incrementQuestion(section));
+
+	// redisable button
+	if (section === "spelling") {
+		yield put.resolve(setSpellingAnswerGiven(false));
+
+		yield call(playSpellingQuestionSaga);
+	}
+}
+
+function* questionDecrementSaga(section, spellingEffects) {
+	yield clog("here in QUESTION_DECREMENT........: ", section);
+
+	yield put.resolve(decrementQuestion(section));
+
+	// yield call(playSound, "/audio/complete.mp3");
+
+	yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
 
 	// redisable button
 	if (section === "spelling") {
@@ -982,8 +1000,9 @@ function* assessThenSubmitSaga(assessmentId) {
 		);
 
 		videoWiggleEffect.push(yield fork(videoWiggleSaga));
-		videoWiggleEffect.push(yield fork(helperInstructionSaga(false,false,false,true))
-
+		videoWiggleEffect.push(
+			yield fork(helperInstructionSaga, false, false, false, true)
+		);
 
 		yield put({ type: SPINNER_HIDE });
 
@@ -1314,6 +1333,14 @@ function* assessThenSubmitSaga(assessmentId) {
 			yield takeLatest(
 				NEXT_WORD_CLICKED,
 				questionIncrementSaga,
+				"spelling"
+			)
+		);
+
+		effects.push(
+			yield takeLatest(
+				PREVIOUS_WORD_CLICKED,
+				questionDecrementSaga,
 				"spelling"
 			)
 		);

@@ -36,6 +36,7 @@ export const PAUSE_CLICKED = "PAUSE_CLICKED";
 export const RESUME_CLICKED = "RESUME_CLICKED";
 export const NEXT_PAGE_CLICKED = "NEXT_PAGE_CLICKED";
 export const PREVIOUS_PAGE_CLICKED = "PREVIOUS_PAGE_CLICKED";
+export const PREVIOUS_WORD_CLICKED = "PREVIOUS_WORD_CLICKED";
 export const EXIT_CLICKED = "EXIT_CLICKED";
 export const RESTART_RECORDING_CLICKED = "RESTART_RECORDING_CLICKED";
 export const TURN_IN_CLICKED = "TURN_IN_CLICKED";
@@ -315,6 +316,12 @@ export function previousPageClicked() {
   };
 }
 
+export function previousWordClicked() {
+  return {
+    type: PREVIOUS_WORD_CLICKED
+  };
+}
+
 export function nextWordClicked() {
   return {
     type: NEXT_WORD_CLICKED
@@ -560,9 +567,12 @@ export function incrementQuestion(section: string) {
   };
 }
 
-export function decrementQuestion() {
+export function decrementQuestion(section: string) {
   return {
-    type: QUESTION_DECREMENT
+    type: QUESTION_DECREMENT,
+    payload: {
+      section
+    }
   };
 }
 
@@ -1711,7 +1721,17 @@ function reducer(state = initialState, action = {}) {
 
     case QUESTION_DECREMENT: {
       // TODO add history here.
-      return { ...state, questionNumber: state.questionNumber - 1 };
+
+      if (payload.section === "comp") {
+        return { ...state, questionNumber: state.questionNumber - 1 };
+      }
+
+      if (payload.section === "spelling") {
+        return {
+          ...state,
+          spellingQuestionNumber: state.spellingQuestionNumber - 1
+        };
+      }
     }
 
     case QUESTION_NUMBER_SET: {

@@ -156,6 +156,7 @@ export class StudentDashboard extends React.Component {
       onSkipClicked: this.props.actions.skipClicked,
       onNextPageClicked: this.props.actions.nextPageClicked,
       onNextWordClicked: this.props.actions.nextWordClicked,
+      onPreviousWordClicked: this.props.actions.previousWordClicked,
       onSeeCompClicked: this.props.actions.seeCompClicked,
       inComp: this.props.inComp,
       onStartClicked: this.props.actions.startRecordingClicked, // maybe save for cover page  -PHIL

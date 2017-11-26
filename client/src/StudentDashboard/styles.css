@@ -87,6 +87,13 @@ body {
 	margin-bottom: 0px;
 }
 
+.spellingLeftButtonContainer {
+	min-width: 200px;
+	margin: 30px;
+	margin-top: -18vh;
+	margin-bottom: 0px;
+}
+
 .bookpageContainer {
 	width: 31.5vw;
 	height: 75vh;
