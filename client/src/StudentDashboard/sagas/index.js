@@ -414,22 +414,29 @@ function* questionDecrementSaga(section) {
 
 	const assessmentID = yield select(getAssessmentID);
 
-	const assessment = yield call(getAssessmentData, assessmentID);
-	yield clog("assessment: ", assessment);
-	yield clog("scored_spelling: ", assessment.scored_spelling);
-	yield clog("responses: ", assessment.scored_spelling["responses"]);
-
-	const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
-	yield clog(
-		"prev word: ",
-		assessment.scored_spelling["responses"][spellingQuestionNumber - 1]
+	const assessment = yield getAssessmentData(assessmentID).catch(
+		e => e.request
 	);
 
-	yield put.resolve(
-		setSpellingInput(
+	if (assessment && assessment.scored_spelling) {
+		yield clog("assessment: ", assessment);
+		yield clog("scored_spelling: ", assessment.scored_spelling);
+		yield clog("responses: ", assessment.scored_spelling["responses"]);
+
+		const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
+		yield clog(
+			"prev word: ",
 			assessment.scored_spelling["responses"][spellingQuestionNumber - 1]
-		)
-	);
+		);
+
+		yield put.resolve(
+			setSpellingInput(
+				assessment.scored_spelling["responses"][
+					spellingQuestionNumber - 1
+				]
+			)
+		);
+	}
 
 	// 1. Retrieve the last spelling answer (of the last question) via a network call.
 	// 2. Set the spellingInput state to be this state.
@@ -1598,19 +1605,9 @@ function* rootSaga() {
 				yield call(playSound, "/audio/celebration.mp3");
 
 				if (isWarmup) {
-					// yield put.resolve(setIsWarmup(false));
-					// yield call(assessThenSubmitSaga, assessmentId);
-					// if (isDemo) {
-					// 	yield clog("oh hey you r done");
-					// 	window.location.href = "/reports/sample";
-					// 	yield put({ type: SPINNER_SHOW });
-					// } else {
-					// 	//Keep them waiting here forever as proof they finished.
-					setTimeout(() => {
-						// TODO where to redirect?
-						window.location.href = "/";
-					}, 7500);
-					// }
+					yield clog("in the ending warmup sequence...");
+					yield call(delay, 500);
+					yield put.resolve(setCurrentOverlay("overlay-submitted"));
 				} else if (isDemo) {
 					yield clog("oh hey you r done");
 
@@ -1620,13 +1617,9 @@ function* rootSaga() {
 					// TODO where to redirect?
 					// window.location.href = "/reports/1"
 				} else {
-					//Keep them waiting here forever as proof they finished.
-
-					setTimeout(() => {
-						// TODO where to redirect?
-						window.close(); // eslint-disable-line
-						window.location.href = "/";
-					}, 7500);
+					yield clog("in the ending real thing sequence...");
+					yield call(delay, 500);
+					yield put.resolve(setCurrentOverlay("overlay-submitted"));
 					return;
 				}
 

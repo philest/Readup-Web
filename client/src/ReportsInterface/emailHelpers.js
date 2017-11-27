@@ -212,6 +212,10 @@ export function getAssessmentData(assessmentID) {
     })
     .then(res => {
       return res.data;
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
     });
 }
 
