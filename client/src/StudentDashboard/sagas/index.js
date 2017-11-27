@@ -546,6 +546,9 @@ function* introInstructionSaga(book) {
 		yield put.resolve(
 			setReaderState(ReaderStateOptions.talkingAboutStartButton)
 		);
+
+		yield put.resolve(showVolumeIndicator());
+
 		yield call(playSound, "/audio/warmup/w-3.mp3");
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 		yield call(playSound, "/audio/complete.mp3");
