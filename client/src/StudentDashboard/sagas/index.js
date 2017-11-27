@@ -534,12 +534,10 @@ function* hearIntroAgainSaga(helperEffect, book) {
 		yield cancel(...helperEffect);
 	}
 
-	let newHelperEffect = [];
-
-	yield call(introInstructionSaga, book, newHelperEffect);
+	yield call(introInstructionSaga, book);
 }
 
-function* introInstructionSaga(book, helperEffect) {
+function* introInstructionSaga(book) {
 	const isWarmup = yield select(getIsWarmup);
 
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
@@ -598,8 +596,6 @@ function* introInstructionSaga(book, helperEffect) {
 
 		yield call(playSound, "/audio/complete.mp3");
 	}
-
-	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
 }
 
 function* spellingInstructionSaga() {
@@ -1159,7 +1155,9 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	// Put the intro instruction sequence...
 
-	yield call(introInstructionSaga, book, helperEffect);
+	yield call(introInstructionSaga, book);
+
+	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
 
 	// set a 8 second saga in background
 
