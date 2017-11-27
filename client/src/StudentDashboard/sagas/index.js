@@ -528,7 +528,18 @@ function* helperInstructionSaga(
 	}
 }
 
-function* introInstructionSaga(book) {
+// wrapper that cancels side effects that interrupt, then restarts saga.
+function* hearIntroAgainSaga(helperEffect, book) {
+	if (helperEffect.length >= 1) {
+		yield cancel(...helperEffect);
+	}
+
+	let newHelperEffect = [];
+
+	yield call(introInstructionSaga, book, newHelperEffect);
+}
+
+function* introInstructionSaga(book, helperEffect) {
 	const isWarmup = yield select(getIsWarmup);
 
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
@@ -587,6 +598,8 @@ function* introInstructionSaga(book) {
 
 		yield call(playSound, "/audio/complete.mp3");
 	}
+
+	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
 }
 
 function* spellingInstructionSaga() {
@@ -1049,8 +1062,15 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	const book = yield select(getBook);
 
+	const helperEffect = []; // deals with extra instructions
+
 	effects.push(
-		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, introInstructionSaga, book)
+		yield takeLatest(
+			HEAR_INTRO_AGAIN_CLICKED,
+			hearIntroAgainSaga,
+			helperEffect,
+			book
+		)
 	);
 
 	// permission was granted!!!!
@@ -1139,10 +1159,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	// Put the intro instruction sequence...
 
-	yield call(introInstructionSaga, book);
-
-	// const helperEffect = [];
-	// helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
+	yield call(introInstructionSaga, book, helperEffect);
 
 	// set a 8 second saga in background
 
@@ -1156,7 +1173,9 @@ function* assessThenSubmitSaga(assessmentId) {
 	});
 
 	// cancel that saga.
-	yield cancel(...helperEffect);
+	if (helperEffect.length >= 1) {
+		yield cancel(...helperEffect);
+	}
 
 	yield call(stopAudio);
 
