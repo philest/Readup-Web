@@ -36,7 +36,7 @@ export default class SpellingTextField extends React.Component {
     };
   }
 
-  saveSpellingResponse = value => {
+  saveSpellingResponse = (value, qNum) => {
     // get spelling object
     // save it temporarily
     // push in a new response
@@ -59,9 +59,7 @@ export default class SpellingTextField extends React.Component {
             scoredSpellingHolder = peterSpellingObj;
           }
 
-          scoredSpellingHolder.responses[
-            this.props.spellingQuestionNumber - 1
-          ] = value;
+          scoredSpellingHolder.responses[qNum - 1] = value;
 
           // scoredSpellingHolder.responses.push(value);
 
@@ -94,7 +92,14 @@ export default class SpellingTextField extends React.Component {
     if (
       this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber // incremented by
     ) {
-      this.saveSpellingResponse(this.form.value);
+      if (
+        nextProps.spellingQuestionNumber > this.props.spellingQuestionNumber
+      ) {
+        this.saveSpellingResponse(
+          this.form.value,
+          this.props.spellingQuestionNumber
+        );
+      }
       this.form.value = "";
       this.props.onSpellingInputSet(""); // reset to empty
       this.form.focus();

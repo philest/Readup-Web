@@ -412,7 +412,7 @@ function* questionDecrementSaga(section) {
 
 	const assessmentID = yield select(getAssessmentID);
 
-	const assessment = yield call(getAssessmentData, assessmentID - 1);
+	const assessment = yield call(getAssessmentData, assessmentID);
 	yield clog("assessment: ", assessment);
 	yield clog("scored_spelling: ", assessment.scored_spelling);
 	yield clog("responses: ", assessment.scored_spelling["responses"]);
