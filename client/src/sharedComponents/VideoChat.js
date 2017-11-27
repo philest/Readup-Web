@@ -196,8 +196,10 @@ export function roomJoined(room) {
             console.log(data);
             console.log("got a message to send over all state");
             this.sendAllPropsIndividually(this.props.readerProps);
-          } else if (data.includes("VIDEO-ON") || data.includes("VIDEO-OFF")) {
-            onToggleShowVideo();
+          } else if (data.includes("VIDEO-ON")) {
+            onToggleShowVideo(true);
+          } else if (data.includes("VIDEO-OFF")) {
+            onToggleShowVideo(false);
           } else if (data.includes("PROMPT-")) {
             let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
 
@@ -428,19 +430,20 @@ export default class VideoChat extends React.Component {
     }
   }
 
-  onToggleAudioClicked = () => {
-    console.log("here in audio toggle..");
-    this.setState({ localAudioEnabled: !this.state.localAudioEnabled });
+  onToggleAudioClicked = isEnableAudio => {
+    console.log("here in audio toggle, going to: ", isEnableAudio);
+    this.setState({ localAudioEnabled: isEnableAudio });
   };
 
-  onToggleVideoClicked = () => {
-    console.log("here in video toggle..");
-    this.setState({ localVideoEnabled: !this.state.localVideoEnabled });
+  onToggleVideoClicked = isEnableVideo => {
+    console.log("here in video toggle, going to: ", isEnableVideo);
+    this.setState({ localVideoEnabled: isEnableVideo });
   };
 
-  onToggleShowVideo = () => {
+  onToggleShowVideo = isShowVideo => {
     console.log("here in SHOW video toggle.");
-    this.setState({ showVideo: !this.state.showVideo });
+
+    this.setState({ showVideo: isShowVideo });
   };
 
   sendPromptDataMessage = promptNumber => {
@@ -730,7 +733,9 @@ div#controls div#log p {
                 visibility: this.state.localAudioEnabled ? "visible" : "hidden"
               }}
               id="audio-toggle-off"
-              onClick={this.onToggleAudioClicked}
+              onClick={() => {
+                this.onToggleAudioClicked(false);
+              }}
             >
               Turn off your Audio
             </Button>
@@ -741,7 +746,9 @@ div#controls div#log p {
                 visibility: !this.state.localAudioEnabled ? "visible" : "hidden"
               }}
               id="audio-toggle-on"
-              onClick={this.onToggleAudioClicked}
+              onClick={() => {
+                this.onToggleAudioClicked(true);
+              }}
             >
               Turn on your Audio
             </Button>
@@ -753,7 +760,9 @@ div#controls div#log p {
                 visibility: this.state.localVideoEnabled ? "visible" : "hidden"
               }}
               id="video-toggle-off"
-              onClick={this.onToggleVideoClicked}
+              onClick={() => {
+                this.onToggleVideoClicked(false);
+              }}
             >
               Turn off your video
             </Button>
@@ -764,7 +773,9 @@ div#controls div#log p {
                 visibility: !this.state.localVideoEnabled ? "visible" : "hidden"
               }}
               id="video-toggle-on"
-              onClick={this.onToggleVideoClicked}
+              onClick={() => {
+                this.onToggleVideoClicked(true);
+              }}
             >
               Turn on your video
             </Button>

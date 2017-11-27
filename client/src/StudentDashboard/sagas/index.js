@@ -1030,7 +1030,7 @@ function* assessThenSubmitSaga(assessmentId) {
 			setReaderState(ReaderStateOptions.watchedMostOfVideo)
 		);
 
-		if (process.env.NODE_ENV !== "development") {
+		if (process.env.NODE_ENV === "production") {
 			videoWiggleEffect.push(yield fork(videoWiggleSaga));
 			videoWiggleEffect.push(
 				yield fork(helperInstructionSaga, false, false, false, true)
