@@ -511,7 +511,8 @@ function* helperInstructionSaga(
 	isStartReading,
 	isStartAnswer,
 	isBlueCheckmark,
-	isNextButton
+	isNextButton,
+	isName
 ) {
 	if (isStartReading) {
 		yield call(delay, 5000);
@@ -525,6 +526,9 @@ function* helperInstructionSaga(
 	} else if (isNextButton) {
 		yield call(delay, 79000);
 		yield call(playSoundAsync, "/audio/next-button.m4a");
+	} else if (isName) {
+		yield call(delay, 13500);
+		yield call(playSoundAsync, "/audio/find-your-name.m4a");
 	}
 }
 
@@ -1087,9 +1091,18 @@ function* assessThenSubmitSaga(assessmentId) {
 	);
 
 	if (!isDemo && !hasLoggedIn) {
+		const nameEffect = [];
 		yield call(playSoundAsync, "/audio/find-your-name.m4a");
 		yield clog("in login world...");
+
+		nameEffect.push(
+			yield fork(helperInstructionSaga, false, false, false, false, true)
+		);
+
 		yield take(AVATAR_CLICKED);
+
+		yield cancel(...nameEffect);
+
 		yield call(playSound, "/audio/complete.mp3");
 	}
 
