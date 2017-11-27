@@ -1061,7 +1061,7 @@ export const step6Book = {
   fpLevel: "I",
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
-  coverImage: "/images/dashboard/step5/rufus-cover.jpg",
+  coverImage: "/images/dashboard/step6/step6-cover.jpg",
   introAudioSrc: "/audio/ruffy-intro-new.mp3",
   pages: {
     1: {
