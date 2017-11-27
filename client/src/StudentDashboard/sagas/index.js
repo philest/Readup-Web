@@ -136,7 +136,7 @@ import {
 	getAssessmentID
 } from "./selectors";
 
-import { assessmentSaga, resumeAssessmentSaga } from "./assessmentSaga";
+import assessmentSaga from "./assessmentSaga";
 
 import {
 	sendEmail,
