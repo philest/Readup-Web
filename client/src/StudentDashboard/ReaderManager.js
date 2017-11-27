@@ -179,6 +179,7 @@ export class StudentDashboard extends React.Component {
       micPermissionsStatus: this.props.micPermissionsStatus,
       onStudentNameSet: this.props.actions.setStudentName,
       onAvatarClicked: this.props.actions.avatarClicked,
+      onFinishVideoClicked: this.props.actions.finishVideoClicked,
       hasLoggedIn: this.props.hasLoggedIn,
       teacherName: this.props.teacherName,
       inSilentReading: this.props.inSilentReading,

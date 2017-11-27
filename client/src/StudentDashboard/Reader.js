@@ -70,6 +70,7 @@ export default class Reader extends React.Component {
     onExitClicked: PropTypes.func,
     onSeeCompClicked: PropTypes.func,
     onSkipClicked: PropTypes.func,
+    onFinishVideoClicked: PropTypes.func,
 
     //Phil
     inComp: PropTypes.bool,
@@ -423,7 +424,7 @@ export default class Reader extends React.Component {
           subtitle={null}
           style={{ width: 145, height: 120 }}
           disabled={this.props.disabled}
-          onClick={this.props.onStartClicked}
+          onClick={this.props.onFinishVideoClicked}
           wiggle={
             this.props.readerState === ReaderStateOptions.watchedFullVideo
           }

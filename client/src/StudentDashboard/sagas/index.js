@@ -76,6 +76,7 @@ import {
 	SHOW_SKIP_PROMPT_SET,
 	ASSESSMENT_ID_SET,
 	AVATAR_CLICKED,
+	FINISH_VIDEO_CLICKED,
 	IS_WARMUP_SET,
 	SPELLING_QUESTION_NUMBER_SET,
 	IN_SILENT_READING_SET,
@@ -1022,7 +1023,7 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		// IF REAL THING
-		if (process.env.NODE_ENV !== "development") {
+		if (process.env.NODE_ENV === "production") {
 			yield call(delay, 15000);
 		}
 
@@ -1039,7 +1040,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		yield put({ type: SPINNER_HIDE });
 
-		yield take(START_RECORDING_CLICKED);
+		yield take(FINISH_VIDEO_CLICKED);
 	}
 
 	if (videoWiggleEffect.length >= 1) {

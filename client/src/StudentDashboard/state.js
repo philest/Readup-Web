@@ -43,6 +43,8 @@ export const TURN_IN_CLICKED = "TURN_IN_CLICKED";
 export const HEAR_QUESTION_AGAIN_CLICKED = "HEAR_QUESTION_AGAIN_CLICKED";
 export const RECORDING_URL_SET = "RECORDING_URL_SET";
 
+export const FINISH_VIDEO_CLICKED = "FINISH_VIDEO_CLICKED";
+
 export const SEE_BOOK_CLICKED = "SEE_BOOK_CLICKED";
 export const HEAR_RECORDING_CLICKED = "HEAR_RECORDING_CLICKED";
 
@@ -208,6 +210,12 @@ export function setHasRecordedSomething(hasRecordedSomething: boolean) {
 export function introContinueClicked() {
   return {
     type: INTRO_CONTINUE_CLICKED
+  };
+}
+
+export function finishVideoClicked() {
+  return {
+    type: FINISH_VIDEO_CLICKED
   };
 }
 
