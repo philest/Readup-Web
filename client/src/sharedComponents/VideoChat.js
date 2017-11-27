@@ -269,6 +269,11 @@ export function roomJoined(room) {
     room.participants.forEach(detachParticipantTracks);
     activeRoom = null;
     console.log("disconnected from room");
+    console.warn("Disconnected from room! Trying to reconnect in 5... ");
+    setTimeout(() => {
+      this.setUpTracks;
+    }, 5000); // try reconnecting if you were dropped???!!! every 5 sec
+
     // document.getElementById("button-join").style.display = "inline";
     // document.getElementById("button-leave").style.display = "none";
   });
@@ -515,6 +520,12 @@ export default class VideoChat extends React.Component {
           error
         ) {
           log("Could not connect to Twilio: " + error.message);
+
+          console.warn("Could not connect to room! Trying again in 7... ");
+
+          setTimeout(() => {
+            this.setUpTracks;
+          }, 7000); // try reconnecting if you could not!!! every 7 sec
         });
       }
     );
