@@ -527,6 +527,57 @@ function* helperInstructionSaga(
 	}
 }
 
+function* introInstructionSaga(isWarmup, book) {
+	yield call(stopAudio);
+
+	yield call(delay, 1350);
+
+	if (isWarmup) {
+		yield call(playSound, "/audio/warmup/w-1.mp3");
+		yield call(playSound, "/audio/warmup/w-2.mp3");
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutStartButton)
+		);
+		yield call(playSound, "/audio/warmup/w-3.mp3");
+		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+		yield call(playSound, "/audio/complete.mp3");
+	} else {
+		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
+
+		yield put.resolve(showVolumeIndicator());
+
+		yield call(playSound, book.introAudioSrc);
+
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutStartButton)
+		);
+
+		yield put.resolve(showVolumeIndicator());
+
+		yield clog("hasSilentReading: ", hasSilentReading(book));
+
+		if (hasSilentReading(book)) {
+			yield call(playSound, "/audio/silent-new-01.mp3");
+		} else {
+			yield call(playSound, "/audio/intro-click-start.mp3");
+		}
+
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutStopButton)
+		);
+
+		if (hasSilentReading(book)) {
+			yield call(playSound, "/audio/silent-stop.m4a");
+		} else {
+			yield call(playSound, "/audio/intro-click-stop.mp3");
+		}
+
+		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+
+		yield call(playSound, "/audio/complete.mp3");
+	}
+}
+
 function* spellingInstructionSaga() {
 	const isWarmup = yield select(getIsWarmup);
 
@@ -1075,54 +1126,9 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield clog("set it");
 
-	yield call(stopAudio);
+	// Put the intro instruction sequence...
 
-	yield call(delay, 1350);
-
-	if (isWarmup) {
-		yield call(playSound, "/audio/warmup/w-1.mp3");
-		yield call(playSound, "/audio/warmup/w-2.mp3");
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutStartButton)
-		);
-		yield call(playSound, "/audio/warmup/w-3.mp3");
-		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
-		yield call(playSound, "/audio/complete.mp3");
-	} else {
-		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
-
-		yield put.resolve(showVolumeIndicator());
-
-		yield call(playSound, book.introAudioSrc);
-
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutStartButton)
-		);
-
-		yield put.resolve(showVolumeIndicator());
-
-		yield clog("hasSilentReading: ", hasSilentReading(book));
-
-		if (hasSilentReading(book)) {
-			yield call(playSound, "/audio/silent-new-01.mp3");
-		} else {
-			yield call(playSound, "/audio/intro-click-start.mp3");
-		}
-
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutStopButton)
-		);
-
-		if (hasSilentReading(book)) {
-			yield call(playSound, "/audio/silent-stop.m4a");
-		} else {
-			yield call(playSound, "/audio/intro-click-stop.mp3");
-		}
-
-		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
-
-		yield call(playSound, "/audio/complete.mp3");
-	}
+	yield call(introInstructionSaga, isWarmup, book);
 
 	const helperEffect = [];
 	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
