@@ -88,6 +88,13 @@
 	margin-top: 8px;
 	font-family: "Proximanova Semibold";
 	color: #4a4a4a;
+
+	user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 }
 
 .largeButtonText {
@@ -97,6 +104,13 @@
 	margin: 10px;
 	font-family: "Proximanova Semibold";
 	color: #4a4a4a;
+
+	user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 }
 
 .smallButtonText {
@@ -107,6 +121,13 @@
 	margin-top: 5px;
 	font-family: "Proximanova Semibold";
 	color: #4a4a4a;
+
+	user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 }
 
 .largeIcon {
