@@ -183,7 +183,8 @@ export class StudentDashboard extends React.Component {
       hasLoggedIn: this.props.hasLoggedIn,
       teacherName: this.props.teacherName,
       inSilentReading: this.props.inSilentReading,
-      onCompPauseClicked: this.props.actions.compPauseClicked
+      onCompPauseClicked: this.props.actions.compPauseClicked,
+      onHearIntroAgainClicked: this.props.actions.hearIntroAgainClicked
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader

@@ -71,6 +71,7 @@ export default class Reader extends React.Component {
     onSeeCompClicked: PropTypes.func,
     onSkipClicked: PropTypes.func,
     onFinishVideoClicked: PropTypes.func,
+    onHearIntroAgainClicked: PropTypes.func,
 
     //Phil
     inComp: PropTypes.bool,
@@ -458,7 +459,7 @@ export default class Reader extends React.Component {
     ) {
       return (
         <div
-          onClick={this.props.onStartOverClicked}
+          onClick={this.props.onHearIntroAgainClicked}
           className={[styles.volumeContainer, styles.clickable].join(" ")}
         >
           <i

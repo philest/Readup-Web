@@ -120,6 +120,8 @@ export const SPELLING_QUESTION_NUMBER_SET = "SPELLING_QUESTION_NUMBER_SET";
 
 export const IN_SILENT_READING_SET = "IN_SILENT_READING_SET";
 
+export const HEAR_INTRO_AGAIN_CLICKED = "HEAR_INTRO_AGAIN_CLICKED";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -357,6 +359,12 @@ export function turnInClicked() {
 export function hearRecordingClicked() {
   return {
     type: HEAR_RECORDING_CLICKED
+  };
+}
+
+export function hearIntroAgainClicked() {
+  return {
+    type: HEAR_INTRO_AGAIN_CLICKED
   };
 }
 

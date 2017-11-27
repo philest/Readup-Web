@@ -45,6 +45,7 @@ import {
 	BOOK_INTRO_RECORDING_ENDED,
 	INTRO_CONTINUE_CLICKED,
 	HEAR_RECORDING_CLICKED,
+	HEAR_INTRO_AGAIN_CLICKED,
 	SEE_BOOK_CLICKED,
 	COUNTDOWN_ENDED,
 	EXIT_CLICKED,
@@ -527,7 +528,14 @@ function* helperInstructionSaga(
 	}
 }
 
-function* introInstructionSaga(isWarmup, book) {
+function* introInstructionSaga(book) {
+	const isWarmup = yield select(getIsWarmup);
+
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	yield put.resolve(showVolumeIndicator());
+
+	yield clog("set it");
+
 	yield call(stopAudio);
 
 	yield call(delay, 1350);
@@ -603,7 +611,7 @@ function* spellingInstructionSaga() {
 	}
 }
 
-function* instructionSaga() {
+function* compInstructionSaga() {
 	yield put.resolve(setPageNumber(0));
 	yield put.resolve(setInComp(true));
 
@@ -711,7 +719,7 @@ function* definedCompSaga(
 		if (isFirstTime) {
 			// first time, play instructions
 			// yield put.resolve(setCurrentModal("modal-comp"));
-			yield call(instructionSaga);
+			yield call(compInstructionSaga);
 		}
 
 		let newBlob = yield* compSaga(isFirstTime, false, isFirstTime, currQ);
@@ -1036,6 +1044,12 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
 
+	const book = yield select(getBook);
+
+	effects.push(
+		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, introInstructionSaga, book)
+	);
+
 	// permission was granted!!!!
 
 	const isDemo = yield select(getIsDemo);
@@ -1120,18 +1134,13 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	effects.push(yield fork(hideVolumeSaga));
 
-	const book = yield select(getBook);
-
-	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
-
-	yield clog("set it");
-
 	// Put the intro instruction sequence...
 
-	yield call(introInstructionSaga, isWarmup, book);
+	yield call(introInstructionSaga, book);
 
-	const helperEffect = [];
-	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
+	// const helperEffect = [];
+	// helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
+
 	// set a 8 second saga in background
 
 	yield cancel(...earlyExitEffect); // allow for new exit thing
