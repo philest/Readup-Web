@@ -429,15 +429,12 @@ function* questionDecrementSaga(section) {
 		)
 	);
 
-	yield put.resolve(setSpellingAnswerGiven(true));
-
 	// 1. Retrieve the last spelling answer (of the last question) via a network call.
 	// 2. Set the spellingInput state to be this state.
 
 	// redisable button
 	if (section === "spelling") {
-		yield put.resolve(setSpellingAnswerGiven(false));
-
+		yield put.resolve(setSpellingAnswerGiven(true));
 		yield call(playSpellingQuestionSaga);
 	}
 }

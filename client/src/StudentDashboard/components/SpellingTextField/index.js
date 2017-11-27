@@ -93,13 +93,15 @@ export default class SpellingTextField extends React.Component {
       this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber // incremented by
     ) {
       if (
-        nextProps.spellingQuestionNumber > this.props.spellingQuestionNumber
+        nextProps.spellingQuestionNumber > this.props.spellingQuestionNumber ||
+        nextProps.spellingQuestionNumber < this.props.spellingQuestionNumber
       ) {
         this.saveSpellingResponse(
           this.form.value,
           this.props.spellingQuestionNumber
         );
       }
+
       this.form.value = "";
       this.props.onSpellingInputSet(""); // reset to empty
       this.form.focus();
