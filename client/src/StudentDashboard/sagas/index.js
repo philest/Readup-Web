@@ -423,6 +423,14 @@ function* questionDecrementSaga(section) {
 		assessment.scored_spelling["responses"][spellingQuestionNumber - 1]
 	);
 
+	yield put.resolve(
+		setSpellingInput(
+			assessment.scored_spelling["responses"][spellingQuestionNumber - 1]
+		)
+	);
+
+	yield put.resolve(setSpellingAnswerGiven(true));
+
 	// 1. Retrieve the last spelling answer (of the last question) via a network call.
 	// 2. Set the spellingInput state to be this state.
 
