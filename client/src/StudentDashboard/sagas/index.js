@@ -1048,7 +1048,7 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield put({ type: SPINNER_HIDE });
 
 		yield take(FINISH_VIDEO_CLICKED);
-		yield call(playSoundAsync, "/audio/complete.mp3");
+		yield call(playSound, "/audio/complete.mp3");
 	}
 
 	if (videoWiggleEffect.length >= 1) {
