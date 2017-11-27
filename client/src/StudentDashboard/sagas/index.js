@@ -80,6 +80,7 @@ import {
 	IS_WARMUP_SET,
 	SPELLING_QUESTION_NUMBER_SET,
 	IN_SILENT_READING_SET,
+	RESUME_CLICKED,
 	avatarClicked,
 	startCountdownToStart,
 	setMicPermissions,
@@ -135,7 +136,7 @@ import {
 	getAssessmentID
 } from "./selectors";
 
-import assessmentSaga from "./assessmentSaga";
+import { assessmentSaga, resumeAssessmentSaga } from "./assessmentSaga";
 
 import {
 	sendEmail,
@@ -357,7 +358,7 @@ function* skipClick() {
 function* exitClick() {
 	const recorder = yield select(getRecorder);
 
-	if (recorder.recording) {
+	if (recorder && recorder.recording) {
 		yield call(recorder.pauseRecording);
 		yield put.resolve(setReaderState(ReaderStateOptions.paused));
 	}
@@ -971,6 +972,12 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield put(setCurrentOverlay("no-overlay"));
 
+	const earlyExitEffect = [];
+
+	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
+
+	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
+
 	// permission was granted!!!!
 
 	const isDemo = yield select(getIsDemo);
@@ -1041,6 +1048,7 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield put({ type: SPINNER_HIDE });
 
 		yield take(FINISH_VIDEO_CLICKED);
+		yield call(playSoundAsync, "/audio/complete.mp3");
 	}
 
 	if (videoWiggleEffect.length >= 1) {
@@ -1112,6 +1120,8 @@ function* assessThenSubmitSaga(assessmentId) {
 	const helperEffect = [];
 	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
 	// set a 8 second saga in background
+
+	yield cancel(...earlyExitEffect); // allow for new exit thing
 
 	// before assessment has started, clicking exit immediately quits app
 	// I guess. We will probably change this

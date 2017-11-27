@@ -98,6 +98,7 @@ function* resumeAssessmentSaga(action) {
 
     // only resume if it's pause and in progres— this makes sure prompt recordings (where the recorder is paused) and resumed when they never stared.
     if (
+      recorder &&
       recorder.rtcRecorder.state === "paused" &&
       prompt === "AWAITING_PROMPT"
     ) {
