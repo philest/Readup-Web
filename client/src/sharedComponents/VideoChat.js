@@ -521,6 +521,14 @@ export default class VideoChat extends React.Component {
         ) {
           log("Could not connect to Twilio: " + error.message);
 
+          if (process.env.NODE_ENV === "production") {
+            sendEmail(
+              "User could not join room / connect to Twilio",
+              "User could not join room / connect to Twilio",
+              "philesterman@gmail.com"
+            );
+          }
+
           console.warn("Could not connect to room! Trying again in 7... ");
 
           setTimeout(() => {
