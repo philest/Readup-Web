@@ -80,6 +80,35 @@ export default class CompModal extends React.Component {
     setTimeout(this.props.onExitLastQuestion, 2000);
   };
 
+  renderFooter = () => {
+    return (
+      <Modal.Footer style={{ backgroundColor: "whitesmoke" }}>
+        <div className={myStyles.footerButtonContainer}>
+          <BackArrowButton
+            title="Back"
+            subtitle={null}
+            style={{
+              width: 95,
+              height: 75,
+              visibility: false ? "hidden" : "visible",
+              position: "relative",
+              top: 21
+            }}
+            onClick={this.props.onPreviousQuestionClicked}
+          />
+          <ForwardArrowButton
+            title="Next"
+            subtitle={null}
+            style={{ width: 145, height: 120 }}
+            disabled={false && this.props.disabled}
+            onClick={this.props.onNextQuestionClicked}
+            wiggle={false}
+          />
+        </div>
+      </Modal.Footer>
+    );
+  };
+
   renderOralCompBody = (
     inProgress,
     done,
@@ -203,30 +232,7 @@ export default class CompModal extends React.Component {
             <textarea className={myStyles.notes} spellCheck="false" autoFocus />
           )}
         </Modal.Body>
-        <Modal.Footer style={{ backgroundColor: "whitesmoke" }}>
-          <div className={myStyles.footerButtonContainer}>
-            <BackArrowButton
-              title="Back"
-              subtitle={null}
-              style={{
-                width: 95,
-                height: 75,
-                visibility: false ? "hidden" : "visible",
-                position: "relative",
-                top: 21
-              }}
-              onClick={this.props.onPreviousQuestionClicked}
-            />
-            <ForwardArrowButton
-              title="Next"
-              subtitle={null}
-              style={{ width: 145, height: 120 }}
-              disabled={false && this.props.disabled}
-              onClick={this.props.onNextQuestionClicked}
-              wiggle={false}
-            />
-          </div>
-        </Modal.Footer>
+        {this.props.written && this.renderFooter()}
       </Modal>
     );
   }
