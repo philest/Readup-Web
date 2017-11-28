@@ -29,8 +29,9 @@
 
 .arrowButtonContainer:hover {
 	transform: translateY(-3px);
-	box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-	filter: brightness(120%);
+	/*	box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+*/
+	filter: brightness(120%) drop-shadow(0px 7px 14px rgba(50, 50, 93, 0.1));
 	transition: all 0.3s;
 }
 
@@ -50,9 +51,9 @@
 	border-radius: 5px;
 	background-image: url(/images/dashboard/green-arrow.svg);
 	background-size: 100% 100%;
-	-webkit-filter: drop-shadow(0px 2px 25px rgba(0, 0, 0, 0.66));
+	/*	-webkit-filter: drop-shadow(0px 2px 25px rgba(0, 0, 0, 0.66));
 	filter: drop-shadow(0px 2px 25px rgba(0, 0, 0, 0.66));
-
+*/
 	opacity: 0.4;
 
 	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
