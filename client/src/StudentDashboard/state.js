@@ -35,6 +35,10 @@ export const STOP_RECORDING_CLICKED = "STOP_RECORDING_CLICKED";
 export const PAUSE_CLICKED = "PAUSE_CLICKED";
 export const RESUME_CLICKED = "RESUME_CLICKED";
 export const NEXT_PAGE_CLICKED = "NEXT_PAGE_CLICKED";
+
+export const NEXT_QUESTION_CLICKED = "NEXT_QUESTION_CLICKED";
+export const PREVIOUS_QUESTION_CLICKED = "PREVIOUS_QUESTION_CLICKED";
+
 export const PREVIOUS_PAGE_CLICKED = "PREVIOUS_PAGE_CLICKED";
 export const PREVIOUS_WORD_CLICKED = "PREVIOUS_WORD_CLICKED";
 export const EXIT_CLICKED = "EXIT_CLICKED";
@@ -335,6 +339,18 @@ export function previousWordClicked() {
 export function nextWordClicked() {
   return {
     type: NEXT_WORD_CLICKED
+  };
+}
+
+export function nextQuestionClicked() {
+  return {
+    type: NEXT_QUESTION_CLICKED
+  };
+}
+
+export function previousQuestionClicked() {
+  return {
+    type: PREVIOUS_QUESTION_CLICKED
   };
 }
 

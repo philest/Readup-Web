@@ -45,7 +45,11 @@ export default class CompModal extends React.Component {
     prompt: PropTypes.string,
     onExitLastQuestion: PropTypes.func,
     showPrompting: PropTypes.bool,
-    written: PropTypes.bool
+
+    written: PropTypes.bool,
+    onNextQuestionClicked: PropTypes.func,
+    onPreviousQuestionClicked: PropTypes.func
+    // writtenCompInput: PropTypes.string
   };
 
   static defaultProps = {
@@ -209,18 +213,14 @@ export default class CompModal extends React.Component {
                 position: "relative",
                 top: 21
               }}
-              onClick={() => {
-                console.log("clicked it ..");
-              }}
+              onClick={this.props.onPreviousQuestionClicked}
             />
             <ForwardArrowButton
               title="Next"
               subtitle={null}
               style={{ width: 145, height: 120 }}
-              disabled={this.props.disabled}
-              onClick={() => {
-                console.log("clicked it ..");
-              }}
+              disabled={false && this.props.disabled}
+              onClick={this.props.onNextQuestionClicked}
               wiggle={false}
             />
           </div>
