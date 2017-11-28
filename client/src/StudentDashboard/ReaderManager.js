@@ -282,8 +282,14 @@ export class StudentDashboard extends React.Component {
         />
 
         <CompModal
+          onFinalWrittenCompQuestionAnswered={
+            this.props.actions.finalWrittenCompQuestionAnswered
+          }
+          numWrittenQuestions={this.props.book.numWrittenQuestions}
           onNextQuestionClicked={this.props.actions.nextQuestionClicked}
           onPreviousQuestionClicked={this.props.actions.previousQuestionClicked}
+          questionNumber={this.props.questionNumber}
+          writtenQuestionNumber={this.props.writtenQuestionNumber}
           onSeeBookClicked={this.props.actions.seeBookClicked}
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}

@@ -47,8 +47,13 @@ export default class CompModal extends React.Component {
     showPrompting: PropTypes.bool,
 
     written: PropTypes.bool,
+    numWrittenQuestions: PropTypes.number,
     onNextQuestionClicked: PropTypes.func,
-    onPreviousQuestionClicked: PropTypes.func
+    onPreviousQuestionClicked: PropTypes.func,
+    questionNumber: PropTypes.number,
+    writtenQuestionNumber: PropTypes.number,
+    onFinalWrittenCompQuestionAnswered: PropTypes.func
+
     // writtenCompInput: PropTypes.string
   };
 
@@ -66,6 +71,36 @@ export default class CompModal extends React.Component {
       showModal: true
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(
+      "b4: ",
+      this.props.writtenQuestionNumber,
+      " after: ",
+      nextProps.writtenQuestionNumber
+    );
+
+    if (
+      this.props.currentShowModal === THIS_MODAL_ID &&
+      this.props.writtenQuestionNumber !== nextProps.writtenQuestionNumber // incremented by
+    ) {
+      this.saveWrittenResponse(
+        this.form.value,
+        this.props.writtenQuestionNumber
+      );
+
+      this.form.value = "";
+      // this.props.onSpellingInputSet(""); // reset to empty
+      this.form.focus();
+
+      // Exit?
+      if (nextProps.writtenQuestionNumber > this.props.numWrittenQuestions) {
+        this.props.onFinalWrittenCompQuestionAnswered();
+      }
+    }
+  }
+
+  saveWrittenResponse = (answer, qNum) => {};
 
   onHearQuestionAgainClicked = () => {
     if (!this.props.disabled) {
@@ -90,7 +125,8 @@ export default class CompModal extends React.Component {
             style={{
               width: 95,
               height: 75,
-              visibility: false ? "hidden" : "visible",
+              visibility:
+                this.props.writtenQuestionNumber <= 1 ? "hidden" : "visible",
               position: "relative",
               top: 21
             }}
@@ -229,7 +265,14 @@ export default class CompModal extends React.Component {
               talkingAboutSeeBook
             )}
           {this.props.written && (
-            <textarea className={myStyles.notes} spellCheck="false" autoFocus />
+            <textarea
+              className={myStyles.notes}
+              spellCheck="false"
+              autoFocus
+              ref={ref => {
+                this.form = ref;
+              }}
+            />
           )}
         </Modal.Body>
         {this.props.written && this.renderFooter()}

@@ -74,6 +74,7 @@ import {
 	VOLUME_INDICATOR_SHOWN,
 	FINAL_SPELLING_QUESTION_ANSWERED,
 	FINAL_COMP_QUESTION_ANSWERED,
+	FINAL_WRITTEN_COMP_QUESTION_ANSWERED,
 	SECTION_SKIPPED,
 	SKIP_CLICKED,
 	SHOW_SKIP_PROMPT_SET,
@@ -1080,6 +1081,9 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
 
 	yield put(setCurrentModal("modal-comp"));
+
+	yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
+	yield put(setCurrentModal("no-modal"));
 
 	const earlyExitEffect = [];
 

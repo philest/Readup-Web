@@ -107,6 +107,9 @@ export const FINAL_SPELLING_QUESTION_ANSWERED =
   "FINAL_SPELLING_QUESTION_ANSWERED";
 export const FINAL_COMP_QUESTION_ANSWERED = "FINAL_COMP_QUESTION_ANSWERED";
 
+export const FINAL_WRITTEN_COMP_QUESTION_ANSWERED =
+  "FINAL_WRITTEN_COMP_QUESTION_ANSWERED";
+
 export const SECTION_SKIPPED = "SECTION_SKIPPED";
 export const IN_ORAL_READING_SET = "IN_ORAL_READING_SET";
 export const SKIP_CLICKED = "SKIP_CLICKED";
@@ -248,6 +251,12 @@ export function finalSpellingQuestionAnswered() {
 export function finalCompQuestionAnswered() {
   return {
     type: FINAL_COMP_QUESTION_ANSWERED
+  };
+}
+
+export function finalWrittenCompQuestionAnswered() {
+  return {
+    type: FINAL_WRITTEN_COMP_QUESTION_ANSWERED
   };
 }
 
