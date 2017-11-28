@@ -166,6 +166,10 @@ export default class CompModal extends React.Component {
         onHide={this.props.close}
         className={myStyles.compModal}
       >
+        {this.props.currentShowModal === THIS_MODAL_ID && (
+          <style>{" .modal-dialog { margin-top: 30px; } "}</style>
+        )}
+
         <Modal.Header className={myStyles.compModalHeader}>
           <Modal.Title>{title}</Modal.Title>
 
@@ -175,7 +179,13 @@ export default class CompModal extends React.Component {
             </Modal.Title>
           )}
         </Modal.Header>
-        <Modal.Body className={myStyles.compModalBody}>
+        <Modal.Body
+          className={
+            this.props.written
+              ? myStyles.writtenCompModalBody
+              : myStyles.compModalBody
+          }
+        >
           {!this.props.written &&
             this.renderOralCompBody(
               inProgress,
@@ -183,7 +193,9 @@ export default class CompModal extends React.Component {
               talkingAboutStartButton,
               talkingAboutStopButton
             )}
-          {this.props.written && <h3>idk?</h3>}
+          {this.props.written && (
+            <textarea className={myStyles.notes} spellCheck="false" autoFocus />
+          )}
         </Modal.Body>
         <Modal.Footer style={{ backgroundColor: "whitesmoke" }}>
           <div className={myStyles.footerButtonContainer}>
