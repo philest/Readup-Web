@@ -15,6 +15,12 @@ import ModalHeader from "../subcomponents/ModalHeader";
 
 import { playSound, playSoundAsync } from "../../audioPlayer.js";
 
+import {
+  updateAssessment,
+  getAssessmentData
+} from "../../../ReportsInterface/emailHelpers";
+import { getLastAssessmentID } from "../../sagas/networkingHelpers";
+
 import ForwardArrowButton from "../../components/ForwardArrowButton";
 import BackArrowButton from "../../components/BackArrowButton";
 
@@ -100,7 +106,38 @@ export default class CompModal extends React.Component {
     }
   }
 
-  saveWrittenResponse = (answer, qNum) => {};
+  saveWrittenResponse = (value, qNum) => {
+    const assessmentID = getLastAssessmentID();
+    assessmentID.then(id => {
+      console.log("id: ", id);
+
+      const assessment = getAssessmentData(id);
+
+      assessment
+        .then(assessment => {
+          console.log("assessment: ", assessment);
+
+          let studentWrittenResponsesHolder =
+            assessment.student_written_responses;
+
+          if (!studentWrittenResponsesHolder) {
+            studentWrittenResponsesHolder = { 1: "", 2: "", 3: "" };
+          }
+
+          studentWrittenResponsesHolder[qNum] = value;
+
+          updateAssessment(
+            {
+              student_written_responses: studentWrittenResponsesHolder
+            },
+            id
+          );
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    });
+  };
 
   onHearQuestionAgainClicked = () => {
     if (!this.props.disabled) {

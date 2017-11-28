@@ -115,7 +115,8 @@ CREATE TABLE assessments (
     is_live_demo boolean DEFAULT false,
     teacher_note text,
     total_time_reading integer,
-    scored_spelling json
+    scored_spelling json,
+    student_written_responses json
 );
 
 
@@ -681,6 +682,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170921210711'),
 ('20170929030106'),
 ('20171013204045'),
-('20171020034337');
+('20171020034337'),
+('20171128220132');
 
 
