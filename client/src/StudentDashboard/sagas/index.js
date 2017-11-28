@@ -1054,6 +1054,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield put(setCurrentOverlay("no-overlay"));
 
+	yield put(setCurrentModal("modal-comp"));
+
 	const earlyExitEffect = [];
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
