@@ -130,14 +130,20 @@ export default class CompModal extends React.Component {
               position: "relative",
               top: 21
             }}
-            onClick={this.props.onPreviousQuestionClicked}
+            onClick={() => {
+              this.props.onPreviousQuestionClicked();
+              this.form.focus();
+            }}
           />
           <ForwardArrowButton
             title="Next"
             subtitle={null}
             style={{ width: 145, height: 120 }}
             disabled={false && this.props.disabled}
-            onClick={this.props.onNextQuestionClicked}
+            onClick={() => {
+              this.props.onNextQuestionClicked();
+              this.form.focus();
+            }}
             wiggle={false}
           />
         </div>

@@ -158,6 +158,10 @@ function hasSilentReading(book) {
 	);
 }
 
+function hasWrittenComp(book) {
+	return book.brand === "STEP" && book.stepLevel >= 9;
+}
+
 function getPermission(recorder, isDemo) {
 	console.log("Here in getPerm, we say isDemo: ", isDemo);
 
@@ -1076,22 +1080,24 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield put(setCurrentOverlay("no-overlay"));
 
-	effects.push(yield fork(writtenCompSaga));
+	const book = yield select(getBook);
 
-	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
+	if (hasWrittenComp(book)) {
+		effects.push(yield fork(writtenCompSaga));
 
-	yield put(setCurrentModal("modal-comp"));
+		yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
 
-	yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
-	yield put(setCurrentModal("no-modal"));
+		yield put(setCurrentModal("modal-comp"));
+
+		yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
+		yield put(setCurrentModal("no-modal"));
+	}
 
 	const earlyExitEffect = [];
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
-
-	const book = yield select(getBook);
 
 	const helperEffect = []; // deals with extra instructions
 
