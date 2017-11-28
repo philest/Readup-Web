@@ -1124,17 +1124,6 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	const book = yield select(getBook);
 
-	if (hasWrittenComp(book)) {
-		effects.push(yield fork(writtenCompSaga));
-
-		yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
-
-		yield put(setCurrentModal("modal-comp"));
-
-		yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
-		yield put(setCurrentModal("no-modal"));
-	}
-
 	const earlyExitEffect = [];
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
@@ -1395,6 +1384,18 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield call(recorder.reset);
 		recorder = yield select(getRecorder);
 		yield call(recorder.initialize);
+
+		// Written Comp, when appropriate
+		if (hasWrittenComp(book)) {
+			effects.push(yield fork(writtenCompSaga));
+
+			yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
+
+			yield put(setCurrentModal("modal-comp"));
+
+			yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
+			yield put(setCurrentModal("no-modal"));
+		}
 
 		yield call(delay, 300);
 
