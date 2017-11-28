@@ -84,7 +84,8 @@ export default class CompModal extends React.Component {
     inProgress,
     done,
     talkingAboutStartButton,
-    talkingAboutStopButton
+    talkingAboutStopButton,
+    talkingAboutSeeBook
   ) => {
     {
       !inProgress &&
@@ -195,7 +196,8 @@ export default class CompModal extends React.Component {
               inProgress,
               done,
               talkingAboutStartButton,
-              talkingAboutStopButton
+              talkingAboutStopButton,
+              talkingAboutSeeBook
             )}
           {this.props.written && (
             <textarea className={myStyles.notes} spellCheck="false" autoFocus />

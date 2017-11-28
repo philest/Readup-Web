@@ -68,6 +68,7 @@ function mapStateToProps(state) {
     spellingAnswerGiven: state.reader.spellingAnswerGiven,
     spellingInput: state.reader.spellingInput,
     spellingQuestionNumber: state.reader.spellingQuestionNumber,
+    writtenQuestionNumber: state.reader.writtenQuestionNumber,
     assessmentID: state.reader.assessmentID,
     assessmentSubmitted: state.reader.assessmentSubmitted,
     micPermissionsStatus: state.reader.micPermissionsStatus,
@@ -281,7 +282,6 @@ export class StudentDashboard extends React.Component {
         />
 
         <CompModal
-          aaaaaaTEST={"HI!"}
           onNextQuestionClicked={this.props.actions.nextQuestionClicked}
           onPreviousQuestionClicked={this.props.actions.previousQuestionClicked}
           onSeeBookClicked={this.props.actions.seeBookClicked}
@@ -301,7 +301,14 @@ export class StudentDashboard extends React.Component {
           }
           showSpinner={this.props.showSpinner}
           showPrompting={this.props.isLiveDemo}
-          question={this.props.book.questions[this.props.questionNumber]}
+          written={this.props.readerState === ReaderStateOptions.inWrittenComp}
+          question={
+            this.props.readerState === ReaderStateOptions.inWrittenComp
+              ? this.props.book.writtenQuestions[
+                  this.props.writtenQuestionNumber
+                ]
+              : this.props.book.questions[this.props.questionNumber]
+          }
           includeDelay={this.props.questionNumber === 1}
           prompt={this.props.prompt}
           onExitLastQuestion={

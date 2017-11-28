@@ -20,7 +20,8 @@ export const ReaderStateOptions = {
   submitted: "READER_STATE_SUBMITTED",
   watchingVideo: "READER_STATE_WATCHING_VIDEO",
   watchedMostOfVideo: "READER_STATE_WATCHED_MOST_OF_VIDEO",
-  watchedFullVideo: "READER_STATE_WATCHED_FULL_VIDEO"
+  watchedFullVideo: "READER_STATE_WATCHED_FULL_VIDEO",
+  inWrittenComp: "READER_STATE_IN_WRITTEN_COMP,"
 };
 export type ReaderState = Keys<typeof ReaderStateOptions>;
 

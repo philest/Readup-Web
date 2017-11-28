@@ -1077,6 +1077,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	effects.push(yield fork(writtenCompSaga));
 
+	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
+
 	yield put(setCurrentModal("modal-comp"));
 
 	const earlyExitEffect = [];
