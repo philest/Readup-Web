@@ -15,6 +15,9 @@ import ModalHeader from "../subcomponents/ModalHeader";
 
 import { playSound, playSoundAsync } from "../../audioPlayer.js";
 
+import ForwardArrowButton from "../../components/ForwardArrowButton";
+import BackArrowButton from "../../components/BackArrowButton";
+
 import {
   ReaderStateOptions,
   PromptOptions,
@@ -183,8 +186,30 @@ export default class CompModal extends React.Component {
           {this.props.written && <h3>idk?</h3>}
         </Modal.Body>
         <Modal.Footer style={{ backgroundColor: "whitesmoke" }}>
-          <div>Back</div>
-          <div>Next</div>
+          <div className={myStyles.footerButtonContainer}>
+            <BackArrowButton
+              title="Back"
+              subtitle={null}
+              style={{
+                width: 95,
+                height: 75,
+                visibility: false ? "hidden" : "visible"
+              }}
+              onClick={() => {
+                console.log("clicked it ..");
+              }}
+            />
+            <ForwardArrowButton
+              title="Next"
+              subtitle={null}
+              style={{ width: 145, height: 120 }}
+              disabled={this.props.disabled}
+              onClick={() => {
+                console.log("clicked it ..");
+              }}
+              wiggle={false}
+            />
+          </div>
         </Modal.Footer>
       </Modal>
     );
