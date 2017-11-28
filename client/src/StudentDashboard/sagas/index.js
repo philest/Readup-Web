@@ -1003,7 +1003,7 @@ function* compSaga(
 
 	yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
-	let waitingTime = isLiveDemo ? 8000 : 3000;
+	let waitingTime = isLiveDemo ? 4500 : 3000;
 	console.log("waitingTime: ", waitingTime);
 
 	const { prompt, timeout } = yield race({
