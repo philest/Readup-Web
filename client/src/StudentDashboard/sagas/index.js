@@ -69,6 +69,8 @@ import {
 	SPELLING_ANSWER_GIVEN_SET,
 	NEXT_WORD_CLICKED,
 	PREVIOUS_WORD_CLICKED,
+	NEXT_QUESTION_CLICKED,
+	PREVIOUS_QUESTION_CLICKED,
 	VOLUME_INDICATOR_SHOWN,
 	FINAL_SPELLING_QUESTION_ANSWERED,
 	FINAL_COMP_QUESTION_ANSWERED,
@@ -99,6 +101,7 @@ import {
 	setSpellingInput,
 	setQuestionNumber,
 	setSpellingQuestionNumber,
+	setWrittenQuestionNumber,
 	setPrompt,
 	hideVolumeIndicator,
 	showVolumeIndicator,
@@ -370,7 +373,7 @@ function* exitClick() {
 	yield put(setCurrentModal("modal-exit"));
 }
 
-function* questionIncrementSaga(section, spellingEffects) {
+export function* questionIncrementSaga(section, spellingEffects) {
 	yield clog("here in QUESTION_INCREMENT........: ", section);
 
 	yield call(playSound, "/audio/complete.mp3");
@@ -379,20 +382,20 @@ function* questionIncrementSaga(section, spellingEffects) {
 
 	// if we just answered the last question, exit spelling
 
-	const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
-	const book = yield select(getBook);
+	if (section === "spelling") {
+		const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
+		const book = yield select(getBook);
 
-	const isWarmup = yield select(getIsWarmup);
+		const isWarmup = yield select(getIsWarmup);
 
-	if (
-		book.numSpellingQuestions === spellingQuestionNumber ||
-		(isWarmup && spellingQuestionNumber === 2)
-	) {
-		yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
-		return;
+		if (
+			book.numSpellingQuestions === spellingQuestionNumber ||
+			(isWarmup && spellingQuestionNumber === 2)
+		) {
+			yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
+			return;
+		}
 	}
-
-	// end spelling exit process
 
 	yield put.resolve(incrementQuestion(section));
 
@@ -404,7 +407,7 @@ function* questionIncrementSaga(section, spellingEffects) {
 	}
 }
 
-function* questionDecrementSaga(section) {
+export function* questionDecrementSaga(section) {
 	yield clog("here in QUESTION_DECREMENT........: ", section);
 
 	yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
@@ -413,34 +416,37 @@ function* questionDecrementSaga(section) {
 
 	yield put.resolve(decrementQuestion(section));
 
-	const assessmentID = yield select(getAssessmentID);
+	if (section === "spelling") {
+		const assessmentID = yield select(getAssessmentID);
 
-	const assessment = yield getAssessmentData(assessmentID).catch(
-		e => e.request
-	);
-
-	if (assessment && assessment.scored_spelling) {
-		yield clog("assessment: ", assessment);
-		yield clog("scored_spelling: ", assessment.scored_spelling);
-		yield clog("responses: ", assessment.scored_spelling["responses"]);
-
-		const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
-		yield clog(
-			"prev word: ",
-			assessment.scored_spelling["responses"][spellingQuestionNumber - 1]
+		const assessment = yield getAssessmentData(assessmentID).catch(
+			e => e.request
 		);
 
-		yield put.resolve(
-			setSpellingInput(
+		if (assessment && assessment.scored_spelling) {
+			yield clog("assessment: ", assessment);
+			yield clog("scored_spelling: ", assessment.scored_spelling);
+			yield clog("responses: ", assessment.scored_spelling["responses"]);
+
+			const spellingQuestionNumber = yield select(
+				getSpellingQuestionNumber
+			);
+			yield clog(
+				"prev word: ",
 				assessment.scored_spelling["responses"][
 					spellingQuestionNumber - 1
 				]
-			)
-		);
-	}
+			);
 
-	// 1. Retrieve the last spelling answer (of the last question) via a network call.
-	// 2. Set the spellingInput state to be this state.
+			yield put.resolve(
+				setSpellingInput(
+					assessment.scored_spelling["responses"][
+						spellingQuestionNumber - 1
+					]
+				)
+			);
+		}
+	}
 
 	// redisable button
 	if (section === "spelling") {
@@ -1009,6 +1015,20 @@ function* compSaga(
 	}
 }
 
+function* writtenCompSaga() {
+	yield takeLatest(
+		NEXT_QUESTION_CLICKED,
+		questionIncrementSaga,
+		"writtenComp"
+	);
+
+	yield takeLatest(
+		PREVIOUS_QUESTION_CLICKED,
+		questionDecrementSaga,
+		"writtenComp"
+	);
+}
+
 function* hideVolumeSaga() {
 	yield call(delay, 5500);
 	yield put.resolve(hideVolumeIndicator());
@@ -1038,6 +1058,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put(setAssessmentSubmitted(false));
 	yield put.resolve(setSpellingInput(""));
 	yield put.resolve(setSpellingQuestionNumber(1));
+	yield put.resolve(setWrittenQuestionNumber(1));
 
 	yield put(setCurrentOverlay("no-overlay"));
 
@@ -1053,6 +1074,8 @@ function* assessThenSubmitSaga(assessmentId) {
 	}
 
 	yield put(setCurrentOverlay("no-overlay"));
+
+	effects.push(yield fork(writtenCompSaga));
 
 	yield put(setCurrentModal("modal-comp"));
 

@@ -126,6 +126,8 @@ export const IN_SILENT_READING_SET = "IN_SILENT_READING_SET";
 
 export const HEAR_INTRO_AGAIN_CLICKED = "HEAR_INTRO_AGAIN_CLICKED";
 
+export const WRITTEN_QUESTION_NUMBER_SET = "WRITTEN_QUESTION_NUMBER_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -622,6 +624,15 @@ export function setSpellingQuestionNumber(spellingQuestionNumber: number) {
     type: SPELLING_QUESTION_NUMBER_SET,
     payload: {
       spellingQuestionNumber
+    }
+  };
+}
+
+export function setWrittenQuestionNumber(writtenQuestionNumber: number) {
+  return {
+    type: WRITTEN_QUESTION_NUMBER_SET,
+    payload: {
+      writtenQuestionNumber
     }
   };
 }
@@ -1755,6 +1766,7 @@ export const initialState = {
   isLiveDemo: false,
   spellingAnswerGiven: false,
   spellingQuestionNumber: 1,
+  writtenQuestionNumber: 1,
   assessmentID: null,
   assessmentSubmitted: false,
   spellingInput: "",
@@ -1908,6 +1920,13 @@ function reducer(state = initialState, action = {}) {
           spellingQuestionNumber: state.spellingQuestionNumber + 1
         };
       }
+
+      if (payload.section === "writtenComp") {
+        return {
+          ...state,
+          writtenQuestionNumber: state.writtenQuestionNumber + 1
+        };
+      }
     }
 
     case QUESTION_DECREMENT: {
@@ -1923,6 +1942,13 @@ function reducer(state = initialState, action = {}) {
           spellingQuestionNumber: state.spellingQuestionNumber - 1
         };
       }
+
+      if (payload.section === "writtenComp") {
+        return {
+          ...state,
+          writtenQuestionNumber: state.writtenQuestionNumber - 1
+        };
+      }
     }
 
     case QUESTION_NUMBER_SET: {
@@ -1933,6 +1959,13 @@ function reducer(state = initialState, action = {}) {
       return {
         ...state,
         spellingQuestionNumber: payload.spellingQuestionNumber
+      };
+    }
+
+    case WRITTEN_QUESTION_NUMBER_SET: {
+      return {
+        ...state,
+        writtenQuestionNumber: payload.writtenQuestionNumber
       };
     }
 

@@ -22,6 +22,8 @@ import {
   RESUME_CLICKED,
   STOP_RECORDING_CLICKED,
   COMP_PAUSE_CLICKED,
+  NEXT_QUESTION_CLICKED,
+  PREVIOUS_QUESTION_CLICKED,
   setHasRecordedSomething,
   setCurrentSound,
   setCurrentModal,
@@ -37,6 +39,8 @@ import { clog } from "./helpers";
 import { playSoundAsync, playSound, stopAudio } from "../audioPlayer";
 
 import { sendEmail } from "../../ReportsInterface/emailHelpers";
+
+import { questionIncrementSaga, questionDecrementSaga } from "./index.js";
 
 const PAGE_CHANGE_DEBOUNCE_TIME_MS = 200;
 
