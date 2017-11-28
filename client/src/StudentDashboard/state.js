@@ -130,6 +130,7 @@ export const IN_SILENT_READING_SET = "IN_SILENT_READING_SET";
 export const HEAR_INTRO_AGAIN_CLICKED = "HEAR_INTRO_AGAIN_CLICKED";
 
 export const WRITTEN_QUESTION_NUMBER_SET = "WRITTEN_QUESTION_NUMBER_SET";
+export const WRITTEN_COMP_INPUT_SET = "WRITTEN_COMP_INPUT_SET";
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -169,6 +170,15 @@ export function setSpellingInput(spellingInput: string) {
     type: SPELLING_INPUT_SET,
     payload: {
       spellingInput
+    }
+  };
+}
+
+export function setWrittenCompInput(writtenCompInput: string) {
+  return {
+    type: WRITTEN_COMP_INPUT_SET,
+    payload: {
+      writtenCompInput
     }
   };
 }
@@ -1779,6 +1789,7 @@ export const initialState = {
   assessmentID: null,
   assessmentSubmitted: false,
   spellingInput: "",
+  writtenCompInput: "",
   hasLoggedIn: false,
   studentName: "Demo Student",
   inSilentReading: false
@@ -1984,6 +1995,10 @@ function reducer(state = initialState, action = {}) {
 
     case SPELLING_INPUT_SET: {
       return { ...state, spellingInput: payload.spellingInput };
+    }
+
+    case WRITTEN_COMP_INPUT_SET: {
+      return { ...state, writtenCompInput: payload.writtenCompInput };
     }
 
     case AVATAR_CLICKED: {

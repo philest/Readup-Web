@@ -69,6 +69,7 @@ function mapStateToProps(state) {
     spellingInput: state.reader.spellingInput,
     spellingQuestionNumber: state.reader.spellingQuestionNumber,
     writtenQuestionNumber: state.reader.writtenQuestionNumber,
+    writtenCompInput: state.reader.writtenCompInput,
     assessmentID: state.reader.assessmentID,
     assessmentSubmitted: state.reader.assessmentSubmitted,
     micPermissionsStatus: state.reader.micPermissionsStatus,
@@ -186,7 +187,8 @@ export class StudentDashboard extends React.Component {
       teacherName: this.props.teacherName,
       inSilentReading: this.props.inSilentReading,
       onCompPauseClicked: this.props.actions.compPauseClicked,
-      onHearIntroAgainClicked: this.props.actions.hearIntroAgainClicked
+      onHearIntroAgainClicked: this.props.actions.hearIntroAgainClicked,
+      writtenCompInput: this.props.writtenCompInput
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
@@ -285,6 +287,7 @@ export class StudentDashboard extends React.Component {
           onFinalWrittenCompQuestionAnswered={
             this.props.actions.finalWrittenCompQuestionAnswered
           }
+          onWrittenCompInputSet={this.props.actions.setWrittenCompInput}
           numWrittenQuestions={this.props.book.numWrittenQuestions}
           onNextQuestionClicked={this.props.actions.nextQuestionClicked}
           onPreviousQuestionClicked={this.props.actions.previousQuestionClicked}
@@ -322,6 +325,7 @@ export class StudentDashboard extends React.Component {
               ? this.props.actions.exitLastQuestion
               : function() {}
           }
+          writtenCompInput={this.props.writtenCompInput}
         />
       </div>
     );

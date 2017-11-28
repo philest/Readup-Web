@@ -18,6 +18,9 @@ export const getHasLoggedIn = state => state.reader.hasLoggedIn;
 export const getSpellingQuestionNumber = state =>
 	state.reader.spellingQuestionNumber;
 
+export const getWrittenQuestionNumber = state =>
+	state.reader.writtenQuestionNumber;
+
 export const getStudentName = state => state.reader.studentName;
 
-export const getAssessmentID = state => state.reader.assessmentID; 
+export const getAssessmentID = state => state.reader.assessmentID;

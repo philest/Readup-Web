@@ -103,6 +103,7 @@ import {
 	setQuestionNumber,
 	setSpellingQuestionNumber,
 	setWrittenQuestionNumber,
+	setWrittenCompInput,
 	setPrompt,
 	hideVolumeIndicator,
 	showVolumeIndicator,
@@ -138,7 +139,8 @@ import {
 	getInSpelling,
 	getHasLoggedIn,
 	getStudentName,
-	getAssessmentID
+	getAssessmentID,
+	getWrittenQuestionNumber
 } from "./selectors";
 
 import assessmentSaga from "./assessmentSaga";
@@ -404,6 +406,10 @@ export function* questionIncrementSaga(section, spellingEffects) {
 
 	yield put.resolve(incrementQuestion(section));
 
+	if (section === "writtenComp") {
+		yield put.resolve(setWrittenCompInput(""));
+	}
+
 	// redisable button
 	if (section === "spelling") {
 		yield put.resolve(setSpellingAnswerGiven(false));
@@ -450,6 +456,40 @@ export function* questionDecrementSaga(section) {
 					]
 				)
 			);
+		}
+	}
+
+	if (section === "writtenComp") {
+		const assessmentID = yield select(getAssessmentID);
+
+		const assessment = yield getAssessmentData(assessmentID).catch(
+			e => e.request
+		);
+
+		if (assessment && assessment.student_written_responses) {
+			yield clog("assessment: ", assessment);
+			yield clog(
+				"student_written_responses: ",
+				assessment.student_written_responses
+			);
+
+			const writtenQuestionNumber = yield select(
+				getWrittenQuestionNumber
+			);
+			yield clog(
+				"prev written response: ",
+				assessment.student_written_responses[writtenQuestionNumber - 1]
+			);
+
+			yield put.resolve(
+				setWrittenCompInput(
+					assessment.student_written_responses[
+						writtenQuestionNumber - 1
+					]
+				)
+			);
+		} else {
+			yield put.resolve(setWrittenCompInput(""));
 		}
 	}
 
@@ -1062,6 +1102,8 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put.resolve(setCurrentModal("no-modal"));
 	yield put(setAssessmentSubmitted(false));
 	yield put.resolve(setSpellingInput(""));
+	yield put.resolve(setWrittenCompInput(""));
+
 	yield put.resolve(setSpellingQuestionNumber(1));
 	yield put.resolve(setWrittenQuestionNumber(1));
 

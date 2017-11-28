@@ -58,7 +58,9 @@ export default class CompModal extends React.Component {
     onPreviousQuestionClicked: PropTypes.func,
     questionNumber: PropTypes.number,
     writtenQuestionNumber: PropTypes.number,
-    onFinalWrittenCompQuestionAnswered: PropTypes.func
+    onFinalWrittenCompQuestionAnswered: PropTypes.func,
+    writtenCompInput: PropTypes.string,
+    onWrittenCompInputSet: PropTypes.func
 
     // writtenCompInput: PropTypes.string
   };
@@ -150,6 +152,10 @@ export default class CompModal extends React.Component {
     this.props.onStopClicked();
 
     setTimeout(this.props.onExitLastQuestion, 2000);
+  };
+
+  handleWrittenCompChange = () => {
+    this.props.onWrittenCompInputSet(this.form.value); // set to value
   };
 
   renderFooter = () => {
@@ -315,6 +321,8 @@ export default class CompModal extends React.Component {
               ref={ref => {
                 this.form = ref;
               }}
+              onChange={this.handleWrittenCompChange}
+              value={this.props.writtenCompInput}
             />
           )}
         </Modal.Body>
