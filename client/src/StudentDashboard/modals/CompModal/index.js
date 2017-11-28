@@ -193,7 +193,9 @@ export default class CompModal extends React.Component {
               style={{
                 width: 95,
                 height: 75,
-                visibility: false ? "hidden" : "visible"
+                visibility: false ? "hidden" : "visible",
+                position: "relative",
+                top: 21
               }}
               onClick={() => {
                 console.log("clicked it ..");
