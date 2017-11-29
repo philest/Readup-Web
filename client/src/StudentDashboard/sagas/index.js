@@ -1311,7 +1311,11 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield call(introInstructionSaga, book);
 
-	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
+	if (!hasWrittenComp(book)) {
+		helperEffect.push(
+			yield fork(helperInstructionSaga, true, false, false)
+		);
+	}
 
 	// set a 8 second saga in background
 
