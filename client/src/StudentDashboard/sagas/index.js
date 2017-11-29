@@ -1157,6 +1157,54 @@ function* videoWiggleSaga() {
 	yield put.resolve(setReaderState(ReaderStateOptions.watchedFullVideo));
 }
 
+function* loginSaga() {
+	const nameEffect = [];
+	yield call(playSoundAsync, "/audio/find-your-name.m4a");
+	yield clog("in login world...");
+
+	nameEffect.push(
+		yield fork(helperInstructionSaga, false, false, false, false, true)
+	);
+
+	yield take(AVATAR_CLICKED);
+
+	yield cancel(...nameEffect);
+
+	yield call(playSound, "/audio/complete.mp3");
+}
+
+function* watchVideoSaga(videoWiggleEffect) {
+	// show the video saga
+	yield put.resolve(hideVolumeIndicator());
+	yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
+	yield put.resolve(setCurrentOverlay("overlay-spinner"));
+
+	yield put({ type: SPINNER_SHOW });
+
+	yield call(delay, 3500);
+
+	yield put.resolve(setCurrentOverlay("no-overlay"));
+
+	// IF REAL THING
+	if (process.env.NODE_ENV === "production") {
+		yield call(delay, 15000);
+	}
+
+	yield put.resolve(setReaderState(ReaderStateOptions.watchedMostOfVideo));
+
+	if (process.env.NODE_ENV === "production") {
+		videoWiggleEffect.push(yield fork(videoWiggleSaga));
+		videoWiggleEffect.push(
+			yield fork(helperInstructionSaga, false, false, false, true)
+		);
+	}
+
+	yield put({ type: SPINNER_HIDE });
+
+	yield take(FINISH_VIDEO_CLICKED);
+	yield call(playSound, "/audio/complete.mp3");
+}
+
 function* assessThenSubmitSaga(assessmentId) {
 	const effects = [];
 
@@ -1232,19 +1280,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	);
 
 	if (!isDemo && !hasLoggedIn) {
-		const nameEffect = [];
-		yield call(playSoundAsync, "/audio/find-your-name.m4a");
-		yield clog("in login world...");
-
-		nameEffect.push(
-			yield fork(helperInstructionSaga, false, false, false, false, true)
-		);
-
-		yield take(AVATAR_CLICKED);
-
-		yield cancel(...nameEffect);
-
-		yield call(playSound, "/audio/complete.mp3");
+		yield call(loginSaga);
 	}
 
 	const studentName = yield select(getStudentName);
@@ -1263,37 +1299,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	const videoWiggleEffect = [];
 
 	if (!isDemo && isWarmup) {
-		// show the video saga
-		yield put.resolve(hideVolumeIndicator());
-		yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
-		yield put.resolve(setCurrentOverlay("overlay-spinner"));
-
-		yield put({ type: SPINNER_SHOW });
-
-		yield call(delay, 3500);
-
-		yield put.resolve(setCurrentOverlay("no-overlay"));
-
-		// IF REAL THING
-		if (process.env.NODE_ENV === "production") {
-			yield call(delay, 15000);
-		}
-
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.watchedMostOfVideo)
-		);
-
-		if (process.env.NODE_ENV === "production") {
-			videoWiggleEffect.push(yield fork(videoWiggleSaga));
-			videoWiggleEffect.push(
-				yield fork(helperInstructionSaga, false, false, false, true)
-			);
-		}
-
-		yield put({ type: SPINNER_HIDE });
-
-		yield take(FINISH_VIDEO_CLICKED);
-		yield call(playSound, "/audio/complete.mp3");
+		yield call(watchVideoSaga, videoWiggleEffect);
 	}
 
 	if (videoWiggleEffect.length >= 1) {
@@ -1308,16 +1314,14 @@ function* assessThenSubmitSaga(assessmentId) {
 	effects.push(yield fork(hideVolumeSaga));
 
 	// Put the intro instruction sequence...
-
 	yield call(introInstructionSaga, book);
 
 	if (!hasWrittenComp(book)) {
 		helperEffect.push(
 			yield fork(helperInstructionSaga, true, false, false)
 		);
+		// set a 8 second saga in background
 	}
-
-	// set a 8 second saga in background
 
 	yield cancel(...earlyExitEffect); // allow for new exit thing
 
