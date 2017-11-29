@@ -352,7 +352,7 @@ export default class Reader extends React.Component {
                   ].join(" ")
             }
           >
-            <BookCover imageURL={this.props.coverImageURL} />;
+            <BookCover imageURL={this.props.coverImageURL} />
           </div>
 
           <div className={[styles.buttonPlacement].join(" ")}>
