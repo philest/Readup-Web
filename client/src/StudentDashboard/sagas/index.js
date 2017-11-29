@@ -659,6 +659,36 @@ function* silentCompSaga(book, effects) {
 	yield put.resolve(setInComp(false));
 }
 
+function* bookIntroSaga(book) {
+	const isWarmup = yield select(getIsWarmup);
+
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	yield put.resolve(showVolumeIndicator());
+
+	yield clog("set it");
+
+	yield call(stopAudio);
+
+	yield call(delay, 1350);
+
+	if (isWarmup) {
+		yield call(playSound, "/audio/warmup/w-1.mp3");
+		yield call(playSound, "/audio/warmup/w-2.mp3");
+	} else if (hasWrittenComp(book)) {
+		yield call(playSound, "/audio/written-comp-01.mp3");
+		yield put.resolve(showVolumeIndicator());
+		yield call(playSound, book.introAudioSrc);
+	} else {
+		//standard oral reading
+
+		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
+
+		yield put.resolve(showVolumeIndicator());
+
+		yield call(playSound, book.introAudioSrc);
+	}
+}
+
 function* introInstructionSaga(book) {
 	const isWarmup = yield select(getIsWarmup);
 
@@ -1284,7 +1314,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	if (!isDemo && !hasLoggedIn) {
 		yield call(loginSaga);
 
-		// Only create the user only once, if not warmup...
+		// Only create the user only once. Create here instead because they skipped warmup...
 		$.ajax({
 			url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
 			type: "post"
@@ -1306,11 +1336,13 @@ function* assessThenSubmitSaga(assessmentId) {
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
 
-	// yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
-
 	effects.push(yield fork(hideVolumeSaga));
 
 	// Put the intro instruction sequence...
+
+	yield call(bookIntroSaga, book);
+	yield take("ASDFSFDSDFSDFFSD");
+
 	yield call(introInstructionSaga, book);
 
 	if (!hasWrittenComp(book)) {
