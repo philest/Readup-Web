@@ -1205,9 +1205,7 @@ function* watchVideoSaga(videoWiggleEffect) {
 	yield call(playSound, "/audio/complete.mp3");
 }
 
-function* assessThenSubmitSaga(assessmentId) {
-	const effects = [];
-
+function* resetStateSaga() {
 	// TODO: convert this into a batched action
 	yield put.resolve(setPageNumber(0));
 	yield put.resolve(setQuestionNumber(1));
@@ -1229,11 +1227,17 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put.resolve(setWrittenQuestionNumber(1));
 
 	yield put(setCurrentOverlay("no-overlay"));
+}
+
+function* assessThenSubmitSaga(assessmentId) {
+	const effects = []; // general background stuff
+	const earlyExitEffect = []; // for exiting at the start
+	const helperEffect = []; // deals with extra instructions
+
+	yield call(resetStateSaga);
 
 	const permissionsGranted = yield* getMicPermissionsSaga(); // blocks
 
-	// TODO asap as possible
-	// TODO: some loop here :)
 	while (!permissionsGranted) {
 		yield put(setCurrentOverlay("overlay-blocked-mic"));
 		yield call(playSound, "/audio/teacher-help.mp3");
@@ -1241,17 +1245,20 @@ function* assessThenSubmitSaga(assessmentId) {
 		return;
 	}
 
+	// permission was granted!!!!
 	yield put(setCurrentOverlay("no-overlay"));
 
+	// access state
 	const book = yield select(getBook);
-
-	const earlyExitEffect = [];
+	const isDemo = yield select(getIsDemo);
+	const isWarmup = yield select(getIsWarmup);
+	const hasLoggedIn = yield select(getHasLoggedIn);
+	const studentName = yield select(getStudentName);
+	const thisBook = yield select(getBook);
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
-
-	const helperEffect = []; // deals with extra instructions
 
 	effects.push(
 		yield takeLatest(
@@ -1262,32 +1269,22 @@ function* assessThenSubmitSaga(assessmentId) {
 		)
 	);
 
-	// permission was granted!!!!
-
-	const isDemo = yield select(getIsDemo);
-	const isWarmup = yield select(getIsWarmup);
-	const hasLoggedIn = yield select(getHasLoggedIn);
-
 	if (!isWarmup && isDemo) {
-		yield put.resolve(avatarClicked()); /// log in for them
-	}
+		yield put.resolve(avatarClicked()); // log in for them
 
-	yield clog(
-		"hasLoggedIn, isDemo, isWarmup: ",
-		hasLoggedIn,
-		isDemo,
-		isWarmup
-	);
+		// Only create the user only once, if not warmup...
+		$.ajax({
+			url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
+			type: "post"
+		}).fail(function(xhr, status, err) {
+			console.log(err);
+		});
+	}
 
 	if (!isDemo && !hasLoggedIn) {
 		yield call(loginSaga);
-	}
 
-	const studentName = yield select(getStudentName);
-	const thisBook = yield select(getBook);
-
-	if (isWarmup) {
-		// TODO: A more resilient way to create the user only once, if not warmup...
+		// Only create the user only once, if not warmup...
 		$.ajax({
 			url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
 			type: "post"
