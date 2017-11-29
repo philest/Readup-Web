@@ -689,72 +689,110 @@ function* bookIntroSaga(book) {
 	}
 }
 
-function* introInstructionSaga(book) {
-	const isWarmup = yield select(getIsWarmup);
+function* oralReadingInstructionSaga(isWarmup, isPartialOralReading) {
+	yield put.resolve(
+		setReaderState(ReaderStateOptions.talkingAboutStartButton)
+	);
 
-	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 	yield put.resolve(showVolumeIndicator());
 
-	yield clog("set it");
-
-	yield call(stopAudio);
-
-	yield call(delay, 1350);
-
 	if (isWarmup) {
-		yield call(playSound, "/audio/warmup/w-1.mp3");
-		yield call(playSound, "/audio/warmup/w-2.mp3");
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutStartButton)
-		);
-
-		yield put.resolve(showVolumeIndicator());
-
 		yield call(playSound, "/audio/warmup/w-3.mp3");
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 		yield call(playSound, "/audio/complete.mp3");
-	} else if (hasWrittenComp(book)) {
-		yield call(playSound, "/audio/written-comp-01.mp3");
-		yield put.resolve(showVolumeIndicator());
-		yield call(playSound, book.introAudioSrc);
-
-		yield call(silentReadingSaga, true);
-	} else {
-		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
-
-		yield put.resolve(showVolumeIndicator());
-
-		yield call(playSound, book.introAudioSrc);
-
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutStartButton)
-		);
-
-		yield put.resolve(showVolumeIndicator());
-
-		yield clog("hasSilentReading: ", hasSilentReading(book));
-
-		if (hasSilentReading(book)) {
-			yield call(playSound, "/audio/silent-new-01.mp3");
-		} else {
-			yield call(playSound, "/audio/intro-click-start.mp3");
-		}
+	} else if (isPartialOralReading) {
+		yield call(playSound, "/audio/silent-new-01.mp3");
 
 		yield put.resolve(
 			setReaderState(ReaderStateOptions.talkingAboutStopButton)
 		);
 
-		if (hasSilentReading(book)) {
-			yield call(playSound, "/audio/silent-stop.m4a");
-		} else {
-			yield call(playSound, "/audio/intro-click-stop.mp3");
-		}
+		yield call(playSound, "/audio/silent-stop.m4a");
+
+		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+		yield call(playSound, "/audio/complete.mp3");
+	} else {
+		// the full thing
+		yield call(playSound, "/audio/intro-click-start.mp3");
+
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.talkingAboutStopButton)
+		);
+
+		yield call(playSound, "/audio/intro-click-stop.mp3");
 
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 
 		yield call(playSound, "/audio/complete.mp3");
 	}
 }
+
+// function* introInstructionSaga(book) {
+// 	const isWarmup = yield select(getIsWarmup);
+
+// 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+// 	yield put.resolve(showVolumeIndicator());
+
+// 	yield clog("set it");
+
+// 	yield call(stopAudio);
+
+// 	yield call(delay, 1350);
+
+// 	if (isWarmup) {
+// 		yield call(playSound, "/audio/warmup/w-1.mp3");
+// 		yield call(playSound, "/audio/warmup/w-2.mp3");
+// 		yield put.resolve(
+// 			setReaderState(ReaderStateOptions.talkingAboutStartButton)
+// 		);
+
+// 		yield put.resolve(showVolumeIndicator());
+
+// 		yield call(playSound, "/audio/warmup/w-3.mp3");
+// 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+// 		yield call(playSound, "/audio/complete.mp3");
+// 	} else if (hasWrittenComp(book)) {
+// 		yield call(playSound, "/audio/written-comp-01.mp3");
+// 		yield put.resolve(showVolumeIndicator());
+// 		yield call(playSound, book.introAudioSrc);
+
+// 		yield call(silentReadingSaga, true);
+// 	} else {
+// 		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
+
+// 		yield put.resolve(showVolumeIndicator());
+
+// 		yield call(playSound, book.introAudioSrc);
+
+// 		yield put.resolve(
+// 			setReaderState(ReaderStateOptions.talkingAboutStartButton)
+// 		);
+
+// 		yield put.resolve(showVolumeIndicator());
+
+// 		yield clog("hasSilentReading: ", hasSilentReading(book));
+
+// 		if (hasSilentReading(book)) {
+// 			yield call(playSound, "/audio/silent-new-01.mp3");
+// 		} else {
+// 			yield call(playSound, "/audio/intro-click-start.mp3");
+// 		}
+
+// 		yield put.resolve(
+// 			setReaderState(ReaderStateOptions.talkingAboutStopButton)
+// 		);
+
+// 		if (hasSilentReading(book)) {
+// 			yield call(playSound, "/audio/silent-stop.m4a");
+// 		} else {
+// 			yield call(playSound, "/audio/intro-click-stop.mp3");
+// 		}
+
+// 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+
+// 		yield call(playSound, "/audio/complete.mp3");
+// 	}
+// }
 
 function* spellingInstructionSaga() {
 	const isWarmup = yield select(getIsWarmup);
@@ -1285,6 +1323,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	const hasLoggedIn = yield select(getHasLoggedIn);
 	const studentName = yield select(getStudentName);
 	const thisBook = yield select(getBook);
+	const isPartialOralReading = hasSilentReading(book);
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 
@@ -1341,9 +1380,11 @@ function* assessThenSubmitSaga(assessmentId) {
 	// Put the intro instruction sequence...
 
 	yield call(bookIntroSaga, book);
-	yield take("ASDFSFDSDFSDFFSD");
 
-	yield call(introInstructionSaga, book);
+	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
+
+	// yield take("ASDFSFDSDFSDFFSD");
+	// yield call(introInstructionSaga, book);
 
 	if (!hasWrittenComp(book)) {
 		helperEffect.push(
