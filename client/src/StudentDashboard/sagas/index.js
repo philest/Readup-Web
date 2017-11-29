@@ -578,7 +578,7 @@ function* helperInstructionSaga(
 		yield call(delay, 79000);
 		yield call(playSoundAsync, "/audio/next-button.m4a");
 	} else if (isName) {
-		yield call(delay, 13500);
+		yield call(delay, 14500);
 		yield call(playSoundAsync, "/audio/find-your-name.m4a");
 	}
 }
@@ -590,6 +590,73 @@ function* hearIntroAgainSaga(helperEffect, book) {
 	}
 
 	yield call(introInstructionSaga, book);
+}
+
+function* silentReadingSaga(isFull) {
+	yield put.resolve(setInSilentReading(true));
+	yield put.resolve(setInOralReading(true));
+
+	// START: the silent reading of the book
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+
+	if (!isFull) {
+		yield call(playSound, "/audio/now-silent-read-01.mp3");
+	} else {
+		yield call(playSound, "/audio/written-comp-03.mp3");
+	}
+
+	yield put.resolve(
+		setReaderState(ReaderStateOptions.talkingAboutStopButton)
+	);
+
+	if (!isFull) {
+		yield call(playSound, "/audio/now-silent-read-02.mp3");
+	} else {
+		yield call(playSound, "/audio/written-comp-04.mp3");
+		yield call(playSound, "/audio/complete.mp3");
+	}
+
+	yield put.resolve(setReaderState(ReaderStateOptions.awaitingFinishBook));
+
+	yield take(STOP_RECORDING_CLICKED);
+	yield put.resolve(setCurrentModal("no-modal"));
+	yield call(playSound, "/audio/complete.mp3");
+
+	yield put.resolve(setInSilentReading(false));
+	yield put.resolve(setInOralReading(false));
+}
+
+function* silentCompSaga(book, effects) {
+	// START the next round of questions for the book
+	yield call(playSound, "/audio/silent-3.mp3");
+
+	const newNumQuestions = book.numQuestions; // total
+
+	const newUploadEffects = [];
+
+	effects.push(
+		(compBlobArray = yield fork(
+			definedCompSaga,
+			newNumQuestions,
+			assessmentId,
+			newUploadEffects,
+			true
+		))
+	);
+
+	yield clog("okay, waiting ");
+
+	yield take(FINAL_COMP_QUESTION_ANSWERED);
+
+	yield put.resolve(setShowSkipPrompt(false));
+
+	yield cancel(...newUploadEffects);
+
+	yield clog("okay, GOT IT ");
+
+	yield put({ type: SPINNER_HIDE });
+
+	yield put.resolve(setInComp(false));
 }
 
 function* introInstructionSaga(book) {
@@ -616,6 +683,12 @@ function* introInstructionSaga(book) {
 		yield call(playSound, "/audio/warmup/w-3.mp3");
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 		yield call(playSound, "/audio/complete.mp3");
+	} else if (hasWrittenComp(book)) {
+		yield call(playSound, "/audio/written-comp-01.mp3");
+		yield put.resolve(showVolumeIndicator());
+		yield call(playSound, book.introAudioSrc);
+
+		yield call(silentReadingSaga, true);
 	} else {
 		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
 
@@ -1386,7 +1459,7 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield call(recorder.initialize);
 
 		// Written Comp, when appropriate
-		if (hasWrittenComp(book)) {
+		if (hasWrittenComp(book) && !isWarmup) {
 			effects.push(yield fork(writtenCompSaga));
 
 			yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
@@ -1441,63 +1514,9 @@ function* assessThenSubmitSaga(assessmentId) {
 
 		//  A possible additional silent reading + comp section...
 		if (hasSilentReading(book)) {
-			yield put.resolve(setInSilentReading(true));
-			yield put.resolve(setInOralReading(true));
+			yield call(silentReadingSaga, false);
 
-			// START: the silent reading of the book
-			yield put.resolve(
-				setReaderState(ReaderStateOptions.playingBookIntro)
-			);
-
-			yield call(playSound, "/audio/now-silent-read-01.mp3");
-
-			yield put.resolve(
-				setReaderState(ReaderStateOptions.talkingAboutStopButton)
-			);
-
-			yield call(playSound, "/audio/now-silent-read-02.mp3");
-
-			yield put.resolve(
-				setReaderState(ReaderStateOptions.awaitingFinishBook)
-			);
-
-			yield take(STOP_RECORDING_CLICKED);
-			yield put.resolve(setCurrentModal("no-modal"));
-			yield call(playSound, "/audio/complete.mp3");
-
-			yield put.resolve(setInSilentReading(false));
-			yield put.resolve(setInOralReading(false));
-
-			// START the next round of questions for the book
-			yield call(playSound, "/audio/silent-3.mp3");
-
-			const newNumQuestions = book.numQuestions; // total
-
-			const newUploadEffects = [];
-
-			effects.push(
-				(compBlobArray = yield fork(
-					definedCompSaga,
-					newNumQuestions,
-					assessmentId,
-					newUploadEffects,
-					true
-				))
-			);
-
-			yield clog("okay, waiting ");
-
-			yield take(FINAL_COMP_QUESTION_ANSWERED);
-
-			yield put.resolve(setShowSkipPrompt(false));
-
-			yield cancel(...newUploadEffects);
-
-			yield clog("okay, GOT IT ");
-
-			yield put({ type: SPINNER_HIDE });
-
-			yield put.resolve(setInComp(false));
+			yield call(silentCompSaga, book, effects);
 		}
 
 		// Spelling!

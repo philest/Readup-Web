@@ -1261,7 +1261,7 @@ export const step9 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step6/step6-cover.jpg",
-  introAudioSrc: "/audio/ruffy-intro-new.mp3",
+  introAudioSrc: "/audio/written-comp-02.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
