@@ -896,11 +896,6 @@ function* definedCompSaga(
 		yield clog("currQ IS", currQ);
 
 		let isFirstTime = currQ === 1;
-		if (isFirstTime) {
-			// first time, play instructions
-			// yield put.resolve(setCurrentModal("modal-comp"));
-			yield call(compInstructionSaga);
-		}
 
 		let newBlob = yield* compSaga(isFirstTime, false, isFirstTime, currQ);
 		compBlobArray.push(newBlob);
@@ -1508,15 +1503,10 @@ function* assessThenSubmitSaga(assessmentId) {
 		effects.push(yield fork(writtenCompSaga));
 	}
 
-	yield clog("just before comp inst");
-
 	yield call(compInstructionSaga, isWarmup);
 
-	let numQuestions = yield select(getNumQuestions);
-
-	if (hasSilentReading(book)) {
-		numQuestions = book.numOralReadingQuestions;
-	}
+	const numQuestions = book.numOralReadingQuestions;
+	let compBlobArray;
 
 	const uploadEffects = [];
 
