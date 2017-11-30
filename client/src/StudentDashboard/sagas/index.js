@@ -1245,13 +1245,46 @@ function* watchVideoSaga(videoWiggleEffect) {
 function* oralReadingSaga(
 	effects,
 	helperEffect,
+	earlyExitEffect,
+	isWarmup,
+	isDemo,
+	isPartialOralReading,
+	isStartsWithOralReading,
+	assessmentId
+) {
+	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
+
+	if (isStartsWithOralReading) {
+		helperEffect.push(
+			yield fork(helperInstructionSaga, true, false, false)
+		);
+		// set a 8 second saga in background
+	}
+
+	yield cancel(...earlyExitEffect); // allow for new exit thing
+
+	let returnArr = [];
+
+	returnArr = yield* oralReadingRecordingSaga(
+		effects,
+		helperEffect,
+		isWarmup,
+		isDemo,
+		isPartialOralReading,
+		assessmentId
+	);
+
+	return returnArr;
+}
+
+function* oralReadingRecordingSaga(
+	effects,
+	helperEffect,
 	isWarmup,
 	isDemo,
 	isPartialOralReading,
 	assessmentId
 ) {
-	yield clog("here i am in oralReadingSaga...");
-
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
 
@@ -1468,25 +1501,14 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield call(bookIntroSaga, book);
 
-	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
-
-	if (isStartsWithOralReading) {
-		helperEffect.push(
-			yield fork(helperInstructionSaga, true, false, false)
-		);
-		// set a 8 second saga in background
-	}
-
-	yield cancel(...earlyExitEffect); // allow for new exit thing
-
-	let returnArr = [];
-
-	returnArr = yield* oralReadingSaga(
+	const returnArr = yield* oralReadingSaga(
 		effects,
 		helperEffect,
+		earlyExitEffect,
 		isWarmup,
 		isDemo,
 		isPartialOralReading,
+		isStartsWithOralReading,
 		assessmentId
 	);
 
@@ -1523,9 +1545,9 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield call(delay, 200);
 
 	if (isWarmup) {
-		yield playSoundAsync("/audio/warmup/w-12.mp3");
+		yield call(playSoundAsync, "/audio/warmup/w-12.mp3");
 	} else {
-		yield playSoundAsync("/audio/VB/VB-done.mp3");
+		yield call(playSoundAsync, "/audio/VB/VB-done.mp3");
 	}
 
 	compBlobArray = compBlobArray || "";
