@@ -630,6 +630,35 @@ function* silentReadingSaga(isFull) {
 	yield put.resolve(setInOralReading(false));
 }
 
+function* spellingSaga(effects) {
+	yield put.resolve(setInSpelling(true));
+	yield put.resolve(setSpellingAnswerGiven(false));
+
+	yield call(spellingInstructionSaga);
+
+	yield call(playSpellingQuestionSaga);
+
+	yield put.resolve(setShowSkipPrompt(true));
+
+	effects.push(
+		yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, "spelling")
+	);
+
+	effects.push(
+		yield takeLatest(
+			PREVIOUS_WORD_CLICKED,
+			questionDecrementSaga,
+			"spelling"
+		)
+	);
+
+	yield take(FINAL_SPELLING_QUESTION_ANSWERED);
+
+	yield put.resolve(setShowSkipPrompt(false));
+
+	yield put.resolve(setInSpelling(false));
+}
+
 function* compSaga(effects, assessmentId, isWarmup, book, isSilent) {
 	if (!isSilent) {
 		yield call(compInstructionSaga, isWarmup);
@@ -668,40 +697,6 @@ function* compSaga(effects, assessmentId, isWarmup, book, isSilent) {
 
 	return compBlobArray;
 }
-
-// function* silentCompSaga(effects, assessmentId, isWarmup, book) {
-// 	// START the next round of questions for the book
-// 	yield call(playSound, "/audio/silent-3.mp3");
-
-// 	// const newNumQuestions = book.numQuestions; // total
-
-// 	const newUploadEffects = [];
-
-// 	effects.push(
-// 		(compBlobArray = yield fork(
-// 			definedCompSaga,
-// 			assessmentId,
-// 			newUploadEffects,
-// 			true,
-// 			isWarmup,
-// 			book
-// 		))
-// 	);
-
-// 	yield clog("okay, waiting ");
-
-// 	yield take(FINAL_COMP_QUESTION_ANSWERED);
-
-// 	yield put.resolve(setShowSkipPrompt(false));
-
-// 	yield cancel(...newUploadEffects);
-
-// 	yield clog("okay, GOT IT ");
-
-// 	yield put({ type: SPINNER_HIDE });
-
-// 	yield put.resolve(setInComp(false));
-// }
 
 function* bookIntroSaga(book) {
 	const isWarmup = yield select(getIsWarmup);
@@ -1521,34 +1516,7 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield* compSaga(effects, assessmentId, isWarmup, book, true);
 	}
 
-	// Spelling!
-	yield put.resolve(setInSpelling(true));
-	yield put.resolve(setSpellingAnswerGiven(false));
-
-	yield call(spellingInstructionSaga);
-
-	yield call(playSpellingQuestionSaga);
-
-	yield put.resolve(setShowSkipPrompt(true));
-
-	effects.push(
-		yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, "spelling")
-	);
-
-	effects.push(
-		yield takeLatest(
-			PREVIOUS_WORD_CLICKED,
-			questionDecrementSaga,
-			"spelling"
-		)
-	);
-
-	yield take(FINAL_SPELLING_QUESTION_ANSWERED);
-
-	yield put.resolve(setShowSkipPrompt(false));
-
-	yield put.resolve(setInSpelling(false));
-	// End Spelling
+	yield* spellingSaga(effects);
 
 	yield put.resolve(setCurrentModal("modal-done"));
 
