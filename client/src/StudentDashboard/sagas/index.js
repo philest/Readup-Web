@@ -1421,6 +1421,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	const thisBook = yield select(getBook);
 	const isPartialOralReading = hasSilentReading(book);
 	const isStartsWithOralReading = !hasWrittenComp(book);
+	const isHasWrittenComp = hasWrittenComp(book);
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 
@@ -1486,8 +1487,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield cancel(...earlyExitEffect); // allow for new exit thing
 
-	yield call(
-		oralReadingSaga,
+	yield* oralReadingSaga(
 		effects,
 		helperEffect,
 		isWarmup,
@@ -1496,18 +1496,14 @@ function* assessThenSubmitSaga(assessmentId) {
 		assessmentId
 	);
 
-	yield clog("do we reach here??????");
-
 	//  reset recorder
 	let recorder = yield select(getRecorder);
 	yield call(recorder.reset);
 	recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
 
-	yield clog("writtenComp: ", hasWrittenComp(book));
-
 	// Written Comp, when appropriate
-	if (hasWrittenComp(book) && !isWarmup) {
+	if (isHasWrittenComp && !isWarmup) {
 		yield clog("in written comp...");
 		effects.push(yield fork(writtenCompSaga));
 	}
