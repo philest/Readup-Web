@@ -589,7 +589,11 @@ function* hearIntroAgainSaga(helperEffect, book) {
 		yield cancel(...helperEffect);
 	}
 
-	yield call(introInstructionSaga, book);
+	const isWarmup = yield select(getIsWarmup);
+	const isPartialOralReading = hasSilentReading(book);
+
+	yield call(bookIntroSaga, book);
+	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
 }
 
 function* silentReadingSaga(isFull) {
@@ -779,17 +783,17 @@ function* spellingInstructionSaga() {
 	}
 }
 
-function* compInstructionSaga() {
+function* compInstructionSaga(isWarmup) {
 	yield put.resolve(setPageNumber(0));
 	yield put.resolve(setInComp(true));
 
 	if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
 		yield call(delay, 500);
 
-		const isWarmup = yield select(getIsWarmup);
-
 		if (!isWarmup) {
-			// yield call(playSoundAsync, "/audio/comp-instructions.mp3");
+			yield call(playSound, "/audio/VB/min/VB-now-questions.mp3");
+
+			yield call(delay, 500);
 
 			yield put.resolve(
 				setReaderState(ReaderStateOptions.talkingAboutStartButton)
@@ -809,6 +813,12 @@ function* compInstructionSaga() {
 
 			yield call(delay, 700);
 		} else {
+			// warmup
+
+			yield call(playSound, "/audio/warmup/w-6-1.mp3");
+
+			yield call(delay, 500);
+
 			yield put.resolve(
 				setReaderState(ReaderStateOptions.talkingAboutStartButton)
 			);
@@ -1173,6 +1183,13 @@ function* writtenCompSaga() {
 		questionDecrementSaga,
 		"writtenComp"
 	);
+
+	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
+
+	yield put(setCurrentModal("modal-comp"));
+
+	yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
+	yield put(setCurrentModal("no-modal"));
 }
 
 function* hideVolumeSaga() {
@@ -1235,10 +1252,14 @@ function* watchVideoSaga(videoWiggleEffect) {
 
 function* oralReadingSaga(
 	effects,
+	helperEffect,
 	isWarmup,
 	isPartialOralReading,
 	assessmentId
 ) {
+	let recorder = yield select(getRecorder);
+	yield call(recorder.initialize);
+
 	// before assessment has started, clicking exit immediately quits app
 	// I guess. We will probably change this
 	const { exit } = yield race({
@@ -1338,6 +1359,8 @@ function* oralReadingSaga(
 		effects.push(
 			yield fork(turnInAudio, recordingBlob, assessmentId, false, 0)
 		);
+
+		yield put.resolve(setInOralReading(false));
 	}
 }
 
@@ -1441,9 +1464,6 @@ function* assessThenSubmitSaga(assessmentId) {
 		yield cancel(...videoWiggleEffect);
 	}
 
-	let recorder = yield select(getRecorder);
-	yield call(recorder.initialize);
-
 	effects.push(yield fork(hideVolumeSaga));
 
 	// Put the intro instruction sequence...
@@ -1461,215 +1481,104 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield cancel(...earlyExitEffect); // allow for new exit thing
 
-	// before assessment has started, clicking exit immediately quits app
-	// I guess. We will probably change this
-	const { exit } = yield race({
-		exit: take(EXIT_CLICKED),
-		startAssessment: take(START_RECORDING_CLICKED)
-	});
-
-	// cancel that saga.
-	if (helperEffect.length >= 1) {
-		yield cancel(...helperEffect);
-	}
-
-	yield call(stopAudio);
-
-	yield put.resolve(hideVolumeIndicator());
-
-	// the app will end :O
-	if (exit) {
-		yield* redirectToHomepage();
-	}
-
-	// now we start the assessment for real
-	effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
-
 	yield call(
-		sendEmail,
-		`${isDemo ? "Demo" : "Real student session"} started`,
-		`${isDemo ? "Demo" : "Real student"} started`,
-		"philesterman@gmail.com"
-	); // move here so don't break
-
-	// TODO: convert the countdown to saga!!!!
-	yield put.resolve(setPageNumber(1));
-
-	yield call(countdownSaga);
-
-	yield put.resolve(setShowSkipPrompt(true));
-
-	yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
-
-	yield call(recordingInstructionSaga, isWarmup, isPartialOralReading);
-
-	// starts the recording assessment flow
-	effects.push(yield fork(assessmentSaga));
-
-	// set up skipping
-	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
-
-	const { endRecording } = yield race({
-		turnItIn: take(TURN_IN_CLICKED),
-		endRecording: take(STOP_RECORDING_CLICKED)
-	});
-
-	// to hide the comp pause modal
-	yield put.resolve(setCurrentModal("no-modal"));
-
-	recorder = yield select(getRecorder);
-
-	yield put.resolve(setCurrentOverlay("overlay-spinner"));
-
-	yield put({ type: SPINNER_SHOW });
-
-	const recordingURL = yield* haltRecordingAndGenerateBlobSaga(
-		recorder,
-		false,
-		false
+		oralReadingSaga,
+		effects,
+		helperEffect,
+		isWarmup,
+		isPartialOralReading,
+		assessmentId
 	);
+
+	//  reset recorder
+	let recorder = yield select(getRecorder);
+	yield call(recorder.reset);
+	recorder = yield select(getRecorder);
+	yield call(recorder.initialize);
+
+	// Written Comp, when appropriate
+	if (hasWrittenComp(book) && !isWarmup) {
+		effects.push(yield fork(writtenCompSaga));
+	}
+
+	yield call(compInstructionSaga, isWarmup);
+
+	let numQuestions = yield select(getNumQuestions);
+
+	if (hasSilentReading(book)) {
+		numQuestions = book.numOralReadingQuestions;
+	}
+
+	const uploadEffects = [];
+
+	effects.push(
+		(compBlobArray = yield fork(
+			definedCompSaga,
+			numQuestions,
+			assessmentId,
+			uploadEffects,
+			false
+		))
+	);
+
+	yield clog("okay, waiting ");
+
+	yield take(FINAL_COMP_QUESTION_ANSWERED);
+
+	yield put.resolve(setShowSkipPrompt(false));
+
+	yield cancel(...uploadEffects);
+
+	yield clog("okay, GOT IT ");
 
 	yield put({ type: SPINNER_HIDE });
 
-	yield put.resolve(setCurrentOverlay("no-overlay"));
+	yield put.resolve(setInComp(false));
 
-	yield clog("url for recording!!!", recordingURL);
+	//  A possible additional silent reading + comp section...
+	if (hasSilentReading(book)) {
+		yield call(silentReadingSaga, false);
 
-	let recordingBlob;
-
-	try {
-		recordingBlob = recorder.getBlob();
-	} catch (err) {
-		recordingBlob = "it broke";
-		yield clog("err:", err);
+		yield call(silentCompSaga, book, effects);
 	}
 
-	let blobAndPrompt;
-	let fetchedPrompt;
-	let compBlobArray;
+	// Spelling!
+	yield put.resolve(setInSpelling(true));
+	yield put.resolve(setSpellingAnswerGiven(false));
 
-	if (endRecording) {
-		yield put.resolve(setShowSkipPrompt(false));
+	yield call(spellingInstructionSaga);
 
-		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	yield call(playSpellingQuestionSaga);
 
-		yield call(playSound, "/audio/complete.mp3");
+	yield put.resolve(setShowSkipPrompt(true));
 
-		// now start submitting it!
+	effects.push(
+		yield takeLatest(NEXT_WORD_CLICKED, questionIncrementSaga, "spelling")
+	);
 
-		effects.push(
-			yield fork(turnInAudio, recordingBlob, assessmentId, false, 0)
-		);
+	effects.push(
+		yield takeLatest(
+			PREVIOUS_WORD_CLICKED,
+			questionDecrementSaga,
+			"spelling"
+		)
+	);
 
-		//  reset recorder
-		let recorder = yield select(getRecorder);
-		yield call(recorder.reset);
-		recorder = yield select(getRecorder);
-		yield call(recorder.initialize);
+	yield take(FINAL_SPELLING_QUESTION_ANSWERED);
 
-		// Written Comp, when appropriate
-		if (hasWrittenComp(book) && !isWarmup) {
-			effects.push(yield fork(writtenCompSaga));
+	yield put.resolve(setShowSkipPrompt(false));
 
-			yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
+	yield put.resolve(setInSpelling(false));
+	// End Spelling
 
-			yield put(setCurrentModal("modal-comp"));
+	yield put.resolve(setCurrentModal("modal-done"));
 
-			yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
-			yield put(setCurrentModal("no-modal"));
-		}
+	yield call(delay, 200);
 
-		yield call(delay, 300);
-
-		if (isWarmup) {
-			yield playSound("/audio/warmup/w-6-1.mp3");
-		} else {
-			yield playSound("/audio/VB/min/VB-now-questions.mp3");
-		}
-
-		yield put.resolve(setInOralReading(false));
-
-		let numQuestions = yield select(getNumQuestions);
-
-		if (hasSilentReading(book)) {
-			numQuestions = book.numOralReadingQuestions;
-		}
-
-		const uploadEffects = [];
-
-		effects.push(
-			(compBlobArray = yield fork(
-				definedCompSaga,
-				numQuestions,
-				assessmentId,
-				uploadEffects,
-				false
-			))
-		);
-
-		yield clog("okay, waiting ");
-
-		yield take(FINAL_COMP_QUESTION_ANSWERED);
-
-		yield put.resolve(setShowSkipPrompt(false));
-
-		yield cancel(...uploadEffects);
-
-		yield clog("okay, GOT IT ");
-
-		yield put({ type: SPINNER_HIDE });
-
-		yield put.resolve(setInComp(false));
-
-		//  A possible additional silent reading + comp section...
-		if (hasSilentReading(book)) {
-			yield call(silentReadingSaga, false);
-
-			yield call(silentCompSaga, book, effects);
-		}
-
-		// Spelling!
-		yield put.resolve(setInSpelling(true));
-		yield put.resolve(setSpellingAnswerGiven(false));
-
-		yield call(spellingInstructionSaga);
-
-		yield call(playSpellingQuestionSaga);
-
-		yield put.resolve(setShowSkipPrompt(true));
-
-		effects.push(
-			yield takeLatest(
-				NEXT_WORD_CLICKED,
-				questionIncrementSaga,
-				"spelling"
-			)
-		);
-
-		effects.push(
-			yield takeLatest(
-				PREVIOUS_WORD_CLICKED,
-				questionDecrementSaga,
-				"spelling"
-			)
-		);
-
-		yield take(FINAL_SPELLING_QUESTION_ANSWERED);
-
-		yield put.resolve(setShowSkipPrompt(false));
-
-		yield put.resolve(setInSpelling(false));
-		// End Spelling
-
-		yield put.resolve(setCurrentModal("modal-done"));
-
-		yield call(delay, 200);
-
-		if (isWarmup) {
-			yield playSoundAsync("/audio/warmup/w-12.mp3");
-		} else {
-			yield playSoundAsync("/audio/VB/VB-done.mp3");
-		}
+	if (isWarmup) {
+		yield playSoundAsync("/audio/warmup/w-12.mp3");
+	} else {
+		yield playSoundAsync("/audio/VB/VB-done.mp3");
 	}
 
 	compBlobArray = compBlobArray || "";
