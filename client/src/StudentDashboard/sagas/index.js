@@ -630,20 +630,23 @@ function* silentReadingSaga(isFull) {
 	yield put.resolve(setInOralReading(false));
 }
 
-function* silentCompSaga(book, effects) {
-	// START the next round of questions for the book
-	yield call(playSound, "/audio/silent-3.mp3");
+function* compSaga(effects, assessmentId, isWarmup, book, isSilent) {
+	if (!isSilent) {
+		yield call(compInstructionSaga, isWarmup);
+	} else {
+		yield call(playSound, "/audio/silent-3.mp3");
+	}
 
-	// const newNumQuestions = book.numQuestions; // total
+	let compBlobArray;
 
-	const newUploadEffects = [];
+	const uploadEffects = [];
 
 	effects.push(
 		(compBlobArray = yield fork(
 			definedCompSaga,
 			assessmentId,
-			newUploadEffects,
-			true,
+			uploadEffects,
+			isSilent,
 			isWarmup,
 			book
 		))
@@ -655,14 +658,50 @@ function* silentCompSaga(book, effects) {
 
 	yield put.resolve(setShowSkipPrompt(false));
 
-	yield cancel(...newUploadEffects);
+	yield cancel(...uploadEffects);
 
 	yield clog("okay, GOT IT ");
 
 	yield put({ type: SPINNER_HIDE });
 
 	yield put.resolve(setInComp(false));
+
+	return compBlobArray;
 }
+
+// function* silentCompSaga(effects, assessmentId, isWarmup, book) {
+// 	// START the next round of questions for the book
+// 	yield call(playSound, "/audio/silent-3.mp3");
+
+// 	// const newNumQuestions = book.numQuestions; // total
+
+// 	const newUploadEffects = [];
+
+// 	effects.push(
+// 		(compBlobArray = yield fork(
+// 			definedCompSaga,
+// 			assessmentId,
+// 			newUploadEffects,
+// 			true,
+// 			isWarmup,
+// 			book
+// 		))
+// 	);
+
+// 	yield clog("okay, waiting ");
+
+// 	yield take(FINAL_COMP_QUESTION_ANSWERED);
+
+// 	yield put.resolve(setShowSkipPrompt(false));
+
+// 	yield cancel(...newUploadEffects);
+
+// 	yield clog("okay, GOT IT ");
+
+// 	yield put({ type: SPINNER_HIDE });
+
+// 	yield put.resolve(setInComp(false));
+// }
 
 function* bookIntroSaga(book) {
 	const isWarmup = yield select(getIsWarmup);
@@ -944,7 +983,7 @@ function* definedCompSaga(
 	for (let currQ = questionNumber; currQ <= numQuestions; currQ++) {
 		yield clog("currQ IS", currQ);
 
-		let newBlob = yield* newCompSaga(currQ, false);
+		let newBlob = yield* compQuestionSaga(currQ, false);
 
 		compBlobArray.push(newBlob);
 
@@ -1040,7 +1079,7 @@ function* findPromptSaga(studentID) {
 	return prompt;
 }
 
-function* newCompSaga(currQ, isPrompt) {
+function* compQuestionSaga(currQ, isPrompt) {
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
 	if (!isPrompt) {
@@ -1096,7 +1135,7 @@ function* newCompSaga(currQ, isPrompt) {
 
 		yield* playPromptSaga(prompt, studentID);
 
-		return yield call(newCompSaga, currQ, true);
+		return yield call(compQuestionSaga, currQ, true);
 	} else {
 		yield clog("111 NO PROMPT FOUND");
 
@@ -1468,42 +1507,18 @@ function* assessThenSubmitSaga(assessmentId) {
 		effects.push(yield fork(writtenCompSaga));
 	}
 
-	yield call(compInstructionSaga, isWarmup);
-
-	let compBlobArray;
-
-	const uploadEffects = [];
-
-	effects.push(
-		(compBlobArray = yield fork(
-			definedCompSaga,
-			assessmentId,
-			uploadEffects,
-			false,
-			isWarmup,
-			book
-		))
+	let compBlobArray = yield* compSaga(
+		effects,
+		assessmentId,
+		isWarmup,
+		book,
+		false
 	);
 
-	yield clog("okay, waiting ");
-
-	yield take(FINAL_COMP_QUESTION_ANSWERED);
-
-	yield put.resolve(setShowSkipPrompt(false));
-
-	yield cancel(...uploadEffects);
-
-	yield clog("okay, GOT IT ");
-
-	yield put({ type: SPINNER_HIDE });
-
-	yield put.resolve(setInComp(false));
-
-	//  A possible additional silent reading + comp section...
 	if (hasSilentReading(book)) {
 		yield call(silentReadingSaga, false);
 
-		yield call(silentCompSaga, book, effects);
+		yield* compSaga(effects, assessmentId, isWarmup, book, true);
 	}
 
 	// Spelling!
