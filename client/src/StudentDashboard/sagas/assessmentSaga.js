@@ -66,21 +66,22 @@ function* pauseAssessmentSaga(action) {
 function* compPauseAssessmentSaga(action) {
   try {
     const recorder = yield select(getRecorder);
-    yield call(recorder.pauseRecording);
+    if (recorder) {
+      yield call(recorder.pauseRecording);
+    }
   } catch (err) {
     yield clog("err", err);
   }
 
   const readerState = yield select(getReaderState);
 
-  yield delay(300); // delay to prevent phil's voice from getting pick up :/
+  yield call(delay, 200); // delay to prevent phil's voice from getting pick up :/
 
   yield call(playSound, "/audio/complete.mp3");
 
   if (readerState === "READER_STATE_IN_PROGRESS") {
     yield put.resolve(setReaderState(ReaderStateOptions.paused));
   }
-
   // yield put.resolve(setCurrentSound('/audio/paused.mp3'))
   yield put.resolve(setCurrentModal("modal-comp-paused"));
   return;

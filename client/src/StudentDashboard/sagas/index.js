@@ -727,72 +727,32 @@ function* oralReadingInstructionSaga(isWarmup, isPartialOralReading) {
 	}
 }
 
-// function* introInstructionSaga(book) {
-// 	const isWarmup = yield select(getIsWarmup);
+function* recordingInstructionSaga(isWarmup, isPartialOralReading) {
+	if (isWarmup) {
+		yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
+	} else if (isPartialOralReading) {
+		yield call(playSound, "/audio/silent-reading-page-three.mp3");
+	} else {
+		//normal
+		yield call(playSound, "/audio/now-recording-read.mp3");
+	}
+}
 
-// 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
-// 	yield put.resolve(showVolumeIndicator());
+function* countdownSaga() {
+	yield put.resolve(setReaderState(ReaderStateOptions.countdownToStart));
 
-// 	yield clog("set it");
+	yield playSoundAsync("/audio/recording_countdown.mp3");
 
-// 	yield call(stopAudio);
-
-// 	yield call(delay, 1350);
-
-// 	if (isWarmup) {
-// 		yield call(playSound, "/audio/warmup/w-1.mp3");
-// 		yield call(playSound, "/audio/warmup/w-2.mp3");
-// 		yield put.resolve(
-// 			setReaderState(ReaderStateOptions.talkingAboutStartButton)
-// 		);
-
-// 		yield put.resolve(showVolumeIndicator());
-
-// 		yield call(playSound, "/audio/warmup/w-3.mp3");
-// 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
-// 		yield call(playSound, "/audio/complete.mp3");
-// 	} else if (hasWrittenComp(book)) {
-// 		yield call(playSound, "/audio/written-comp-01.mp3");
-// 		yield put.resolve(showVolumeIndicator());
-// 		yield call(playSound, book.introAudioSrc);
-
-// 		yield call(silentReadingSaga, true);
-// 	} else {
-// 		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
-
-// 		yield put.resolve(showVolumeIndicator());
-
-// 		yield call(playSound, book.introAudioSrc);
-
-// 		yield put.resolve(
-// 			setReaderState(ReaderStateOptions.talkingAboutStartButton)
-// 		);
-
-// 		yield put.resolve(showVolumeIndicator());
-
-// 		yield clog("hasSilentReading: ", hasSilentReading(book));
-
-// 		if (hasSilentReading(book)) {
-// 			yield call(playSound, "/audio/silent-new-01.mp3");
-// 		} else {
-// 			yield call(playSound, "/audio/intro-click-start.mp3");
-// 		}
-
-// 		yield put.resolve(
-// 			setReaderState(ReaderStateOptions.talkingAboutStopButton)
-// 		);
-
-// 		if (hasSilentReading(book)) {
-// 			yield call(playSound, "/audio/silent-stop.m4a");
-// 		} else {
-// 			yield call(playSound, "/audio/intro-click-stop.mp3");
-// 		}
-
-// 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
-
-// 		yield call(playSound, "/audio/complete.mp3");
-// 	}
-// }
+	if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
+		let countdown = 3;
+		while (countdown > 0) {
+			yield put(setCountdownValue(countdown));
+			yield call(delay, 1000);
+			countdown--;
+		}
+	}
+	yield put.resolve(setCurrentModal("no-modal"));
+}
 
 function* spellingInstructionSaga() {
 	const isWarmup = yield select(getIsWarmup);
@@ -1273,6 +1233,114 @@ function* watchVideoSaga(videoWiggleEffect) {
 	yield call(playSound, "/audio/complete.mp3");
 }
 
+function* oralReadingSaga(
+	effects,
+	isWarmup,
+	isPartialOralReading,
+	assessmentId
+) {
+	// before assessment has started, clicking exit immediately quits app
+	// I guess. We will probably change this
+	const { exit } = yield race({
+		exit: take(EXIT_CLICKED),
+		startAssessment: take(START_RECORDING_CLICKED)
+	});
+
+	// cancel that saga.
+	if (helperEffect.length >= 1) {
+		yield cancel(...helperEffect);
+	}
+
+	yield call(stopAudio);
+
+	yield put.resolve(hideVolumeIndicator());
+
+	// the app will end :O
+	if (exit) {
+		yield* redirectToHomepage();
+	}
+
+	// now we start the assessment for real
+	effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
+
+	yield call(
+		sendEmail,
+		`${isDemo ? "Demo" : "Real student session"} started`,
+		`${isDemo ? "Demo" : "Real student"} started`,
+		"philesterman@gmail.com"
+	); // move here so don't break
+
+	// TODO: convert the countdown to saga!!!!
+	yield put.resolve(setPageNumber(1));
+
+	yield call(countdownSaga);
+
+	yield put.resolve(setShowSkipPrompt(true));
+
+	yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
+
+	yield call(recordingInstructionSaga, isWarmup, isPartialOralReading);
+
+	// starts the recording assessment flow
+	effects.push(yield fork(assessmentSaga));
+
+	// set up skipping
+	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
+
+	const { endRecording } = yield race({
+		turnItIn: take(TURN_IN_CLICKED),
+		endRecording: take(STOP_RECORDING_CLICKED)
+	});
+
+	// to hide the comp pause modal
+	yield put.resolve(setCurrentModal("no-modal"));
+
+	recorder = yield select(getRecorder);
+
+	yield put.resolve(setCurrentOverlay("overlay-spinner"));
+
+	yield put({ type: SPINNER_SHOW });
+
+	const recordingURL = yield* haltRecordingAndGenerateBlobSaga(
+		recorder,
+		false,
+		false
+	);
+
+	yield put({ type: SPINNER_HIDE });
+
+	yield put.resolve(setCurrentOverlay("no-overlay"));
+
+	yield clog("url for recording!!!", recordingURL);
+
+	let recordingBlob;
+
+	try {
+		recordingBlob = recorder.getBlob();
+	} catch (err) {
+		recordingBlob = "it broke";
+		yield clog("err:", err);
+	}
+
+	let blobAndPrompt;
+	let fetchedPrompt;
+	let compBlobArray;
+
+	if (endRecording) {
+		yield put.resolve(setShowSkipPrompt(false));
+
+		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+
+		yield call(playSound, "/audio/complete.mp3");
+
+		// now start submitting it!
+
+		effects.push(
+			yield fork(turnInAudio, recordingBlob, assessmentId, false, 0)
+		);
+	}
+}
+
 function* resetStateSaga() {
 	// TODO: convert this into a batched action
 	yield put.resolve(setPageNumber(0));
@@ -1324,6 +1392,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	const studentName = yield select(getStudentName);
 	const thisBook = yield select(getBook);
 	const isPartialOralReading = hasSilentReading(book);
+	const isStartsWithOralReading = !hasWrittenComp(book);
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 
@@ -1383,10 +1452,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
 
-	// yield take("ASDFSFDSDFSDFFSD");
-	// yield call(introInstructionSaga, book);
-
-	if (!hasWrittenComp(book)) {
+	if (isStartsWithOralReading) {
 		helperEffect.push(
 			yield fork(helperInstructionSaga, true, false, false)
 		);
@@ -1428,50 +1494,15 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	// TODO: convert the countdown to saga!!!!
 	yield put.resolve(setPageNumber(1));
-	yield put.resolve(setReaderState(ReaderStateOptions.countdownToStart));
 
-	yield playSoundAsync("/audio/recording_countdown.mp3");
-
-	if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
-		let countdown = 3;
-		while (countdown > 0) {
-			yield put(setCountdownValue(countdown));
-			yield call(delay, 1000);
-			countdown--;
-		}
-	}
-
-	// yield put(setCurrentSound('/audio/book_intro.mp3'))
-
-	yield put.resolve(setCurrentModal("no-modal"));
+	yield call(countdownSaga);
 
 	yield put.resolve(setShowSkipPrompt(true));
 
 	yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
 
-	if (isWarmup) {
-		yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
-	} else {
-		if (hasSilentReading(book)) {
-			yield call(playSound, "/audio/silent-reading-page-three.mp3");
-		} else {
-			yield call(playSound, "/audio/now-recording-read.mp3");
-		}
-	}
+	yield call(recordingInstructionSaga, isWarmup, isPartialOralReading);
 
-	// this ensures that effects are canceleld
-	// while (true) {
-	//   const {exit} = yield race({
-	//     exit:             take(EXIT_CLICKED),
-	//     assessmentResult: call(assessmentSaga),
-	//   })
-
-	//   if (exit) {
-	//     yield call(exitClick)
-	//   } else {
-
-	//   }
-	// }
 	// starts the recording assessment flow
 	effects.push(yield fork(assessmentSaga));
 
