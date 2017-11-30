@@ -634,17 +634,18 @@ function* silentCompSaga(book, effects) {
 	// START the next round of questions for the book
 	yield call(playSound, "/audio/silent-3.mp3");
 
-	const newNumQuestions = book.numQuestions; // total
+	// const newNumQuestions = book.numQuestions; // total
 
 	const newUploadEffects = [];
 
 	effects.push(
 		(compBlobArray = yield fork(
 			definedCompSaga,
-			newNumQuestions,
 			assessmentId,
 			newUploadEffects,
-			true
+			true,
+			isWarmup,
+			book
 		))
 	);
 
@@ -866,17 +867,7 @@ function* compInstructionSaga(isWarmup) {
 	}
 }
 
-// assumes at least one question...
-function* definedCompSaga(
-	numQuestions,
-	assessmentId,
-	uploadEffects,
-	isSilentReading
-) {
-	yield put.resolve(setInComp(true));
-
-	let compBlobArray = [];
-
+function* turnInDuringCompSaga(uploadEffects) {
 	uploadEffects.push(
 		yield takeLatest(TURN_IN_CLICKED, function*() {
 			yield call(playSound, "/audio/complete.mp3");
@@ -891,32 +882,69 @@ function* definedCompSaga(
 			window.location.href = "/reports/sample";
 		})
 	);
+}
 
-	const isWarmup = yield select(getIsWarmup);
-
-	const book = yield select(getBook);
-
-	if (isSilentReading) {
-		numQuestions = book.numQuestions;
+function getNumQuestionsinThisCompSection(isWarmup, isSilentReading, book) {
+	if (isWarmup) {
+		return 2;
+	} else if (isSilentReading) {
+		// return book.numSilentReadingQuestions;
+		// for now, do a hack and just use the full thing
+		return book.numQuestions;
+	} else {
+		// real thing
+		return book.numOralReadingQuestions;
 	}
+}
 
-	numQuestions = isWarmup ? 2 : numQuestions;
+function* turnInFinalCompSaga(newBlob, assessmentId, currQ) {
+	yield put({ type: SPINNER_SHOW });
+	yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
-	// get currentQuestion
-	// initialize currQ to that
-	// if it's silent reading, add something to numQuestions to make it larger --> or just make it the real whole thing...
+	yield clog("before turn in");
+
+	yield* turnInAudio(newBlob, assessmentId, true, currQ); // wait for the last one
+
+	yield clog("after turn in");
+
+	yield put({ type: SPINNER_HIDE });
+	yield put.resolve(setCurrentOverlay("no-overlay"));
+}
+
+function* resetRecorderSaga() {
+	// reset the recorder each time
+	let recorder = yield select(getRecorder);
+	yield call(recorder.reset);
+	recorder = yield select(getRecorder);
+	yield call(recorder.initialize);
+}
+
+// assumes at least one question...
+function* definedCompSaga(
+	assessmentId,
+	uploadEffects,
+	isSilentReading,
+	isWarmup,
+	book
+) {
+	yield put.resolve(setInComp(true));
+
+	let compBlobArray = [];
+
+	yield* turnInDuringCompSaga(uploadEffects);
+
+	const numQuestions = getNumQuestionsinThisCompSection(
+		isWarmup,
+		isSilentReading,
+		book
+	);
 
 	let questionNumber = yield select(getQuestionNumber);
-
-	yield clog("questionNumber: ", questionNumber);
-	yield clog("numQuestions: ", numQuestions);
 
 	for (let currQ = questionNumber; currQ <= numQuestions; currQ++) {
 		yield clog("currQ IS", currQ);
 
-		yield clog("BEFORE newCompSaga");
 		let newBlob = yield* newCompSaga(currQ, false);
-		yield clog("AFTER newCompSaga");
 
 		compBlobArray.push(newBlob);
 
@@ -925,41 +953,20 @@ function* definedCompSaga(
 				yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
 			);
 		} else {
-			yield put({ type: SPINNER_SHOW });
-			yield put.resolve(setCurrentOverlay("overlay-spinner"));
-
-			yield clog("before turn in");
-
-			yield* turnInAudio(newBlob, assessmentId, true, currQ); // wait for the last one
-
-			yield clog("after turn in");
-
-			yield put({ type: SPINNER_HIDE });
-			yield put.resolve(setCurrentOverlay("no-overlay"));
+			yield* turnInFinalCompSaga(newBlob, assessmentId, currQ);
 		}
-
 		// reset the recorder each time
-		let recorder = yield select(getRecorder);
-		yield call(recorder.reset);
-		recorder = yield select(getRecorder);
-		yield call(recorder.initialize);
+		yield* resetRecorderSaga();
 	}
 
 	questionNumber = yield select(getQuestionNumber);
 
-	yield clog("numQuestions: ", numQuestions);
-	yield clog("questionNumber: ", questionNumber);
-
-	if (numQuestions <= questionNumber || (isWarmup && questionNumber >= 2)) {
-		console.log("in this ending part......");
+	if (numQuestions <= questionNumber) {
+		yield clog("in this ending part......");
 		yield cancel(...uploadEffects);
 		yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
 		return compBlobArray;
 	}
-
-	yield cancel(...uploadEffects);
-
-	return compBlobArray;
 }
 
 function* playCompQuestionSaga(currQ) {
@@ -1459,20 +1466,18 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield call(compInstructionSaga, isWarmup);
 
-	const numQuestions = book.numOralReadingQuestions;
 	let compBlobArray;
-
-	yield clog("numQuestions: ", numQuestions);
 
 	const uploadEffects = [];
 
 	effects.push(
 		(compBlobArray = yield fork(
 			definedCompSaga,
-			numQuestions,
 			assessmentId,
 			uploadEffects,
-			false
+			false,
+			isWarmup,
+			book
 		))
 	);
 

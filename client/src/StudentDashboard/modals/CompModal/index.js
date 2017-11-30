@@ -81,13 +81,6 @@ export default class CompModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(
-      "b4: ",
-      this.props.writtenQuestionNumber,
-      " after: ",
-      nextProps.writtenQuestionNumber
-    );
-
     if (
       this.props.currentShowModal === THIS_MODAL_ID &&
       this.props.writtenQuestionNumber !== nextProps.writtenQuestionNumber // incremented by
