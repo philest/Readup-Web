@@ -721,6 +721,7 @@ export const fireflyBook = {
     3: "Beyond and About the Text"
   },
   numQuestions: 3,
+  numOralReadingQuestions: 3,
   questions: {
     1: {
       title: "Tell as much as you can about the passage you just read.",
@@ -893,6 +894,7 @@ export const stepBook = {
     }
   },
   numQuestions: 6,
+  numOralReadingQuestions: 6,
   numSections: 3,
   sections: {
     1: "Factual",
@@ -1019,6 +1021,7 @@ export const step5Book = {
     }
   },
   numQuestions: 6,
+  numOralReadingQuestions: 6,
   numSections: 3,
   sections: {
     1: "Factual",
@@ -1518,6 +1521,7 @@ export const fpBook = {
   },
 
   numQuestions: 4,
+  numOralReadingQuestions: 4,
   questions: {
     1: {
       title: "Tell as much as you can about the passage you just read.",
@@ -1591,6 +1595,7 @@ export const sampleReportBookFP = {
   },
 
   numQuestions: 5,
+  numOralReadingQuestions: 5,
   questions: {
     1: {
       title: "Tell as much as you can about the passage you just read.",
@@ -1680,6 +1685,7 @@ export const sampleReportBookSTEP = {
   },
 
   numQuestions: 5,
+  numOralReadingQuestions: 5,
   questions: {
     1: {
       title: "Tell as much as you can about the passage you just read.",
