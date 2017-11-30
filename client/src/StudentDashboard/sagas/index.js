@@ -1163,23 +1163,30 @@ function* compQuestionSaga(currQ, isPrompt) {
 	}
 }
 
-function* writtenCompSaga() {
-	yield takeLatest(
-		NEXT_QUESTION_CLICKED,
-		questionIncrementSaga,
-		"writtenComp"
+function* writtenCompSaga(effects) {
+	effects.push(
+		yield takeLatest(
+			NEXT_QUESTION_CLICKED,
+			questionIncrementSaga,
+			"writtenComp"
+		)
 	);
 
-	yield takeLatest(
-		PREVIOUS_QUESTION_CLICKED,
-		questionDecrementSaga,
-		"writtenComp"
+	effects.push(
+		yield takeLatest(
+			PREVIOUS_QUESTION_CLICKED,
+			questionDecrementSaga,
+			"writtenComp"
+		)
 	);
 
 	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
 
 	yield put(setCurrentModal("modal-comp"));
 	yield call(playSound, "/audio/written-comp-05.mp3");
+
+	yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
+	yield put(setCurrentModal("no-modal"));
 }
 
 function* hideVolumeSaga() {
@@ -1518,11 +1525,7 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	// Written Comp, when appropriate
 	if (isHasWrittenComp && !isWarmup) {
-		yield clog("in written comp...");
-		effects.push(yield fork(writtenCompSaga));
-
-		yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
-		yield put(setCurrentModal("no-modal"));
+		yield* writtenCompSaga(effects);
 	}
 
 	let compBlobArray = yield* compSaga(
