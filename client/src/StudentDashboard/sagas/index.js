@@ -181,7 +181,16 @@ function getSectionsList(book) {
 	}
 }
 
-function* playSectionSaga(section) {
+function* playSectionSaga(
+	section,
+	effects,
+	helperEffect,
+	earlyExitEffect,
+	isWarmup,
+	isDemo,
+	book,
+	assessmentId
+) {
 	if (section === SectionOptions.oralReadingFullBook) {
 		yield* oralReadingSaga(
 			effects,
@@ -1373,6 +1382,9 @@ function* oralReadingSaga(
 		assessmentId
 	);
 
+	// Is this breaking the url, reseting the url?
+	yield* resetRecorderSaga();
+
 	return returnArr;
 }
 
@@ -1546,11 +1558,10 @@ function* assessThenSubmitSaga(assessmentId) {
 	const isPartialOralReading = hasSilentReading(book);
 	const isStartsWithOralReading = !hasWrittenComp(book);
 	const isHasWrittenComp = hasWrittenComp(book);
+	const sectionList = getSectionsList(book);
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
-
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
-
 	effects.push(
 		yield takeLatest(
 			HEAR_INTRO_AGAIN_CLICKED,
@@ -1600,43 +1611,22 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield call(bookIntroSaga, book);
 
-	const returnArr = yield* oralReadingSaga(
-		effects,
-		helperEffect,
-		earlyExitEffect,
-		isWarmup,
-		isDemo,
-		isPartialOralReading,
-		isStartsWithOralReading,
-		assessmentId
-	);
-
-	const endRecording = returnArr[0];
-	const recordingBlob = returnArr[1];
-
-	//  reset recorder
-	yield* resetRecorderSaga();
-
-	// Written Comp, when appropriate
-	if (isHasWrittenComp && !isWarmup) {
-		yield* writtenCompSaga(effects);
+	for (var sectionNum in sectionList) {
+		if (sectionList.hasOwnProperty(sectionNum)) {
+			yield clog("starting to play section: ", sectionList[sectionNum]);
+			yield* playSectionSaga(
+				sectionList[sectionNum],
+				effects,
+				helperEffect,
+				earlyExitEffect,
+				isWarmup,
+				isDemo,
+				book,
+				assessmentId
+			);
+			yield clog("finished playing section: ", sectionList[sectionNum]);
+		}
 	}
-
-	let compBlobArray = yield* compSaga(
-		effects,
-		assessmentId,
-		isWarmup,
-		book,
-		false
-	);
-
-	if (hasSilentReading(book)) {
-		yield call(silentReadingSaga, false);
-
-		yield* compSaga(effects, assessmentId, isWarmup, book, true);
-	}
-
-	yield* spellingSaga(effects);
 
 	yield put.resolve(setCurrentModal("modal-done"));
 
@@ -1647,6 +1637,11 @@ function* assessThenSubmitSaga(assessmentId) {
 	} else {
 		yield call(playSoundAsync, "/audio/VB/VB-done.mp3");
 	}
+
+	let compBlobArray, recordingBlob, endRecording;
+
+	endRecording = true; // HACK
+	recordingBlob = ""; // HACK
 
 	compBlobArray = compBlobArray || "";
 
