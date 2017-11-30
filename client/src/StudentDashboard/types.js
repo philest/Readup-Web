@@ -32,7 +32,7 @@ export const PauseTypeOptions = {
 };
 export type PauseType = Keys<typeof PauseTypeOptions>;
 
-export const SectionTypeOptions = {
+export const SectionOptions = {
   oralReadingFullBook: "ORAL_READING_FULL_BOOK",
   oralReadingPartialAtStart: "ORAL_READING_PARTIAL_AT_START",
   oralReadingPartialAtEnd: "ORAL_READING_PARTIAL_AT_END",
@@ -44,7 +44,7 @@ export const SectionTypeOptions = {
   spelling: "SPELLING"
 };
 
-export type SectionType = Keys<typeof SectionTypeOptions>;
+export type Section = Keys<typeof SectionOptions>;
 
 export const MicPermissionsStatusOptions = {
   granted: "MIC_PERMISSIONS_STATUS_GRANTED",

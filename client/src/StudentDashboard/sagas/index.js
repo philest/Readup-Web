@@ -155,6 +155,99 @@ import {
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
 
+function getSectionsList(book) {
+	if (book.brand === "FP" || book.stepLevel <= 5) {
+		return {
+			1: SectionOptions.oralReadingFullBook,
+			2: SectionOptions.compOralFirst,
+			3: SectionOptions.spelling
+		};
+	} else if (book.stepLevel <= 8) {
+		return {
+			1: SectionOptions.oralReadingPartialAtStart,
+			2: SectionOptions.compOralFirst,
+			3: SectionOptions.silentReadingPartialAtEnd,
+			4: SectionOptions.compOralSecond,
+			5: SectionOptions.spelling
+		};
+	} else if (book.stepLevel <= 12) {
+		return {
+			1: SectionOptions.silentReadingFullBook,
+			2: SectionOptions.compWritten,
+			3: SectionOptions.compOralFirst,
+			4: SectionOptions.oralReadingPartialAtEnd,
+			5: SectionOptions.spelling
+		};
+	}
+}
+
+function* playSectionSaga(section) {
+	if (section === SectionOptions.oralReadingFullBook) {
+		yield* oralReadingSaga(
+			effects,
+			helperEffect,
+			earlyExitEffect,
+			isWarmup,
+			isDemo,
+			false, //isPartialOralReading,
+			true, //isStartsWithOralReading,
+			assessmentId
+		);
+	} else if (section === SectionOptions.oralReadingPartialAtStart) {
+		yield* oralReadingSaga(
+			effects,
+			helperEffect,
+			earlyExitEffect,
+			isWarmup,
+			isDemo,
+			true, //isPartialOralReading,
+			true, //isStartsWithOralReading,
+			assessmentId
+		);
+	} else if (section === SectionOptions.oralReadingPartialAtEnd) {
+		yield* oralReadingSaga(
+			effects,
+			helperEffect,
+			earlyExitEffect,
+			isWarmup,
+			isDemo,
+			true, //isPartialOralReading,
+			false, //isStartsWithOralReading,
+			assessmentId
+		);
+	} else if (section === SectionOptions.silentReadingFullBook) {
+		yield* silentReadingSaga(
+			true //isFullBook
+		);
+	} else if (section === SectionOptions.silentReadingPartialAtEnd) {
+		yield* silentReadingSaga(
+			false //isFullBook
+		);
+	} else if (section === SectionOptions.compOralFirst) {
+		yield* compSaga(
+			effects,
+			assessmentId,
+			isWarmup,
+			book,
+			false //isSilent //isSecond
+		);
+	} else if (section === SectionOptions.compOralSecond) {
+		yield* compSaga(
+			effects,
+			assessmentId,
+			isWarmup,
+			book,
+			true //isSilent //isSecond
+		);
+	} else if (section === SectionOptions.writtenComp) {
+		yield* writtenCompSaga(effects);
+	} else if (section === SectionOptions.spelling) {
+		yield* spellingSaga(effects);
+	} else {
+		yield clog("WARN: Did not detect a section called :", section);
+	}
+}
+
 function hasSilentReading(book) {
 	return (
 		book.brand === "STEP" && (book.stepLevel >= 6 && book.stepLevel <= 8)
