@@ -32,6 +32,20 @@ export const PauseTypeOptions = {
 };
 export type PauseType = Keys<typeof PauseTypeOptions>;
 
+export const SectionTypeOptions = {
+  oralReadingFullBook: "ORAL_READING_FULL_BOOK",
+  oralReadingPartialAtStart: "ORAL_READING_PARTIAL_AT_START",
+  oralReadingPartialAtEnd: "ORAL_READING_PARTIAL_AT_END",
+  silentReadingFullBook: "SILENT_READING_PARTIAL_AT_END",
+  silentReadingPartialAtEnd: "SILENT_READING_PARTIAL_AT_END",
+  compOralFirst: "COMP_ORAL_FIRST",
+  compOralSecond: "COMP_ORAL_SECOND",
+  compWritten: "COMP_WRITTEN",
+  spelling: "SPELLING"
+};
+
+export type SectionType = Keys<typeof SectionTypeOptions>;
+
 export const MicPermissionsStatusOptions = {
   granted: "MIC_PERMISSIONS_STATUS_GRANTED",
   awaiting: "MIC_PERMISSIONS_STATUS_AWAITING",

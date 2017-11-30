@@ -123,7 +123,8 @@ import {
 	ReaderStateOptions,
 	MicPermissionsStatusOptions,
 	PromptOptions,
-	PromptAudioOptions
+	PromptAudioOptions,
+	SectionOptions
 } from "../types";
 
 import {
