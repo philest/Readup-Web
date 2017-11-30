@@ -784,6 +784,8 @@ function* spellingInstructionSaga() {
 }
 
 function* compInstructionSaga(isWarmup) {
+	yield clog("in comp inst saga");
+
 	yield put.resolve(setPageNumber(0));
 	yield put.resolve(setInComp(true));
 
@@ -1254,9 +1256,12 @@ function* oralReadingSaga(
 	effects,
 	helperEffect,
 	isWarmup,
+	isDemo,
 	isPartialOralReading,
 	assessmentId
 ) {
+	yield clog("here i am in oralReadingSaga...");
+
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
 
@@ -1486,9 +1491,12 @@ function* assessThenSubmitSaga(assessmentId) {
 		effects,
 		helperEffect,
 		isWarmup,
+		isDemo,
 		isPartialOralReading,
 		assessmentId
 	);
+
+	yield clog("do we reach here??????");
 
 	//  reset recorder
 	let recorder = yield select(getRecorder);
@@ -1496,10 +1504,15 @@ function* assessThenSubmitSaga(assessmentId) {
 	recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
 
+	yield clog("writtenComp: ", hasWrittenComp(book));
+
 	// Written Comp, when appropriate
 	if (hasWrittenComp(book) && !isWarmup) {
+		yield clog("in written comp...");
 		effects.push(yield fork(writtenCompSaga));
 	}
+
+	yield clog("just before comp inst");
 
 	yield call(compInstructionSaga, isWarmup);
 
