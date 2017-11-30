@@ -1323,6 +1323,8 @@ function* oralReadingSaga(
 
 		yield put.resolve(setInOralReading(false));
 	}
+
+	return [recordingBlob, endRecording];
 }
 
 function* resetStateSaga() {
@@ -1443,7 +1445,9 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	yield cancel(...earlyExitEffect); // allow for new exit thing
 
-	yield* oralReadingSaga(
+	let returnArr = [];
+
+	returnArr = yield* oralReadingSaga(
 		effects,
 		helperEffect,
 		isWarmup,
@@ -1452,11 +1456,11 @@ function* assessThenSubmitSaga(assessmentId) {
 		assessmentId
 	);
 
+	const endRecording = returnArr[0];
+	const recordingBlob = returnArr[1];
+
 	//  reset recorder
-	let recorder = yield select(getRecorder);
-	yield call(recorder.reset);
-	recorder = yield select(getRecorder);
-	yield call(recorder.initialize);
+	yield* resetRecorderSaga();
 
 	// Written Comp, when appropriate
 	if (isHasWrittenComp && !isWarmup) {
