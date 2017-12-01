@@ -271,7 +271,7 @@ export function roomJoined(room) {
     console.log("disconnected from room");
     console.warn("Disconnected from room! Trying to reconnect in 5... ");
     setTimeout(() => {
-      this.setUpTracks;
+      this.setUpTracks(1);
     }, 5000); // try reconnecting if you were dropped???!!! every 5 sec
 
     // document.getElementById("button-join").style.display = "inline";
@@ -470,10 +470,10 @@ export default class VideoChat extends React.Component {
 
     console.log("IT LOADED");
 
-    this.setUpTracks();
+    this.setUpTracks(1);
   }
 
-  setUpTracks = () => {
+  setUpTracks = attemptNum => {
     // When we are about to transition away from this page, disconnect
     // from the room, if joined.
     window.addEventListener("beforeunload", leaveRoomIfJoined);
@@ -516,27 +516,30 @@ export default class VideoChat extends React.Component {
         // Join the Room with the token from the server and the
         // LocalParticipant's Tracks.
 
-        Video.connect(data.token, connectOptions).then(roomJoined, function(
-          error
-        ) {
-          log("Could not connect to Twilio: " + error.message);
+        Video.connect(data.token, connectOptions).then(
+          roomJoined,
+          function(error) {
+            log("Could not connect to Twilio: " + error.message);
 
-          if (process.env.NODE_ENV === "production") {
-            sendEmail(
-              "User could not join room / connect to Twilio",
-              "User could not join room / connect to Twilio",
-              "philesterman@gmail.com"
-            );
-          }
+            if (process.env.NODE_ENV === "production") {
+              sendEmail(
+                "User could not join room / connect to Twilio",
+                "User could not join room / connect to Twilio",
+                "philesterman@gmail.com"
+              );
+            }
 
-          console.warn("Could not connect to room! Trying again in 7... ");
+            console.warn("Could not connect to room! Trying again in 7... ");
 
-          setTimeout(() => {
-            this.setUpTracks;
-          }, 7000); // try reconnecting if you could not!!! every 7 sec
-        });
-      }
-    ).bind(this);
+            if (attemptNum <= 3) {
+              setTimeout(() => {
+                this.setUpTracks(attemptNum + 1);
+              }, 7000); // try reconnecting if you could not!!! every 7 sec
+            }
+          }.bind(this)
+        );
+      }.bind(this)
+    );
   };
 
   render() {
