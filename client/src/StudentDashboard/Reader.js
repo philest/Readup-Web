@@ -9,6 +9,7 @@ import ForwardArrowButton from "./components/ForwardArrowButton";
 import BackArrowButton from "./components/BackArrowButton";
 import SpellingTextField from "./components/SpellingTextField";
 import AvatarContainer from "./components/AvatarContainer";
+import FinishedImage from "./components/FinishedImage";
 
 import styles from "./styles.css";
 import css from "./components/NavigationBar/styles.css";
@@ -166,6 +167,10 @@ export default class Reader extends React.Component {
       wideContainerClass = styles.largeWideBookpageContainer;
     } else {
       wideContainerClass = styles.wideBookpageContainer;
+    }
+
+    if (this.props.readerState === ReaderStateOptions.finishedAssessment) {
+      return <FinishedImage />;
     }
 
     if (

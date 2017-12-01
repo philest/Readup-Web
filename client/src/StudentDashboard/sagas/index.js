@@ -1894,7 +1894,9 @@ function* rootSaga() {
 				if (isWarmup) {
 					yield clog("in the ending warmup sequence...");
 					yield call(delay, 500);
-					yield put.resolve(setCurrentOverlay("overlay-submitted"));
+					yield put.resolve(
+						setReaderState(ReaderStateOptions.finishedAssessment)
+					);
 				} else if (isDemo) {
 					yield clog("oh hey you r done");
 
@@ -1906,11 +1908,22 @@ function* rootSaga() {
 				} else {
 					yield clog("in the ending real thing sequence...");
 					yield call(delay, 500);
-					yield put.resolve(setCurrentOverlay("overlay-submitted"));
+					yield put.resolve(setCurrentModal("no-modal"));
+					yield put.resolve(
+						setReaderState(ReaderStateOptions.finishedAssessment)
+					);
+
+					yield takeLatest(EXIT_CLICKED, redirectToHomepage);
+
 					return;
 				}
 
-				yield put(setReaderState(ReaderStateOptions.submitted));
+				yield put.resolve(setCurrentModal("no-modal"));
+				yield put.resolve(
+					setReaderState(ReaderStateOptions.finishedAssessment)
+				);
+
+				yield takeLatest(EXIT_CLICKED, redirectToHomepage);
 
 				yield take("NEVER_PASS");
 

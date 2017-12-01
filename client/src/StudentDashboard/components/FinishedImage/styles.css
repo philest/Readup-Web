@@ -1,0 +1,47 @@
+.submittedContainer {
+	background-color: #0c202c;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+	text-align: center;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+
+.submittedImage {
+	width: 290px;
+	height: 250px;
+	margin: 60px;
+	background-color: transparent;
+
+	user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.title {
+	font-size: 3.5em;
+}
+
+.subtitle {
+	font-size: 2em;
+	font-family: "ProximaNova Semibold";
+}
+
+.readupLogo {
+	position: absolute;
+	top: 30px;
+	left: 50px;
+
+	font-size: 1.8em;
+	font-family: "Proximanova Semibold";
+	z-index: 999999;
+	color: white;
+}
