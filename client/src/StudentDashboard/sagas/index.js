@@ -1889,8 +1889,6 @@ function* rootSaga() {
 
 				yield put(setAssessmentSubmitted(true));
 
-				yield call(playSound, "/audio/celebration.mp3");
-
 				if (isWarmup) {
 					yield clog("in the ending warmup sequence...");
 					yield call(delay, 500);
@@ -1899,6 +1897,8 @@ function* rootSaga() {
 					);
 				} else if (isDemo) {
 					yield clog("oh hey you r done");
+
+					yield call(playSound, "/audio/celebration.mp3");
 
 					window.location.href = "/reports/sample";
 					yield put({ type: SPINNER_SHOW });
@@ -1912,6 +1912,8 @@ function* rootSaga() {
 					yield put.resolve(
 						setReaderState(ReaderStateOptions.finishedAssessment)
 					);
+
+					yield call(playSound, "/audio/celebration.mp3");
 
 					yield takeLatest(EXIT_CLICKED, redirectToHomepage);
 
