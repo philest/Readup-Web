@@ -1263,7 +1263,7 @@ export const step9 = {
   fpLevel: "I",
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
-  coverImage: "/images/dashboard/step6/step6-cover.jpg",
+  coverImage: "/images/dashboard/step9/step9-cover.jpg",
   introAudioSrc: "/audio/written-comp-02.mp3",
   pages: {
     1: {
