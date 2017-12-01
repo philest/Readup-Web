@@ -30,7 +30,7 @@ import {
   PromptTextOptions
 } from "../../types";
 
-import { Modal, Panel } from "react-bootstrap";
+import { Modal, Panel, ProgressBar } from "react-bootstrap";
 
 const THIS_MODAL_ID = "modal-comp";
 
@@ -283,10 +283,22 @@ export default class CompModal extends React.Component {
         className={myStyles.compModal}
       >
         {this.props.currentShowModal === THIS_MODAL_ID && (
-          <style>{" .modal-dialog { margin-top: 30px; } "}</style>
+          <style>
+            {" .modal-dialog { margin-top: 30px; } .progress { height: 16px; }"}
+          </style>
         )}
 
         <Modal.Header className={myStyles.compModalHeader}>
+          <div className={myStyles.progress}>
+            <ProgressBar
+              now={
+                this.props.writtenQuestionNumber /
+                  this.props.numWrittenQuestions *
+                  100 -
+                10
+              }
+            />
+          </div>
           <Modal.Title>{title}</Modal.Title>
 
           {subtitle && (
