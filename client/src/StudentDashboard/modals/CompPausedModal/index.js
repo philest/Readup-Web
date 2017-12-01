@@ -38,6 +38,14 @@ export default class CompPausedModal extends React.Component {
     };
   }
 
+  componentWillMount() {
+    document.addEventListener("keydown", this._handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this._handleKeyDown);
+  }
+
   componentWillReceiveProps(nextProps) {
     console.log("here i am...");
     console.log("show modal?", this.props.currentShowModal);
@@ -58,6 +66,12 @@ export default class CompPausedModal extends React.Component {
     this.props.onDoneClicked();
 
     setTimeout(this.props.onExitLastQuestion, 1500);
+  };
+
+  _handleKeyDown = event => {
+    if (event.which == 13 || event.keyCode == 13 || event.code == "Enter") {
+      this.onStop();
+    }
   };
 
   render() {
