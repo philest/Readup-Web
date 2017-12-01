@@ -536,7 +536,7 @@ export default class VideoChat extends React.Component {
           }, 7000); // try reconnecting if you could not!!! every 7 sec
         });
       }
-    );
+    ).bind(this);
   };
 
   render() {
