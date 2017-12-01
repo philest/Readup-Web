@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import styles from "./styles.css";
-import ReportStyles from "../../../ReportsInterface/styles.css";
+// import ReportStyles from "../../../ReportsInterface/styles.css";
 
 export default class FinishedImage extends React.Component {
   static propTypes = {};

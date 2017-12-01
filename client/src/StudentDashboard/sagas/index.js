@@ -1907,13 +1907,12 @@ function* rootSaga() {
 					// window.location.href = "/reports/1"
 				} else {
 					yield clog("in the ending real thing sequence...");
-					yield call(delay, 500);
-					yield put.resolve(setCurrentModal("no-modal"));
+					yield call(playSoundAsync, "/audio/celebration.mp3");
+					yield call(delay, 2800);
 					yield put.resolve(
 						setReaderState(ReaderStateOptions.finishedAssessment)
 					);
-
-					yield call(playSound, "/audio/celebration.mp3");
+					yield put.resolve(setCurrentModal("no-modal"));
 
 					yield takeLatest(EXIT_CLICKED, redirectToHomepage);
 
