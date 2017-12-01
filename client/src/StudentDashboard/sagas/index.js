@@ -423,7 +423,7 @@ function* skipClick() {
 		yield call(playSound, "/audio/complete.mp3");
 		yield call(delay, 500);
 
-		if (hasSilentReading(book)) {
+		if (hasSilentReading(book) || hasWrittenComp(book)) {
 			yield put.resolve(
 				setQuestionNumber(book.numOralReadingQuestions + 1)
 			);
@@ -469,6 +469,8 @@ function* skipClick() {
 
 			yield cancel(...uploadEffects);
 		}
+
+		yield clog("made it here???");
 
 		yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
 	}
@@ -538,9 +540,9 @@ export function* questionIncrementSaga(section, spellingEffects) {
 export function* questionDecrementSaga(section) {
 	yield clog("here in QUESTION_DECREMENT........: ", section);
 
-	yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
+	yield call(playSoundAsync, "/audio/bamboo.mp3");
 
-	// yield call(playSound, "/audio/complete.mp3");
+	yield call(delay, QUESTION_CHANGE_DEBOUNCE_TIME_MS);
 
 	yield put.resolve(decrementQuestion(section));
 
@@ -806,8 +808,9 @@ function* compSaga(effects, assessmentId, isWarmup, book, isSilent) {
 	let compBlobArray;
 
 	const uploadEffects = [];
+	const testCompEffect = [];
 
-	effects.push(
+	testCompEffect.push(
 		(compBlobArray = yield fork(
 			definedCompSaga,
 			assessmentId,
@@ -825,6 +828,7 @@ function* compSaga(effects, assessmentId, isWarmup, book, isSilent) {
 	yield put.resolve(setShowSkipPrompt(false));
 
 	yield cancel(...uploadEffects);
+	yield cancel(...testCompEffect);
 
 	yield clog("okay, GOT IT ");
 
@@ -990,6 +994,7 @@ function* compInstructionSaga(isWarmup) {
 
 	yield put.resolve(setPageNumber(0));
 	yield put.resolve(setInComp(true));
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
 	if (!DEV_DISABLE_VOICE_INSTRUCTIONS) {
 		yield call(delay, 500);
@@ -1312,6 +1317,12 @@ function* compQuestionSaga(currQ, isPrompt) {
 }
 
 function* writtenCompSaga(effects) {
+	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
+
+	yield call(playSound, "/audio/written-comp-05.mp3");
+	yield put(setCurrentModal("modal-comp"));
+	yield call(playSound, "/audio/written-comp-actual-q-instructions.mp3");
+
 	effects.push(
 		yield takeLatest(
 			NEXT_QUESTION_CLICKED,
@@ -1328,11 +1339,6 @@ function* writtenCompSaga(effects) {
 		)
 	);
 
-	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
-
-	yield call(playSound, "/audio/written-comp-05.mp3");
-	yield put(setCurrentModal("modal-comp"));
-	yield call(playSound, "/audio/written-comp-actual-q-instructions.mp3");
 	yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
 	yield put(setCurrentModal("no-modal"));
 }
@@ -1424,12 +1430,10 @@ function* oralReadingSaga(
 		isStartsWithOralReading
 	);
 
-	if (isStartsWithOralReading) {
-		helperEffect.push(
-			yield fork(helperInstructionSaga, true, false, false)
-		);
-		// set a 8 second saga in background
-	}
+	// if (isStartsWithOralReading) {
+	helperEffect.push(yield fork(helperInstructionSaga, true, false, false));
+	// set a 8 second saga in background
+	// }
 
 	yield cancel(...earlyExitEffect); // allow for new exit thing
 
@@ -1501,13 +1505,10 @@ function* oralReadingRecordingSaga(
 
 	yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
 
-	yield call(recordingInstructionSaga, isWarmup, isPartialOralReading);
+	yield* recordingInstructionSaga(isWarmup, isPartialOralReading);
 
 	// starts the recording assessment flow
 	effects.push(yield fork(assessmentSaga));
-
-	// set up skipping
-	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
 
 	const { endRecording } = yield race({
 		turnItIn: take(TURN_IN_CLICKED),

@@ -69,7 +69,18 @@ export default class CompPausedModal extends React.Component {
   };
 
   _handleKeyDown = event => {
-    if (event.which == 13 || event.keyCode == 13 || event.code == "Enter") {
+    if (
+      this.props.currentShowModal === THIS_MODAL_ID &&
+      (event.which == 13 || event.keyCode == 13 || event.code == "Enter")
+    ) {
+      this.onStop();
+    }
+
+    if (
+      event.shiftKey &&
+      event.ctrlKey &&
+      (event.which == 13 || event.keyCode == 13 || event.code == "Enter")
+    ) {
       this.onStop();
     }
   };
