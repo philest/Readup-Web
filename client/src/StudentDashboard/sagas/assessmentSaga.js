@@ -63,10 +63,10 @@ function* pauseAssessmentSaga(action) {
   // directly show modal here
 }
 
-function* compPauseAssessmentSaga(action) {
+export function* compPauseAssessmentSaga(action) {
   try {
     const recorder = yield select(getRecorder);
-    if (recorder) {
+    if (recorder && recorder.rtcRecorder) {
       yield call(recorder.pauseRecording);
     }
   } catch (err) {
@@ -88,7 +88,7 @@ function* compPauseAssessmentSaga(action) {
   // directly show modal here
 }
 
-function* resumeAssessmentSaga(action) {
+export function* resumeAssessmentSaga(action) {
   yield call(stopAudio);
 
   yield call(playSound, "/audio/complete.mp3");
@@ -104,6 +104,7 @@ function* resumeAssessmentSaga(action) {
     // only resume if it's pause and in progres— this makes sure prompt recordings (where the recorder is paused) and resumed when they never stared.
     if (
       recorder &&
+      recorder.rtcRecorder &&
       recorder.rtcRecorder.state === "paused" &&
       prompt === "AWAITING_PROMPT"
     ) {
@@ -136,9 +137,9 @@ export default function* assessmentSaga() {
   // TODO: refactor this into saga for referential integrity of recorder
   yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga);
 
-  yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga);
+  // yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga);
 
-  yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga);
+  // yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga);
 
   yield takeLatest(NEXT_PAGE_CLICKED, pageIncrementSaga);
 

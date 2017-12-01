@@ -85,6 +85,7 @@ import {
 	SPELLING_QUESTION_NUMBER_SET,
 	IN_SILENT_READING_SET,
 	RESUME_CLICKED,
+	COMP_PAUSE_CLICKED,
 	avatarClicked,
 	startCountdownToStart,
 	setMicPermissions,
@@ -145,6 +146,11 @@ import {
 } from "./selectors";
 
 import assessmentSaga from "./assessmentSaga";
+
+import {
+	compPauseAssessmentSaga,
+	resumeAssessmentSaga
+} from "./assessmentSaga";
 
 import {
 	sendEmail,
@@ -1602,6 +1608,8 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
+	effects.push(yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga));
+	effects.push(yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga));
 
 	if (!isWarmup && isDemo) {
 		yield put.resolve(avatarClicked()); // log in for them
