@@ -36,7 +36,7 @@ export const SectionOptions = {
   oralReadingFullBook: "ORAL_READING_FULL_BOOK",
   oralReadingPartialAtStart: "ORAL_READING_PARTIAL_AT_START",
   oralReadingPartialAtEnd: "ORAL_READING_PARTIAL_AT_END",
-  silentReadingFullBook: "SILENT_READING_PARTIAL_AT_END",
+  silentReadingFullBook: "SILENT_READING_FULL_BOOK",
   silentReadingPartialAtEnd: "SILENT_READING_PARTIAL_AT_END",
   compOralFirst: "COMP_ORAL_FIRST",
   compOralSecond: "COMP_ORAL_SECOND",

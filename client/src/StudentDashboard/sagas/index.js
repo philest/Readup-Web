@@ -1560,6 +1560,8 @@ function* assessThenSubmitSaga(assessmentId) {
 	const isHasWrittenComp = hasWrittenComp(book);
 	const sectionList = getSectionsList(book);
 
+	yield clog("sectionList: ", sectionList);
+
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
 	effects.push(
