@@ -252,7 +252,7 @@ function* playSectionSaga(
 			book,
 			true //isSilent //isSecond
 		);
-	} else if (section === SectionOptions.writtenComp) {
+	} else if (section === SectionOptions.compWritten) {
 		yield* writtenCompSaga(effects);
 	} else if (section === SectionOptions.spelling) {
 		yield* spellingSaga(effects);
@@ -702,9 +702,9 @@ function* hearIntroAgainSaga(helperEffect, book, isOral) {
 	yield call(bookIntroSaga, book);
 
 	if (isOral) {
-		yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
+		yield* oralReadingInstructionSaga(isWarmup, isPartialOralReading);
 	} else {
-		yield call(silentReadingInstructionSaga, true);
+		yield* silentReadingInstructionSaga(true);
 	}
 }
 
