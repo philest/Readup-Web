@@ -226,10 +226,14 @@ function* playSectionSaga(
 		);
 	} else if (section === SectionOptions.silentReadingFullBook) {
 		yield* silentReadingSaga(
+			effects,
+			helperEffect,
 			true //isFullBook
 		);
 	} else if (section === SectionOptions.silentReadingPartialAtEnd) {
 		yield* silentReadingSaga(
+			effects,
+			helperEffect,
 			false //isFullBook
 		);
 	} else if (section === SectionOptions.compOralFirst) {
@@ -687,7 +691,7 @@ function* helperInstructionSaga(
 }
 
 // wrapper that cancels side effects that interrupt, then restarts saga.
-function* hearIntroAgainSaga(helperEffect, book) {
+function* hearIntroAgainSaga(helperEffect, book, isOral) {
 	if (helperEffect.length >= 1) {
 		yield cancel(...helperEffect);
 	}
@@ -696,10 +700,15 @@ function* hearIntroAgainSaga(helperEffect, book) {
 	const isPartialOralReading = hasSilentReading(book);
 
 	yield call(bookIntroSaga, book);
-	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
+
+	if (isOral) {
+		yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
+	} else {
+		yield call(silentReadingInstructionSaga, true);
+	}
 }
 
-function* silentReadingSaga(isFull) {
+function* silentReadingInstructionSaga(isFull) {
 	yield put.resolve(setInSilentReading(true));
 	yield put.resolve(setInOralReading(true));
 
@@ -724,6 +733,23 @@ function* silentReadingSaga(isFull) {
 	}
 
 	yield put.resolve(setReaderState(ReaderStateOptions.awaitingFinishBook));
+}
+
+function* silentReadingSaga(effects, helperEffect, isFull) {
+	let book = yield select(getBook);
+
+	effects.push(
+		yield takeLatest(
+			HEAR_INTRO_AGAIN_CLICKED,
+			hearIntroAgainSaga,
+			helperEffect,
+			book,
+			false, // isOral
+			isFull
+		)
+	);
+
+	yield* silentReadingInstructionSaga(isFull);
 
 	yield take(STOP_RECORDING_CLICKED);
 	yield put.resolve(setCurrentModal("no-modal"));
@@ -1360,6 +1386,18 @@ function* oralReadingSaga(
 	isStartsWithOralReading,
 	assessmentId
 ) {
+	const book = yield select(getBook);
+
+	effects.push(
+		yield takeLatest(
+			HEAR_INTRO_AGAIN_CLICKED,
+			hearIntroAgainSaga,
+			helperEffect,
+			book,
+			true // isOral
+		)
+	);
+
 	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
 
 	if (isStartsWithOralReading) {
@@ -1564,14 +1602,6 @@ function* assessThenSubmitSaga(assessmentId) {
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
-	effects.push(
-		yield takeLatest(
-			HEAR_INTRO_AGAIN_CLICKED,
-			hearIntroAgainSaga,
-			helperEffect,
-			book
-		)
-	);
 
 	if (!isWarmup && isDemo) {
 		yield put.resolve(avatarClicked()); // log in for them
