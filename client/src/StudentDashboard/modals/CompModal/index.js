@@ -60,7 +60,8 @@ export default class CompModal extends React.Component {
     writtenQuestionNumber: PropTypes.number,
     onFinalWrittenCompQuestionAnswered: PropTypes.func,
     writtenCompInput: PropTypes.string,
-    onWrittenCompInputSet: PropTypes.func
+    onWrittenCompInputSet: PropTypes.func,
+    nextDisabled: PropTypes.bool
 
     // writtenCompInput: PropTypes.string
   };
@@ -172,10 +173,15 @@ export default class CompModal extends React.Component {
             }}
           />
           <ForwardArrowButton
-            title="Next"
+            title={
+              this.props.numWrittenQuestions ===
+              this.props.writtenQuestionNumber
+                ? "Finish"
+                : "Next"
+            }
             subtitle={null}
             style={{ width: 110, height: 100 }}
-            disabled={false && this.props.disabled}
+            disabled={this.props.nextDisabled} // shortcut hack
             onClick={() => {
               this.props.onNextQuestionClicked();
               this.form.focus();

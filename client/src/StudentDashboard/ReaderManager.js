@@ -308,6 +308,9 @@ export class StudentDashboard extends React.Component {
               ReaderStateOptions.talkingAboutStopButton ||
             this.props.readerState === ReaderStateOptions.talkingAboutSeeBook
           }
+          nextDisabled={
+            this.props.writtenCompInput === "" || !this.props.writtenCompInput
+          }
           showSpinner={this.props.showSpinner}
           showPrompting={this.props.isLiveDemo}
           written={this.props.readerState === ReaderStateOptions.inWrittenComp}
