@@ -432,7 +432,11 @@ function* skipClick() {
 		// halt the recorder if it's still going
 		let recorder = yield select(getRecorder);
 
-		if (recorder.recording || recorder.rtcRecorder.state === "paused") {
+		if (
+			recorder &&
+			recorder.rtcRecorder &&
+			(recorder.recording || recorder.rtcRecorder.state === "paused")
+		) {
 			// if in middle of prompt thing
 			const uploadEffects = [];
 
@@ -706,7 +710,7 @@ function* hearIntroAgainSaga(helperEffect, book, isOral) {
 	yield call(bookIntroSaga, book);
 
 	if (isOral) {
-		yield* oralReadingInstructionSaga(isWarmup, isPartialOralReading);
+		yield* oralReadingInstructionSaga(isWarmup, isPartialOralReading, true);
 	} else {
 		yield* silentReadingInstructionSaga(true);
 	}
@@ -861,7 +865,18 @@ function* bookIntroSaga(book) {
 	}
 }
 
-function* oralReadingInstructionSaga(isWarmup, isPartialOralReading) {
+function* oralReadingInstructionSaga(
+	isWarmup,
+	isPartialOralReading,
+	isStartsWithOralReading
+) {
+	yield put.resolve(setInOralReading(true));
+	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+
+	if (!isStartsWithOralReading) {
+		yield call(playSound, "/audio/written-comp-06.mp3");
+	}
+
 	yield put.resolve(
 		setReaderState(ReaderStateOptions.talkingAboutStartButton)
 	);
@@ -1402,7 +1417,12 @@ function* oralReadingSaga(
 		)
 	);
 
-	yield call(oralReadingInstructionSaga, isWarmup, isPartialOralReading);
+	yield call(
+		oralReadingInstructionSaga,
+		isWarmup,
+		isPartialOralReading,
+		isStartsWithOralReading
+	);
 
 	if (isStartsWithOralReading) {
 		helperEffect.push(

@@ -164,7 +164,7 @@ export default class CompModal extends React.Component {
               visibility:
                 this.props.writtenQuestionNumber <= 1 ? "hidden" : "visible",
               position: "relative",
-              top: 21
+              top: 13
             }}
             onClick={() => {
               this.props.onPreviousQuestionClicked();
@@ -174,7 +174,7 @@ export default class CompModal extends React.Component {
           <ForwardArrowButton
             title="Next"
             subtitle={null}
-            style={{ width: 145, height: 120 }}
+            style={{ width: 110, height: 100 }}
             disabled={false && this.props.disabled}
             onClick={() => {
               this.props.onNextQuestionClicked();
@@ -284,7 +284,7 @@ export default class CompModal extends React.Component {
       >
         {this.props.currentShowModal === THIS_MODAL_ID && (
           <style>
-            {" .modal-dialog { margin-top: 30px; } .progress { height: 16px; }"}
+            {" .modal-dialog { margin-top: 30px; } .progress { height: 11px; }"}
           </style>
         )}
 
