@@ -596,9 +596,7 @@ export function* questionDecrementSaga(section) {
 
 			yield put.resolve(
 				setWrittenCompInput(
-					assessment.student_written_responses[
-						writtenQuestionNumber - 1
-					]
+					assessment.student_written_responses[writtenQuestionNumber]
 				)
 			);
 		} else {
@@ -1317,9 +1315,9 @@ function* writtenCompSaga(effects) {
 
 	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
 
-	yield put(setCurrentModal("modal-comp"));
 	yield call(playSound, "/audio/written-comp-05.mp3");
-
+	yield put(setCurrentModal("modal-comp"));
+	yield call(playSound, "/audio/written-comp-actual-q-instructions.mp3");
 	yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
 	yield put(setCurrentModal("no-modal"));
 }
