@@ -739,8 +739,9 @@ function* silentReadingInstructionSaga(isFull) {
 		yield call(playSound, "/audio/now-silent-read-02.mp3");
 	} else {
 		yield call(playSound, "/audio/written-comp-04.mp3");
-		yield call(playSound, "/audio/complete.mp3");
 	}
+
+	yield call(playSound, "/audio/complete.mp3");
 
 	yield put.resolve(setReaderState(ReaderStateOptions.awaitingFinishBook));
 }
