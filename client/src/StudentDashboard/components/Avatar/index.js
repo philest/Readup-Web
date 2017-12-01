@@ -37,13 +37,15 @@ function getOffsetClass(offset) {
 export default class Avatar extends React.Component {
   static propTypes = {
     fullName: PropTypes.string,
+    bookKey: PropTypes.string,
     color: PropTypes.string,
     large: PropTypes.bool,
     offest: PropTypes.string,
     teacher: PropTypes.bool,
     teacherSignature: PropTypes.string,
     onAvatarClicked: PropTypes.func,
-    onStudentNameSet: PropTypes.func
+    onStudentNameSet: PropTypes.func,
+    onBookSet: PropTypes.func
   };
 
   static defaultProps = {
@@ -61,6 +63,7 @@ export default class Avatar extends React.Component {
 
     console.log("just clicked " + this.props.fullName);
     this.props.onStudentNameSet(this.props.fullName);
+    this.props.onBookSet(this.props.bookKey);
     this.props.onAvatarClicked();
   };
 

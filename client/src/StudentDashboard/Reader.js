@@ -73,6 +73,7 @@ export default class Reader extends React.Component {
     onSkipClicked: PropTypes.func,
     onFinishVideoClicked: PropTypes.func,
     onHearIntroAgainClicked: PropTypes.func,
+    onBookSet: PropTypes.func,
 
     //Phil
     inComp: PropTypes.bool,
@@ -671,6 +672,7 @@ export default class Reader extends React.Component {
           >
             <AvatarContainer
               onStudentNameSet={this.props.onStudentNameSet}
+              onBookSet={this.props.onBookSet}
               onAvatarClicked={this.props.onAvatarClicked}
               teacherName={this.props.teacherName}
             />

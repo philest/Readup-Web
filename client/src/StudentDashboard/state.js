@@ -1759,6 +1759,7 @@ export const library = {
   demo: fireflyBook,
   nick: fpBook,
   step: stepBook,
+  step4: stepBook,
   firefly: fireflyBook,
   step5: step5Book,
   step6: step6Book,
