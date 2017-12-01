@@ -1908,7 +1908,7 @@ function* rootSaga() {
 				} else {
 					yield clog("in the ending real thing sequence...");
 					yield call(playSoundAsync, "/audio/celebration.mp3");
-					yield call(delay, 2800);
+					yield call(delay, 3300);
 					yield put.resolve(
 						setReaderState(ReaderStateOptions.finishedAssessment)
 					);
