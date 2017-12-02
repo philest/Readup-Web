@@ -3,116 +3,85 @@ import React from "react";
 import styles from "./styles.css";
 import Avatar from "../Avatar";
 
-let names1 =
-  "Alishia Slaton, Annis Miceli, Joetta Cardwell, Willena Braz, Viola Paneto, Shasta Bluhm, Efrain Lukasik, Silva Billings, Woodrow Mcclean, Gertrud Duffer, Denna Gerardi, Rosetta Tondreau, Royce Storie, Juliette Orsi, Davina Johnstone, Truman Benefield, Thora Draper, Dorie Ringgold, Nelda Voisine, Delphia Rudnick";
-let samanthaNameArr = names1.split(", ");
+let samanthaArr = [
+  ["Samantha Kadis", "step4"],
+  ["Phil Esterman", "step4"],
+  ["Samantha Skory", "step6"],
+  ["Bradley Jay", "step9"],
+  ["Tracy Esterman", "step5"],
+  ["Ninetails Nieman", "step9"],
+  ["Abdel Morsy", "step4"],
+  ["Fourest Fifty", "step4"],
+  ["Sixo Beverly", "step6"]
+];
 
-let samanthaBookArr = [
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9"
+let bridgetArr = [
+  ["Bridget Joyce", "step4"],
+  ["Phil Esterman", "step4"],
+  ["Samantha Skory", "step6"],
+  ["Bradley Jay", "step9"],
+  ["Tracy Esterman", "step5"],
+  ["Ninetails Nieman", "step9"],
+  ["Abdel Morsy", "step4"],
+  ["Fourest Fifty", "step4"],
+  ["Sixo Beverly", "step6"],
+
+  ["Bannon Joyce", "step4"],
+  ["Felipe Esterman", "step4"],
+  ["Susie Skory", "step6"],
+  ["Bonnie Jay", "step9"],
+  ["Rusty Esterman", "step5"],
+  ["Nina Nieman", "step9"],
+  ["Abbie Morsy", "step4"],
+  ["Faye Fifty", "step4"],
+  ["Sue Beverly", "step6"],
+
+  ["Bill Joyce", "step4"],
+  ["Tom Esterman", "step4"],
+  ["Jackson Skory", "step6"],
+  ["Theo Jay", "step9"],
+  ["Jordy Esterman", "step5"],
+  ["Lisa Nieman", "step9"],
+  ["Laura Morsy", "step4"],
+  ["Faith Fifty", "step4"],
+  ["Precious Beverly", "step6"]
+];
+
+let defaultArr = [
+  ["Phil Esterman", "step4"],
+  ["Samantha Skory", "step6"],
+  ["Bradley Jay", "step9"],
+  ["Tracy Esterman", "step5"],
+  ["Ninetails Nieman", "step9"],
+  ["Abdel Morsy", "step4"],
+  ["Fourest Fifty", "step4"],
+  ["Sixo Beverly", "step6"]
 ];
 
 let colorArr = ["teal", "purple", "green", "blue"];
 let offsetArr = ["left", "right"];
 
-let names2 =
-  "Alexandra Aaron, Abe Alexi, Joetta Cardwell, Willena Braz, Abdel Alonzo, Efrain Lukasik, Silva Billings, Woodrow Mcclean, Gertrud Duffer, Denna Gerardi, Rosetta Tondreau, Royce Storie, Juliette Orsi, Davina Johnstone, Truman Benefield, Thora Draper, Dorie Ringgold, Nelda Voisine, Delphia Rudnick";
-let bridgetNameArr = names2.split(", ");
-
-let bridgetBookArr = [
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9",
-  "step4",
-  "step6",
-  "step9"
-];
-
-let defaultNameArr = ["Alexandra Aaron", "Abe Alexi", "Joetta Cardwell"];
-
-let defaultBookArr = ["step4", "step6", "step9"];
-
-function getStudentList(teacherName) {
+function getNameAndBookList(teacherName) {
   if (teacherName === "Samantha Kadis") {
-    return samanthaNameArr;
+    return samanthaArr;
   } else if (teacherName === "Bridget Joyce") {
-    return bridgetNameArr;
+    return bridgetArr;
   } else {
-    return defaultNameArr;
-  }
-}
-
-function getBookList(teacherName) {
-  if (teacherName === "Samantha Kadis") {
-    return samanthaBookArr;
-  } else if (teacherName === "Bridget Joyce") {
-    return bridgetBookArr;
-  } else {
-    return defaultBookArr;
+    return defaultArr;
   }
 }
 
 function getFemaleSignature(teacherName) {
   let res = teacherName.split(" ");
   return `Ms. ${res[1]}`;
+}
+
+function getStepforName(name, nameAndBookArr) {
+  for (let i = 0; i < nameAndBookArr.length; i++) {
+    if (name === nameAndBookArr[i][0]) {
+      return nameAndBookArr[i][1];
+    }
+  }
 }
 
 export default class AvatarContainer extends React.Component {
@@ -125,16 +94,21 @@ export default class AvatarContainer extends React.Component {
 
   static defaultProps = {};
 
-  componentWillMount() {
-    console.log("bookList: ", getBookList(this.props.teacherName));
-  }
+  componentWillMount() {}
 
-  renderAvatars = (nameArr, bookArr) => {
-    let avatarArray = [];
+  renderAvatars = nameAndBookArr => {
+    const nameArr = [];
+
+    // create the name array
+    for (let i = 0; i < nameAndBookArr.length; i++) {
+      nameArr.push(nameAndBookArr[i][0]);
+    }
 
     nameArr.sort();
 
-    console.log("bookArr: ", bookArr);
+    const avatarArray = [];
+
+    nameArr.sort();
 
     // TODO does not actually match books
 
@@ -143,7 +117,7 @@ export default class AvatarContainer extends React.Component {
         <Avatar
           key={i}
           fullName={nameArr[i]}
-          bookKey={bookArr[i]}
+          bookKey={getStepforName(nameArr[i], nameAndBookArr)}
           color={colorArr[i % 4]}
           offset={offsetArr[i % 2]}
           onStudentNameSet={this.props.onStudentNameSet}
@@ -174,10 +148,7 @@ export default class AvatarContainer extends React.Component {
         />
 
         <div className={styles.studentAvatarContainer}>
-          {this.renderAvatars(
-            getStudentList(this.props.teacherName),
-            getBookList(this.props.teacherName)
-          )}
+          {this.renderAvatars(getNameAndBookList(this.props.teacherName))}
         </div>
       </div>
     );
