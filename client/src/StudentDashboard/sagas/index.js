@@ -161,6 +161,18 @@ import {
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
 
+export function getSpellingGroupNumber(book) {
+	if (book.stepLevel <= 5) {
+		return 1;
+	} else if (book.stepLevel <= 7) {
+		return 2;
+	} else if (book.stepLevel <= 10) {
+		return 3;
+	} else if (book.stepLevel <= 12) {
+		return 4;
+	}
+}
+
 function getSectionsList(book) {
 	if (book.brand === "FP" || book.stepLevel <= 5) {
 		return {
@@ -378,7 +390,7 @@ function* turnInAudio(
 	isCompBlob: boolean,
 	questionNum: number
 ) {
-	let numAttempts = 2;
+	let numAttempts = 1;
 
 	if (isCompBlob) {
 		numAttempts = 1;
@@ -623,7 +635,9 @@ function* playSpellingQuestionSaga() {
 	const book = yield select(getBook);
 	// audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
 
-	audiofile = `/audio/spelling/${spellingQuestionNumber}.mp3`;
+	const spellingGroupNumber = getSpellingGroupNumber(book);
+
+	audiofile = `/audio/spelling-group-${spellingGroupNumber}/${spellingQuestionNumber}.mp3`;
 
 	const isWarmup = yield select(getIsWarmup);
 	if (isWarmup && spellingQuestionNumber === 1) {
@@ -726,7 +740,7 @@ function* silentReadingInstructionSaga(isFull) {
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
 	if (!isFull) {
-		yield call(playSound, "/audio/now-silent-read-01.mp3");
+		yield call(playSound, "/audio/laura/now-read-silently-intro.mp3");
 	} else {
 		yield call(playSound, "/audio/written-comp-03.mp3");
 	}
@@ -736,7 +750,7 @@ function* silentReadingInstructionSaga(isFull) {
 	);
 
 	if (!isFull) {
-		yield call(playSound, "/audio/now-silent-read-02.mp3");
+		yield call(playSound, "/audio/laura/click-finish-book.mp3");
 	} else {
 		yield call(playSound, "/audio/written-comp-04.mp3");
 	}
@@ -803,7 +817,7 @@ function* compSaga(effects, assessmentId, isWarmup, book, isSilent) {
 	if (!isSilent) {
 		yield call(compInstructionSaga, isWarmup);
 	} else {
-		yield call(playSound, "/audio/silent-3.mp3");
+		yield call(playSound, "/audio/laura/now-last-questions.mp3");
 	}
 
 	let compBlobArray;
@@ -893,13 +907,13 @@ function* oralReadingInstructionSaga(
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 		yield call(playSound, "/audio/complete.mp3");
 	} else if (isPartialOralReading) {
-		yield call(playSound, "/audio/silent-new-01.mp3");
+		yield call(playSound, "/audio/laura/click-start-page-3.mp3");
 
 		yield put.resolve(
 			setReaderState(ReaderStateOptions.talkingAboutStopButton)
 		);
 
-		yield call(playSound, "/audio/silent-stop.m4a");
+		yield call(playSound, "/audio/laura/click-stop-laura.mp3");
 
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 		yield call(playSound, "/audio/complete.mp3");
@@ -923,7 +937,7 @@ function* recordingInstructionSaga(isWarmup, isPartialOralReading) {
 	if (isWarmup) {
 		yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
 	} else if (isPartialOralReading) {
-		yield call(playSound, "/audio/silent-reading-page-three.mp3");
+		yield call(playSound, "/audio/laura/now-recording-page-3.mp3");
 	} else {
 		//normal
 		yield call(playSound, "/audio/now-recording-read.mp3");
@@ -987,6 +1001,8 @@ function* spellingInstructionSaga() {
 		yield call(playSound, "/audio/spelling-intro-type-it.mp3");
 		yield put.resolve(setReaderState(ReaderStateOptions.done));
 		yield call(playSound, "/audio/say-sounds-slowly.mp3");
+		yield call(delay, 250);
+		yield call(playSound, "/audio/number-one.mp3");
 	}
 }
 
@@ -1613,17 +1629,13 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield put(setCurrentOverlay("no-overlay"));
 
 	// access state
-	const book = yield select(getBook);
 	const isDemo = yield select(getIsDemo);
 	const isWarmup = yield select(getIsWarmup);
 	const hasLoggedIn = yield select(getHasLoggedIn);
 	const studentName = yield select(getStudentName);
 	const thisBook = yield select(getBook);
-	const isPartialOralReading = hasSilentReading(book);
-	const isStartsWithOralReading = !hasWrittenComp(book);
-	const isHasWrittenComp = hasWrittenComp(book);
-	const sectionList = getSectionsList(book);
-
+	let book;
+	let sectionList;
 	yield clog("sectionList: ", sectionList);
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
@@ -1634,9 +1646,11 @@ function* assessThenSubmitSaga(assessmentId) {
 	if (!isWarmup && isDemo) {
 		yield put.resolve(avatarClicked()); // log in for them
 
+		book = yield select(getBook);
+
 		// Only create the user only once, if not warmup...
 		$.ajax({
-			url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
+			url: `/auth/phil_setup_demo?book_key=${book.bookKey}&student_name=${studentName}`,
 			type: "post"
 		}).fail(function(xhr, status, err) {
 			console.log(err);
@@ -1646,14 +1660,18 @@ function* assessThenSubmitSaga(assessmentId) {
 	if (!isDemo && !hasLoggedIn) {
 		yield call(loginSaga);
 
+		book = yield select(getBook);
+
 		// Only create the user only once. Create here instead because they skipped warmup...
 		$.ajax({
-			url: `/auth/phil_setup_demo?book_key=${thisBook.bookKey}&student_name=${studentName}`,
+			url: `/auth/phil_setup_demo?book_key=${book.bookKey}&student_name=${studentName}`,
 			type: "post"
 		}).fail(function(xhr, status, err) {
 			console.log(err);
 		});
 	}
+
+	sectionList = getSectionsList(book);
 
 	const videoWiggleEffect = [];
 

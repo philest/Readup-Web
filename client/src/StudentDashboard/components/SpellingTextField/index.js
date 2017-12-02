@@ -12,6 +12,8 @@ import { getLastAssessmentID } from "../../sagas/networkingHelpers";
 import { peterSpellingObj } from "../../state";
 import { playSound, playSoundAsync } from "../../audioPlayer";
 
+import { getSpellingGroupNumber } from "../../sagas/index";
+
 export default class SpellingTextField extends React.Component {
   static propTypes = {
     spellingQuestionNumber: PropTypes.number,
@@ -21,7 +23,8 @@ export default class SpellingTextField extends React.Component {
     spellingQuestionNumber: PropTypes.number,
     onEnterPressed: PropTypes.func,
     onSpellingInputSet: PropTypes.func,
-    spellingInput: PropTypes.string
+    spellingInput: PropTypes.string,
+    book: PropTypes.object
   };
   static defaultProps = {};
 
@@ -134,7 +137,9 @@ export default class SpellingTextField extends React.Component {
             this.form.focus();
 
             playSoundAsync(
-              `/audio/spelling/${this.props.spellingQuestionNumber}.mp3`
+              `/audio/spelling-group-${getSpellingGroupNumber(
+                this.props.book
+              )}/${this.props.spellingQuestionNumber}.mp3`
             );
           }}
           className={[styles.introVolume, styles.clickable].join(" ")}

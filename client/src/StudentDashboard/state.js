@@ -1160,7 +1160,7 @@ export const step6Book = {
     1: {
       title:
         "What do the kids in the story have to do to get ready for the comedy show?",
-      audioSrc: "/audio/step5/1.mp3",
+      audioSrc: "/audio/step6/comp/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -1171,7 +1171,7 @@ export const step6Book = {
     },
     2: {
       title: "Why do the children put Mittens upstairs?",
-      audioSrc: "/audio/step5/2.mp3",
+      audioSrc: "/audio/step6/comp/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -1182,7 +1182,7 @@ export const step6Book = {
     },
     3: {
       title: "What do Max and Linda do at the show?",
-      audioSrc: "/audio/step5/3.mp3",
+      audioSrc: "/audio/step6/comp/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -1193,7 +1193,7 @@ export const step6Book = {
     },
     4: {
       title: "Why do the people think the show is funny?",
-      audioSrc: "/audio/step5/4.mp3",
+      audioSrc: "/audio/step6/comp/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
         1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text."
@@ -1204,7 +1204,7 @@ export const step6Book = {
     },
     5: {
       title: "What does Zina do at the show?",
-      audioSrc: "/audio/step5/5.mp3",
+      audioSrc: "/audio/step6/comp/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
         1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
@@ -1216,7 +1216,7 @@ export const step6Book = {
     6: {
       title:
         "Why is the audience surprised when the cat walks across the screen?",
-      audioSrc: "/audio/step5/6.mp3",
+      audioSrc: "/audio/step6/comp/6.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
         1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
@@ -1227,7 +1227,7 @@ export const step6Book = {
     },
     7: {
       title: "Why do the children want to put on another show the next week?",
-      audioSrc: "/audio/step5/6.mp3",
+      audioSrc: "/audio/step6/comp/7.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
         1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
@@ -1239,7 +1239,7 @@ export const step6Book = {
 
     8: {
       title: "Why do the children promise to let Mittens be in the next show?",
-      audioSrc: "/audio/step5/6.mp3",
+      audioSrc: "/audio/step6/comp/8.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
         1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
