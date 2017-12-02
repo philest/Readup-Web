@@ -646,6 +646,30 @@ function* playSpellingQuestionSaga() {
 		audiofile = "/audio/warmup/w-11.mp3";
 	}
 
+	if (spellingQuestionNumber === 2) {
+		yield call(playSound, "/audio/nice-job.mp3");
+		yield call(playSound, "/audio/remember-say-words.mp3");
+		yield call(delay, 200);
+	}
+
+	// halfway point motivation
+	if (
+		(spellingGroupNumber <= 2 && spellingQuestionNumber === 8) ||
+		(spellingGroupNumber > 2 && spellingQuestionNumber === 10)
+	) {
+		yield call(playSound, "/audio/halfway-through-spelling.mp3");
+		yield call(delay, 120);
+	}
+
+	// ending motivation
+	if (
+		(spellingGroupNumber <= 2 && spellingQuestionNumber === 12) ||
+		(spellingGroupNumber > 2 && spellingQuestionNumber === 16)
+	) {
+		yield call(playSound, "/audio/couple-more-words-spelling.mp3");
+		yield call(delay, 50);
+	}
+
 	yield call(playSound, audiofile);
 }
 
@@ -1684,6 +1708,8 @@ function* assessThenSubmitSaga(assessmentId) {
 			console.log(err);
 		});
 	}
+
+	book = yield select(getBook);
 
 	sectionList = getSectionsList(book);
 
