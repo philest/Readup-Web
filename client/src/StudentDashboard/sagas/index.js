@@ -1271,7 +1271,13 @@ function* findPromptSaga(studentID) {
 	if (isLiveDemo) {
 		yield put.resolve(setLiveDemo(true));
 	}
-	let waitingTime = isLiveDemo ? 4500 : 2500;
+	let waitingTime;
+
+	if (process.env.NODE_ENV === "development") {
+		waitingTime = 200;
+	} else {
+		waitingTime = isLiveDemo ? 4500 : 2500;
+	}
 
 	const { prompt, timeout } = yield race({
 		prompt: call(newFetchUntilPrompt, studentID),

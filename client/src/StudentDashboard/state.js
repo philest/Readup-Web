@@ -1503,6 +1503,18 @@ export const step9 = {
 
   questions: {
     1: {
+      title:
+        "Can you talk about the story? Pretend your teacher never read it and you're going to tell them all about it.",
+      audioSrc: "/audio/step-retell.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
+        1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
+      },
+      points: 1,
+      standard: "CCRA.R.1",
+      section: 1
+    },
+    2: {
       title: "Why does Jeffrey’s mother trust him to mail the letters?",
       audioSrc: "/audio/step5/1.mp3",
       rubric: {
@@ -1513,7 +1525,7 @@ export const step9 = {
       standard: "CCRA.R.1",
       section: 1
     },
-    2: {
+    3: {
       title: "When does Jeffrey notice that the fourth letter is missing?",
       audioSrc: "/audio/step5/2.mp3",
       rubric: {
@@ -1524,7 +1536,7 @@ export const step9 = {
       standard: "CCRA.R.2",
       section: 1
     },
-    3: {
+    4: {
       title:
         "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
       audioSrc: "/audio/step5/3.mp3",
@@ -1536,7 +1548,7 @@ export const step9 = {
       standard: "CCRA.R.1",
       section: 2
     },
-    4: {
+    5: {
       title: "What was in the letter that Jeffrey lost?",
       audioSrc: "/audio/step5/4.mp3",
       rubric: {
@@ -1547,7 +1559,7 @@ export const step9 = {
       standard: "CCRA.R.2",
       section: 1
     },
-    5: {
+    6: {
       title:
         "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
       audioSrc: "/audio/step5/5.mp3",
