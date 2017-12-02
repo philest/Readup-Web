@@ -779,8 +779,10 @@ function* silentReadingInstructionSaga(isFull) {
 	// START: the silent reading of the book
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-	if (isWarmup) {
+	if (isWarmup && !isFull) {
 		yield call(playSound, "/audio/warmup/silent-warmup-1.mp3");
+	} else if (isWarmup && isFull) {
+		yield call(playSound, "/audio/warmup/SILENT-WARMUP-02.mp3");
 	} else if (!isFull) {
 		yield call(playSound, "/audio/laura/now-read-silently-intro.mp3");
 	} else {
@@ -791,7 +793,11 @@ function* silentReadingInstructionSaga(isFull) {
 		setReaderState(ReaderStateOptions.talkingAboutStopButton)
 	);
 
-	yield call(playSound, "/audio/laura/click-finish-book.mp3");
+	if (isWarmup) {
+		yield call(playSound, "/audio/warmup/just-click-finish.mp3");
+	} else {
+		yield call(playSound, "/audio/laura/click-finish-book.mp3");
+	}
 
 	yield call(playSound, "/audio/complete.mp3");
 
@@ -905,9 +911,12 @@ function* bookIntroSaga(book) {
 
 	yield call(delay, 1350);
 
-	if (isWarmup) {
+	if (isWarmup && !hasWrittenComp(book)) {
 		yield call(playSound, "/audio/warmup/w-1.mp3");
 		yield call(playSound, "/audio/warmup/w-2.mp3");
+	} else if (isWarmup && hasWrittenComp(book)) {
+		yield call(playSound, "/audio/warmup/hey-reader-silent.mp3");
+		yield call(playSound, "/audio/warmup/SILENT-WARMUP-01.mp3");
 	} else if (hasWrittenComp(book)) {
 		yield call(playSound, "/audio/written-comp-01.mp3");
 		yield put.resolve(showVolumeIndicator());
