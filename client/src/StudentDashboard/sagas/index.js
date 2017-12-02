@@ -715,7 +715,13 @@ function* helperInstructionSaga(
 }
 
 // wrapper that cancels side effects that interrupt, then restarts saga.
-function* hearIntroAgainSaga(helperEffect, book, isOral) {
+function* hearIntroAgainSaga(
+	helperEffect,
+	book,
+	isOral,
+	isStartsWithOralReading,
+	isFull
+) {
 	if (helperEffect.length >= 1) {
 		yield cancel(...helperEffect);
 	}
@@ -723,12 +729,18 @@ function* hearIntroAgainSaga(helperEffect, book, isOral) {
 	const isWarmup = yield select(getIsWarmup);
 	const isPartialOralReading = hasSilentReading(book);
 
-	yield call(bookIntroSaga, book);
+	if (isStartsWithOralReading) {
+		yield call(bookIntroSaga, book);
+	}
 
 	if (isOral) {
-		yield* oralReadingInstructionSaga(isWarmup, isPartialOralReading, true);
+		yield* oralReadingInstructionSaga(
+			isWarmup,
+			isPartialOralReading,
+			isStartsWithOralReading
+		);
 	} else {
-		yield* silentReadingInstructionSaga(true);
+		yield* silentReadingInstructionSaga(isFull);
 	}
 }
 
@@ -770,6 +782,7 @@ function* silentReadingSaga(effects, helperEffect, isFull) {
 			helperEffect,
 			book,
 			false, // isOral
+			false, // isStartsWithOralReading
 			isFull
 		)
 	);
@@ -1436,7 +1449,8 @@ function* oralReadingSaga(
 			hearIntroAgainSaga,
 			helperEffect,
 			book,
-			true // isOral
+			true, // isOral
+			isStartsWithOralReading
 		)
 	);
 
