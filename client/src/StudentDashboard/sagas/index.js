@@ -706,7 +706,7 @@ function* helperInstructionSaga(
 		yield call(playSoundAsync, "/audio/new-comp-stop.mp3");
 	} else if (isBlueCheckmark) {
 	} else if (isNextButton) {
-		yield call(delay, 79000);
+		yield call(delay, 95000);
 		yield call(playSoundAsync, "/audio/next-button.m4a");
 	} else if (isName) {
 		yield call(delay, 14500);
@@ -1379,7 +1379,7 @@ function* hideVolumeSaga() {
 }
 
 function* videoWiggleSaga() {
-	yield call(delay, 75000);
+	yield call(delay, 90000);
 	yield put.resolve(setReaderState(ReaderStateOptions.watchedFullVideo));
 }
 
@@ -1412,11 +1412,11 @@ function* watchVideoSaga(videoWiggleEffect) {
 	yield put.resolve(setCurrentOverlay("no-overlay"));
 
 	// IF REAL THING
-	if (process.env.NODE_ENV === "production") {
-		yield call(delay, 15000);
+	if (process.env.NODE_ENV === "development") {
+		yield put.resolve(
+			setReaderState(ReaderStateOptions.watchedMostOfVideo)
+		);
 	}
-
-	yield put.resolve(setReaderState(ReaderStateOptions.watchedMostOfVideo));
 
 	if (process.env.NODE_ENV === "production") {
 		videoWiggleEffect.push(yield fork(videoWiggleSaga));
