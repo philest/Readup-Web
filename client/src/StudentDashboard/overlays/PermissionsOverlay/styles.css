@@ -14,11 +14,29 @@
 
 @keyframes upAndDown {
 	0% {
-		top: 130px;
+		top: 140px;
 	}
 	100% {
-		top: 150px;
+		top: 160px;
 	}
+}
+
+@keyframes leftAndRight {
+	0% {
+		left: 420px;
+	}
+	100% {
+		left: 440px;
+	}
+}
+
+.leftArrow {
+	position: fixed;
+	top: 90px;
+	left: 354px;
+	transform: rotate(-90deg);
+	width: 60px;
+	animation: leftAndRight 1s infinite alternate;
 }
 
 .upArrow {
