@@ -161,6 +161,8 @@ import {
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
 
+const SKIPPED_SECTIONS_IN_WARMUP_LIST = [SectionOptions.compOralSecond];
+
 export function getSpellingGroupNumber(book) {
 	if (book.stepLevel <= 5) {
 		return 1;
@@ -769,13 +771,17 @@ function* hearIntroAgainSaga(
 }
 
 function* silentReadingInstructionSaga(isFull) {
+	const isWarmup = yield select(getIsWarmup);
+
 	yield put.resolve(setInSilentReading(true));
 	yield put.resolve(setInOralReading(true));
 
 	// START: the silent reading of the book
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
-	if (!isFull) {
+	if (isWarmup) {
+		yield call(playSound, "/audio/warmup/silent-warmup-1.mp3");
+	} else if (!isFull) {
 		yield call(playSound, "/audio/laura/now-read-silently-intro.mp3");
 	} else {
 		yield call(playSound, "/audio/written-comp-03.mp3");
@@ -785,11 +791,7 @@ function* silentReadingInstructionSaga(isFull) {
 		setReaderState(ReaderStateOptions.talkingAboutStopButton)
 	);
 
-	if (!isFull) {
-		yield call(playSound, "/audio/laura/click-finish-book.mp3");
-	} else {
-		yield call(playSound, "/audio/written-comp-04.mp3");
-	}
+	yield call(playSound, "/audio/laura/click-finish-book.mp3");
 
 	yield call(playSound, "/audio/complete.mp3");
 
@@ -1736,7 +1738,15 @@ function* assessThenSubmitSaga(assessmentId) {
 	yield call(bookIntroSaga, book);
 
 	for (var sectionNum in sectionList) {
-		if (sectionList.hasOwnProperty(sectionNum)) {
+		if (
+			sectionList.hasOwnProperty(sectionNum) &&
+			!(
+				isWarmup &&
+				SKIPPED_SECTIONS_IN_WARMUP_LIST.includes(
+					sectionList[sectionNum]
+				)
+			) // its not a section that should be skipped in warmup
+		) {
 			yield clog("starting to play section: ", sectionList[sectionNum]);
 			yield* playSectionSaga(
 				sectionList[sectionNum],
