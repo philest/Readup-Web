@@ -85,8 +85,13 @@ Rails.application.routes.draw do
 
   get 'step4', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/warmup/false')
 
+  get 'step5', to: redirect('/student_dashboard/#/story/step5/demo/false/page/0/warmup/false')
+
 
   get 'step6', to: redirect('/student_dashboard/#/story/step6/demo/false/page/0/warmup/false')
+
+
+  get 'step7', to: redirect('/student_dashboard/#/story/step7/demo/false/page/0/warmup/false')
 
   get 'step9', to: redirect('/student_dashboard/#/story/step9/demo/false/page/0/warmup/false')
 
