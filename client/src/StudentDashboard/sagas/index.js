@@ -1293,7 +1293,7 @@ function* findPromptSaga(studentID) {
 	}
 	let waitingTime;
 
-	if (process.env.NODE_ENV === "development") {
+	if (false && process.env.NODE_ENV === "development") {
 		waitingTime = 200;
 	} else {
 		waitingTime = isLiveDemo ? 4500 : 2500;
@@ -1348,9 +1348,25 @@ function* compQuestionSaga(currQ, isPrompt) {
 
 	yield put.resolve(setCurrentOverlay("overlay-spinner"));
 
-	const studentID = yield getLastStudentID().catch(e => e.request); // TODO
+	const assessmentID = yield select(getAssessmentID);
+	const assessment = yield getAssessmentData(assessmentID).catch(
+		e => e.request
+	);
+
+	yield clog("assID: ", assessmentID);
+	yield clog("assessment: ", assessment);
+
+	let studentID;
+
+	if (assessment && assessment.student_id) {
+		studentID = assessment.student_id; // TODO
+	}
+
+	yield clog("studentID: ", studentID);
 
 	const prompt = yield* findPromptSaga(studentID); // retrieve what, if any, prompt.
+
+	yield clog("prompt: ", prompt);
 
 	yield put.resolve(setCurrentOverlay("no-overlay"));
 
