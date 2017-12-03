@@ -303,16 +303,18 @@ export default class CompModal extends React.Component {
         )}
 
         <Modal.Header className={myStyles.compModalHeader}>
-          <div className={myStyles.progress}>
-            <ProgressBar
-              now={
-                this.props.writtenQuestionNumber /
-                  this.props.numWrittenQuestions *
-                  100 -
-                10
-              }
-            />
-          </div>
+          {!this.props.isWarmup && (
+            <div className={myStyles.progress}>
+              <ProgressBar
+                now={
+                  this.props.writtenQuestionNumber /
+                    this.props.numWrittenQuestions *
+                    100 -
+                  10
+                }
+              />
+            </div>
+          )}
           <Modal.Title>{title}</Modal.Title>
 
           {subtitle && (

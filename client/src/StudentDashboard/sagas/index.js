@@ -943,6 +943,8 @@ function* oralReadingInstructionSaga(
 	isStartsWithOralReading
 ) {
 	yield put.resolve(setInOralReading(true));
+	yield put.resolve(setInSilentReading(false));
+
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
 	if (!isStartsWithOralReading) {
