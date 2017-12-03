@@ -941,7 +941,11 @@ function* oralReadingInstructionSaga(
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
 	if (!isStartsWithOralReading) {
-		yield call(playSound, "/audio/written-comp-06.mp3");
+		if (isWarmup) {
+			yield call(playSound, "/audio/warmup/oral-ending-warmup-intro.mp3");
+		} else {
+			yield call(playSound, "/audio/written-comp-06.mp3");
+		}
 	}
 
 	yield put.resolve(
