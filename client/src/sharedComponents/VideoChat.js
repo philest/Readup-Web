@@ -92,7 +92,12 @@ let newReaderProps = {
   assessmentSubmitted: false,
   studentName: "Demo Student",
   spellingInput: "",
-  hasLoggedIn: true
+  writtenQuestionNumber: 1,
+  writtenCompInput: "",
+  hasLoggedIn: true,
+  studentName: "Demo Student",
+  inSilentReading: false,
+  isWarmup: true
 };
 
 const importantStateKeysToUpdateOnStart = [
@@ -866,13 +871,37 @@ div#controls div#log p {
                 }
                 showSpinner={this.state.newReaderProps.showSpinner}
                 showPrompting={this.state.newReaderProps.isLiveDemo}
-                question={
-                  this.state.newReaderProps.book.questions[
-                    this.state.newReaderProps.questionNumber
-                  ]
-                }
                 includeDelay={this.state.newReaderProps.questionNumber === 1}
                 prompt={this.state.newReaderProps.prompt}
+                // written comp stuff
+                isWarmup={this.state.newReaderProps.isWarmup}
+                numWrittenQuestions={
+                  this.state.newReaderProps.book.numWrittenQuestions
+                }
+                questionNumber={this.state.newReaderProps.questionNumber}
+                writtenQuestionNumber={
+                  this.state.newReaderProps.writtenQuestionNumber
+                }
+                nextDisabled={
+                  this.state.newReaderProps.writtenCompInput === "" ||
+                  !this.state.newReaderProps.writtenCompInput
+                }
+                written={
+                  this.state.newReaderProps.readerState ===
+                  ReaderStateOptions.inWrittenComp
+                }
+                question={
+                  "1. Fake Q for grader..."
+                  // this.state.newReaderProps.readerState ===
+                  // ReaderStateOptions.inWrittenComp
+                  //   ? this.state.newReaderProps.book.writtenQuestions[
+                  //       this.state.newReaderProps.writtenQuestionNumber
+                  //     ]
+                  //   : this.state.newReaderProps.book.questions[
+                  //       this.state.newReaderProps.questionNumber
+                  //     ]
+                }
+                writtenCompInput={this.state.newReaderProps.writtenCompInput}
               />
             </div>
             <div>
@@ -966,6 +995,12 @@ div#controls div#log p {
                 isWithinGrader={true}
                 hasLoggedIn={this.state.newReaderProps.hasLoggedIn}
                 studentName={this.state.newReaderProps.studentName}
+                writtenQuestionNumber={
+                  this.state.newReaderProps.writtenQuestionNumber
+                }
+                writtenCompInput={this.state.newReaderProps.writtenCompInput}
+                inSilentReading={this.state.newReaderProps.inSilentReading}
+                isWarmup={this.state.newReaderProps.isWarmup}
               />
             </div>
           </div>

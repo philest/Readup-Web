@@ -53,7 +53,7 @@ function Root({ store, rorProps }) {
                 teacherName:
                   toTitleCase(props.match.params.teacher_name) ||
                   "Demo Teacher",
-                isWarmup: props.match.params.is_warmup !== "false"
+                routerIsWarmup: props.match.params.is_warmup !== "false"
               }; //router: this.props.history}
 
               return <ReaderManager {...readerManagerProps} />;
