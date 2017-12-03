@@ -2008,14 +2008,15 @@ function* rootSaga() {
 					// window.location.href = "/reports/1"
 				} else {
 					yield clog("in the ending real thing sequence...");
-					yield call(playSoundAsync, "/audio/celebration.mp3");
-					yield call(delay, 3300);
+					yield call(delay, 350);
 					yield put.resolve(
 						setReaderState(ReaderStateOptions.finishedAssessment)
 					);
 					yield put.resolve(setCurrentModal("no-modal"));
 
 					yield takeLatest(EXIT_CLICKED, redirectToHomepage);
+
+					yield call(playSound, "/audio/celebration.mp3");
 
 					return;
 				}
