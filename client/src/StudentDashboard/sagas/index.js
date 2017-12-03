@@ -1390,7 +1390,14 @@ function* compQuestionSaga(currQ, isPrompt) {
 function* writtenCompSaga(effects) {
 	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
 
-	yield call(playSound, "/audio/written-comp-05.mp3");
+	const isWarmup = yield select(getIsWarmup);
+
+	if (isWarmup) {
+		yield call(playSound, "/audio/warmup/warmup-written-comp-intro.mp3");
+	} else {
+		yield call(playSound, "/audio/written-comp-05.mp3");
+	}
+
 	yield put(setCurrentModal("modal-comp"));
 	yield call(playSound, "/audio/written-comp-actual-q-instructions.mp3");
 

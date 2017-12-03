@@ -1965,7 +1965,8 @@ export const initialState = {
   writtenCompInput: "",
   hasLoggedIn: false,
   studentName: "Demo Student",
-  inSilentReading: false
+  inSilentReading: false,
+  isWarmup: true
 };
 
 // any way to do this other than writing a custom reducer for each?

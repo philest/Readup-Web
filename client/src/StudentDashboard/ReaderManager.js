@@ -74,7 +74,8 @@ function mapStateToProps(state) {
     assessmentSubmitted: state.reader.assessmentSubmitted,
     micPermissionsStatus: state.reader.micPermissionsStatus,
     hasLoggedIn: state.reader.hasLoggedIn,
-    studentName: state.reader.studentName
+    studentName: state.reader.studentName,
+    isWarmup: state.reader.isWarmup
   };
 }
 
@@ -285,6 +286,7 @@ export class StudentDashboard extends React.Component {
         />
 
         <CompModal
+          isWarmup={this.props.isWarmup}
           onFinalWrittenCompQuestionAnswered={
             this.props.actions.finalWrittenCompQuestionAnswered
           }

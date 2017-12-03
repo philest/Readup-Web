@@ -61,7 +61,8 @@ export default class CompModal extends React.Component {
     onFinalWrittenCompQuestionAnswered: PropTypes.func,
     writtenCompInput: PropTypes.string,
     onWrittenCompInputSet: PropTypes.func,
-    nextDisabled: PropTypes.bool
+    nextDisabled: PropTypes.bool,
+    isWarmup: PropTypes.bool
 
     // writtenCompInput: PropTypes.string
   };
@@ -96,7 +97,10 @@ export default class CompModal extends React.Component {
       this.form.focus();
 
       // Exit?
-      if (nextProps.writtenQuestionNumber > this.props.numWrittenQuestions) {
+      if (
+        nextProps.writtenQuestionNumber > this.props.numWrittenQuestions ||
+        this.props.isWarmup
+      ) {
         this.props.onFinalWrittenCompQuestionAnswered();
       }
     }
@@ -271,6 +275,10 @@ export default class CompModal extends React.Component {
       if (this.props.prompt === PromptOptions.awaitingPrompt) {
         title = this.props.question.title;
         subtitle = this.props.question.subtitle;
+
+        if (this.props.isWarmup) {
+          title = "Does your book's cover have a picture?";
+        }
 
         if (this.props.written) {
           title = `${this.props.writtenQuestionNumber}. ${title}`;
