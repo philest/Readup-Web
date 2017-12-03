@@ -22,16 +22,10 @@ export function playSound(file, onEnd) {
 
     console.log("Playing Sound: " + file);
 
-    const myTimeout = setTimeout(() => {
-      console.log("kill the audio that was interrupted, presumably");
-      resolve();
-    }, 20000);
-
     audio = new Audio(file);
     audio.addEventListener("ended", function() {
       audio = null;
       console.log("audio ended");
-      clearTimeout(myTimeout);
       resolve();
     });
     audio.addEventListener("error", function(error) {
