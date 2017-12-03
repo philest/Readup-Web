@@ -469,14 +469,12 @@ function* skipClick() {
 				newBlob = "it broke";
 			}
 
-			const assessmentId = yield getLastAssessmentID().catch(
-				e => e.request
-			); // TODO
+			const assessmentID = yield select(getAssessmentID);
 
 			const currQ = yield select(getQuestionNumber);
 
 			uploadEffects.push(
-				yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
+				yield fork(turnInAudio, newBlob, assessmentID, true, currQ)
 			);
 
 			yield call(delay, 1000);
@@ -1136,9 +1134,9 @@ function* turnInDuringCompSaga(uploadEffects) {
 			yield call(playSound, "/audio/complete.mp3");
 			yield put({ type: SPINNER_SHOW });
 
-			const assID = yield getLastAssessmentID().catch(e => e.request); // TODO
+			const assessmentID = yield select(getAssessmentID);
 
-			const res = yield call(markCompleted, assID);
+			const res = yield call(markCompleted, assessmentID);
 			yield clog("marked it as completed!: ", res);
 			yield put(setAssessmentSubmitted(true));
 
@@ -1682,7 +1680,7 @@ function* resetStateSaga() {
 	yield put(setCurrentOverlay("no-overlay"));
 }
 
-function* assessThenSubmitSaga(assessmentId) {
+function* assessThenSubmitSaga() {
 	const effects = []; // general background stuff
 	const earlyExitEffect = []; // for exiting at the start
 	const helperEffect = []; // deals with extra instructions
@@ -1709,6 +1707,7 @@ function* assessThenSubmitSaga(assessmentId) {
 	const thisBook = yield select(getBook);
 	let book;
 	let sectionList;
+	let assessmentID = yield select(getAssessmentID);
 	yield clog("sectionList: ", sectionList);
 
 	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
@@ -1783,7 +1782,7 @@ function* assessThenSubmitSaga(assessmentId) {
 				isWarmup,
 				isDemo,
 				book,
-				assessmentId
+				assessmentID
 			);
 			yield clog("finished playing section: ", sectionList[sectionNum]);
 		}
@@ -1830,20 +1829,10 @@ function* rootSaga() {
 
 	yield clog("Root Saga Started");
 
-	yield clog("Generating assessment... bookKey:", bookKey);
-	const assessmentId = yield requestNewAssessment(bookKey).catch(
-		e => e.request
-	); // TODO
-
-	yield clog("HERE I AM : ", assessmentId);
-
-	yield clog("assessmentID is: ", assessmentId);
-
-	// yield call(setAssessmentID, assessmentId);
-
-	yield put(setAssessmentID(assessmentId + 1));
-
-	yield clog("Assessment ID:", assessmentId);
+	// Possibly in the future, create the assessment HERE
+	let assessmentID = yield getLastAssessmentID().catch(e => e.request); // TODO
+	assessmentID += 1; // account for the newly created one
+	yield put(setAssessmentID(assessmentID));
 
 	// if isMobileDevice, halt
 	const isMobile = yield call(isMobileDevice);
@@ -1893,7 +1882,7 @@ function* rootSaga() {
 	while (true) {
 		const { restartAssessment, recordingBlobArray, quit } = yield race({
 			restartAssessment: take(RESTART_RECORDING_CLICKED),
-			recordingBlobArray: call(assessThenSubmitSaga, assessmentId),
+			recordingBlobArray: call(assessThenSubmitSaga),
 			quit: take("QUIT_ASSESSMENT_AND_DESTROY")
 		});
 		yield clog("Race Finished");
@@ -1951,11 +1940,9 @@ function* rootSaga() {
 					yield clog("turned it in!");
 
 					// Mark it as completed
-					const assID = yield getLastAssessmentID().catch(
-						e => e.request
-					); // TODO
+					const assessmentID = yield select(getAssessmentID);
 
-					const res = yield call(markCompleted, assID);
+					const res = yield call(markCompleted, assessmentID);
 					yield clog("marked it as completed!: ", res);
 
 					if (!res) {
@@ -1976,16 +1963,16 @@ function* rootSaga() {
 					}
 
 					yield put.resolve(setIsWarmup(false));
-					yield call(assessThenSubmitSaga, assessmentId);
+					yield call(assessThenSubmitSaga);
 				}
 
 				yield clog("turned it in!");
 				yield call(playSound, "/audio/complete.mp3");
 
 				// Mark it as completed
-				const assID = yield getLastAssessmentID().catch(e => e.request); // TODO
+				const assessmentID = yield select(getAssessmentID);
 
-				const res = yield call(markCompleted, assID);
+				const res = yield call(markCompleted, assessmentID);
 				yield clog("marked it as completed!: ", res);
 
 				yield put(setAssessmentSubmitted(true));
