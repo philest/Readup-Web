@@ -793,6 +793,8 @@ function* silentReadingInstructionSaga(isFull) {
 		setReaderState(ReaderStateOptions.talkingAboutStopButton)
 	);
 
+	yield put.resolve(showVolumeIndicator());
+
 	if (isWarmup) {
 		yield call(playSound, "/audio/warmup/just-click-finish.mp3");
 	} else {
@@ -822,6 +824,9 @@ function* silentReadingSaga(effects, helperEffect, isFull) {
 	yield* silentReadingInstructionSaga(isFull);
 
 	yield take(STOP_RECORDING_CLICKED);
+
+	yield put.resolve(hideVolumeIndicator());
+
 	yield put.resolve(setCurrentModal("no-modal"));
 	yield call(playSound, "/audio/complete.mp3");
 
