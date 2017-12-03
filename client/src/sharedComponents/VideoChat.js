@@ -263,25 +263,28 @@ export function roomJoined(room) {
 
   // Once the LocalParticipant leaves the room, detach the Tracks
   // of all Participants, including that of the LocalParticipant.
-  room.on("disconnected", function() {
-    log("Left");
-    if (previewTracks) {
-      previewTracks.forEach(function(track) {
-        track.stop();
-      });
-    }
-    detachParticipantTracks(room.localParticipant);
-    room.participants.forEach(detachParticipantTracks);
-    activeRoom = null;
-    console.log("disconnected from room");
-    console.warn("Disconnected from room! Trying to reconnect in 5... ");
-    setTimeout(() => {
-      this.setUpTracks(1);
-    }, 5000); // try reconnecting if you were dropped???!!! every 5 sec
+  room.on(
+    "disconnected",
+    function() {
+      log("Left");
+      if (previewTracks) {
+        previewTracks.forEach(function(track) {
+          track.stop();
+        });
+      }
+      detachParticipantTracks(room.localParticipant);
+      room.participants.forEach(detachParticipantTracks);
+      activeRoom = null;
+      console.log("disconnected from room");
+      console.warn("Disconnected from room! Trying to reconnect in 5... ");
+      setTimeout(() => {
+        this.setUpTracks(1);
+      }, 5000); // try reconnecting if you were dropped???!!! every 5 sec
 
-    // document.getElementById("button-join").style.display = "inline";
-    // document.getElementById("button-leave").style.display = "none";
-  });
+      // document.getElementById("button-join").style.display = "inline";
+      // document.getElementById("button-leave").style.display = "none";
+    }.bind(this)
+  );
 
   // start on mute for the grader
   if (audioToggleButton) {

@@ -29,7 +29,7 @@ export function playSound(file, onEnd) {
       resolve();
     });
     audio.addEventListener("error", function(error) {
-      console.log("audio error");
+      console.log("audio error: ", error);
       reject(error);
     });
 
