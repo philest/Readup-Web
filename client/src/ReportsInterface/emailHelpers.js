@@ -16,12 +16,17 @@ export function sendEmail(subject, message, recipient) {
   return axios
     .get("/reports/email_submit", {
       params,
-      headers: RctOnR.authenticityHeaders()
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 5000
     })
     .then(res => {
       return res;
       console.log(res);
       console.log("yay!");
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
     });
 }
 
@@ -34,12 +39,17 @@ export function sendCall() {
   return axios
     .get("/reports/email_submit", {
       params,
-      headers: RctOnR.authenticityHeaders()
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 5000
     })
     .then(res => {
       return res;
       console.log(res);
       console.log("yay!");
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
     });
 }
 

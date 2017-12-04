@@ -398,12 +398,6 @@ function* turnInAudio(
 		yield clog("yay response!", res);
 		return yield res;
 	} catch (err) {
-		yield call(
-			sendEmail,
-			err,
-			`Error in turnInAudio... ${err}`,
-			"philesterman@gmail.com"
-		);
 		yield clog("turnInAudio error ERR:", err, err.request);
 	}
 
