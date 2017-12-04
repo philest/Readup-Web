@@ -192,6 +192,7 @@ export default class Reader extends React.Component {
             width="640"
             height="360"
             style={{ zIndex: 999999999 }}
+            muted={this.props.isWithinGrader ? "muted" : null}
           />
           <script src="https://fast.wistia.net/assets/external/E-v1.js" async />
         </div>

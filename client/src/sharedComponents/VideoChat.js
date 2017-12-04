@@ -539,7 +539,7 @@ export default class VideoChat extends React.Component {
 
             console.warn("Could not connect to room! Trying again in 7... ");
 
-            if (attemptNum <= 3) {
+            if (attemptNum <= 4) {
               setTimeout(() => {
                 this.setUpTracks(attemptNum + 1);
               }, 7000); // try reconnecting if you could not!!! every 7 sec
