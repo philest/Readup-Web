@@ -1027,12 +1027,6 @@ function* spellingInstructionSaga() {
 
 	if (isWarmup) {
 		yield call(playSound, "/audio/warmup/w-9.mp3");
-		// yield call(delay, 5000);
-
-		// yield put.resolve(
-		// 	setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
-		// );
-		// yield call(delay, 3100);
 		yield put.resolve(setReaderState(ReaderStateOptions.done));
 
 		yield call(playSound, "/audio/say-sounds-slowly.mp3");
@@ -1282,7 +1276,7 @@ function* findPromptSaga(studentID) {
 	if (false && process.env.NODE_ENV === "development") {
 		waitingTime = 200;
 	} else {
-		waitingTime = isLiveDemo ? 4500 : 2500;
+		waitingTime = isLiveDemo ? 6000 : 2500;
 	}
 
 	const { prompt, timeout } = yield race({

@@ -158,7 +158,8 @@ export function markCompleted(assessmentID) {
   return axios
     .patch(`/assessments/${assessmentID}`, {
       params,
-      headers: RctOnR.authenticityHeaders()
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 8500
     })
     .then(res => {
       return res;
