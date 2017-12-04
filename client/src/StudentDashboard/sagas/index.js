@@ -717,10 +717,10 @@ function* helperInstructionSaga(
 	} else if (isBlueCheckmark) {
 	} else if (isNextButton) {
 		yield call(delay, 95000);
-		yield call(playSoundAsync, "/audio/next-button.m4a");
+		yield call(playSoundAsync, "/audio/gen/instruct-2.mp3");
 	} else if (isName) {
 		yield call(delay, 14500);
-		yield call(playSoundAsync, "/audio/find-your-name.m4a");
+		yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
 	}
 }
 
@@ -764,13 +764,14 @@ function* silentReadingInstructionSaga(isFull) {
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
 	if (isWarmup && !isFull) {
-		yield call(playSound, "/audio/warmup/silent-warmup-1.mp3");
+		yield call(playSound, "/audio/new-warmup/6.mp3");
 	} else if (isWarmup && isFull) {
-		yield call(playSound, "/audio/warmup/SILENT-WARMUP-02.mp3");
+		yield call(playSound, "/audio/warmup/SILENT-WARMUP-02.mp3"); // TODO
 	} else if (!isFull) {
 		yield call(playSound, "/audio/laura/now-read-silently-intro.mp3");
 	} else {
-		yield call(playSound, "/audio/written-comp-03.mp3");
+		yield call(playSound, "/audio/gen/instruct-4.mp3");
+		yield call(playSound, "/audio/gen/instruct-5.mp3");
 	}
 
 	yield put.resolve(
@@ -907,8 +908,7 @@ function* bookIntroSaga(book) {
 		yield call(playSound, "/audio/warmup/w-1.mp3");
 		yield call(playSound, "/audio/warmup/w-2.mp3");
 	} else if (isWarmup && hasWrittenComp(book)) {
-		yield call(playSound, "/audio/warmup/hey-reader-silent.mp3");
-		yield call(playSound, "/audio/warmup/SILENT-WARMUP-01.mp3");
+		yield call(playSound, "/audio/new-warmup/w-1.mp3");
 	} else if (hasWrittenComp(book)) {
 		yield call(playSound, "/audio/written-comp-01.mp3");
 		yield put.resolve(showVolumeIndicator());
@@ -936,9 +936,9 @@ function* oralReadingInstructionSaga(
 
 	if (!isStartsWithOralReading) {
 		if (isWarmup) {
-			yield call(playSound, "/audio/warmup/oral-ending-warmup-intro.mp3");
+			yield call(playSound, "/audio/written/5.mp3");
 		} else {
-			yield call(playSound, "/audio/written-comp-06.mp3");
+			yield call(playSound, "/audio/written/4.mp3");
 		}
 	}
 
@@ -1401,13 +1401,14 @@ function* writtenCompSaga(effects) {
 	const isWarmup = yield select(getIsWarmup);
 
 	if (isWarmup) {
-		yield call(playSound, "/audio/warmup/warmup-written-comp-intro.mp3");
+		yield call(playSound, "/audio/new-warmup/4.mp3");
 	} else {
-		yield call(playSound, "/audio/written-comp-05.mp3");
+		yield call(playSound, "/audio/written/1.mp3");
+		yield call(playSound, "/audio/written/2.mp3"); // look back at book
 	}
 
 	yield put(setCurrentModal("modal-comp"));
-	yield call(playSound, "/audio/written-comp-actual-q-instructions.mp3");
+	yield call(playSound, "/audio/written/3.mp3");
 
 	effects.push(
 		yield takeLatest(
@@ -1441,7 +1442,7 @@ function* videoWiggleSaga() {
 
 function* loginSaga() {
 	const nameEffect = [];
-	yield call(playSoundAsync, "/audio/find-your-name.m4a");
+	yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
 	yield clog("in login world...");
 
 	nameEffect.push(
