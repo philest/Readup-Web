@@ -779,9 +779,9 @@ export default class ReportsInterface extends React.Component {
     let bookLevel;
 
     if (this.props.assessmentBrand === "FP") {
-      bookLevel = this.props.bookLevel;
+      bookLevel = book.fpLevel;
     } else {
-      bookLevel = this.props.stepLevel;
+      bookLevel = book.stepLevel;
     }
 
     let nextStepMsg = this.getNextLevelString(
@@ -1110,10 +1110,8 @@ export default class ReportsInterface extends React.Component {
 
           <div className={styles.bookInfoHeader}>
             <div className={styles.bookInfoWrapper}>
-              <div className={styles.bookInfoTitle}>{this.props.bookTitle}</div>
-              <div className={styles.bookInfoLevel}>
-                Level {this.props.bookLevel}
-              </div>
+              <div className={styles.bookInfoTitle}>{book.title}</div>
+              <div className={styles.bookInfoLevel}>Level {book.fpLevel}</div>
             </div>
 
             <div className={styles.audioWrapper}>
@@ -1180,7 +1178,7 @@ export default class ReportsInterface extends React.Component {
               this.state.gradedText.readingEndIndex.paragraphIndex
             }
             endWordIndex={this.state.gradedText.readingEndIndex.wordIndex}
-            bookLevel={this.props.bookLevel}
+            bookLevel={bookLevel}
             isSample={this.props.isSample}
             showSeeMore={
               this.state.gradedText.readingEndIndex.paragraphIndex <
