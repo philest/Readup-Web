@@ -392,29 +392,15 @@ function* turnInAudio(
 	isCompBlob: boolean,
 	questionNum: number
 ) {
-	let numAttempts = 1;
-
-	if (isCompBlob) {
-		numAttempts = 1;
+	try {
+		const presign = yield getS3Presign(assessmentId, isCompBlob);
+		const res = yield sendAudioToS3(blob, presign, isCompBlob, questionNum);
+		yield clog("yay response!", res);
+		return yield res;
+	} catch (err) {
+		yield clog("turnInAudio error ERR:", err, err.request);
 	}
 
-	yield clog("inside turnInAudio...");
-
-	for (let i = 0; i < numAttempts; i++) {
-		try {
-			const presign = yield getS3Presign(assessmentId, isCompBlob);
-			const res = yield sendAudioToS3(
-				blob,
-				presign,
-				isCompBlob,
-				questionNum
-			);
-			yield clog("yay response!", res);
-			return yield res;
-		} catch (err) {
-			yield clog("turnInAudio error ERR:", err, err.request);
-		}
-	}
 	return yield false; // TODO: this is pretty meh
 }
 

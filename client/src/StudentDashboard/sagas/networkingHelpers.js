@@ -75,7 +75,7 @@ export function sendAudioToS3(
   _forOwn(fields, (value, key) => data.set(key, value));
   data.append("file", blob, fileName);
 
-  return axios.post(url, data).then(res => {
+  return axios.post(url, data, { timeout: 18000 }).then(res => {
     return res;
     console.log(res);
     console.log("yay!");
