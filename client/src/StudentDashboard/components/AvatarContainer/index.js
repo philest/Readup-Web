@@ -48,14 +48,15 @@ let bridgetArr = [
 ];
 
 let defaultArr = [
-  ["Phil Esterman", "step4"],
-  ["Samantha Skory", "step6"],
-  ["Bradley Jay", "step9"],
-  ["Tracy Esterman", "step5"],
-  ["Ninetails Nieman", "step9"],
-  ["Abdel Morsy", "step4"],
-  ["Fourest Fifty", "step4"],
-  ["Sixo Beverly", "step6"]
+  ["Phil 4Esterman", "step4"],
+  ["Samantha 5Skory", "step5"],
+  ["Bradley 6Jay", "step6"],
+  ["Tracy 7Esterman", "step7"],
+  ["Ninetails 8Nieman", "step8"],
+  ["Abdel 9Morsy", "step9"],
+  ["Fourest 0Fifty", "step10"],
+  ["Sixo 1Beverly", "step11"],
+  ["Newbie 2Beverly", "step12"]
 ];
 
 let colorArr = ["teal", "purple", "green", "blue"];

@@ -2972,10 +2972,11 @@ export const library = {
   step5: step5,
   step6: step6,
   step7: step7,
+  step8: step8,
   step9: step9,
   step10: step10,
   step11: step11,
-  step12: step11
+  step12: step12
 };
 
 export const spellingLibrary = {
