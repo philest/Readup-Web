@@ -758,11 +758,11 @@ export const fireflyBook = {
     }
   },
 
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
   numSpellingQuestions: 15
 };
 
-export const peterSpellingObj = {
+export const group1SpellingObj = {
   numWords: 15,
   words: [
     "pest",
@@ -843,6 +843,360 @@ export const peterSpellingObj = {
         "NO_VALUE",
         "NO_VALUE"
       ]
+    }
+  }
+};
+
+export const group2SpellingObj = {
+  numWords: 15,
+  words: [
+    "blame",
+    "bark",
+    "prune",
+    "born",
+    "train",
+    "smoke",
+    "slime",
+    "firm",
+    "boast",
+    "chase",
+    "road",
+    "hurt",
+    "feed",
+    "short",
+    "bean"
+  ],
+  responses: [],
+  numSections: 3,
+  sections: {
+    1: {
+      title: "-V-C-e",
+      statusArr: [
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE"
+      ]
+    },
+    2: {
+      title: "Long-Vowel Pattern",
+      statusArr: [
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true
+      ]
+    },
+    3: {
+      title: "R-controlled Vowel",
+      statusArr: [
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE"
+      ]
+    }
+  }
+};
+
+export const group3SpellingObj = {
+  numWords: 15,
+  words: [
+    "skirt",
+    "charm",
+    "coach",
+    "barn",
+    "juice",
+    "first",
+    "saint",
+    "curl",
+    "sweet",
+    "steam",
+    "shout",
+    "roof",
+    "string",
+    "howl",
+    "badge",
+    "coin",
+    "catch",
+    "yawn",
+    "scratch",
+    "block"
+  ],
+  responses: [],
+  numSections: 4,
+  sections: {
+    1: {
+      title: "R-Controlled Vowel",
+      statusArr: [
+        true,
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE"
+      ]
+    },
+    2: {
+      title: "Long-Vowel Pattern",
+      statusArr: [
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        true,
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE"
+      ]
+    },
+    3: {
+      title: "Vowel Digraph/Diphthong",
+      statusArr: [
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        "NO_VALUE"
+      ]
+    },
+    4: {
+      title: "Complex Blend",
+      statusArr: [
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        "NO_VALUE",
+        true,
+        true
+      ]
+    }
+  }
+};
+
+export const endings = [
+  true,
+  true,
+  true,
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE"
+];
+
+export const doubling = [
+  "NO_VALUE",
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE"
+];
+
+export const long = [
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE"
+];
+
+export const rControlled = [
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true,
+  "NO_VALUE",
+  true
+];
+
+export const words = [
+  "shaking",
+  "bagged",
+  "batter",
+  "running",
+  "bitter",
+  "hiking",
+  "tennis",
+  "gripped",
+  "warning",
+  "dinner",
+  "retain",
+  "happen",
+  "explode",
+  "disturb",
+  "review",
+  "survive",
+  "explain",
+  "return",
+  "complain",
+  "boring"
+];
+
+export var group4SpellingObj = {
+  numWords: 20,
+  words: words,
+  numSections: 4,
+  sections: {
+    1: {
+      title: "-ed/ing Endings",
+      statusArr: endings
+    },
+    2: {
+      title: "Doubling at Syllable Juncture",
+      statusArr: doubling
+    },
+    3: {
+      title: "Long-Vowel Two-syllable Words",
+      statusArr: long
+    },
+    4: {
+      title: "R-Controlled Two-Syllable Words",
+      statusArr: rControlled
     }
   }
 };
@@ -969,7 +1323,7 @@ export const step4 = {
       section: 3
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -1096,7 +1450,7 @@ export const step5 = {
       section: 3
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -1249,7 +1603,7 @@ export const step6 = {
       section: 3
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -1402,7 +1756,7 @@ export const step7 = {
       section: 3
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -1572,7 +1926,7 @@ export const step9 = {
       section: 2
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -1737,7 +2091,7 @@ export const fpBook = {
       section: 2
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
 
   numSpellingQuestions: 15
 };
@@ -1825,7 +2179,7 @@ export const sampleReportBookFP = {
       section: 3
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
 
   numSpellingQuestions: 15
 };
@@ -1915,7 +2269,7 @@ export const sampleReportBookSTEP = {
       section: 4
     }
   },
-  spellingObj: peterSpellingObj,
+  spellingObj: group1SpellingObj,
 
   numSpellingQuestions: 15
 };
@@ -1930,6 +2284,13 @@ export const library = {
   step6: step6,
   step7: step7,
   step9: step9
+};
+
+export const spellingLibrary = {
+  1: group1SpellingObj,
+  2: group2SpellingObj,
+  3: group3SpellingObj,
+  4: group4SpellingObj
 };
 
 export const initialState = {

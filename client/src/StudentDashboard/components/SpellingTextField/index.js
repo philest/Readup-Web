@@ -9,7 +9,7 @@ import {
   getAssessmentData
 } from "../../../ReportsInterface/emailHelpers";
 import { getLastAssessmentID } from "../../sagas/networkingHelpers";
-import { peterSpellingObj } from "../../state";
+import { spellingLibrary } from "../../state";
 import { playSound, playSoundAsync } from "../../audioPlayer";
 
 import { getSpellingGroupNumber } from "../../sagas/index";
@@ -59,7 +59,8 @@ export default class SpellingTextField extends React.Component {
           let scoredSpellingHolder = assessment.scored_spelling;
 
           if (!scoredSpellingHolder) {
-            scoredSpellingHolder = peterSpellingObj;
+            scoredSpellingHolder =
+              spellingLibrary[getSpellingGroupNumber(this.props.book)];
           }
 
           scoredSpellingHolder.responses[qNum - 1] = value;
