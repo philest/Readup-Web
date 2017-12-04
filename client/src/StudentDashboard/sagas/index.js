@@ -809,6 +809,9 @@ function* silentReadingSaga(effects, helperEffect, isFull) {
 
 	yield take(STOP_RECORDING_CLICKED);
 
+	// cancel the hear again saga...
+	yield cancel(effects.slice(-1)[0]);
+
 	yield put.resolve(hideVolumeIndicator());
 
 	yield put.resolve(setCurrentModal("no-modal"));
