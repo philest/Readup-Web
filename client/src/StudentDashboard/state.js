@@ -1,4 +1,4 @@
-// @flow
+f; // @flow
 
 /* Hi!  How to write FSA-compliant Redux stuff:
  *  1. actions:
@@ -20,7 +20,17 @@ import {
   Prompt,
   PromptOptions
 } from "./types";
-import { nickMarkup } from "../sharedComponents/nickMarkup";
+import {
+  nickMarkup,
+  step5Markup,
+  step6Markup,
+  step7Markup,
+  step8Markup,
+  step9Markup,
+  step10Markup,
+  step11Markup,
+  step12Markup
+} from "../sharedComponents/markupObjects";
 import { sampleWithMSV } from "../sharedComponents/sampleWithMSV";
 
 export const READER_STATE_SET = "READER_STATE_SET";
@@ -1335,6 +1345,7 @@ export const step5 = {
   brand: "STEP",
   stepLevel: 5,
   fpLevel: "G",
+  markup: step5Markup,
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step5/rufus-cover.jpg",
@@ -1462,6 +1473,8 @@ export const step6 = {
   brand: "STEP",
   stepLevel: 6,
   fpLevel: "I",
+  markup: step6Markup,
+
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step6/step6-cover.jpg",
@@ -1615,6 +1628,8 @@ export const step7 = {
   brand: "STEP",
   stepLevel: 7,
   fpLevel: "I",
+  markup: step7Markup,
+
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step7/cover.jpg",
@@ -1768,6 +1783,8 @@ export const step9 = {
   brand: "STEP",
   stepLevel: 9,
   fpLevel: "I",
+  markup: step9Markup,
+
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step9/step9-cover.jpg",
