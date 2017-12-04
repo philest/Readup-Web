@@ -824,7 +824,7 @@ function* spellingSaga(effects) {
 
 	yield call(spellingInstructionSaga);
 
-	yield call(playSpellingQuestionSaga);
+	yield* playSpellingQuestionSaga();
 
 	yield put.resolve(setShowSkipPrompt(true));
 
@@ -1026,13 +1026,13 @@ function* spellingInstructionSaga() {
 	const isWarmup = yield select(getIsWarmup);
 
 	if (isWarmup) {
-		yield call(playSoundAsync, "/audio/warmup/w-9.mp3");
-		yield call(delay, 5000);
+		yield call(playSound, "/audio/warmup/w-9.mp3");
+		// yield call(delay, 5000);
 
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
-		);
-		yield call(delay, 3100);
+		// yield put.resolve(
+		// 	setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
+		// );
+		// yield call(delay, 3100);
 		yield put.resolve(setReaderState(ReaderStateOptions.done));
 
 		yield call(playSound, "/audio/say-sounds-slowly.mp3");
