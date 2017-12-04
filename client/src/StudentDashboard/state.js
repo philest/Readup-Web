@@ -1617,7 +1617,7 @@ export const step6 = {
       section: 3
     }
   },
-  spellingObj: group1SpellingObj,
+  spellingObj: group2SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -1772,7 +1772,7 @@ export const step7 = {
       section: 3
     }
   },
-  spellingObj: group1SpellingObj,
+  spellingObj: group2SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -1927,8 +1927,8 @@ export const step8 = {
       section: 3
     }
   },
-  spellingObj: group1SpellingObj,
-  numSpellingQuestions: 15
+  spellingObj: group3SpellingObj,
+  numSpellingQuestions: 20
 };
 
 // Still needs: 1) CCSS, 2) audio for intro and comp, 3) proper rubric, 4) proper sections
@@ -2099,8 +2099,8 @@ export const step9 = {
       section: 2
     }
   },
-  spellingObj: group1SpellingObj,
-  numSpellingQuestions: 15
+  spellingObj: group3SpellingObj,
+  numSpellingQuestions: 20
 };
 
 // Still needs: 1) CCSS, 2) audio for intro and comp, 3) proper rubric, 4) proper sections
@@ -2271,8 +2271,8 @@ export const step10 = {
       section: 2
     }
   },
-  spellingObj: group1SpellingObj,
-  numSpellingQuestions: 15
+  spellingObj: group3SpellingObj,
+  numSpellingQuestions: 20
 };
 
 // Still needs: 1) CCSS, 2) audio for intro and comp, 3) proper rubric, 4) proper sections
@@ -2443,8 +2443,8 @@ export const step11 = {
       section: 2
     }
   },
-  spellingObj: group1SpellingObj,
-  numSpellingQuestions: 15
+  spellingObj: group4SpellingObj,
+  numSpellingQuestions: 20
 };
 
 // Still needs: 1) CCSS, 2) audio for intro and comp, 3) proper rubric, 4) proper sections
@@ -2615,8 +2615,8 @@ export const step12 = {
       section: 2
     }
   },
-  spellingObj: group1SpellingObj,
-  numSpellingQuestions: 15
+  spellingObj: group4SpellingObj,
+  numSpellingQuestions: 20
 };
 
 export const fpBook = {
