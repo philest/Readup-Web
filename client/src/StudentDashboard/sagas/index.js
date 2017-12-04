@@ -1567,6 +1567,9 @@ function* oralReadingRecordingSaga(
 		yield cancel(...helperEffect);
 	}
 
+	// cancel the hear again saga...
+	yield cancel(effects.slice(-1)[0]);
+
 	yield call(stopAudio);
 
 	yield put.resolve(hideVolumeIndicator());
