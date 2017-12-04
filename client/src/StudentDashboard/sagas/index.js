@@ -910,7 +910,7 @@ function* bookIntroSaga(book) {
 		yield call(playSound, "/audio/warmup/w-1.mp3");
 		yield call(playSound, "/audio/warmup/w-2.mp3");
 	} else if (isWarmup && hasWrittenComp(book)) {
-		yield call(playSound, "/audio/new-warmup/w-1.mp3");
+		yield call(playSound, "/audio/new-warmup/1.mp3");
 	} else if (hasWrittenComp(book)) {
 		yield call(playSound, "/audio/gen/instruct-3.mp3");
 		yield put.resolve(showVolumeIndicator());

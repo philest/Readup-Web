@@ -43,8 +43,8 @@ let bridgetArr = [
   ["Jordy Esterman", "step5"],
   ["Lisa Nieman", "step9"],
   ["Laura Morsy", "step4"],
-  ["Faith Fifty", "step4"],
-  ["Precious Beverly", "step6"]
+  ["Elle Fifty", "step11"],
+  ["Twelve Beverly", "step12"]
 ];
 
 let defaultArr = [
