@@ -766,7 +766,8 @@ function* silentReadingInstructionSaga(isFull) {
 	if (isWarmup && !isFull) {
 		yield call(playSound, "/audio/new-warmup/6.mp3");
 	} else if (isWarmup && isFull) {
-		yield call(playSound, "/audio/warmup/SILENT-WARMUP-02.mp3"); // TODO
+		yield call(playSound, "/audio/new-warmup/2.mp3"); // TODO
+		yield call(playSound, "/audio/laura/then.mp3"); // TODO
 	} else if (!isFull) {
 		yield call(playSound, "/audio/laura/now-read-silently-intro.mp3");
 	} else {
@@ -781,7 +782,8 @@ function* silentReadingInstructionSaga(isFull) {
 	yield put.resolve(showVolumeIndicator());
 
 	if (isWarmup) {
-		yield call(playSound, "/audio/warmup/just-click-finish.mp3");
+		// yield call(playSound, "/audio/warmup/just-click-finish.mp3");
+		yield call(playSound, "/audio/laura/click-finish-book.mp3");
 	} else {
 		yield call(playSound, "/audio/laura/click-finish-book.mp3");
 	}
@@ -910,7 +912,7 @@ function* bookIntroSaga(book) {
 	} else if (isWarmup && hasWrittenComp(book)) {
 		yield call(playSound, "/audio/new-warmup/w-1.mp3");
 	} else if (hasWrittenComp(book)) {
-		yield call(playSound, "/audio/written-comp-01.mp3");
+		yield call(playSound, "/audio/gen/instruct-3.mp3");
 		yield put.resolve(showVolumeIndicator());
 		yield call(playSound, book.introAudioSrc);
 	} else {
