@@ -1,3 +1,717 @@
+export var step4Markup = {
+	readingEndIndex: {
+		paragraphIndex: 999, // -1
+		wordIndex: 999 // -1
+	},
+	paragraphs: [
+		{
+			key: "fake_key_0",
+			words: [
+				{
+					word: "My",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "name",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "is",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Peter.",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "I'm",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "upside",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down.",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				}
+			]
+		},
+		{
+			key: "fake_key_1",
+			words: [
+				{
+					word: "Things",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "look",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "different",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "upside",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down.",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Here",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "is",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "my",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "name",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "upside",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down.",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				}
+			]
+		},
+		{
+			key: "fake_key_2",
+			words: [
+				{
+					word: "I",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "see",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "the",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "living",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "room",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "upside",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down.",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Everything",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "looks",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "funny!",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				}
+			]
+		},
+		{
+			key: "fake_key_3",
+			words: [
+				{
+					word: "I",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "toss",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "a",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "ball.",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Does",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "it",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "fall",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "up?",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Or",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down?",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				}
+			]
+		},
+		{
+			key: "fake_key_4",
+			words: [
+				{
+					word: "Who",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "is",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "at",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "the",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "door?",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Wow!",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "It's",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "my",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "friend,",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Jill!",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "But",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "her",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "feet",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "are",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "up,",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "not",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down.",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Will",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "her",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "hat",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "fall",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "off?",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				}
+			]
+		},
+		{
+			key: "fake_key_5",
+			words: [
+				{
+					word: '"Jill,',
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "do",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "you",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "want",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "to",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "play",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "upside",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "with",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "me?",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "Being",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "upside",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "down",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: "is",
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				},
+				{
+					word: 'fun!"',
+					wordDeleted: false,
+					substituteWord: null,
+					addAfterWord: null,
+					mTypeError: false,
+					sTypeError: false,
+					vTypeError: false
+				}
+			]
+		}
+	]
+};
+
 export var step6Markup = {
 	readingEndIndex: {
 		paragraphIndex: 999, // -1

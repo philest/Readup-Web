@@ -73,23 +73,25 @@ class GraderInterfaceController < ApplicationController
       end
 
 
-      if @assessment.book_key === 'nick'
-        title = "Bedtime for Nick"
-        level = "G"
-        stepLevel = "5"
-        bookKey = 'nick'
-      elsif @assessment.book_key === 'step'
-        title = "Upside Down"
-        level = "E"
-        stepLevel = "4"
-        bookKey = 'step'
-      else
-        title = "Firefly Night"
-        level = "E"
-        stepLevel = '4'
-        bookKey = 'firefly'
-      end 
 
+      # if @assessment.book_key === 'nick'
+      #   title = "Bedtime for Nick"
+      #   level = "G"
+      #   stepLevel = "5"
+      #   bookKey = 'nick'
+      # elsif @assessment.book_key === 'step'
+      #   title = "Upside Down"
+      #   level = "E"
+      #   stepLevel = "4"
+      #   bookKey = 'step'
+      # else
+      #   title = "Firefly Night"
+      #   level = "E"
+      #   stepLevel = '4'
+      #   bookKey = 'firefly'
+      # end 
+
+      bookKey = @assessment.book_key
   
 
 
@@ -98,8 +100,8 @@ class GraderInterfaceController < ApplicationController
         createdAt: created_at,
         shortCreatedAt: short_created_at,
         email: "#{@user.email}",
-        bookTitle: title,
-        bookLevel: level,
+        # bookTitle: title,
+        # bookLevel: level,
         recordingURL: "https://s3-us-west-2.amazonaws.com/readup-now/fake-assessments/#{ENV['RAILS_ENV']}/#{@user.id}/recording.webm",
         scoredText: @assessment.scored_text,
         userID: @user.id,

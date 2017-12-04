@@ -45,7 +45,12 @@ import {
   getAssessmentSavedTimestamp
 } from "../ReportsInterface/emailHelpers.js";
 import { playSoundAsync } from "../StudentDashboard/audioPlayer";
-import { fireflyBook, fpBook, library } from "../StudentDashboard/state.js";
+import {
+  fireflyBook,
+  fpBook,
+  library,
+  markupLibrary
+} from "../StudentDashboard/state.js";
 
 import { PromptOptions } from "../StudentDashboard/types";
 
@@ -137,10 +142,9 @@ export default class GraderInterface extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      evaluationTextData:
-        this.props.bookKey === "step" && !this.props.scoredText
-          ? stepMarkup
-          : JSON.parse(this.props.scoredText),
+      evaluationTextData: !this.props.scoredText
+        ? null
+        : JSON.parse(this.props.scoredText),
       highlightedParagraphIndex: null,
       highlightedWordIndex: null,
       highlightedIsSpace: null,
@@ -181,6 +185,18 @@ export default class GraderInterface extends React.Component {
     } else {
       book = fireflyBook;
     }
+
+    console.log("evalData: ", this.state.evaluationTextData);
+    console.log("scoredText: ", this.props.scoredText);
+    console.log("book: ", book);
+    console.log("bookKey: ", this.props.bookKey);
+    console.log("library retrieval: ", library[this.props.bookKey]);
+
+    if (!this.state.evaluationTextData) {
+      this.setState({ evaluationTextData: book.markup });
+    }
+
+    console.log("evalData: ", this.state.evaluationTextData);
 
     rubric = book.rubric;
     numQuestions = book.numQuestions;
@@ -1154,11 +1170,9 @@ export default class GraderInterface extends React.Component {
             className={styles.markupContainer}
           >
             <div className={styles.bookInfo}>
-              <span className={styles.bookTitleHeading}>
-                {this.props.bookTitle}
-              </span>
+              <span className={styles.bookTitleHeading}>{book.title}</span>
               <span className={styles.bookLevelHeading}>
-                {"Level " + this.props.bookLevel}
+                {"Level " + book.fpLevel}
               </span>
             </div>
 
@@ -1173,9 +1187,9 @@ export default class GraderInterface extends React.Component {
               isInteractive
               onMouseEnterWord={this._onMouseEnterWord}
               onMouseLeaveWord={this._onMouseLeaveWord}
-              bookLevel={this.props.bookLevel}
+              bookLevel={book.fpLevel}
               isSample={false}
-              showMSV={this.props.bookKey !== "firefly"}
+              showMSV={false}
               bookKey={this.props.bookKey}
             />
           </div>

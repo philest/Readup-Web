@@ -1705,7 +1705,7 @@ function* assessThenSubmitSaga() {
 	const isDemo = yield select(getIsDemo);
 	const isWarmup = yield select(getIsWarmup);
 	const hasLoggedIn = yield select(getHasLoggedIn);
-	const studentName = yield select(getStudentName);
+	let studentName;
 	const thisBook = yield select(getBook);
 	let book;
 	let sectionList;
@@ -1721,6 +1721,7 @@ function* assessThenSubmitSaga() {
 		yield put.resolve(avatarClicked()); // log in for them
 
 		book = yield select(getBook);
+		studentName = yield select(getStudentName);
 
 		// Only create the user only once, if not warmup...
 		$.ajax({
@@ -1735,6 +1736,7 @@ function* assessThenSubmitSaga() {
 		yield call(loginSaga);
 
 		book = yield select(getBook);
+		studentName = yield select(getStudentName);
 
 		// Only create the user only once. Create here instead because they skipped warmup...
 		$.ajax({

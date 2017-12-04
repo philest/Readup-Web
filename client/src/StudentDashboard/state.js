@@ -1,4 +1,4 @@
-f; // @flow
+// @flow
 
 /* Hi!  How to write FSA-compliant Redux stuff:
  *  1. actions:
@@ -22,6 +22,7 @@ import {
 } from "./types";
 import {
   nickMarkup,
+  step4Markup,
   step5Markup,
   step6Markup,
   step7Markup,
@@ -2308,6 +2309,18 @@ export const spellingLibrary = {
   2: group2SpellingObj,
   3: group3SpellingObj,
   4: group4SpellingObj
+};
+
+export const markupLibrary = {
+  4: step4Markup,
+  5: step5Markup,
+  6: step6Markup,
+  7: step7Markup,
+  8: step8Markup,
+  9: step9Markup,
+  10: step10Markup,
+  11: step11Markup,
+  12: step12Markup
 };
 
 export const initialState = {
