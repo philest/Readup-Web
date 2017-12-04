@@ -1479,7 +1479,7 @@ export const step6 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step6/step6-cover.jpg",
-  introAudioSrc: "/audio/ruffy-intro-new.mp3",
+  introAudioSrc: "/audio/intros/step6.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -1634,7 +1634,7 @@ export const step7 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step7/cover.jpg",
-  introAudioSrc: "/audio/ruffy-intro-new.mp3",
+  introAudioSrc: "/audio/intros/step7.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -1789,7 +1789,7 @@ export const step8 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/step8.jpg",
-  introAudioSrc: "/audio/ruffy-intro-new.mp3",
+  introAudioSrc: "/audio/intros/step8.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -1837,8 +1837,8 @@ export const step8 = {
   questions: {
     1: {
       title:
-        "What do the kids in the story have to do to get ready for the comedy show?",
-      audioSrc: "/audio/step7/comp/1.mp3",
+        "Can you talk about the story? Pretend your teacher never read it and you're going to tell them all about it.",
+      audioSrc: "/audio/step-retell.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -1848,8 +1848,20 @@ export const step8 = {
       section: 1
     },
     2: {
+      title:
+        "What do the kids in the story have to do to get ready for the comedy show?",
+      audioSrc: "/audio/step8/1.mp3",
+      rubric: {
+        0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
+        1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
+      },
+      points: 1,
+      standard: "CCRA.R.1",
+      section: 1
+    },
+    3: {
       title: "Why do the children put Mittens upstairs?",
-      audioSrc: "/audio/step7/comp/2.mp3",
+      audioSrc: "/audio/step8/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -1858,9 +1870,9 @@ export const step8 = {
       standard: "CCRA.R.2",
       section: 1
     },
-    3: {
+    4: {
       title: "What do Max and Linda do at the show?",
-      audioSrc: "/audio/step7/comp/3.mp3",
+      audioSrc: "/audio/step8/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -1869,9 +1881,9 @@ export const step8 = {
       standard: "CCRA.R.1",
       section: 2
     },
-    4: {
+    5: {
       title: "Why do the people think the show is funny?",
-      audioSrc: "/audio/step7/comp/4.mp3",
+      audioSrc: "/audio/step8/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
         1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text."
@@ -1880,9 +1892,9 @@ export const step8 = {
       standard: "CCRA.R.2",
       section: 1
     },
-    5: {
+    6: {
       title: "What does Zina do at the show?",
-      audioSrc: "/audio/step7/comp/5.mp3",
+      audioSrc: "/audio/step8/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
         1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
@@ -1891,10 +1903,10 @@ export const step8 = {
       standard: "CCRA.R.4",
       section: 2
     },
-    6: {
+    7: {
       title:
         "Why is the audience surprised when the cat walks across the screen?",
-      audioSrc: "/audio/step7/comp/6.mp3",
+      audioSrc: "/audio/step8/6.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
         1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
@@ -1903,9 +1915,9 @@ export const step8 = {
       standard: "CCRA.R.4 and CCRA.R.1",
       section: 3
     },
-    7: {
+    8: {
       title: "Why do the children want to put on another show the next week?",
-      audioSrc: "/audio/step7/comp/7.mp3",
+      audioSrc: "/audio/step8/7.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
         1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
@@ -1915,9 +1927,9 @@ export const step8 = {
       section: 3
     },
 
-    8: {
+    9: {
       title: "Why do the children promise to let Mittens be in the next show?",
-      audioSrc: "/audio/step7/comp/8.mp3",
+      audioSrc: "/audio/step8/8.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
         1: "Response demonstrates proficiency in understanding why Peter invites Jill to join him. Correctly identifies that Peter's motivation, and demonstrates a strong ability for higher-order critical thinking about the text. "
@@ -1944,7 +1956,7 @@ export const step9 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step9/step9-cover.jpg",
-  introAudioSrc: "/audio/written-comp-02.mp3",
+  introAudioSrc: "/audio/intros/step9.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2043,7 +2055,7 @@ export const step9 = {
     },
     2: {
       title: "Why does Jeffrey’s mother trust him to mail the letters?",
-      audioSrc: "/audio/step5/1.mp3",
+      audioSrc: "/audio/step9/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2054,7 +2066,7 @@ export const step9 = {
     },
     3: {
       title: "When does Jeffrey notice that the fourth letter is missing?",
-      audioSrc: "/audio/step5/2.mp3",
+      audioSrc: "/audio/step9/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2066,7 +2078,7 @@ export const step9 = {
     4: {
       title:
         "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
-      audioSrc: "/audio/step5/3.mp3",
+      audioSrc: "/audio/step9/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2077,7 +2089,7 @@ export const step9 = {
     },
     5: {
       title: "What was in the letter that Jeffrey lost?",
-      audioSrc: "/audio/step5/4.mp3",
+      audioSrc: "/audio/step9/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
         1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text."
@@ -2089,7 +2101,7 @@ export const step9 = {
     6: {
       title:
         "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
-      audioSrc: "/audio/step5/5.mp3",
+      audioSrc: "/audio/step9/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
         1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
@@ -2116,7 +2128,7 @@ export const step10 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/step10.jpg",
-  introAudioSrc: "/audio/written-comp-02.mp3",
+  introAudioSrc: "/audio/intros/step10.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2166,7 +2178,6 @@ export const step10 = {
     1: {
       title:
         "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
-      audioSrc: "/audio/step5/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2177,7 +2188,6 @@ export const step10 = {
     },
     2: {
       title: "What does Jeffrey do to try to find the lost letter?",
-      audioSrc: "/audio/step5/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2189,7 +2199,6 @@ export const step10 = {
     3: {
       title:
         "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
-      audioSrc: "/audio/step5/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2215,7 +2224,7 @@ export const step10 = {
     },
     2: {
       title: "Why does Jeffrey’s mother trust him to mail the letters?",
-      audioSrc: "/audio/step5/1.mp3",
+      audioSrc: "/audio/step10/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2226,7 +2235,7 @@ export const step10 = {
     },
     3: {
       title: "When does Jeffrey notice that the fourth letter is missing?",
-      audioSrc: "/audio/step5/2.mp3",
+      audioSrc: "/audio/step10/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2238,7 +2247,7 @@ export const step10 = {
     4: {
       title:
         "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
-      audioSrc: "/audio/step5/3.mp3",
+      audioSrc: "/audio/step10/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2249,7 +2258,7 @@ export const step10 = {
     },
     5: {
       title: "What was in the letter that Jeffrey lost?",
-      audioSrc: "/audio/step5/4.mp3",
+      audioSrc: "/audio/step10/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
         1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text."
@@ -2261,7 +2270,7 @@ export const step10 = {
     6: {
       title:
         "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
-      audioSrc: "/audio/step5/5.mp3",
+      audioSrc: "/audio/step10/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
         1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
@@ -2288,7 +2297,7 @@ export const step11 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/step11.jpg",
-  introAudioSrc: "/audio/written-comp-02.mp3",
+  introAudioSrc: "/audio/intros/step11.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2338,7 +2347,6 @@ export const step11 = {
     1: {
       title:
         "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
-      audioSrc: "/audio/step5/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2349,7 +2357,6 @@ export const step11 = {
     },
     2: {
       title: "What does Jeffrey do to try to find the lost letter?",
-      audioSrc: "/audio/step5/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2361,7 +2368,6 @@ export const step11 = {
     3: {
       title:
         "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
-      audioSrc: "/audio/step5/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2387,7 +2393,7 @@ export const step11 = {
     },
     2: {
       title: "Why does Jeffrey’s mother trust him to mail the letters?",
-      audioSrc: "/audio/step5/1.mp3",
+      audioSrc: "/audio/step11/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2398,7 +2404,7 @@ export const step11 = {
     },
     3: {
       title: "When does Jeffrey notice that the fourth letter is missing?",
-      audioSrc: "/audio/step5/2.mp3",
+      audioSrc: "/audio/step11/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2410,7 +2416,7 @@ export const step11 = {
     4: {
       title:
         "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
-      audioSrc: "/audio/step5/3.mp3",
+      audioSrc: "/audio/step11/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2421,7 +2427,7 @@ export const step11 = {
     },
     5: {
       title: "What was in the letter that Jeffrey lost?",
-      audioSrc: "/audio/step5/4.mp3",
+      audioSrc: "/audio/step11/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
         1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text."
@@ -2433,7 +2439,7 @@ export const step11 = {
     6: {
       title:
         "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
-      audioSrc: "/audio/step5/5.mp3",
+      audioSrc: "/audio/step11/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
         1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
@@ -2460,7 +2466,7 @@ export const step12 = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/step12.jpg",
-  introAudioSrc: "/audio/written-comp-02.mp3",
+  introAudioSrc: "/audio/intros/step12.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2510,7 +2516,6 @@ export const step12 = {
     1: {
       title:
         "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
-      audioSrc: "/audio/step5/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2521,7 +2526,6 @@ export const step12 = {
     },
     2: {
       title: "What does Jeffrey do to try to find the lost letter?",
-      audioSrc: "/audio/step5/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2533,7 +2537,6 @@ export const step12 = {
     3: {
       title:
         "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
-      audioSrc: "/audio/step5/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2558,8 +2561,8 @@ export const step12 = {
       section: 1
     },
     2: {
-      title: "Why does Jeffrey’s mother trust him to mail the letters?",
-      audioSrc: "/audio/step5/1.mp3",
+      title: "Why does Martin's mother send him away?",
+      audioSrc: "/audio/step12/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2570,7 +2573,7 @@ export const step12 = {
     },
     3: {
       title: "When does Jeffrey notice that the fourth letter is missing?",
-      audioSrc: "/audio/step5/2.mp3",
+      audioSrc: "/audio/step12/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2582,7 +2585,7 @@ export const step12 = {
     4: {
       title:
         "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
-      audioSrc: "/audio/step5/3.mp3",
+      audioSrc: "/audio/step12/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2593,7 +2596,7 @@ export const step12 = {
     },
     5: {
       title: "What was in the letter that Jeffrey lost?",
-      audioSrc: "/audio/step5/4.mp3",
+      audioSrc: "/audio/step12/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
         1: "Response correctly identifies that Peter's friend Jill comes to visit him, demonstrating a proficient understanding of character and plot in the text."
@@ -2605,7 +2608,7 @@ export const step12 = {
     6: {
       title:
         "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
-      audioSrc: "/audio/step5/5.mp3",
+      audioSrc: "/audio/step12/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
         1: "Response demonstrates a proficient understanding of Peter's perspective and motivation here. Articulates the key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Student shows strong ability to process visual cues from pictures and develop understanding of character perspective and intent.  "
