@@ -2757,7 +2757,12 @@ export var step7Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_1",
+			words: [
 				{
 					word: "On",
 					wordDeleted: false,
@@ -3333,7 +3338,12 @@ export var step7Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_2",
+			words: [
 				{
 					word: "I",
 					wordDeleted: false,
@@ -3436,7 +3446,7 @@ export var step7Markup = {
 			]
 		},
 		{
-			key: "fake_key_1",
+			key: "fake_key_3",
 			words: [
 				{
 					word: "Mama",
@@ -3581,7 +3591,12 @@ export var step7Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_4",
+			words: [
 				{
 					word: "Can",
 					wordDeleted: false,
@@ -3698,7 +3713,12 @@ export var step7Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_5",
+			words: [
 				{
 					word: "Kendra's",
 					wordDeleted: false,
@@ -4752,7 +4772,12 @@ export var step8Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_2",
+			words: [
 				{
 					word: '"Help!"',
 					wordDeleted: false,
@@ -4801,7 +4826,7 @@ export var step8Markup = {
 			]
 		},
 		{
-			key: "fake_key_2",
+			key: "fake_key_3",
 			words: [
 				{
 					word: "A",
@@ -4982,7 +5007,12 @@ export var step8Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_4",
+			words: [
 				{
 					word: '"You',
 					wordDeleted: false,
@@ -5058,7 +5088,7 @@ export var step8Markup = {
 			]
 		},
 		{
-			key: "fake_key_3",
+			key: "fake_key_5",
 			words: [
 				{
 					word: '"All',
@@ -5180,11 +5210,15 @@ export var step8Markup = {
 			]
 		},
 		{
-			key: "fake_key_4",
+			key: "fake_key_6",
 			words: []
 		},
 		{
-			key: "fake_key_5",
+			key: "fake_key_7",
+			words: []
+		},
+		{
+			key: "fake_key_8",
 			words: [
 				{
 					word: "The",
@@ -5432,7 +5466,11 @@ export var step8Markup = {
 			]
 		},
 		{
-			key: "fake_key_6",
+			key: "fake_key_9",
+			words: []
+		},
+		{
+			key: "fake_key_10",
 			words: [
 				{
 					word: "The",
@@ -5536,7 +5574,11 @@ export var step8Markup = {
 			]
 		},
 		{
-			key: "fake_key_7",
+			key: "fake_key_11",
+			words: []
+		},
+		{
+			key: "fake_key_12",
 			words: [
 				{
 					word: '"I',
@@ -6186,7 +6228,12 @@ export var step9Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_2",
+			words: [
 				{
 					word: '"My',
 					wordDeleted: false,
@@ -6253,7 +6300,7 @@ export var step9Markup = {
 			]
 		},
 		{
-			key: "fake_key_2",
+			key: "fake_key_3",
 			words: [
 				{
 					word: '"I',
@@ -6411,7 +6458,7 @@ export var step9Markup = {
 			]
 		},
 		{
-			key: "fake_key_3",
+			key: "fake_key_4",
 			words: [
 				{
 					word: "Jeffrey",
@@ -6646,7 +6693,12 @@ export var step9Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_5",
+			words: [
 				{
 					word: '"Do',
 					wordDeleted: false,
@@ -6731,7 +6783,7 @@ export var step9Markup = {
 			]
 		},
 		{
-			key: "fake_key_4",
+			key: "fake_key_6",
 			words: [
 				{
 					word: '"I',
@@ -7047,7 +7099,12 @@ export var step9Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_7",
+			words: [
 				{
 					word: "Jeffrey",
 					wordDeleted: false,
@@ -7209,7 +7266,12 @@ export var step9Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_8",
+			words: [
 				{
 					word: '"Hold',
 					wordDeleted: false,
@@ -7371,7 +7433,12 @@ export var step9Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_9",
+			words: [
 				{
 					word: "The",
 					wordDeleted: false,
@@ -12077,7 +12144,12 @@ export var step12Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_3",
+			words: [
 				{
 					word: "Martin",
 					wordDeleted: false,
@@ -12338,7 +12410,16 @@ export var step12Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_4",
+			words: []
+		},
+		{
+			key: "fake_key_5",
+			words: [
 				{
 					word: '"Where',
 					wordDeleted: false,
@@ -12414,7 +12495,11 @@ export var step12Markup = {
 			]
 		},
 		{
-			key: "fake_key_3",
+			key: "fake_key_6",
+			words: []
+		},
+		{
+			key: "fake_key_7",
 			words: [
 				{
 					word: "\"I'm",
@@ -12581,7 +12666,11 @@ export var step12Markup = {
 			]
 		},
 		{
-			key: "fake_key_4",
+			key: "fake_key_8",
+			words: []
+		},
+		{
+			key: "fake_key_9",
 			words: [
 				{
 					word: '"She',
@@ -12766,7 +12855,7 @@ export var step12Markup = {
 			]
 		},
 		{
-			key: "fake_key_5",
+			key: "fake_key_10",
 			words: [
 				{
 					word: "The",
@@ -15162,7 +15251,12 @@ export var step5Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_1",
+			words: [
 				{
 					word: "Ruffy",
 					wordDeleted: false,
@@ -15315,7 +15409,12 @@ export var step5Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_2",
+			words: [
 				{
 					word: "He",
 					wordDeleted: false,
@@ -15558,7 +15657,12 @@ export var step5Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_3",
+			words: [
 				{
 					word: "My",
 					wordDeleted: false,
@@ -15616,7 +15720,7 @@ export var step5Markup = {
 			]
 		},
 		{
-			key: "fake_key_1",
+			key: "fake_key_4",
 			words: [
 				{
 					word: "She",
@@ -16022,7 +16126,12 @@ export var step5Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_5",
+			words: [
 				{
 					word: "Now",
 					wordDeleted: false,
@@ -16301,7 +16410,12 @@ export var step5Markup = {
 					mTypeError: false,
 					sTypeError: false,
 					vTypeError: false
-				},
+				}
+			]
+		},
+		{
+			key: "fake_key_6",
+			words: [
 				{
 					word: "Ruffy",
 					wordDeleted: false,
