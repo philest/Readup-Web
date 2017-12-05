@@ -713,6 +713,7 @@ export default class Reader extends React.Component {
           {this.props.inSpelling && (
             <SpellingTextField
               book={this.props.book}
+              onHearQuestionAgainClicked={this.props.onHearQuestionAgainClicked}
               onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
               spellingQuestionNumber={this.props.spellingQuestionNumber}
               showVolumeIndicator={this.props.showVolumeIndicator}

@@ -24,7 +24,8 @@ export default class SpellingTextField extends React.Component {
     onEnterPressed: PropTypes.func,
     onSpellingInputSet: PropTypes.func,
     spellingInput: PropTypes.string,
-    book: PropTypes.object
+    book: PropTypes.object,
+    onHearQuestionAgainClicked: PropTypes.string
   };
   static defaultProps = {};
 
@@ -137,11 +138,7 @@ export default class SpellingTextField extends React.Component {
           onClick={() => {
             this.form.focus();
 
-            playSoundAsync(
-              `/audio/spelling-group-${getSpellingGroupNumber(
-                this.props.book
-              )}/${this.props.spellingQuestionNumber}.mp3`
-            );
+            this.props.onHearQuestionAgainClicked();
           }}
           className={[styles.introVolume, styles.clickable].join(" ")}
         >

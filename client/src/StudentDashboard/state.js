@@ -1192,6 +1192,7 @@ export var group4SpellingObj = {
   numWords: 20,
   words: words,
   numSections: 4,
+  responses: [],
   sections: {
     1: {
       title: "-ed/ing Endings",

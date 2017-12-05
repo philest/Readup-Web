@@ -541,7 +541,7 @@ export function* questionIncrementSaga(section, spellingEffects) {
 	if (section === "spelling") {
 		yield put.resolve(setSpellingAnswerGiven(false));
 
-		yield call(playSpellingQuestionSaga);
+		yield call(playSpellingQuestionSaga, false);
 	}
 }
 
@@ -621,11 +621,11 @@ export function* questionDecrementSaga(section) {
 	// redisable button
 	if (section === "spelling") {
 		yield put.resolve(setSpellingAnswerGiven(true));
-		yield call(playSpellingQuestionSaga);
+		yield call(playSpellingQuestionSaga, true);
 	}
 }
 
-function* playSpellingQuestionSaga() {
+function* playSpellingQuestionSaga(isHearAgain) {
 	let audiofile;
 	const spellingQuestionNumber = yield select(getSpellingQuestionNumber);
 	const book = yield select(getBook);
@@ -642,7 +642,7 @@ function* playSpellingQuestionSaga() {
 		audiofile = "/audio/warmup/w-11.mp3";
 	}
 
-	if (spellingQuestionNumber === 2) {
+	if (spellingQuestionNumber === 2 && !isHearAgain) {
 		yield call(playSound, "/audio/nice-job.mp3");
 		yield call(playSound, "/audio/remember-say-words.mp3");
 		yield call(delay, 200);
@@ -651,7 +651,9 @@ function* playSpellingQuestionSaga() {
 	// halfway point motivation
 	if (
 		(spellingGroupNumber <= 2 && spellingQuestionNumber === 8) ||
-		(spellingGroupNumber > 2 && spellingQuestionNumber === 10)
+		(spellingGroupNumber > 2 &&
+			spellingQuestionNumber === 10 &&
+			!isHearAgain)
 	) {
 		yield call(playSound, "/audio/halfway-through-spelling.mp3");
 		yield call(delay, 120);
@@ -660,7 +662,9 @@ function* playSpellingQuestionSaga() {
 	// ending motivation
 	if (
 		(spellingGroupNumber <= 2 && spellingQuestionNumber === 12) ||
-		(spellingGroupNumber > 2 && spellingQuestionNumber === 16)
+		(spellingGroupNumber > 2 &&
+			spellingQuestionNumber === 16 &&
+			!isHearAgain)
 	) {
 		yield call(playSound, "/audio/couple-more-words-spelling.mp3");
 		yield call(delay, 50);
@@ -767,8 +771,14 @@ function* hearIntroAgainSaga(
 function* hearQuestionAgainSaga() {
 	const isWarmup = yield select(getIsWarmup);
 	const questionNumber = yield select(getQuestionNumber);
+	const inComp = yield select(getInComp);
 
-	yield* playCompQuestionSaga(questionNumber);
+	if (inComp) {
+		yield* playCompQuestionSaga(questionNumber, true);
+	} else {
+		// in spelling
+		yield* playSpellingQuestionSaga(true);
+	}
 }
 
 function* silentReadingInstructionSaga(isFull) {
@@ -847,7 +857,7 @@ function* spellingSaga(effects) {
 
 	yield call(spellingInstructionSaga);
 
-	yield* playSpellingQuestionSaga();
+	yield* playSpellingQuestionSaga(false);
 
 	yield put.resolve(setShowSkipPrompt(true));
 
@@ -955,7 +965,7 @@ function* oralReadingInstructionSaga(
 
 	if (!isStartsWithOralReading) {
 		if (isWarmup) {
-			yield call(playSound, "/audio/written/5.mp3");
+			yield call(playSound, "/audio/new-warmup/5.mp3");
 		} else {
 			yield call(playSound, "/audio/written/4.mp3");
 		}
@@ -1232,8 +1242,10 @@ function* definedCompSaga(
 	}
 }
 
-function* playCompQuestionSaga(currQ) {
-	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+function* playCompQuestionSaga(currQ, isHearAgain) {
+	if (!isHearAgain) {
+		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
+	}
 
 	let book = yield select(getBook);
 	let audioFile = book.questions[String(currQ)].audioSrc;
@@ -1250,7 +1262,9 @@ function* playCompQuestionSaga(currQ) {
 
 	yield put.resolve(setShowSkipPrompt(true));
 
-	yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+	if (!isHearAgain) {
+		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
+	}
 }
 
 function* startRecordingSaga(recorder) {
@@ -1313,7 +1327,7 @@ function* compQuestionSaga(currQ, isPrompt) {
 	yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 
 	if (!isPrompt) {
-		yield* playCompQuestionSaga(currQ);
+		yield* playCompQuestionSaga(currQ, false);
 	}
 
 	yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
