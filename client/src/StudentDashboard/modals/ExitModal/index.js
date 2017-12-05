@@ -57,7 +57,8 @@ export default class ExitModal extends React.Component {
             images={["fa-arrow-left", "fa-check", "fa-times"]}
             actions={[
               this.props.onContinueClicked,
-              this.props.onExitAndUploadClicked,
+              exitAction,
+              // this.props.onExitAndUploadClicked,
               exitAction
             ]}
             enlargeFirst={true}

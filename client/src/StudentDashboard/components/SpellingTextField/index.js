@@ -25,7 +25,7 @@ export default class SpellingTextField extends React.Component {
     onSpellingInputSet: PropTypes.func,
     spellingInput: PropTypes.string,
     book: PropTypes.object,
-    onHearQuestionAgainClicked: PropTypes.string
+    onHearQuestionAgainClicked: PropTypes.func
   };
   static defaultProps = {};
 

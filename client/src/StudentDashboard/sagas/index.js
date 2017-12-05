@@ -1556,7 +1556,7 @@ function* oralReadingSaga(
 	// set a 8 second saga in background
 	// }
 
-	yield cancel(...earlyExitEffect); // allow for new exit thing
+	// yield cancel(...earlyExitEffect); // allow for new exit thing
 
 	let returnArr = [];
 
@@ -1586,12 +1586,7 @@ function* oralReadingRecordingSaga(
 	let recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
 
-	// before assessment has started, clicking exit immediately quits app
-	// I guess. We will probably change this
-	const { exit } = yield race({
-		exit: take(EXIT_CLICKED),
-		startAssessment: take(START_RECORDING_CLICKED)
-	});
+	yield take(START_RECORDING_CLICKED);
 
 	// cancel that saga.
 	if (helperEffect.length >= 1) {
@@ -1604,14 +1599,6 @@ function* oralReadingRecordingSaga(
 	yield call(stopAudio);
 
 	yield put.resolve(hideVolumeIndicator());
-
-	// the app will end :O
-	if (exit) {
-		yield* redirectToHomepage();
-	}
-
-	// now we start the assessment for real
-	effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
 
 	yield call(
 		sendEmail,
@@ -1746,7 +1733,9 @@ function* assessThenSubmitSaga() {
 	let assessmentID = yield select(getAssessmentID);
 	yield clog("sectionList: ", sectionList);
 
-	earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
+	// earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
+	// now we start the assessment for real
+	effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
 	effects.push(yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga));
 	effects.push(yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga));
@@ -2038,15 +2027,6 @@ function* rootSaga() {
 					return;
 					yield take("NEVER_PASS");
 				}
-
-				// yield put.resolve(setCurrentModal("no-modal"));
-				// yield put.resolve(
-				// 	setReaderState(ReaderStateOptions.finishedAssessment)
-				// );
-
-				// yield takeLatest(EXIT_CLICKED, redirectToHomepage);
-
-				// yield take("NEVER_PASS");
 
 				// fail! allow option to turn in again?
 			} else {

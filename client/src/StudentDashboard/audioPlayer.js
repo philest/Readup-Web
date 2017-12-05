@@ -11,7 +11,10 @@ export function playSound(file, onEnd) {
   }
 
   return new Promise((resolve, reject) => {
-    if (DEV_DISABLE_VOICE_INSTRUCTIONS) {
+    if (
+      DEV_DISABLE_VOICE_INSTRUCTIONS &&
+      process.env.NODE_ENV === "development"
+    ) {
       resolve();
       return;
     }
@@ -22,13 +25,27 @@ export function playSound(file, onEnd) {
 
     console.log("Playing Sound: " + file);
 
+    const myTimeout = setTimeout(() => {
+      console.log("killed audio in a timeout: ", file);
+      resolve();
+    }, 15000);
+
     audio = new Audio(file);
     audio.addEventListener("ended", function() {
+      if (myTimeout) {
+        clearTimeout(myTimeout);
+      }
+
       audio = null;
       console.log("audio ended");
       resolve();
     });
+
     audio.addEventListener("error", function(error) {
+      if (myTimeout) {
+        clearTimeout(myTimeout);
+      }
+
       console.log("audio error: ", error);
       reject(error);
     });
