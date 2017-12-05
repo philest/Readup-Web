@@ -1952,7 +1952,6 @@ export const step9 = {
   stepLevel: 9,
   fpLevel: "I",
   markup: step9Markup,
-
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step9/step9-cover.jpg",
