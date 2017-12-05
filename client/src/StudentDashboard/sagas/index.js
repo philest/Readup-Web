@@ -764,6 +764,13 @@ function* hearIntroAgainSaga(
 	}
 }
 
+function* hearQuestionAgainSaga() {
+	const isWarmup = yield select(getIsWarmup);
+	const questionNumber = yield select(getQuestionNumber);
+
+	yield* playCompQuestionSaga(questionNumber);
+}
+
 function* silentReadingInstructionSaga(isFull) {
 	const isWarmup = yield select(getIsWarmup);
 
@@ -1729,6 +1736,9 @@ function* assessThenSubmitSaga() {
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
 	effects.push(yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga));
 	effects.push(yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga));
+	effects.push(
+		yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, hearQuestionAgainSaga)
+	);
 
 	if (!isWarmup && isDemo) {
 		yield put.resolve(avatarClicked()); // log in for them

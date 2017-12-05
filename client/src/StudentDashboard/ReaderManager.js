@@ -189,6 +189,7 @@ export class StudentDashboard extends React.Component {
       inSilentReading: this.props.inSilentReading,
       onCompPauseClicked: this.props.actions.compPauseClicked,
       onHearIntroAgainClicked: this.props.actions.hearIntroAgainClicked,
+      onHearQuestionAgainClicked: this.props.actions.hearQuestionAgainClicked,
       writtenCompInput: this.props.writtenCompInput,
       onBookSet: this.props.actions.setBook
     };

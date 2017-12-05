@@ -73,6 +73,7 @@ export default class Reader extends React.Component {
     onSkipClicked: PropTypes.func,
     onFinishVideoClicked: PropTypes.func,
     onHearIntroAgainClicked: PropTypes.func,
+    onHearQuestionAgainClicked: PropTypes.func,
     onBookSet: PropTypes.func,
 
     //Phil
@@ -483,12 +484,7 @@ export default class Reader extends React.Component {
     if (this.props.inComp) {
       return (
         <div
-          onClick={() => {
-            playSoundAsync(
-              this.props.book.questions[String(this.props.questionNumber)]
-                .audioSrc
-            );
-          }}
+          onClick={this.props.onHearQuestionAgainClicked}
           className={[styles.volumeContainer, styles.clickable].join(" ")}
           style={{
             visibility:
