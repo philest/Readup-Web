@@ -201,6 +201,16 @@ function getSectionsList(book) {
 	}
 }
 
+function* celebrationSaga() {
+	yield call(delay, 350);
+
+	yield put.resolve(setReaderState(ReaderStateOptions.finishedAssessment));
+
+	yield put.resolve(setCurrentModal("no-modal"));
+
+	yield call(playSound, "/audio/celebration.mp3");
+}
+
 function* playSectionSaga(
 	section,
 	effects,
@@ -1984,45 +1994,35 @@ function* rootSaga() {
 
 				yield put(setAssessmentSubmitted(true));
 
-				if (isWarmup) {
-					yield clog("in the ending warmup sequence...");
-					yield call(delay, 500);
-					yield put.resolve(
-						setReaderState(ReaderStateOptions.finishedAssessment)
-					);
-				} else if (isDemo) {
+				if (isDemo) {
 					yield clog("oh hey you r done");
 
 					yield call(playSound, "/audio/celebration.mp3");
 
 					window.location.href = "/reports/sample";
 					yield put({ type: SPINNER_SHOW });
-
-					// TODO where to redirect?
-					// window.location.href = "/reports/1"
 				} else {
-					yield clog("in the ending real thing sequence...");
-					yield call(delay, 350);
-					yield put.resolve(
-						setReaderState(ReaderStateOptions.finishedAssessment)
+					yield clog(
+						"in the ending sequence... isWarmup?: ",
+						isWarmup
 					);
-					yield put.resolve(setCurrentModal("no-modal"));
+
+					yield* celebrationSaga();
 
 					yield takeLatest(EXIT_CLICKED, redirectToHomepage);
 
-					yield call(playSound, "/audio/celebration.mp3");
-
 					return;
+					yield take("NEVER_PASS");
 				}
 
-				yield put.resolve(setCurrentModal("no-modal"));
-				yield put.resolve(
-					setReaderState(ReaderStateOptions.finishedAssessment)
-				);
+				// yield put.resolve(setCurrentModal("no-modal"));
+				// yield put.resolve(
+				// 	setReaderState(ReaderStateOptions.finishedAssessment)
+				// );
 
-				yield takeLatest(EXIT_CLICKED, redirectToHomepage);
+				// yield takeLatest(EXIT_CLICKED, redirectToHomepage);
 
-				yield take("NEVER_PASS");
+				// yield take("NEVER_PASS");
 
 				// fail! allow option to turn in again?
 			} else {
