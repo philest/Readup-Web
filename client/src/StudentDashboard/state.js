@@ -1219,6 +1219,7 @@ export const step4 = {
   brand: "STEP",
   stepLevel: 4,
   fpLevel: "E",
+  markup: step4Markup,
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/step/step-cover.jpg",
