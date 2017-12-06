@@ -3,10 +3,36 @@ import React from "react";
 import styles from "./styles.css";
 import { Modal, Button } from "react-bootstrap";
 
-let numStudents = 3;
-let names = ["Phil Esterman", "Jordy Zeldin", "Samantha Stobierski"];
-let levels = [5, 4, 6];
-let books = ["Baby Avengers", "Monster City", "Hello from Sweet Home Alabama!"];
+let numStudents = 12;
+let names = [
+  "Phil Esterman",
+  "Jordy Zeldin",
+  "Samantha Stobierski",
+  "Phil Esterman",
+  "Jordy Zeldin",
+  "Samantha Stobierski",
+  "Phil Esterman",
+  "Jordy Zeldin",
+  "Samantha Stobierski",
+  "Phil Esterman",
+  "Jordy Zeldin",
+  "Samantha Stobierski"
+];
+let levels = [5, 4, 6, 5, 4, 6, 5, 4, 6, 5, 4, 6];
+let books = [
+  "Baby Avengers",
+  "Monster City",
+  "Hello from Sweet Home Alabama!",
+  "Baby Avengers",
+  "Monster City",
+  "Hello from Sweet Home Alabama!",
+  "Baby Avengers",
+  "Monster City",
+  "Hello from Sweet Home Alabama!",
+  "Baby Avengers",
+  "Monster City",
+  "Hello from Sweet Home Alabama!"
+];
 
 export default class AssignBooks extends React.Component {
   static propTypes = {
@@ -42,6 +68,7 @@ export default class AssignBooks extends React.Component {
       eltArr.push(
         <div className={styles.rowElt} key={i}>
           {colArr[i]}
+          {true && <hr />}
         </div>
       );
     }
