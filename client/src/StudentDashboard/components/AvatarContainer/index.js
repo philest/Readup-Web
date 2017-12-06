@@ -41,8 +41,8 @@ let bridgetArr = [
   ["Jackson Skory", "step6"],
   ["Theo Jay", "step9"],
   ["Jordy Esterman", "step5"],
-  ["Lisa Nieman", "step9"],
-  ["Laura Morsy", "step4"],
+  ["Eighto Nieman", "step8"],
+  ["Teno Morsy", "step10"],
   ["Elle Fifty", "step11"],
   ["Twelve Beverly", "step12"]
 ];

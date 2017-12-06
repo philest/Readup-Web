@@ -2458,9 +2458,9 @@ export const step11 = {
 export const step12 = {
   title: "The Magic Ring!",
   author: "Jane Richards",
-  bookKey: "step11",
+  bookKey: "step12",
   brand: "STEP",
-  stepLevel: 1,
+  stepLevel: 12,
   fpLevel: "I",
   markup: step12Markup,
 
@@ -2793,6 +2793,8 @@ export const sampleReportBookFP = {
   title: "No More Magic",
   author: "Avi",
   bookKey: "sample",
+  stepLevel: 12,
+  fpLevel: "R",
   numPages: null, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: null,
@@ -2882,6 +2884,9 @@ export const sampleReportBookSTEP = {
   author: "Avi",
   bookKey: "sample",
   brand: "STEP",
+  stepLevel: 12,
+  fpLevel: "R",
+
   numPages: null, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: null,
