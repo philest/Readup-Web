@@ -30,7 +30,16 @@ import {
   step9Markup,
   step10Markup,
   step11Markup,
-  step12Markup
+  step12Markup,
+  step4MarkupPurple,
+  step5MarkupPurple,
+  step6MarkupPurple,
+  step7MarkupPurple,
+  step8MarkupPurple,
+  step9MarkupPurple,
+  step10MarkupPurple,
+  step11MarkupPurple,
+  step12MarkupPurple
 } from "../sharedComponents/markupObjects";
 
 import { sampleWithMSV } from "../sharedComponents/sampleWithMSV";
