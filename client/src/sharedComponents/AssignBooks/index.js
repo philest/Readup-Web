@@ -39,6 +39,16 @@ function getBookKeysAtLevel(level) {
   return titleArr;
 }
 
+function getSeriesTag(bookKey) {
+  if (library[bookKey].stepSeries === "PURPLE") {
+    return " (P)";
+  } else if (library[bookKey].stepSeries === "NONE") {
+    return "";
+  } else {
+    return " (Y)";
+  }
+}
+
 export default class AssignBooks extends React.Component {
   static propTypes = {
     teacherName: PropTypes.string
@@ -81,6 +91,10 @@ export default class AssignBooks extends React.Component {
   changeSTEP = (newLevel, id) => {
     let myClassHolder = this.state.myClass;
     myClassHolder[id].level = newLevel;
+
+    let bookKeyArr = getBookKeysAtLevel(newLevel);
+    myClassHolder[id].bookKey = bookKeyArr[0];
+
     this.setState({ myClass: myClassHolder });
   };
 
@@ -123,7 +137,7 @@ export default class AssignBooks extends React.Component {
             this.changeBookKey(bookKeyArr[i], id);
           }}
         >
-          {library[bookKeyArr[i]].title}
+          {library[bookKeyArr[i]].title + getSeriesTag(bookKeyArr[i])}
         </MenuItem>
       );
     }
@@ -146,7 +160,7 @@ export default class AssignBooks extends React.Component {
       <div className={styles.bookElt}>
         <DropdownButton
           bsStyle="default"
-          title={this.truncate(library[bookKey].title)}
+          title={this.truncate(library[bookKey].title) + getSeriesTag(bookKey)}
         >
           {this.renderBookmenuItems(bookKey, level, id)}
         </DropdownButton>

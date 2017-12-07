@@ -112,6 +112,27 @@ export const fireflyBook = {
   numSpellingQuestions: 15
 };
 
+export const step1 = {
+  title: "STEP 1 is not yet available",
+  stepLevel: 1,
+  stepSeries: "NONE",
+  bookKey: "step1"
+};
+
+export const step2 = {
+  title: "STEP 2 is not yet available",
+  stepLevel: 2,
+  stepSeries: "NONE",
+  bookKey: "step2"
+};
+
+export const step3 = {
+  title: "STEP 3 is not yet available",
+  stepLevel: 3,
+  stepSeries: "NONE",
+  bookKey: "step3"
+};
+
 export const step4 = {
   title: "Upside Down",
   author: "Stefan Olson",
@@ -2954,7 +2975,7 @@ export const step10p = {
 
 // Still needs: 1) CCSS, 2) audio for intro and comp, 3) proper rubric, 4) proper sections
 export const step11p = {
-  title: "Thumbelina!",
+  title: "Thumbelina",
   author: "Jane Richards",
   bookKey: "step11p",
   brand: "STEP",
@@ -3298,6 +3319,11 @@ export const library = {
   demo: fireflyBook,
   nick: fpBook,
   firefly: fireflyBook,
+
+  step1: step1,
+  step2: step2,
+  step3: step3,
+
   step4: step4,
   step5: step5,
   step6: step6,
