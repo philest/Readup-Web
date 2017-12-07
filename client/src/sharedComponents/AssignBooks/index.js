@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles.css";
 import { Modal, Button, DropdownButton, MenuItem } from "react-bootstrap";
 
-import { library } from "../../StudentDashboard/state.js";
+import { library } from "../bookObjects.js";
 
 let numStudents = 12;
 let names = [

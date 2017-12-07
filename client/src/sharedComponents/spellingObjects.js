@@ -1,4 +1,4 @@
-group1Sections = {
+const group1Sections = {
     1: {
         title: "Short-Vowel Sound",
         statusArr: [
@@ -61,7 +61,7 @@ group1Sections = {
     }
 };
 
-group2Sections = {
+const group2Sections = {
     1: {
         title: "-V-C-e",
         statusArr: [
@@ -124,7 +124,7 @@ group2Sections = {
     }
 };
 
-group3Sections = {
+const group3Sections = {
     1: {
         title: "R-Controlled Vowel",
         statusArr: [
@@ -227,7 +227,7 @@ group3Sections = {
     }
 };
 
-group4Sections = {
+const group4Sections = {
     1: {
         title: "-ed/ing Endings",
         statusArr: [

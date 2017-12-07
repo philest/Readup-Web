@@ -57,7 +57,7 @@ import {
   library,
   sampleReportBookFP,
   sampleReportBookSTEP
-} from "../StudentDashboard/state.js";
+} from "../sharedComponents/bookObjects.js";
 
 import { wasMSVgraded } from "../sharedComponents/FormattedMarkupText";
 

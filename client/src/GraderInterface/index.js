@@ -50,7 +50,7 @@ import {
   fpBook,
   library,
   markupLibrary
-} from "../StudentDashboard/state.js";
+} from "../sharedComponents/bookObjects.js";
 
 import { PromptOptions } from "../StudentDashboard/types";
 

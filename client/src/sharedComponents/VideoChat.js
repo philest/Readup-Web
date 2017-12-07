@@ -10,12 +10,10 @@ import { PromptAudioOptions } from "../StudentDashboard/types";
 
 import Reader from "../StudentDashboard/Reader";
 
-import {
-  fireflyBook,
-  fpBook,
-  library,
-  initialState
-} from "../StudentDashboard/state.js";
+import { initialState } from "../StudentDashboard/state.js";
+
+import { fireflyBook, fpBook, library } from "./bookObjects.js";
+
 import {
   ReaderStateOptions,
   PauseTypeOptions,

@@ -9,7 +9,7 @@ import {
   getAssessmentData
 } from "../../../ReportsInterface/emailHelpers";
 import { getLastAssessmentID } from "../../sagas/networkingHelpers";
-import { spellingLibrary } from "../../state";
+import { spellingLibrary } from "../../../sharedComponents/bookObjects";
 import { playSound, playSoundAsync } from "../../audioPlayer";
 
 import { getSpellingGroupNumber } from "../../sagas/index";
