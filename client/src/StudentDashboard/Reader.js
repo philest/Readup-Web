@@ -33,6 +33,7 @@ import { playSoundAsync, stopAudio } from "./audioPlayer.js";
 
 import VideoChat from "../sharedComponents/VideoChat";
 import AssignBooks from "../sharedComponents/AssignBooks";
+import LinkInfo from "../sharedComponents/LinkInfo";
 
 export default class Reader extends React.Component {
   static propTypes = {
@@ -161,7 +162,7 @@ export default class Reader extends React.Component {
 
   renderCenterDisplay = () => {
     if (this.props.readerState === "TEST") {
-      return <AssignBooks />;
+      return <LinkInfo />;
     }
 
     if (this.props.inSpelling) {

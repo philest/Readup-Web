@@ -1,0 +1,53 @@
+.classLinkHeader {
+	color: white;
+	text-align: center;
+}
+
+.formLg {
+	height: 46px;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.3333333;
+	border-radius: 6px;
+}
+
+.formLook {
+	margin: 50px 0px;
+	font-family: "Proximanova semibold";
+	color: #337ab7;
+	display: block;
+	width: 100%;
+	height: 84px;
+	padding: 6px 12px;
+	font-size: 48px;
+	line-height: 1.42857143;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border-color ease-in-out 0.15s,
+		-webkit-box-shadow ease-in-out 0.15s;
+	-o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.goButton {
+	margin: 0px auto;
+	display: block;
+	font-family: "Proximanova semibold";
+}
+
+a {
+	transition: 0.3s;
+}
+
+a:hover {
+	transition: 0.3s;
+}
+
+a:visited,
+a:focus {
+	text-decoration: none;
+}
