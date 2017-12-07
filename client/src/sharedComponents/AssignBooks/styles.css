@@ -26,9 +26,35 @@
 	box-shadow: inset 0px -40px 30px -51px rgba(0, 0, 0, 0.55);
 	height: 250px;
 	overflow-y: scroll;
+	padding: 0px 15px;
 }
 
 .roster {
+}
+
+.nameElt {
+	width: 25%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.bookElt {
+	width: 25%;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.levelElt {
+	width: 15%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.row {
 	display: flex;
 	justify-content: space-evenly;
 }

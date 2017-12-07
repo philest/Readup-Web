@@ -52,38 +52,44 @@ export default class AssignBooks extends React.Component {
     this.state = {};
   }
 
-  renderCol = colName => {
-    let eltArr = [];
-    let colArr;
+  renderRow = (name, level, book, key) => {
+    return (
+      <div key={key} className={styles.row}>
+        <span className={styles.nameElt}>{name}</span>
+        <span className={styles.levelElt}>{level}</span>
+        <span className={styles.bookElt}>{book}</span>
+      </div>
+    );
+  };
 
-    if (colName === "NAME") {
-      colArr = names;
-    } else if (colName === "LEVEL") {
-      colArr = levels;
-    } else if (colName === "BOOK") {
-      colArr = books;
-    }
+  renderAllRows = () => {
+    let rowArr = [];
 
     for (let i = 0; i < numStudents; i++) {
-      eltArr.push(
-        <div className={styles.rowElt} key={i}>
-          {colArr[i]}
-          {true && <hr />}
+      rowArr.push(
+        <div
+          className={styles.rowElt}
+          key={i}
+          style={{
+            marginBottom: i === numStudents - 1 ? 0 : 20
+          }}
+        >
+          {this.renderRow(names[i], levels[i], books[i])}
+          <hr
+            style={{
+              opacity: 0.55,
+              marginBottom: i === numStudents - 1 ? 0 : 1 + "em"
+            }}
+          />
         </div>
       );
     }
 
-    return <div className={styles.col}>{eltArr}</div>;
+    return <div className={styles.col}>{rowArr}</div>;
   };
 
   renderRoster = () => {
-    return (
-      <div className={styles.roster}>
-        {this.renderCol("NAME")}
-        {this.renderCol("LEVEL")}
-        {this.renderCol("BOOK")}
-      </div>
-    );
+    return <div className={styles.roster}>{this.renderAllRows()}</div>;
   };
 
   render() {
