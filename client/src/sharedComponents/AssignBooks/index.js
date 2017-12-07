@@ -39,6 +39,8 @@ let books = [
 function getBooksAtLevel(level) {
   let titleArr = [];
 
+  console.log(library);
+
   for (var bookKey in library) {
     if (
       library.hasOwnProperty(bookKey) &&
@@ -121,6 +123,7 @@ export default class AssignBooks extends React.Component {
                 {titleArr[1]}
               </MenuItem>
             )}
+          {titleArr[2] && <MenuItem eventKey="2">{titleArr[2]}</MenuItem>}
         </DropdownButton>
       </div>
     );

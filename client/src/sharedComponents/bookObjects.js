@@ -1871,9 +1871,7 @@ export const sampleReportBookSTEP = {
   numSpellingQuestions: 15
 };
 
-
 //////// PURPLE /////////
-
 
 export const step4p = {
   title: "Elizabeth's Song",
@@ -2128,7 +2126,7 @@ export const step5p = {
       section: 3
     }
   },
-  spellingObj: PurpleGroup1SpellingObj,
+  spellingObj: purpleGroup1SpellingObj,
   numSpellingQuestions: 15
 };
 
@@ -2138,7 +2136,7 @@ export const step6p = {
   author: "Jane Richards",
   bookKey: "step6p",
   brand: "STEP",
-  stepSeries: 'PURPLE'
+  stepSeries: "PURPLE",
   stepLevel: 6,
   fpLevel: "I",
   markup: step6MarkupPurple,
@@ -2294,7 +2292,7 @@ export const step7p = {
   author: "Stefan Olson",
   bookKey: "step7p",
   brand: "STEP",
-  stepSeries: 'PURPLE',
+  stepSeries: "PURPLE",
   stepLevel: 7,
   fpLevel: "I",
   markup: step7MarkupPurple,
@@ -2451,7 +2449,7 @@ export const step8p = {
   bookKey: "step8p",
   brand: "STEP",
   stepLevel: 8,
-  stepSeries: 'PURPLE',
+  stepSeries: "PURPLE",
   fpLevel: "I",
   markup: step8MarkupPurple,
 
@@ -2619,7 +2617,7 @@ export const step9p = {
   bookKey: "step9p",
   brand: "STEP",
   stepLevel: 9,
-  stepSeries: 'PURPLE',
+  stepSeries: "PURPLE",
   fpLevel: "I",
   markup: step9MarkupPurple,
   numPages: 6, // if you want a shorter book for testing purposes just change this
@@ -2791,7 +2789,7 @@ export const step10p = {
   bookKey: "step10p",
   brand: "STEP",
   stepLevel: 10,
-  stepSeries: 'PURPLE',
+  stepSeries: "PURPLE",
   fpLevel: "I",
   markup: step10MarkupPurple,
 
@@ -2960,7 +2958,7 @@ export const step11p = {
   author: "Jane Richards",
   bookKey: "step11p",
   brand: "STEP",
-  stepSeries: 'PURPLE',
+  stepSeries: "PURPLE",
   stepLevel: 11,
   fpLevel: "I",
   markup: step11MarkupPurple,
@@ -3130,7 +3128,7 @@ export const step12p = {
   author: "Jane Richards",
   bookKey: "step12p",
   brand: "STEP",
-  stepSeries: 'PURPLE',
+  stepSeries: "PURPLE",
   stepLevel: 12,
   fpLevel: "I",
   markup: step12MarkupPurple,
@@ -3294,10 +3292,7 @@ export const step12p = {
   numSpellingQuestions: 20
 };
 
-
 //// END PURPLE /////
-
-
 
 export const library = {
   demo: fireflyBook,
@@ -3313,7 +3308,7 @@ export const library = {
   step10: step10,
   step11: step11,
   step12: step12,
-  
+
   step4p: step4p,
   step5p: step5p,
   step6p: step6p,
@@ -3322,8 +3317,7 @@ export const library = {
   step9p: step9p,
   step10p: step10p,
   step11p: step11p,
-  step12p: step12p,
-
+  step12p: step12p
 };
 
 export const spellingLibrary = {
