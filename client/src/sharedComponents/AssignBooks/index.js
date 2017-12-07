@@ -18,7 +18,7 @@ let names = [
   "Jordy Zeldin",
   "Samantha Stobierski"
 ];
-let levels = [5, 4, 6, 5, 4, 6, 5, 4, 6, 5, 4, 6];
+let levels = [5, 4, 6, 7, 8, 8, 5, 4, 2, 5, 7, 12];
 let books = [
   "Baby Avengers (P)",
   "Monster City (P)",
@@ -43,30 +43,38 @@ export default class AssignBooks extends React.Component {
 
   componentWillMount() {}
 
+  getColorClass = level => {
+    if (level <= 4) {
+      return styles.poorMetric;
+    } else if (level <= 6) {
+      return styles.fairMetric;
+    } else if (level <= 12) {
+      return styles.goodMetric;
+    }
+  };
+
   renderDropDownSTEP = level => {
     return (
-      <DropdownButton
-        bsStyle="default"
-        title={"STEP " + level}
-        className={styles.myDrop}
-      >
-        <MenuItem eventKey="1">STEP 1</MenuItem>
-        <MenuItem eventKey="2">STEP 2</MenuItem>
-        <MenuItem eventKey="3" active>
-          STEP 3
-        </MenuItem>
-        <MenuItem eventKey="4">STEP 4</MenuItem>
-        <MenuItem eventKey="5">STEP 5</MenuItem>
-        <MenuItem eventKey="6">STEP 6</MenuItem>
-        <MenuItem eventKey="7">STEP 7</MenuItem>
-        <MenuItem eventKey="8">STEP 8</MenuItem>
-        <MenuItem eventKey="9">STEP 9</MenuItem>
-        <MenuItem eventKey="10">STEP 10</MenuItem>
-        <MenuItem eventKey="11">STEP 11</MenuItem>
-        <MenuItem eventKey="12">STEP 12</MenuItem>
-        <MenuItem divider />
-        <MenuItem eventKey="4">Separated link</MenuItem>
-      </DropdownButton>
+      <div className={[styles.myDrop, this.getColorClass(level)].join(" ")}>
+        <DropdownButton bsStyle="default" title={"STEP " + level}>
+          <MenuItem eventKey="1">STEP 1</MenuItem>
+          <MenuItem eventKey="2">STEP 2</MenuItem>
+          <MenuItem eventKey="3" active>
+            STEP 3
+          </MenuItem>
+          <MenuItem eventKey="4">STEP 4</MenuItem>
+          <MenuItem eventKey="5">STEP 5</MenuItem>
+          <MenuItem eventKey="6">STEP 6</MenuItem>
+          <MenuItem eventKey="7">STEP 7</MenuItem>
+          <MenuItem eventKey="8">STEP 8</MenuItem>
+          <MenuItem eventKey="9">STEP 9</MenuItem>
+          <MenuItem eventKey="10">STEP 10</MenuItem>
+          <MenuItem eventKey="11">STEP 11</MenuItem>
+          <MenuItem eventKey="12">STEP 12</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey="4">Separated link</MenuItem>
+        </DropdownButton>
+      </div>
     );
   };
 
@@ -158,7 +166,7 @@ export default class AssignBooks extends React.Component {
           <Modal.Body className={styles.body}>{this.renderRoster()}</Modal.Body>
 
           <Modal.Footer>
-            <Button className={styles.saveButton} bsStyle="primary">
+            <Button className={styles.saveButton} bsSize="lg" bsStyle="primary">
               Done
             </Button>
           </Modal.Footer>

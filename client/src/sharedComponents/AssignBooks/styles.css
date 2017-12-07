@@ -56,3 +56,18 @@
 	justify-content: space-evenly;
 }
 
+.myDrop button {
+	font-family: "ProximaNova semibold";
+}
+
+.goodMetric button {
+	color: #249c44;
+}
+
+.fairMetric button {
+	color: #d97f0f;
+}
+
+.poorMetric button {
+	color: #982e2b;
+}
