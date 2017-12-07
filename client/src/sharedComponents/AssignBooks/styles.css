@@ -37,6 +37,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	font-size: 15px;
 }
 
 .bookElt {
@@ -58,3 +59,4 @@
 	display: flex;
 	justify-content: space-evenly;
 }
+

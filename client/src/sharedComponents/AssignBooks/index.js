@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styles from "./styles.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, DropdownButton, MenuItem } from "react-bootstrap";
 
 let numStudents = 12;
 let names = [
@@ -56,7 +56,32 @@ export default class AssignBooks extends React.Component {
     return (
       <div key={key} className={styles.row}>
         <span className={styles.nameElt}>{name}</span>
-        <span className={styles.levelElt}>{level}</span>
+
+        <style>{".dropdown-menu { height: 140px; overflow-y: scroll; }"}</style>
+        <DropdownButton
+          bsStyle="default"
+          title={"STEP " + level}
+          className={styles.myDrop}
+          key={key}
+        >
+          <MenuItem eventKey="1">STEP 1</MenuItem>
+          <MenuItem eventKey="2">STEP 2</MenuItem>
+          <MenuItem eventKey="3" active>
+            STEP 3
+          </MenuItem>
+          <MenuItem eventKey="4">STEP 4</MenuItem>
+          <MenuItem eventKey="5">STEP 5</MenuItem>
+          <MenuItem eventKey="6">STEP 6</MenuItem>
+          <MenuItem eventKey="7">STEP 7</MenuItem>
+          <MenuItem eventKey="8">STEP 8</MenuItem>
+          <MenuItem eventKey="9">STEP 9</MenuItem>
+          <MenuItem eventKey="10">STEP 10</MenuItem>
+          <MenuItem eventKey="11">STEP 11</MenuItem>
+          <MenuItem eventKey="12">STEP 12</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey="4">Separated link</MenuItem>
+        </DropdownButton>
+
         <span className={styles.bookElt}>{book}</span>
       </div>
     );
