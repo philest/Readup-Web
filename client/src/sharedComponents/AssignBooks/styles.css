@@ -90,3 +90,9 @@
 .poorMetric button {
 	color: #982e2b;
 }
+
+button:hover {
+	transform: none;
+	filter: none;
+	box-shadow: none;
+}

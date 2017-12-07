@@ -27,8 +27,6 @@ let myClass = {
 function getBookKeysAtLevel(level) {
   let titleArr = [];
 
-  console.log(library);
-
   for (var bookKey in library) {
     if (
       library.hasOwnProperty(bookKey) &&
@@ -144,8 +142,6 @@ export default class AssignBooks extends React.Component {
   };
 
   renderDropDownBook = (bookKey, level, id) => {
-    console.log("bookKey", bookKey, "level ", level, "id", id);
-
     return (
       <div className={styles.bookElt}>
         <DropdownButton
