@@ -3,6 +3,8 @@ import React from "react";
 import styles from "./styles.css";
 import { Modal, Button, DropdownButton, MenuItem } from "react-bootstrap";
 
+import { library } from "../../StudentDashboard/state.js";
+
 let numStudents = 12;
 let names = [
   "Phil Esterman",
@@ -33,6 +35,21 @@ let books = [
   "Monster City (Y)",
   "Hello from Sweet Home Alabama! (Y)"
 ];
+
+function getBooksAtLevel(level) {
+  let titleArr = [];
+
+  for (var bookKey in library) {
+    if (
+      library.hasOwnProperty(bookKey) &&
+      library[bookKey].stepLevel === level
+    ) {
+      titleArr.push(library[bookKey].title);
+    }
+  }
+
+  return titleArr;
+}
 
 export default class AssignBooks extends React.Component {
   static propTypes = {
@@ -87,14 +104,23 @@ export default class AssignBooks extends React.Component {
     return trunc;
   };
 
-  renderDropDownBook = book => {
+  renderDropDownBook = (book, level) => {
+    let titleArr = getBooksAtLevel(level);
+
+    if (titleArr.length === 0) {
+      titleArr.push("No books found.");
+    }
+
     return (
       <div className={styles.bookElt}>
         <DropdownButton bsStyle="default" title={this.truncate(book)}>
-          <MenuItem eventKey="1">The Magic Ring (Yellow)</MenuItem>
-          <MenuItem eventKey="2" active>
-            Ella's Magic (Purple)
-          </MenuItem>
+          {titleArr[0] && <MenuItem eventKey="1">{titleArr[0]}</MenuItem>}
+          {titleArr[1] &&
+            titleArr[0] !== titleArr[1] && (
+              <MenuItem eventKey="2" active>
+                {titleArr[1]}
+              </MenuItem>
+            )}
         </DropdownButton>
       </div>
     );
@@ -116,7 +142,7 @@ export default class AssignBooks extends React.Component {
 
         {this.renderDropDownSTEP(level)}
 
-        {this.renderDropDownBook(book)}
+        {this.renderDropDownBook(book, level)}
       </div>
     );
   };
