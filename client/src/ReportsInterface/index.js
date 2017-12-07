@@ -53,7 +53,6 @@ import { stopAudio, playSoundAsync } from "../StudentDashboard/audioPlayer";
 import {
   fpBook,
   fireflyBook,
-  stepBook,
   library,
   sampleReportBookFP,
   sampleReportBookSTEP

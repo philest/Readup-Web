@@ -115,7 +115,7 @@ export const fireflyBook = {
 export const step4 = {
   title: "Upside Down",
   author: "Stefan Olson",
-  bookKey: "step",
+  bookKey: "step4",
   brand: "STEP",
   stepLevel: 4,
   fpLevel: "E",
@@ -3297,7 +3297,6 @@ export const step12p = {
 export const library = {
   demo: fireflyBook,
   nick: fpBook,
-  step: step4,
   firefly: fireflyBook,
   step4: step4,
   step5: step5,

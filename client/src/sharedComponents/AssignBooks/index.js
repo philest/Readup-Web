@@ -5,38 +5,26 @@ import { Modal, Button, DropdownButton, MenuItem } from "react-bootstrap";
 
 import { library } from "../bookObjects.js";
 
-let numStudents = 12;
-let names = [
-  "Phil Esterman",
-  "Jordy Zeldin",
-  "Samantha Stobierski",
-  "Phil Esterman",
-  "Jordy Zeldin",
-  "Samantha Stobierski",
-  "Phil Esterman",
-  "Jordy Zeldin",
-  "Samantha Stobierski",
-  "Phil Esterman",
-  "Jordy Zeldin",
-  "Samantha Stobierski"
-];
-let levels = [5, 4, 6, 7, 8, 8, 5, 4, 2, 5, 7, 12];
-let books = [
-  "Baby Avengers (P)",
-  "Monster City (P)",
-  "Hello from Sweet Home Alabama! (P)",
-  "Baby Avengers (P)",
-  "Monster City (P)",
-  "Hello from Sweet Home Alabama! (Y)",
-  "Baby Avengers (Y)",
-  "Monster City (Y)",
-  "Hello from Sweet Home Alabama! (Y)",
-  "Baby Avengers (Y)",
-  "Monster City (Y)",
-  "Hello from Sweet Home Alabama! (Y)"
-];
+let myClass = {
+  numStudents: 3,
+  1: {
+    name: "Phil Esterman",
+    level: 4,
+    bookKey: "step4"
+  },
+  2: {
+    name: "Sammy Sworskovi",
+    level: 6,
+    bookKey: "step6"
+  },
+  3: {
+    name: "Jamie Lancaster",
+    level: 8,
+    bookKey: "step8"
+  }
+};
 
-function getBooksAtLevel(level) {
+function getBookKeysAtLevel(level) {
   let titleArr = [];
 
   console.log(library);
@@ -46,7 +34,7 @@ function getBooksAtLevel(level) {
       library.hasOwnProperty(bookKey) &&
       library[bookKey].stepLevel === level
     ) {
-      titleArr.push(library[bookKey].title);
+      titleArr.push(bookKey);
     }
   }
 
@@ -60,7 +48,16 @@ export default class AssignBooks extends React.Component {
 
   static defaultProps = {};
 
-  componentWillMount() {}
+  /**
+   * @param props - Comes from your rails view.
+   * @param _railsContext - Comes from React on Rails
+   */
+  constructor(props, _railsContext) {
+    super(props);
+    this.state = {
+      myClass: myClass
+    };
+  }
 
   getColorClass = level => {
     if (level <= 4) {
@@ -72,32 +69,9 @@ export default class AssignBooks extends React.Component {
     }
   };
 
-  renderDropDownSTEP = level => {
-    return (
-      <div className={[styles.myDrop, this.getColorClass(level)].join(" ")}>
-        <DropdownButton bsStyle="default" title={"STEP " + level}>
-          <MenuItem eventKey="1">STEP 1</MenuItem>
-          <MenuItem eventKey="2">STEP 2</MenuItem>
-          <MenuItem eventKey="3" active>
-            STEP 3
-          </MenuItem>
-          <MenuItem eventKey="4">STEP 4</MenuItem>
-          <MenuItem eventKey="5">STEP 5</MenuItem>
-          <MenuItem eventKey="6">STEP 6</MenuItem>
-          <MenuItem eventKey="7">STEP 7</MenuItem>
-          <MenuItem eventKey="8">STEP 8</MenuItem>
-          <MenuItem eventKey="9">STEP 9</MenuItem>
-          <MenuItem eventKey="10">STEP 10</MenuItem>
-          <MenuItem eventKey="11">STEP 11</MenuItem>
-          <MenuItem eventKey="12">STEP 12</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey="4">Separated link</MenuItem>
-        </DropdownButton>
-      </div>
-    );
-  };
-
   truncate = title => {
+    console.log("attempting to trunc: ", title);
+
     if (title.length <= 18) {
       return title;
     }
@@ -106,46 +80,92 @@ export default class AssignBooks extends React.Component {
     return trunc;
   };
 
-  renderDropDownBook = (book, level) => {
-    let titleArr = getBooksAtLevel(level);
+  changeSTEP = (newLevel, id) => {
+    let myClassHolder = this.state.myClass;
+    myClassHolder[id].level = newLevel;
+    this.setState({ myClass: myClassHolder });
+  };
 
-    if (titleArr.length === 0) {
-      titleArr.push("No books found.");
+  changeBookKey = (newBookKey, id) => {
+    let myClassHolder = this.state.myClass;
+    myClassHolder[id].bookKey = newBookKey;
+    this.setState({ myClass: myClassHolder });
+  };
+
+  renderSTEPmenuItems = (activeLevel, id) => {
+    let menuArr = [];
+
+    for (let i = 1; i <= 12; i++) {
+      menuArr.push(
+        <MenuItem
+          eventKey={i}
+          active={activeLevel === i}
+          onClick={() => {
+            this.changeSTEP(i, id);
+          }}
+        >
+          {`STEP ${i}`}
+        </MenuItem>
+      );
     }
 
+    return menuArr;
+  };
+
+  renderBookmenuItems = (activeBookKey, level, id) => {
+    let bookKeyArr = getBookKeysAtLevel(level);
+    let menuArr = [];
+
+    for (let i = 0; i < bookKeyArr.length; i++) {
+      menuArr.push(
+        <MenuItem
+          eventKey={i}
+          active={activeBookKey === bookKeyArr[i]}
+          onClick={() => {
+            this.changeBookKey(bookKeyArr[i], id);
+          }}
+        >
+          {library[bookKeyArr[i]].title}
+        </MenuItem>
+      );
+    }
+
+    return menuArr;
+  };
+
+  renderDropDownSTEP = (level, id) => {
     return (
-      <div className={styles.bookElt}>
-        <DropdownButton bsStyle="default" title={this.truncate(book)}>
-          {titleArr[0] && <MenuItem eventKey="1">{titleArr[0]}</MenuItem>}
-          {titleArr[1] &&
-            titleArr[0] !== titleArr[1] && (
-              <MenuItem eventKey="2" active>
-                {titleArr[1]}
-              </MenuItem>
-            )}
-          {titleArr[2] && <MenuItem eventKey="2">{titleArr[2]}</MenuItem>}
+      <div className={[styles.myDrop, this.getColorClass(level)].join(" ")}>
+        <DropdownButton bsStyle="default" title={"STEP " + level}>
+          {this.renderSTEPmenuItems(level, id)}
         </DropdownButton>
       </div>
     );
   };
 
-  /**
-   * @param props - Comes from your rails view.
-   * @param _railsContext - Comes from React on Rails
-   */
-  constructor(props, _railsContext) {
-    super(props);
-    this.state = {};
-  }
+  renderDropDownBook = (bookKey, level, id) => {
+    console.log("bookKey", bookKey, "level ", level, "id", id);
 
-  renderRow = (name, level, book, key) => {
     return (
-      <div key={key} className={styles.row}>
+      <div className={styles.bookElt}>
+        <DropdownButton
+          bsStyle="default"
+          title={this.truncate(library[bookKey].title)}
+        >
+          {this.renderBookmenuItems(bookKey, level, id)}
+        </DropdownButton>
+      </div>
+    );
+  };
+
+  renderRow = (name, level, book, id) => {
+    return (
+      <div key={id} className={styles.row}>
         <span className={styles.nameElt}>{name}</span>
 
-        {this.renderDropDownSTEP(level)}
+        {this.renderDropDownSTEP(level, id)}
 
-        {this.renderDropDownBook(book, level)}
+        {this.renderDropDownBook(book, level, id)}
       </div>
     );
   };
@@ -153,21 +173,26 @@ export default class AssignBooks extends React.Component {
   renderAllRows = () => {
     let rowArr = [];
 
-    for (let i = 0; i < numStudents; i++) {
+    for (let i = 1; i <= myClass.numStudents; i++) {
       rowArr.push(
         <div
           className={styles.rowElt}
           key={i}
           style={{
-            marginBottom: i === numStudents - 1 ? 0 : 10
+            marginBottom: i === myClass.numStudents ? 0 : 10
           }}
         >
-          {this.renderRow(names[i], levels[i], books[i])}
+          {this.renderRow(
+            this.state.myClass[i].name,
+            this.state.myClass[i].level,
+            this.state.myClass[i].bookKey,
+            i
+          )}
           <hr
             style={{
               opacity: 0.55,
               marginTop: 0.35 + "em",
-              marginBottom: i === numStudents - 1 ? 0 : 0.35 + "em"
+              marginBottom: i === myClass.numStudents ? 0 : 0.35 + "em"
             }}
           />
         </div>

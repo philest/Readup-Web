@@ -83,7 +83,7 @@ Rails.application.routes.draw do
   get 'nick-no-warmup-no-demo', to: redirect('/student_dashboard/#/story/nick/demo/false/page/0/demo%20student/warmup/false')
 
 
-  get 'step4', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/warmup/false')
+  get 'step4', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/warmup/false')
 
   get 'step5', to: redirect('/student_dashboard/#/story/step5/demo/false/page/0/warmup/false')
 
@@ -98,32 +98,32 @@ Rails.application.routes.draw do
   # The student testing the program... 
 
 
-  get 'rmp1', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/bridget%20joyce/warmup/true')
+  get 'rmp1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/bridget%20joyce/warmup/true')
 
 
-  get 'rmp2', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/samantha%20kadis/warmup/true')
+  get 'rmp2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
 
 
 
-  get 'RMP1', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/bridget%20joyce/warmup/true')
+  get 'RMP1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/bridget%20joyce/warmup/true')
 
 
-  get 'RMP2', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/samantha%20kadis/warmup/true')
+  get 'RMP2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
 
 
-  get 'brian', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner/warmup/true')
+  get 'brian', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/brian%20turner/warmup/true')
 
-  get 'brian-real', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/brian%20turner/warmup/false')
+  get 'brian-real', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/brian%20turner/warmup/false')
 
 
   get 'firefly', to: redirect('/student_dashboard/#/story/demo')
   get 'test', to: redirect('/student_dashboard/#/story/demo')
 
-  get 'step', to: redirect('/student_dashboard/#/story/step/demo/true/page/0/demo%20student/warmup/true')
+  get 'step', to: redirect('/student_dashboard/#/story/step4/demo/true/page/0/demo%20student/warmup/true')
 
-  get 'step-no-warmup', to: redirect('/student_dashboard/#/story/step/demo/true/page/0/demo%20student/warmup/false')
+  get 'step-no-warmup', to: redirect('/student_dashboard/#/story/step4/demo/true/page/0/demo%20student/warmup/false')
 
-  get 'step-no-warmup-no-demo', to: redirect('/student_dashboard/#/story/step/demo/false/page/0/demo%20student/warmup/false')
+  get 'step-no-warmup-no-demo', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/demo%20student/warmup/false')
 
 
   get 'step5', to: redirect('/student_dashboard/#/story/step5')
