@@ -20,18 +20,18 @@ let names = [
 ];
 let levels = [5, 4, 6, 5, 4, 6, 5, 4, 6, 5, 4, 6];
 let books = [
-  "Baby Avengers",
-  "Monster City",
-  "Hello from Sweet Home Alabama!",
-  "Baby Avengers",
-  "Monster City",
-  "Hello from Sweet Home Alabama!",
-  "Baby Avengers",
-  "Monster City",
-  "Hello from Sweet Home Alabama!",
-  "Baby Avengers",
-  "Monster City",
-  "Hello from Sweet Home Alabama!"
+  "Baby Avengers (P)",
+  "Monster City (P)",
+  "Hello from Sweet Home Alabama! (P)",
+  "Baby Avengers (P)",
+  "Monster City (P)",
+  "Hello from Sweet Home Alabama! (Y)",
+  "Baby Avengers (Y)",
+  "Monster City (Y)",
+  "Hello from Sweet Home Alabama! (Y)",
+  "Baby Avengers (Y)",
+  "Monster City (Y)",
+  "Hello from Sweet Home Alabama! (Y)"
 ];
 
 export default class AssignBooks extends React.Component {
@@ -42,6 +42,55 @@ export default class AssignBooks extends React.Component {
   static defaultProps = {};
 
   componentWillMount() {}
+
+  renderDropDownSTEP = level => {
+    return (
+      <DropdownButton
+        bsStyle="default"
+        title={"STEP " + level}
+        className={styles.myDrop}
+      >
+        <MenuItem eventKey="1">STEP 1</MenuItem>
+        <MenuItem eventKey="2">STEP 2</MenuItem>
+        <MenuItem eventKey="3" active>
+          STEP 3
+        </MenuItem>
+        <MenuItem eventKey="4">STEP 4</MenuItem>
+        <MenuItem eventKey="5">STEP 5</MenuItem>
+        <MenuItem eventKey="6">STEP 6</MenuItem>
+        <MenuItem eventKey="7">STEP 7</MenuItem>
+        <MenuItem eventKey="8">STEP 8</MenuItem>
+        <MenuItem eventKey="9">STEP 9</MenuItem>
+        <MenuItem eventKey="10">STEP 10</MenuItem>
+        <MenuItem eventKey="11">STEP 11</MenuItem>
+        <MenuItem eventKey="12">STEP 12</MenuItem>
+        <MenuItem divider />
+        <MenuItem eventKey="4">Separated link</MenuItem>
+      </DropdownButton>
+    );
+  };
+
+  truncate = title => {
+    if (title.length <= 18) {
+      return title;
+    }
+
+    var trunc = title.substr(0, 18) + "\u2026";
+    return trunc;
+  };
+
+  renderDropDownBook = book => {
+    return (
+      <div className={styles.bookElt}>
+        <DropdownButton bsStyle="default" title={this.truncate(book)}>
+          <MenuItem eventKey="1">The Magic Ring (Yellow)</MenuItem>
+          <MenuItem eventKey="2" active>
+            Ella's Magic (Purple)
+          </MenuItem>
+        </DropdownButton>
+      </div>
+    );
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -57,32 +106,9 @@ export default class AssignBooks extends React.Component {
       <div key={key} className={styles.row}>
         <span className={styles.nameElt}>{name}</span>
 
-        <style>{".dropdown-menu { height: 140px; overflow-y: scroll; }"}</style>
-        <DropdownButton
-          bsStyle="default"
-          title={"STEP " + level}
-          className={styles.myDrop}
-          key={key}
-        >
-          <MenuItem eventKey="1">STEP 1</MenuItem>
-          <MenuItem eventKey="2">STEP 2</MenuItem>
-          <MenuItem eventKey="3" active>
-            STEP 3
-          </MenuItem>
-          <MenuItem eventKey="4">STEP 4</MenuItem>
-          <MenuItem eventKey="5">STEP 5</MenuItem>
-          <MenuItem eventKey="6">STEP 6</MenuItem>
-          <MenuItem eventKey="7">STEP 7</MenuItem>
-          <MenuItem eventKey="8">STEP 8</MenuItem>
-          <MenuItem eventKey="9">STEP 9</MenuItem>
-          <MenuItem eventKey="10">STEP 10</MenuItem>
-          <MenuItem eventKey="11">STEP 11</MenuItem>
-          <MenuItem eventKey="12">STEP 12</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey="4">Separated link</MenuItem>
-        </DropdownButton>
+        {this.renderDropDownSTEP(level)}
 
-        <span className={styles.bookElt}>{book}</span>
+        {this.renderDropDownBook(book)}
       </div>
     );
   };
@@ -125,11 +151,15 @@ export default class AssignBooks extends React.Component {
             <Modal.Title className={styles.title}>Assign Books</Modal.Title>
           </Modal.Header>
 
+          <style>
+            {`.dropdown-menu { max-height: 140px; overflow-y: scroll; }`}
+          </style>
+
           <Modal.Body className={styles.body}>{this.renderRoster()}</Modal.Body>
 
           <Modal.Footer>
             <Button className={styles.saveButton} bsStyle="primary">
-              Save
+              Done
             </Button>
           </Modal.Footer>
         </Modal.Dialog>
