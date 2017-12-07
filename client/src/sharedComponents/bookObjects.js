@@ -1376,7 +1376,7 @@ export const step11 = {
 
 // Still needs: 1) CCSS, 2) audio for intro and comp, 3) proper rubric, 4) proper sections
 export const step12 = {
-  title: "The Magic Ring!",
+  title: "The Magic Ring",
   author: "Jane Richards",
   bookKey: "step12",
   brand: "STEP",
