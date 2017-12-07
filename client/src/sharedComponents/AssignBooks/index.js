@@ -130,14 +130,15 @@ export default class AssignBooks extends React.Component {
           className={styles.rowElt}
           key={i}
           style={{
-            marginBottom: i === numStudents - 1 ? 0 : 20
+            marginBottom: i === numStudents - 1 ? 0 : 10
           }}
         >
           {this.renderRow(names[i], levels[i], books[i])}
           <hr
             style={{
               opacity: 0.55,
-              marginBottom: i === numStudents - 1 ? 0 : 1 + "em"
+              marginTop: 0.35 + "em",
+              marginBottom: i === numStudents - 1 ? 0 : 0.35 + "em"
             }}
           />
         </div>
