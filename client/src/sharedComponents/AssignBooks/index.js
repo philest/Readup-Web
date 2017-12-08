@@ -7,7 +7,8 @@ import { library } from "../bookObjects.js";
 
 import {
   getAllStudents,
-  getAllAssessments
+  getAllAssessments,
+  updateAllAssessments
 } from "../../ReportsInterface/emailHelpers";
 
 let myClass = {
@@ -94,6 +95,32 @@ export default class AssignBooks extends React.Component {
     };
   }
 
+  batchUpdate = myClass => {
+    let assessments = {};
+
+    for (var studentKey in myClass) {
+      if (
+        myClass.hasOwnProperty(studentKey) &&
+        myClass[studentKey].assessmentID !== "NO_ASSESSMENT_CREATED" &&
+        myClass[studentKey].assessmentID
+      ) {
+        let elt = { book_key: myClass[studentKey].bookKey };
+        assessments[myClass[studentKey].assessmentID] = elt;
+      }
+    }
+
+    console.log("assessments: ", assessments);
+
+    let res = updateAllAssessments(assessments);
+    console.log(res);
+
+    // for each key in myClass
+    // grab that elts bookKey
+    // grab that elts assessmentID
+    // add the key:value pair to the assessments hash
+    // submit the assessments hash
+  };
+
   componentWillMount = () => {
     console.log("students here: ");
     getAllStudents(3408)
@@ -122,7 +149,10 @@ export default class AssignBooks extends React.Component {
                 : 5,
               bookKey: assessmentDataArr[i]
                 ? assessmentDataArr[i].book_key
-                : "step5"
+                : "step5",
+              assessmentID: assessmentDataArr[i]
+                ? assessmentDataArr[i].id
+                : "NO_ASSESSMENT_CREATED"
             };
           }
 
@@ -299,7 +329,12 @@ export default class AssignBooks extends React.Component {
           <Modal.Body className={styles.body}>{this.renderRoster()}</Modal.Body>
 
           <Modal.Footer>
-            <Button className={styles.saveButton} bsSize="lg" bsStyle="primary">
+            <Button
+              onClick={() => this.batchUpdate(this.state.myClass)}
+              className={styles.saveButton}
+              bsSize="lg"
+              bsStyle="primary"
+            >
               Done
             </Button>
           </Modal.Footer>

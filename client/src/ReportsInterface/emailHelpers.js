@@ -3,6 +3,31 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
+export function updateAllAssessments(assessments) {
+  const params = {
+    assessments: assessments
+  };
+
+  axios
+    .post("/auth/update_all_assessments", {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 10000
+    })
+    .then(res => {
+      console.log("here in the assessment helper, res: ", res);
+
+      return res;
+      console.log(res);
+      console.log("yay!");
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
+      return false;
+    });
+}
+
 export function getAllStudents(userID) {
   const params = {
     id: userID

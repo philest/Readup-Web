@@ -29,6 +29,19 @@ class AssessmentsController < ApplicationController
   def edit
   end
 
+  # POST auth/update_all_assessments
+  def update_all_assessments
+
+  # assessment = { 3430 => { "book_key" => "step12" }, 3428 => { "book_key" => "step12p" }, 3427 => { "book_key" => "step11p" } }
+
+  assessment = params['params']['assessments']
+  Assessment.update(assessment.keys, assessment.values)
+
+  render json: @assessment , status: :ok
+
+  end 
+
+
   # PATCH/PUT /assessments/1
   # PATCH/PUT /assessments/1.json
   def update
