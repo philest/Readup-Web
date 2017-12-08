@@ -5,24 +5,50 @@ import { Modal, Button, DropdownButton, MenuItem } from "react-bootstrap";
 
 import { library } from "../bookObjects.js";
 
+import {
+  getAllStudents,
+  getAllAssessments
+} from "../../ReportsInterface/emailHelpers";
+
 let myClass = {
-  numStudents: 3,
-  1: {
-    name: "Phil Esterman",
-    level: 4,
-    bookKey: "step4"
-  },
-  2: {
-    name: "Sammy Sworskovi",
-    level: 6,
-    bookKey: "step6"
-  },
-  3: {
-    name: "Jamie Lancaster",
-    level: 8,
-    bookKey: "step8"
-  }
+  // numStudents: 3,
+  // 1: {
+  //   name: "Phil Esterman",
+  //   level: 4,
+  //   bookKey: "step4"
+  // },
+  // 2: {
+  //   name: "Sammy Sworskovi",
+  //   level: 6,
+  //   bookKey: "step6"
+  // },
+  // 3: {
+  //   name: "Jamie Lancaster",
+  //   level: 8,
+  //   bookKey: "step8"
+  // }
 };
+
+let newClass = {
+  // numStudents: 3,
+  // 1: {
+  //   name: "Phil Esterman",
+  //   level: 4,
+  //   bookKey: "step4"
+  // },
+  // 2: {
+  //   name: "Sammy Sworskovi",
+  //   level: 6,
+  //   bookKey: "step6"
+  // },
+  // 3: {
+  //   name: "Jamie Lancaster",
+  //   level: 8,
+  //   bookKey: "step8"
+  // }
+};
+
+let studentDataArr;
 
 function getBookKeysAtLevel(level) {
   let titleArr = [];
@@ -63,9 +89,50 @@ export default class AssignBooks extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      myClass: myClass
+      myClass: myClass,
+      studentDataArr: studentDataArr
     };
   }
+
+  componentWillMount = () => {
+    console.log("students here: ");
+    getAllStudents(3408)
+      .then(res => {
+        console.log("resolved: ");
+        console.log(res);
+        studentDataArr = res.data;
+        this.setState({ studentDataArr: studentDataArr });
+        console.log("studentDataArr: ", this.state.studentDataArr);
+
+        getAllAssessments(3408).then(res => {
+          let assessmentDataArr = res.data;
+
+          console.log("assessmentDataArr ", assessmentDataArr);
+
+          // add it to the classArr
+          newClass.numStudents = studentDataArr.length;
+          for (let i = 0; i < studentDataArr.length; i++) {
+            newClass[i + 1] = {
+              name:
+                studentDataArr[i].first_name +
+                " " +
+                studentDataArr[i].last_name,
+              level: assessmentDataArr[i]
+                ? library[assessmentDataArr[i].book_key].stepLevel
+                : 5,
+              bookKey: assessmentDataArr[i]
+                ? assessmentDataArr[i].book_key
+                : "step5"
+            };
+          }
+
+          this.setState({ myClass: newClass });
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   getColorClass = level => {
     if (level <= 4) {
@@ -183,13 +250,13 @@ export default class AssignBooks extends React.Component {
   renderAllRows = () => {
     let rowArr = [];
 
-    for (let i = 1; i <= myClass.numStudents; i++) {
+    for (let i = 1; i <= this.state.myClass.numStudents; i++) {
       rowArr.push(
         <div
           className={styles.rowElt}
           key={i}
           style={{
-            marginBottom: i === myClass.numStudents ? 0 : 10
+            marginBottom: i === this.state.myClass.numStudents ? 0 : 10
           }}
         >
           {this.renderRow(
@@ -202,7 +269,8 @@ export default class AssignBooks extends React.Component {
             style={{
               opacity: 0.55,
               marginTop: 0.35 + "em",
-              marginBottom: i === myClass.numStudents ? 0 : 0.35 + "em"
+              marginBottom:
+                i === this.state.myClass.numStudents ? 0 : 0.35 + "em"
             }}
           />
         </div>

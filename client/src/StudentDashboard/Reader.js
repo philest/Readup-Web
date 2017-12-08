@@ -162,7 +162,7 @@ export default class Reader extends React.Component {
 
   renderCenterDisplay = () => {
     if (this.props.readerState === "TEST") {
-      return <LinkInfo />;
+      return <AssignBooks />;
     }
 
     if (this.props.inSpelling) {

@@ -26,6 +26,28 @@ class UsersController < ApplicationController
   def edit
   end
 
+  # GET /users/1/get_all_students
+  def get_all_students
+    @user = User.find(params[:id])
+    all_students = @user.teachers.first.classrooms.first.students.to_json
+
+    render json: all_students
+  end 
+
+  # GET /users/1/get_all_assessments
+  def get_all_assessments
+    @user = User.find(params[:id])
+    all_students = @user.teachers.first.classrooms.first.students
+    all_assessments = [] 
+
+    
+    all_students.each do |student| 
+      all_assessments.push student.assessments.last 
+    end
+
+    render json: all_assessments
+  end 
+
   # POST /users
   # POST /users.json
   def create

@@ -3,6 +3,54 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
+export function getAllStudents(userID) {
+  const params = {
+    id: userID
+  };
+
+  return axios
+    .get("/auth/get_all_students", {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 10000
+    })
+    .then(res => {
+      console.log("here in the helper, res: ", res);
+
+      return res;
+      console.log(res);
+      console.log("yay!");
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
+    });
+}
+
+export function getAllAssessments(userID) {
+  const params = {
+    id: userID
+  };
+
+  return axios
+    .get("/auth/get_all_assessments", {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 10000
+    })
+    .then(res => {
+      console.log("here in the assess helper, res: ", res);
+
+      return res;
+      console.log(res);
+      console.log("yay!");
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
+    });
+}
+
 export function sendEmail(subject, message, recipient) {
   console.log([message, recipient].join(" "));
 

@@ -48,9 +48,11 @@ Rails.application.routes.draw do
 
   # user stuff including auth
 
-  resources :users
   resources :assessments
   resources :students
+
+  get 'auth/get_all_students', to: 'users#get_all_students'
+  get 'auth/get_all_assessments', to: 'users#get_all_assessments'
 
   get 'auth/get_user_count', to: 'registration#get_user_count'
   get 'auth/get_last_student_id', to: 'registration#get_last_student_id'
