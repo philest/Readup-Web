@@ -34,6 +34,13 @@ class UsersController < ApplicationController
     render json: all_students
   end 
 
+  def get_class_link
+    @user = User.find(params[:id])
+    class_link = @user.teachers.first.classrooms.first.class_link
+    render json: class_link
+
+  end 
+
   # GET /users/1/get_all_assessments
   def get_all_assessments
     @user = User.find(params[:id])

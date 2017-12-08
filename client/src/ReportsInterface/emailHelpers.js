@@ -3,6 +3,28 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
+export function getClassLink(classroomID) {
+  const params = {
+    classroomID: classroomID
+  };
+
+  axios
+    .get("/auth/get_class_link", {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 10000
+    })
+    .then(res => {
+      console.log("here in the classLink helper, res: ", res);
+      return res;
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
+      return false;
+    });
+}
+
 export function updateAllAssessments(assessments) {
   const params = {
     assessments: assessments

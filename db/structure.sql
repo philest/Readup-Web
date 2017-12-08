@@ -149,7 +149,8 @@ CREATE TABLE classrooms (
     updated_at timestamp without time zone NOT NULL,
     school_id integer,
     name character varying,
-    grade_level integer
+    grade_level integer,
+    class_link character varying
 );
 
 
@@ -683,6 +684,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170929030106'),
 ('20171013204045'),
 ('20171020034337'),
-('20171128220132');
+('20171128220132'),
+('20171208204259');
 
 

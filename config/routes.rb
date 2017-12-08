@@ -50,7 +50,10 @@ Rails.application.routes.draw do
 
   resources :assessments
   resources :students
+  resources :classrooms
 
+
+  get 'auth/get_class_link', to: 'users#get_class_link'
   get 'auth/get_all_students', to: 'users#get_all_students'
   get 'auth/get_all_assessments', to: 'users#get_all_assessments'
   post 'auth/update_all_assessments', to: 'assessments#update_all_assessments'
