@@ -8,46 +8,9 @@ import { library } from "../bookObjects.js";
 import {
   getAllStudents,
   getAllAssessments,
-  updateAllAssessments
+  updateAllAssessments,
+  getMyClass
 } from "../../ReportsInterface/emailHelpers";
-
-let myClass = {
-  // numStudents: 3,
-  // 1: {
-  //   name: "Phil Esterman",
-  //   level: 4,
-  //   bookKey: "step4"
-  // },
-  // 2: {
-  //   name: "Sammy Sworskovi",
-  //   level: 6,
-  //   bookKey: "step6"
-  // },
-  // 3: {
-  //   name: "Jamie Lancaster",
-  //   level: 8,
-  //   bookKey: "step8"
-  // }
-};
-
-let newClass = {
-  // numStudents: 3,
-  // 1: {
-  //   name: "Phil Esterman",
-  //   level: 4,
-  //   bookKey: "step4"
-  // },
-  // 2: {
-  //   name: "Sammy Sworskovi",
-  //   level: 6,
-  //   bookKey: "step6"
-  // },
-  // 3: {
-  //   name: "Jamie Lancaster",
-  //   level: 8,
-  //   bookKey: "step8"
-  // }
-};
 
 let studentDataArr;
 
@@ -90,8 +53,7 @@ export default class AssignBooks extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      myClass: myClass,
-      studentDataArr: studentDataArr
+      myClass: {}
     };
   }
 
@@ -122,21 +84,18 @@ export default class AssignBooks extends React.Component {
   };
 
   componentWillMount = () => {
-    console.log("students here: ");
-    getAllStudents(3408)
+    let newClass = {};
+    let userID = 3408;
+
+    getAllStudents(userID)
       .then(res => {
         console.log("resolved: ");
         console.log(res);
-        studentDataArr = res.data;
-        this.setState({ studentDataArr: studentDataArr });
-        console.log("studentDataArr: ", this.state.studentDataArr);
+        const studentDataArr = res.data;
 
-        getAllAssessments(3408).then(res => {
-          let assessmentDataArr = res.data;
+        getAllAssessments(userID).then(res => {
+          const assessmentDataArr = res.data;
 
-          console.log("assessmentDataArr ", assessmentDataArr);
-
-          // add it to the classArr
           newClass.numStudents = studentDataArr.length;
           for (let i = 0; i < studentDataArr.length; i++) {
             newClass[i + 1] = {
@@ -155,6 +114,7 @@ export default class AssignBooks extends React.Component {
                 : "NO_ASSESSMENT_CREATED"
             };
           }
+          console.log;
 
           this.setState({ myClass: newClass });
         });

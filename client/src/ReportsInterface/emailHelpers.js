@@ -8,7 +8,7 @@ export function getClassLink(classroomID) {
     classroomID: classroomID
   };
 
-  axios
+  return axios
     .get("/auth/get_class_link", {
       params,
       headers: RctOnR.authenticityHeaders(),
