@@ -9,6 +9,10 @@ import NavigationBar from "../StudentDashboard/components/NavigationBar";
 import AssignBooks from "../sharedComponents/AssignBooks";
 import LinkInfo from "../sharedComponents/LinkInfo";
 
+import { getClassLink } from "../ReportsInterface/emailHelpers";
+
+let classLink;
+
 export default class Signup extends React.Component {
   static propTypes = {
     userID: PropTypes.number,
@@ -27,6 +31,13 @@ export default class Signup extends React.Component {
       showModal: true
     };
   }
+
+  componentDidMount = () => {
+    getClassLink(this.props.userID).then(res => {
+      console.log("link? ", res.data);
+      classLink = res.data;
+    });
+  };
 
   hideModal = () => {
     this.setState({ showModal: false });
@@ -63,7 +74,7 @@ export default class Signup extends React.Component {
               hideModal={this.hideModal}
             />
           )}
-          {!this.state.showModal && <LinkInfo />}
+          {!this.state.showModal && <LinkInfo classLink={classLink} />}
         </div>
       </div>
     );

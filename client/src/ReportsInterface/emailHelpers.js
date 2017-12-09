@@ -3,9 +3,9 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
-export function getClassLink(classroomID) {
+export function getClassLink(userID) {
   const params = {
-    classroomID: classroomID
+    id: userID
   };
 
   return axios
