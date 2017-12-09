@@ -80,15 +80,15 @@
 }
 
 .goodMetric button {
-	color: #249c44;
+	color: #249c44 !important;
 }
 
 .fairMetric button {
-	color: #d97f0f;
+	color: #d97f0f !important;
 }
 
 .poorMetric button {
-	color: #982e2b;
+	color: #982e2b !important;
 }
 
 button:hover {
