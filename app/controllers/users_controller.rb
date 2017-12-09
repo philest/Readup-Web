@@ -40,6 +40,7 @@ class UsersController < ApplicationController
       lname = stuName.split[-1]
 
       stu = Student.create(first_name: fname, last_name: lname)
+      stu.assessments.create(book_key: 'step4')
 
       classroom.students.push(stu)
     end 
