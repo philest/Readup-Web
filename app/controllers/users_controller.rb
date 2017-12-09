@@ -26,21 +26,28 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def create_students_for_user 
-    @user = User.find(params[:id])
+  def create_students_for_user
+
+    puts 'params["params"]["id"]: ', params['params']["id"]
+
+
+    @user = User.find(params["params"]["id"])
     classroom = @user.teachers.first.classrooms.first
 
-    params[:students].each do |stuName|
+    params["params"]["students"].each do |stuName|
 
-    fname = stuName.split[0]
-    lname = stuName.split[-1]
+      fname = stuName.split[0]
+      lname = stuName.split[-1]
 
-    stu = Student.create(first_name: fname, last_name: lname)
+      stu = Student.create(first_name: fname, last_name: lname)
 
-    classroom.students.push(stu)
-
+      classroom.students.push(stu)
     end 
 
+    puts 'classroom students: '
+    puts classroom.students
+
+    render json: classroom.students
 
   end 
 

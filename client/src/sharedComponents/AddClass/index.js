@@ -26,9 +26,15 @@ export default class AddClass extends React.Component {
 
   createStudents = userID => {
     let studentsArr = this.form.value.split("\n");
+
+    if (studentsArr.length === 0) {
+      return;
+    }
+
     createStudentsForUser(userID, studentsArr)
       .then(res => {
         console.log("results here!: ", res);
+        this.props.hide();
       })
       .catch(err => {
         console.log(err);
@@ -67,7 +73,6 @@ export default class AddClass extends React.Component {
             <Button
               onClick={() => {
                 this.createStudents(this.props.userID);
-                this.props.hide();
               }}
               className={styles.saveButton}
               bsSize="lg"

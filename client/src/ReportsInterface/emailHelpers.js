@@ -9,6 +9,8 @@ export function createStudentsForUser(userID, studentsArr) {
     students: studentsArr
   };
 
+  console.log("params: ", params);
+
   return axios
     .post("/auth/create_students_for_user", {
       params,
