@@ -3,6 +3,29 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
+export function createStudentsForUser(userID, studentsArr) {
+  const params = {
+    id: userID,
+    students: studentsArr
+  };
+
+  return axios
+    .post("/auth/create_students_for_user", {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 10000
+    })
+    .then(res => {
+      console.log("here in helper, res: ", res);
+      return res;
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
+      return false;
+    });
+}
+
 export function getClassLink(userID) {
   const params = {
     id: userID

@@ -26,6 +26,24 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def create_students_for_user 
+    @user = User.find(params[:id])
+    classroom = @user.teachers.first.classrooms.first
+
+    params[:students].each do |stuName|
+
+    fname = stuName.split[0]
+    lname = stuName.split[-1]
+
+    stu = Student.create(first_name: fname, last_name: lname)
+
+    classroom.students.push(stu)
+
+    end 
+
+
+  end 
+
   # GET /users/1/get_all_students
   def get_all_students
     @user = User.find(params[:id])

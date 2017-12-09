@@ -5,6 +5,8 @@ import myStyles from "./styles.css";
 
 import { Button, Modal, FormControl } from "react-bootstrap";
 
+import { createStudentsForUser } from "../../ReportsInterface/emailHelpers";
+
 export default class AddClass extends React.Component {
   static propTypes = {
     userID: PropTypes.number,

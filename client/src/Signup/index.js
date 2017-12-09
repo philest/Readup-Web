@@ -75,7 +75,12 @@ export default class Signup extends React.Component {
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
         <div className={styles.contentContainer}>
-          {this.state.showAddClass && <AddClass userID={this.props.userID} />}
+          {this.state.showAddClass && (
+            <AddClass
+              userID={this.props.userID}
+              hide={this.hideAddClassModal}
+            />
+          )}
           {this.state.showModal && (
             <AssignBooks
               userID={this.props.userID}
