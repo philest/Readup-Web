@@ -3,61 +3,68 @@ import React from "react";
 import styles from "./styles.css";
 import Avatar from "../Avatar";
 
-let samanthaArr = [
-  ["Samantha Kadis", "step4"],
-  ["Phil Esterman", "step4"],
-  ["Samantha Skory", "step6"],
-  ["Bradley Jay", "step9"],
-  ["Tracy Esterman", "step5"],
-  ["Ninetails Nieman", "step9"],
-  ["Abdel Morsy", "step4"],
-  ["Fourest Fifty", "step4"],
-  ["Sixo Beverly", "step6"]
-];
+import {
+  getAllStudents,
+  getAllAssessments
+} from "../../../ReportsInterface/emailHelpers";
 
-let bridgetArr = [
-  ["Bridget Joyce", "step4"],
-  ["Phil Esterman", "step4"],
-  ["Samantha Skory", "step6"],
-  ["Bradley Jay", "step9"],
-  ["Tracy Esterman", "step5"],
-  ["Ninetails Nieman", "step9"],
-  ["Abdel Morsy", "step4"],
-  ["Fourest Fifty", "step4"],
-  ["Sixo Beverly", "step6"],
+import { library } from "../../../sharedComponents/bookObjects.js";
 
-  ["Bannon Joyce", "step4"],
-  ["Felipe Esterman", "step4"],
-  ["Susie Skory", "step6"],
-  ["Bonnie Jay", "step9"],
-  ["Rusty Esterman", "step5"],
-  ["Nina Nieman", "step9"],
-  ["Abbie Morsy", "step4"],
-  ["Faye Fifty", "step4"],
-  ["Sue Beverly", "step6"],
+// let samanthaArr = [
+//   ["Samantha Kadis", "step4"],
+//   ["Phil Esterman", "step4"],
+//   ["Samantha Skory", "step6"],
+//   ["Bradley Jay", "step9"],
+//   ["Tracy Esterman", "step5"],
+//   ["Ninetails Nieman", "step9"],
+//   ["Abdel Morsy", "step4"],
+//   ["Fourest Fifty", "step4"],
+//   ["Sixo Beverly", "step6"]
+// ];
 
-  ["Bill Joyce", "step4"],
-  ["Tom Esterman", "step4"],
-  ["Jackson Skory", "step6"],
-  ["Theo Jay", "step9"],
-  ["Jordy Esterman", "step5"],
-  ["Eighto Nieman", "step8"],
-  ["Teno Morsy", "step10"],
-  ["Elle Fifty", "step11"],
-  ["Twelve Beverly", "step12"]
-];
+// let bridgetArr = [
+//   ["Bridget Joyce", "step4"],
+//   ["Phil Esterman", "step4"],
+//   ["Samantha Skory", "step6"],
+//   ["Bradley Jay", "step9"],
+//   ["Tracy Esterman", "step5"],
+//   ["Ninetails Nieman", "step9"],
+//   ["Abdel Morsy", "step4"],
+//   ["Fourest Fifty", "step4"],
+//   ["Sixo Beverly", "step6"],
 
-let defaultArr = [
-  ["Phil 4Esterman", "step4"],
-  ["Samantha 5Skory", "step5"],
-  ["Bradley 6Jay", "step6"],
-  ["Tracy 7Esterman", "step7"],
-  ["Ninetails 8Nieman", "step8"],
-  ["Abdel 9Morsy", "step9"],
-  ["Fourest 0Fifty", "step10"],
-  ["Sixo 1Beverly", "step11"],
-  ["Newbie 2Beverly", "step12"]
-];
+//   ["Bannon Joyce", "step4"],
+//   ["Felipe Esterman", "step4"],
+//   ["Susie Skory", "step6"],
+//   ["Bonnie Jay", "step9"],
+//   ["Rusty Esterman", "step5"],
+//   ["Nina Nieman", "step9"],
+//   ["Abbie Morsy", "step4"],
+//   ["Faye Fifty", "step4"],
+//   ["Sue Beverly", "step6"],
+
+//   ["Bill Joyce", "step4"],
+//   ["Tom Esterman", "step4"],
+//   ["Jackson Skory", "step6"],
+//   ["Theo Jay", "step9"],
+//   ["Jordy Esterman", "step5"],
+//   ["Eighto Nieman", "step8"],
+//   ["Teno Morsy", "step10"],
+//   ["Elle Fifty", "step11"],
+//   ["Twelve Beverly", "step12"]
+// ];
+
+// let defaultArr = [
+//   ["Phil 4Esterman", "step4"],
+//   ["Samantha 5Skory", "step5"],
+//   ["Bradley 6Jay", "step6"],
+//   ["Tracy 7Esterman", "step7"],
+//   ["Ninetails 8Nieman", "step8"],
+//   ["Abdel 9Morsy", "step9"],
+//   ["Fourest 0Fifty", "step10"],
+//   ["Sixo 1Beverly", "step11"],
+//   ["Newbie 2Beverly", "step12"]
+// ];
 
 let colorArr = ["teal", "purple", "green", "blue"];
 let offsetArr = ["left", "right"];
@@ -77,10 +84,10 @@ function getFemaleSignature(teacherName) {
   return `Ms. ${res[1]}`;
 }
 
-function getStepforName(name, nameAndBookArr) {
-  for (let i = 0; i < nameAndBookArr.length; i++) {
-    if (name === nameAndBookArr[i][0]) {
-      return nameAndBookArr[i][1];
+function getStepforName(name, myClass) {
+  for (let i = 1; i <= myClass.numStudents; i++) {
+    if (name === myClass[i].name) {
+      return myClass[i].bookKey;
     }
   }
 }
@@ -97,28 +104,26 @@ export default class AvatarContainer extends React.Component {
 
   componentWillMount() {}
 
-  renderAvatars = nameAndBookArr => {
+  renderAvatars = myClass => {
     const nameArr = [];
 
     // create the name array
-    for (let i = 0; i < nameAndBookArr.length; i++) {
-      nameArr.push(nameAndBookArr[i][0]);
+    for (let i = 1; i <= myClass.numStudents; i++) {
+      nameArr.push(myClass[i].name);
     }
 
     nameArr.sort();
 
     const avatarArray = [];
 
-    nameArr.sort();
-
     // TODO does not actually match books
 
-    for (let i = 0; i < nameArr.length; i++) {
+    for (let i = 0; i < myClass.numStudents; i++) {
       avatarArray.push(
         <Avatar
           key={i}
           fullName={nameArr[i]}
-          bookKey={getStepforName(nameArr[i], nameAndBookArr)}
+          bookKey={getStepforName(nameArr[i], myClass)}
           color={colorArr[i % 4]}
           offset={offsetArr[i % 2]}
           onStudentNameSet={this.props.onStudentNameSet}
@@ -137,19 +142,64 @@ export default class AvatarContainer extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {};
+    this.state = {
+      myClass: {}
+    };
   }
+
+  componentWillMount = () => {
+    let newClass = {};
+    let userID = 3408;
+
+    getAllStudents(userID)
+      .then(res => {
+        console.log("resolved: ");
+        console.log(res);
+        const studentDataArr = res.data;
+
+        getAllAssessments(userID).then(res => {
+          const assessmentDataArr = res.data;
+
+          newClass.numStudents = studentDataArr.length;
+          for (let i = 0; i < studentDataArr.length; i++) {
+            newClass[i + 1] = {
+              name:
+                studentDataArr[i].first_name +
+                " " +
+                studentDataArr[i].last_name,
+              level: assessmentDataArr[i]
+                ? library[assessmentDataArr[i].book_key].stepLevel
+                : 5,
+              bookKey: assessmentDataArr[i]
+                ? assessmentDataArr[i].book_key
+                : "step5",
+              assessmentID: assessmentDataArr[i]
+                ? assessmentDataArr[i].id
+                : "NO_ASSESSMENT_CREATED"
+            };
+          }
+          console.log("myClass: ", newClass);
+
+          this.setState({ myClass: newClass });
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   render() {
     return (
       <div>
         <Avatar
-          teacher={true}
+          teacher
           teacherSignature={getFemaleSignature(this.props.teacherName)}
         />
 
         <div className={styles.studentAvatarContainer}>
-          {this.renderAvatars(getNameAndBookList(this.props.teacherName))}
+          {this.renderAvatars(this.state.myClass)}
+          {/*          {this.renderAvatars(getNameAndBookList(this.props.teacherName))}
+*/}{" "}
         </div>
       </div>
     );

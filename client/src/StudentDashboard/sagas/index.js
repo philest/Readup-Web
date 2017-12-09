@@ -1743,11 +1743,11 @@ function* assessThenSubmitSaga() {
 		yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, hearQuestionAgainSaga)
 	);
 
-	yield put.resolve(avatarClicked()); // log in for them
-	yield put.resolve(setReaderState("TEST"));
-	yield put.resolve(hideVolumeIndicator());
+	// yield put.resolve(avatarClicked()); // log in for them
+	// yield put.resolve(setReaderState("TEST"));
+	// yield put.resolve(hideVolumeIndicator());
 
-	yield take("nnnever pass");
+	// yield take("nnnever pass");
 
 	if (!isWarmup && isDemo) {
 		yield put.resolve(avatarClicked()); // log in for them

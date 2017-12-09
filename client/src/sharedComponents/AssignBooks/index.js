@@ -8,8 +8,7 @@ import { library } from "../bookObjects.js";
 import {
   getAllStudents,
   getAllAssessments,
-  updateAllAssessments,
-  getMyClass
+  updateAllAssessments
 } from "../../ReportsInterface/emailHelpers";
 
 let studentDataArr;
