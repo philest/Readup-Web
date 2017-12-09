@@ -53,6 +53,9 @@ Rails.application.routes.draw do
   resources :classrooms
 
 
+  post '/users/new_with_class', to: 'users#new_with_class'
+
+
   post 'auth/create_students_for_user', to: 'users#create_students_for_user'
   get 'auth/get_class_link', to: 'users#get_class_link'
   get 'auth/get_all_students', to: 'users#get_all_students'

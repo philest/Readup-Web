@@ -83,7 +83,9 @@ export default class Signup extends React.Component {
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
         <div className={styles.contentContainer}>
-          {this.state.currentShowPageID === "NAME_PAGE" && <Name />}
+          {this.state.currentShowPageID === "NAME_PAGE" && (
+            <Name hide={() => this.setCurrentShowPage("ADD_CLASS_PAGE")} />
+          )}
 
           {this.state.currentShowPageID === "ADD_CLASS_PAGE" && (
             <AddClass

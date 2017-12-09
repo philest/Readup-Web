@@ -17,6 +17,16 @@ class UsersController < ApplicationController
   def show
   end
 
+
+  # GET /users/new_with_class
+  def new_with_class
+  user = User.create(first_name: "Dummy", last_name: "Teacher", name: params['params']['name'], password: "12345678", email:"dummy#{rand(1000000)}@gmail.com")
+
+  render json: user
+
+  end
+
+
   # GET /users/new
   def new
     @user = User.new

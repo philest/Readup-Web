@@ -5,14 +5,27 @@ import myStyles from "./styles.css";
 
 import { Button, Modal, FormControl, ControlLabel } from "react-bootstrap";
 
-import { createStudentsForUser } from "../../ReportsInterface/emailHelpers";
+import { createUserWithClass } from "../../ReportsInterface/emailHelpers";
 
 export default class Name extends React.Component {
   static propTypes = {
-    hide: PropTypes.func
+    hide: PropTypes.func.isRequired
   };
 
   static defaultProps = {};
+
+  // User.create(first_name: "Dummy", last_name: "Teacher", name: "Dummy Teacher", password: "12345678", email:"dummy#{rand(1000000)}@gmail.com")
+
+  createUser = name => {
+    createUserWithClass(name)
+      .then(res => {
+        console.log("HERE: ", this.props.hide);
+        this.props.hide();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -31,11 +44,11 @@ export default class Name extends React.Component {
         </style>
         <Modal.Dialog bsSize={"sm"}>
           <Modal.Header>
-            <Modal.Title className={styles.title}>Your Name</Modal.Title>
+            <Modal.Title className={myStyles.title}>Your Name</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <span className={styles.myLabel}>
+            <span className={myStyles.myLabel}>
               <ControlLabel
                 style={{ marginLeft: 10 + "%", marginTop: 7, color: "#505050" }}
               >
@@ -56,7 +69,7 @@ export default class Name extends React.Component {
 
             <Button
               onClick={() => {
-                this.createStudents(this.props.userID);
+                this.createUser(this.form.value);
               }}
               className={styles.saveButton}
               bsStyle="primary"

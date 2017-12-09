@@ -3,6 +3,30 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
+export function createUserWithClass(name) {
+  const params = {
+    name: name
+  };
+
+  return axios
+    .post("/users/new_with_class", {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 10000
+    })
+    .then(res => {
+      console.log("here in helper, res: ", res);
+
+      return res;
+      console.log(res);
+      console.log("yay!");
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
+    });
+}
+
 export function createStudentsForUser(userID, studentsArr) {
   const params = {
     id: userID,
