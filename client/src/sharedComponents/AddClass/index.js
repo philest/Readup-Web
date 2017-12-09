@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styles from "../AssignBooks/styles.css";
-import myStles from "./styles.css";
+import myStyles from "./styles.css";
 
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, FormControl } from "react-bootstrap";
 
 export default class AddClass extends React.Component {
   static propTypes = {
@@ -34,6 +34,18 @@ export default class AddClass extends React.Component {
           </style>
 
           <Modal.Body className={styles.body}>
+            <FormControl
+              className={myStyles.spellingField}
+              type="text"
+              componentClass="textarea"
+              bsSize="lg"
+              spellCheck="false"
+              inputRef={ref => {
+                this.form = ref;
+              }}
+              autoFocus
+            />
+
             {false && this.renderRoster()}
           </Modal.Body>
 
