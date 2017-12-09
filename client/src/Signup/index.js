@@ -17,7 +17,8 @@ let classLink;
 export default class Signup extends React.Component {
   static propTypes = {
     userID: PropTypes.number,
-    teacherName: PropTypes.string
+    teacherName: PropTypes.string,
+    isAddClass: PropTypes.bool
   };
 
   static defaultProps = {};
@@ -29,10 +30,15 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      showModal: false,
-      showAddClass: true
+      currentShowPageID: this.props.isAddClass
+        ? "ADD_CLASS_PAGE"
+        : "ASSIGN_BOOKS_PAGE"
     };
   }
+
+  setCurrentShowPage = ID => {
+    this.setState({ currentShowPageID: ID });
+  };
 
   componentDidMount = () => {
     getClassLink(this.props.userID).then(res => {
@@ -75,20 +81,21 @@ export default class Signup extends React.Component {
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
         <div className={styles.contentContainer}>
-          {this.state.showAddClass && (
+          {this.state.currentShowPageID === "ADD_CLASS_PAGE" && (
             <AddClass
               userID={this.props.userID}
-              hide={this.hideAddClassModal}
+              hide={() => this.setCurrentShowPage("ASSIGN_BOOKS_PAGE")}
             />
           )}
-          {this.state.showModal && (
+          {this.state.currentShowPageID === "ASSIGN_BOOKS_PAGE" && (
             <AssignBooks
               userID={this.props.userID}
-              hideModal={this.hideModal}
+              hideModal={() => this.setCurrentShowPage("LINK_INFO_PAGE")}
             />
           )}
-          {!this.state.showModal &&
-            !this.state.showAddClass && <LinkInfo classLink={classLink} />}
+          {this.state.currentShowPageID === "LINK_INFO_PAGE" && (
+            <LinkInfo classLink={classLink} />
+          )}
         </div>
       </div>
     );
