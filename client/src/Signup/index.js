@@ -8,6 +8,7 @@ import NavigationBar from "../StudentDashboard/components/NavigationBar";
 
 import AssignBooks from "../sharedComponents/AssignBooks";
 import LinkInfo from "../sharedComponents/LinkInfo";
+import AddClass from "../sharedComponents/AddClass";
 
 import { getClassLink } from "../ReportsInterface/emailHelpers";
 
@@ -28,7 +29,8 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      showModal: true
+      showModal: false,
+      showAddClass: true
     };
   }
 
@@ -68,13 +70,15 @@ export default class Signup extends React.Component {
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
         <div className={styles.contentContainer}>
+          {this.state.showAddClass && <AddClass userID={this.props.userID} />}
           {this.state.showModal && (
             <AssignBooks
               userID={this.props.userID}
               hideModal={this.hideModal}
             />
           )}
-          {!this.state.showModal && <LinkInfo classLink={classLink} />}
+          {!this.state.showModal &&
+            !this.state.showAddClass && <LinkInfo classLink={classLink} />}
         </div>
       </div>
     );
