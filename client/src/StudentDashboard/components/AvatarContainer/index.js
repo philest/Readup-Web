@@ -10,62 +10,6 @@ import {
 
 import { library } from "../../../sharedComponents/bookObjects.js";
 
-// let samanthaArr = [
-//   ["Samantha Kadis", "step4"],
-//   ["Phil Esterman", "step4"],
-//   ["Samantha Skory", "step6"],
-//   ["Bradley Jay", "step9"],
-//   ["Tracy Esterman", "step5"],
-//   ["Ninetails Nieman", "step9"],
-//   ["Abdel Morsy", "step4"],
-//   ["Fourest Fifty", "step4"],
-//   ["Sixo Beverly", "step6"]
-// ];
-
-// let bridgetArr = [
-//   ["Bridget Joyce", "step4"],
-//   ["Phil Esterman", "step4"],
-//   ["Samantha Skory", "step6"],
-//   ["Bradley Jay", "step9"],
-//   ["Tracy Esterman", "step5"],
-//   ["Ninetails Nieman", "step9"],
-//   ["Abdel Morsy", "step4"],
-//   ["Fourest Fifty", "step4"],
-//   ["Sixo Beverly", "step6"],
-
-//   ["Bannon Joyce", "step4"],
-//   ["Felipe Esterman", "step4"],
-//   ["Susie Skory", "step6"],
-//   ["Bonnie Jay", "step9"],
-//   ["Rusty Esterman", "step5"],
-//   ["Nina Nieman", "step9"],
-//   ["Abbie Morsy", "step4"],
-//   ["Faye Fifty", "step4"],
-//   ["Sue Beverly", "step6"],
-
-//   ["Bill Joyce", "step4"],
-//   ["Tom Esterman", "step4"],
-//   ["Jackson Skory", "step6"],
-//   ["Theo Jay", "step9"],
-//   ["Jordy Esterman", "step5"],
-//   ["Eighto Nieman", "step8"],
-//   ["Teno Morsy", "step10"],
-//   ["Elle Fifty", "step11"],
-//   ["Twelve Beverly", "step12"]
-// ];
-
-// let defaultArr = [
-//   ["Phil 4Esterman", "step4"],
-//   ["Samantha 5Skory", "step5"],
-//   ["Bradley 6Jay", "step6"],
-//   ["Tracy 7Esterman", "step7"],
-//   ["Ninetails 8Nieman", "step8"],
-//   ["Abdel 9Morsy", "step9"],
-//   ["Fourest 0Fifty", "step10"],
-//   ["Sixo 1Beverly", "step11"],
-//   ["Newbie 2Beverly", "step12"]
-// ];
-
 let colorArr = ["teal", "purple", "green", "blue"];
 let offsetArr = ["left", "right"];
 

@@ -155,6 +155,9 @@ Rails.application.routes.draw do
   get 'reports/:user_id', to: 'reports#index'
   get 'reports/email_submit', to: 'reports#email_submit'
 
+  get 'start/:user_id', to: 'signup#index'
+
+
 
 
   # process audio
