@@ -4,7 +4,7 @@ class SignupController < ApplicationController
 
   def index
     @signup_props = {
-      userID: params['user_id'].to_i,
+      userID: params['user_id'] ? params['user_id'].to_i : nil,
       isAddClass: params['add'] === 'true'
     }
 

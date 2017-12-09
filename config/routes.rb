@@ -161,6 +161,7 @@ Rails.application.routes.draw do
 
   get 'start/:user_id', to: 'signup#index'
 
+  get 'start', to: 'signup#index'
 
 
 
