@@ -7,7 +7,8 @@ import { Button, Modal, FormControl } from "react-bootstrap";
 
 export default class AddClass extends React.Component {
   static propTypes = {
-    userID: PropTypes.number
+    userID: PropTypes.number,
+    hide: PropTypes.func
   };
 
   static defaultProps = {};
@@ -20,6 +21,17 @@ export default class AddClass extends React.Component {
     super(props);
     this.state = {};
   }
+
+  createStudents = userID => {
+    let studentsArr = this.form.value.split("\n");
+    createStudentsForUser(userID, studentsArr)
+      .then(res => {
+        console.log("results here!: ", res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     return (
@@ -51,7 +63,10 @@ export default class AddClass extends React.Component {
 
           <Modal.Footer>
             <Button
-              onClick={() => {}}
+              onClick={() => {
+                this.createStudents(this.props.userID);
+                this.props.hide();
+              }}
               className={styles.saveButton}
               bsSize="lg"
               bsStyle="primary"

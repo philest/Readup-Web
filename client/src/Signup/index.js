@@ -45,6 +45,11 @@ export default class Signup extends React.Component {
     this.setState({ showModal: false });
   };
 
+  hideAddClassModal = () => {
+    this.setState({ showAddClass: false });
+    this.setState({ showModal: true });
+  };
+
   renderNavigationBar = () => {
     let navProps = {
       className: styles.navBar,
