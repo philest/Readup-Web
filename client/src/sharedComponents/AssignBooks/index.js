@@ -41,7 +41,8 @@ function getSeriesTag(bookKey) {
 export default class AssignBooks extends React.Component {
   static propTypes = {
     teacherName: PropTypes.string,
-    userID: PropTypes.number
+    userID: PropTypes.number,
+    hideModal: PropTypes.func
   };
 
   static defaultProps = {};
@@ -290,7 +291,10 @@ export default class AssignBooks extends React.Component {
 
           <Modal.Footer>
             <Button
-              onClick={() => this.batchUpdate(this.state.myClass)}
+              onClick={() => {
+                this.batchUpdate(this.state.myClass);
+                this.props.hideModal();
+              }}
               className={styles.saveButton}
               bsSize="lg"
               bsStyle="primary"

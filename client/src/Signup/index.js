@@ -23,8 +23,14 @@ export default class Signup extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {};
+    this.state = {
+      showModal: true
+    };
   }
+
+  hideModal = () => {
+    this.setState({ showModal: false });
+  };
 
   renderNavigationBar = () => {
     let navProps = {
@@ -50,9 +56,14 @@ export default class Signup extends React.Component {
         <style type="text/css">
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
-
         <div className={styles.contentContainer}>
-          <AssignBooks userID={this.props.userID} />;
+          {this.state.showModal && (
+            <AssignBooks
+              userID={this.props.userID}
+              hideModal={this.hideModal}
+            />
+          )}
+          {!this.state.showModal && <LinkInfo />}
         </div>
       </div>
     );
