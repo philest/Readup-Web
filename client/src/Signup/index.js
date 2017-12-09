@@ -9,6 +9,7 @@ import NavigationBar from "../StudentDashboard/components/NavigationBar";
 import AssignBooks from "../sharedComponents/AssignBooks";
 import LinkInfo from "../sharedComponents/LinkInfo";
 import AddClass from "../sharedComponents/AddClass";
+import Name from "../sharedComponents/Name";
 
 import { getClassLink } from "../ReportsInterface/emailHelpers";
 
@@ -30,9 +31,10 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      currentShowPageID: this.props.isAddClass
-        ? "ADD_CLASS_PAGE"
-        : "ASSIGN_BOOKS_PAGE"
+      currentShowPageID: "NAME_PAGE"
+      // currentShowPageID: this.props.isAddClass
+      //   ? "ADD_CLASS_PAGE"
+      //   : "ASSIGN_BOOKS_PAGE"
     };
   }
 
@@ -81,6 +83,8 @@ export default class Signup extends React.Component {
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
         <div className={styles.contentContainer}>
+          {this.state.currentShowPageID === "NAME_PAGE" && <Name />}
+
           {this.state.currentShowPageID === "ADD_CLASS_PAGE" && (
             <AddClass
               userID={this.props.userID}

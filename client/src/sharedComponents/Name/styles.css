@@ -1,0 +1,23 @@
+.input {
+	width: 80%;
+	display: block;
+	height: 40px;
+	margin: 10px auto;
+	margin-bottom: 25px;
+}
+
+.myLabel .control-label {
+	margin-left: 10%;
+	margin-bottom: 0px;
+	margin-top: 7px;
+	color: #505050;
+	font-family: "proximanova semibold";
+}
+
+@media (min-width: 768px) {
+	.modalSmall {
+		width: 410px;
+		display: block;
+		margin: 0 auto;
+	}
+}
