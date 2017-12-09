@@ -6,6 +6,7 @@ import LinkInfo from "../sharedComponents/LinkInfo";
 
 export default class Signup extends React.Component {
   static propTypes = {
+    userID: PropTypes.number,
     teacherName: PropTypes.string
   };
 
@@ -21,6 +22,6 @@ export default class Signup extends React.Component {
   }
 
   render() {
-    return <AssignBooks />;
+    return <AssignBooks userID={this.props.userID} />;
   }
 }

@@ -40,7 +40,8 @@ function getSeriesTag(bookKey) {
 
 export default class AssignBooks extends React.Component {
   static propTypes = {
-    teacherName: PropTypes.string
+    teacherName: PropTypes.string,
+    userID: PropTypes.number
   };
 
   static defaultProps = {};
@@ -84,7 +85,7 @@ export default class AssignBooks extends React.Component {
 
   componentWillMount = () => {
     let newClass = {};
-    let userID = 3408;
+    let userID = this.props.userID;
 
     getAllStudents(userID)
       .then(res => {

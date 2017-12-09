@@ -4,8 +4,8 @@ class SignupController < ApplicationController
 
   def index
     @signup_props = {
+      userID: params['user_id'].to_i
     }
-
 
   end
 
