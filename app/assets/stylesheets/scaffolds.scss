@@ -9,23 +9,37 @@ body {
 
 #studentDashboardContainer {
   height: 100%;
-  font-family: 'Proximanova';
-  letter-spacing: .05em;
+  font-family: "Proximanova";
+  letter-spacing: 0.05em;
+}
 
+#signupContainer {
+  height: 100%;
+  font-family: "Proximanova";
+  letter-spacing: 0.05em;
+}
+
+div#signupContainer {
+  height: 100%;
+  font-family: "Proximanova";
+  letter-spacing: 0.05em;
 }
 
 #graderInterfaceContainer {
   height: 100%;
-  font-family: 'Proximanova';
+  font-family: "Proximanova";
 }
 
 #reportsInterfaceContainer {
   height: 100%;
-  font-family: 'Proximanova';
+  font-family: "Proximanova";
 }
 
-p, ol, ul, td {
-  font-family: 'Proximanova', verdana, arial, helvetica, sans-serif;
+p,
+ol,
+ul,
+td {
+  font-family: "Proximanova", verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
@@ -58,7 +72,8 @@ td {
 }
 
 div {
-  &.field, &.actions {
+  &.field,
+  &.actions {
     margin-bottom: 10px;
   }
 }

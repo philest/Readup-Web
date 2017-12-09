@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import styles from "./styles.css";
+import myStyles from "./styles.css";
+
+import styles from "../StudentDashboard/styles.css";
+
+import NavigationBar from "../StudentDashboard/components/NavigationBar";
+
 import AssignBooks from "../sharedComponents/AssignBooks";
 import LinkInfo from "../sharedComponents/LinkInfo";
 
@@ -21,7 +26,35 @@ export default class Signup extends React.Component {
     this.state = {};
   }
 
+  renderNavigationBar = () => {
+    let navProps = {
+      className: styles.navBar,
+      studentName: "Ms. Jones",
+      showPauseButton: false,
+      showBookInfo: false,
+      isCoverPage: false,
+      onExitClicked: () => {
+        window.location.href = "/";
+      },
+      inComp: false,
+      inSpelling: false
+    };
+
+    return <NavigationBar {...navProps} />;
+  };
+
   render() {
-    return <AssignBooks userID={this.props.userID} />;
+    return (
+      <div className={[styles.fullHeight, styles.fill].join(" ")}>
+        {this.renderNavigationBar()}
+        <style type="text/css">
+          {".modal-dialog { margin: 16vh auto 0px; } "}
+        </style>
+
+        <div className={styles.contentContainer}>
+          <AssignBooks userID={this.props.userID} />;
+        </div>
+      </div>
+    );
   }
 }
