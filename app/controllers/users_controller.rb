@@ -22,6 +22,9 @@ class UsersController < ApplicationController
   def new_with_class
   user = User.create(first_name: "Dummy", last_name: "Teacher", name: params['params']['name'], password: "12345678", email:"dummy#{rand(1000000)}@gmail.com")
 
+  user.teachers.create(signature: "Ms. #{user.last_name}")
+  user.teachers.last.classrooms.create(grade_level: 2)
+
   render json: user
 
   end

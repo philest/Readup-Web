@@ -98,7 +98,7 @@ export class StudentDashboard extends React.Component {
     isDemo: PropTypes.bool,
     storyID: PropTypes.string,
     routerIsWarmup: PropTypes.bool,
-    teacherName: PropTypes.string
+    userID: PropTypes.string
   };
 
   constructor(props, _railsContext) {
@@ -185,7 +185,7 @@ export class StudentDashboard extends React.Component {
       onAvatarClicked: this.props.actions.avatarClicked,
       onFinishVideoClicked: this.props.actions.finishVideoClicked,
       hasLoggedIn: this.props.hasLoggedIn,
-      teacherName: this.props.teacherName,
+      userID: this.props.userID,
       inSilentReading: this.props.inSilentReading,
       onCompPauseClicked: this.props.actions.compPauseClicked,
       onHearIntroAgainClicked: this.props.actions.hearIntroAgainClicked,

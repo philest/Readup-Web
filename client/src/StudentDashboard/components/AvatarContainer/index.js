@@ -41,7 +41,7 @@ export default class AvatarContainer extends React.Component {
     onStudentNameSet: PropTypes.func.isRequired,
     onBookSet: PropTypes.func.isRequired,
     onAvatarClicked: PropTypes.func.isRequired,
-    teacherName: PropTypes.string
+    userID: PropTypes.number
   };
 
   static defaultProps = {};
@@ -93,7 +93,7 @@ export default class AvatarContainer extends React.Component {
 
   componentWillMount = () => {
     let newClass = {};
-    let userID = 3408;
+    let userID = this.props.userID;
 
     getAllStudents(userID)
       .then(res => {
@@ -135,15 +135,10 @@ export default class AvatarContainer extends React.Component {
   render() {
     return (
       <div>
-        <Avatar
-          teacher
-          teacherSignature={getFemaleSignature(this.props.teacherName)}
-        />
+        <Avatar teacher teacherSignature={"Ms. FIX THIS!"} />
 
         <div className={styles.studentAvatarContainer}>
           {this.renderAvatars(this.state.myClass)}
-          {/*          {this.renderAvatars(getNameAndBookList(this.props.teacherName))}
-*/}{" "}
         </div>
       </div>
     );

@@ -43,16 +43,14 @@ function Root({ store, rorProps }) {
       <HashRouter>
         <Switch>
           <Route
-            path="/story/:story_id/demo/:is_demo/page/:page_number/:teacher_name/warmup/:is_warmup"
+            path="/story/:story_id/demo/:is_demo/page/:page_number/:user_id/warmup/:is_warmup"
             render={props => {
               let readerManagerProps = {
                 ...props,
                 ...rorProps,
                 storyID: props.match.params.story_id,
                 isDemo: props.match.params.is_demo === "true",
-                teacherName:
-                  toTitleCase(props.match.params.teacher_name) ||
-                  "Demo Teacher",
+                userID: props.match.params.user_id,
                 routerIsWarmup: props.match.params.is_warmup !== "false"
               }; //router: this.props.history}
 
@@ -68,7 +66,7 @@ function Root({ store, rorProps }) {
                 ...rorProps,
                 storyID: props.match.params.story_id,
                 isDemo: props.match.params.is_demo === "true",
-                teacherName: "Demo Teacher"
+                userID: "3408"
               }; //router: this.props.history}
               return <ReaderManager {...readerManagerProps} />;
             }}

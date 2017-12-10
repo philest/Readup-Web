@@ -109,14 +109,14 @@ Rails.application.routes.draw do
   # The student testing the program... 
 
 
-  get 'rmp1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/bridget%20joyce/warmup/true')
+  get 'rmp1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/3408/warmup/true')
 
 
   get 'rmp2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
 
 
 
-  get 'RMP1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/bridget%20joyce/warmup/true')
+  get 'RMP1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/3408/warmup/true')
 
 
   get 'RMP2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
