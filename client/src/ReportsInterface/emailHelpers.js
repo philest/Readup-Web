@@ -3,6 +3,21 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
+export function getTeacher(userID) {
+  return axios
+    .get(`/users/get_teacher`, {
+      params: { id: userID },
+      headers: RctOnR.authenticityHeaders()
+    })
+    .then(res => {
+      console.log(res);
+      return res;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 export function createUserWithClass(name) {
   const params = {
     name: name

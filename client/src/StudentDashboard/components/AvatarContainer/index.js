@@ -5,13 +5,16 @@ import Avatar from "../Avatar";
 
 import {
   getAllStudents,
-  getAllAssessments
+  getAllAssessments,
+  getTeacher
 } from "../../../ReportsInterface/emailHelpers";
 
 import { library } from "../../../sharedComponents/bookObjects.js";
 
 let colorArr = ["teal", "purple", "green", "blue"];
 let offsetArr = ["left", "right"];
+
+let teacherSignature = "Your Class";
 
 function getNameAndBookList(teacherName) {
   if (teacherName === "Samantha Kadis") {
@@ -45,8 +48,6 @@ export default class AvatarContainer extends React.Component {
   };
 
   static defaultProps = {};
-
-  componentWillMount() {}
 
   renderAvatars = myClass => {
     const nameArr = [];
@@ -95,6 +96,15 @@ export default class AvatarContainer extends React.Component {
     let newClass = {};
     let userID = this.props.userID;
 
+    getTeacher(this.props.userID)
+      .then(res => {
+        console.log("okay!: ", res);
+        teacherSignature = res.data.signature;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
     getAllStudents(userID)
       .then(res => {
         console.log("resolved: ");
@@ -135,7 +145,7 @@ export default class AvatarContainer extends React.Component {
   render() {
     return (
       <div>
-        <Avatar teacher teacherSignature={"Ms. FIX THIS!"} />
+        <Avatar teacher teacherSignature={teacherSignature} />
 
         <div className={styles.studentAvatarContainer}>
           {this.renderAvatars(this.state.myClass)}

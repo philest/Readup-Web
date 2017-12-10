@@ -17,6 +17,20 @@ class UsersController < ApplicationController
   def show
   end
 
+  # GET /users/get_teacher
+  def get_teacher 
+    puts 'look at me!'
+    puts params
+    puts params['id']
+
+    user = User.find(params['id'])
+
+
+
+    render json: user.teachers.last
+
+  end 
+
 
   # GET /users/new_with_class
   def new_with_class
