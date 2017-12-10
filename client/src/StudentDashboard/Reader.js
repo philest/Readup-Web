@@ -97,6 +97,7 @@ export default class Reader extends React.Component {
     onStudentNameSet: PropTypes.func,
     onAvatarClicked: PropTypes.func,
     inSilentReading: PropTypes.bool,
+    onSetCurrentOverlay: PropTypes.func,
 
     isWithinGrader: PropTypes.bool
   };
@@ -677,6 +678,7 @@ export default class Reader extends React.Component {
               onStudentNameSet={this.props.onStudentNameSet}
               onBookSet={this.props.onBookSet}
               onAvatarClicked={this.props.onAvatarClicked}
+              onSetCurrentOverlay={this.props.onSetCurrentOverlay}
               userID={Number(this.props.userID)}
             />
           </div>

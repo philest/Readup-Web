@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import styles from "./styles.css";
 
+import { playSound, stopAudio } from "../../audioPlayer";
+
 function getShortenedName(fullName) {
   let res = fullName.split(" ");
   return res[0] + " " + res[1].charAt(0) + ".";
@@ -46,6 +48,7 @@ export default class Avatar extends React.Component {
     onAvatarClicked: PropTypes.func,
     onStudentNameSet: PropTypes.func,
     onBookSet: PropTypes.func,
+    onSetCurrentOverlay: PropTypes.func,
     disabled: PropTypes.bool
   };
 
@@ -59,6 +62,13 @@ export default class Avatar extends React.Component {
   };
 
   login = () => {
+    if (this.props.disabled) {
+      this.props.onSetCurrentOverlay("overlay-disabled-step");
+      stopAudio();
+      playSound("/audio/teacher-help.mp3");
+      return;
+    }
+
     if (this.props.teacher) {
       return;
     }

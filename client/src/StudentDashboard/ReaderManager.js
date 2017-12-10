@@ -191,6 +191,7 @@ export class StudentDashboard extends React.Component {
       onCompPauseClicked: this.props.actions.compPauseClicked,
       onHearIntroAgainClicked: this.props.actions.hearIntroAgainClicked,
       onHearQuestionAgainClicked: this.props.actions.hearQuestionAgainClicked,
+      onSetCurrentOverlay: this.props.actions.setCurrentOverlay,
       writtenCompInput: this.props.writtenCompInput,
       onBookSet: this.props.actions.setBook
     };

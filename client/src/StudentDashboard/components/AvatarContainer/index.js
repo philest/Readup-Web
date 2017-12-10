@@ -29,6 +29,7 @@ export default class AvatarContainer extends React.Component {
     onStudentNameSet: PropTypes.func.isRequired,
     onBookSet: PropTypes.func.isRequired,
     onAvatarClicked: PropTypes.func.isRequired,
+    onSetCurrentOverlay: PropTypes.func,
     userID: PropTypes.number
   };
 
@@ -59,6 +60,7 @@ export default class AvatarContainer extends React.Component {
           color={colorArr[i % 4]}
           disabled={bookKey[bookKey.length - 1] <= 3}
           offset={offsetArr[i % 2]}
+          onSetCurrentOverlay={this.props.onSetCurrentOverlay}
           onStudentNameSet={this.props.onStudentNameSet}
           onBookSet={this.props.onBookSet}
           onAvatarClicked={this.props.onAvatarClicked}
