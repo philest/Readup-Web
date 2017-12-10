@@ -31,12 +31,17 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE"
+      currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE",
+      userID: this.props.userID
       // currentShowPageID: this.props.isAddClass
       //   ? "ADD_CLASS_PAGE"
       //   : "ASSIGN_BOOKS_PAGE"
     };
   }
+
+  updateUserID = userID => {
+    this.setState({ userID: userID });
+  };
 
   setCurrentShowPage = ID => {
     this.setState({ currentShowPageID: ID });
@@ -84,18 +89,21 @@ export default class Signup extends React.Component {
         </style>
         <div className={styles.contentContainer}>
           {this.state.currentShowPageID === "NAME_PAGE" && (
-            <Name hide={() => this.setCurrentShowPage("ADD_CLASS_PAGE")} />
+            <Name
+              hide={() => this.setCurrentShowPage("ADD_CLASS_PAGE")}
+              updateUserID={this.updateUserID}
+            />
           )}
 
           {this.state.currentShowPageID === "ADD_CLASS_PAGE" && (
             <AddClass
-              userID={this.props.userID}
+              userID={this.props.userID || this.state.userID}
               hide={() => this.setCurrentShowPage("ASSIGN_BOOKS_PAGE")}
             />
           )}
           {this.state.currentShowPageID === "ASSIGN_BOOKS_PAGE" && (
             <AssignBooks
-              userID={this.props.userID}
+              userID={this.props.userID || this.state.userID}
               hideModal={() => this.setCurrentShowPage("LINK_INFO_PAGE")}
             />
           )}

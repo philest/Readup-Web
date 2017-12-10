@@ -42,6 +42,30 @@ export function createUserWithClass(name) {
     });
 }
 
+export function setupClass(studentsArr) {
+  const params = {
+    students: studentsArr
+  };
+
+  console.log("params: ", params);
+
+  return axios
+    .post("/users/setup_class", {
+      params,
+      headers: RctOnR.authenticityHeaders(),
+      timeout: 10000
+    })
+    .then(res => {
+      console.log("here in helper, res: ", res);
+      return res;
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(error.response);
+      return false;
+    });
+}
+
 export function createStudentsForUser(userID, studentsArr) {
   const params = {
     id: userID,

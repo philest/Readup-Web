@@ -53,6 +53,9 @@ Rails.application.routes.draw do
   resources :classrooms
 
 
+  get '/users/setup_class', to: 'users#setup_class'
+  post '/users/setup_class', to: 'users#setup_class'
+
   post '/users/new_with_class', to: 'users#new_with_class'
 
 

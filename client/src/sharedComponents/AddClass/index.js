@@ -5,7 +5,10 @@ import myStyles from "./styles.css";
 
 import { Button, Modal, FormControl } from "react-bootstrap";
 
-import { createStudentsForUser } from "../../ReportsInterface/emailHelpers";
+import {
+  createStudentsForUser,
+  setupClass
+} from "../../ReportsInterface/emailHelpers";
 
 export default class AddClass extends React.Component {
   static propTypes = {
@@ -31,7 +34,7 @@ export default class AddClass extends React.Component {
       return;
     }
 
-    createStudentsForUser(userID, studentsArr)
+    setupClass(studentsArr)
       .then(res => {
         console.log("results here!: ", res);
         this.props.hide();
@@ -39,6 +42,15 @@ export default class AddClass extends React.Component {
       .catch(err => {
         console.log(err);
       });
+
+    // createStudentsForUser(userID, studentsArr)
+    //   .then(res => {
+    //     console.log("results here!: ", res);
+    //     this.props.hide();
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   };
 
   render() {

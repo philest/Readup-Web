@@ -29,11 +29,11 @@ export default class LinkInfo extends React.Component {
           Great, now have students type in your class link!
         </h2>
         <div className={[styles.formLg, styles.formLook].join(" ")}>
-          <a target="_blank" href={`https://${this.props.classLink}`}>
+          <a target="_blank" href={`https://www.${this.props.classLink}`}>
             {this.props.classLink}
           </a>
         </div>
-        <a target="_blank" href={`https://${this.props.classLink}`}>
+        <a target="_blank" href={`https://www.${this.props.classLink}`}>
           <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
             Go there now
           </Button>

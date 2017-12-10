@@ -36,12 +36,37 @@ class UsersController < ApplicationController
   def new_with_class
   user = User.create(first_name: "Dummy", last_name: "Teacher", name: params['params']['name'], password: "12345678", email:"dummy#{rand(1000000)}@gmail.com")
 
-  user.teachers.create(signature: "Ms. #{user.last_name}")
-  user.teachers.last.classrooms.create(grade_level: 2)
+  # user.teachers.create(signature: "Ms. #{user.last_name}")
+  # user.teachers.last.classrooms.create(grade_level: 2)
 
   render json: user
 
   end
+
+  def setup_class
+  user = User.last 
+
+    classroom_options = {
+      classroom_name: "Ms. #{user.last_name}'s Class",
+      user_id: user.id,
+      school_id: School.find_by(name: 'Demo School'),
+      grade: 2,
+      teacher_signature: "Ms. #{user.last_name}",
+      student_list: params["params"]["students"],
+      book_key: 'step5'
+    }
+
+    if @new_classroom = Classroom.create_with_teacher_and_students_and_assesssments(classroom_options)
+
+      render json: { ok: true }, status: :ok
+
+    else
+      head 403
+    end
+
+
+  end 
+
 
 
   # GET /users/new

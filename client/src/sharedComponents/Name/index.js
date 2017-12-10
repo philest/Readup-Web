@@ -19,6 +19,7 @@ export default class Name extends React.Component {
   createUser = name => {
     createUserWithClass(name)
       .then(res => {
+        this.props.updateUserID(res.data.id);
         console.log("HERE: ", this.props.hide);
         this.props.hide();
       })
