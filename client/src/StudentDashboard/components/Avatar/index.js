@@ -45,7 +45,8 @@ export default class Avatar extends React.Component {
     teacherSignature: PropTypes.string,
     onAvatarClicked: PropTypes.func,
     onStudentNameSet: PropTypes.func,
-    onBookSet: PropTypes.func
+    onBookSet: PropTypes.func,
+    disabled: PropTypes.bool
   };
 
   static defaultProps = {
@@ -53,7 +54,8 @@ export default class Avatar extends React.Component {
     color: "blue",
     offset: "none",
     teacher: false,
-    teacherSignature: "Your Teacher"
+    teacherSignature: "Your Teacher",
+    disabled: false
   };
 
   login = () => {
@@ -81,6 +83,7 @@ export default class Avatar extends React.Component {
       <div
         className={[
           styles.avatarWhole,
+          this.props.disabled ? styles.grey : "",
           this.props.teacher ? styles.centered : ""
         ].join(" ")}
         onClick={this.login}

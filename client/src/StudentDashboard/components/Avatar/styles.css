@@ -68,6 +68,11 @@
 	background-color: #bcd66d;
 }
 
+.grey {
+	-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+	filter: grayscale(100%);
+}
+
 .dropShadow {
 	-webkit-box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.39);
 	-moz-box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.39);
@@ -93,6 +98,13 @@
 	transform: translateY(-3px);
 	filter: brightness(120%);
 	transition: all 0.3s;
+}
+
+.grey.avatarWhole:hover {
+	transform: none;
+
+	-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+	filter: grayscale(100%);
 }
 
 .name {

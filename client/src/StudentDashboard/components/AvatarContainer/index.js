@@ -16,21 +16,6 @@ let offsetArr = ["left", "right"];
 
 let teacherSignature = "Your Class";
 
-function getNameAndBookList(teacherName) {
-  if (teacherName === "Samantha Kadis") {
-    return samanthaArr;
-  } else if (teacherName === "Bridget Joyce") {
-    return bridgetArr;
-  } else {
-    return defaultArr;
-  }
-}
-
-function getFemaleSignature(teacherName) {
-  let res = teacherName.split(" ");
-  return `Ms. ${res[1]}`;
-}
-
 function getStepforName(name, myClass) {
   for (let i = 1; i <= myClass.numStudents; i++) {
     if (name === myClass[i].name) {
@@ -64,12 +49,15 @@ export default class AvatarContainer extends React.Component {
     // TODO does not actually match books
 
     for (let i = 0; i < myClass.numStudents; i++) {
+      let bookKey = getStepforName(nameArr[i], myClass);
+
       avatarArray.push(
         <Avatar
           key={i}
           fullName={nameArr[i]}
-          bookKey={getStepforName(nameArr[i], myClass)}
+          bookKey={bookKey}
           color={colorArr[i % 4]}
+          disabled={bookKey[bookKey.length - 1] <= 3}
           offset={offsetArr[i % 2]}
           onStudentNameSet={this.props.onStudentNameSet}
           onBookSet={this.props.onBookSet}
