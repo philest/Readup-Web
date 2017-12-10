@@ -126,10 +126,8 @@ export default class AssignBooks extends React.Component {
   };
 
   getColorClass = level => {
-    if (level <= 4) {
+    if (level <= 3) {
       return styles.poorMetric;
-    } else if (level <= 6) {
-      return styles.fairMetric;
     } else if (level <= 12) {
       return styles.goodMetric;
     }
