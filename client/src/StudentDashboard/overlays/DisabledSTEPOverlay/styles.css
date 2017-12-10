@@ -1,0 +1,46 @@
+
+.micContainer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: black;
+	opacity: 1.0;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 3333;
+
+	color: white;
+}
+
+.readupLogo {
+	position: absolute;
+	top: 30px;
+	left: 50px;
+
+	font-size: 1.8em;
+	font-family: 'Proximanova Semibold';
+}
+
+.micHeader {
+	font-size: 2.3em;
+	font-family: 'Proximanova Semibold';
+}
+
+.micList {
+	margin-top: 30px;
+	width: 550px;
+	font-family: 'Proximanova';
+}
+
+.number {
+	font-family: 'Proximanova Semibold';
+}
+
+.micStep {
+	font-size: 1.4em;
+	margin: 15px;
+}

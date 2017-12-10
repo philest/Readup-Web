@@ -1747,7 +1747,8 @@ function* assessThenSubmitSaga() {
 	// yield put.resolve(setReaderState("TEST"));
 	// yield put.resolve(hideVolumeIndicator());
 
-	// yield take("nnnever pass");
+	yield put(setCurrentOverlay("overlay-disabled-step"));
+	yield take("nnnever pass");
 
 	if (!isWarmup && isDemo) {
 		yield put.resolve(avatarClicked()); // log in for them

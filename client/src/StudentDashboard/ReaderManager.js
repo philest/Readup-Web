@@ -28,6 +28,7 @@ import DemoSubmittedOverlay from "./overlays/DemoSubmittedOverlay";
 import PermissionsOverlay from "./overlays/PermissionsOverlay";
 import CountdownOverlay from "./overlays/CountdownOverlay";
 import SpinnerOverlay from "./overlays/SpinnerOverlay";
+import DisabledSTEPOverlay from "./overlays/DisabledSTEPOverlay";
 
 import { Modal } from "react-bootstrap";
 
@@ -341,6 +342,10 @@ export class StudentDashboard extends React.Component {
   renderOverlayOrNullBasedOnState = () => {
     return (
       <div>
+        <DisabledSTEPOverlay
+          currentShowOverlay={this.props.currentShowOverlay}
+        />
+
         <BlockedMicOverlay currentShowOverlay={this.props.currentShowOverlay} />
 
         <SubmittedOverlay currentShowOverlay={this.props.currentShowOverlay} />
