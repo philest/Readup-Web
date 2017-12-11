@@ -103,7 +103,7 @@ skip_before_action :verify_authenticity_token
 
 
 	    msg = { :status => "ok", :numActiveRooms => "#{rooms_by_status ? rooms_by_status.length : 0}",
-	    		:name => "#{rooms_by_status ? rooms_by_status.first.unique_name : nil}", :roomSID => "#{rooms_by_status ? rooms_by_status.first.sid : nil}"
+	    		:name => "#{rooms_by_status.first ? rooms_by_status.first.unique_name : nil}", :roomSID => "#{rooms_by_status.first ? rooms_by_status.first.sid : nil}"
 	     }
 	    render :json => msg
 
