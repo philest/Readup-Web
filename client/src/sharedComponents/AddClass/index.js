@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../AssignBooks/styles.css";
 import myStyles from "./styles.css";
 
-import { Button, Modal, FormControl } from "react-bootstrap";
+import { Button, Modal, FormControl, ControlLabel } from "react-bootstrap";
 
 import {
   createStudentsForUser,
@@ -61,23 +61,22 @@ export default class AddClass extends React.Component {
             <Modal.Title className={styles.title}>Add Class</Modal.Title>
           </Modal.Header>
 
-          <style>
-            {`.dropdown-menu { max-height: 140px; overflow-y: scroll; }`}
-          </style>
-
-          <Modal.Body className={styles.body}>
+          <Modal.Header>
+            <span className={myStyles.myLabel}>
+              <ControlLabel>Start typing to add students</ControlLabel>
+            </span>
             <FormControl
-              className={myStyles.spellingField}
+              className={myStyles.input}
               type="text"
-              componentClass="textarea"
-              bsSize="lg"
               spellCheck="false"
               inputRef={ref => {
                 this.form = ref;
               }}
               autoFocus
             />
+          </Modal.Header>
 
+          <Modal.Body className={[styles.body, myStyles.addBody].join(" ")}>
             {false && this.renderRoster()}
           </Modal.Body>
 

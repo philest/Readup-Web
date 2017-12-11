@@ -27,7 +27,8 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE",
+      currentShowPageID: "ADD_CLASS_PAGE",
+      // currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE",
       userID: this.props.userID
       // currentShowPageID: this.props.isAddClass
       //   ? "ADD_CLASS_PAGE"

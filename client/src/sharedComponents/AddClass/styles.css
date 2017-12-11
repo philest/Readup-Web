@@ -2,3 +2,24 @@
 	height: 80% !important;
 	margin: 5% 0px !important;
 }
+
+.input {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.myLabel {
+	margin-left: 5%;
+	margin-top: 6px;
+	color: rgb(125, 125, 125);
+	font-weight: 100 !important;
+	font-family: "proximanova";
+}
+
+.myLabel label {
+	font-weight: 100 !important;
+}
+
+.addBody {
+	height: 36vh;
+}
