@@ -10,17 +10,25 @@ import {
   setupClass
 } from "../../ReportsInterface/emailHelpers";
 
-let students = [
-  "Phil Esterman",
-  "Bradley Jay",
-  "Jordy Zeldin",
-  "Linny Jane",
-  "Sammy Price",
-  "Bradley Jay",
-  "Jordy Zeldin",
-  "Linny Jane",
-  "Sammy Price"
-];
+function remove(array, element) {
+  const index = array.indexOf(element);
+
+  if (index !== -1) {
+    array.splice(index, 1);
+  }
+}
+
+// let students = [
+//   "Phil Esterman",
+//   "Bradley Jay",
+//   "Jordy Zeldin",
+//   "Linny Jane",
+//   "Sammy Price",
+//   "Bradley Jay",
+//   "Jordy Zeldin",
+//   "Linny Jane",
+//   "Sammy Price"
+// ];
 
 export default class AddClass extends React.Component {
   static propTypes = {
@@ -36,8 +44,47 @@ export default class AddClass extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {};
+    this.state = {
+      students: [],
+      showIndicator: false,
+      inputValue: ""
+    };
   }
+
+  checkForm = () => {
+    this.setState({ inputValue: this.form.value });
+
+    if (this.form.value !== "") {
+      this.setState({ showIndicator: true });
+    } else {
+      this.setState({ showIndicator: false });
+    }
+  };
+
+  _handleKeyPress = e => {
+    if (e.key === "Enter") {
+      this.validateAndSubmit();
+    }
+  };
+
+  validateAndSubmit = () => {
+    console.log("do validate");
+    this.addStudent(this.form.value);
+    this.setState({ inputValue: "" });
+    this.setState({ showIndicator: false });
+    this.form.focus();
+  };
+
+  addStudent = fullName => {
+    let holder = this.state.students;
+    holder.unshift(fullName);
+    this.setState({ students: holder });
+  };
+
+  removeStudent = fullName => {
+    let holder = remove(this.state.students, fullName);
+    this.setState((students: holder));
+  };
 
   createStudents = userID => {
     let studentsArr = this.form.value.split("\n");
@@ -78,19 +125,21 @@ export default class AddClass extends React.Component {
   renderRoster = studentArr => {
     let rowArr = [];
 
-    rowArr.push(
-      <div>
-        {this.renderRow("2 students", -1, true)}
+    if (studentArr.length > 0) {
+      rowArr.push(
+        <div>
+          {this.renderRow(`${studentArr.length} students`, -1, true)}
 
-        <hr
-          style={{
-            opacity: 0.35,
-            marginTop: 0 + "em",
-            marginBottom: 0 + "em"
-          }}
-        />
-      </div>
-    );
+          <hr
+            style={{
+              opacity: 0.35,
+              marginTop: 0 + "em",
+              marginBottom: 0 + "em"
+            }}
+          />
+        </div>
+      );
+    }
 
     for (let i = 0; i < studentArr.length; i++) {
       rowArr.push(
@@ -132,20 +181,29 @@ export default class AddClass extends React.Component {
               inputRef={ref => {
                 this.form = ref;
               }}
-              autoFocus
+              onKeyPress={this._handleKeyPress}
+              onChange={this.checkForm}
+              value={this.state.inputValue}
             />
-            <div className={myStyles.addIndicator} style={{ display: "none" }}>
+            <div
+              className={myStyles.addIndicator}
+              style={{
+                visibility: this.state.showIndicator ? "visible" : "hidden",
+                cursor: "pointer"
+              }}
+              onClick={this.validateAndSubmit}
+            >
               <i
                 style={{ marginRight: 10 }}
                 className="fa fa-plus"
                 aria-hidden="true"
               />
-              Add "James Franco"
+              {`Add '${this.state.inputValue}'`}
             </div>
           </Modal.Header>
 
           <Modal.Body className={[styles.body, myStyles.addBody].join(" ")}>
-            {this.renderRoster(students)}
+            {this.renderRoster(this.state.students)}
           </Modal.Body>
 
           <Modal.Footer>
