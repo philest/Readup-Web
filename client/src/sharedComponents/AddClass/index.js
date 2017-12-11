@@ -10,6 +10,18 @@ import {
   setupClass
 } from "../../ReportsInterface/emailHelpers";
 
+let students = [
+  "Phil Esterman",
+  "Bradley Jay"
+  // "Jordy Zeldin",
+  // "Linny Jane",
+  // "Sammy Price",
+  // "Bradley Jay",
+  // "Jordy Zeldin",
+  // "Linny Jane",
+  // "Sammy Price"
+];
+
 export default class AddClass extends React.Component {
   static propTypes = {
     userID: PropTypes.number,
@@ -42,15 +54,42 @@ export default class AddClass extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  };
 
-    // createStudentsForUser(userID, studentsArr)
-    //   .then(res => {
-    //     console.log("results here!: ", res);
-    //     this.props.hide();
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+  renderRow = (fullName, key) => {
+    return (
+      <div key={key} className={[myStyles.addRow].join(" ")}>
+        <span>{fullName}</span>
+        <i
+          className={`fa fa-times ${myStyles.deleteIcon}`}
+          aria-hidden="true"
+        />
+      </div>
+    );
+  };
+
+  renderRoster = studentArr => {
+    let rowArr = [];
+
+    for (let i = 0; i < studentArr.length; i++) {
+      rowArr.push(
+        <div>
+          {this.renderRow(studentArr[i], i)}
+
+          {(i + 1 !== studentArr.length || i <= 5) && (
+            <hr
+              style={{
+                opacity: 0.35,
+                marginTop: 0 + "em",
+                marginBottom: 0 + "em"
+              }}
+            />
+          )}
+        </div>
+      );
+    }
+
+    return <div>{rowArr}</div>;
   };
 
   render() {
@@ -74,7 +113,7 @@ export default class AddClass extends React.Component {
               }}
               autoFocus
             />
-            <div className={myStyles.addIndicator}>
+            <div className={myStyles.addIndicator} style={{ display: "none" }}>
               <i
                 style={{ marginRight: 10 }}
                 className="fa fa-plus"
@@ -85,7 +124,7 @@ export default class AddClass extends React.Component {
           </Modal.Header>
 
           <Modal.Body className={[styles.body, myStyles.addBody].join(" ")}>
-            {false && this.renderRoster()}
+            {this.renderRoster(students)}
           </Modal.Body>
 
           <Modal.Footer>

@@ -26,6 +26,7 @@
 
 .addBody {
 	height: 36vh;
+	padding: 0;
 }
 
 .addIndicator {
@@ -42,4 +43,18 @@
 	border: 1px solid #dbdbdbb5;
 	font-family: "proximanova semibold";
 	border-radius: 2px;
+}
+
+.addRow {
+	display: flex;
+	justify-content: space-between;
+	height: 50px;
+	padding: 15px 47px;
+	padding-right: 30px;
+	background-color: white;
+}
+
+.deleteIcon {
+	color: #808080a6;
+	font-size: 17px;
 }
