@@ -112,7 +112,8 @@ class GraderInterfaceController < ApplicationController
         completed: @assessment.completed,
         totalTimeReading: (@assessment.total_time_reading),
         scoredSpelling: @assessment.scored_spelling,
-        isVideoChat: params["live"] != nil 
+        isVideoChat: params["live"] != nil ,
+        isProctor: params['proctor'] != nil,
       }
       
     end

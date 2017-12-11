@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get 'token', to: 'video#token' 
   get 'room_events', to: 'video#room_events'
   post 'room_events', to: 'video#room_events'
-  get 'list_active_rooms', to: 'video#list_active_rooms'
+  get 'active_rooms', to: 'video#list_active_rooms'
 
 
   # recording stuff 
@@ -150,6 +150,9 @@ Rails.application.routes.draw do
 
 
   get 'live', to: redirect('/grade/latest?live=true')
+
+
+  get 'rooms', to: redirect('/grade/latest?proctor=true')
 
 
   get 'fp-report', to: redirect('reports/direct-sample?brand=FP')

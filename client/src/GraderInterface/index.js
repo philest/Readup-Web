@@ -33,7 +33,8 @@ import {
   markUnscorable,
   updateFluencyScore,
   getFluencyScore,
-  getAssessmentData
+  getAssessmentData,
+  getActiveRooms
 } from "../ReportsInterface/emailHelpers";
 
 import NavigationBar from "../StudentDashboard/components/NavigationBar";
@@ -136,7 +137,8 @@ export default class GraderInterface extends React.Component {
     waiting: PropTypes.bool,
     isRemote: PropTypes.bool,
     totalTimeReading: PropTypes.number,
-    isVideoChat: PropTypes.bool
+    isVideoChat: PropTypes.bool,
+    isProctor: PropTypes.bool
   };
 
   constructor(props, _railsContext) {
@@ -207,7 +209,7 @@ export default class GraderInterface extends React.Component {
     this.setState({ showQArr: backupShowQArr });
     console.log("just reset state: ", this.state.showQArr);
 
-    if (!this.props.isVideoChat) {
+    if (!this.props.isVideoChat && !this.props.isProctor) {
       // no network calls when video chat.
       // check all of s3 fully once
       for (let q = 0; q <= numQuestions; q++) {
@@ -232,6 +234,16 @@ export default class GraderInterface extends React.Component {
     clearInterval(this.interval);
   }
 
+  activeRooms = () => {
+    getActiveRooms()
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   closeReportReadyModal = () => {
     this.setState({ showReadyForReviewModal: false });
   };
@@ -251,7 +263,7 @@ export default class GraderInterface extends React.Component {
   };
 
   tick() {
-    if (this.props.isVideoChat) {
+    if (this.props.isVideoChat || this.props.isProctor) {
       return;
     }
 
@@ -1023,6 +1035,15 @@ export default class GraderInterface extends React.Component {
             showPromptAlert={this.showPromptAlert}
             studentID={this.props.studentID}
           />
+        </div>
+      );
+    }
+
+    if (this.props.isProctor) {
+      return (
+        <div>
+          {this.renderNavigationBar(false)}
+          HERE I AM!!!!
         </div>
       );
     }

@@ -3,6 +3,20 @@ import RctOnR from "react-on-rails";
 import axios from "axios";
 import _forOwn from "lodash/forOwn";
 
+export function getActiveRooms() {
+  return axios
+    .get(`/active_rooms`, {
+      headers: RctOnR.authenticityHeaders()
+    })
+    .then(res => {
+      console.log(res);
+      return res;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 export function getTeacher(userID) {
   return axios
     .get(`/users/get_teacher`, {
