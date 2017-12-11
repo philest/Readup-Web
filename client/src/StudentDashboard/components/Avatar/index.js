@@ -69,9 +69,9 @@ export default class Avatar extends React.Component {
       return;
     }
 
-    if (this.props.teacher) {
-      return;
-    }
+    // if (this.props.teacher) {
+    //   return;
+    // }
 
     console.log("just clicked " + this.props.fullName);
     this.props.onStudentNameSet(this.props.fullName);
@@ -127,8 +127,17 @@ export default class Avatar extends React.Component {
         )}
         {this.props.teacher && (
           <span className={[styles.name, styles.largeName].join(" ")}>
-            {this.props.teacherSignature + "'s Class"}
+            {this.props.teacherSignature}
           </span>
+        )}
+        {this.props.teacher && (
+          <div
+            className={[styles.name, styles.largeName, styles.tryDemo].join(
+              " "
+            )}
+          >
+            Try Demo{" "}
+          </div>
         )}
       </div>
     );

@@ -121,6 +121,12 @@
 	color: white;
 }
 
+.tryDemo {
+	font-size: 15px;
+	font-family: "proximanova";
+	font-style: italic;
+}
+
 .initials {
 	position: relative;
 	top: -50px;
