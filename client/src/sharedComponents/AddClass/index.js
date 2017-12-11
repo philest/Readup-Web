@@ -82,8 +82,10 @@ export default class AddClass extends React.Component {
   };
 
   removeStudent = fullName => {
-    let holder = remove(this.state.students, fullName);
-    this.setState((students: holder));
+    let holder = this.state.students;
+
+    remove(holder, fullName);
+    this.setState({ students: holder });
   };
 
   createStudents = userID => {
@@ -116,6 +118,10 @@ export default class AddClass extends React.Component {
           <i
             className={`fa fa-times ${myStyles.deleteIcon}`}
             aria-hidden="true"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              this.removeStudent(fullName);
+            }}
           />
         )}
       </div>
