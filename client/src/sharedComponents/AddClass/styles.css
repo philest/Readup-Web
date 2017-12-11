@@ -20,6 +20,26 @@
 	font-weight: 100 !important;
 }
 
+.minorHeader {
+	height: 95px;
+}
+
 .addBody {
 	height: 36vh;
+}
+
+.addIndicator {
+	width: 90%;
+	padding: 15px 14px;
+	display: block;
+	margin: 0 auto;
+	height: 52px;
+	z-index: 1;
+	position: relative;
+	top: -1px;
+	background-color: #e5f6fd;
+	color: #00adf2;
+	border: 1px solid #dbdbdbb5;
+	font-family: "proximanova semibold";
+	border-radius: 2px;
 }

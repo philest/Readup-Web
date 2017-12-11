@@ -61,7 +61,7 @@ export default class AddClass extends React.Component {
             <Modal.Title className={styles.title}>Add Class</Modal.Title>
           </Modal.Header>
 
-          <Modal.Header>
+          <Modal.Header className={myStyles.minorHeader}>
             <span className={myStyles.myLabel}>
               <ControlLabel>Start typing to add students</ControlLabel>
             </span>
@@ -74,6 +74,14 @@ export default class AddClass extends React.Component {
               }}
               autoFocus
             />
+            <div className={myStyles.addIndicator}>
+              <i
+                style={{ marginRight: 10 }}
+                className="fa fa-plus"
+                aria-hidden="true"
+              />
+              Add "James Franco"
+            </div>
           </Modal.Header>
 
           <Modal.Body className={[styles.body, myStyles.addBody].join(" ")}>
