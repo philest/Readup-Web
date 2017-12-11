@@ -11,10 +11,6 @@ import LinkInfo from "../sharedComponents/LinkInfo";
 import AddClass from "../sharedComponents/AddClass";
 import Name from "../sharedComponents/Name";
 
-import { getClassLink } from "../ReportsInterface/emailHelpers";
-
-let classLink;
-
 export default class Signup extends React.Component {
   static propTypes = {
     userID: PropTypes.number,
@@ -47,12 +43,7 @@ export default class Signup extends React.Component {
     this.setState({ currentShowPageID: ID });
   };
 
-  componentDidMount = () => {
-    getClassLink(this.props.userID).then(res => {
-      console.log("link? ", res.data);
-      classLink = res.data;
-    });
-  };
+  componentDidMount = () => {};
 
   hideModal = () => {
     this.setState({ showModal: false });
@@ -108,7 +99,7 @@ export default class Signup extends React.Component {
             />
           )}
           {this.state.currentShowPageID === "LINK_INFO_PAGE" && (
-            <LinkInfo classLink={classLink} />
+            <LinkInfo userID={this.props.userID || this.state.userID} />
           )}
         </div>
       </div>

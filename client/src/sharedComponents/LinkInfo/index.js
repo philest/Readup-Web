@@ -3,14 +3,20 @@ import React from "react";
 import styles from "./styles.css";
 import { Button } from "react-bootstrap";
 
+import { getClassLink } from "../../ReportsInterface/emailHelpers";
+
+let classLink = "ReadUpNow.com/RMP1";
+
 export default class LinkInfo extends React.Component {
   static propTypes = {
-    classLink: PropTypes.string,
-    classURL: PropTypes.string
+    userID: PropTypes.number
   };
 
-  static defaultProps = {
-    classLink: "ReadUpNow.com/RMP1"
+  componentWillMount = () => {
+    getClassLink(this.props.userID).then(res => {
+      console.log("link? ", res.data);
+      this.setState({ classLink: res.data });
+    });
   };
 
   /**
@@ -19,7 +25,9 @@ export default class LinkInfo extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {};
+    this.state = {
+      classLink: classLink
+    };
   }
 
   render() {
@@ -29,11 +37,11 @@ export default class LinkInfo extends React.Component {
           Great, now have students type in your class link!
         </h2>
         <div className={[styles.formLg, styles.formLook].join(" ")}>
-          <a target="_blank" href={`https://www.${this.props.classLink}`}>
-            {this.props.classLink}
+          <a target="_blank" href={`https://www.${this.state.classLink}`}>
+            {this.state.classLink}
           </a>
         </div>
-        <a target="_blank" href={`https://www.${this.props.classLink}`}>
+        <a target="_blank" href={`https://www.${this.state.classLink}`}>
           <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
             Go there now
           </Button>
