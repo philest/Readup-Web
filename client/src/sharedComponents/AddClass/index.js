@@ -12,14 +12,14 @@ import {
 
 let students = [
   "Phil Esterman",
-  "Bradley Jay"
-  // "Jordy Zeldin",
-  // "Linny Jane",
-  // "Sammy Price",
-  // "Bradley Jay",
-  // "Jordy Zeldin",
-  // "Linny Jane",
-  // "Sammy Price"
+  "Bradley Jay",
+  "Jordy Zeldin",
+  "Linny Jane",
+  "Sammy Price",
+  "Bradley Jay",
+  "Jordy Zeldin",
+  "Linny Jane",
+  "Sammy Price"
 ];
 
 export default class AddClass extends React.Component {
@@ -56,20 +56,41 @@ export default class AddClass extends React.Component {
       });
   };
 
-  renderRow = (fullName, key) => {
+  renderRow = (fullName, key, isCounter) => {
     return (
-      <div key={key} className={[myStyles.addRow].join(" ")}>
+      <div
+        key={key}
+        className={[myStyles.addRow, isCounter ? myStyles.counter : ""].join(
+          " "
+        )}
+      >
         <span>{fullName}</span>
-        <i
-          className={`fa fa-times ${myStyles.deleteIcon}`}
-          aria-hidden="true"
-        />
+        {!isCounter && (
+          <i
+            className={`fa fa-times ${myStyles.deleteIcon}`}
+            aria-hidden="true"
+          />
+        )}
       </div>
     );
   };
 
   renderRoster = studentArr => {
     let rowArr = [];
+
+    rowArr.push(
+      <div>
+        {this.renderRow("2 students", -1, true)}
+
+        <hr
+          style={{
+            opacity: 0.35,
+            marginTop: 0 + "em",
+            marginBottom: 0 + "em"
+          }}
+        />
+      </div>
+    );
 
     for (let i = 0; i < studentArr.length; i++) {
       rowArr.push(

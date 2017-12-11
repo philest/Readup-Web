@@ -54,6 +54,16 @@
 	background-color: white;
 }
 
+.counter {
+	background-color: #cccccc00;
+	color: grey;
+	height: 40px;
+	padding: 10px 45px;
+	font-family: "proximanova semibold";
+	/* font-style: italic; */
+	font-size: 13px;
+}
+
 .deleteIcon {
 	color: #808080a6;
 	font-size: 17px;
