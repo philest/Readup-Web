@@ -45,6 +45,15 @@
 	border-radius: 2px;
 }
 
+.noIndicator {
+	line-height: 23rem;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	color: rgb(140, 140, 140);
+	size: 1.6rem;
+}
+
 .addRow {
 	display: flex;
 	justify-content: space-between;

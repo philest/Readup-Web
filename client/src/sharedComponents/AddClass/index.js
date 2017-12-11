@@ -54,7 +54,7 @@ export default class AddClass extends React.Component {
       students: [],
       showIndicator: false,
       inputValue: "",
-      validationState: ""
+      validationState: null
     };
   }
 
@@ -76,7 +76,7 @@ export default class AddClass extends React.Component {
 
   validateAndSubmit = () => {
     console.log("do validate");
-    if (this.validate()) {
+    if (this.validate() !== false) {
       this.addStudent(this.form.value);
       this.setState({ inputValue: "" });
       this.setState({ showIndicator: false });
@@ -90,7 +90,7 @@ export default class AddClass extends React.Component {
       this.setState({ validationState: "error" });
       return false;
     } else {
-      this.setState({ validationState: "" });
+      this.setState({ validationState: null });
       return true;
     }
   };
@@ -109,13 +109,11 @@ export default class AddClass extends React.Component {
   };
 
   createStudents = userID => {
-    let studentsArr = this.form.value.split("\n");
-
-    if (studentsArr.length === 0) {
+    if (this.state.students.length === 0) {
       return;
     }
 
-    setupClass(studentsArr)
+    setupClass(this.state.students)
       .then(res => {
         console.log("results here!: ", res);
         this.props.hide();
@@ -185,7 +183,13 @@ export default class AddClass extends React.Component {
       );
     }
 
-    return <div>{rowArr}</div>;
+    if (rowArr.length > 0) {
+      return <div>{rowArr}</div>;
+    } else {
+      return (
+        <span className={myStyles.noIndicator}>No students added yet</span>
+      );
+    }
   };
 
   render() {
