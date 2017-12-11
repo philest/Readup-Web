@@ -3,7 +3,13 @@ import React from "react";
 import styles from "../AssignBooks/styles.css";
 import myStyles from "./styles.css";
 
-import { Button, Modal, FormControl, ControlLabel } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  FormControl,
+  ControlLabel,
+  FormGroup
+} from "react-bootstrap";
 
 import {
   createStudentsForUser,
@@ -47,7 +53,8 @@ export default class AddClass extends React.Component {
     this.state = {
       students: [],
       showIndicator: false,
-      inputValue: ""
+      inputValue: "",
+      validationState: ""
     };
   }
 
@@ -69,10 +76,23 @@ export default class AddClass extends React.Component {
 
   validateAndSubmit = () => {
     console.log("do validate");
-    this.addStudent(this.form.value);
-    this.setState({ inputValue: "" });
-    this.setState({ showIndicator: false });
-    this.form.focus();
+    if (this.validate()) {
+      this.addStudent(this.form.value);
+      this.setState({ inputValue: "" });
+      this.setState({ showIndicator: false });
+      this.form.focus();
+    }
+  };
+
+  validate = () => {
+    let arr = this.form.value.split(" ");
+    if (arr.length <= 1) {
+      this.setState({ validationState: "error" });
+      return false;
+    } else {
+      this.setState({ validationState: "" });
+      return true;
+    }
   };
 
   addStudent = fullName => {
@@ -177,20 +197,27 @@ export default class AddClass extends React.Component {
           </Modal.Header>
 
           <Modal.Header className={myStyles.minorHeader}>
-            <span className={myStyles.myLabel}>
-              <ControlLabel>Start typing to add students</ControlLabel>
-            </span>
-            <FormControl
-              className={myStyles.input}
-              type="text"
-              spellCheck="false"
-              inputRef={ref => {
-                this.form = ref;
-              }}
-              onKeyPress={this._handleKeyPress}
-              onChange={this.checkForm}
-              value={this.state.inputValue}
-            />
+            <FormGroup validationState={this.state.validationState}>
+              <span className={myStyles.myLabel}>
+                <ControlLabel>
+                  {this.state.validationState === "error"
+                    ? "Last name is required"
+                    : "Start typing to add students"}
+                </ControlLabel>
+              </span>
+              <FormControl
+                className={myStyles.input}
+                type="text"
+                spellCheck="false"
+                inputRef={ref => {
+                  this.form = ref;
+                }}
+                onKeyPress={this._handleKeyPress}
+                onChange={this.checkForm}
+                value={this.state.inputValue}
+              />
+            </FormGroup>
+
             <div
               className={myStyles.addIndicator}
               style={{
