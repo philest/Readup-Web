@@ -206,6 +206,7 @@ export default class AddClass extends React.Component {
                 </ControlLabel>
               </span>
               <FormControl
+                placeholder="First and last name"
                 className={myStyles.input}
                 type="text"
                 spellCheck="false"
@@ -247,6 +248,7 @@ export default class AddClass extends React.Component {
               className={styles.saveButton}
               bsSize="lg"
               bsStyle="primary"
+              disabled={this.state.students.length === 0}
             >
               Done
             </Button>
