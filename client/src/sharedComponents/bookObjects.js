@@ -1906,7 +1906,7 @@ export const step4p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step4.jpg",
-  introAudioSrc: "/audio/peter-intro-short.mp3",
+  introAudioSrc: "/audio/purple/intros/step4.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2035,7 +2035,7 @@ export const step5p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step5.jpg",
-  introAudioSrc: "/audio/ruffy-intro-new.mp3",
+  introAudioSrc: "/audio/purple/intros/step5.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2165,7 +2165,7 @@ export const step6p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step6.jpg",
-  introAudioSrc: "/audio/intros/step6.mp3",
+  introAudioSrc: "/audio/purple/intros/step6.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2321,7 +2321,7 @@ export const step7p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step7.jpg",
-  introAudioSrc: "/audio/intros/step7.mp3",
+  introAudioSrc: "/audio/purple/intros/step7.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2477,7 +2477,7 @@ export const step8p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step8.jpg",
-  introAudioSrc: "/audio/intros/step8.mp3",
+  introAudioSrc: "/audio/purple/intros/step8.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2644,7 +2644,7 @@ export const step9p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step9.jpg",
-  introAudioSrc: "/audio/intros/step9.mp3",
+  introAudioSrc: "/audio/purple/intros/step9.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2817,7 +2817,7 @@ export const step10p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step10.jpg",
-  introAudioSrc: "/audio/intros/step10.mp3",
+  introAudioSrc: "/audio/purple/intros/step10.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -2987,7 +2987,7 @@ export const step11p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step11.jpg",
-  introAudioSrc: "/audio/intros/step11.mp3",
+  introAudioSrc: "/audio/purple/intros/step11.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -3157,7 +3157,7 @@ export const step12p = {
   numPages: 6, // if you want a shorter book for testing purposes just change this
   isWideBook: false,
   coverImage: "/images/dashboard/covers/purple/step12.jpg",
-  introAudioSrc: "/audio/intros/step12.mp3",
+  introAudioSrc: "/audio/purple/intros/step12.mp3",
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
