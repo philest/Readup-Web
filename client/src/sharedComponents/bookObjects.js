@@ -133,12 +133,15 @@ export const step3 = {
   bookKey: "step3"
 };
 
+//////////// YELLOW START ////////////
+
 export const step4 = {
   title: "Upside Down",
   author: "Stefan Olson",
   bookKey: "step4",
   brand: "STEP",
   stepLevel: 4,
+  stepSeries: "YELLOW",
   fpLevel: "E",
   markup: step4Markup,
   numPages: 6, // if you want a shorter book for testing purposes just change this
@@ -267,6 +270,8 @@ export const step5 = {
   bookKey: "step5",
   brand: "STEP",
   stepLevel: 5,
+  stepSeries: "YELLOW",
+
   fpLevel: "G",
   markup: step5Markup,
   numPages: 6, // if you want a shorter book for testing purposes just change this
@@ -395,6 +400,8 @@ export const step6 = {
   bookKey: "step6",
   brand: "STEP",
   stepLevel: 6,
+  stepSeries: "YELLOW",
+
   fpLevel: "I",
   markup: step6Markup,
 
@@ -550,6 +557,8 @@ export const step7 = {
   bookKey: "step7",
   brand: "STEP",
   stepLevel: 7,
+  stepSeries: "YELLOW",
+
   fpLevel: "I",
   markup: step7Markup,
 
@@ -705,6 +714,8 @@ export const step8 = {
   bookKey: "step8",
   brand: "STEP",
   stepLevel: 8,
+  stepSeries: "YELLOW",
+
   fpLevel: "I",
   markup: step8Markup,
 
@@ -872,6 +883,8 @@ export const step9 = {
   bookKey: "step9",
   brand: "STEP",
   stepLevel: 9,
+  stepSeries: "YELLOW",
+
   fpLevel: "I",
   markup: step9Markup,
   numPages: 6, // if you want a shorter book for testing purposes just change this
@@ -1043,6 +1056,8 @@ export const step10 = {
   bookKey: "step10",
   brand: "STEP",
   stepLevel: 10,
+  stepSeries: "YELLOW",
+
   fpLevel: "I",
   markup: step10Markup,
 
@@ -1212,6 +1227,8 @@ export const step11 = {
   bookKey: "step11",
   brand: "STEP",
   stepLevel: 11,
+  stepSeries: "YELLOW",
+
   fpLevel: "I",
   markup: step11Markup,
 
@@ -1381,6 +1398,8 @@ export const step12 = {
   bookKey: "step12",
   brand: "STEP",
   stepLevel: 12,
+  stepSeries: "YELLOW",
+
   fpLevel: "I",
   markup: step12Markup,
 
@@ -1709,6 +1728,8 @@ export const fpBook = {
   numSpellingQuestions: 15
 };
 
+//////////// YELLOW END ////////////
+
 export const sampleReportBookFP = {
   title: "No More Magic",
   author: "Avi",
@@ -1892,7 +1913,7 @@ export const sampleReportBookSTEP = {
   numSpellingQuestions: 15
 };
 
-//////// PURPLE /////////
+//////// PURPLE START /////////
 
 export const step4p = {
   title: "Elizabeth's Song",
@@ -3313,7 +3334,7 @@ export const step12p = {
   numSpellingQuestions: 20
 };
 
-//// END PURPLE /////
+//////////  PURPLE END ///////////
 
 export const library = {
   demo: fireflyBook,
