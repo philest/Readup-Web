@@ -42,13 +42,13 @@ export default class Signup extends React.Component {
 
   getProgress = id => {
     if (id === "NAME_PAGE") {
-      return 40;
+      return 20;
     } else if (id === "ADD_CLASS_PAGE") {
-      return 60;
+      return 40;
     } else if (id === "ASSIGN_BOOKS_PAGE") {
-      return 80;
+      return 60;
     } else if (id === "LINK_INFO_PAGE") {
-      return 100;
+      return 90;
     }
   };
 
@@ -113,6 +113,12 @@ export default class Signup extends React.Component {
     return (
       <div className={[styles.fullHeight, styles.fill].join(" ")}>
         <div className={myStyles.progress}>
+          <ul className={myStyles.bulletList}>
+            <li className={myStyles.bullet}>Name</li>
+            <li className={myStyles.bullet}>Class</li>
+            <li className={myStyles.bullet}>Books</li>
+            <li className={myStyles.bullet}>Start</li>
+          </ul>
           <ProgressBar
             className={myStyles.myProgress}
             bsStyle="success"
@@ -122,7 +128,7 @@ export default class Signup extends React.Component {
 
         {this.renderNavigationBar()}
         <style type="text/css">
-          {".modal-dialog { margin: 19vh auto 0px; } "}
+          {".modal-dialog { margin: 21vh auto 0px; } "}
         </style>
 
         <div className={styles.contentContainer}>

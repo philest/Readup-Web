@@ -96,7 +96,8 @@ export default class AddClass extends React.Component {
   };
 
   validate = () => {
-    let arr = this.form.value.split(" ");
+    let val = this.form.value.trim();
+    let arr = val.split(" ");
     if (arr.length <= 1) {
       this.setState({ validationState: "error" });
       return false;

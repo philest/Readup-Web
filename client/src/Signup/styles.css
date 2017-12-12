@@ -1,8 +1,23 @@
+.bullet {
+	display: inline-block;
+	width: 25%;
+	text-align: center;
+	color: rgb(154, 161, 178);
+}
+
+.bulletList {
+	position: relative;
+	top: -0px;
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
 .progress {
-	width: 368px;
+	width: 600px;
+	min-width: 235px;
 	position: relative;
 	z-index: 99999;
-	top: 98px;
+	top: 80px;
 	opacity: 0.9;
 	margin: 0 auto;
 	height: 0px;
@@ -19,4 +34,16 @@
 	top: 0;
 	right: 0;
 	bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+	.progress {
+		width: 90vw;
+	}
+}
+
+@media screen and (max-height: 600px) {
+	.progress {
+		display: none;
+	}
 }
