@@ -633,7 +633,11 @@ function* playSpellingQuestionSaga(isHearAgain) {
 
 	const spellingGroupNumber = getSpellingGroupNumber(book);
 
-	audiofile = `/audio/spelling-group-${spellingGroupNumber}/${spellingQuestionNumber}.mp3`;
+	if (book.stepSeries === "PURPLE") {
+		audiofile = `/audio/purple/spelling/group${spellingGroupNumber}/${spellingQuestionNumber}.mp3`;
+	} else {
+		audiofile = `/audio/spelling-group-${spellingGroupNumber}/${spellingQuestionNumber}.mp3`;
+	}
 
 	const isWarmup = yield select(getIsWarmup);
 	if (isWarmup && spellingQuestionNumber === 1) {
