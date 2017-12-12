@@ -13,10 +13,18 @@ export default class LinkInfo extends React.Component {
   };
 
   componentWillMount = () => {
-    getClassLink(this.props.userID).then(res => {
-      console.log("link? ", res.data);
-      this.setState({ classLink: res.data });
-    });
+    let devLink = "http://www.localhost:3000/";
+    let prodLink = "https://www.ReadUpNow.com/";
+
+    let link = process.env.NODE_ENV === "development" ? devLink : prodLink;
+
+    classLink = `${link}${this.props.userID}`;
+    this.setState({ classLink: classLink });
+
+    // getClassLink(this.props.userID).then(res => {
+    //   console.log("link? ", res.data);
+    //   this.setState({ classLink: res.data });
+    // });
   };
 
   /**
@@ -38,11 +46,11 @@ export default class LinkInfo extends React.Component {
           your class link!
         </h2>
         <div className={[styles.formLg, styles.formLook].join(" ")}>
-          <a target="_blank" href={`https://www.${this.state.classLink}`}>
+          <a target="_blank" href={`${this.state.classLink}`}>
             {this.state.classLink}
           </a>
         </div>
-        <a target="_blank" href={`https://www.${this.state.classLink}`}>
+        <a target="_blank" href={`${this.state.classLink}`}>
           <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
             Try it yourself
           </Button>
