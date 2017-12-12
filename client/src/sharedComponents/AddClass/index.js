@@ -108,7 +108,7 @@ export default class AddClass extends React.Component {
 
   addStudent = fullName => {
     let holder = this.state.students;
-    holder.unshift(fullName);
+    holder.unshift(fullName.trim());
     this.setState({ students: holder });
   };
 

@@ -28,9 +28,8 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      currentShowPageID: "ADD_CLASS_PAGE",
-      currentShowModalID: "IMPORT_CLASS_MODAL",
-      // currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE",
+      currentShowModalID: "NO_MODAL",
+      currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE",
       userID: this.props.userID,
       importedStudents: []
       // currentShowPageID: this.props.isAddClass
@@ -42,8 +41,10 @@ export default class Signup extends React.Component {
   importStudents = newStudentsArr => {
     let validNames = [];
     for (let i = 0; i < newStudentsArr.length; i++) {
+      newStudentsArr[i] = newStudentsArr[i].trim();
+
       if (newStudentsArr[i].split(" ").length > 1) {
-        validNames.push(newStudentsArr[i]);
+        validNames.push(newStudentsArr[i].trim());
       }
     }
 
