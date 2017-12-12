@@ -28,15 +28,31 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      currentShowPageID: "IMPORT_CLASS_PAGE",
-      // showImportModal: true,
+      currentShowPageID: "ADD_CLASS_PAGE",
+      currentShowModalID: "IMPORT_CLASS_MODAL",
       // currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE",
-      userID: this.props.userID
+      userID: this.props.userID,
+      importedStudents: []
       // currentShowPageID: this.props.isAddClass
       //   ? "ADD_CLASS_PAGE"
       //   : "ASSIGN_BOOKS_PAGE"
     };
   }
+
+  importStudents = newStudentsArr => {
+    let validNames = [];
+    for (let i = 0; i < newStudentsArr.length; i++) {
+      if (newStudentsArr[i].split(" ").length > 1) {
+        validNames.push(newStudentsArr[i]);
+      }
+    }
+
+    console.log("new student arr: ", validNames);
+
+    this.setState({ importedStudents: validNames });
+
+    console.log("new import arr: ", this.state.importedStudents);
+  };
 
   updateUserID = userID => {
     this.setState({ userID: userID });
@@ -44,6 +60,10 @@ export default class Signup extends React.Component {
 
   setCurrentShowPage = ID => {
     this.setState({ currentShowPageID: ID });
+  };
+
+  setCurrentShowModal = ID => {
+    this.setState({ currentShowModalID: ID });
   };
 
   componentDidMount = () => {};
@@ -82,9 +102,10 @@ export default class Signup extends React.Component {
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
         <div className={styles.contentContainer}>
-          {this.state.currentShowPageID === "IMPORT_CLASS_PAGE" && (
+          {this.state.currentShowModalID === "IMPORT_CLASS_MODAL" && (
             <ImportClass
-              hide={() => this.setCurrentShowPage("ADD_CLASS_PAGE")}
+              hide={() => this.setCurrentShowModal("NO_MODAL")}
+              importStudents={this.importStudents}
             />
           )}
 
@@ -99,6 +120,8 @@ export default class Signup extends React.Component {
             <AddClass
               userID={this.props.userID || this.state.userID}
               hide={() => this.setCurrentShowPage("ASSIGN_BOOKS_PAGE")}
+              showImport={() => this.setCurrentShowModal("IMPORT_CLASS_MODAL")}
+              importedStudents={this.state.importedStudents}
             />
           )}
           {this.state.currentShowPageID === "ASSIGN_BOOKS_PAGE" && (

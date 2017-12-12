@@ -39,10 +39,14 @@ function remove(array, element) {
 export default class AddClass extends React.Component {
   static propTypes = {
     userID: PropTypes.number,
-    hide: PropTypes.func
+    hide: PropTypes.func,
+    showImport: PropTypes.func,
+    importedStudents: PropTypes.array
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    importedStudents: []
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -56,6 +60,13 @@ export default class AddClass extends React.Component {
       inputValue: "",
       validationState: null
     };
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.importedStudents !== nextProps.importedStudents) {
+      let holder = nextProps.importedStudents.concat(this.state.students);
+      this.setState({ students: holder });
+    }
   }
 
   checkForm = () => {
@@ -198,7 +209,10 @@ export default class AddClass extends React.Component {
         <Modal.Dialog>
           <Modal.Header>
             <Modal.Title className={styles.title}>Add Class</Modal.Title>
-            <span className={myStyles.importCTA}>
+            <span
+              onClick={this.props.showImport}
+              className={myStyles.importCTA}
+            >
               <i style={{ marginRight: 7 }} className="fa fa-file" />Import
               Class
             </span>
@@ -224,6 +238,7 @@ export default class AddClass extends React.Component {
                 onKeyPress={this._handleKeyPress}
                 onChange={this.checkForm}
                 value={this.state.inputValue}
+                autoFocus
               />
             </FormGroup>
 

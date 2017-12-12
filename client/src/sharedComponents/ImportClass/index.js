@@ -21,7 +21,8 @@ function remove(array, element) {
 
 export default class ImportClass extends React.Component {
   static propTypes = {
-    hide: PropTypes.func
+    hide: PropTypes.func,
+    importStudents: PropTypes.func
   };
 
   static defaultProps = {};
@@ -35,41 +36,15 @@ export default class ImportClass extends React.Component {
     this.state = {};
   }
 
-  checkForm = () => {
-    this.setState({ inputValue: this.form.value });
+  import = () => {
+    console.log("heree");
+    let arr = this.form.value.split("\n");
 
-    if (this.form.value !== "") {
-      this.setState({ showIndicator: true });
-    } else {
-      this.setState({ showIndicator: false });
+    if (arr.length >= 1) {
+      this.props.importStudents(arr);
     }
-  };
 
-  _handleKeyPress = e => {
-    if (e.key === "Enter") {
-      this.validateAndSubmit();
-    }
-  };
-
-  validateAndSubmit = () => {
-    console.log("do validate");
-    if (this.validate() !== false) {
-      this.addStudent(this.form.value);
-      this.setState({ inputValue: "" });
-      this.setState({ showIndicator: false });
-      this.form.focus();
-    }
-  };
-
-  validate = () => {
-    let arr = this.form.value.split(" ");
-    if (arr.length <= 1) {
-      this.setState({ validationState: "error" });
-      return false;
-    } else {
-      this.setState({ validationState: null });
-      return true;
-    }
+    this.props.hide();
   };
 
   render() {
@@ -77,7 +52,7 @@ export default class ImportClass extends React.Component {
       <div className="static-modal">
         <style type="text/css">{".modal-backdrop.in { opacity: 0.7; } "}</style>
         <Modal show onHide={this.props.hide}>
-          <Modal.Header>
+          <Modal.Header closeButton>
             <Modal.Title className={styles.title}>
               Copy/Paste Student List
             </Modal.Title>
@@ -85,7 +60,7 @@ export default class ImportClass extends React.Component {
 
           <Modal.Body className={[styles.body, myStyles.addBody].join(" ")}>
             <span className={myStyles.myLabel}>
-              <ControlLabel>Paste your student list</ControlLabel>
+              <ControlLabel>Paste your student list from Word</ControlLabel>
             </span>
             <FormControl
               placeholder={
@@ -101,9 +76,7 @@ export default class ImportClass extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              onClick={() => {
-                console.log("test");
-              }}
+              onClick={this.import}
               className={styles.saveButton}
               bsSize="lg"
               bsStyle="primary"
