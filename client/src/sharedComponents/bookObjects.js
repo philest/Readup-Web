@@ -2717,8 +2717,7 @@ export const step9p = {
 
   writtenQuestions: {
     1: {
-      title:
-        "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
+      title: "Why does Dr. Drake have to go to the airport?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2728,7 +2727,8 @@ export const step9p = {
       section: 1
     },
     2: {
-      title: "What does Jeffrey do to try to find the lost letter?",
+      title:
+        "How do the animals feel about having a new animal at the zoo? What in the story makes you think this?",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2739,7 +2739,7 @@ export const step9p = {
     },
     3: {
       title:
-        "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
+        "At the end of the story, why does the Two-footed Hump-back Snake-biter have a shy smile on its face?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -2887,8 +2887,7 @@ export const step10p = {
 
   writtenQuestions: {
     1: {
-      title:
-        "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
+      title: "How does the old Flower Delivery Trick work?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -2898,7 +2897,8 @@ export const step10p = {
       section: 1
     },
     2: {
-      title: "What does Jeffrey do to try to find the lost letter?",
+      title:
+        'What does Buttercup mean when she thinks that Angela might look "too nice" to be a dog-napper?',
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -2908,8 +2908,7 @@ export const step10p = {
       section: 1
     },
     3: {
-      title:
-        "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
+      title: "What makes Buttercup a good detective?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -3060,7 +3059,7 @@ export const step11p = {
   writtenQuestions: {
     1: {
       title:
-        "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
+        "Why do you think Thumbelina is such a cheerful person at the beginning of the story?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -3070,7 +3069,7 @@ export const step11p = {
       section: 1
     },
     2: {
-      title: "What does Jeffrey do to try to find the lost letter?",
+      title: "Why does Mrs. Frog carry off Thumbelina?",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -3081,7 +3080,7 @@ export const step11p = {
     },
     3: {
       title:
-        "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
+        "What kind of person is Mr. Mole? What is he like? Give an example from the story.",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -3231,7 +3230,7 @@ export const step12p = {
   writtenQuestions: {
     1: {
       title:
-        "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
+        "Why isn't Ella interested in the magic beans or the magic glass that can tell the future?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -3241,7 +3240,7 @@ export const step12p = {
       section: 1
     },
     2: {
-      title: "What does Jeffrey do to try to find the lost letter?",
+      title: 'What happens to a person who says the magic word "mutabee"?',
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -3252,7 +3251,7 @@ export const step12p = {
     },
     3: {
       title:
-        "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
+        "Why isn't Ella worried that she doesn't know what the warning says?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
