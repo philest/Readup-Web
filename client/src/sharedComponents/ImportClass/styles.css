@@ -1,6 +1,7 @@
 .spellingField {
 	height: 80% !important;
-	margin: 5% 0px !important;
+	margin: 0% 0px 5% !important;
+	margin-top: 0px;
 }
 
 .input {
@@ -8,22 +9,11 @@
 	margin: 0 auto;
 }
 
-.importCTA {
-	float: right;
-	position: relative;
-	top: -29px;
-	height: 0px;
-	color: #027ac3;
-	cursor: pointer;
-	margin-right: 5%;
-}
-
 .myLabel {
-	margin-left: 5%;
-	margin-top: 6px;
-	color: rgb(125, 125, 125);
+	margin-top: 26px;
+	display: block;
 	font-weight: 100 !important;
-	font-family: "proximanova";
+	font-family: "proximanova semibold";
 }
 
 .myLabel label {
@@ -35,8 +25,8 @@
 }
 
 .addBody {
-	height: 36vh;
-	padding: 0;
+	height: 48vh;
+	overflow-y: hidden;
 }
 
 .addIndicator {

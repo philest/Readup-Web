@@ -10,6 +10,7 @@ import AssignBooks from "../sharedComponents/AssignBooks";
 import LinkInfo from "../sharedComponents/LinkInfo";
 import AddClass from "../sharedComponents/AddClass";
 import Name from "../sharedComponents/Name";
+import ImportClass from "../sharedComponents/ImportClass";
 
 export default class Signup extends React.Component {
   static propTypes = {
@@ -27,7 +28,8 @@ export default class Signup extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      currentShowPageID: "ADD_CLASS_PAGE",
+      currentShowPageID: "IMPORT_CLASS_PAGE",
+      // showImportModal: true,
       // currentShowPageID: this.props.userID ? "ASSIGN_BOOKS_PAGE" : "NAME_PAGE",
       userID: this.props.userID
       // currentShowPageID: this.props.isAddClass
@@ -80,6 +82,12 @@ export default class Signup extends React.Component {
           {".modal-dialog { margin: 16vh auto 0px; } "}
         </style>
         <div className={styles.contentContainer}>
+          {this.state.currentShowPageID === "IMPORT_CLASS_PAGE" && (
+            <ImportClass
+              hide={() => this.setCurrentShowPage("ADD_CLASS_PAGE")}
+            />
+          )}
+
           {this.state.currentShowPageID === "NAME_PAGE" && (
             <Name
               hide={() => this.setCurrentShowPage("ADD_CLASS_PAGE")}

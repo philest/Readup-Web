@@ -198,6 +198,10 @@ export default class AddClass extends React.Component {
         <Modal.Dialog>
           <Modal.Header>
             <Modal.Title className={styles.title}>Add Class</Modal.Title>
+            <span className={myStyles.importCTA}>
+              <i style={{ marginRight: 7 }} className="fa fa-file" />Import
+              Class
+            </span>
           </Modal.Header>
 
           <Modal.Header className={myStyles.minorHeader}>
