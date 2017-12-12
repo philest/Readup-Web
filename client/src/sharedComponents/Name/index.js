@@ -28,6 +28,12 @@ export default class Name extends React.Component {
       });
   };
 
+  _handleKeyPress = e => {
+    if (e.key === "Enter") {
+      this.createUser(this.form.value);
+    }
+  };
+
   /**
    * @param props - Comes from your rails view.
    * @param _railsContext - Comes from React on Rails
@@ -60,6 +66,7 @@ export default class Name extends React.Component {
               className={myStyles.input}
               type="text"
               spellCheck="false"
+              onKeyPress={this._handleKeyPress}
               inputRef={ref => {
                 this.form = ref;
               }}

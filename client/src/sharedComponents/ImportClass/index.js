@@ -50,7 +50,9 @@ export default class ImportClass extends React.Component {
   render() {
     return (
       <div className="static-modal">
-        <style type="text/css">{".modal-backdrop.in { opacity: 0.7; } "}</style>
+        <style type="text/css">
+          {".modal-backdrop.in { opacity: 0.7; z-index: 999; } "}
+        </style>
         <Modal show onHide={this.props.hide}>
           <Modal.Header closeButton>
             <Modal.Title className={styles.title}>

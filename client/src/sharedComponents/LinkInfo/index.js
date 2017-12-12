@@ -34,7 +34,8 @@ export default class LinkInfo extends React.Component {
     return (
       <div className={styles.linkContainer}>
         <h2 className={styles.classLinkHeader}>
-          Great, now have students type in your class link!
+          Now just give students their STEP books and <br />have them type in
+          your class link!
         </h2>
         <div className={[styles.formLg, styles.formLook].join(" ")}>
           <a target="_blank" href={`https://www.${this.state.classLink}`}>
@@ -43,7 +44,7 @@ export default class LinkInfo extends React.Component {
         </div>
         <a target="_blank" href={`https://www.${this.state.classLink}`}>
           <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
-            Go there now
+            Try it yourself
           </Button>
         </a>
       </div>

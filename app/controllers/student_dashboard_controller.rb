@@ -9,15 +9,17 @@ class StudentDashboardController < ApplicationController
   def index
 
 
+  if (params)
+    puts params
+  end
 
    return @student_dashboard_props = {
       studentName: "Demo Student",
       teacherName: "Sum Dum Teachum",
+      id: params[:id],
+      newID: params["id"]
     }
 
-    if (params)
-      puts params
-    end
 
 
 
