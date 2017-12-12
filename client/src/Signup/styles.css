@@ -1,3 +1,18 @@
+.progress {
+	width: 368px;
+	position: relative;
+	z-index: 99999;
+	top: 98px;
+	opacity: 0.9;
+	margin: 0 auto;
+	height: 0px;
+}
+
+.myProgress {
+	background-color: #010203;
+	height: 5px;
+}
+
 .fill {
 	position: absolute;
 	left: 0;

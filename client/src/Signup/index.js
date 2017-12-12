@@ -12,6 +12,8 @@ import AddClass from "../sharedComponents/AddClass";
 import Name from "../sharedComponents/Name";
 import ImportClass from "../sharedComponents/ImportClass";
 
+import { ProgressBar } from "react-bootstrap";
+
 export default class Signup extends React.Component {
   static propTypes = {
     userID: PropTypes.number,
@@ -37,6 +39,18 @@ export default class Signup extends React.Component {
       //   : "ASSIGN_BOOKS_PAGE"
     };
   }
+
+  getProgress = id => {
+    if (id === "NAME_PAGE") {
+      return 40;
+    } else if (id === "ADD_CLASS_PAGE") {
+      return 60;
+    } else if (id === "ASSIGN_BOOKS_PAGE") {
+      return 80;
+    } else if (id === "LINK_INFO_PAGE") {
+      return 100;
+    }
+  };
 
   importStudents = newStudentsArr => {
     let validNames = [];
@@ -98,10 +112,19 @@ export default class Signup extends React.Component {
   render() {
     return (
       <div className={[styles.fullHeight, styles.fill].join(" ")}>
+        <div className={myStyles.progress}>
+          <ProgressBar
+            className={myStyles.myProgress}
+            bsStyle="success"
+            now={this.getProgress(this.state.currentShowPageID)}
+          />
+        </div>
+
         {this.renderNavigationBar()}
         <style type="text/css">
-          {".modal-dialog { margin: 16vh auto 0px; } "}
+          {".modal-dialog { margin: 19vh auto 0px; } "}
         </style>
+
         <div className={styles.contentContainer}>
           {this.state.currentShowModalID === "IMPORT_CLASS_MODAL" && (
             <ImportClass
