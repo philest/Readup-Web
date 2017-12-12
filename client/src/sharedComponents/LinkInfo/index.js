@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 import { getClassLink } from "../../ReportsInterface/emailHelpers";
 
 let classLink = "ReadUpNow.com/RMP1";
+let preLink = "https://";
 
 export default class LinkInfo extends React.Component {
   static propTypes = {
@@ -13,10 +14,11 @@ export default class LinkInfo extends React.Component {
   };
 
   componentWillMount = () => {
-    let devLink = "http://www.localhost:3000/";
-    let prodLink = "https://www.ReadUpNow.com/";
+    let devLink = "localhost:3000/";
+    let prodLink = "www.ReadUpNow.com/";
 
     let link = process.env.NODE_ENV === "development" ? devLink : prodLink;
+    preLink = process.env.NODE_ENV === "development" ? "http://" : "https://";
 
     classLink = `${link}${this.props.userID}`;
     this.setState({ classLink: classLink });
@@ -46,11 +48,11 @@ export default class LinkInfo extends React.Component {
           your class link!
         </h2>
         <div className={[styles.formLg, styles.formLook].join(" ")}>
-          <a target="_blank" href={`${this.state.classLink}`}>
+          <a target="_blank" href={`${preLink}${this.state.classLink}`}>
             {this.state.classLink}
           </a>
         </div>
-        <a target="_blank" href={`${this.state.classLink}`}>
+        <a target="_blank" href={`${preLink}${this.state.classLink}`}>
           <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
             Try it yourself
           </Button>
