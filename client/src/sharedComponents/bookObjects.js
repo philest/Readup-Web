@@ -1112,8 +1112,7 @@ export const step10 = {
 
   writtenQuestions: {
     1: {
-      title:
-        "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
+      title: "What does Juliet know about what detectives do?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -1123,7 +1122,8 @@ export const step10 = {
       section: 1
     },
     2: {
-      title: "What does Jeffrey do to try to find the lost letter?",
+      title:
+        "Why does Norma bring Juliet a cap, a magnifying glass, and a funny-looking cap to wear?",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -1133,8 +1133,7 @@ export const step10 = {
       section: 1
     },
     3: {
-      title:
-        "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
+      title: "What makes Juliet a good detective?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -1283,8 +1282,7 @@ export const step11 = {
 
   writtenQuestions: {
     1: {
-      title:
-        "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
+      title: "Why doesn't Daniel have his own desk at school?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -1294,7 +1292,8 @@ export const step11 = {
       section: 1
     },
     2: {
-      title: "What does Jeffrey do to try to find the lost letter?",
+      title:
+        "Why does everyone in the class come to believe that Daniel's desk is haunted?",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -1305,7 +1304,7 @@ export const step11 = {
     },
     3: {
       title:
-        "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
+        'How does having a "haunted" desk help Daniel make friends at his new school?',
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
@@ -1454,8 +1453,7 @@ export const step12 = {
 
   writtenQuestions: {
     1: {
-      title:
-        "Why does Jeffrey try on Marcus’s skates even though his mother told him not to stop anywhere?",
+      title: "Why does Martin spend all the family's money on a cat?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
         1: "Response demonstrates proficiency in understanding setting. Correctly identifies that the story take place in Peter's house. Strong use of picture cues. "
@@ -1465,7 +1463,7 @@ export const step12 = {
       section: 1
     },
     2: {
-      title: "What does Jeffrey do to try to find the lost letter?",
+      title: "Why isn't the Princess happy after she marries Martin?",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
         1: "Response demonstrates proficiency in recalling key details about plot, correctly identifying some of what Peter sees."
@@ -1475,8 +1473,7 @@ export const step12 = {
       section: 1
     },
     3: {
-      title:
-        "Why isn’t Jeffrey’s mother angry when he tells her the whole story?",
+      title: "How does Misha the cat get the ring back for Martin?",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
         1: "Response demonstrates proficiency in understanding why Peter chooses to play upside down and how he appreciates the new perspective. Strong understanding of character motivation and theory of mind."
