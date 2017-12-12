@@ -3,7 +3,13 @@ import React from "react";
 import styles from "../AssignBooks/styles.css";
 import myStyles from "./styles.css";
 
-import { Button, Modal, FormControl, ControlLabel } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  FormControl,
+  ControlLabel,
+  FormGroup
+} from "react-bootstrap";
 
 import { createUserWithClass } from "../../ReportsInterface/emailHelpers";
 
@@ -17,6 +23,10 @@ export default class Name extends React.Component {
   // User.create(first_name: "Dummy", last_name: "Teacher", name: "Dummy Teacher", password: "12345678", email:"dummy#{rand(1000000)}@gmail.com")
 
   createUser = name => {
+    if (!this.validate()) {
+      return;
+    }
+
     createUserWithClass(name)
       .then(res => {
         this.props.updateUserID(res.data.id);
@@ -34,13 +44,27 @@ export default class Name extends React.Component {
     }
   };
 
+  validate = () => {
+    let val = this.form.value.trim();
+    let arr = val.split(" ");
+    if (arr.length <= 1) {
+      this.setState({ validationState: "error" });
+      return false;
+    } else {
+      this.setState({ validationState: null });
+      return true;
+    }
+  };
+
   /**
    * @param props - Comes from your rails view.
    * @param _railsContext - Comes from React on Rails
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {};
+    this.state = {
+      validationState: null
+    };
   }
 
   render() {
@@ -55,24 +79,31 @@ export default class Name extends React.Component {
           </Modal.Header>
 
           <Modal.Body>
-            <span className={myStyles.myLabel}>
-              <ControlLabel
-                style={{ marginLeft: 10 + "%", marginTop: 7, color: "#505050" }}
-              >
-                Full Name
-              </ControlLabel>
-            </span>
-            <FormControl
-              className={myStyles.input}
-              type="text"
-              spellCheck="false"
-              onKeyPress={this._handleKeyPress}
-              inputRef={ref => {
-                this.form = ref;
-              }}
-              autoFocus
-            />
-
+            <FormGroup validationState={this.state.validationState}>
+              <span className={myStyles.myLabel}>
+                <ControlLabel
+                  style={{
+                    marginLeft: 10 + "%",
+                    marginTop: 7,
+                    color: "#505050"
+                  }}
+                >
+                  {this.state.validationState === "error"
+                    ? "Last name is required"
+                    : "Full Name"}
+                </ControlLabel>
+              </span>
+              <FormControl
+                className={myStyles.input}
+                type="text"
+                spellCheck="false"
+                onKeyPress={this._handleKeyPress}
+                inputRef={ref => {
+                  this.form = ref;
+                }}
+                autoFocus
+              />
+            </FormGroup>
             {false && this.renderRoster()}
 
             <Button
