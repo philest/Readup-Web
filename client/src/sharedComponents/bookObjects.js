@@ -2764,7 +2764,7 @@ export const step9p = {
       section: 1
     },
     2: {
-      title: "Why does Jeffrey’s mother trust him to mail the letters?",
+      title: "Why do the animals leave their cages?",
       audioSrc: "/audio/purple/questions/step9/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -2775,7 +2775,7 @@ export const step9p = {
       section: 1
     },
     3: {
-      title: "When does Jeffrey notice that the fourth letter is missing?",
+      title: "What does Tyrone's sister think about his costume?",
       audioSrc: "/audio/purple/questions/step9/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -2787,7 +2787,7 @@ export const step9p = {
     },
     4: {
       title:
-        "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
+        "Why does the judge for the costume contest lead the animals onto the stage?",
       audioSrc: "/audio/purple/questions/step9/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -2798,7 +2798,7 @@ export const step9p = {
       section: 2
     },
     5: {
-      title: "What was in the letter that Jeffrey lost?",
+      title: "Why does Tyrone win the costume contest?",
       audioSrc: "/audio/purple/questions/step9/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -2810,7 +2810,7 @@ export const step9p = {
     },
     6: {
       title:
-        "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
+        'Why does everyone think that Tyrone and the Two-footed Hump-back Snake-biter look "ridiculous"?',
       audioSrc: "/audio/purple/questions/step9/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -2934,7 +2934,7 @@ export const step10p = {
       section: 1
     },
     2: {
-      title: "Why does Jeffrey’s mother trust him to mail the letters?",
+      title: "Why does Mookie look up to Buttercup, even though she's younger?",
       audioSrc: "/audio/purple/questions/step10/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -2945,7 +2945,8 @@ export const step10p = {
       section: 1
     },
     3: {
-      title: "When does Jeffrey notice that the fourth letter is missing?",
+      title:
+        'Why does Buttercup think that "clever" should be her middle name?',
       audioSrc: "/audio/purple/questions/step10/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -2957,7 +2958,7 @@ export const step10p = {
     },
     4: {
       title:
-        "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
+        "Why does Buttercup use tricks to discover where Ralph is instead of just asking people?",
       audioSrc: "/audio/purple/questions/step10/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -2968,7 +2969,8 @@ export const step10p = {
       section: 2
     },
     5: {
-      title: "What was in the letter that Jeffrey lost?",
+      title:
+        "Why does Mookie want to call in adult reinforcements when they find out where Ralph is?",
       audioSrc: "/audio/purple/questions/step10/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -2980,7 +2982,7 @@ export const step10p = {
     },
     6: {
       title:
-        "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
+        "At the end of the story, why does Mr. Webb offer to pay Mookie double what he had promised?",
       audioSrc: "/audio/purple/questions/step10/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -3104,7 +3106,7 @@ export const step11p = {
       section: 1
     },
     2: {
-      title: "Why does Jeffrey’s mother trust him to mail the letters?",
+      title: "Why do the moths think that Thumbelina is ugly?",
       audioSrc: "/audio/purple/questions/step11/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -3115,7 +3117,7 @@ export const step11p = {
       section: 1
     },
     3: {
-      title: "When does Jeffrey notice that the fourth letter is missing?",
+      title: "Why does Thumbelina like taking care of the robin?",
       audioSrc: "/audio/purple/questions/step11/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -3127,7 +3129,7 @@ export const step11p = {
     },
     4: {
       title:
-        "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
+        "Why does Thumbelina decide not to go with the robin the first time he asks her?",
       audioSrc: "/audio/purple/questions/step11/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -3138,7 +3140,8 @@ export const step11p = {
       section: 2
     },
     5: {
-      title: "What was in the letter that Jeffrey lost?",
+      title:
+        "Why does Thumbelina change her mind and decide not to marry Mr. Mole?",
       audioSrc: "/audio/purple/questions/step11/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -3150,7 +3153,7 @@ export const step11p = {
     },
     6: {
       title:
-        "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
+        'Why does the author say at the end of the story that Thumbelina is a "lucky girl"?',
       audioSrc: "/audio/purple/questions/step11/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -3274,7 +3277,8 @@ export const step12p = {
       section: 1
     },
     2: {
-      title: "Why does Martin's mother send him away?",
+      title:
+        'What are the "monsters on wheels" that terrify Ella the Earthworm?',
       audioSrc: "/audio/purple/questions/step12/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -3285,7 +3289,7 @@ export const step12p = {
       section: 1
     },
     3: {
-      title: "When does Jeffrey notice that the fourth letter is missing?",
+      title: "Why does Ella become bored with being a squirrel?",
       audioSrc: "/audio/purple/questions/step12/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -3296,8 +3300,7 @@ export const step12p = {
       section: 1
     },
     4: {
-      title:
-        "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
+      title: "Why does Ella enjoy being a pigeon?",
       audioSrc: "/audio/purple/questions/step12/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -3308,7 +3311,7 @@ export const step12p = {
       section: 2
     },
     5: {
-      title: "What was in the letter that Jeffrey lost?",
+      title: "Why doesn't Ella want chicken with her fried potatoes and gravy?",
       audioSrc: "/audio/purple/questions/step12/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -3320,7 +3323,7 @@ export const step12p = {
     },
     6: {
       title:
-        "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
+        "Did Ella really turn into a squirrel and a pigeon? How do you know from the story?",
       audioSrc: "/audio/purple/questions/step12/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
