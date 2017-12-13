@@ -1715,6 +1715,9 @@ function* assessThenSubmitSaga() {
 	const earlyExitEffect = []; // for exiting at the start
 	const helperEffect = []; // deals with extra instructions
 
+	yield put(setCurrentOverlay("overlay-no-sound"));
+	yield take("d");
+
 	yield call(resetStateSaga);
 
 	const permissionsGranted = yield* getMicPermissionsSaga(); // blocks

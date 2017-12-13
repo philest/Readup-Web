@@ -6,12 +6,10 @@ import commonStyles from "../../modals/commonstyles.css";
 
 import { Button } from "react-bootstrap";
 
-const THIS_OVERLAY_ID = "overlay-blocked-mic";
+const THIS_OVERLAY_ID = "overlay-no-sound";
 
-export default class BlockedMicOverlay extends React.Component {
+export default class NoSoundOverlay extends React.Component {
   static propTypes = {
-    onContinueClicked: PropTypes.func,
-
     currentShowOverlay: PropTypes.string
   };
 
@@ -38,22 +36,18 @@ export default class BlockedMicOverlay extends React.Component {
           src="/images/dashboard/boy-raising-hand.svg"
         />
 
-        <div className={styles.micHeader}>Can't access mic or webcam!</div>
+        <div className={styles.micHeader}>Sound is not working!</div>
 
         <div className={styles.micList}>
           <div className={styles.micStep}>
-            <span className={styles.number}>1</span>. Click on the camera icon
-            in the top right of the URL bar
+            <span className={styles.number}>1</span>. Make sure volume is on
           </div>
           <div className={styles.micStep}>
-            <span className={styles.number}>2</span>. Click “Always allow
-            https://readupnow.com to access your microphone"
+            <span className={styles.number}>2</span>. Make sure volume is turned
+            up high enough
           </div>
           <div className={styles.micStep}>
-            <span className={styles.number}>3</span>. Click “Done”
-          </div>
-          <div className={styles.micStep}>
-            <span className={styles.number}>4</span>. Reload the page
+            <span className={styles.number}>3</span>. Then, refresh this page
           </div>
         </div>
       </div>

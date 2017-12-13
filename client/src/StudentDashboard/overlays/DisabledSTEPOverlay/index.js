@@ -33,6 +33,11 @@ export default class DisabledSTEPOverlay extends React.Component {
       <div className={styles.micContainer}>
         <div className={styles.readupLogo}>ReadUp</div>
 
+        <img
+          className={styles.handRaise}
+          src="/images/dashboard/boy-raising-hand.svg"
+        />
+
         <div className={styles.micHeader}>
           STEPs 1, 2, and 3 aren't available yet
         </div>
