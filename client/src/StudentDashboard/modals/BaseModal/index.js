@@ -1,23 +1,19 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import styles from './styles.css'
-import commonStyles from '../commonstyles.css'
+import styles from "./styles.css";
+import commonStyles from "../commonstyles.css";
 
-import { Modal } from 'react-bootstrap'
+import { Modal } from "react-bootstrap";
 
-import ModalHeader from '../subcomponents/ModalHeader'
-import RectangleButton from 'StudentDashboard/components/RectangleButton'
+import ModalHeader from "../subcomponents/ModalHeader";
+import RectangleButton from "StudentDashboard/components/RectangleButton";
 
-
-import classNames from 'classnames/bind';
+import classNames from "classnames/bind";
 
 let cx = classNames.bind(styles);
 
-
 let commonCX = classNames.bind(commonStyles);
-
-
 
 export default class BaseModal extends React.Component {
   static propTypes = {
@@ -26,13 +22,15 @@ export default class BaseModal extends React.Component {
     animation: PropTypes.bool,
     modalType: PropTypes.string,
     onEntering: PropTypes.func,
+    volumeIcon: PropTypes.bool
   };
 
   static defaultProps = {
     show: true,
     animation: true,
     onEntering: null,
-  }
+    volumeIcon: false
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -40,36 +38,28 @@ export default class BaseModal extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-    this.state = {  };
+    this.state = {};
   }
 
   render() {
-
-
-
     let modalClass = cx({
-      successModal: this.props.modalType === 'success',
-      baseModal: true,
+      successModal: this.props.modalType === "success",
+      baseModal: true
     });
-
 
     let modalContainerClass = commonCX({
-      successModalContainer: this.props.modalType === 'success',
-      modalContainer: true,
+      successModalContainer: this.props.modalType === "success",
+      modalContainer: true
     });
 
-
     let modalHeaderWrapperClass = commonCX({
-      successModalHeaderWrapper: this.props.modalType === 'success',
-      modalHeaderWrapper: true,
+      successModalHeaderWrapper: this.props.modalType === "success",
+      modalHeaderWrapper: true
     });
 
     let modalHeaderClass = commonCX({
-      successModalHeader: this.props.modalType === 'success',
-    })
-
-
-
+      successModalHeader: this.props.modalType === "success"
+    });
 
     return (
       <Modal
@@ -78,19 +68,20 @@ export default class BaseModal extends React.Component {
         onHide={this.close}
         animation={this.props.animation}
         onEntering={this.props.onEntering}
-
       >
         <div className={modalContainerClass}>
           <div className={modalHeaderWrapperClass}>
-            <ModalHeader title={this.props.title} className={modalHeaderClass} modalType={this.props.modalType} />
+            <ModalHeader
+              title={this.props.title}
+              className={modalHeaderClass}
+              modalType={this.props.modalType}
+              volumeIcon={this.props.volumeIcon}
+            />
           </div>
 
           {this.props.children}
-
-
         </div>
       </Modal>
-
     );
   }
 }

@@ -52,6 +52,7 @@ export default class SoundCheckModal extends React.Component {
           title={"Can you hear?"}
           show={this.props.currentShowModal === THIS_MODAL_ID}
           modalType="info"
+          volumeIcon={true}
         >
           <div className={commonStyles.modalButtonArrayWrapper}>
             <ButtonArray

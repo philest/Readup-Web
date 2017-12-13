@@ -1,51 +1,46 @@
-
 .modalHeaderTitleWrapper {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	background-color: #3C8FCA;
+	background-color: #3c8fca;
 	height: 100%;
 	border-radius: 4px;
 }
 
-.successModalHeaderTitleWrapper{
-    border: 1px solid transparent;
-    border-color: #D6E9C6;	
-    background-color: #DFF0D8;
+.successModalHeaderTitleWrapper {
+	border: 1px solid transparent;
+	border-color: #d6e9c6;
+	background-color: #dff0d8;
 }
 
-.infoModalHeaderTitleWrapper{
-    border: 1px solid transparent;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
+.infoModalHeaderTitleWrapper {
+	border: 1px solid transparent;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
 }
 
-
-.dangerModalHeaderTitleWrapper{
-    border: 1px solid transparent;
-    background-color: #f2dede;
-    border-color: #ebccd1;
+.dangerModalHeaderTitleWrapper {
+	border: 1px solid transparent;
+	background-color: #f2dede;
+	border-color: #ebccd1;
 }
-
 
 .compModalHeaderTitleWrapper {
-    color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
+	color: #333;
+	background-color: #f5f5f5;
+	border-color: #ddd;
 }
-
 
 .modalHeaderTitleText {
 	text-align: center;
 	color: white;
 	font-size: 1.8em;
-	font-family: 'Proximanova Semibold';
+	font-family: "Proximanova Semibold";
 }
 
-
 .successModalHeaderTitleText {
-	color: #6D8F6E;
+	color: #6d8f6e;
 }
 
 .infoModalHeaderTitleText {
@@ -53,5 +48,10 @@
 }
 
 .dangerModalHeaderTitleText {
-    color: #a94442;
+	color: #a94442;
+}
+
+.volumeIcon {
+	margin-left: 5px;
+	transform: rotate(-5deg);
 }

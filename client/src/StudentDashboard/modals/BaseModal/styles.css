@@ -1,6 +1,10 @@
-
-
 .baseModal > div {
 	width: 450px; /* sets the width of the modal */
-	font-family: 'Proximanova';
+	font-family: "Proximanova";
+}
+
+.volumeIcon {
+	color: blue;
+	display: block;
+	z-index: 99999;
 }
