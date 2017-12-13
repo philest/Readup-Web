@@ -135,16 +135,19 @@ export default class AvatarContainer extends React.Component {
   render() {
     return (
       <div>
-        <Avatar
-          teacher
-          teacherSignature={teacherSignature}
-          key={"teacher"}
-          fullName={teacherSignature}
-          bookKey={"step4"}
-          onStudentNameSet={this.props.onStudentNameSet}
-          onBookSet={this.props.onBookSet}
-          onAvatarClicked={this.props.onAvatarClicked}
-        />
+        <div className={styles.teacherContainer}>
+          <Avatar
+            className={styles.teacherAvatar}
+            teacher
+            teacherSignature={teacherSignature}
+            key={"teacher"}
+            fullName={teacherSignature}
+            bookKey={"step4"}
+            onStudentNameSet={this.props.onStudentNameSet}
+            onBookSet={this.props.onBookSet}
+            onAvatarClicked={this.props.onAvatarClicked}
+          />
+        </div>
 
         <div className={styles.studentAvatarContainer}>
           {this.renderAvatars(this.state.myClass)}
