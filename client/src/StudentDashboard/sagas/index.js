@@ -654,10 +654,9 @@ function* playSpellingQuestionSaga(isHearAgain) {
 
 	// halfway point motivation
 	if (
-		(spellingGroupNumber <= 2 && spellingQuestionNumber === 8) ||
-		(spellingGroupNumber > 2 &&
-			spellingQuestionNumber === 10 &&
-			!isHearAgain)
+		((spellingGroupNumber <= 2 && spellingQuestionNumber === 8) ||
+			(spellingGroupNumber > 2 && spellingQuestionNumber === 10)) &&
+		!isHearAgain
 	) {
 		yield call(playSound, "/audio/halfway-through-spelling.mp3");
 		yield call(delay, 120);
