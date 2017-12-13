@@ -24,20 +24,15 @@
 
 .studentAvatarContainer {
 	margin: 0 auto;
+	margin-bottom: 40px;
 	background-color: white;
 	width: 80%;
 	min-height: 360px;
 	border-radius: 9px;
-
-	max-height: 25vh;
-	overflow-y: scroll;
+	/*	overflow-y: scroll;
+*/
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-
 	position: relative;
-
-	-webkit-box-shadow: inset 10px -40px 123px -51px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: inset 10px -40px 123px -51px rgba(0, 0, 0, 0.75);
-	box-shadow: inset 10px -40px 123px -51px rgba(0, 0, 0, 0.75);
 }

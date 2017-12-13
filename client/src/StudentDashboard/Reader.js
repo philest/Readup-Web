@@ -667,13 +667,7 @@ export default class Reader extends React.Component {
         <div className={styles.fullHeight}>
           {this.renderNavigationBar()}
 
-          <div
-            className={
-              this.props.inSpelling
-                ? styles.spellingContentContainer
-                : styles.contentContainer
-            }
-          >
+          <div className={styles.contentContainerAvatars}>
             <AvatarContainer
               onStudentNameSet={this.props.onStudentNameSet}
               onBookSet={this.props.onBookSet}
