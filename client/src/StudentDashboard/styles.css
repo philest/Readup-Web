@@ -30,6 +30,8 @@ body {
 	flex: 1;
 	background-color: #0c1f2c;
 	z-index: 1;
+	justify-content: center;
+
 	align-items: baseline;
 	overflow-y: scroll;
 }
