@@ -28,7 +28,7 @@ export function playSound(file, onEnd) {
     const myTimeout = setTimeout(() => {
       console.log("killed audio in a timeout: ", file);
       resolve();
-    }, 15000);
+    }, 23000);
 
     audio = new Audio(file);
     audio.addEventListener("ended", function() {
