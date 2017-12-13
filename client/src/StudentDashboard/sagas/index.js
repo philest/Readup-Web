@@ -39,6 +39,8 @@ import {
 // actions
 import {
 	PERMISSIONS_ARROW_CLICKED,
+	YES_CLICKED,
+	NO_CLICKED,
 	PAUSE_CLICKED,
 	START_RECORDING_CLICKED,
 	STOP_RECORDING_CLICKED,
@@ -735,7 +737,7 @@ function* helperInstructionSaga(
 		yield call(delay, 95000);
 		yield call(playSoundAsync, "/audio/gen/instruct-2.mp3");
 	} else if (isName) {
-		yield call(delay, 14500);
+		yield call(delay, 19500);
 		yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
 	}
 }
@@ -1710,13 +1712,35 @@ function* resetStateSaga() {
 	yield put(setCurrentOverlay("no-overlay"));
 }
 
+function* soundCheckSaga() {
+	yield put(setCurrentModal("modal-sound-check"));
+
+	yield call(playSoundAsync, "/audio/sound-check.m4a");
+
+	const { can_hear, cannot_hear } = yield race({
+		can_hear: take(YES_CLICKED),
+		cannot_hear: take(NO_CLICKED)
+	});
+
+	yield clog("YES_CLICKED: ", can_hear);
+	yield clog("NO_CLICKED: ", cannot_hear);
+
+	yield call(playSound, "/audio/complete.mp3");
+
+	if (cannot_hear) {
+		yield put(setCurrentOverlay("overlay-no-sound"));
+		yield take("NEVER_PASS");
+	}
+
+	if (can_hear) {
+		yield put(setCurrentModal("no-modal"));
+	}
+}
+
 function* assessThenSubmitSaga() {
 	const effects = []; // general background stuff
 	const earlyExitEffect = []; // for exiting at the start
 	const helperEffect = []; // deals with extra instructions
-
-	yield put(setCurrentModal("modal-sound-check"));
-	yield take("d");
 
 	yield call(resetStateSaga);
 
@@ -1731,6 +1755,8 @@ function* assessThenSubmitSaga() {
 
 	// permission was granted!!!!
 	yield put(setCurrentOverlay("no-overlay"));
+
+	yield* soundCheckSaga();
 
 	// access state
 	const isDemo = yield select(getIsDemo);
@@ -1953,7 +1979,7 @@ function* rootSaga() {
 
 			yield put({ type: SPINNER_SHOW });
 
-			yield playSound("/audio/complete.mp3");
+			yield call(playSound, "/audio/complete.mp3");
 
 			// const turnedIn = yield* turnInAudio(recordingBlob, assessmentId, false, 0)
 

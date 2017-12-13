@@ -132,6 +132,9 @@ export const HEAR_INTRO_AGAIN_CLICKED = "HEAR_INTRO_AGAIN_CLICKED";
 export const WRITTEN_QUESTION_NUMBER_SET = "WRITTEN_QUESTION_NUMBER_SET";
 export const WRITTEN_COMP_INPUT_SET = "WRITTEN_COMP_INPUT_SET";
 
+export const YES_CLICKED = "YES_CLICKED";
+export const NO_CLICKED = "NO_CLICKED";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -237,6 +240,18 @@ export function introContinueClicked() {
 export function finishVideoClicked() {
   return {
     type: FINISH_VIDEO_CLICKED
+  };
+}
+
+export function yesClicked() {
+  return {
+    type: YES_CLICKED
+  };
+}
+
+export function noClicked() {
+  return {
+    type: NO_CLICKED
   };
 }
 
