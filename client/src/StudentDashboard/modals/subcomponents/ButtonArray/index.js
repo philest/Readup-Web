@@ -54,6 +54,10 @@ export default class ButtonArray extends React.Component {
         this.props.modalType === "info" || this.props.modalType === "danger"
     });
 
+    let secondaryIconColorClass = cx({
+      redIcon: true
+    });
+
     let faSizeClassFirst = cx({
       icon: this.props.inline,
       largeIcon: !this.props.inline
@@ -134,7 +138,7 @@ export default class ButtonArray extends React.Component {
                   "fa",
                   faAnimationClass,
                   buttonInfoArray[1],
-                  iconColorClass
+                  index === 0 ? iconColorClass : secondaryIconColorClass
                 ].join(" ")}
                 aria-hidden={"true"}
               />
