@@ -1715,7 +1715,7 @@ function* assessThenSubmitSaga() {
 	const earlyExitEffect = []; // for exiting at the start
 	const helperEffect = []; // deals with extra instructions
 
-	yield put(setCurrentOverlay("overlay-no-sound"));
+	yield put(setCurrentModal("modal-sound-check"));
 	yield take("d");
 
 	yield call(resetStateSaga);

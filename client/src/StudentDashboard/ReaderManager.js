@@ -14,6 +14,8 @@ import { ReaderStateOptions } from "./types";
 import styles from "./styles.css";
 
 import CompModal from "./modals/CompModal";
+import SoundCheckModal from "./modals/SoundCheckModal";
+
 import DoneModal from "./modals/DoneModal";
 import PausedModal from "./modals/PausedModal";
 import CompPausedModal from "./modals/CompPausedModal";
@@ -249,6 +251,12 @@ export class StudentDashboard extends React.Component {
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
           showSpinner={this.props.showSpinner}
+        />
+
+        <SoundCheckModal
+          onYesClicked={this.props.actions.yesClicked}
+          onNoClicked={this.props.actions.noClicked}
+          currentShowModal={this.props.currentShowModal}
         />
 
         <CompPausedModal
