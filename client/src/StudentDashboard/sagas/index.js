@@ -797,8 +797,10 @@ function* silentReadingInstructionSaga(isFull) {
 	if (isWarmup && !isFull) {
 		yield call(playSound, "/audio/new-warmup/6.mp3");
 	} else if (isWarmup && isFull) {
-		yield call(playSound, "/audio/new-warmup/2.mp3"); // TODO
-		yield call(playSound, "/audio/laura/then.mp3"); // TODO
+		yield call(
+			playSound,
+			"/audio/pickups/try-silent-reading-title-then.mp3"
+		); // TODO
 	} else if (!isFull) {
 		yield call(playSound, "/audio/laura/now-read-silently-intro.mp3");
 	} else {
@@ -813,8 +815,7 @@ function* silentReadingInstructionSaga(isFull) {
 	yield put.resolve(showVolumeIndicator());
 
 	if (isWarmup) {
-		// yield call(playSound, "/audio/warmup/just-click-finish.mp3");
-		yield call(playSound, "/audio/laura/click-finish-book.mp3");
+		yield call(playSound, "/audio/pickups/just-click-finish.mp3");
 	} else {
 		yield call(playSound, "/audio/laura/click-finish-book.mp3");
 	}
@@ -1316,7 +1317,7 @@ function* findPromptSaga(studentID) {
 	if (false && process.env.NODE_ENV === "development") {
 		waitingTime = 200;
 	} else {
-		waitingTime = isLiveDemo ? 6000 : 2500;
+		waitingTime = isLiveDemo ? 6000 : 1000;
 	}
 
 	const { prompt, timeout } = yield race({
