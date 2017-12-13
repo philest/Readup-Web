@@ -17,6 +17,7 @@ const THIS_MODAL_ID = "modal-comp-paused";
 
 export default class CompPausedModal extends React.Component {
   static propTypes = {
+    title: PropTypes.string,
     onContinueClicked: PropTypes.func.isRequired,
     onStartOverClicked: PropTypes.func, // TODO required?
     onDoneClicked: PropTypes.func,
@@ -100,7 +101,7 @@ export default class CompPausedModal extends React.Component {
           {".modal-dialog { margin-top: 20vh; margin: 20vh auto 0px; } "}
         </style>
         <BaseModal
-          title="Done with answer?"
+          title={this.props.title}
           show={this.props.currentShowModal === THIS_MODAL_ID}
           modalType="info"
         >

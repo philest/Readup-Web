@@ -664,10 +664,9 @@ function* playSpellingQuestionSaga(isHearAgain) {
 
 	// ending motivation
 	if (
-		(spellingGroupNumber <= 2 && spellingQuestionNumber === 12) ||
-		(spellingGroupNumber > 2 &&
-			spellingQuestionNumber === 16 &&
-			!isHearAgain)
+		((spellingGroupNumber <= 2 && spellingQuestionNumber === 12) ||
+			(spellingGroupNumber > 2 && spellingQuestionNumber === 16)) &&
+		!isHearAgain
 	) {
 		yield call(playSound, "/audio/couple-more-words-spelling.mp3");
 		yield call(delay, 50);

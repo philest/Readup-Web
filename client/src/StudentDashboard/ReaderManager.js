@@ -251,6 +251,9 @@ export class StudentDashboard extends React.Component {
         />
 
         <CompPausedModal
+          title={
+            this.props.inOralReading ? "Done reading?" : "Done with answer?"
+          }
           onContinueClicked={this.props.actions.resumeClicked}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           currentShowModal={this.props.currentShowModal}
