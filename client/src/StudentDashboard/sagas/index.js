@@ -1717,22 +1717,23 @@ function* soundCheckSaga() {
 
 	yield call(playSoundAsync, "/audio/sound-check.m4a");
 
-	const { can_hear, cannot_hear } = yield race({
+	const { can_hear, cannot_hear, timeout } = yield race({
 		can_hear: take(YES_CLICKED),
-		cannot_hear: take(NO_CLICKED)
+		cannot_hear: take(NO_CLICKED),
+		timeout: call(delay, 20000)
 	});
 
 	yield clog("YES_CLICKED: ", can_hear);
 	yield clog("NO_CLICKED: ", cannot_hear);
 
-	yield call(playSound, "/audio/complete.mp3");
-
-	if (cannot_hear) {
+	if (cannot_hear || timeout) {
+		yield call(playSoundAsync, "/audio/bamboo.mp3");
 		yield put(setCurrentOverlay("overlay-no-sound"));
 		yield take("NEVER_PASS");
 	}
 
 	if (can_hear) {
+		yield call(playSound, "/audio/complete.mp3");
 		yield put(setCurrentModal("no-modal"));
 	}
 }
