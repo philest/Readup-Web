@@ -1211,11 +1211,15 @@ function* definedCompSaga(
 
 	yield* turnInDuringCompSaga(uploadEffects);
 
-	const numQuestions = getNumQuestionsinThisCompSection(
+	let numQuestions = getNumQuestionsinThisCompSection(
 		isWarmup,
 		isSilentReading,
 		book
 	);
+
+	if (!isWarmup && book.stepLevel >= 8 && book.stepLevel <= 12) {
+		numQuestions += 1; // add an extra question to the total for the retell
+	}
 
 	let questionNumber = yield select(getQuestionNumber);
 
