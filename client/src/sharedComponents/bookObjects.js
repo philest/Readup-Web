@@ -612,8 +612,7 @@ export const step7 = {
   },
   questions: {
     1: {
-      title:
-        "What do the kids in the story have to do to get ready for the comedy show?",
+      title: "Who, was the first Kendra?",
       audioSrc: "/audio/step7/comp/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -624,7 +623,7 @@ export const step7 = {
       section: 1
     },
     2: {
-      title: "Why do the children put Mittens upstairs?",
+      title: "What happened to the first Kendra?",
       audioSrc: "/audio/step7/comp/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -635,7 +634,7 @@ export const step7 = {
       section: 1
     },
     3: {
-      title: "What do Max and Linda do at the show?",
+      title: "Why does Lisa name her invisible friend Kendra?",
       audioSrc: "/audio/step7/comp/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -646,7 +645,8 @@ export const step7 = {
       section: 2
     },
     4: {
-      title: "Why do the people think the show is funny?",
+      title:
+        "Does Lisa’s mother think that Kendra is a real girl? How do you know from the story?",
       audioSrc: "/audio/step7/comp/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -657,7 +657,7 @@ export const step7 = {
       section: 1
     },
     5: {
-      title: "What does Zina do at the show?",
+      title: "What kinds of things does Lisa pretend to do with Kendra?",
       audioSrc: "/audio/step7/comp/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -669,7 +669,7 @@ export const step7 = {
     },
     6: {
       title:
-        "Why is the audience surprised when the cat walks across the screen?",
+        "Why do you think Lisa says that Kendra does bad things at school, like making faces?",
       audioSrc: "/audio/step7/comp/6.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
@@ -680,7 +680,8 @@ export const step7 = {
       section: 3
     },
     7: {
-      title: "Why do the children want to put on another show the next week?",
+      title:
+        "In what ways does pretending to have a friend like Kendra help Lisa?",
       audioSrc: "/audio/step7/comp/7.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
@@ -692,7 +693,7 @@ export const step7 = {
     },
 
     8: {
-      title: "Why do the children promise to let Mittens be in the next show?",
+      title: "Why do you think Lisa pretends to have an invisible friend?",
       audioSrc: "/audio/step7/comp/8.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
@@ -782,7 +783,7 @@ export const step8 = {
     },
     2: {
       title:
-        "What do the kids in the story have to do to get ready for the comedy show?",
+        "First, what is the Frog Princess like at the beginning of the story?",
       audioSrc: "/audio/step8/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -793,7 +794,7 @@ export const step8 = {
       section: 1
     },
     3: {
-      title: "Why do the children put Mittens upstairs?",
+      title: "How does the young man meet the Frog Princess?",
       audioSrc: "/audio/step8/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -804,7 +805,8 @@ export const step8 = {
       section: 1
     },
     4: {
-      title: "What do Max and Linda do at the show?",
+      title:
+        "Why is it so important that the young man get the Frog Princess to kiss him?",
       audioSrc: "/audio/step8/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -815,7 +817,7 @@ export const step8 = {
       section: 2
     },
     5: {
-      title: "Why do the people think the show is funny?",
+      title: "Who created the young man’s problem?",
       audioSrc: "/audio/step8/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -826,7 +828,7 @@ export const step8 = {
       section: 1
     },
     6: {
-      title: "What does Zina do at the show?",
+      title: "Why doesn’t the Frog Princess think the young man is handsome?",
       audioSrc: "/audio/step8/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -838,7 +840,7 @@ export const step8 = {
     },
     7: {
       title:
-        "Why is the audience surprised when the cat walks across the screen?",
+        "Why does the Frog Princess let the young man stay with her by the pond?",
       audioSrc: "/audio/step8/6.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
@@ -849,7 +851,8 @@ export const step8 = {
       section: 3
     },
     8: {
-      title: "Why do the children want to put on another show the next week?",
+      title:
+        "Why doesn’t the young man look ugly to the Princess after she is turned into a young woman?",
       audioSrc: "/audio/step8/7.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
@@ -861,7 +864,8 @@ export const step8 = {
     },
 
     9: {
-      title: "Why do the children promise to let Mittens be in the next show?",
+      title:
+        "Why do you think the Prince and Princess live happily ever after?",
       audioSrc: "/audio/step8/8.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in undertsanding why Peter invites Jill to join him playing upside down. Misses possible answers that include because it's fun to do the same things together; he wants her to see things differently.",
@@ -1158,7 +1162,7 @@ export const step10 = {
       section: 1
     },
     2: {
-      title: "Why does Jeffrey’s mother trust him to mail the letters?",
+      title: "First, why does Juliet want to be a detective?",
       audioSrc: "/audio/step10/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -1169,7 +1173,8 @@ export const step10 = {
       section: 1
     },
     3: {
-      title: "When does Jeffrey notice that the fourth letter is missing?",
+      title:
+        "Why does Norman think that Juliet will have a problem becoming a detective?",
       audioSrc: "/audio/step10/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -1181,7 +1186,7 @@ export const step10 = {
     },
     4: {
       title:
-        "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
+        "Why does Juliet make a new sign with a long list of the things she can do?",
       audioSrc: "/audio/step10/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -1192,7 +1197,7 @@ export const step10 = {
       section: 2
     },
     5: {
-      title: "What was in the letter that Jeffrey lost?",
+      title: "How does Juliet know that the balloon is in the tree?",
       audioSrc: "/audio/step10/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -1203,8 +1208,7 @@ export const step10 = {
       section: 1
     },
     6: {
-      title:
-        "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
+      title: "What is the author trying to teach us in the book?",
       audioSrc: "/audio/step10/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -1329,7 +1333,8 @@ export const step11 = {
       section: 1
     },
     2: {
-      title: "Why does Jeffrey’s mother trust him to mail the letters?",
+      title:
+        "First, How does Daniel feel about being in his new school? Why do you think that?",
       audioSrc: "/audio/step11/1.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding where Upside Down takes place. Possible settings include in his house; on the couch; in his living room. Could benefit from more use of pictures as cues. ",
@@ -1340,7 +1345,7 @@ export const step11 = {
       section: 1
     },
     3: {
-      title: "When does Jeffrey notice that the fourth letter is missing?",
+      title: "Why doesn’t Ms. Hayes believe that the desk is haunted?",
       audioSrc: "/audio/step11/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -1351,8 +1356,7 @@ export const step11 = {
       section: 1
     },
     4: {
-      title:
-        "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
+      title: "Why does Ike Mills offer to buy Daniel a new desk?",
       audioSrc: "/audio/step11/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -1363,7 +1367,7 @@ export const step11 = {
       section: 2
     },
     5: {
-      title: "What was in the letter that Jeffrey lost?",
+      title: "How are Daniel and Ike Mills alike?",
       audioSrc: "/audio/step11/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -1375,7 +1379,7 @@ export const step11 = {
     },
     6: {
       title:
-        "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
+        'Why is Daniel the only one in the class who isn’t sure what to write about what he’s learned from their "funny experience"?',
       audioSrc: "/audio/step11/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
@@ -1509,7 +1513,8 @@ export const step12 = {
       section: 1
     },
     3: {
-      title: "When does Jeffrey notice that the fourth letter is missing?",
+      title:
+        "hy do you think the beautiful lady tells Martin that the ring’s power must be kept a secret?",
       audioSrc: "/audio/step12/2.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in recalling key details about plot. Misses possible answers that include his name, a living room, and a ball (among others). Could benefit from reviewing and collecting more evidence from the text before answering.",
@@ -1520,8 +1525,7 @@ export const step12 = {
       section: 1
     },
     4: {
-      title:
-        "Why doesn’t Jeffrey tell his mother about the letter at dinner, as he had planned?",
+      title: "How does the Princess learn the source of Martin's power?",
       audioSrc: "/audio/step12/3.mp3",
       rubric: {
         0: "Response does not demonstrate proficiency in understanding why Peter chooses to look at things upside down. Some possible answers include things look strange, everything looks different, it's fun to see the world in a topsy-turvy way.",
@@ -1532,7 +1536,7 @@ export const step12 = {
       section: 2
     },
     5: {
-      title: "What was in the letter that Jeffrey lost?",
+      title: "Why does the King lock Martin in the tower?",
       audioSrc: "/audio/step12/4.mp3",
       rubric: {
         0: "Response is incorrect, missing key point that Peter's friend Jill is who visits him. Response suggests that student could benefit from practice reviewing the text before answering.",
@@ -1544,7 +1548,7 @@ export const step12 = {
     },
     6: {
       title:
-        "Why does Jeffrey finally tell his mother what happened to the fourth letter?",
+        "Why does Martin ask for golden armor and a dashing black horse before he goes back to the Princess?",
       audioSrc: "/audio/step12/5.mp3",
       rubric: {
         0: "Response does not demonstrate a proficient understanding of Peter's perspective and motivation. Misses key point that, because Peter is upside down, it looks like Jill's hat will fall to the ceiling. Response suggests student could benefit from reviewing more visual cues from pictures and working to develop a stronger understanding of character perspective and intent (theory of mind skills).",
