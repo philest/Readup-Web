@@ -189,19 +189,30 @@ export default class Reader extends React.Component {
     ) {
       return (
         <div>
-          <iframe
-            src="https://fast.wistia.net/embed/iframe/1rokpxeh2j"
-            title="Wistia video player"
-            allowTransparency="true"
-            frameBorder="0"
-            scrolling="no"
-            className="wistia_embed"
-            name="wistia_embed"
-            width="640"
-            height="360"
-            style={{ zIndex: 999999999 }}
-            muted={this.props.isWithinGrader ? "muted" : null}
-          />
+          {this.props.isWithinGrader && (
+            <img
+              src="/images/dashboard/video-placeholder.jpg"
+              style={{
+                height: 360,
+                width: 640,
+                display: "block"
+              }}
+            />
+          )}
+          {!this.props.isWithinGrader && (
+            <iframe
+              src="https://fast.wistia.net/embed/iframe/1rokpxeh2j"
+              title="Wistia video player"
+              allowTransparency="true"
+              frameBorder="0"
+              scrolling="no"
+              className="wistia_embed"
+              name="wistia_embed"
+              width="640"
+              height="360"
+              style={{ zIndex: 999999999 }}
+            />
+          )}
           <script src="https://fast.wistia.net/assets/external/E-v1.js" async />
         </div>
       );
