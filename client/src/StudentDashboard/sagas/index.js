@@ -738,8 +738,10 @@ function* helperInstructionSaga(
 		yield call(delay, 95000);
 		yield call(playSoundAsync, "/audio/gen/instruct-2.mp3");
 	} else if (isName) {
-		yield call(delay, 19500);
-		yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
+		while (true) {
+			yield call(delay, 19500);
+			yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
+		}
 	} else if (isSoundCheck) {
 		while (true) {
 			yield call(delay, 10500);
@@ -942,7 +944,7 @@ function* bookIntroSaga(book) {
 
 	yield call(stopAudio);
 
-	yield call(delay, 1350);
+	// yield call(delay, 1350);
 
 	if (isWarmup && !hasWrittenComp(book)) {
 		yield call(playSound, "/audio/warmup/w-1.mp3");
