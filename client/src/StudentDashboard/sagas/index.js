@@ -741,8 +741,10 @@ function* helperInstructionSaga(
 		yield call(delay, 19500);
 		yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
 	} else if (isSoundCheck) {
-		yield call(delay, 9000);
-		yield call(playSoundAsync, "/audio/sound-check.m4a");
+		while (true) {
+			yield call(delay, 10500);
+			yield call(playSoundAsync, "/audio/sound-check.m4a");
+		}
 	}
 }
 
@@ -1783,8 +1785,6 @@ function* assessThenSubmitSaga() {
 	// permission was granted!!!!
 	yield put(setCurrentOverlay("no-overlay"));
 
-	yield* soundCheckSaga();
-
 	// access state
 	const isDemo = yield select(getIsDemo);
 	const isWarmup = yield select(getIsWarmup);
@@ -1826,6 +1826,8 @@ function* assessThenSubmitSaga() {
 	}
 
 	if (!isDemo && !hasLoggedIn) {
+		yield* soundCheckSaga(); // sound check for only the real thing?
+
 		yield call(loginSaga);
 
 		book = yield select(getBook);
