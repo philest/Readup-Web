@@ -124,6 +124,7 @@ Rails.application.routes.draw do
 
   get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/%{id}/warmup/true'), id: /\d{4}/
 
+  get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/%{id}/warmup/true'), id: /\d{3}/
 
 
   get 'rmp2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
