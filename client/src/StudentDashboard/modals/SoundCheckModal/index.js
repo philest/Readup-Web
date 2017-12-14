@@ -20,7 +20,8 @@ export default class SoundCheckModal extends React.Component {
     onYesClicked: PropTypes.func,
     onNoClicked: PropTypes.func,
     currentShowModal: PropTypes.string,
-    modalType: PropTypes.string
+    modalType: PropTypes.string,
+    onHearIntroAgainClicked: PropTypes.func
   };
 
   /**
@@ -53,6 +54,7 @@ export default class SoundCheckModal extends React.Component {
           show={this.props.currentShowModal === THIS_MODAL_ID}
           modalType="info"
           volumeIcon={true}
+          onHearIntroAgainClicked={this.props.onHearIntroAgainClicked}
         >
           <div className={commonStyles.modalButtonArrayWrapper}>
             <ButtonArray

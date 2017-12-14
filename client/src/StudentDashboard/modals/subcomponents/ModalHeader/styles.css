@@ -54,4 +54,12 @@
 .volumeIcon {
 	margin-left: 5px;
 	transform: rotate(-5deg);
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.volumeIcon:hover {
+	transform: translateY(-1px) rotate(-5deg);
+	transition: 0.3s;
+	filter: brightness(120%);
 }

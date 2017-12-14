@@ -9,7 +9,8 @@ let cx = classNames.bind(styles);
 export default class ModalHeader extends React.Component {
   static propTypes = {
     modalType: PropTypes.string,
-    volumeIcon: PropTypes.bool
+    volumeIcon: PropTypes.bool,
+    onHearIntroAgainClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -44,7 +45,10 @@ export default class ModalHeader extends React.Component {
         <div className={modalHeaderTitleTextClass}>
           {this.props.title}{" "}
           {this.props.volumeIcon && (
-            <i className={`fa fa-volume-up ${styles.volumeIcon}`} />
+            <i
+              className={`fa fa-volume-up ${styles.volumeIcon}`}
+              onClick={this.props.onHearIntroAgainClicked}
+            />
           )}
         </div>
       </div>

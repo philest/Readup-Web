@@ -256,6 +256,7 @@ export class StudentDashboard extends React.Component {
         <SoundCheckModal
           onYesClicked={this.props.actions.yesClicked}
           onNoClicked={this.props.actions.noClicked}
+          onHearIntroAgainClicked={this.props.actions.hearIntroAgainClicked}
           currentShowModal={this.props.currentShowModal}
         />
 

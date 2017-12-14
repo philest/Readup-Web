@@ -1712,15 +1712,24 @@ function* resetStateSaga() {
 	yield put(setCurrentOverlay("no-overlay"));
 }
 
+function* soundCheckInstructions() {
+	yield call(playSoundAsync, "/audio/sound-check.m4a");
+}
+
 function* soundCheckSaga() {
 	yield put(setCurrentModal("modal-sound-check"));
+
+	let soundCheckEffects = [];
+	soundCheckEffects.push(
+		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, soundCheckInstructions)
+	);
 
 	yield call(playSoundAsync, "/audio/sound-check.m4a");
 
 	const { can_hear, cannot_hear, timeout } = yield race({
 		can_hear: take(YES_CLICKED),
 		cannot_hear: take(NO_CLICKED),
-		timeout: call(delay, 20000)
+		timeout: call(delay, 32000)
 	});
 
 	yield clog("YES_CLICKED: ", can_hear);
@@ -1736,6 +1745,8 @@ function* soundCheckSaga() {
 		yield call(playSound, "/audio/complete.mp3");
 		yield put(setCurrentModal("no-modal"));
 	}
+
+	yield cancel(...soundCheckEffects);
 }
 
 function* assessThenSubmitSaga() {

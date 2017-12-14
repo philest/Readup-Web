@@ -22,7 +22,8 @@ export default class BaseModal extends React.Component {
     animation: PropTypes.bool,
     modalType: PropTypes.string,
     onEntering: PropTypes.func,
-    volumeIcon: PropTypes.bool
+    volumeIcon: PropTypes.bool,
+    onHearIntroAgainClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -76,6 +77,7 @@ export default class BaseModal extends React.Component {
               className={modalHeaderClass}
               modalType={this.props.modalType}
               volumeIcon={this.props.volumeIcon}
+              onHearIntroAgainClicked={this.props.onHearIntroAgainClicked}
             />
           </div>
 
