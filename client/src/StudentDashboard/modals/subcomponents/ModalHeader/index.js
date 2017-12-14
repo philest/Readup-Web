@@ -52,7 +52,9 @@ export default class ModalHeader extends React.Component {
               onClick={this.props.onHearIntroAgainClicked}
             />
           )}
-          {this.props.subtitle && <div>{this.props.subtitle}</div>}
+          {this.props.subtitle && (
+            <div className={styles.subtitle}>{this.props.subtitle}</div>
+          )}
         </div>
       </div>
     );

@@ -23,14 +23,16 @@ export default class BaseModal extends React.Component {
     modalType: PropTypes.string,
     onEntering: PropTypes.func,
     volumeIcon: PropTypes.bool,
-    onHearIntroAgainClicked: PropTypes.func
+    onHearIntroAgainClicked: PropTypes.func,
+    subtitle: PropTypes.string
   };
 
   static defaultProps = {
     show: true,
     animation: true,
     onEntering: null,
-    volumeIcon: false
+    volumeIcon: false,
+    subtitle: null
   };
 
   /**
@@ -55,7 +57,8 @@ export default class BaseModal extends React.Component {
 
     let modalHeaderWrapperClass = commonCX({
       successModalHeaderWrapper: this.props.modalType === "success",
-      modalHeaderWrapper: true
+      modalHeaderWrapper: true,
+      modalHeaderWrapperLarge: this.props.subtitle
     });
 
     let modalHeaderClass = commonCX({
@@ -74,6 +77,7 @@ export default class BaseModal extends React.Component {
           <div className={modalHeaderWrapperClass}>
             <ModalHeader
               title={this.props.title}
+              subtitle={this.props.subtitle}
               className={modalHeaderClass}
               modalType={this.props.modalType}
               volumeIcon={this.props.volumeIcon}

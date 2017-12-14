@@ -51,6 +51,13 @@
 	color: #a94442;
 }
 
+.subtitle {
+	font-size: 18px;
+	line-height: 34px;
+	font-style: italic;
+	opacity: 0.8;
+}
+
 .volumeIcon {
 	margin-left: 5px;
 	transform: rotate(-5deg);

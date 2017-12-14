@@ -16,6 +16,10 @@
 	height: 80px;
 }
 
+.modalHeaderWrapperLarge {
+	height: 100px;
+}
+
 .modalMainButtonWrapper {
 	width: 100%;
 	height: 130px;
