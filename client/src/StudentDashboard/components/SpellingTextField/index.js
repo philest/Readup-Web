@@ -61,7 +61,10 @@ export default class SpellingTextField extends React.Component {
 
           if (!scoredSpellingHolder) {
             scoredSpellingHolder =
-              spellingLibrary[getSpellingGroupNumber(this.props.book)];
+              spellingLibrary[
+                getSpellingGroupNumber(this.props.book) +
+                  (this.props.book.stepSeries === "PURPLE" ? 4 : 0)
+              ];
           }
 
           scoredSpellingHolder.responses[qNum - 1] = value;

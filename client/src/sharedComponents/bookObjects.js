@@ -3374,17 +3374,9 @@ export const spellingLibrary = {
   1: group1SpellingObj,
   2: group2SpellingObj,
   3: group3SpellingObj,
-  4: group4SpellingObj
-};
-
-export const markupLibrary = {
-  4: step4Markup,
-  5: step5Markup,
-  6: step6Markup,
-  7: step7Markup,
-  8: step8Markup,
-  9: step9Markup,
-  10: step10Markup,
-  11: step11Markup,
-  12: step12Markup
+  4: group4SpellingObj,
+  5: purpleGroup1SpellingObj,
+  6: purpleGroup2SpellingObj,
+  7: purpleGroup3SpellingObj,
+  8: purpleGroup4SpellingObj
 };
