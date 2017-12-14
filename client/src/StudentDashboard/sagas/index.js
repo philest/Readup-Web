@@ -944,8 +944,6 @@ function* bookIntroSaga(book) {
 
 	yield call(stopAudio);
 
-	// yield call(delay, 1350);
-
 	if (isWarmup && !hasWrittenComp(book)) {
 		yield call(playSound, "/audio/warmup/w-1.mp3");
 		yield call(playSound, "/audio/warmup/w-2.mp3");
