@@ -19,6 +19,8 @@ import { RouteTransition, presets } from "react-router-transition";
 
 import { ReaderStateOptions } from "./types";
 
+import SpellingLetterBox from "./components/SpellingLetterBox";
+
 import {
   Modal,
   Button,
@@ -681,6 +683,18 @@ export default class Reader extends React.Component {
       pathname: this.props.pathname,
       className: styles.routeTransition
     };
+
+    if (!this.props.hasLoggedIn && !this.props.isDemo) {
+      return (
+        <div className={styles.fullHeight}>
+          {this.renderNavigationBar()}
+
+          <div className={styles.contentContainer}>
+            <SpellingLetterBox />;
+          </div>
+        </div>
+      );
+    }
 
     if (!this.props.hasLoggedIn && !this.props.isDemo) {
       return (
