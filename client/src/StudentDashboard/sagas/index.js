@@ -1718,6 +1718,10 @@ function* resetStateSaga() {
 	yield put(setCurrentOverlay("no-overlay"));
 }
 
+function* teacherHelpInstructions() {
+	yield call(playSoundAsync, "/audio/teacher-help.mp3");
+}
+
 function* soundCheckInstructions() {
 	yield call(playSoundAsync, "/audio/sound-check.m4a");
 }
@@ -1766,6 +1770,23 @@ function* soundCheckSaga() {
 	yield cancel(...soundCheckEffects);
 }
 
+function* bookCheckSaga() {
+	yield put.resolve(setCurrentModal("modal-book-check"));
+
+	let bookCheckEffects = [];
+	bookCheckEffects.push(
+		yield takeLatest(NO_CLICKED, teacherHelpInstructions)
+	);
+
+	yield call(playSoundAsync, "/audio/book-check.m4a");
+
+	yield take(YES_CLICKED);
+	yield call(playSoundAsync, "/audio/complete.mp3");
+
+	yield cancel(...bookCheckEffects);
+	yield put.resolve(setCurrentModal("no-modal"));
+}
+
 function* assessThenSubmitSaga() {
 	const effects = []; // general background stuff
 	const earlyExitEffect = []; // for exiting at the start
@@ -1806,10 +1827,6 @@ function* assessThenSubmitSaga() {
 		yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, hearQuestionAgainSaga)
 	);
 
-	// yield put.resolve(avatarClicked()); // log in for them
-	// yield put.resolve(setReaderState("TEST"));
-	// yield put.resolve(hideVolumeIndicator());
-
 	if (!isWarmup && isDemo) {
 		yield put.resolve(avatarClicked()); // log in for them
 
@@ -1840,6 +1857,8 @@ function* assessThenSubmitSaga() {
 		}).fail(function(xhr, status, err) {
 			console.log(err);
 		});
+
+		yield* bookCheckSaga(); // book check for only the real thing?
 	}
 
 	book = yield select(getBook);

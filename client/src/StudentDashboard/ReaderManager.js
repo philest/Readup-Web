@@ -15,7 +15,7 @@ import styles from "./styles.css";
 
 import CompModal from "./modals/CompModal";
 import SoundCheckModal from "./modals/SoundCheckModal";
-
+import BookCheckModal from "./modals/BookCheckModal";
 import DoneModal from "./modals/DoneModal";
 import PausedModal from "./modals/PausedModal";
 import CompPausedModal from "./modals/CompPausedModal";
@@ -257,6 +257,13 @@ export class StudentDashboard extends React.Component {
           onYesClicked={this.props.actions.yesClicked}
           onNoClicked={this.props.actions.noClicked}
           onHearIntroAgainClicked={this.props.actions.hearIntroAgainClicked}
+          currentShowModal={this.props.currentShowModal}
+        />
+
+        <BookCheckModal
+          bookTitle={this.props.book.title}
+          onYesClicked={this.props.actions.yesClicked}
+          onNoClicked={this.props.actions.noClicked}
           currentShowModal={this.props.currentShowModal}
         />
 

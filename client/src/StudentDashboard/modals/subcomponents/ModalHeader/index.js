@@ -10,11 +10,13 @@ export default class ModalHeader extends React.Component {
   static propTypes = {
     modalType: PropTypes.string,
     volumeIcon: PropTypes.bool,
-    onHearIntroAgainClicked: PropTypes.func
+    onHearIntroAgainClicked: PropTypes.func,
+    subtitle: PropTypes.string
   };
 
   static defaultProps = {
-    volumeIcon: false
+    volumeIcon: false,
+    subtitle: null
   };
 
   /**
@@ -50,6 +52,7 @@ export default class ModalHeader extends React.Component {
               onClick={this.props.onHearIntroAgainClicked}
             />
           )}
+          {this.props.subtitle && <div>{this.props.subtitle}</div>}
         </div>
       </div>
     );

@@ -49,8 +49,7 @@ import { playSoundAsync } from "../StudentDashboard/audioPlayer";
 import {
   fireflyBook,
   fpBook,
-  library,
-  markupLibrary
+  library
 } from "../sharedComponents/bookObjects.js";
 
 import { PromptOptions } from "../StudentDashboard/types";
