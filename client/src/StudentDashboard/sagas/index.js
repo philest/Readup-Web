@@ -722,7 +722,8 @@ function* helperInstructionSaga(
 	isStartAnswer,
 	isBlueCheckmark,
 	isNextButton,
-	isName
+	isName,
+	isSoundCheck
 ) {
 	if (isStartReading) {
 		yield call(delay, 5000);
@@ -739,6 +740,9 @@ function* helperInstructionSaga(
 	} else if (isName) {
 		yield call(delay, 19500);
 		yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
+	} else if (isSoundCheck) {
+		yield call(delay, 9000);
+		yield call(playSoundAsync, "/audio/sound-check.m4a");
 	}
 }
 
@@ -1722,6 +1726,17 @@ function* soundCheckSaga() {
 	let soundCheckEffects = [];
 	soundCheckEffects.push(
 		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, soundCheckInstructions)
+	);
+	soundCheckEffects.push(
+		yield fork(
+			helperInstructionSaga,
+			false,
+			false,
+			false,
+			false,
+			false,
+			true
+		)
 	);
 
 	yield call(playSoundAsync, "/audio/sound-check.m4a");
