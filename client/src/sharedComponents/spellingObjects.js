@@ -233,7 +233,7 @@ const group4Sections = {
         statusArr: [
             true,
             true,
-            true,
+            "NO_VALUE",
             true,
             "NO_VALUE",
             true,
