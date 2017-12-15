@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import styles from "./styles.css";
 
 // fake data generator
 // const getItems = count =>
@@ -73,7 +74,8 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 	width: 50,
 	// height: 50 + "px !important",
 	fontSize: 50,
-	color: "white",
+	color: "#4a4a4a",
+	fontFamily: "Comic Neue Angular",
 	// color: white,
 	//    fontSize: 30,
 	//    background: 'none';
@@ -104,7 +106,8 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 		};
 	} else {
 		return {
-			background: isDraggingOver ? "lightblue" : "lightgray",
+			background: isDraggingOver ? "lightblue" : "white",
+			borderRadius: 6,
 			padding: grid,
 			minWidth: 400,
 			maxWidth: 400,
@@ -263,88 +266,96 @@ export default class Drag extends React.Component {
 					<div />
 					<br />
 
-					<Droppable droppableId="droppable2" direction="horizontal">
-						{(provided, snapshot) => (
-							<div
-								ref={provided.innerRef}
-								style={getListStyle(
-									true,
-									snapshot.isDraggingOver
-								)}
-							>
-								{this.state.items2.map(item => (
-									<Draggable
-										key={item.id}
-										draggableId={item.id}
-									>
-										{(provided, snapshot) => (
-											<div
-												style={{
-													display: "inline-block"
-												}}
-											>
+					<div className={styles.spellingLetterBox}>
+						<Droppable
+							droppableId="droppable2"
+							direction="horizontal"
+						>
+							{(provided, snapshot) => (
+								<div
+									ref={provided.innerRef}
+									style={getListStyle(
+										true,
+										snapshot.isDraggingOver
+									)}
+								>
+									{this.state.items2.map(item => (
+										<Draggable
+											key={item.id}
+											draggableId={item.id}
+										>
+											{(provided, snapshot) => (
 												<div
-													ref={provided.innerRef}
-													style={getItemStyle(
-														provided.draggableStyle,
-														snapshot.isDragging
-													)}
-													{...provided.dragHandleProps}
+													style={{
+														display: "inline-block"
+													}}
 												>
-													{item.content}
+													<div
+														ref={provided.innerRef}
+														style={getItemStyle(
+															provided.draggableStyle,
+															snapshot.isDragging
+														)}
+														{...provided.dragHandleProps}
+													>
+														{item.content}
+													</div>
+													{provided.placeholder}
 												</div>
-												{provided.placeholder}
-											</div>
-										)}
-									</Draggable>
-								))}
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
 
-					<div />
-					<br />
+						<div />
+						<br />
 
-					<Droppable droppableId="droppable3" direction="horizontal">
-						{(provided, snapshot) => (
-							<div
-								ref={provided.innerRef}
-								style={getListStyle(
-									true,
-									snapshot.isDraggingOver
-								)}
-							>
-								{this.state.items3.map(item => (
-									<Draggable
-										key={item.id}
-										draggableId={item.id}
-									>
-										{(provided, snapshot) => (
-											<div
-												style={{
-													display: "inline-block"
-												}}
-											>
+						<Droppable
+							droppableId="droppable3"
+							direction="horizontal"
+						>
+							{(provided, snapshot) => (
+								<div
+									ref={provided.innerRef}
+									style={getListStyle(
+										true,
+										snapshot.isDraggingOver
+									)}
+								>
+									{this.state.items3.map(item => (
+										<Draggable
+											key={item.id}
+											draggableId={item.id}
+										>
+											{(provided, snapshot) => (
 												<div
-													ref={provided.innerRef}
-													style={getItemStyle(
-														provided.draggableStyle,
-														snapshot.isDragging
-													)}
-													{...provided.dragHandleProps}
+													style={{
+														display: "inline-block"
+													}}
 												>
-													{item.content}
+													<div
+														ref={provided.innerRef}
+														style={getItemStyle(
+															provided.draggableStyle,
+															snapshot.isDragging
+														)}
+														{...provided.dragHandleProps}
+													>
+														{item.content}
+													</div>
+													{provided.placeholder}
 												</div>
-												{provided.placeholder}
-											</div>
-										)}
-									</Draggable>
-								))}
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</div>
 				</div>
 			</DragDropContext>
 		);

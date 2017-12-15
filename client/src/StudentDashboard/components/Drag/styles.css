@@ -1,0 +1,28 @@
+.spellingLetterBox {
+	width: 830px;
+	max-width: 900px;
+	min-width: 500px;
+	background-color: white;
+	border-radius: 15px;
+	margin: 0 auto;
+	padding: 20px;
+
+	/*MAP stuff*/
+	min-height: 55px;
+	background-image: linear-gradient(#e3e8ed 1px, transparent 1px),
+		linear-gradient(#e3e8ed 1px, transparent 1px),
+		linear-gradient(90deg, #e3e8ed 1px, transparent 1px);
+	background-size: 10px 10px, 10px 10px;
+	background-position: -1px -1px, -1px -1px;
+	box-shadow: -3px -3px 10px 2px rgba(0, 0, 0, 0) inset,
+		0 0 0 10px rgba(206, 226, 244, 0.99) inset,
+		0 0 0 2px rgba(115, 140, 164, 0.6), 2px 2px 10px rgba(0, 0, 0, 0.6);
+	background-color: #fff;
+	background-image: -webkit-linear-gradient(#e3e8ed 1px, transparent 1px),
+		-webkit-linear-gradient(#e3e8ed 1px, transparent 1px),
+		-webkit-linear-gradient(0deg, #e3e8ed 1px, transparent 1px);
+	background-size: 10px 10px, 10px 10px;
+	background-position: -1px -1px, -1px -1px;
+	-webkit-box-shadow: 0 0 0 10px rgba(206, 226, 244, 0.99) inset,
+		0 0 0 2px rgba(115, 140, 164, 0.6), 2px 2px 10px rgba(0, 0, 0, 0.6);
+}
