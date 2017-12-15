@@ -89,7 +89,7 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 const getListStyle = (isAlphabet, isDraggingOver) => {
 	if (isAlphabet) {
 		return {
-			background: isDraggingOver ? "grey" : "black",
+			// background: isDraggingOver ? "grey" : "black",
 			// background: isDraggingOver ? "lightblue" : "lightgray",
 			padding: grid,
 			minWidth: 800,
@@ -97,7 +97,10 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			maxWidth: 500,
 			minHeight: 70,
 			height: 100,
-			margin: "0 auto"
+			margin: "0 auto",
+			userSelect: "none",
+			WebkitUserSelect: "none",
+			cursor: "pointer"
 		};
 	} else {
 		return {
@@ -106,8 +109,10 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			minWidth: 400,
 			maxWidth: 400,
 			height: 100,
+			userSelect: "none",
+			cursor: "pointer",
+			WebkitUserSelect: "none",
 
-			margin: "0 auto",
 			minHeight: 70
 		};
 	}
@@ -214,7 +219,7 @@ export default class Drag extends React.Component {
 	render() {
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
-				<div>
+				<div style={{ WebkitUserSelect: "none", userSelect: "none" }}>
 					<Droppable droppableId="droppable" direction="horizontal">
 						{(provided, snapshot) => (
 							<div
