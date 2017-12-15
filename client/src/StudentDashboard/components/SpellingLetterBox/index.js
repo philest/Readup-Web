@@ -19,7 +19,24 @@ export default class SpellingLetterBox extends React.Component {
     };
   }
 
+  renderLetter(letter) {
+    return <div className={styles.letter}>{letter}</div>;
+  }
+
+  renderAlphabet() {
+    let arr = [];
+    let alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    for (let i = 0; i < 26; i++) {
+      arr.push(this.renderLetter(alphabet[i]));
+    }
+
+    return <div className={styles.alphabetContainer}>{arr}</div>;
+  }
+
   render() {
-    return <div className={styles.spellingLetterBox} />;
+    return (
+      <div className={styles.spellingLetterBox}>{this.renderAlphabet()}</div>
+    );
   }
 }
