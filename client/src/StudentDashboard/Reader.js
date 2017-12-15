@@ -20,6 +20,7 @@ import { RouteTransition, presets } from "react-router-transition";
 import { ReaderStateOptions } from "./types";
 
 import SpellingLetterBox from "./components/SpellingLetterBox";
+import Drag from "./components/Drag";
 
 import {
   Modal,
@@ -690,7 +691,7 @@ export default class Reader extends React.Component {
           {this.renderNavigationBar()}
 
           <div className={styles.contentContainer}>
-            <SpellingLetterBox />;
+            <Drag />
           </div>
         </div>
       );

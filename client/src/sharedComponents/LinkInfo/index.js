@@ -15,7 +15,7 @@ export default class LinkInfo extends React.Component {
 
   componentWillMount = () => {
     let devLink = "localhost:3000/";
-    let prodLink = "www.ReadUpNow.com/";
+    let prodLink = "ReadUpNow.com/";
 
     let link = process.env.NODE_ENV === "development" ? devLink : prodLink;
     preLink = process.env.NODE_ENV === "development" ? "http://" : "https://";

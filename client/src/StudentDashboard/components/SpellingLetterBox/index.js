@@ -3,6 +3,9 @@ import React from "react";
 import styles from "./styles.css";
 import Avatar from "../Avatar";
 
+import ReactDOM from "react-dom";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 export default class SpellingLetterBox extends React.Component {
   static propTypes = {};
 
@@ -20,7 +23,11 @@ export default class SpellingLetterBox extends React.Component {
   }
 
   renderLetter(letter) {
-    return <div className={styles.letter}>{letter}</div>;
+    return (
+      <div key={letter} className={styles.letter}>
+        {letter}
+      </div>
+    );
   }
 
   renderAlphabet() {
@@ -36,7 +43,10 @@ export default class SpellingLetterBox extends React.Component {
 
   render() {
     return (
-      <div className={styles.spellingLetterBox}>{this.renderAlphabet()}</div>
+      <div>
+        <div className={styles.fakeContainer} />
+        <div className={styles.spellingLetterBox}>{this.renderAlphabet()}</div>
+      </div>
     );
   }
 }
