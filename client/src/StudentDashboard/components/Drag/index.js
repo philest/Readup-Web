@@ -10,11 +10,15 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-const getItems = (count, version) =>
-	Array.from({ length: count }, (v, k) => k).map(k => ({
-		id: `${alphabet[k]}`,
-		content: `${alphabet[k]}`
+const getItems = (count, version) => {
+	let extra;
+	extra = version === 3 ? 13 : 0;
+
+	return Array.from({ length: count }, (v, k) => k).map(k => ({
+		id: `${alphabet[k + extra]}`,
+		content: `${alphabet[k + extra]}`
 	}));
+};
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -67,6 +71,7 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 	padding: grid * 2,
 	margin: `0 ${grid}px 0 0`,
 	width: 50,
+	// height: 50 + "px !important",
 	fontSize: 50,
 	color: "white",
 	// color: white,
@@ -77,18 +82,21 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 	// background: isDragging ? "lightgreen" : "grey",
 
 	// styles we need to apply on draggables
-	...draggableStyle
+	...draggableStyle,
+	height: 50
 });
 
 const getListStyle = (isAlphabet, isDraggingOver) => {
 	if (isAlphabet) {
 		return {
+			background: isDraggingOver ? "grey" : "black",
 			// background: isDraggingOver ? "lightblue" : "lightgray",
 			padding: grid,
 			minWidth: 800,
 			minHeight: 70,
 			maxWidth: 500,
 			minHeight: 70,
+			height: 100,
 			margin: "0 auto"
 		};
 	} else {
@@ -97,6 +105,8 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			padding: grid,
 			minWidth: 400,
 			maxWidth: 400,
+			height: 100,
+
 			margin: "0 auto",
 			minHeight: 70
 		};
@@ -108,7 +118,8 @@ export default class Drag extends React.Component {
 		super(props);
 		this.state = {
 			items: getItems(0, 1),
-			items2: getItems(26, 2)
+			items2: getItems(13, 2),
+			items3: getItems(13, 3)
 		};
 		this.onDragEnd = this.onDragEnd.bind(this);
 	}
@@ -138,7 +149,8 @@ export default class Drag extends React.Component {
 
 		if (
 			result.source.droppableId === "droppable" &&
-			result.destination.droppableId === "droppable2"
+			(result.destination.droppableId === "droppable2" ||
+				result.destination.droppableId === "droppable3")
 		) {
 			console.log("here2");
 
@@ -153,7 +165,8 @@ export default class Drag extends React.Component {
 		console.log("result: ", result);
 
 		if (
-			result.source.droppableId === "droppable2" &&
+			(result.source.droppableId === "droppable2" ||
+				result.source.droppableId === "droppable3") &&
 			result.destination.droppableId === "droppable"
 		) {
 			console.log("this.state.items: ", this.state.items);
@@ -255,6 +268,49 @@ export default class Drag extends React.Component {
 								)}
 							>
 								{this.state.items2.map(item => (
+									<Draggable
+										key={item.id}
+										draggableId={item.id}
+									>
+										{(provided, snapshot) => (
+											<div
+												style={{
+													display: "inline-block"
+												}}
+											>
+												<div
+													ref={provided.innerRef}
+													style={getItemStyle(
+														provided.draggableStyle,
+														snapshot.isDragging
+													)}
+													{...provided.dragHandleProps}
+												>
+													{item.content}
+												</div>
+												{provided.placeholder}
+											</div>
+										)}
+									</Draggable>
+								))}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+
+					<div />
+					<br />
+
+					<Droppable droppableId="droppable3" direction="horizontal">
+						{(provided, snapshot) => (
+							<div
+								ref={provided.innerRef}
+								style={getListStyle(
+									true,
+									snapshot.isDraggingOver
+								)}
+							>
+								{this.state.items3.map(item => (
 									<Draggable
 										key={item.id}
 										draggableId={item.id}
