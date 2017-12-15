@@ -26,3 +26,21 @@
 	-webkit-box-shadow: 0 0 0 10px rgba(206, 226, 244, 0.99) inset,
 		0 0 0 2px rgba(115, 140, 164, 0.6), 2px 2px 10px rgba(0, 0, 0, 0.6);
 }
+
+.mainContainer {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.flexContainer {
+	display: flex;
+	justify-content: center;
+}
+
+.field {
+}

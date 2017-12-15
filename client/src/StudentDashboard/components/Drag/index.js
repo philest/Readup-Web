@@ -74,7 +74,7 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 	width: 50,
 	// height: 50 + "px !important",
 	fontSize: 50,
-	color: "#4a4a4a",
+	color: isDragging ? "rgb(48, 89, 121)" : "#4a4a4a",
 	fontFamily: "Comic Neue Angular",
 	// color: white,
 	//    fontSize: 30,
@@ -110,7 +110,6 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			borderRadius: 6,
 			padding: grid,
 			minWidth: 400,
-			maxWidth: 400,
 			height: 100,
 			userSelect: "none",
 			cursor: "pointer",
@@ -222,48 +221,54 @@ export default class Drag extends React.Component {
 	render() {
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
-				<div style={{ WebkitUserSelect: "none", userSelect: "none" }}>
-					<Droppable droppableId="droppable" direction="horizontal">
-						{(provided, snapshot) => (
-							<div
-								ref={provided.innerRef}
-								style={getListStyle(
-									false,
-									snapshot.isDraggingOver
-								)}
-							>
-								{this.state.items.map(item => (
-									<Draggable
-										key={item.id}
-										draggableId={item.id}
-									>
-										{(provided, snapshot) => (
-											<div
-												style={{
-													display: "inline-block"
-												}}
-											>
+				<div className={styles.mainContainer}>
+					<div className={styles.flexContainer}>
+						<Droppable
+							droppableId="droppable"
+							direction="horizontal"
+						>
+							{(provided, snapshot) => (
+								<div
+									ref={provided.innerRef}
+									style={getListStyle(
+										false,
+										snapshot.isDraggingOver
+									)}
+								>
+									{this.state.items.map(item => (
+										<Draggable
+											key={item.id}
+											draggableId={item.id}
+										>
+											{(provided, snapshot) => (
 												<div
-													ref={provided.innerRef}
-													style={getItemStyle(
-														provided.draggableStyle,
-														snapshot.isDragging
-													)}
-													{...provided.dragHandleProps}
+													style={{
+														display: "inline-block"
+													}}
 												>
-													{item.content}
+													<div
+														ref={provided.innerRef}
+														style={getItemStyle(
+															provided.draggableStyle,
+															snapshot.isDragging
+														)}
+														{...provided.dragHandleProps}
+													>
+														{item.content}
+													</div>
+													{provided.placeholder}
 												</div>
-												{provided.placeholder}
-											</div>
-										)}
-									</Draggable>
-								))}
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</div>
 
-					<div />
+					<br />
+					<br />
 					<br />
 
 					<div className={styles.spellingLetterBox}>
