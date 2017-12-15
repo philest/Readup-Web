@@ -8,12 +8,12 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // 		content: `item ${k}`
 // 	}));
 
-const alphabet = "ABCDEFGHIJKLMNOP";
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 const getItems = (count, version) =>
 	Array.from({ length: count }, (v, k) => k).map(k => ({
-		id: `${alphabet[k]} v${version}`,
-		content: `${alphabet[k]} v${version}`
+		id: `${alphabet[k]}`,
+		content: `${alphabet[k]}`
 	}));
 
 // a little function to help us with reordering the result
@@ -67,27 +67,48 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 	padding: grid * 2,
 	margin: `0 ${grid}px 0 0`,
 	width: 50,
+	fontSize: 50,
+	color: "white",
+	// color: white,
+	//    fontSize: 30,
+	//    background: 'none';
 
 	// change background colour if dragging
-	background: isDragging ? "lightgreen" : "grey",
+	// background: isDragging ? "lightgreen" : "grey",
 
 	// styles we need to apply on draggables
 	...draggableStyle
 });
 
-const getListStyle = isDraggingOver => ({
-	background: isDraggingOver ? "lightblue" : "lightgrey",
-	padding: grid,
-	minWidth: 400,
-	minHeight: 70
-});
+const getListStyle = (isAlphabet, isDraggingOver) => {
+	if (isAlphabet) {
+		return {
+			// background: isDraggingOver ? "lightblue" : "lightgray",
+			padding: grid,
+			minWidth: 800,
+			minHeight: 70,
+			maxWidth: 500,
+			minHeight: 70,
+			margin: "0 auto"
+		};
+	} else {
+		return {
+			background: isDraggingOver ? "lightblue" : "lightgray",
+			padding: grid,
+			minWidth: 400,
+			maxWidth: 400,
+			margin: "0 auto",
+			minHeight: 70
+		};
+	}
+};
 
 export default class Drag extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			items: getItems(10, 1),
-			items2: getItems(10, 2)
+			items: getItems(0, 1),
+			items2: getItems(26, 2)
 		};
 		this.onDragEnd = this.onDragEnd.bind(this);
 	}
@@ -147,17 +168,20 @@ export default class Drag extends React.Component {
 			this.setState({ items: itemsHolder });
 		}
 
-		// if (result.destination.droppableId === "droppable") {
-		// 	const items = reorder(
-		// 		this.state.items,
-		// 		result.source.index,
-		// 		result.destination.index
-		// 	);
+		if (
+			result.destination.droppableId === "droppable" &&
+			result.source.droppableId === "droppable"
+		) {
+			const items = reorder(
+				this.state.items,
+				result.source.index,
+				result.destination.index
+			);
 
-		// 	this.setState({
-		// 		items
-		// 	});
-		// }
+			this.setState({
+				items
+			});
+		}
 
 		// if (result.destination.droppableId === "droppable2") {
 		// 	const items2 = reorder(
@@ -182,7 +206,10 @@ export default class Drag extends React.Component {
 						{(provided, snapshot) => (
 							<div
 								ref={provided.innerRef}
-								style={getListStyle(snapshot.isDraggingOver)}
+								style={getListStyle(
+									false,
+									snapshot.isDraggingOver
+								)}
 							>
 								{this.state.items.map(item => (
 									<Draggable
@@ -222,7 +249,10 @@ export default class Drag extends React.Component {
 						{(provided, snapshot) => (
 							<div
 								ref={provided.innerRef}
-								style={getListStyle(snapshot.isDraggingOver)}
+								style={getListStyle(
+									true,
+									snapshot.isDraggingOver
+								)}
 							>
 								{this.state.items2.map(item => (
 									<Draggable
