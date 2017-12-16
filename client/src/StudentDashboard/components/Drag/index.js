@@ -85,7 +85,8 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 
 	// styles we need to apply on draggables
 	...draggableStyle,
-	height: 40
+	height: 40,
+	cursor: "pointer"
 });
 
 const getListStyle = (isAlphabet, isDraggingOver) => {
@@ -101,8 +102,7 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			height: 100,
 			margin: "0 auto",
 			userSelect: "none",
-			WebkitUserSelect: "none",
-			cursor: "pointer"
+			WebkitUserSelect: "none"
 		};
 	} else {
 		return {
@@ -112,7 +112,6 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			minWidth: 400,
 			height: 100,
 			userSelect: "none",
-			cursor: "pointer",
 			WebkitUserSelect: "none",
 			transition: "all .3s",
 
@@ -284,7 +283,11 @@ export default class Drag extends React.Component {
 					float: "right",
 					position: "relative",
 					right: 15,
-					top: 15
+					top: 15,
+					visibility:
+						this.props.spellingQuestionNumber <= 1
+							? "hidden"
+							: "visible"
 				}}
 				onClick={this.back}
 			/>

@@ -685,7 +685,7 @@ export default class Reader extends React.Component {
       className: styles.routeTransition
     };
 
-    if (this.props.inSpelling && this.props.book.stepLevel > 12) {
+    if (this.props.inSpelling && this.props.book.stepLevel < 10) {
       return (
         <div className={styles.fullHeight}>
           {this.renderNavigationBar()}
@@ -767,7 +767,7 @@ export default class Reader extends React.Component {
           </div>
 
           {this.props.inSpelling &&
-            this.props.book.stepLevel <= 12 && (
+            this.props.book.stepLevel >= 10 && (
               <SpellingTextField
                 book={this.props.book}
                 onHearQuestionAgainClicked={
