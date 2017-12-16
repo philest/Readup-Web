@@ -258,6 +258,23 @@ export default class Drag extends React.Component {
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
 				<div className={styles.mainContainer}>
+					<div
+						className={[styles.introVolume, styles.clickable].join(
+							" "
+						)}
+					>
+						<br />
+						<i
+							className={[
+								"fa fa-volume-up fa-3x",
+								styles.volumeIcon
+							].join(" ")}
+							style={{ color: "white" }}
+							aria-hidden="true"
+						/>
+						<h4 className={styles.volumeLabel}>Hear again</h4>
+					</div>
+
 					<div className={styles.flexContainer}>
 						{this.renderLeftButton()}
 						<Droppable
@@ -306,7 +323,6 @@ export default class Drag extends React.Component {
 						{this.renderRightButton()}
 					</div>
 
-					<br />
 					<br />
 					<br />
 

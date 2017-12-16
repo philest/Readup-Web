@@ -44,3 +44,40 @@
 
 .field {
 }
+
+.volumeLabel {
+	color: white;
+	font-family: "ProximaNova Semibold";
+	font-size: 16px;
+}
+
+.introVolume {
+	position: relative;
+	text-align: center;
+	transform: rotate(-2deg);
+
+	position: relative;
+	top: -90px;
+	right: 20px;
+	height: 50px;
+}
+
+.volumeIcon {
+	font-size: 5em;
+}
+
+.clickable {
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.clickable:hover {
+	transition: all 0.3s;
+	transform: translateY(-3px);
+	filter: brightness(120%);
+}
+
+.clickable:active {
+	transition: all 0.3s;
+	opacity: 0.8;
+}
