@@ -114,6 +114,7 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			userSelect: "none",
 			cursor: "pointer",
 			WebkitUserSelect: "none",
+			transition: "all .3s",
 
 			minHeight: 70
 		};
