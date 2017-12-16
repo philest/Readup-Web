@@ -1797,8 +1797,6 @@ function* assessThenSubmitSaga() {
 	// permission was granted!!!!
 	yield put(setCurrentOverlay("no-overlay"));
 
-	yield take("NEVER_PASS");
-
 	// access state
 	const isDemo = yield select(getIsDemo);
 	const isWarmup = yield select(getIsWarmup);

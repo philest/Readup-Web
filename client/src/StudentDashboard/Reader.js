@@ -685,7 +685,7 @@ export default class Reader extends React.Component {
       className: styles.routeTransition
     };
 
-    if (!this.props.hasLoggedIn && !this.props.isDemo) {
+    if (this.props.inSpelling && this.props.book.stepLevel > 12) {
       return (
         <div className={styles.fullHeight}>
           {this.renderNavigationBar()}
@@ -766,27 +766,30 @@ export default class Reader extends React.Component {
               this.renderLeftButton()}
           </div>
 
-          {this.props.inSpelling && (
-            <SpellingTextField
-              book={this.props.book}
-              onHearQuestionAgainClicked={this.props.onHearQuestionAgainClicked}
-              onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
-              spellingQuestionNumber={this.props.spellingQuestionNumber}
-              showVolumeIndicator={this.props.showVolumeIndicator}
-              showSpellingBoxIndicator={
-                this.props.readerState ===
-                "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
-              }
-              onEnterPressed={this.props.onNextWordClicked}
-              progressNum={
-                this.props.spellingQuestionNumber /
-                this.props.book.numSpellingQuestions *
-                100
-              }
-              onSpellingInputSet={this.props.onSpellingInputSet}
-              spellingInput={this.props.spellingInput}
-            />
-          )}
+          {this.props.inSpelling &&
+            this.props.book.stepLevel <= 12 && (
+              <SpellingTextField
+                book={this.props.book}
+                onHearQuestionAgainClicked={
+                  this.props.onHearQuestionAgainClicked
+                }
+                onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+                spellingQuestionNumber={this.props.spellingQuestionNumber}
+                showVolumeIndicator={this.props.showVolumeIndicator}
+                showSpellingBoxIndicator={
+                  this.props.readerState ===
+                  "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
+                }
+                onEnterPressed={this.props.onNextWordClicked}
+                progressNum={
+                  this.props.spellingQuestionNumber /
+                  this.props.book.numSpellingQuestions *
+                  100
+                }
+                onSpellingInputSet={this.props.onSpellingInputSet}
+                spellingInput={this.props.spellingInput}
+              />
+            )}
 
           {this.renderCenterDisplay()}
 

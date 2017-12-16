@@ -11,7 +11,7 @@ import {
 
 import { PromptOptions } from "../types";
 
-import { spellingLibrary } from "../sharedComponents/bookObjects";
+import { spellingLibrary } from "../../sharedComponents/bookObjects";
 
 type PresignObject = {
   url: string,
