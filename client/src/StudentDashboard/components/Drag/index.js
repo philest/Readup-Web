@@ -13,6 +13,18 @@ import SkipPrompt from "../SkipPrompt";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
+const isLetter = event => {
+	return (
+		(event.keyCode >= 65 || event.code >= 65) &&
+		(event.keyCode <= 90 || event.code <= 90)
+	);
+};
+
+const getLetter = event => {
+	var inp = String.fromCharCode(event.keyCode).toLowerCase();
+	return inp;
+};
+
 const getItems = (count, version) => {
 	let extra;
 	extra = version === 3 ? 13 : 0;
@@ -30,6 +42,22 @@ const reorder = (list, startIndex, endIndex) => {
 	result.splice(endIndex, 0, removed);
 
 	return result;
+};
+
+const appendLetter = (list, itemId) => {
+	let len = list.length;
+	return insertAtIndex(list, itemId, len);
+};
+
+const removeLastLetter = list => {
+	let len = list.length;
+	let newArr = [];
+
+	for (let i = 0; i < len - 1; i++) {
+		newArr.push(list[i]);
+	}
+
+	return newArr;
 };
 
 const insertAtIndex = (list, itemId, index) => {
@@ -151,6 +179,14 @@ export default class Drag extends React.Component {
 		this.onDragEnd = this.onDragEnd.bind(this);
 	}
 
+	componentWillMount() {
+		document.addEventListener("keydown", this._handleKeyDown);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener("keydown", this._handleKeyDown);
+	}
+
 	componentWillReceiveProps(nextProps) {
 		if (
 			this.props.spellingQuestionNumber !==
@@ -168,6 +204,34 @@ export default class Drag extends React.Component {
 			this.clearForm();
 		}
 	}
+
+	_handleKeyDown = event => {
+		console.log("here we are: ", event);
+		if (isLetter(event)) {
+			const letter = getLetter(event);
+
+			let itemsHolder = this.state.items;
+			itemsHolder = appendLetter(itemsHolder, letter);
+			this.setState({ items: itemsHolder });
+		} else if (
+			event.keyCode === 46 ||
+			event.which === 46 ||
+			event.key === "Delete" ||
+			event.keyCode === 8 ||
+			event.which === 8 ||
+			event.key === "Backspace"
+		) {
+			let itemsHolder = this.state.items;
+			itemsHolder = removeLastLetter(itemsHolder);
+			this.setState({ items: itemsHolder });
+		} else if (
+			event.which == 13 ||
+			event.keyCode == 13 ||
+			event.code == "Enter"
+		) {
+			this.props.onEnterPressed();
+		}
+	};
 
 	onDragEnd(result) {
 		if (!result.destination && result.source.droppableId === "droppable") {

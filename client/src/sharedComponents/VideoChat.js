@@ -135,7 +135,13 @@ export function roomJoined(room) {
     room.localParticipant.publishTrack(dataTrack);
   }
 
-  if (localAudio && room.localParticipant.audioTracks.size <= 0) {
+  if (
+    localAudio &&
+    room.localParticipant.audioTracks.size <= 0 &&
+    process.env.NODE_ENV === "production"
+  ) {
+    console.log("env: ", process.env.NODE_ENV);
+
     sendEmail(
       "The audio track failed to activate",
       "The audio track failed to activate",
@@ -143,7 +149,13 @@ export function roomJoined(room) {
     );
   }
 
-  if (localVideo && room.localParticipant.videoTracks.size <= 0) {
+  if (
+    localVideo &&
+    room.localParticipant.videoTracks.size <= 0 &&
+    process.env.NODE_ENV === "production"
+  ) {
+    console.log("env: ", process.env.NODE_ENV);
+
     sendEmail(
       "The video track failed to activate",
       "The video track failed to activate",
