@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styles from "./styles.css";
+import ForwardArrowButton from "../ForwardArrowButton";
+import BackArrowButton from "../BackArrowButton";
 
 // fake data generator
 // const getItems = count =>
@@ -217,6 +219,37 @@ export default class Drag extends React.Component {
 		// }
 	}
 
+	renderRightButton = () => {
+		return (
+			<ForwardArrowButton
+				title="Next"
+				style={{
+					width: 145,
+					height: 120,
+					position: "relative",
+					left: 15,
+					top: -5
+				}}
+			/>
+		);
+	};
+
+	renderLeftButton = () => {
+		return (
+			<BackArrowButton
+				title="Back"
+				style={{
+					width: 95,
+					height: 75,
+					float: "right",
+					position: "relative",
+					right: 15,
+					top: 15
+				}}
+			/>
+		);
+	};
+
 	// Normally you would want to split things out into separate components.
 	// But in this example everything is just done in one place for simplicity
 	render() {
@@ -224,6 +257,7 @@ export default class Drag extends React.Component {
 			<DragDropContext onDragEnd={this.onDragEnd}>
 				<div className={styles.mainContainer}>
 					<div className={styles.flexContainer}>
+						{this.renderLeftButton()}
 						<Droppable
 							droppableId="droppable"
 							direction="horizontal"
@@ -266,6 +300,8 @@ export default class Drag extends React.Component {
 								</div>
 							)}
 						</Droppable>
+
+						{this.renderRightButton()}
 					</div>
 
 					<br />
