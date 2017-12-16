@@ -9,6 +9,8 @@ import { ProgressBar } from "react-bootstrap";
 
 import { saveSpellingResponse } from "../../sagas/networkingHelpers";
 
+import SkipPrompt from "../SkipPrompt";
+
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 const getItems = (count, version) => {
@@ -134,7 +136,8 @@ export default class Drag extends React.Component {
 		onSpellingInputSet: PropTypes.func,
 		spellingInput: PropTypes.string,
 		book: PropTypes.object,
-		onHearQuestionAgainClicked: PropTypes.func
+		onHearQuestionAgainClicked: PropTypes.func,
+		onSkipClicked: PropTypes.func
 	};
 	static defaultProps = {};
 
@@ -317,6 +320,12 @@ export default class Drag extends React.Component {
 						/>
 						<h4 className={styles.volumeLabel}>Hear again</h4>
 					</div>
+					<SkipPrompt
+						topOffset={-10}
+						nextSection={"end"}
+						dragSpelling
+						onSkipClicked={this.props.onSkipClicked}
+					/>
 
 					<div className={styles.flexContainer}>
 						{this.renderLeftButton()}
@@ -362,7 +371,6 @@ export default class Drag extends React.Component {
 								</div>
 							)}
 						</Droppable>
-
 						{this.renderRightButton()}
 					</div>
 

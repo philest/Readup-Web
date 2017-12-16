@@ -19,8 +19,8 @@ import { RouteTransition, presets } from "react-router-transition";
 
 import { ReaderStateOptions } from "./types";
 
-import SpellingLetterBox from "./components/SpellingLetterBox";
 import Drag from "./components/Drag";
+import SkipPrompt from "./components/SkipPrompt";
 
 import {
   Modal,
@@ -631,6 +631,10 @@ export default class Reader extends React.Component {
     }
   };
 
+  getSkipPromptTopOffset = () => {
+    return this.props.inSpelling ? -10 : this.props.inComp ? -5 : 0;
+  };
+
   renderNavigationBar = () => {
     let navProps = {
       className: styles.navBar,
@@ -692,6 +696,7 @@ export default class Reader extends React.Component {
 
           <div className={styles.contentContainer}>
             <Drag
+              onSkipClicked={this.props.onSkipClicked}
               book={this.props.book}
               onHearQuestionAgainClicked={this.props.onHearQuestionAgainClicked}
               onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
@@ -801,18 +806,11 @@ export default class Reader extends React.Component {
             }
           >
             {this.props.showSkipPrompt && (
-              <span
-                style={{
-                  top: this.props.inSpelling
-                    ? -10 + "vh"
-                    : this.props.inComp ? -5 + "vh" : 0 + "vh"
-                }}
-                onClick={this.props.onSkipClicked}
-                className={styles.skipPrompt}
-              >
-                Skip to {this.getNextSection()}{" "}
-                <i className="fa fa-caret-right" aria-hidden="true" />
-              </span>
+              <SkipPrompt
+                topOffset={this.getSkipPromptTopOffset()}
+                nextSection={this.getNextSection()}
+                onSkipClicked={this.props.onSkipClicked}
+              />
             )}
             {true &&
               (this.props.inSpelling ||

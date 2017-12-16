@@ -1,0 +1,22 @@
+.skipPrompt {
+	font-size: 16px;
+	font-style: italic;
+	color: white;
+	position: relative;
+	cursor: pointer;
+	opacity: 0.8;
+	transition: all 0.3s;
+	display: block;
+	width: 185px;
+}
+
+.skipPrompt:hover {
+	transform: translateY(-3px);
+	filter: brightness(124%);
+	transition: all 0.3s;
+}
+
+.dragSpelling {
+	margin: 0 auto;
+	left: 300px;
+}
