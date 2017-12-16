@@ -4,15 +4,8 @@ import styles from "./styles.css";
 
 import { FormControl, ProgressBar } from "react-bootstrap";
 
-import {
-  updateAssessment,
-  getAssessmentData
-} from "../../../ReportsInterface/emailHelpers";
-import { getLastAssessmentID } from "../../sagas/networkingHelpers";
-import { spellingLibrary } from "../../../sharedComponents/bookObjects";
+import { saveSpellingResponse } from "../../sagas/networkingHelpers";
 import { playSound, playSoundAsync } from "../../audioPlayer";
-
-import { getSpellingGroupNumber } from "../../sagas/index";
 
 export default class SpellingTextField extends React.Component {
   static propTypes = {
@@ -40,54 +33,6 @@ export default class SpellingTextField extends React.Component {
     };
   }
 
-  saveSpellingResponse = (value, qNum) => {
-    // get spelling object
-    // save it temporarily
-    // push in a new response
-    // get assessment ID
-    // update assessment
-
-    const assessmentID = getLastAssessmentID();
-    assessmentID.then(id => {
-      console.log("id: ", id);
-
-      const assessment = getAssessmentData(id);
-
-      assessment
-        .then(assessment => {
-          console.log("assessment: ", assessment);
-
-          let scoredSpellingHolder = assessment.scored_spelling;
-
-          if (!scoredSpellingHolder) {
-            scoredSpellingHolder =
-              spellingLibrary[
-                getSpellingGroupNumber(this.props.book) +
-                  (this.props.book.stepSeries === "PURPLE" ? 4 : 0)
-              ];
-          }
-
-          scoredSpellingHolder.responses[qNum - 1] = value;
-
-          // scoredSpellingHolder.responses.push(value);
-
-          // An alternate approach:
-          // let arr = stateHolder.sections[String(sectionNum)].statusArr
-          // arr[wordIdx] = !arr[wordIdx]
-
-          updateAssessment(
-            {
-              scored_spelling: scoredSpellingHolder
-            },
-            id
-          );
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    });
-  };
-
   componentWillMount() {
     document.addEventListener("keydown", this._handleKeyDown);
   }
@@ -100,15 +45,13 @@ export default class SpellingTextField extends React.Component {
     if (
       this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber // incremented by
     ) {
-      if (
-        nextProps.spellingQuestionNumber > this.props.spellingQuestionNumber ||
-        nextProps.spellingQuestionNumber < this.props.spellingQuestionNumber
-      ) {
-        this.saveSpellingResponse(
-          this.form.value,
-          this.props.spellingQuestionNumber
-        );
-      }
+      const spellingGroupLibraryIdx = this.props.book.spellingObj.libraryIndex;
+
+      saveSpellingResponse(
+        this.form.value,
+        this.props.spellingQuestionNumber,
+        spellingGroupLibraryIdx
+      );
 
       this.form.value = "";
       this.props.onSpellingInputSet(""); // reset to empty

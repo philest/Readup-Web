@@ -331,6 +331,7 @@ const group4Sections = {
 };
 
 export const group1SpellingObj = {
+    libraryIndex: 1,
     numWords: 15,
     words: [
         "pest",
@@ -355,6 +356,7 @@ export const group1SpellingObj = {
 };
 
 export const group2SpellingObj = {
+    libraryIndex: 2,
     numWords: 15,
     words: [
         "blame",
@@ -379,6 +381,7 @@ export const group2SpellingObj = {
 };
 
 export const group3SpellingObj = {
+    libraryIndex: 3,
     numWords: 15,
     words: [
         "skirt",
@@ -408,6 +411,7 @@ export const group3SpellingObj = {
 };
 
 export var group4SpellingObj = {
+    libraryIndex: 4,
     numWords: 20,
     words: [
         "shaking",
@@ -437,6 +441,7 @@ export var group4SpellingObj = {
 };
 
 export const purpleGroup1SpellingObj = {
+    libraryIndex: 5,
     numWords: 15,
     words: [
         "nest",
@@ -461,6 +466,7 @@ export const purpleGroup1SpellingObj = {
 };
 
 export const purpleGroup2SpellingObj = {
+    libraryIndex: 6,
     numWords: 15,
     words: [
         "place",
@@ -485,6 +491,7 @@ export const purpleGroup2SpellingObj = {
 };
 
 export const purpleGroup3SpellingObj = {
+    libraryIndex: 7,
     numWords: 20,
     words: [
         "shark",
@@ -514,6 +521,7 @@ export const purpleGroup3SpellingObj = {
 };
 
 export const purpleGroup4SpellingObj = {
+    libraryIndex: 8,
     numWords: 20,
     words: [
         "baking",

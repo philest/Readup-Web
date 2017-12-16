@@ -165,18 +165,6 @@ const MAX_NUM_PROMPTS = 2;
 
 const SKIPPED_SECTIONS_IN_WARMUP_LIST = [SectionOptions.compOralSecond];
 
-export function getSpellingGroupNumber(book) {
-	if (book.stepLevel <= 5) {
-		return 1;
-	} else if (book.stepLevel <= 7) {
-		return 2;
-	} else if (book.stepLevel <= 10) {
-		return 3;
-	} else if (book.stepLevel <= 12) {
-		return 4;
-	}
-}
-
 function getSectionsList(book) {
 	if (book.brand === "FP" || book.stepLevel <= 5) {
 		return {
@@ -633,7 +621,10 @@ function* playSpellingQuestionSaga(isHearAgain) {
 	const book = yield select(getBook);
 	// audiofile = `/audio/${book.bookKey}/spelling/${2}.mp3`
 
-	const spellingGroupNumber = getSpellingGroupNumber(book);
+	let spellingGroupNumber = book.spellingObj.libraryIndex;
+	if (book.stepSeries === "PURPLE") {
+		spellingGroupNumber -= 4;
+	}
 
 	if (book.stepSeries === "PURPLE") {
 		audiofile = `/audio/purple/spelling/group${spellingGroupNumber}/${spellingQuestionNumber}.mp3`;

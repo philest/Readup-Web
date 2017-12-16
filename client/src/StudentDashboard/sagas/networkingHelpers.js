@@ -5,10 +5,13 @@ import _forOwn from "lodash/forOwn";
 
 import {
   updateStudent,
-  getAssessmentData
+  getAssessmentData,
+  updateAssessment
 } from "../../ReportsInterface/emailHelpers.js";
 
 import { PromptOptions } from "../types";
+
+import { spellingLibrary } from "../sharedComponents/bookObjects";
 
 type PresignObject = {
   url: string,
@@ -164,4 +167,42 @@ export function markCompleted(assessmentID) {
     .then(res => {
       return res;
     });
+}
+
+export function saveSpellingResponse(value, qNum, spellingGroupLibraryIdx) {
+  // get spelling object
+  // save it temporarily
+  // push in a new response
+  // get assessment ID
+  // update assessment
+
+  const assessmentID = getLastAssessmentID();
+  assessmentID.then(id => {
+    console.log("id: ", id);
+
+    const assessment = getAssessmentData(id);
+
+    assessment
+      .then(assessment => {
+        console.log("assessment: ", assessment);
+
+        let scoredSpellingHolder = assessment.scored_spelling;
+
+        if (!scoredSpellingHolder) {
+          scoredSpellingHolder = spellingLibrary[spellingGroupLibraryIdx];
+        }
+
+        scoredSpellingHolder.responses[qNum - 1] = value;
+
+        updateAssessment(
+          {
+            scored_spelling: scoredSpellingHolder
+          },
+          id
+        );
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  });
 }

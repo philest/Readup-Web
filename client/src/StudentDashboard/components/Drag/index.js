@@ -7,12 +7,7 @@ import ForwardArrowButton from "../ForwardArrowButton";
 import BackArrowButton from "../BackArrowButton";
 import { ProgressBar } from "react-bootstrap";
 
-// fake data generator
-// const getItems = count =>
-// 	Array.from({ length: count }, (v, k) => k).map(k => ({
-// 		id: `item-${k}`,
-// 		content: `item ${k}`
-// 	}));
+import { saveSpellingResponse } from "../../sagas/networkingHelpers";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -154,6 +149,24 @@ export default class Drag extends React.Component {
 		this.onDragEnd = this.onDragEnd.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (
+			this.props.spellingQuestionNumber !==
+			nextProps.spellingQuestionNumber // incremented by
+		) {
+			const spellingGroupLibraryIdx = this.props.book.spellingObj
+				.libraryIndex;
+
+			saveSpellingResponse(
+				this.getFormValue(),
+				this.props.spellingQuestionNumber,
+				spellingGroupLibraryIdx
+			);
+
+			this.clearForm();
+		}
+	}
+
 	onDragEnd(result) {
 		if (!result.destination && result.source.droppableId === "droppable") {
 			console.log("here1");
@@ -240,12 +253,6 @@ export default class Drag extends React.Component {
 		this.setState({ items: [] });
 	};
 
-	submit = () => {
-		console.log("TODO: submit", this.getFormValue());
-		this.props.onNextWordClicked();
-		this.clearForm();
-	};
-
 	back = () => {
 		this.clearForm();
 		this.props.onPreviousWordClicked();
@@ -262,7 +269,7 @@ export default class Drag extends React.Component {
 					left: 15,
 					top: -5
 				}}
-				onClick={this.submit}
+				onClick={this.props.onNextWordClicked}
 			/>
 		);
 	};
