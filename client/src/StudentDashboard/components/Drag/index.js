@@ -205,19 +205,20 @@ export default class Drag extends React.Component {
 				items
 			});
 		}
-
-		// if (result.destination.droppableId === "droppable2") {
-		// 	const items2 = reorder(
-		// 		this.state.items2,
-		// 		result.source.index,
-		// 		result.destination.index
-		// 	);
-
-		// 	this.setState({
-		// 		items2
-		// 	});
-		// }
 	}
+
+	getFormValue = () => {
+		let formVal = "";
+		for (let i = 0; i < this.state.items.length; i++) {
+			formVal += this.state.items[i].content;
+		}
+		return formVal;
+	};
+
+	clearForm = () => {
+		console.log("clearing form...: ", this.getFormValue());
+		this.setState({ items: [] });
+	};
 
 	renderRightButton = () => {
 		return (
@@ -230,6 +231,7 @@ export default class Drag extends React.Component {
 					left: 15,
 					top: -5
 				}}
+				onClick={this.clearForm}
 			/>
 		);
 	};
