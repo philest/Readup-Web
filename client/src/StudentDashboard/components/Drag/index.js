@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styles from "./styles.css";
 import ForwardArrowButton from "../ForwardArrowButton";
@@ -124,6 +126,18 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 };
 
 export default class Drag extends React.Component {
+	static propTypes = {
+		spellingQuestionNumber: PropTypes.number,
+		showSpellingBoxIndicator: PropTypes.bool,
+		spellingQuestionNumber: PropTypes.number,
+		onEnterPressed: PropTypes.func,
+		onSpellingInputSet: PropTypes.func,
+		spellingInput: PropTypes.string,
+		book: PropTypes.object,
+		onHearQuestionAgainClicked: PropTypes.func
+	};
+	static defaultProps = {};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -220,6 +234,17 @@ export default class Drag extends React.Component {
 		this.setState({ items: [] });
 	};
 
+	submit = () => {
+		console.log("TODO: submit", this.getFormValue());
+		this.props.onNextWordClicked();
+		this.clearForm();
+	};
+
+	back = () => {
+		this.clearForm();
+		this.onPreviousWordClicked();
+	};
+
 	renderRightButton = () => {
 		return (
 			<ForwardArrowButton
@@ -231,7 +256,7 @@ export default class Drag extends React.Component {
 					left: 15,
 					top: -5
 				}}
-				onClick={this.clearForm}
+				onClick={this.submit}
 			/>
 		);
 	};
@@ -248,6 +273,7 @@ export default class Drag extends React.Component {
 					right: 15,
 					top: 15
 				}}
+				onClick={this.back}
 			/>
 		);
 	};
@@ -259,6 +285,7 @@ export default class Drag extends React.Component {
 			<DragDropContext onDragEnd={this.onDragEnd}>
 				<div className={styles.mainContainer}>
 					<div
+						onClick={this.props.onHearQuestionAgainClicked}
 						className={[styles.introVolume, styles.clickable].join(
 							" "
 						)}

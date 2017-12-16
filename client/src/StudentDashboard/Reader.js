@@ -691,7 +691,26 @@ export default class Reader extends React.Component {
           {this.renderNavigationBar()}
 
           <div className={styles.contentContainer}>
-            <Drag />
+            <Drag
+              book={this.props.book}
+              onHearQuestionAgainClicked={this.props.onHearQuestionAgainClicked}
+              onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+              spellingQuestionNumber={this.props.spellingQuestionNumber}
+              onNextWordClicked={this.props.onNextWordClicked}
+              onPreviousWordClicked={this.props.onPreviousWordClicked}
+              showSpellingBoxIndicator={
+                this.props.readerState ===
+                "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
+              }
+              onEnterPressed={this.props.onNextWordClicked}
+              progressNum={
+                this.props.spellingQuestionNumber /
+                this.props.book.numSpellingQuestions *
+                100
+              }
+              onSpellingInputSet={this.props.onSpellingInputSet}
+              spellingInput={this.props.spellingInput}
+            />
           </div>
         </div>
       );
