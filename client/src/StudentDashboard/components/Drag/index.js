@@ -242,7 +242,7 @@ export default class Drag extends React.Component {
 
 	back = () => {
 		this.clearForm();
-		this.onPreviousWordClicked();
+		this.props.onPreviousWordClicked();
 	};
 
 	renderRightButton = () => {
