@@ -1568,6 +1568,7 @@ export const fpBook = {
   author: "Steve Olson",
   bookKey: "demo",
   brand: "FP",
+  stepLevel: 5,
   numPages: 10, // if you want a shorter book for testing purposes just change this
   isWideBook: true,
   coverImage: "/images/dashboard/bedtime-large.jpg",
