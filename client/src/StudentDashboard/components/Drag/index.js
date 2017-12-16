@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styles from "./styles.css";
 import ForwardArrowButton from "../ForwardArrowButton";
 import BackArrowButton from "../BackArrowButton";
+import { ProgressBar } from "react-bootstrap";
 
 // fake data generator
 // const getItems = count =>
@@ -89,7 +90,7 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 
 	// styles we need to apply on draggables
 	...draggableStyle,
-	height: 50
+	height: 40
 });
 
 const getListStyle = (isAlphabet, isDraggingOver) => {
@@ -355,8 +356,9 @@ export default class Drag extends React.Component {
 						{this.renderRightButton()}
 					</div>
 
-					<br />
-					<br />
+					<div className={styles.progress}>
+						<ProgressBar now={this.props.progressNum} />
+					</div>
 
 					<div className={styles.spellingLetterBox}>
 						<Droppable

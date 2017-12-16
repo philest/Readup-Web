@@ -81,3 +81,15 @@
 	transition: all 0.3s;
 	opacity: 0.8;
 }
+
+.progress {
+	width: 300px;
+	position: relative;
+	opacity: 0.4;
+	margin: 10px auto;
+	left: -20px;
+}
+
+.progress div {
+	height: 15px;
+}
