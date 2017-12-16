@@ -120,7 +120,12 @@ const getListStyle = (isAlphabet, isDraggingOver) => {
 			WebkitUserSelect: "none",
 			transition: "all .3s",
 
-			minHeight: 70
+			minHeight: 70,
+
+			display: "flex",
+			justifyContent: "center",
+			alightContent: "center",
+			flexFlow: "row"
 		};
 	}
 };
