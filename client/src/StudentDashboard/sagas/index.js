@@ -1058,18 +1058,28 @@ function* countdownSaga(isSingle) {
 
 function* spellingInstructionSaga() {
 	const isWarmup = yield select(getIsWarmup);
+	let book = yield select(getBook);
+	const isDraggingSpelling = book.stepLevel < 10;
 
 	if (isWarmup) {
-		yield call(playSound, "/audio/warmup/w-9.mp3");
+		if (isDraggingSpelling) {
+			yield call(playSound, "/audio/dragging-warmup.m4a");
+		} else {
+			yield call(playSound, "/audio/warmup/w-9.mp3");
+		}
 		yield put.resolve(setReaderState(ReaderStateOptions.done));
 
 		yield call(playSound, "/audio/say-sounds-slowly.mp3");
 	} else {
-		yield call(playSound, "/audio/spelling-intro-transition.mp3");
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
-		);
-		yield call(playSound, "/audio/spelling-intro-type-it.mp3");
+		if (isDraggingSpelling) {
+			yield call(playSound, "/audio/dragging-real.m4a");
+		} else {
+			yield call(playSound, "/audio/spelling-intro-transition.mp3");
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutSpellingBox)
+			);
+			yield call(playSound, "/audio/spelling-intro-type-it.mp3");
+		}
 		yield put.resolve(setReaderState(ReaderStateOptions.done));
 		yield call(playSound, "/audio/say-sounds-slowly.mp3");
 		yield call(delay, 250);
