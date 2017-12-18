@@ -492,8 +492,7 @@ export default class Reader extends React.Component {
 
     if (
       this.props.showCover &&
-      (!this.props.inComp && !this.props.inSpelling) &&
-      this.props.showVolumeIndicator
+      (!this.props.inComp && !this.props.inSpelling)
     ) {
       return (
         <div

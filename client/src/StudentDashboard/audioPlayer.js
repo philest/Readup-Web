@@ -7,6 +7,7 @@ let audio = null;
 // TODO: Daniel fix this pls
 export function playSound(file, onEnd) {
   if (isSafari) {
+    console.log("Would play sound: " + file);
     return Promise.resolve(true);
   }
 
@@ -56,6 +57,7 @@ export function playSound(file, onEnd) {
 
 export function playSoundAsync(file) {
   if (isSafari) {
+    console.log("Would play sound: " + file);
     return;
   }
 
