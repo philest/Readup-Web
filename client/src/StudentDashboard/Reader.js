@@ -18,7 +18,7 @@ import ReportStyles from "../ReportsInterface/styles.css";
 
 import { RouteTransition, presets } from "react-router-transition";
 
-import { ReaderStateOptions } from "./types";
+import { ReaderStateOptions, SectionOptions } from "./types";
 
 import Drag from "./components/Drag";
 import SkipPrompt from "./components/SkipPrompt";
@@ -600,7 +600,10 @@ export default class Reader extends React.Component {
         : this.props.onCompPauseClicked,
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
-      inSpelling: this.props.inSpelling
+      inSpelling: this.props.inSpelling,
+      isWarmup:
+        this.props.isWarmup &&
+        this.props.section !== SectionOptions.initializing
     };
 
     return <NavigationBar {...navProps} />;

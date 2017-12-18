@@ -14,6 +14,7 @@ export default class NavigationBar extends React.Component {
 
     // cover related stuff
     isCoverPage: PropTypes.bool,
+    isWarmup: PropTypes.bool,
     showPauseButton: PropTypes.bool,
     showBookInfo: PropTypes.bool,
     bookTitle: PropTypes.string,
@@ -40,7 +41,8 @@ export default class NavigationBar extends React.Component {
     onReader: true,
     white: false,
     beforeStudentDemo: false,
-    hideMenuItems: false
+    hideMenuItems: false,
+    isWarmup: false
   };
 
   renderButton = () => {
@@ -201,6 +203,10 @@ export default class NavigationBar extends React.Component {
               </div>
             </div>
           )}
+
+        {this.props.isWarmup && (
+          <span className={css.centerLabel}>Practice Mode</span>
+        )}
 
         {!this.props.showBookInfo &&
           this.props.onReader &&

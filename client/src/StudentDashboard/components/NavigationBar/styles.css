@@ -47,6 +47,16 @@
 	cursor: pointer;
 }
 
+.centerLabel {
+	margin-right: auto;
+	margin-left: auto;
+	z-index: 999999;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 17px;
+	opacity: 0.7;
+}
+
 .centerDisplayContainer {
 	width: 250px;
 	height: 90px;

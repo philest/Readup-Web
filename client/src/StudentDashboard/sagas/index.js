@@ -1901,6 +1901,8 @@ function* assessThenSubmitSaga() {
 		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, bookIntroSaga, book)
 	);
 
+	yield put.resolve(setSection(SectionOptions.bookIntro));
+
 	yield call(bookIntroSaga, book);
 
 	// cancel the hear again saga...

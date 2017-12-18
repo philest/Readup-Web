@@ -79,7 +79,8 @@ function mapStateToProps(state) {
     micPermissionsStatus: state.reader.micPermissionsStatus,
     hasLoggedIn: state.reader.hasLoggedIn,
     studentName: state.reader.studentName,
-    isWarmup: state.reader.isWarmup
+    isWarmup: state.reader.isWarmup,
+    section: state.reader.section
   };
 }
 
@@ -196,7 +197,9 @@ export class StudentDashboard extends React.Component {
       onHearQuestionAgainClicked: this.props.actions.hearQuestionAgainClicked,
       onSetCurrentOverlay: this.props.actions.setCurrentOverlay,
       writtenCompInput: this.props.writtenCompInput,
-      onBookSet: this.props.actions.setBook
+      onBookSet: this.props.actions.setBook,
+      isWarmup: this.props.isWarmup,
+      section: this.props.section
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
