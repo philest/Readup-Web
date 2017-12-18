@@ -10,6 +10,7 @@ import BackArrowButton from "./components/BackArrowButton";
 import SpellingTextField from "./components/SpellingTextField";
 import AvatarContainer from "./components/AvatarContainer";
 import FinishedImage from "./components/FinishedImage";
+import VolumeIndicator from "./components/VolumeIndicator";
 
 import styles from "./styles.css";
 import css from "./components/NavigationBar/styles.css";
@@ -462,75 +463,26 @@ export default class Reader extends React.Component {
       );
     }
 
-    // if (
-    //   this.props.showCover &&
-    //   (!this.props.inComp && !this.props.inSpelling) &&
-    //   this.props.showVolumeIndicator &&
-    //   this.props.readerState === ReaderStateOptions.playingBookIntro
-    // ) {
-    //   return (
-    //     <div className={styles.volumeContainer}>
-    //       <span className={styles.volumeHeading}> Turn on your volume </span>
-    //       <br />
-    //       <i
-    //         className="fa fa-volume-up faa-pulse animated fa-3x faa-fast"
-    //         style={{ color: "white", fontSize: 5 + "em" }}
-    //         aria-hidden="true"
-    //       />
-    //     </div>
-    //   );
-    // }
-
-    if (
-      this.props.showCover &&
-      (!this.props.inComp && !this.props.inSpelling) &&
-      this.props.showVolumeIndicator &&
-      this.props.readerState === ReaderStateOptions.playingBookIntro
-    ) {
-      return null;
-    }
-
-    if (
-      this.props.showCover &&
-      (!this.props.inComp && !this.props.inSpelling)
-    ) {
+    if (!this.props.inComp && !this.props.inSpelling) {
       return (
-        <div
-          onClick={this.props.onHearIntroAgainClicked}
-          className={[styles.volumeContainer, styles.clickable].join(" ")}
-        >
-          <i
-            className="fa fa-volume-up fa-3x"
-            style={{ color: "white", fontSize: 5 + "em" }}
-            aria-hidden="true"
-          />
-          <br />
-          <span className={styles.volumeHeadingHearAgain}> Hear again </span>
-        </div>
+        <VolumeIndicator
+          hearAgainClicked={this.props.onHearIntroAgainClicked}
+          visible={
+            this.props.readerState !== ReaderStateOptions.playingBookIntro
+          }
+        />
       );
     }
 
     if (this.props.inComp) {
       return (
-        <div
-          onClick={this.props.onHearQuestionAgainClicked}
-          className={[styles.volumeContainer, styles.clickable].join(" ")}
-          style={{
-            visibility:
-              this.props.readerState === "READER_STATE_IN_PROGRESS" ||
-              this.props.readerState === "READER_STATE_AWAITING_START"
-                ? "visible"
-                : "hidden"
-          }}
-        >
-          <i
-            className="fa fa-volume-up fa-3x fake"
-            style={{ color: "white", fontSize: 5 + "em" }}
-            aria-hidden="true"
-          />
-          <br />
-          <span className={styles.volumeHeadingHearAgain}> Hear again </span>
-        </div>
+        <VolumeIndicator
+          hearAgainClicked={this.props.onHearQuestionAgainClicked}
+          visible={
+            this.props.readerState === "READER_STATE_IN_PROGRESS" ||
+            this.props.readerState === "READER_STATE_AWAITING_START"
+          }
+        />
       );
     }
 

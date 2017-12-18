@@ -749,6 +749,8 @@ function* hearIntroAgainSaga(
 	isStartsWithOralReading,
 	isFull
 ) {
+	yield clog("in hear again saga...");
+
 	if (helperEffect.length >= 1) {
 		yield cancel(...helperEffect);
 	}
@@ -1479,11 +1481,6 @@ function* writtenCompSaga(effects) {
 	yield put(setCurrentModal("no-modal"));
 }
 
-function* hideVolumeSaga() {
-	yield call(delay, 5500);
-	yield put.resolve(hideVolumeIndicator());
-}
-
 function* videoWiggleSaga() {
 	yield call(delay, 90000);
 	yield put.resolve(setReaderState(ReaderStateOptions.watchedFullVideo));
@@ -1560,8 +1557,7 @@ function* oralReadingSaga(
 		)
 	);
 
-	yield call(
-		oralReadingInstructionSaga,
+	yield* oralReadingInstructionSaga(
 		isWarmup,
 		isPartialOralReading,
 		isStartsWithOralReading
@@ -1875,8 +1871,6 @@ function* assessThenSubmitSaga() {
 	if (videoWiggleEffect.length >= 1) {
 		yield cancel(...videoWiggleEffect);
 	}
-
-	effects.push(yield fork(hideVolumeSaga));
 
 	// Put the intro instruction sequence...
 

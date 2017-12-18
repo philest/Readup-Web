@@ -1,0 +1,37 @@
+.volumeContainer {
+	position: relative;
+	-ms-transform: rotate(-4deg);
+	-webkit-transform: rotate(-4deg);
+	transform: rotate(-4deg);
+}
+
+.clickable {
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.clickable:hover {
+	transform: translateY(-3px);
+	filter: brightness(120%);
+	transition: all 0.3s;
+}
+
+.clickable:active {
+	opacity: 0.8;
+	transform: all 0.3s;
+}
+
+.volumeHeadingHearAgain {
+	color: white;
+	font-family: "ProximaNova Semibold";
+	position: relative;
+	left: -15px;
+	bottom: -9px;
+	font-size: 20px;
+
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
