@@ -48,11 +48,11 @@ export default class LinkInfo extends React.Component {
           your class link!
         </h2>
         <div className={[styles.formLg, styles.formLook].join(" ")}>
-          <a target="_blank" href={`${preLink}${this.state.classLink}`}>
+          <a target="_blank" href={`${preLink}www.${this.state.classLink}`}>
             {this.state.classLink}
           </a>
         </div>
-        <a target="_blank" href={`${preLink}${this.state.classLink}`}>
+        <a target="_blank" href={`${preLink}www.${this.state.classLink}`}>
           <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
             Try it yourself
           </Button>
