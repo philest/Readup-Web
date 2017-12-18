@@ -208,11 +208,6 @@ export default class NavigationBar extends React.Component {
           <span className={css.centerLabel}>Practice Mode</span>
         )}
 
-        {!this.props.showBookInfo &&
-          this.props.onReader &&
-          !this.props.showPauseButton &&
-          this.props.inComp && <div className={css.notRecordingSubContainer} />}
-
         {this.props.showBookInfo && (
           <div className={css.subContainer}>
             <div

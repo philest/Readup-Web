@@ -32,6 +32,7 @@ import CountdownOverlay from "./overlays/CountdownOverlay";
 import SpinnerOverlay from "./overlays/SpinnerOverlay";
 import DisabledSTEPOverlay from "./overlays/DisabledSTEPOverlay";
 import NoSoundOverlay from "./overlays/NoSoundOverlay";
+import WarmupOverlay from "./overlays/WarmupOverlay";
 
 import { Modal } from "react-bootstrap";
 
@@ -369,6 +370,8 @@ export class StudentDashboard extends React.Component {
         <DisabledSTEPOverlay
           currentShowOverlay={this.props.currentShowOverlay}
         />
+
+        <WarmupOverlay currentShowOverlay={this.props.currentShowOverlay} />
 
         <NoSoundOverlay currentShowOverlay={this.props.currentShowOverlay} />
 
