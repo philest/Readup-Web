@@ -88,6 +88,8 @@ import {
 	IN_SILENT_READING_SET,
 	RESUME_CLICKED,
 	COMP_PAUSE_CLICKED,
+	SECTION_SET,
+	setSection,
 	avatarClicked,
 	startCountdownToStart,
 	setMicPermissions,
@@ -211,6 +213,9 @@ function* playSectionSaga(
 	book,
 	assessmentId
 ) {
+	// Set the new section
+	yield put.resolve(setSection(section));
+
 	if (section === SectionOptions.oralReadingFullBook) {
 		yield* oralReadingSaga(
 			effects,
@@ -739,6 +744,10 @@ function* helperInstructionSaga(
 			yield call(playSoundAsync, "/audio/sound-check.m4a");
 		}
 	}
+}
+
+function* generalHearAgain() {
+	//TODO build this
 }
 
 // wrapper that cancels side effects that interrupt, then restarts saga.
@@ -1628,6 +1637,16 @@ function* oralReadingRecordingSaga(
 
 	yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
 
+	const myOneEffect = [];
+	myOneEffect.push(
+		yield takeLatest(
+			HEAR_INTRO_AGAIN_CLICKED,
+			recordingInstructionSaga,
+			isWarmup,
+			isPartialOralReading
+		)
+	);
+
 	yield* recordingInstructionSaga(isWarmup, isPartialOralReading);
 
 	// starts the recording assessment flow
@@ -1637,6 +1656,8 @@ function* oralReadingRecordingSaga(
 		turnItIn: take(TURN_IN_CLICKED),
 		endRecording: take(STOP_RECORDING_CLICKED)
 	});
+
+	yield cancel(myOneEffect.slice(-1)[0]);
 
 	// to hide the comp pause modal
 	yield put.resolve(setCurrentModal("no-modal"));
@@ -1711,6 +1732,8 @@ function* resetStateSaga() {
 
 	yield put.resolve(setSpellingQuestionNumber(1));
 	yield put.resolve(setWrittenQuestionNumber(1));
+
+	yield put.resolve(setSection(SectionOptions.initializing));
 
 	yield put(setCurrentOverlay("no-overlay"));
 }
@@ -1874,7 +1897,14 @@ function* assessThenSubmitSaga() {
 
 	// Put the intro instruction sequence...
 
+	effects.push(
+		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, bookIntroSaga, book)
+	);
+
 	yield call(bookIntroSaga, book);
+
+	// cancel the hear again saga...
+	yield cancel(effects.slice(-1)[0]);
 
 	for (var sectionNum in sectionList) {
 		if (

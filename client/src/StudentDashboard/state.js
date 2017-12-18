@@ -12,6 +12,7 @@ import Recorder from "./recorder";
 
 import {
   ReaderStateOptions,
+  SectionOptions,
   ReaderState,
   MicPermissionsStatusOptions,
   MicPermissionsStatus,
@@ -135,11 +136,22 @@ export const WRITTEN_COMP_INPUT_SET = "WRITTEN_COMP_INPUT_SET";
 export const YES_CLICKED = "YES_CLICKED";
 export const NO_CLICKED = "NO_CLICKED";
 
+export const SECTION_SET = "SECTION_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
     payload: {
       readerState
+    }
+  };
+}
+
+export function setSection(section: Section) {
+  return {
+    type: SECTION_SET,
+    payload: {
+      section
     }
   };
 }
@@ -732,7 +744,8 @@ export const initialState = {
   hasLoggedIn: false,
   studentName: "Demo Student",
   inSilentReading: false,
-  isWarmup: true
+  isWarmup: true,
+  section: SectionOptions.initializing
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -746,6 +759,11 @@ function reducer(state = initialState, action = {}) {
     case READER_STATE_SET: {
       console.log("SET READER STATE: " + payload.readerState);
       return { ...state, readerState: payload.readerState };
+    }
+
+    case SECTION_SET: {
+      console.log("SET SECTION: " + payload.section);
+      return { ...state, section: payload.section };
     }
 
     case ASSESSMENT_SUBMITTED_SET: {

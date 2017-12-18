@@ -42,7 +42,8 @@ export const SectionOptions = {
   compOralFirst: "COMP_ORAL_FIRST",
   compOralSecond: "COMP_ORAL_SECOND",
   compWritten: "COMP_WRITTEN",
-  spelling: "SPELLING"
+  spelling: "SPELLING",
+  initializing: "INITIALIZING"
 };
 
 export type Section = Keys<typeof SectionOptions>;

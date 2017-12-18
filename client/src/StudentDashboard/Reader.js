@@ -583,7 +583,7 @@ export default class Reader extends React.Component {
   };
 
   getSkipPromptTopOffset = () => {
-    return this.props.inSpelling ? -10 : this.props.inComp ? -5 : 0;
+    return this.props.inSpelling ? -10 : this.props.inComp ? -5 : -5;
   };
 
   renderNavigationBar = () => {
