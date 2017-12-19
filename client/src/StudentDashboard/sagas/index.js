@@ -741,7 +741,7 @@ function* helperInstructionSaga(
 	} else if (isSoundCheck) {
 		while (true) {
 			yield call(delay, 10500);
-			yield call(playSoundAsync, "/audio/sound-check.m4a");
+			yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 		}
 	}
 }
@@ -1084,7 +1084,7 @@ function* spellingInstructionSaga() {
 
 	if (isWarmup) {
 		if (isDraggingSpelling) {
-			yield call(playSound, "/audio/dragging-warmup.m4a");
+			yield call(playSound, "/audio/additions/drag-warmup.mp3");
 		} else {
 			yield call(playSound, "/audio/warmup/w-9.mp3");
 		}
@@ -1093,7 +1093,7 @@ function* spellingInstructionSaga() {
 		yield call(playSound, "/audio/say-sounds-slowly.mp3");
 	} else {
 		if (isDraggingSpelling) {
-			yield call(playSound, "/audio/dragging-real.m4a");
+			yield call(playSound, "/audio/additions/drag-real.mp3");
 		} else {
 			yield call(playSound, "/audio/spelling-intro-transition.mp3");
 			yield put.resolve(
@@ -1289,10 +1289,14 @@ function* playCompQuestionSaga(currQ, isHearAgain) {
 
 	const isWarmup = yield select(getIsWarmup);
 
+	if (currQ === 2) {
+		yield call(playSound, "/audio/additions/remember-look-back.mp3");
+	}
+
 	if (isWarmup && currQ === 1) {
 		yield call(playSound, "/audio/warmup/w-7.mp3");
 	} else if (isWarmup && currQ === 2) {
-		yield call(playSound, "/audio/warmup/w-8.mp3");
+		yield call(playSound, "/audio/additions/warmup-q2.mp3");
 	} else {
 		yield call(playSound, audioFile);
 	}
@@ -1753,7 +1757,7 @@ function* teacherHelpInstructions() {
 }
 
 function* soundCheckInstructions() {
-	yield call(playSoundAsync, "/audio/sound-check.m4a");
+	yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 }
 
 function* soundCheckSaga() {
@@ -1775,7 +1779,7 @@ function* soundCheckSaga() {
 		)
 	);
 
-	yield call(playSoundAsync, "/audio/sound-check.m4a");
+	yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 
 	const { can_hear, cannot_hear, timeout } = yield race({
 		can_hear: take(YES_CLICKED),
@@ -1808,7 +1812,7 @@ function* bookCheckSaga() {
 		yield takeLatest(NO_CLICKED, teacherHelpInstructions)
 	);
 
-	yield call(playSoundAsync, "/audio/book-check.m4a");
+	yield call(playSoundAsync, "/audio/additions/book-check-full.mp3");
 
 	yield take(YES_CLICKED);
 	yield call(playSoundAsync, "/audio/complete.mp3");
