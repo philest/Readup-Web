@@ -26,7 +26,9 @@ export default class WarmupOverlay extends React.Component {
 
     return (
       <div className={styles.introContainer}>
-        <div className={styles.introTitle}>Practice</div>
+        <div className={[styles.introTitle, styles.flashIt].join(" ")}>
+          Practice
+        </div>
       </div>
     );
   }
