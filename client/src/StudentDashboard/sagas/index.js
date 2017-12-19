@@ -1289,7 +1289,7 @@ function* playCompQuestionSaga(currQ, isHearAgain) {
 
 	const isWarmup = yield select(getIsWarmup);
 
-	if (currQ === 2) {
+	if (currQ === 2 && !isHearAgain) {
 		yield call(playSound, "/audio/additions/remember-look-back.mp3");
 	}
 
