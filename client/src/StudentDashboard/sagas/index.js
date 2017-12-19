@@ -1546,9 +1546,7 @@ function* watchVideoSaga(videoWiggleEffect) {
 
 	if (process.env.NODE_ENV === "production") {
 		videoWiggleEffect.push(yield fork(videoWiggleSaga));
-		videoWiggleEffect.push(
-			yield fork(helperInstructionSaga, false, false, false, true)
-		);
+		// removed the audio instruction because it sometimes interrupted
 	}
 
 	yield put({ type: SPINNER_HIDE });
