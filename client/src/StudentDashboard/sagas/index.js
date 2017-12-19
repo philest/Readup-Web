@@ -740,7 +740,7 @@ function* helperInstructionSaga(
 		}
 	} else if (isSoundCheck) {
 		while (true) {
-			yield call(delay, 10500);
+			yield call(delay, 8500);
 			yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 		}
 	}
