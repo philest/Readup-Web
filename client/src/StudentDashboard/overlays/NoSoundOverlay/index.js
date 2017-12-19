@@ -32,13 +32,13 @@ export default class NoSoundOverlay extends React.Component {
         <div className={styles.readupLogo}>ReadUp</div>
 
         <img
-          className={styles.handRaise}
-          src="/images/dashboard/boy-raising-hand.svg"
+          className={[styles.handRaise, commonStyles.wiggler].join(" ")}
+          src="/images/dashboard/hand-up.png"
         />
 
         <div className={styles.micHeader}>Sound is not working!</div>
 
-        <div className={styles.micList}>
+        <div className={commonStyles.micList}>
           <div className={styles.micStep}>
             <span className={styles.number}>1</span>. Make sure volume is on
           </div>
@@ -50,6 +50,16 @@ export default class NoSoundOverlay extends React.Component {
             <span className={styles.number}>3</span>. Then, refresh this page
           </div>
         </div>
+
+        <Button
+          onClick={() => {
+            window.location.reload();
+          }}
+          bsStyle="primary"
+          bsSize="lg"
+        >
+          Refresh page
+        </Button>
       </div>
     );
   }

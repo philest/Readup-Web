@@ -33,21 +33,28 @@ export default class DisabledSTEPOverlay extends React.Component {
       <div className={styles.micContainer}>
         <div className={styles.readupLogo}>ReadUp</div>
 
-        <img
-          className={styles.handRaise}
-          src="/images/dashboard/boy-raising-hand.svg"
-        />
+        <img className={styles.handRaise} src="/images/dashboard/hand-up.png" />
 
         <div className={styles.micHeader}>
           STEPs 1, 2, and 3 aren't available yet
         </div>
 
-        <div className={styles.micList} style={{ textAlign: "center" }}>
+        <div className={commonStyles.micList} style={{ textAlign: "center" }}>
           <div className={styles.micStep} style={{ textAlign: "center" }}>
             For now, these STEPs need to be assessed in-person.<br /> We'll
             notify you when they're ready online!
           </div>
         </div>
+
+        <Button
+          onClick={() => {
+            window.location.reload();
+          }}
+          bsStyle="primary"
+          bsSize="lg"
+        >
+          Try as different student
+        </Button>
       </div>
     );
   }

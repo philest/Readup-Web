@@ -42,3 +42,40 @@
 	color: orange;
 	background-color: black;
 }
+
+@keyframes wiggle {
+	42% {
+		transform: rotate(0deg);
+	}
+	46% {
+		transform: rotate(5deg);
+	}
+	50% {
+		transform: rotate(-5deg);
+	}
+	54% {
+		transform: rotate(5deg);
+	}
+	58% {
+		transform: rotate(-5deg);
+	}
+	62% {
+		transform: rotate(5deg);
+	}
+	66% {
+		transform: rotate(-5deg);
+	}
+	70% {
+		transform: rotate(0deg);
+	}
+}
+
+.wiggler {
+	/*    -webkit-animation: wiggle 5s infinite;*/
+	animation: wiggle 9s infinite;
+}
+
+.micList {
+	margin: 20px 0px;
+	font-family: "Proximanova";
+}

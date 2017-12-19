@@ -33,14 +33,11 @@ export default class BlockedMicOverlay extends React.Component {
       <div className={styles.micContainer}>
         <div className={styles.readupLogo}>ReadUp</div>
 
-        <img
-          className={styles.handRaise}
-          src="/images/dashboard/boy-raising-hand.svg"
-        />
+        <img className={styles.handRaise} src="/images/dashboard/hand-up.png" />
 
         <div className={styles.micHeader}>Can't access mic or webcam!</div>
 
-        <div className={styles.micList}>
+        <div className={commonStyles.micList}>
           <div className={styles.micStep}>
             <span className={styles.number}>1</span>. Click on the camera icon
             in the top right of the URL bar
@@ -56,6 +53,16 @@ export default class BlockedMicOverlay extends React.Component {
             <span className={styles.number}>4</span>. Reload the page
           </div>
         </div>
+
+        <Button
+          onClick={() => {
+            window.location.reload();
+          }}
+          bsStyle="primary"
+          bsSize="lg"
+        >
+          Refresh page
+        </Button>
       </div>
     );
   }
