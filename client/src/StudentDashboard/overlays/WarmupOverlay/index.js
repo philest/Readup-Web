@@ -7,7 +7,8 @@ const THIS_OVERLAY_ID = "overlay-warmup";
 
 export default class WarmupOverlay extends React.Component {
   static propTypes = {
-    currentShowOverlay: PropTypes.string
+    currentShowOverlay: PropTypes.string,
+    text: PropTypes.string
   };
 
   /**
@@ -27,7 +28,7 @@ export default class WarmupOverlay extends React.Component {
     return (
       <div className={styles.introContainer}>
         <div className={[styles.introTitle, styles.flashIt].join(" ")}>
-          Practice
+          {this.props.text}
         </div>
       </div>
     );

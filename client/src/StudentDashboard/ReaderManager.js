@@ -371,7 +371,10 @@ export class StudentDashboard extends React.Component {
           currentShowOverlay={this.props.currentShowOverlay}
         />
 
-        <WarmupOverlay currentShowOverlay={this.props.currentShowOverlay} />
+        <WarmupOverlay
+          currentShowOverlay={this.props.currentShowOverlay}
+          text={this.props.isWarmup ? "Practice" : "Full book"}
+        />
 
         <NoSoundOverlay currentShowOverlay={this.props.currentShowOverlay} />
 

@@ -740,7 +740,7 @@ function* helperInstructionSaga(
 		}
 	} else if (isSoundCheck) {
 		while (true) {
-			yield call(delay, 8500);
+			yield call(delay, 8000);
 			yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 		}
 	}
@@ -962,13 +962,17 @@ function* bookIntroSaga(book) {
 
 		yield call(playSound, "/audio/new-warmup/new-intro-1-02.mp3");
 	} else if (hasWrittenComp(book)) {
+		yield put.resolve(setCurrentOverlay("overlay-warmup"));
 		yield call(playSound, "/audio/gen/instruct-3.mp3");
+		yield put.resolve(setCurrentOverlay("no-overlay"));
+
 		yield put.resolve(showVolumeIndicator());
 		yield call(playSound, book.introAudioSrc);
 	} else {
 		//standard oral reading
-
+		yield put.resolve(setCurrentOverlay("overlay-warmup"));
 		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
+		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		yield put.resolve(showVolumeIndicator());
 
