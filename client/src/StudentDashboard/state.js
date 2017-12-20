@@ -138,6 +138,10 @@ export const NO_CLICKED = "NO_CLICKED";
 
 export const SECTION_SET = "SECTION_SET";
 
+export const TEACHER_SIGNATURE_SET = "TEACHER_SIGNATURE_SET";
+export const STUDENTS_SET = "STUDENTS_SET";
+export const ASSESSMENTS_SET = "ASSESSMENTS_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -152,6 +156,32 @@ export function setSection(section: Section) {
     type: SECTION_SET,
     payload: {
       section
+    }
+  };
+}
+
+export function setTeacherSignature(teacherSignature: string) {
+  return {
+    type: TEACHER_SIGNATURE_SET,
+    payload: {
+      teacherSignature
+    }
+  };
+}
+export function setStudents(students: string) {
+  return {
+    type: STUDENTS_SET,
+    payload: {
+      students
+    }
+  };
+}
+
+export function setAssessments(assessments: string) {
+  return {
+    type: ASSESSMENTS_SET,
+    payload: {
+      assessments
     }
   };
 }
@@ -745,7 +775,10 @@ export const initialState = {
   studentName: "Demo Student",
   inSilentReading: false,
   isWarmup: true,
-  section: SectionOptions.initializing
+  section: SectionOptions.initializing,
+  teacherSignature: null,
+  students: [],
+  assessments: []
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -783,6 +816,18 @@ function reducer(state = initialState, action = {}) {
     case PROMPT_SET: {
       console.log("SET PROMPT: ", payload.prompt);
       return { ...state, prompt: payload.prompt };
+    }
+
+    case TEACHER_SIGNATURE_SET: {
+      return { ...state, teacherSignature: payload.teacherSignature };
+    }
+
+    case STUDENTS_SET: {
+      return { ...state, students: payload.students };
+    }
+
+    case ASSESSMENTS_SET: {
+      return { ...state, assessments: payload.assessments };
     }
 
     case SPELLING_ANSWER_GIVEN_SET: {

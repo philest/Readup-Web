@@ -6,12 +6,15 @@ import _forOwn from "lodash/forOwn";
 import {
   updateStudent,
   getAssessmentData,
-  updateAssessment
+  updateAssessment,
+  getAllStudents,
+  getAllAssessments,
+  getTeacher
 } from "../../ReportsInterface/emailHelpers.js";
 
 import { PromptOptions } from "../types";
 
-import { spellingLibrary } from "../../sharedComponents/bookObjects";
+import { spellingLibrary, library } from "../../sharedComponents/bookObjects";
 
 type PresignObject = {
   url: string,
@@ -204,5 +207,55 @@ export function saveSpellingResponse(value, qNum, spellingGroupLibraryIdx) {
       .catch(function(err) {
         console.log(err);
       });
+  });
+}
+
+// export function getClass(userID) {
+//   let newClass = {};
+
+//   getAllStudents(userID)
+//     .then(res => {
+//       console.log("resolved: ");
+//       console.log(res);
+//       const studentDataArr = res.data;
+
+//       getAllAssessments(userID).then(res => {
+//         const assessmentDataArr = res.data;
+
+//         newClass.numStudents = studentDataArr.length;
+//         for (let i = 0; i < studentDataArr.length; i++) {
+//           newClass[i + 1] = {
+//             name:
+//               studentDataArr[i].first_name + " " + studentDataArr[i].last_name,
+//             level: assessmentDataArr[i]
+//               ? library[assessmentDataArr[i].book_key].stepLevel
+//               : 5,
+//             bookKey: assessmentDataArr[i]
+//               ? assessmentDataArr[i].book_key
+//               : "step5",
+//             assessmentID: assessmentDataArr[i]
+//               ? assessmentDataArr[i].id
+//               : "NO_ASSESSMENT_CREATED"
+//           };
+//         }
+//         console.log("newClass: ", newClass);
+
+//         return newClass;
+//       });
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// }
+
+export function getClass(userID) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        email: "somemockemail@email.com",
+        repository: "http://github.com/username",
+        userID: userID
+      });
+    }, 3000);
   });
 }

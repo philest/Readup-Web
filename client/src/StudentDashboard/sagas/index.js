@@ -22,7 +22,8 @@ import {
 	getLastStudentID,
 	getLastAssessmentID,
 	markCompleted,
-	getIsLiveDemo
+	getIsLiveDemo,
+	getClass
 } from "./networkingHelpers";
 
 import { clog, isMobileDevice } from "./helpers";
@@ -89,6 +90,9 @@ import {
 	RESUME_CLICKED,
 	COMP_PAUSE_CLICKED,
 	SECTION_SET,
+	setStudents,
+	setAssessments,
+	setTeacherSignature,
 	setSection,
 	avatarClicked,
 	startCountdownToStart,
@@ -161,7 +165,10 @@ import {
 import {
 	sendEmail,
 	sendCall,
-	getAssessmentData
+	getAssessmentData,
+	getTeacher,
+	getAllStudents,
+	getAllAssessments
 } from "../../ReportsInterface/emailHelpers";
 
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
@@ -1535,6 +1542,24 @@ function* loginSaga() {
 	yield call(playSound, "/audio/complete.mp3");
 }
 
+function* classFetchSaga(userID) {
+	try {
+		const [res1, res2, res3] = yield all([
+			call(getTeacher, 3408),
+			call(getAllStudents, 3408),
+			call(getAllAssessments, 3408)
+		]);
+
+		yield clog(res1.data, res2.data, res3.data);
+
+		yield put.resolve(setTeacherSignature(res1.data.signature));
+		yield put.resolve(setStudents(res2.data));
+		yield put.resolve(setAssessments(res3.data));
+	} catch (e) {
+		yield clog("didnt work: ", e);
+	}
+}
+
 function* watchVideoSaga(videoWiggleEffect) {
 	// show the video saga
 	yield put.resolve(hideVolumeIndicator());
@@ -1885,8 +1910,11 @@ function* assessThenSubmitSaga() {
 	}
 
 	if (!isDemo && !hasLoggedIn) {
+		yield call(classFetchSaga, 3408);
+
 		yield* soundCheckSaga(); // sound check for only the real thing?
 
+		// API stuff
 		yield call(loginSaga);
 
 		book = yield select(getBook);
