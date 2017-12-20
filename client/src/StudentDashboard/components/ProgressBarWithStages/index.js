@@ -31,7 +31,12 @@ export function getSectionsListFromFormat(format) {
       SectionOptions.spelling
     ];
   } else if (format === "SIGNUP") {
-    return ["Names", "Class", "Books", "Start"];
+    return [
+      "NAME_PAGE",
+      "ADD_CLASS_PAGE",
+      "ASSIGN_BOOKS_PAGE",
+      "LINK_INFO_PAGE"
+    ];
   } else {
     return false;
     console.log(`format ${format} not detected`);
@@ -57,6 +62,14 @@ export function getLabel(section) {
     return "Writing";
   } else if (section === SectionOptions.spelling) {
     return "Spelling";
+  } else if (section === "NAME_PAGE") {
+    return "Names";
+  } else if (section === "ADD_CLASS_PAGE") {
+    return "Class";
+  } else if (section === "ASSIGN_BOOKS_PAGE") {
+    return "Books";
+  } else if (section === "LINK_INFO_PAGE") {
+    return "Start";
   } else {
     return section;
     console.log(`section ${format} not detected`);
@@ -64,9 +77,9 @@ export function getLabel(section) {
 }
 
 function getLabelArr(format, isSignup) {
-  if (isSignup) {
-    return ["Names", "Class", "Books", "Start"];
-  }
+  // if (isSignup) {
+  //   return ["Names", "Class", "Books", "Start"];
+  // }
 
   let sectionList = getSectionsListFromFormat(format);
   let labelArr = [];
@@ -91,9 +104,11 @@ function getProgressNum(currentSection, format) {
 
   let idx = sectionList.indexOf(currentSection);
 
+  let initalSlice = 1 / (numSections * 2) * 100;
+
   let percent = idx / numSections * 100;
 
-  return percent;
+  return percent + initalSlice;
 }
 
 export default class ProgressBarWithStages extends React.Component {
