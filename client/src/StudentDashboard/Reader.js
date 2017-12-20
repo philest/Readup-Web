@@ -696,7 +696,9 @@ export default class Reader extends React.Component {
               onBookSet={this.props.onBookSet}
               onAvatarClicked={this.props.onAvatarClicked}
               onSetCurrentOverlay={this.props.onSetCurrentOverlay}
-              userID={Number(this.props.userID)}
+              teacherSignature={this.props.teacherSignature}
+              students={this.props.students}
+              assessments={this.props.assessments}
             />
           </div>
         </div>

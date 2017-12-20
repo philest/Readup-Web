@@ -81,7 +81,10 @@ function mapStateToProps(state) {
     hasLoggedIn: state.reader.hasLoggedIn,
     studentName: state.reader.studentName,
     isWarmup: state.reader.isWarmup,
-    section: state.reader.section
+    section: state.reader.section,
+    teacherSignature: state.reader.teacherSignature,
+    students: state.reader.students,
+    assessments: state.reader.assessments
   };
 }
 
@@ -200,7 +203,10 @@ export class StudentDashboard extends React.Component {
       writtenCompInput: this.props.writtenCompInput,
       onBookSet: this.props.actions.setBook,
       isWarmup: this.props.isWarmup,
-      section: this.props.section
+      section: this.props.section,
+      teacherSignature: this.props.teacherSignature,
+      students: this.props.students,
+      assessments: this.props.assessments
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader

@@ -30,10 +30,16 @@ export default class AvatarContainer extends React.Component {
     onBookSet: PropTypes.func.isRequired,
     onAvatarClicked: PropTypes.func.isRequired,
     onSetCurrentOverlay: PropTypes.func,
-    userID: PropTypes.number
+    students: PropTypes.array,
+    assessments: PropTypes.array,
+    teacherSignature: PropTypes.string
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    students: [],
+    assessments: [],
+    teacherSignature: "Loading"
+  };
 
   renderAvatars = myClass => {
     const nameArr = [];
@@ -82,54 +88,41 @@ export default class AvatarContainer extends React.Component {
     };
   }
 
-  componentWillMount = () => {
+  componentDidUpdate(prevProps, prevState) {
+    console.log("did update!!");
+
+    if (prevProps.assessments !== this.props.assessments) {
+      console.log("setting 1");
+      this.setMyClass();
+    }
+
+    if (prevProps.students !== this.props.students) {
+      console.log("setting 2");
+
+      this.setMyClass();
+    }
+  }
+
+  setMyClass = () => {
+    let students = this.props.students;
+    let assessments = this.props.assessments;
+
     let newClass = {};
-    let userID = this.props.userID;
 
-    getTeacher(this.props.userID)
-      .then(res => {
-        console.log("okay!: ", res);
-        teacherSignature = res.data.signature;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    newClass.numStudents = students.length;
+    for (let i = 0; i < students.length; i++) {
+      newClass[i + 1] = {
+        name: students[i].first_name + " " + students[i].last_name,
+        level: assessments[i] ? library[assessments[i].book_key].stepLevel : 5,
+        bookKey: assessments[i] ? assessments[i].book_key : "step5",
+        assessmentID: assessments[i]
+          ? assessments[i].id
+          : "NO_ASSESSMENT_CREATED"
+      };
+    }
 
-    getAllStudents(userID)
-      .then(res => {
-        console.log("resolved: ");
-        console.log(res);
-        const studentDataArr = res.data;
-
-        getAllAssessments(userID).then(res => {
-          const assessmentDataArr = res.data;
-
-          newClass.numStudents = studentDataArr.length;
-          for (let i = 0; i < studentDataArr.length; i++) {
-            newClass[i + 1] = {
-              name:
-                studentDataArr[i].first_name +
-                " " +
-                studentDataArr[i].last_name,
-              level: assessmentDataArr[i]
-                ? library[assessmentDataArr[i].book_key].stepLevel
-                : 5,
-              bookKey: assessmentDataArr[i]
-                ? assessmentDataArr[i].book_key
-                : "step5",
-              assessmentID: assessmentDataArr[i]
-                ? assessmentDataArr[i].id
-                : "NO_ASSESSMENT_CREATED"
-            };
-          }
-          console.log("myClass: ", newClass);
-
-          this.setState({ myClass: newClass });
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    console.log("myClass: ", newClass);
+    this.setState({ myClass: newClass });
   };
 
   render() {
@@ -139,9 +132,9 @@ export default class AvatarContainer extends React.Component {
           <Avatar
             className={styles.teacherAvatar}
             teacher
-            teacherSignature={teacherSignature}
+            teacherSignature={this.props.teacherSignature}
             key={"teacher"}
-            fullName={teacherSignature}
+            fullName={this.props.teacherSignature}
             bookKey={"step4"}
             onStudentNameSet={this.props.onStudentNameSet}
             onBookSet={this.props.onBookSet}
