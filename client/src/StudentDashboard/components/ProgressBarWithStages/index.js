@@ -129,13 +129,17 @@ export default class ProgressBarWithStages extends React.Component {
     const format = this.props.format;
     const isSignup = this.props.isSignup;
 
+    console.log("currentSection: ", currentSection);
+
     return (
       <div className={styles.progress}>
         {this.renderLabels(format, isSignup)}
-        <ProgressBar className={styles.myProgress} bsStyle="success" now={50} />
+        <ProgressBar
+          className={styles.myProgress}
+          bsStyle="success"
+          now={getProgressNum(currentSection, format)}
+        />
       </div>
     );
   }
 }
-
-// getProgressNum(currentSection, format)

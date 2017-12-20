@@ -22,7 +22,7 @@ import { ReaderStateOptions, SectionOptions } from "./types";
 
 import Drag from "./components/Drag";
 import SkipPrompt from "./components/SkipPrompt";
-import ProgressBar from "./components/ProgressBar";
+// import ProgressBar from "./components/ProgressBar";
 
 import { Modal, Button } from "react-bootstrap";
 

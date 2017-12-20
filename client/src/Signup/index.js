@@ -12,7 +12,7 @@ import AddClass from "../sharedComponents/AddClass";
 import Name from "../sharedComponents/Name";
 import ImportClass from "../sharedComponents/ImportClass";
 
-import ProgressBarWithStages from "../StudentDashboard/components/ProgressBar";
+import ProgressBarWithStages from "../StudentDashboard/components/ProgressBarWithStages";
 
 export default class Signup extends React.Component {
   static propTypes = {
