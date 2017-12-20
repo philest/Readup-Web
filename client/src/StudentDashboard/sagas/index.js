@@ -1089,7 +1089,8 @@ function* countdownSaga(isSingle) {
 function* spellingInstructionSaga() {
 	const isWarmup = yield select(getIsWarmup);
 	let book = yield select(getBook);
-	const isDraggingSpelling = book.stepLevel < 10;
+	// const isDraggingSpelling = book.stepLevel < 10;
+	const isDraggingSpelling = false;
 
 	if (isWarmup) {
 		if (isDraggingSpelling) {
