@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux";
 import Reader from "./Reader";
 import Recorder from "./recorder";
 
-import { ReaderStateOptions } from "./types";
+import { ReaderStateOptions, SectionOptions } from "./types";
 
 import styles from "./styles.css";
 
@@ -118,6 +118,7 @@ export class StudentDashboard extends React.Component {
     this.props.actions.setIsDemo(this.props.isDemo);
     this.props.actions.setBookKey(this.props.storyID);
     this.props.actions.setBook(this.props.storyID);
+    this.props.actions.setUserId(this.props.userID);
     // this.props.actions.setStudentName(this.props.studentName);
 
     console.log("isWarmup: ", this.props.isWarmup);
@@ -411,6 +412,7 @@ export class StudentDashboard extends React.Component {
           isLoadingVideo={
             this.props.readerState === ReaderStateOptions.watchingVideo
           }
+          isLoadingClass={this.props.section === SectionOptions.initializing}
         />
       </div>
     );

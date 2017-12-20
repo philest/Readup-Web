@@ -141,6 +141,7 @@ export const SECTION_SET = "SECTION_SET";
 export const TEACHER_SIGNATURE_SET = "TEACHER_SIGNATURE_SET";
 export const STUDENTS_SET = "STUDENTS_SET";
 export const ASSESSMENTS_SET = "ASSESSMENTS_SET";
+export const USER_ID_SET = "USER_ID_SET";
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -156,6 +157,15 @@ export function setSection(section: Section) {
     type: SECTION_SET,
     payload: {
       section
+    }
+  };
+}
+
+export function setUserId(userId: number) {
+  return {
+    type: USER_ID_SET,
+    payload: {
+      userId
     }
   };
 }
@@ -778,7 +788,8 @@ export const initialState = {
   section: SectionOptions.initializing,
   teacherSignature: null,
   students: [],
-  assessments: []
+  assessments: [],
+  userId: null
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -797,6 +808,10 @@ function reducer(state = initialState, action = {}) {
     case SECTION_SET: {
       console.log("SET SECTION: " + payload.section);
       return { ...state, section: payload.section };
+    }
+
+    case USER_ID_SET: {
+      return { ...state, userId: payload.userId };
     }
 
     case ASSESSMENT_SUBMITTED_SET: {

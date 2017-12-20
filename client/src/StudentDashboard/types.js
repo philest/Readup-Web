@@ -45,7 +45,9 @@ export const SectionOptions = {
   spelling: "SPELLING",
   initializing: "INITIALIZING",
   bookIntro: "BOOK_INTRO",
-  finished: "FINISHED"
+  finished: "FINISHED",
+  login: "LOGIN",
+  video: "VIDEO"
 };
 
 export type Section = Keys<typeof SectionOptions>;

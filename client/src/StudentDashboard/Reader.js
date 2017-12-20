@@ -81,6 +81,7 @@ export default class Reader extends React.Component {
     inComp: PropTypes.bool,
     inOralReading: PropTypes.bool,
     currentShowModal: PropTypes.string,
+    currentShowOverlay: PropTypes.string,
     introAudioSrc: PropTypes.string,
     showVolumeIndicator: PropTypes.bool,
     showSkipPrompt: PropTypes.bool,
@@ -611,7 +612,10 @@ export default class Reader extends React.Component {
       inComp: this.props.inComp,
       inSpelling: this.props.inSpelling,
       isWarmup: this.props.isWarmup,
-      progressBar: this.props.section !== SectionOptions.initializing,
+      progressBar:
+        this.props.section !== SectionOptions.initializing &&
+        this.props.section !== SectionOptions.login &&
+        this.props.section !== SectionOptions.video,
       currentSection: this.props.section,
       format: this.getFormat(this.props.book)
     };
@@ -699,6 +703,10 @@ export default class Reader extends React.Component {
               teacherSignature={this.props.teacherSignature}
               students={this.props.students}
               assessments={this.props.assessments}
+              hide={
+                this.props.currentShowOverlay === "overlay-spinner" ||
+                this.props.section === SectionOptions.initializing
+              }
             />
           </div>
         </div>

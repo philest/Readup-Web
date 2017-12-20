@@ -152,7 +152,8 @@ import {
 	getHasLoggedIn,
 	getStudentName,
 	getAssessmentID,
-	getWrittenQuestionNumber
+	getWrittenQuestionNumber,
+	getUserId
 } from "./selectors";
 
 import assessmentSaga from "./assessmentSaga";
@@ -1542,12 +1543,14 @@ function* loginSaga() {
 	yield call(playSound, "/audio/complete.mp3");
 }
 
-function* classFetchSaga(userID) {
+function* classFetchSaga() {
+	const userId = yield select(getUserId);
+
 	try {
 		const [res1, res2, res3] = yield all([
-			call(getTeacher, 3408),
-			call(getAllStudents, 3408),
-			call(getAllAssessments, 3408)
+			call(getTeacher, userId),
+			call(getAllStudents, userId),
+			call(getAllAssessments, userId)
 		]);
 
 		yield clog(res1.data, res2.data, res3.data);
@@ -1558,10 +1561,13 @@ function* classFetchSaga(userID) {
 	} catch (e) {
 		yield clog("didnt work: ", e);
 	}
+
+	yield put.resolve(setCurrentOverlay("no-overlay"));
 }
 
 function* watchVideoSaga(videoWiggleEffect) {
 	// show the video saga
+	yield put.resolve(setSection(SectionOptions.video));
 	yield put.resolve(hideVolumeIndicator());
 	yield put.resolve(setReaderState(ReaderStateOptions.watchingVideo));
 	yield put.resolve(setCurrentOverlay("overlay-spinner"));
@@ -1876,6 +1882,11 @@ function* assessThenSubmitSaga() {
 	// access state
 	const isDemo = yield select(getIsDemo);
 	const isWarmup = yield select(getIsWarmup);
+
+	if (isWarmup && !isDemo) {
+		yield put.resolve(setCurrentOverlay("overlay-spinner"));
+	}
+
 	const hasLoggedIn = yield select(getHasLoggedIn);
 	let studentName;
 	const thisBook = yield select(getBook);
@@ -1910,7 +1921,8 @@ function* assessThenSubmitSaga() {
 	}
 
 	if (!isDemo && !hasLoggedIn) {
-		yield call(classFetchSaga, 3408);
+		yield call(classFetchSaga);
+		yield put.resolve(setSection(SectionOptions.login));
 
 		yield* soundCheckSaga(); // sound check for only the real thing?
 

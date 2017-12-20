@@ -13,7 +13,8 @@ export default class SpinnerOverlay extends React.Component {
     showPrompting: PropTypes.bool,
     slowRotate: PropTypes.bool,
     isLoadingUpload: PropTypes.bool,
-    isLoadingVideo: PropTypes.bool
+    isLoadingVideo: PropTypes.bool,
+    isLoadingClass: PropTypes.bool
   };
 
   /**
@@ -37,6 +38,10 @@ export default class SpinnerOverlay extends React.Component {
 
     if (this.props.isLoadingVideo) {
       title = ["Loading video..."];
+    }
+
+    if (this.props.isLoadingClass) {
+      title = ["Loading class..."];
     }
 
     if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {

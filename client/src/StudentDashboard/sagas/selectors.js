@@ -24,3 +24,5 @@ export const getWrittenQuestionNumber = state =>
 export const getStudentName = state => state.reader.studentName;
 
 export const getAssessmentID = state => state.reader.assessmentID;
+
+export const getUserId = state => state.reader.userId;

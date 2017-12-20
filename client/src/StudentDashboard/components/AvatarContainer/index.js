@@ -3,12 +3,6 @@ import React from "react";
 import styles from "./styles.css";
 import Avatar from "../Avatar";
 
-import {
-  getAllStudents,
-  getAllAssessments,
-  getTeacher
-} from "../../../ReportsInterface/emailHelpers";
-
 import { library } from "../../../sharedComponents/bookObjects.js";
 
 let colorArr = ["teal", "purple", "green", "blue"];
@@ -32,13 +26,15 @@ export default class AvatarContainer extends React.Component {
     onSetCurrentOverlay: PropTypes.func,
     students: PropTypes.array,
     assessments: PropTypes.array,
-    teacherSignature: PropTypes.string
+    teacherSignature: PropTypes.string,
+    hide: PropTypes.bool
   };
 
   static defaultProps = {
     students: [],
     assessments: [],
-    teacherSignature: "Loading"
+    teacherSignature: "Loading",
+    hide: true
   };
 
   renderAvatars = myClass => {
@@ -126,6 +122,10 @@ export default class AvatarContainer extends React.Component {
   };
 
   render() {
+    if (this.props.hide) {
+      return null;
+    }
+
     return (
       <div>
         <div className={styles.teacherContainer}>
