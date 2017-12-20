@@ -1,7 +1,5 @@
 .spellingLetterBox {
-	width: 76%;
-	max-width: 900px;
-	min-width: 500px;
+	width: 950px;
 	background-color: white;
 	border-radius: 15px;
 	margin: 0 auto;
@@ -30,7 +28,8 @@
 .letter {
 	display: inline-block;
 	font-size: 50px;
-	padding: 0px 20px;
+	/*	padding: 10px 20px;
+*/
 	font-family: "Comic Neue Angular";
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
@@ -38,14 +37,20 @@
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently */
+
+	cursor: pointer;
 }
 
-.alphabetContainer {
-	margin: 0 auto;
-	display: flex;
+.alphabets {
+	width: 86%;
+	display: inline-block;
+}
+
+.halfAlphabetContainer {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: start;
+	justify-content: space-between;
+	padding-left: 20px;
 }
 
 .fakeContainer {

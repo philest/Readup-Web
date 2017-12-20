@@ -1867,6 +1867,8 @@ function* assessThenSubmitSaga() {
 
 	yield call(resetStateSaga);
 
+	yield take("NDSFSDSDFSDF");
+
 	const permissionsGranted = yield* getMicPermissionsSaga(); // blocks
 
 	while (!permissionsGranted) {

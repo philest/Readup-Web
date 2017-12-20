@@ -12,6 +12,8 @@ import AvatarContainer from "./components/AvatarContainer";
 import FinishedImage from "./components/FinishedImage";
 import VolumeIndicator from "./components/VolumeIndicator";
 
+import SpellingLetterBox from "./components/SpellingLetterBox";
+
 import styles from "./styles.css";
 import css from "./components/NavigationBar/styles.css";
 import ReportStyles from "../ReportsInterface/styles.css";
@@ -663,6 +665,18 @@ export default class Reader extends React.Component {
       pathname: this.props.pathname,
       className: styles.routeTransition
     };
+
+    if (this.props.section === SectionOptions.initializing) {
+      return (
+        <div className={styles.fullHeight}>
+          {this.renderNavigationBar()}
+
+          <div className={styles.contentContainer}>
+            <SpellingLetterBox />
+          </div>
+        </div>
+      );
+    }
 
     if (this.props.inSpelling && this.props.book.stepLevel > 12) {
       return (

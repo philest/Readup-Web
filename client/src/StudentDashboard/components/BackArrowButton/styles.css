@@ -37,6 +37,12 @@
 	opacity: 0.8;
 }
 
+.arrowButtonInlineTitle {
+	position: relative;
+	top: 18px;
+	left: 28px;
+}
+
 .disabledButtonContainer {
 	width: 100%;
 	height: 100%;

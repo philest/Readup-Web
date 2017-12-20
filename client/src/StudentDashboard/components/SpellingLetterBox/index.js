@@ -1,10 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styles from "./styles.css";
-import Avatar from "../Avatar";
 
-import ReactDOM from "react-dom";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import BackArrowButton from "../BackArrowButton";
 
 export default class SpellingLetterBox extends React.Component {
   static propTypes = {};
@@ -30,22 +28,45 @@ export default class SpellingLetterBox extends React.Component {
     );
   }
 
-  renderAlphabet() {
+  renderAlphabet(part) {
     let arr = [];
     let alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-    for (let i = 0; i < 26; i++) {
-      arr.push(this.renderLetter(alphabet[i]));
+    if (part == 1) {
+      for (let i = 0; i < 13; i++) {
+        arr.push(this.renderLetter(alphabet[i]));
+      }
+    } else {
+      for (let i = 13; i < 26; i++) {
+        arr.push(this.renderLetter(alphabet[i]));
+      }
     }
 
-    return <div className={styles.alphabetContainer}>{arr}</div>;
+    return <div className={styles.halfAlphabetContainer}>{arr}</div>;
   }
 
   render() {
     return (
       <div>
         <div className={styles.fakeContainer} />
-        <div className={styles.spellingLetterBox}>{this.renderAlphabet()}</div>
+        <div className={styles.spellingLetterBox}>
+          <div className={styles.alphabets}>
+            {this.renderAlphabet(1)}
+            {this.renderAlphabet(2)}
+          </div>
+          <BackArrowButton
+            title="Back"
+            inline
+            style={{
+              width: 95,
+              height: 75,
+              display: "inline-block",
+              position: "relative",
+              left: 25,
+              top: -10
+            }}
+          />
+        </div>
       </div>
     );
   }
