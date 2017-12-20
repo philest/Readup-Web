@@ -76,6 +76,10 @@ export function getLabel(section) {
   }
 }
 
+function grabFirstWord(phrase) {
+  return phrase.split(" ")[0];
+}
+
 function getLabelArr(format, isSignup) {
   // if (isSignup) {
   //   return ["Names", "Class", "Books", "Start"];
@@ -134,7 +138,7 @@ export default class ProgressBarWithStages extends React.Component {
     for (let i = 0; i < labelDataArr.length; i++) {
       labelHTMLarr.push(
         <li key={i} className={styles.bullet}>
-          {labelDataArr[i]}
+          {grabFirstWord(labelDataArr[i])}
         </li>
       );
     }
