@@ -161,8 +161,7 @@ export default class ProgressBarWithStages extends React.Component {
     return (
       <div
         className={[
-          styles.progress,
-          this.props.isSignup ? "" : styles.navProgress
+          this.props.isSignup ? styles.progress : styles.navProgress
         ].join(" ")}
       >
         {this.renderLabels(format, isSignup)}
