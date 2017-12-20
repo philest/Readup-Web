@@ -47,26 +47,24 @@ export default class SpellingLetterBox extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className={styles.fakeContainer} />
-        <div className={styles.spellingLetterBox}>
-          <div className={styles.alphabets}>
-            {this.renderAlphabet(1)}
-            {this.renderAlphabet(2)}
-          </div>
-          <BackArrowButton
-            title="Back"
-            inline
-            style={{
-              width: 95,
-              height: 75,
-              display: "inline-block",
-              position: "relative",
-              left: 25,
-              top: -10
-            }}
-          />
+      <div className={styles.spellingLetterBox}>
+        <div className={styles.alphabets}>
+          {this.renderAlphabet(1)}
+          {this.renderAlphabet(2)}
         </div>
+        <BackArrowButton
+          title="Back"
+          inline
+          red
+          style={{
+            width: 95,
+            height: 75,
+            display: "inline-block",
+            position: "relative",
+            left: 25,
+            top: -10
+          }}
+        />
       </div>
     );
   }

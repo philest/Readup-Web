@@ -3,7 +3,7 @@
 	background-color: white;
 	border-radius: 15px;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 15px;
 
 	/*MAP stuff*/
 	min-height: 55px;
@@ -28,8 +28,7 @@
 .letter {
 	display: inline-block;
 	font-size: 50px;
-	/*	padding: 10px 20px;
-*/
+	padding: 0px 13px;
 	font-family: "Comic Neue Angular";
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
@@ -39,6 +38,19 @@
 	user-select: none; /* Non-prefixed version, currently */
 
 	cursor: pointer;
+	transition: 0.3s all;
+}
+
+.letter:hover {
+	transform: translateY(-4px);
+	filter: brightness(180%) drop-shadow(0px 7px 14px rgba(50, 50, 93, 0.1));
+
+	transition: 0.3s all;
+}
+
+.letter:active {
+	opacity: 0.8;
+	transform: all 0.3s;
 }
 
 .alphabets {
@@ -50,7 +62,9 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding-left: 20px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	padding-top: 10px;
 }
 
 .fakeContainer {

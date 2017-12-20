@@ -10,7 +10,8 @@ type props = {
   disabled: boolean,
   pulsatingArrow: boolean,
   style: {},
-  inline: boolean
+  inline: boolean,
+  red: boolean
 };
 
 function RectangleButton({
@@ -22,13 +23,15 @@ function RectangleButton({
   disabled = false,
   pulsatingArrow = false,
   style = {},
-  inline = false
+  inline = false,
+  red = false
 }: props) {
   return (
     <div
-      className={
-        disabled ? styles.disabledButtonContainer : styles.arrowButtonContainer
-      }
+      className={[
+        disabled ? styles.disabledButtonContainer : styles.arrowButtonContainer,
+        red ? styles.red : ""
+      ].join(" ")}
       style={style}
       onClick={() => !disabled && onClick()}
     >

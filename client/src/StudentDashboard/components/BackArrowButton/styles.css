@@ -152,3 +152,7 @@
 	left: -15px;
 	animation: pulse-right 800ms infinite alternate;
 }
+
+.red {
+	background-image: url(/images/dashboard/red-arrow.svg);
+}
