@@ -1,0 +1,29 @@
+.bullet {
+	display: inline-block;
+	width: 25%;
+	text-align: center;
+	color: rgb(154, 161, 178);
+}
+
+.bulletList {
+	position: relative;
+	top: -0px;
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
+.progress {
+	width: 600px;
+	min-width: 235px;
+	position: relative;
+	z-index: 2;
+	top: 80px;
+	opacity: 0.9;
+	margin: 0 auto;
+	height: 0px;
+}
+
+.myProgress {
+	background-color: #010203;
+	height: 5px;
+}

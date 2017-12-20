@@ -129,7 +129,9 @@ import {
 	MicPermissionsStatusOptions,
 	PromptOptions,
 	PromptAudioOptions,
-	SectionOptions
+	SectionOptions,
+	FormatOptions,
+	Format
 } from "../types";
 
 import {
@@ -190,6 +192,9 @@ function getSectionsList(book) {
 			4: SectionOptions.oralReadingPartialAtEnd,
 			5: SectionOptions.spelling
 		};
+	} else {
+		return false;
+		console.log(`book ${book} not detected`);
 	}
 }
 

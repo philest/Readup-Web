@@ -49,6 +49,21 @@ export const SectionOptions = {
 
 export type Section = Keys<typeof SectionOptions>;
 
+export const FormatOptions = {
+  standard: "STANDARD",
+  stepFiveThroughEight: "STEP_FIVE_THROUGH_EIGHT",
+  stepNineThroughTwelve: "STEP_NINE_THROUGH_TWELVE"
+};
+
+export type Format = Keys<typeof FormatOptions>;
+
+export const BrandOptions = {
+  fp: "FP",
+  step: "STEP"
+};
+
+export type Brand = Keys<typeof BrandOptions>;
+
 export const MicPermissionsStatusOptions = {
   granted: "MIC_PERMISSIONS_STATUS_GRANTED",
   awaiting: "MIC_PERMISSIONS_STATUS_AWAITING",

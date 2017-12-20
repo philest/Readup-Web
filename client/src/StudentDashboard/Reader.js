@@ -22,14 +22,9 @@ import { ReaderStateOptions, SectionOptions } from "./types";
 
 import Drag from "./components/Drag";
 import SkipPrompt from "./components/SkipPrompt";
+import ProgressBar from "./components/ProgressBar";
 
-import {
-  Modal,
-  Button,
-  Popover,
-  OverlayTrigger,
-  ProgressBar
-} from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 
 import { Link, Redirect } from "react-router-dom";
 

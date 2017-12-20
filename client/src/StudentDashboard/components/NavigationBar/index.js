@@ -6,6 +6,8 @@ import css from "./styles.css";
 import { Button, Popover, OverlayTrigger, ProgressBar } from "react-bootstrap";
 import questionCSS from "../../../ReportsInterface/components/Metric/styles.css";
 
+import ProgressBar from "../ProgressBar";
+
 export default class NavigationBar extends React.Component {
   static propTypes = {
     studentName: PropTypes.string,
