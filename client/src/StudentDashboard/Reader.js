@@ -170,6 +170,13 @@ export default class Reader extends React.Component {
       return null;
     }
 
+    if (
+      this.props.section === SectionOptions.initializing ||
+      this.props.section === SectionOptions.login
+    ) {
+      return null;
+    }
+
     let wideContainerClass;
 
     if (this.props.showCover) {
