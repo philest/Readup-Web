@@ -167,7 +167,7 @@ import {
 const QUESTION_CHANGE_DEBOUNCE_TIME_MS = 200;
 const MAX_NUM_PROMPTS = 2;
 
-const SKIPPED_SECTIONS_IN_WARMUP_LIST = [SectionOptions.compOralSecond];
+export const SKIPPED_SECTIONS_IN_WARMUP_LIST = [SectionOptions.compOralSecond];
 
 function getSectionsList(book) {
 	if (book.brand === "FP" || book.stepLevel <= 5) {

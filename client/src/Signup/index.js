@@ -12,7 +12,7 @@ import AddClass from "../sharedComponents/AddClass";
 import Name from "../sharedComponents/Name";
 import ImportClass from "../sharedComponents/ImportClass";
 
-import { ProgressBar } from "react-bootstrap";
+import ProgressBarWithStages from "../StudentDashboard/components/ProgressBar";
 
 export default class Signup extends React.Component {
   static propTypes = {
@@ -112,19 +112,11 @@ export default class Signup extends React.Component {
   render() {
     return (
       <div className={[styles.fullHeight, styles.fill].join(" ")}>
-        <div className={myStyles.progress}>
-          <ul className={myStyles.bulletList}>
-            <li className={myStyles.bullet}>Name</li>
-            <li className={myStyles.bullet}>Class</li>
-            <li className={myStyles.bullet}>Books</li>
-            <li className={myStyles.bullet}>Start</li>
-          </ul>
-          <ProgressBar
-            className={myStyles.myProgress}
-            bsStyle="success"
-            now={this.getProgress(this.state.currentShowPageID)}
-          />
-        </div>
+        <ProgressBarWithStages
+          isSignup
+          currentSection={this.state.currentShowPageID}
+          format={"SIGNUP"}
+        />
 
         {this.renderNavigationBar()}
         <style type="text/css">
