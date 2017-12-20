@@ -672,7 +672,10 @@ export default class Reader extends React.Component {
           {this.renderNavigationBar()}
 
           <div className={styles.contentContainer}>
-            <SpellingLetterBox />
+            <SpellingLetterBox
+              onSpellingInputSet={this.props.onSpellingInputSet}
+              spellingInput={this.props.spellingInput}
+            />
           </div>
         </div>
       );

@@ -5,9 +5,14 @@ import styles from "./styles.css";
 import BackArrowButton from "../BackArrowButton";
 
 export default class SpellingLetterBox extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    onSpellingInputSet: PropTypes.func,
+    spellingInput: PropTypes.string
+  };
 
-  static defaultProps = {};
+  static defaultProps = {
+    spellingInput: ""
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -20,9 +25,27 @@ export default class SpellingLetterBox extends React.Component {
     };
   }
 
+  addLetter(letter) {
+    this.props.onSpellingInputSet(this.props.spellingInput + letter);
+  }
+
+  backspace() {
+    console.log("spellingInput: ", this.props.spellingInput);
+
+    if (this.props.spellingInput.length > 0) {
+      this.props.onSpellingInputSet(this.props.spellingInput.slice(0, -1));
+    }
+  }
+
   renderLetter(letter) {
     return (
-      <div key={letter} className={styles.letter}>
+      <div
+        key={letter}
+        className={styles.letter}
+        onClick={() => {
+          this.addLetter(letter);
+        }}
+      >
         {letter}
       </div>
     );
@@ -58,11 +81,14 @@ export default class SpellingLetterBox extends React.Component {
           red
           style={{
             width: 95,
-            height: 75,
+            height: 85,
             display: "inline-block",
             position: "relative",
-            left: 25,
-            top: -10
+            left: 14,
+            top: -25
+          }}
+          onClick={() => {
+            this.backspace();
           }}
         />
       </div>
