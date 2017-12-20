@@ -124,7 +124,11 @@ export default class ProgressBarWithStages extends React.Component {
     let labelDataArr = getLabelArr(format, isSignup);
 
     for (let i = 0; i < labelDataArr.length; i++) {
-      labelHTMLarr.push(<li className={styles.bullet}>{labelDataArr[i]}</li>);
+      labelHTMLarr.push(
+        <li key={i} className={styles.bullet}>
+          {labelDataArr[i]}
+        </li>
+      );
     }
 
     return <ul className={styles.bulletList}>{labelHTMLarr}</ul>;
