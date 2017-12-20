@@ -44,7 +44,8 @@ export const SectionOptions = {
   compWritten: "COMP_WRITTEN",
   spelling: "SPELLING",
   initializing: "INITIALIZING",
-  bookIntro: "BOOK_INTRO"
+  bookIntro: "BOOK_INTRO",
+  finished: "FINISHED"
 };
 
 export type Section = Keys<typeof SectionOptions>;

@@ -10,6 +10,9 @@
 	top: -0px;
 	margin-left: 0px;
 	padding-left: 0px;
+	display: flex;
+	flex-flow: row;
+	justify-content: space-around;
 }
 
 .progress {
@@ -23,7 +26,21 @@
 	height: 0px;
 }
 
+.navProgress {
+	width: 380px;
+	min-width: 235px;
+	position: relative;
+	z-index: 2;
+	top: -15px;
+	opacity: 0.9;
+	margin: 0 auto;
+	height: 0px;
+	margin-bottom: 8px;
+	right: 25px;
+}
+
 .myProgress {
 	background-color: #010203;
 	height: 5px;
+	opacity: 0.8;
 }

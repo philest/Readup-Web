@@ -55,9 +55,9 @@ export function getLabel(section) {
   } else if (section === SectionOptions.silentReadingPartialAtEnd) {
     return "Reading 2";
   } else if (section === SectionOptions.compOralFirst) {
-    return "Questions";
+    return "Talking";
   } else if (section === SectionOptions.compOralSecond) {
-    return "Questions 2";
+    return "Talking 2";
   } else if (section === SectionOptions.compWritten) {
     return "Writing";
   } else if (section === SectionOptions.spelling) {
@@ -96,6 +96,10 @@ function getLabelArr(format, isSignup) {
 }
 
 function getProgressNum(currentSection, format) {
+  if (currentSection === SectionOptions.finished) {
+    return 95;
+  }
+
   let sectionList = getSectionsListFromFormat(format);
   let numSections = sectionList.length;
 
@@ -103,6 +107,10 @@ function getProgressNum(currentSection, format) {
   console.log(`sectionList ${sectionList}, numSections ${numSections}`);
 
   let idx = sectionList.indexOf(currentSection);
+
+  if (idx < 0) {
+    idx = 0; // Always start at a baby slice
+  }
 
   let initalSlice = 1 / (numSections * 2) * 100;
 
@@ -151,7 +159,12 @@ export default class ProgressBarWithStages extends React.Component {
     console.log("currentSection: ", currentSection);
 
     return (
-      <div className={styles.progress}>
+      <div
+        className={[
+          styles.progress,
+          this.props.isSignup ? "" : styles.navProgress
+        ].join(" ")}
+      >
         {this.renderLabels(format, isSignup)}
         <ProgressBar
           className={styles.myProgress}

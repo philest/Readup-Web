@@ -6,7 +6,7 @@ import css from "./styles.css";
 import { Button, Popover, OverlayTrigger } from "react-bootstrap";
 import questionCSS from "../../../ReportsInterface/components/Metric/styles.css";
 
-// import ProgressBarWithStages from "../ProgressBar";
+import ProgressBarWithStages from "../ProgressBarWithStages";
 
 export default class NavigationBar extends React.Component {
   static propTypes = {
@@ -31,7 +31,11 @@ export default class NavigationBar extends React.Component {
     onSaveClicked: PropTypes.func,
     brand: PropTypes.string,
     showChecklistModal: PropTypes.func,
-    hideMenuItems: PropTypes.bool
+    hideMenuItems: PropTypes.bool,
+
+    progressBar: PropTypes.bool,
+    currentSection: PropTypes.string,
+    format: PropTypes.string
   };
 
   static defaultProps = {
@@ -44,7 +48,8 @@ export default class NavigationBar extends React.Component {
     white: false,
     beforeStudentDemo: false,
     hideMenuItems: false,
-    isWarmup: false
+    isWarmup: false,
+    progressBar: false
   };
 
   renderButton = () => {
@@ -206,8 +211,17 @@ export default class NavigationBar extends React.Component {
             </div>
           )}
 
-        {this.props.isWarmup && (
-          <span className={css.centerLabel}>Practice Mode</span>
+        {this.props.progressBar && (
+          <span className={css.centerLabel}>
+            {this.props.isWarmup ? "Practice Mode" : "Full Book"}
+          </span>
+        )}
+
+        {this.props.progressBar && (
+          <ProgressBarWithStages
+            currentSection={this.props.currentSection}
+            format={this.props.format}
+          />
         )}
 
         {this.props.showBookInfo && (

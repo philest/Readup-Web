@@ -1954,6 +1954,8 @@ function* assessThenSubmitSaga() {
 		}
 	}
 
+	yield put.resolve(setSection(SectionOptions.finished));
+
 	yield put.resolve(setCurrentModal("modal-done"));
 
 	yield call(delay, 200);

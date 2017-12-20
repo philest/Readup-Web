@@ -18,11 +18,11 @@ import ReportStyles from "../ReportsInterface/styles.css";
 
 import { RouteTransition, presets } from "react-router-transition";
 
-import { ReaderStateOptions, SectionOptions } from "./types";
+import { ReaderStateOptions, SectionOptions, FormatOptions } from "./types";
 
 import Drag from "./components/Drag";
 import SkipPrompt from "./components/SkipPrompt";
-// import ProgressBar from "./components/ProgressBar";
+// import ProgressBarWithStages from "./components/ProgressBarWithStages";
 
 import { Modal, Button } from "react-bootstrap";
 
@@ -581,6 +581,20 @@ export default class Reader extends React.Component {
     return this.props.inSpelling ? -10 : this.props.inComp ? -5 : -5;
   };
 
+  getFormat = book => {
+    if (book.brand === "FP" || book.stepLevel <= 5) {
+      return FormatOptions.standard;
+    } else if (book.stepLevel <= 8) {
+      return FormatOptions.stepFiveThroughEight;
+    } else if (book.stepLevel <= 12) {
+      return FormatOptions.stepNineThroughTwelve;
+    } else {
+      return false;
+      throw "BOOK_NOT_RECOGNIZED";
+      console.log(`book ${book} not detected`);
+    }
+  };
+
   renderNavigationBar = () => {
     let navProps = {
       className: styles.navBar,
@@ -596,9 +610,10 @@ export default class Reader extends React.Component {
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
       inSpelling: this.props.inSpelling,
-      isWarmup:
-        this.props.isWarmup &&
-        this.props.section !== SectionOptions.initializing
+      isWarmup: this.props.isWarmup,
+      progressBar: this.props.section !== SectionOptions.initializing,
+      currentSection: this.props.section,
+      format: this.getFormat(this.props.book)
     };
 
     return <NavigationBar {...navProps} />;
