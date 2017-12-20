@@ -3,7 +3,6 @@ import React from "react";
 import styles from "./styles.css";
 
 import { SectionOptions, FormatOptions } from "../../types";
-import { SKIPPED_SECTIONS_IN_WARMUP_LIST } from "../../sagas/index";
 
 import { ProgressBar } from "react-bootstrap";
 
@@ -91,9 +90,7 @@ function getLabelArr(format, isSignup) {
   for (let i = 0; i < sectionList.length; i++) {
     let section = sectionList[i];
 
-    if (!SKIPPED_SECTIONS_IN_WARMUP_LIST.includes(section)) {
-      labelArr.push(getLabel(section));
-    }
+    labelArr.push(getLabel(section));
   }
 
   return labelArr;
