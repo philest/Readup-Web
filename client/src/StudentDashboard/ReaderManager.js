@@ -385,7 +385,7 @@ export class StudentDashboard extends React.Component {
           currentShowOverlay={this.props.currentShowOverlay}
           showOveride={this.props.playingImmediatePrompt}
           text={this.props.isWarmup ? "Practice" : "Full book"}
-          prompt={this.props.inComp}
+          prompt={this.props.inComp || this.props.playingImmediatePrompt}
         />
 
         <NoSoundOverlay currentShowOverlay={this.props.currentShowOverlay} />
