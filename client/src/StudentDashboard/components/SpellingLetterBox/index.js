@@ -7,7 +7,8 @@ import BackArrowButton from "../BackArrowButton";
 export default class SpellingLetterBox extends React.Component {
   static propTypes = {
     onSpellingInputSet: PropTypes.func,
-    spellingInput: PropTypes.string
+    spellingInput: PropTypes.string,
+    onSpellingAnswerGiven: PropTypes.func
   };
 
   static defaultProps = {
@@ -26,6 +27,7 @@ export default class SpellingLetterBox extends React.Component {
   }
 
   addLetter(letter) {
+    this.props.onSpellingAnswerGiven(true);
     this.props.onSpellingInputSet(this.props.spellingInput + letter);
   }
 

@@ -5,11 +5,13 @@ import styles from "./styles.css";
 export default class VolumeIndicator extends React.Component {
   static propTypes = {
     hearAgainClicked: PropTypes.func,
-    visible: PropTypes.bool
+    visible: PropTypes.bool,
+    centered: PropTypes.bool
   };
 
   static defaultProps = {
-    visible: true
+    visible: true,
+    centered: false
   };
 
   /**
@@ -26,7 +28,10 @@ export default class VolumeIndicator extends React.Component {
       <div
         onClick={this.props.hearAgainClicked}
         className={[styles.volumeContainer, styles.clickable].join(" ")}
-        style={{ visibility: this.props.visible ? "visible" : "hidden" }}
+        style={{
+          visibility: this.props.visible ? "visible" : "hidden",
+          textAlign: this.props.centered ? "center" : ""
+        }}
       >
         <i
           className="fa fa-volume-up fa-3x"
@@ -34,7 +39,15 @@ export default class VolumeIndicator extends React.Component {
           aria-hidden="true"
         />
         <br />
-        <span className={styles.volumeHeadingHearAgain}> Hear again </span>
+        <span
+          className={[
+            styles.volumeHeadingHearAgain,
+            this.props.centered ? styles.centered : ""
+          ].join(" ")}
+        >
+          {" "}
+          Hear again{" "}
+        </span>
       </div>
     );
   }

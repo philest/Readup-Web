@@ -35,3 +35,7 @@
 	-o-user-select: none;
 	user-select: none;
 }
+
+.centered {
+	left: 0px;
+}

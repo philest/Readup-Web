@@ -46,6 +46,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	overflow-y: hidden;
+	flex-flow: column;
 }
 
 .styles.centeredDiv {
@@ -64,6 +65,14 @@ body {
 	position: relative;
 	top: 8px;
 	opacity: 0.5;
+}
+
+.doubleButtonContainer {
+	display: flex;
+	justify-content: space-evenly;
+	width: 360px;
+	position: relative;
+	left: 35px;
 }
 
 .leftDoubleButtonContainer {
@@ -293,4 +302,3 @@ body {
 	opacity: 0.8;
 	transform: all 0.3s;
 }
-

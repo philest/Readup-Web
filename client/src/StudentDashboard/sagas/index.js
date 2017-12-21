@@ -1867,6 +1867,13 @@ function* assessThenSubmitSaga() {
 
 	yield call(resetStateSaga);
 
+	yield put.resolve(avatarClicked()); // log in for them
+
+	book = yield select(getBook);
+	studentName = yield select(getStudentName);
+
+	yield put.resolve(setInSpelling(true));
+
 	yield take("NDSFSDSDFSDF");
 
 	const permissionsGranted = yield* getMicPermissionsSaga(); // blocks

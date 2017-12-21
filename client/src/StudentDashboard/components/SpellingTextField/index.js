@@ -7,6 +7,8 @@ import { FormControl, ProgressBar } from "react-bootstrap";
 import { saveSpellingResponse } from "../../sagas/networkingHelpers";
 import { playSound, playSoundAsync } from "../../audioPlayer";
 
+import VolumeIndicator from "../VolumeIndicator";
+
 export default class SpellingTextField extends React.Component {
   static propTypes = {
     spellingQuestionNumber: PropTypes.number,
@@ -18,7 +20,8 @@ export default class SpellingTextField extends React.Component {
     onSpellingInputSet: PropTypes.func,
     spellingInput: PropTypes.string,
     book: PropTypes.object,
-    onHearQuestionAgainClicked: PropTypes.func
+    onHearQuestionAgainClicked: PropTypes.func,
+    hasVolume: PropTypes.bool
   };
   static defaultProps = {};
 
@@ -37,11 +40,17 @@ export default class SpellingTextField extends React.Component {
     document.addEventListener("keydown", this._handleKeyDown);
   }
 
+  componentDidMount() {
+    this.form.focus();
+  }
+
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
   }
 
   componentWillReceiveProps(nextProps) {
+    this.form.focus();
+
     if (
       this.props.spellingQuestionNumber !== nextProps.spellingQuestionNumber // incremented by
     ) {
@@ -80,28 +89,16 @@ export default class SpellingTextField extends React.Component {
   render() {
     return (
       <div className={[styles.spellingContainer].join(" ")}>
-        <div
-          onClick={() => {
-            this.form.focus();
-
-            this.props.onHearQuestionAgainClicked();
-          }}
-          className={[styles.introVolume, styles.clickable].join(" ")}
-        >
-          <br />
-          <i
-            className={[
-              "fa fa-volume-up fa-3x",
-              styles.volumeIcon,
-              this.props.showVolumeIndicator
-                ? "faa-pulse animated faa-fast"
-                : ""
-            ].join(" ")}
-            style={{ color: "white" }}
-            aria-hidden="true"
+        {this.props.hasVolume && (
+          <VolumeIndicator
+            hearAgainClicked={this.props.onHearQuestionAgainClicked}
+            visible
+            centered
+            onClick={() => {
+              this.form.focus();
+            }}
           />
-          <h4 className={styles.volumeLabel}>Hear again</h4>
-        </div>
+        )}
 
         <style type="text/css">
           {`
@@ -142,11 +139,11 @@ export default class SpellingTextField extends React.Component {
               : "hidden"
           }}
         />
-
-        <div className={styles.progress}>
-          <ProgressBar now={this.props.progressNum} />
-        </div>
       </div>
     );
   }
 }
+
+//        <div className={styles.progress}>
+//         <ProgressBar now={this.props.progressNum} />
+//        </div>

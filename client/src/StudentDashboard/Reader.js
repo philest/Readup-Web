@@ -121,6 +121,26 @@ export default class Reader extends React.Component {
   }
 
   renderLeftButton = () => {
+    return (
+      <BackArrowButton
+        title="Back"
+        subtitle={this.props.inSpelling ? null : "page"}
+        disabled={this.props.spellingQuestionNumber <= 1}
+        style={{
+          width: 95,
+          height: 75,
+          float: "right",
+          position: "relative",
+          top: 51
+        }}
+        onClick={
+          this.props.inSpelling
+            ? this.props.onPreviousWordClicked
+            : this.props.onPreviousPageClicked
+        }
+      />
+    );
+
     if (this.props.inSpelling) {
       return (
         <BackArrowButton
@@ -496,7 +516,7 @@ export default class Reader extends React.Component {
         <ForwardArrowButton
           title="Next"
           subtitle={this.props.inSpelling ? null : "page"}
-          style={{ width: 145, height: 120 }}
+          style={{ width: 145, height: 120, position: "relative", top: 30 }}
           disabled={this.props.disabled}
           onClick={
             this.props.inSpelling
@@ -666,20 +686,20 @@ export default class Reader extends React.Component {
       className: styles.routeTransition
     };
 
-    if (this.props.section === SectionOptions.initializing) {
-      return (
-        <div className={styles.fullHeight}>
-          {this.renderNavigationBar()}
+    // if (this.props.section === SectionOptions.initializing) {
+    //   return (
+    //     <div className={styles.fullHeight}>
+    //       {this.renderNavigationBar()}
 
-          <div className={styles.contentContainer}>
-            <SpellingLetterBox
-              onSpellingInputSet={this.props.onSpellingInputSet}
-              spellingInput={this.props.spellingInput}
-            />
-          </div>
-        </div>
-      );
-    }
+    //       <div className={styles.contentContainer}>
+    //         <SpellingLetterBox
+    //           onSpellingInputSet={this.props.onSpellingInputSet}
+    //           spellingInput={this.props.spellingInput}
+    //         />
+    //       </div>
+    //     </div>
+    //   );
+    // }
 
     if (this.props.inSpelling && this.props.book.stepLevel > 12) {
       return (
@@ -761,9 +781,10 @@ export default class Reader extends React.Component {
                   ? styles.spellingLeftButtonContainer
                   : styles.leftButtonContainer
             }
+            style={{ display: "none" }}
           >
             {this.renderUpperLeftButton()}
-            {(this.props.inSpelling ||
+            {((false && this.props.inSpelling) ||
               this.props.inComp ||
               this.props.inOralReading) &&
               this.renderLeftButton()}
@@ -772,6 +793,7 @@ export default class Reader extends React.Component {
           {this.props.inSpelling &&
             this.props.book.stepLevel <= 12 && (
               <SpellingTextField
+                hasVolume={false}
                 book={this.props.book}
                 onHearQuestionAgainClicked={
                   this.props.onHearQuestionAgainClicked
@@ -794,6 +816,20 @@ export default class Reader extends React.Component {
               />
             )}
 
+          {this.props.inSpelling &&
+            this.props.book.stepLevel <= 12 && (
+              <SpellingLetterBox
+                onSpellingInputSet={this.props.onSpellingInputSet}
+                spellingInput={this.props.spellingInput}
+                onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+              />
+            )}
+
+          <div className={styles.doubleButtonContainer}>
+            {this.renderLeftButton()}
+            {this.renderRightButton()}}
+          </div>
+
           {this.renderCenterDisplay()}
 
           <div
@@ -802,6 +838,7 @@ export default class Reader extends React.Component {
                 ? styles.spellingRightButtonContainer
                 : styles.rightButtonContainer
             }
+            style={{ display: "none" }}
           >
             {this.props.showSkipPrompt && (
               <SkipPrompt
@@ -810,7 +847,8 @@ export default class Reader extends React.Component {
                 onSkipClicked={this.props.onSkipClicked}
               />
             )}
-            {true &&
+            {false &&
+              true &&
               (this.props.inSpelling ||
                 this.props.inComp ||
                 this.props.inOralReading) &&
