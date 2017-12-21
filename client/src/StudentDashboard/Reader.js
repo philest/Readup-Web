@@ -160,27 +160,34 @@ export default class Reader extends React.Component {
   };
 
   renderLeftButton = () => {
-    return (
-      <BackArrowButton
-        title="Back"
-        subtitle={this.props.inSpelling ? null : "page"}
-        disabled={this.props.spellingQuestionNumber <= 1}
-        style={{
-          width: 95,
-          height: 75,
-          float: "right",
-          position: "relative",
-          top: 51
-        }}
-        onClick={
-          this.props.inSpelling
-            ? this.props.onPreviousWordClicked
-            : this.props.onPreviousPageClicked
-        }
-      />
-    );
+    const isBoxedSpelling =
+      this.props.inSpelling && this.props.book.stepLevel <= 12;
 
-    if (this.props.inSpelling) {
+    const isTypedSpelling = this.props.inSpelling && !isBoxedSpelling;
+
+    if (isBoxedSpelling) {
+      return (
+        <BackArrowButton
+          title="Back"
+          subtitle={this.props.inSpelling ? null : "page"}
+          disabled={this.props.spellingQuestionNumber <= 1}
+          style={{
+            width: 95,
+            height: 75,
+            float: "right",
+            position: "relative",
+            top: 51
+          }}
+          onClick={
+            this.props.inSpelling
+              ? this.props.onPreviousWordClicked
+              : this.props.onPreviousPageClicked
+          }
+        />
+      );
+    }
+
+    if (isTypedSpelling) {
       return (
         <BackArrowButton
           title="Back"
@@ -774,11 +781,11 @@ export default class Reader extends React.Component {
             className={
               this.props.inComp && this.props.currentShowModal !== "modal-comp"
                 ? styles.leftDoubleButtonContainer
-                : this.props.inSpelling
+                : isTypedSpelling
                   ? styles.spellingLeftButtonContainer
                   : styles.leftButtonContainer
             }
-            style={{ display: "none" }}
+            style={{ display: isBoxedSpelling ? "none" : "" }}
           >
             {this.renderUpperLeftButton()}
 

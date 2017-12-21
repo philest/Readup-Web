@@ -301,10 +301,10 @@ export default class NavigationBar extends React.Component {
                   <span className={css.logoutButton} onClick={onRightIconClick}>
                     <a className={[css.logoutLabel, textColorClass].join(" ")}>
                       {rightIconLabel}
+                      <i
+                        className={[css.logoutIcon, rightIconButton].join(" ")}
+                      />
                     </a>
-                    <i
-                      className={[css.logoutIcon, rightIconButton].join(" ")}
-                    />
                   </span>
                 </div>
               )}
