@@ -22,6 +22,10 @@
 	top: 30px;
 }
 
+.large {
+	font-size: 11.75em;
+}
+
 .introSubtitle {
 	font-size: 1.8em;
 	margin-top: 20px;

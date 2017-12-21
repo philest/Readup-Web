@@ -684,7 +684,9 @@ export default class Reader extends React.Component {
     } else if (book.stepLevel <= 12) {
       return FormatOptions.stepNineThroughTwelve;
     } else {
-      return false;
+      return FormatOptions.standard;
+
+      // return false;
       throw "BOOK_NOT_RECOGNIZED";
       console.log(`book ${book} not detected`);
     }

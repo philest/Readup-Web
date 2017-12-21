@@ -3,12 +3,13 @@ import React from "react";
 
 import styles from "./styles.css";
 
-const THIS_OVERLAY_ID = "overlay-warmup";
+const THIS_OVERLAY_ID = "overlay-flash-notice";
 
-export default class WarmupOverlay extends React.Component {
+export default class FlashNoticeOverlay extends React.Component {
   static propTypes = {
     currentShowOverlay: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
+    prompt: PropTypes.bool
   };
 
   /**
@@ -27,8 +28,14 @@ export default class WarmupOverlay extends React.Component {
 
     return (
       <div className={styles.introContainer}>
-        <div className={[styles.introTitle, styles.flashIt].join(" ")}>
-          {this.props.text}
+        <div
+          className={[
+            styles.introTitle,
+            styles.flashIt,
+            this.props.prompt ? styles.large : ""
+          ].join(" ")}
+        >
+          {this.props.prompt ? "?" : this.props.text}
         </div>
       </div>
     );
