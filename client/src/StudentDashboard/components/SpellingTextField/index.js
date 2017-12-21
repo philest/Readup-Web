@@ -34,6 +34,8 @@ export default class SpellingTextField extends React.Component {
     this.state = {
       showHelper: true
     };
+
+    this.tick = this.tick.bind(this);
   }
 
   componentWillMount() {
@@ -42,10 +44,16 @@ export default class SpellingTextField extends React.Component {
 
   componentDidMount() {
     this.form.focus();
+    this.interval = setInterval(this.tick, 3000);
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
+    clearInterval(this.interval);
+  }
+
+  tick() {
+    this.form.focus();
   }
 
   componentWillReceiveProps(nextProps) {
