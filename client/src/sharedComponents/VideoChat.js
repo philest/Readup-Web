@@ -224,6 +224,12 @@ export function roomJoined(room) {
               PromptAudioOptions[Object.keys(PromptAudioOptions)[promptNum - 1]]
             );
 
+            if (!this.props.allowPrompts) {
+              console.log(
+                "We're not allowing prompts right now, so don't voice it."
+              );
+            }
+
             if (promptNum < 5) {
               this.props.onSetPlayingImmediatePrompt(true);
 
@@ -377,6 +383,7 @@ export function leaveRoomIfJoined() {
 
 export default class VideoChat extends React.Component {
   static propTypes = {
+    allowPrompts: PropTypes.bool,
     onSetPlayingImmediatePrompt: PropTypes.func,
     identity: PropTypes.string,
     assessmentID: PropTypes.number.isRequired,
@@ -394,6 +401,7 @@ export default class VideoChat extends React.Component {
   };
 
   static defaultProps = {
+    allowPrompts: true,
     identity: "student",
     logs: false,
     pictureInPicture: true,

@@ -46,6 +46,7 @@ export default class Reader extends React.Component {
     textLines: PropTypes.arrayOf(PropTypes.string),
     imageURL: PropTypes.string,
     isWideBook: PropTypes.bool,
+    readerState: PropTypes.string,
 
     // For displaying book cover
     showCover: PropTypes.bool,
@@ -316,7 +317,7 @@ export default class Reader extends React.Component {
     if (
       (this.props.inOralReading &&
         this.props.showCover &&
-        (this.props.readerState === "READER_STATE_INITIALIZING" ||
+        (this.props.readerState === ReaderStateOptions.initializing ||
           this.props.readerState === ReaderStateOptions.playingBookIntro)) ||
       (!this.props.inOralReading &&
         !this.props.inComp &&
@@ -724,6 +725,12 @@ export default class Reader extends React.Component {
     return (
       <div style={{ height: 0 }}>
         <VideoChat
+          allowPrompts={
+            !(
+              this.props.inComp &&
+              this.props.readerState === ReaderStateOptions.paused
+            )
+          }
           onSetPlayingImmediatePrompt={this.props.onSetPlayingImmediatePrompt}
           identity={this.props.studentName}
           assessmentID={this.props.assessmentID}
