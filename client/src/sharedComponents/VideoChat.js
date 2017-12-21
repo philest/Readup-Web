@@ -231,14 +231,30 @@ export function roomJoined(room) {
                 PromptAudioOptions[
                   Object.keys(PromptAudioOptions)[promptNum - 1]
                 ]
-              );
-              console.log("should only play when ended");
-              // this.props.onSetPlayingImmediatePrompt(false);
+              )
+                .then(resolved => {
+                  console.log("should only play when ENDS");
+                  this.props.onSetPlayingImmediatePrompt(false);
+                })
+                .catch(err => {
+                  console.log("playing the prompt FAILED");
+                });
             } else if (promptNum === 5) {
               // a repeat prompt
-              playSound(lastQuestionAudioFile);
+
+              this.props.onSetPlayingImmediatePrompt(true);
+
+              playSound(lastQuestionAudioFile)
+                .then(resolved => {
+                  console.log("should only play when ENDS");
+                  this.props.onSetPlayingImmediatePrompt(false);
+                })
+                .catch(err => {
+                  console.log("playing the prompt FAILED");
+                });
             } else {
               stopAudio();
+              this.props.onSetPlayingImmediatePrompt(false);
             }
           } else {
             console.log("WE GOT THE PROPSSSS...");
