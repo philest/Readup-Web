@@ -716,6 +716,11 @@ export default class Reader extends React.Component {
   };
 
   render() {
+    const isBoxedSpelling =
+      this.props.inSpelling && this.props.book.stepLevel <= 12;
+
+    const isTypedSpelling = this.props.inSpelling && !isBoxedSpelling;
+
     console.log("Rerendering Reader, pageNumber is: " + this.props.pageNumber);
 
     // const transitionPreset = this.props.location.action === 'POP' ? presets.slideLeft : presets.slideRight;
@@ -724,53 +729,6 @@ export default class Reader extends React.Component {
       pathname: this.props.pathname,
       className: styles.routeTransition
     };
-
-    // if (this.props.section === SectionOptions.initializing) {
-    //   return (
-    //     <div className={styles.fullHeight}>
-    //       {this.renderNavigationBar()}
-
-    //       <div className={styles.contentContainer}>
-    //         <SpellingLetterBox
-    //           onSpellingInputSet={this.props.onSpellingInputSet}
-    //           spellingInput={this.props.spellingInput}
-    //         />
-    //       </div>
-    //     </div>
-    //   );
-    // }
-
-    if (this.props.inSpelling && this.props.book.stepLevel > 12) {
-      return (
-        <div className={styles.fullHeight}>
-          {this.renderNavigationBar()}
-
-          <div className={styles.contentContainer}>
-            <Drag
-              onSkipClicked={this.props.onSkipClicked}
-              book={this.props.book}
-              onHearQuestionAgainClicked={this.props.onHearQuestionAgainClicked}
-              onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
-              spellingQuestionNumber={this.props.spellingQuestionNumber}
-              onNextWordClicked={this.props.onNextWordClicked}
-              onPreviousWordClicked={this.props.onPreviousWordClicked}
-              showSpellingBoxIndicator={
-                this.props.readerState ===
-                "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
-              }
-              onEnterPressed={this.props.onNextWordClicked}
-              progressNum={
-                this.props.spellingQuestionNumber /
-                this.props.book.numSpellingQuestions *
-                100
-              }
-              onSpellingInputSet={this.props.onSpellingInputSet}
-              spellingInput={this.props.spellingInput}
-            />
-          </div>
-        </div>
-      );
-    }
 
     if (!this.props.hasLoggedIn && !this.props.isDemo) {
       return (
@@ -823,24 +781,24 @@ export default class Reader extends React.Component {
             style={{ display: "none" }}
           >
             {this.renderUpperLeftButton()}
-            {((false && this.props.inSpelling) ||
+
+            {(isTypedSpelling ||
               this.props.inComp ||
               this.props.inOralReading) &&
               this.renderLeftButton()}
           </div>
 
-          {this.props.inSpelling &&
-            this.props.book.stepLevel <= 12 &&
-            this.renderBoxedSpelling()}
+          {isBoxedSpelling && this.renderBoxedSpelling()}
 
           {this.renderCenterDisplay()}
+
           <div
             className={
-              this.props.inSpelling
+              isTypedSpelling
                 ? styles.spellingRightButtonContainer
                 : styles.rightButtonContainer
             }
-            style={{ display: "none" }}
+            style={{ display: isBoxedSpelling ? "none" : "" }}
           >
             {this.props.showSkipPrompt && (
               <SkipPrompt
@@ -849,11 +807,9 @@ export default class Reader extends React.Component {
                 onSkipClicked={this.props.onSkipClicked}
               />
             )}
-            {false &&
-              true &&
-              (this.props.inSpelling ||
-                this.props.inComp ||
-                this.props.inOralReading) &&
+            {(isTypedSpelling ||
+              this.props.inComp ||
+              this.props.inOralReading) &&
               this.renderRightButton()}
           </div>
         </div>
