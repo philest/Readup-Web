@@ -159,11 +159,20 @@ export default class Reader extends React.Component {
           onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
           hearAgainClicked={this.props.onHearQuestionAgainClicked}
           hasVolume
+          onSkipClicked={this.props.onSkipClicked}
         />
 
         <div className={styles.doubleButtonContainer}>
           {this.renderLeftButton()}
-          {this.renderRightButton()}}
+          {this.renderRightButton()}
+          {this.props.showSkipPrompt && (
+            <SkipPrompt
+              topOffset={0}
+              nextSection={"end"}
+              onSkipClicked={this.props.onSkipClicked}
+              spelling
+            />
+          )}
         </div>
       </div>
     );

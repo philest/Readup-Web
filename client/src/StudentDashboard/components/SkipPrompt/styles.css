@@ -20,3 +20,10 @@
 	margin: 0 auto;
 	left: 300px;
 }
+
+.spelling {
+	top: 85px !important;
+	left: 20px;
+	width: 0px;
+	white-space: nowrap;
+}

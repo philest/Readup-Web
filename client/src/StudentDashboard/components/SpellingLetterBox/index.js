@@ -4,6 +4,7 @@ import styles from "./styles.css";
 
 import BackArrowButton from "../BackArrowButton";
 import VolumeIndicator from "../VolumeIndicator";
+import SkipPrompt from "../SkipPrompt";
 
 export default class SpellingLetterBox extends React.Component {
   static propTypes = {
@@ -11,7 +12,8 @@ export default class SpellingLetterBox extends React.Component {
     spellingInput: PropTypes.string,
     onSpellingAnswerGiven: PropTypes.func,
     hasVolume: PropTypes.bool,
-    hearAgainClicked: PropTypes.func
+    hearAgainClicked: PropTypes.func,
+    onSkipClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -110,6 +112,7 @@ export default class SpellingLetterBox extends React.Component {
             hearAgainClicked={this.props.hearAgainClicked}
             offsetLeft
             hideOnSmallScreen
+            onSkipClicked={this.props.onSkipClicked}
           />
         )}
       </div>

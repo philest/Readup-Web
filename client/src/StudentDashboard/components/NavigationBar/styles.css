@@ -186,6 +186,7 @@
 
 .textWhite {
 	color: white;
+	white-space: nowrap;
 }
 
 .textNavy {
@@ -245,5 +246,3 @@
 		display: none;
 	}
 }
-
-

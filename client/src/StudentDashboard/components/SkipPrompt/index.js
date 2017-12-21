@@ -7,7 +7,8 @@ export default class SkipPrompt extends React.Component {
     topOffset: PropTypes.number,
     onSkipClicked: PropTypes.func,
     nextSection: PropTypes.string,
-    dragSpelling: PropTypes.bool
+    dragSpelling: PropTypes.bool,
+    spelling: PropTypes.bool
   };
 
   static defaultProps = {
@@ -32,7 +33,8 @@ export default class SkipPrompt extends React.Component {
         onClick={this.props.onSkipClicked}
         className={[
           styles.skipPrompt,
-          this.props.dragSpelling ? styles.dragSpelling : ""
+          this.props.dragSpelling ? styles.dragSpelling : "",
+          this.props.spelling ? styles.spelling : ""
         ].join(" ")}
       >
         Skip to {this.props.nextSection}
