@@ -8,6 +8,7 @@ const THIS_OVERLAY_ID = "overlay-flash-notice";
 export default class FlashNoticeOverlay extends React.Component {
   static propTypes = {
     currentShowOverlay: PropTypes.string,
+    showOveride: PropTypes.bool,
     text: PropTypes.string,
     prompt: PropTypes.bool
   };
@@ -22,7 +23,10 @@ export default class FlashNoticeOverlay extends React.Component {
   }
 
   render() {
-    if (this.props.currentShowOverlay !== THIS_OVERLAY_ID) {
+    if (
+      this.props.currentShowOverlay !== THIS_OVERLAY_ID &&
+      !this.props.showOveride
+    ) {
       return null;
     }
 

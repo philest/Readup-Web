@@ -143,6 +143,8 @@ export const STUDENTS_SET = "STUDENTS_SET";
 export const ASSESSMENTS_SET = "ASSESSMENTS_SET";
 export const USER_ID_SET = "USER_ID_SET";
 
+export const PlAYING_IMMEDIATE_PROMPT_SET = "PlAYING_IMMEDIATE_PROMPT_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -166,6 +168,15 @@ export function setUserId(userId: number) {
     type: USER_ID_SET,
     payload: {
       userId
+    }
+  };
+}
+
+export function setPlayingImmediatePrompt(playingImmediatePrompt: boolean) {
+  return {
+    type: PlAYING_IMMEDIATE_PROMPT_SET,
+    payload: {
+      playingImmediatePrompt
     }
   };
 }
@@ -789,7 +800,8 @@ export const initialState = {
   teacherSignature: null,
   students: [],
   assessments: [],
-  userId: null
+  userId: null,
+  playingImmediatePrompt: false
 };
 
 // any way to do this other than writing a custom reducer for each?

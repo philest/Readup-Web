@@ -84,7 +84,8 @@ function mapStateToProps(state) {
     section: state.reader.section,
     teacherSignature: state.reader.teacherSignature,
     students: state.reader.students,
-    assessments: state.reader.assessments
+    assessments: state.reader.assessments,
+    playingImmediatePrompt: state.reader.playingImmediatePrompt
   };
 }
 
@@ -380,6 +381,7 @@ export class StudentDashboard extends React.Component {
 
         <FlashNoticeOverlay
           currentShowOverlay={this.props.currentShowOverlay}
+          showOveride={this.props.playingImmediatePrompt}
           text={this.props.isWarmup ? "Practice" : "Full book"}
           prompt={this.props.inComp}
         />
