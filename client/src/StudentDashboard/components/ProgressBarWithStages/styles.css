@@ -27,8 +27,12 @@
 }
 
 .navProgress {
-	width: 380px;
+	/*	width: 380px;
 	min-width: 235px;
+*/
+
+	min-width: 235px;
+	width: 35%;
 	position: relative;
 	z-index: 2;
 	top: -15px;
