@@ -109,6 +109,7 @@ export default class SpellingLetterBox extends React.Component {
           <VolumeIndicator
             hearAgainClicked={this.props.hearAgainClicked}
             offsetLeft
+            hideOnSmallScreen
           />
         )}
       </div>

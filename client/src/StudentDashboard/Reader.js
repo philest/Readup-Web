@@ -120,6 +120,45 @@ export default class Reader extends React.Component {
     super(props);
   }
 
+  renderBoxedSpelling = () => {
+    return (
+      <div>
+        <SpellingTextField
+          hasVolume={false}
+          book={this.props.book}
+          onHearQuestionAgainClicked={this.props.onHearQuestionAgainClicked}
+          onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+          spellingQuestionNumber={this.props.spellingQuestionNumber}
+          showVolumeIndicator={this.props.showVolumeIndicator}
+          showSpellingBoxIndicator={
+            this.props.readerState === "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
+          }
+          onEnterPressed={this.props.onNextWordClicked}
+          progressNum={
+            this.props.spellingQuestionNumber /
+            this.props.book.numSpellingQuestions *
+            100
+          }
+          onSpellingInputSet={this.props.onSpellingInputSet}
+          spellingInput={this.props.spellingInput}
+        />
+
+        <SpellingLetterBox
+          onSpellingInputSet={this.props.onSpellingInputSet}
+          spellingInput={this.props.spellingInput}
+          onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+          hearAgainClicked={this.props.onHearQuestionAgainClicked}
+          hasVolume
+        />
+
+        <div className={styles.doubleButtonContainer}>
+          {this.renderLeftButton()}
+          {this.renderRightButton()}}
+        </div>
+      </div>
+    );
+  };
+
   renderLeftButton = () => {
     return (
       <BackArrowButton
@@ -791,49 +830,10 @@ export default class Reader extends React.Component {
           </div>
 
           {this.props.inSpelling &&
-            this.props.book.stepLevel <= 12 && (
-              <SpellingTextField
-                hasVolume={false}
-                book={this.props.book}
-                onHearQuestionAgainClicked={
-                  this.props.onHearQuestionAgainClicked
-                }
-                onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
-                spellingQuestionNumber={this.props.spellingQuestionNumber}
-                showVolumeIndicator={this.props.showVolumeIndicator}
-                showSpellingBoxIndicator={
-                  this.props.readerState ===
-                  "READER_STATE_TALKING_ABOUT_SPELLING_BOX"
-                }
-                onEnterPressed={this.props.onNextWordClicked}
-                progressNum={
-                  this.props.spellingQuestionNumber /
-                  this.props.book.numSpellingQuestions *
-                  100
-                }
-                onSpellingInputSet={this.props.onSpellingInputSet}
-                spellingInput={this.props.spellingInput}
-              />
-            )}
-
-          {this.props.inSpelling &&
-            this.props.book.stepLevel <= 12 && (
-              <SpellingLetterBox
-                onSpellingInputSet={this.props.onSpellingInputSet}
-                spellingInput={this.props.spellingInput}
-                onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
-                hearAgainClicked={this.props.onHearQuestionAgainClicked}
-                hasVolume
-              />
-            )}
-
-          <div className={styles.doubleButtonContainer}>
-            {this.renderLeftButton()}
-            {this.renderRightButton()}}
-          </div>
+            this.props.book.stepLevel <= 12 &&
+            this.renderBoxedSpelling()}
 
           {this.renderCenterDisplay()}
-
           <div
             className={
               this.props.inSpelling

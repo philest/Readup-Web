@@ -46,3 +46,9 @@
 	left: 90px;
 	top: -20px;
 }
+
+@media screen and (max-width: 1070px) {
+	.hideOnSmallScreen {
+		display: none;
+	}
+}

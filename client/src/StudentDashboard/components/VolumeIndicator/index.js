@@ -7,7 +7,8 @@ export default class VolumeIndicator extends React.Component {
     hearAgainClicked: PropTypes.func,
     visible: PropTypes.bool,
     centered: PropTypes.bool,
-    offsetLeft: PropTypes.bool
+    offsetLeft: PropTypes.bool,
+    hideOnSmallScreen: PropTypes.bool
   };
 
   static defaultProps = {
@@ -32,7 +33,8 @@ export default class VolumeIndicator extends React.Component {
         className={[
           styles.volumeContainer,
           styles.clickable,
-          this.props.offsetLeft ? styles.offsetLeft : ""
+          this.props.offsetLeft ? styles.offsetLeft : "",
+          this.props.hideOnSmallScreen ? styles.hideOnSmallScreen : ""
         ].join(" ")}
         style={{
           visibility: this.props.visible ? "visible" : "hidden",
