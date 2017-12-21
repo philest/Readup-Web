@@ -822,6 +822,8 @@ export default class Reader extends React.Component {
                 onSpellingInputSet={this.props.onSpellingInputSet}
                 spellingInput={this.props.spellingInput}
                 onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
+                hearAgainClicked={this.props.onHearQuestionAgainClicked}
+                hasVolume
               />
             )}
 

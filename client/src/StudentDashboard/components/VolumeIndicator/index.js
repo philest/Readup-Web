@@ -6,12 +6,14 @@ export default class VolumeIndicator extends React.Component {
   static propTypes = {
     hearAgainClicked: PropTypes.func,
     visible: PropTypes.bool,
-    centered: PropTypes.bool
+    centered: PropTypes.bool,
+    offsetLeft: PropTypes.bool
   };
 
   static defaultProps = {
     visible: true,
-    centered: false
+    centered: false,
+    offsetLeft: false
   };
 
   /**
@@ -27,7 +29,11 @@ export default class VolumeIndicator extends React.Component {
     return (
       <div
         onClick={this.props.hearAgainClicked}
-        className={[styles.volumeContainer, styles.clickable].join(" ")}
+        className={[
+          styles.volumeContainer,
+          styles.clickable,
+          this.props.offsetLeft ? styles.offsetLeft : ""
+        ].join(" ")}
         style={{
           visibility: this.props.visible ? "visible" : "hidden",
           textAlign: this.props.centered ? "center" : ""

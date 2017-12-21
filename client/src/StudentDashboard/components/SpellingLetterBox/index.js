@@ -3,12 +3,15 @@ import React from "react";
 import styles from "./styles.css";
 
 import BackArrowButton from "../BackArrowButton";
+import VolumeIndicator from "../VolumeIndicator";
 
 export default class SpellingLetterBox extends React.Component {
   static propTypes = {
     onSpellingInputSet: PropTypes.func,
     spellingInput: PropTypes.string,
-    onSpellingAnswerGiven: PropTypes.func
+    onSpellingAnswerGiven: PropTypes.func,
+    hasVolume: PropTypes.bool,
+    hearAgainClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -72,27 +75,42 @@ export default class SpellingLetterBox extends React.Component {
 
   render() {
     return (
-      <div className={styles.spellingLetterBox}>
-        <div className={styles.alphabets}>
-          {this.renderAlphabet(1)}
-          {this.renderAlphabet(2)}
-        </div>
-        <BackArrowButton
-          title="Back"
-          inline
-          red
+      <div className={styles.containerForBoxAndVolume}>
+        <div
+          className={styles.spellingLetterBox}
           style={{
-            width: 95,
-            height: 85,
-            display: "inline-block",
             position: "relative",
-            left: 14,
-            top: -25
+            left: this.props.hasVolume ? 50 : 0,
+            display: "inline-block"
           }}
-          onClick={() => {
-            this.backspace();
-          }}
-        />
+        >
+          <div className={styles.alphabets}>
+            {this.renderAlphabet(1)}
+            {this.renderAlphabet(2)}
+          </div>
+          <BackArrowButton
+            title="Back"
+            inline
+            red
+            style={{
+              width: 95,
+              height: 85,
+              display: "inline-block",
+              position: "relative",
+              left: 14,
+              top: -25
+            }}
+            onClick={() => {
+              this.backspace();
+            }}
+          />
+        </div>
+        {this.props.hasVolume && (
+          <VolumeIndicator
+            hearAgainClicked={this.props.hearAgainClicked}
+            offsetLeft
+          />
+        )}
       </div>
     );
   }

@@ -39,3 +39,10 @@
 .centered {
 	left: 0px;
 }
+
+.offsetLeft {
+	display: inline-block;
+	position: relative;
+	left: 90px;
+	top: -20px;
+}

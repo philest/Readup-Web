@@ -1,3 +1,6 @@
+.containerForBoxAndVolume {
+}
+
 .spellingLetterBox {
 	width: 950px;
 	min-width: 950px;
@@ -7,7 +10,7 @@
 	padding: 15px;
 
 	/*MAP stuff*/
-	min-height: 55px;
+	min-height: 215px;
 	background-image: linear-gradient(#e3e8ed 1px, transparent 1px),
 		linear-gradient(#e3e8ed 1px, transparent 1px),
 		linear-gradient(90deg, #e3e8ed 1px, transparent 1px);
