@@ -26,7 +26,7 @@ import Drag from "./components/Drag";
 import SkipPrompt from "./components/SkipPrompt";
 // import ProgressBarWithStages from "./components/ProgressBarWithStages";
 
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, ProgressBar } from "react-bootstrap";
 
 import { Link, Redirect } from "react-router-dom";
 
@@ -142,6 +142,16 @@ export default class Reader extends React.Component {
           onSpellingInputSet={this.props.onSpellingInputSet}
           spellingInput={this.props.spellingInput}
         />
+
+        <div className={styles.progress}>
+          <ProgressBar
+            now={
+              this.props.spellingQuestionNumber /
+              this.props.book.numSpellingQuestions *
+              100
+            }
+          />
+        </div>
 
         <SpellingLetterBox
           onSpellingInputSet={this.props.onSpellingInputSet}

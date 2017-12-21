@@ -152,6 +152,3 @@ export default class SpellingTextField extends React.Component {
   }
 }
 
-//        <div className={styles.progress}>
-//         <ProgressBar now={this.props.progressNum} />
-//        </div>

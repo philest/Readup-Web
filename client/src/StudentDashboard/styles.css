@@ -244,6 +244,19 @@ body {
 	opacity: 0.3;
 }
 
+.progress {
+	width: 368px;
+	position: relative;
+	opacity: 0.4;
+	margin: 0 auto;
+	top: -60px;
+}
+
+.progress div {
+	height: 7px;
+	margin-bottom: 0px;
+}
+
 .myQuestionMarkIcon {
 	position: relative;
 	top: -56px;
