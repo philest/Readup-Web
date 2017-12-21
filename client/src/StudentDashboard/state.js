@@ -143,7 +143,7 @@ export const STUDENTS_SET = "STUDENTS_SET";
 export const ASSESSMENTS_SET = "ASSESSMENTS_SET";
 export const USER_ID_SET = "USER_ID_SET";
 
-export const PlAYING_IMMEDIATE_PROMPT_SET = "PlAYING_IMMEDIATE_PROMPT_SET";
+export const PLAYING_IMMEDIATE_PROMPT_SET = "PLAYING_IMMEDIATE_PROMPT_SET";
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -174,7 +174,7 @@ export function setUserId(userId: number) {
 
 export function setPlayingImmediatePrompt(playingImmediatePrompt: boolean) {
   return {
-    type: PlAYING_IMMEDIATE_PROMPT_SET,
+    type: PLAYING_IMMEDIATE_PROMPT_SET,
     payload: {
       playingImmediatePrompt
     }
@@ -824,6 +824,13 @@ function reducer(state = initialState, action = {}) {
 
     case USER_ID_SET: {
       return { ...state, userId: payload.userId };
+    }
+
+    case PLAYING_IMMEDIATE_PROMPT_SET: {
+      return {
+        ...state,
+        playingImmediatePrompt: payload.playingImmediatePrompt
+      };
     }
 
     case ASSESSMENT_SUBMITTED_SET: {

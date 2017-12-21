@@ -1926,8 +1926,6 @@ function* assessThenSubmitSaga() {
 
 		yield* soundCheckSaga(); // sound check for only the real thing?
 
-		yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
-
 		// API stuff
 		yield call(loginSaga);
 

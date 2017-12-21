@@ -225,11 +225,15 @@ export function roomJoined(room) {
             );
 
             if (promptNum < 5) {
+              this.props.onSetPlayingImmediatePrompt(true);
+
               playSound(
                 PromptAudioOptions[
                   Object.keys(PromptAudioOptions)[promptNum - 1]
                 ]
               );
+              console.log("should only play when ended");
+              // this.props.onSetPlayingImmediatePrompt(false);
             } else if (promptNum === 5) {
               // a repeat prompt
               playSound(lastQuestionAudioFile);
@@ -357,6 +361,7 @@ export function leaveRoomIfJoined() {
 
 export default class VideoChat extends React.Component {
   static propTypes = {
+    onSetPlayingImmediatePrompt: PropTypes.func,
     identity: PropTypes.string,
     assessmentID: PropTypes.number.isRequired,
     room: PropTypes.string,

@@ -101,7 +101,8 @@ export default class Reader extends React.Component {
     inSilentReading: PropTypes.bool,
     onSetCurrentOverlay: PropTypes.func,
 
-    isWithinGrader: PropTypes.bool
+    isWithinGrader: PropTypes.bool,
+    onSetPlayingImmediatePrompt: PropTypes.func
   };
 
   static defaultProps = {
@@ -723,6 +724,7 @@ export default class Reader extends React.Component {
     return (
       <div style={{ height: 0 }}>
         <VideoChat
+          onSetPlayingImmediatePrompt={this.props.onSetPlayingImmediatePrompt}
           identity={this.props.studentName}
           assessmentID={this.props.assessmentID}
           room={`Assessment-${this.props.assessmentID}-Room`}
