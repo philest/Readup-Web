@@ -13,6 +13,7 @@
 	display: flex;
 	flex-flow: row;
 	justify-content: space-around;
+	margin-bottom: 8px;
 }
 
 .progress {
@@ -47,6 +48,19 @@
 	background-color: #010203;
 	height: 5px;
 	opacity: 0.8;
+}
+
+.subProgress {
+	position: relative;
+	margin: 0 auto;
+	top: -8px;
+}
+
+.subProgress div {
+	height: 5px;
+	width: 50%;
+	margin: 0 auto;
+	margin-bottom: 0px;
 }
 
 @media screen and (max-width: 700px) {

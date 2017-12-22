@@ -35,7 +35,11 @@ export default class NavigationBar extends React.Component {
 
     progressBar: PropTypes.bool,
     currentSection: PropTypes.string,
-    format: PropTypes.string
+    format: PropTypes.string,
+
+    subProgressBar: PropTypes.bool,
+    subProgressValue: PropTypes.number,
+    large: PropTypes.bool
   };
 
   static defaultProps = {
@@ -49,7 +53,9 @@ export default class NavigationBar extends React.Component {
     beforeStudentDemo: false,
     hideMenuItems: false,
     isWarmup: false,
-    progressBar: false
+    progressBar: false,
+    subProgressBar: false,
+    large: false
   };
 
   renderButton = () => {
@@ -184,7 +190,10 @@ export default class NavigationBar extends React.Component {
     );
 
     return (
-      <div className={[navClass, css.navContainer, barColorClass].join(" ")}>
+      <div
+        className={[navClass, css.navContainer, barColorClass].join(" ")}
+        style={{ height: this.props.large ? 67 : null }}
+      >
         <div className={css.subContainer}>
           <span
             className={[css.brandText, textColorClass].join(" ")}
@@ -221,6 +230,8 @@ export default class NavigationBar extends React.Component {
           <ProgressBarWithStages
             currentSection={this.props.currentSection}
             format={this.props.format}
+            withSubProgressBar={this.props.subProgressBar}
+            subProgressValue={this.props.subProgressValue}
           />
         )}
 

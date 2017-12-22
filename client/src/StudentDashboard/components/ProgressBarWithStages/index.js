@@ -121,7 +121,9 @@ export default class ProgressBarWithStages extends React.Component {
   static propTypes = {
     format: PropTypes.string,
     currentSection: PropTypes.string,
-    isSignup: PropTypes.bool
+    isSignup: PropTypes.bool,
+    withSubProgressBar: PropTypes.bool,
+    subProgressValue: PropTypes.number
   };
 
   renderLabels = (format, isSignup) => {
@@ -159,6 +161,7 @@ export default class ProgressBarWithStages extends React.Component {
         className={[
           this.props.isSignup ? styles.progress : styles.navProgress
         ].join(" ")}
+        style={{ top: this.props.withSubProgressBar ? -21 : "" }}
       >
         {this.renderLabels(format, isSignup)}
         <ProgressBar
@@ -166,6 +169,14 @@ export default class ProgressBarWithStages extends React.Component {
           bsStyle="success"
           now={getProgressNum(currentSection, format)}
         />
+        {this.props.withSubProgressBar && (
+          <div className={styles.subProgress}>
+            <ProgressBar
+              className={styles.myProgress}
+              now={this.props.subProgressValue}
+            />
+          </div>
+        )}
       </div>
     );
   }

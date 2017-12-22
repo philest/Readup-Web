@@ -748,7 +748,11 @@ export default class Reader extends React.Component {
         this.props.section !== SectionOptions.login &&
         this.props.section !== SectionOptions.video,
       currentSection: this.props.section,
-      format: this.getFormat(this.props.book)
+      format: this.getFormat(this.props.book),
+      subProgressBar:
+        this.props.inComp || this.props.inSpelling || this.props.inOralReading,
+      subProgressValue: 20,
+      large: true
     };
 
     return <NavigationBar {...navProps} />;
