@@ -55,8 +55,13 @@ body {
 
 .leftButtonContainer {
 	min-width: 200px;
-	/*width: 200px;
-	height: 70px;*/
+	margin: 30px;
+}
+
+.compLeftButtonContainer {
+	position: relative;
+	top: 20px;
+	min-width: 200px;
 	margin: 30px;
 }
 

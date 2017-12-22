@@ -626,6 +626,11 @@ export function* questionDecrementSaga(section) {
 		}
 	}
 
+	if (section === "comp") {
+		const questionNumber = yield select(getQuestionNumber);
+		yield* playCompQuestionSaga(questionNumber, true);
+	}
+
 	// redisable button
 	if (section === "spelling") {
 		yield put.resolve(setSpellingAnswerGiven(true));
@@ -1251,6 +1256,14 @@ function* definedCompSaga(
 	isWarmup,
 	book
 ) {
+	uploadEffects.push(
+		yield takeLatest(
+			PREVIOUS_QUESTION_CLICKED,
+			questionDecrementSaga,
+			"comp"
+		)
+	);
+
 	yield put.resolve(setInComp(true));
 
 	let compBlobArray = [];

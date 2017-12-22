@@ -43,6 +43,10 @@
 	left: 31px;
 }
 
+.muted {
+	opacity: 0.73;
+}
+
 .disabledButtonContainer {
 	width: 100%;
 	height: 100%;

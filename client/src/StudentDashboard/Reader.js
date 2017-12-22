@@ -103,7 +103,9 @@ export default class Reader extends React.Component {
     onSetCurrentOverlay: PropTypes.func,
 
     isWithinGrader: PropTypes.bool,
-    onSetPlayingImmediatePrompt: PropTypes.func
+    onSetPlayingImmediatePrompt: PropTypes.func,
+    onNextQuestionClicked: PropTypes.func,
+    onPreviousQuestionClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -185,6 +187,23 @@ export default class Reader extends React.Component {
       this.props.inSpelling && this.props.book.stepLevel <= 12;
 
     const isTypedSpelling = this.props.inSpelling && !isBoxedSpelling;
+
+    if (this.props.inComp && this.props.questionNumber > 1) {
+      return (
+        <BackArrowButton
+          title="Back"
+          style={{ width: 100, height: 85, float: "right" }}
+          onClick={this.props.onPreviousQuestionClicked}
+          disabled={
+            this.props.disabled ||
+            this.props.readerState ===
+              ReaderStateOptions.talkingAboutStartButton ||
+            this.props.readerState === ReaderStateOptions.talkingAboutStopButton
+          }
+          muted
+        />
+      );
+    }
 
     if (isBoxedSpelling) {
       return (
@@ -375,7 +394,7 @@ export default class Reader extends React.Component {
     }
 
     if (
-      this.props.readerState === "READER_STATE_TALKING_ABOUT_STOP_BUTTON" ||
+      this.props.readerState === ReaderStateOptions.talkingAboutStopButton ||
       this.props.readerState === "READER_STATE_DONE" ||
       this.props.readerState === "READER_STATE_PAUSED"
     ) {
@@ -808,13 +827,12 @@ export default class Reader extends React.Component {
           }
         >
           <div
-            className={
-              this.props.inComp && this.props.currentShowModal !== "modal-comp"
-                ? styles.leftDoubleButtonContainer
-                : isTypedSpelling
-                  ? styles.spellingLeftButtonContainer
-                  : styles.leftButtonContainer
-            }
+            className={[
+              isTypedSpelling
+                ? styles.spellingLeftButtonContainer
+                : styles.leftButtonContainer,
+              this.props.inComp ? styles.compLeftButtonContainer : ""
+            ].join(" ")}
             style={{ display: isBoxedSpelling ? "none" : "" }}
           >
             {this.renderUpperLeftButton()}

@@ -210,7 +210,10 @@ export class StudentDashboard extends React.Component {
       students: this.props.students,
       assessments: this.props.assessments,
       playingImmediatePrompt: this.props.playingImmediatePrompt,
-      onSetPlayingImmediatePrompt: this.props.actions.setPlayingImmediatePrompt
+      onSetPlayingImmediatePrompt: this.props.actions.setPlayingImmediatePrompt,
+
+      onNextQuestionClicked: this.props.actions.nextQuestionClicked,
+      onPreviousQuestionClicked: this.props.actions.previousQuestionClicked
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
