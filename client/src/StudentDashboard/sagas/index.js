@@ -2186,19 +2186,21 @@ function* rootSaga() {
 				if (isWarmup) {
 					yield clog("turned it in!");
 
-					// Mark it as completed
-					const assessmentID = yield select(getAssessmentID);
+					if (!isWarmup) {
+						// Mark it as completed
+						const assessmentID = yield select(getAssessmentID);
 
-					const res = yield call(markCompleted, assessmentID);
-					yield clog("marked it as completed!: ", res);
+						const res = yield call(markCompleted, assessmentID);
+						yield clog("marked it as completed!: ", res);
 
-					if (!res) {
-						yield call(
-							sendEmail,
-							"Network timeout failed to mark as completed",
-							"Network timeout failed to mark as completed...",
-							"philesterman@gmail.com"
-						); // move here so don't break
+						if (!res) {
+							yield call(
+								sendEmail,
+								"Network timeout failed to mark as completed",
+								"Network timeout failed to mark as completed...",
+								"philesterman@gmail.com"
+							); // move here so don't break
+						}
 					}
 
 					yield put(setAssessmentSubmitted(true));
