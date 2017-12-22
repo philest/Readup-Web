@@ -90,6 +90,7 @@ import {
 	RESUME_CLICKED,
 	COMP_PAUSE_CLICKED,
 	SECTION_SET,
+	PLAYING_IMMEDIATE_PROMPT_SET,
 	setStudents,
 	setAssessments,
 	setTeacherSignature,
@@ -429,9 +430,13 @@ function* skipClick() {
 		yield call(playSound, "/audio/complete.mp3");
 		yield call(delay, 500);
 
-		if (hasSilentReading(book) || hasWrittenComp(book)) {
+		if (book.stepLevel >= 8) {
 			yield put.resolve(
-				setQuestionNumber(book.numOralReadingQuestions + 1)
+				setQuestionNumber(book.numOralReadingQuestions + 1 + 1) // extra for retell
+			);
+		} else if (book.stepLevel >= 6) {
+			yield put.resolve(
+				setQuestionNumber(book.numOralReadingQuestions + 1) // skip to first Q in second part
 			);
 		}
 
@@ -1536,16 +1541,23 @@ function* newCompSaga(effects, isSilentReading, isWarmup, book) {
 		)
 	);
 
-	yield* compQuestionSaga(questionNumber, false); // play the first one.
+	testEffects.push(yield fork(compQuestionSaga, questionNumber));
 
 	yield take(FINAL_COMP_QUESTION_ANSWERED);
+	yield* compExitSaga(uploadEffects, testEffects);
+}
 
+function* compExitSaga(uploadEffects, testEffects) {
 	yield put.resolve(setShowSkipPrompt(false));
-	yield cancel(...uploadEffects);
-	yield cancel(...testEffects);
-	yield clog("okay, GOT IT ");
+	yield clog("okay, GOT IT— now canceling uploadEffects: ", uploadEffects);
 	yield put({ type: SPINNER_HIDE });
+
+	if (uploadEffects.length > 0) {
+		yield cancel(...uploadEffects);
+	}
 	yield put.resolve(setInComp(false));
+	yield clog("okay, GOT IT— now canceling testEffects: ", testEffects);
+	yield cancel(...testEffects);
 }
 
 function* videoWiggleSaga() {

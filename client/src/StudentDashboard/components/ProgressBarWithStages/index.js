@@ -104,9 +104,6 @@ function getProgressNum(currentSection, format) {
   let sectionList = getSectionsListFromFormat(format);
   let numSections = sectionList.length;
 
-  console.log(`format ${format}, currentSection ${currentSection}`);
-  console.log(`sectionList ${sectionList}, numSections ${numSections}`);
-
   let idx = sectionList.indexOf(currentSection);
 
   if (idx < 0) {
@@ -156,8 +153,6 @@ export default class ProgressBarWithStages extends React.Component {
     const currentSection = this.props.currentSection;
     const format = this.props.format;
     const isSignup = this.props.isSignup;
-
-    console.log("currentSection: ", currentSection);
 
     return (
       <div
