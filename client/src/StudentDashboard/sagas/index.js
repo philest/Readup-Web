@@ -1800,8 +1800,6 @@ function* soundCheckInstructions() {
 }
 
 function* soundCheckSaga() {
-	yield put(setCurrentModal("modal-sound-check"));
-
 	let soundCheckEffects = [];
 	soundCheckEffects.push(
 		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, soundCheckInstructions)
@@ -1817,6 +1815,8 @@ function* soundCheckSaga() {
 			true
 		)
 	);
+
+	yield put(setCurrentModal("modal-sound-check"));
 
 	yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 
