@@ -21,6 +21,7 @@ import ReportStyles from "../ReportsInterface/styles.css";
 import { RouteTransition, presets } from "react-router-transition";
 
 import { ReaderStateOptions, SectionOptions, FormatOptions } from "./types";
+import { getAllStartQuestionNums } from "./sagas/index";
 
 import Drag from "./components/Drag";
 import SkipPrompt from "./components/SkipPrompt";
@@ -188,7 +189,12 @@ export default class Reader extends React.Component {
 
     const isTypedSpelling = this.props.inSpelling && !isBoxedSpelling;
 
-    if (this.props.inComp && this.props.questionNumber > 1) {
+    if (
+      this.props.inComp &&
+      !getAllStartQuestionNums(this.props.book).includes(
+        this.props.questionNumber
+      )
+    ) {
       return (
         <BackArrowButton
           title="Back"
@@ -201,7 +207,8 @@ export default class Reader extends React.Component {
             this.props.readerState ===
               ReaderStateOptions.talkingAboutStopButton ||
             this.props.readerState === ReaderStateOptions.inProgress ||
-            this.props.readerState === ReaderStateOptions.done
+            this.props.readerState === ReaderStateOptions.done ||
+            this.props.readerState === ReaderStateOptions.paused
           }
           muted
         />

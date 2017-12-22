@@ -275,9 +275,9 @@ function* playSectionSaga(
 			false //isFullBook
 		);
 	} else if (section === SectionOptions.compOralFirst) {
-		yield* newCompSaga(effects, false, isWarmup); // isSilent: false
+		yield* newCompSaga(effects, false, isWarmup, book); // isSilent: false
 	} else if (section === SectionOptions.compOralSecond) {
-		yield* newCompSaga(effects, true, isWarmup); // isSilent: true
+		yield* newCompSaga(effects, true, isWarmup, book); // isSilent: true
 	} else if (section === SectionOptions.compWritten) {
 		yield* writtenCompSaga(effects);
 	} else if (section === SectionOptions.spelling) {
@@ -576,6 +576,7 @@ export function* questionIncrementSaga(
 			yield* resetRecorderSaga();
 			yield cancel(...uploadEffects);
 			yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
+			yield put.resolve(incrementQuestion(section));
 			return;
 		}
 	}
@@ -673,7 +674,7 @@ export function* questionDecrementSaga(section) {
 
 	if (section === "comp") {
 		const questionNumber = yield select(getQuestionNumber);
-		yield* playCompQuestionSaga(questionNumber, true);
+		yield* playCompQuestionSaga(questionNumber, false, true); // not isHearAgais, but yes isBack
 	}
 
 	// redisable button
@@ -1217,6 +1218,19 @@ function* turnInDuringCompSaga(uploadEffects) {
 	);
 }
 
+export function getAllStartQuestionNums(book) {
+	if (book.brand === "STEP" && book.stepLevel === 8) {
+		return [1, book.numOralReadingQuestions + 1 + 1]; // extra for retell
+	} else if (
+		book.brand === "STEP" &&
+		(book.stepLevel === 7 || book.stepLevel === 6)
+	) {
+		return [1, book.numOralReadingQuestions + 1]; // no retell
+	} else {
+		return [1];
+	}
+}
+
 function getNumQuestionsinThisCompSection(isWarmup, isSilentReading, book) {
 	let base;
 
@@ -1260,7 +1274,7 @@ function* resetRecorderSaga() {
 	yield call(recorder.initialize);
 }
 
-function* playCompQuestionSaga(currQ, isHearAgain) {
+function* playCompQuestionSaga(currQ, isHearAgain, isBack) {
 	if (!isHearAgain) {
 		yield put.resolve(setReaderState(ReaderStateOptions.playingBookIntro));
 	}
@@ -1270,7 +1284,7 @@ function* playCompQuestionSaga(currQ, isHearAgain) {
 
 	const isWarmup = yield select(getIsWarmup);
 
-	if (currQ === 2 && !isHearAgain) {
+	if (currQ === 2 && (!isHearAgain && !isBack)) {
 		yield call(playSound, "/audio/additions/remember-look-back.mp3");
 	}
 
@@ -1486,12 +1500,14 @@ function* writtenCompSaga(effects) {
 	yield put(setCurrentModal("no-modal"));
 }
 
-function* newCompSaga(effects, isSilent, isWarmup) {
-	if (!isSilent) {
+function* newCompSaga(effects, isSilentReading, isWarmup, book) {
+	if (!isSilentReading) {
 		yield call(compInstructionSaga, isWarmup);
 	} else {
 		yield call(playSound, "/audio/laura/now-last-questions.mp3");
 	}
+
+	const questionNumber = yield select(getQuestionNumber);
 
 	const uploadEffects = [];
 
@@ -1503,7 +1519,7 @@ function* newCompSaga(effects, isSilent, isWarmup) {
 			questionIncrementSaga,
 			"comp",
 			null,
-			isSilent,
+			isSilentReading,
 			uploadEffects
 		)
 	);
@@ -1516,7 +1532,7 @@ function* newCompSaga(effects, isSilent, isWarmup) {
 		)
 	);
 
-	yield* compQuestionSaga(1, false); // play the first one.
+	yield* compQuestionSaga(questionNumber, false); // play the first one.
 
 	yield take(FINAL_COMP_QUESTION_ANSWERED);
 
