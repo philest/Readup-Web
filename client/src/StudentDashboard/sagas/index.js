@@ -276,24 +276,8 @@ function* playSectionSaga(
 		);
 	} else if (section === SectionOptions.compOralFirst) {
 		yield* newCompSaga(effects, false, isWarmup); // isSilent: false
-
-		// yield* compSaga(
-		// 	effects,
-		// 	assessmentId,
-		// 	isWarmup,
-		// 	book,
-		// 	false //isSilent //isSecond
-		// );
 	} else if (section === SectionOptions.compOralSecond) {
 		yield* newCompSaga(effects, true, isWarmup); // isSilent: true
-
-		// yield* compSaga(
-		// 	effects,
-		// 	assessmentId,
-		// 	isWarmup,
-		// 	book,
-		// 	true //isSilent //isSecond
-		// );
 	} else if (section === SectionOptions.compWritten) {
 		yield* writtenCompSaga(effects);
 	} else if (section === SectionOptions.spelling) {
@@ -974,47 +958,6 @@ function* spellingSaga(effects) {
 	yield put.resolve(setInSpelling(false));
 }
 
-function* compSaga(effects, assessmentId, isWarmup, book, isSilent) {
-	if (!isSilent) {
-		yield call(compInstructionSaga, isWarmup);
-	} else {
-		yield call(playSound, "/audio/laura/now-last-questions.mp3");
-	}
-
-	let compBlobArray;
-
-	const uploadEffects = [];
-	const testCompEffect = [];
-
-	testCompEffect.push(
-		(compBlobArray = yield fork(
-			definedCompSaga,
-			assessmentId,
-			uploadEffects,
-			isSilent,
-			isWarmup,
-			book
-		))
-	);
-
-	yield clog("okay, waiting ");
-
-	yield take(FINAL_COMP_QUESTION_ANSWERED);
-
-	yield put.resolve(setShowSkipPrompt(false));
-
-	yield cancel(...uploadEffects);
-	yield cancel(...testCompEffect);
-
-	yield clog("okay, GOT IT ");
-
-	yield put({ type: SPINNER_HIDE });
-
-	yield put.resolve(setInComp(false));
-
-	return compBlobArray;
-}
-
 function* bookIntroSaga(book) {
 	const isWarmup = yield select(getIsWarmup);
 
@@ -1315,64 +1258,6 @@ function* resetRecorderSaga() {
 	yield call(recorder.reset);
 	recorder = yield select(getRecorder);
 	yield call(recorder.initialize);
-}
-
-// assumes at least one question...
-function* definedCompSaga(
-	assessmentId,
-	uploadEffects,
-	isSilentReading,
-	isWarmup,
-	book
-) {
-	uploadEffects.push(
-		yield takeLatest(
-			PREVIOUS_QUESTION_CLICKED,
-			questionDecrementSaga,
-			"comp"
-		)
-	);
-
-	yield put.resolve(setInComp(true));
-
-	let compBlobArray = [];
-
-	yield* turnInDuringCompSaga(uploadEffects);
-
-	let numQuestions = getNumQuestionsinThisCompSection(
-		isWarmup,
-		isSilentReading,
-		book
-	);
-
-	let questionNumber = yield select(getQuestionNumber);
-
-	for (let currQ = questionNumber; currQ <= numQuestions; currQ++) {
-		yield clog("currQ IS", currQ);
-
-		let newBlob = yield* compQuestionSaga(currQ, false);
-
-		compBlobArray.push(newBlob);
-
-		if (currQ < numQuestions) {
-			uploadEffects.push(
-				yield fork(turnInAudio, newBlob, assessmentId, true, currQ)
-			);
-		} else {
-			yield* turnInFinalCompSaga(newBlob, assessmentId, currQ);
-		}
-		// reset the recorder each time
-		yield* resetRecorderSaga();
-	}
-
-	questionNumber = yield select(getQuestionNumber);
-
-	if (numQuestions <= questionNumber) {
-		yield clog("in this ending part......");
-		yield cancel(...uploadEffects);
-		yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
-		return compBlobArray;
-	}
 }
 
 function* playCompQuestionSaga(currQ, isHearAgain) {

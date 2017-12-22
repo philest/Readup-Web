@@ -198,7 +198,10 @@ export default class Reader extends React.Component {
             this.props.disabled ||
             this.props.readerState ===
               ReaderStateOptions.talkingAboutStartButton ||
-            this.props.readerState === ReaderStateOptions.talkingAboutStopButton
+            this.props.readerState ===
+              ReaderStateOptions.talkingAboutStopButton ||
+            this.props.readerState === ReaderStateOptions.inProgress ||
+            this.props.readerState === ReaderStateOptions.done
           }
           muted
         />
@@ -472,7 +475,7 @@ export default class Reader extends React.Component {
     }
 
     if (
-      this.props.readerState === "READER_STATE_IN_PROGRESS" ||
+      this.props.readerState === ReaderStateOptions.inProgress ||
       this.props.readerState === "READER_STATE_COUNTDOWN_TO_START" ||
       this.props.readerState === "READER_STATE_AWAITING_FINISH_BOOK" ||
       (this.props.inOralReading &&
@@ -508,7 +511,11 @@ export default class Reader extends React.Component {
               disabled={this.props.disabled}
               isLarge
               isRed
-              onClick={this.props.onCompPauseClicked}
+              onClick={
+                this.props.inOralReading
+                  ? this.props.onCompPauseClicked
+                  : this.props.onStopClicked
+              }
             />
           </div>
         </div>
@@ -590,7 +597,7 @@ export default class Reader extends React.Component {
         <VolumeIndicator
           hearAgainClicked={this.props.onHearQuestionAgainClicked}
           visible={
-            this.props.readerState === "READER_STATE_IN_PROGRESS" ||
+            this.props.readerState === ReaderStateOptions.inProgress ||
             this.props.readerState === "READER_STATE_AWAITING_START"
           }
         />
