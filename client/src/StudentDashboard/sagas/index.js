@@ -1469,6 +1469,7 @@ function* writtenCompSaga(effects) {
 	yield put.resolve(setReaderState(ReaderStateOptions.inWrittenComp));
 
 	const isWarmup = yield select(getIsWarmup);
+	const testEffects = [];
 
 	if (isWarmup) {
 		yield call(playSound, "/audio/new-warmup/4.mp3");
@@ -1480,7 +1481,7 @@ function* writtenCompSaga(effects) {
 	yield put(setCurrentModal("modal-comp"));
 	yield call(playSound, "/audio/written/3.mp3");
 
-	effects.push(
+	testEffects.push(
 		yield takeLatest(
 			NEXT_QUESTION_CLICKED,
 			questionIncrementSaga,
@@ -1488,7 +1489,7 @@ function* writtenCompSaga(effects) {
 		)
 	);
 
-	effects.push(
+	testEffects.push(
 		yield takeLatest(
 			PREVIOUS_QUESTION_CLICKED,
 			questionDecrementSaga,
@@ -1498,6 +1499,8 @@ function* writtenCompSaga(effects) {
 
 	yield take(FINAL_WRITTEN_COMP_QUESTION_ANSWERED);
 	yield put(setCurrentModal("no-modal"));
+
+	yield cancel(...testEffects);
 }
 
 function* newCompSaga(effects, isSilentReading, isWarmup, book) {
@@ -1510,10 +1513,11 @@ function* newCompSaga(effects, isSilentReading, isWarmup, book) {
 	const questionNumber = yield select(getQuestionNumber);
 
 	const uploadEffects = [];
+	const testEffects = [];
 
 	yield put.resolve(setInComp(true));
 
-	effects.push(
+	testEffects.push(
 		yield takeLatest(
 			NEXT_QUESTION_CLICKED,
 			questionIncrementSaga,
@@ -1524,7 +1528,7 @@ function* newCompSaga(effects, isSilentReading, isWarmup, book) {
 		)
 	);
 
-	effects.push(
+	testEffects.push(
 		yield takeLatest(
 			PREVIOUS_QUESTION_CLICKED,
 			questionDecrementSaga,
@@ -1538,6 +1542,7 @@ function* newCompSaga(effects, isSilentReading, isWarmup, book) {
 
 	yield put.resolve(setShowSkipPrompt(false));
 	yield cancel(...uploadEffects);
+	yield cancel(...testEffects);
 	yield clog("okay, GOT IT ");
 	yield put({ type: SPINNER_HIDE });
 	yield put.resolve(setInComp(false));
