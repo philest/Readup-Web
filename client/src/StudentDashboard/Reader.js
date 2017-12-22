@@ -563,7 +563,7 @@ export default class Reader extends React.Component {
   };
 
   renderRightButton = () => {
-    if (!this.props.hasLoggedIn) {
+    if (!this.props.hasLoggedIn && !this.props.isDemo) {
       return null;
     }
 
