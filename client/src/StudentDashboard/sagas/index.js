@@ -1943,8 +1943,10 @@ function* assessThenSubmitSaga() {
 		yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, hearQuestionAgainSaga)
 	);
 
-	if (!isWarmup && isDemo) {
+	if (isDemo && !hasLoggedIn) {
 		yield put.resolve(avatarClicked()); // log in for them
+
+		yield* soundCheckSaga(); // sound check for only the real thing?
 
 		book = yield select(getBook);
 		studentName = yield select(getStudentName);
