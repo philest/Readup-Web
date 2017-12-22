@@ -115,23 +115,21 @@ Rails.application.routes.draw do
   # The student testing the program... 
 
 
-  get 'rmp1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/3408/warmup/true')
+  get 'rmp1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/4/warmup/true')
 
 
   # get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/:id/warmup/true'), id: /\d{4}/
 
   # get '/:id', to: 'student_dashboard#index', id: /\d{4}/
 
-  get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/%{id}/warmup/true'), id: /\d{4}/
-
-  get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/%{id}/warmup/true'), id: /\d{3}/
+  get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/%{id}/warmup/true'), id: /\d{1,4}/
 
 
   get 'rmp2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
 
 
 
-  get 'RMP1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/3408/warmup/true')
+  get 'RMP1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/4/warmup/true')
 
 
   get 'RMP2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')

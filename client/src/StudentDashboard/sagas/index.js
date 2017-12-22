@@ -275,21 +275,25 @@ function* playSectionSaga(
 			false //isFullBook
 		);
 	} else if (section === SectionOptions.compOralFirst) {
-		yield* compSaga(
-			effects,
-			assessmentId,
-			isWarmup,
-			book,
-			false //isSilent //isSecond
-		);
+		yield* newCompSaga(effects, false, isWarmup); // isSilent: false
+
+		// yield* compSaga(
+		// 	effects,
+		// 	assessmentId,
+		// 	isWarmup,
+		// 	book,
+		// 	false //isSilent //isSecond
+		// );
 	} else if (section === SectionOptions.compOralSecond) {
-		yield* compSaga(
-			effects,
-			assessmentId,
-			isWarmup,
-			book,
-			true //isSilent //isSecond
-		);
+		yield* newCompSaga(effects, true, isWarmup); // isSilent: true
+
+		// yield* compSaga(
+		// 	effects,
+		// 	assessmentId,
+		// 	isWarmup,
+		// 	book,
+		// 	true //isSilent //isSecond
+		// );
 	} else if (section === SectionOptions.compWritten) {
 		yield* writtenCompSaga(effects);
 	} else if (section === SectionOptions.spelling) {
@@ -518,7 +522,8 @@ function* exitClick() {
 export function* questionIncrementSaga(
 	section,
 	spellingEffects,
-	isSilentReading
+	isSilentReading,
+	uploadEffects
 ) {
 	yield clog("here in QUESTION_INCREMENT........: ", section);
 
@@ -533,6 +538,7 @@ export function* questionIncrementSaga(
 		const book = yield select(getBook);
 
 		const isWarmup = yield select(getIsWarmup);
+		let newBlob;
 
 		if (
 			book.numSpellingQuestions === spellingQuestionNumber ||
@@ -549,14 +555,43 @@ export function* questionIncrementSaga(
 
 		const isWarmup = yield select(getIsWarmup);
 
+		const assessmentID = yield select(getAssessmentID);
+
 		const numQuestionsInSection = getNumQuestionsinThisCompSection(
 			isWarmup,
 			isSilentReading,
 			book
 		);
 
-		if (numQuestionsInSection === questionNumber) {
-			yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
+		let newBlob;
+		const recorder = yield select(getRecorder);
+
+		try {
+			newBlob = recorder.getBlob();
+		} catch (err) {
+			yield clog("err: ", err);
+			newBlob = "it broke";
+		}
+
+		// turn in the blob
+		// reset the recorder
+
+		if (questionNumber < numQuestionsInSection) {
+			uploadEffects.push(
+				yield fork(
+					turnInAudio,
+					newBlob,
+					assessmentID,
+					true,
+					questionNumber
+				)
+			);
+			yield* resetRecorderSaga();
+		} else {
+			yield* turnInFinalCompSaga(newBlob, assessmentID, questionNumber);
+			yield* resetRecorderSaga();
+			yield cancel(...uploadEffects);
+			yield put({ type: FINAL_COMP_QUESTION_ANSWERED });
 			return;
 		}
 	}
@@ -570,8 +605,12 @@ export function* questionIncrementSaga(
 	// redisable button
 	if (section === "spelling") {
 		yield put.resolve(setSpellingAnswerGiven(false));
-
 		yield call(playSpellingQuestionSaga, false);
+	}
+
+	if (section === "comp") {
+		const questionNumber = yield select(getQuestionNumber);
+		yield* compQuestionSaga(questionNumber, false);
 	}
 }
 
@@ -1562,17 +1601,14 @@ function* writtenCompSaga(effects) {
 	yield put(setCurrentModal("no-modal"));
 }
 
-function* newCompSaga(effects, isSilent) {
+function* newCompSaga(effects, isSilent, isWarmup) {
 	if (!isSilent) {
 		yield call(compInstructionSaga, isWarmup);
 	} else {
 		yield call(playSound, "/audio/laura/now-last-questions.mp3");
 	}
 
-	let compBlobArray;
-
 	const uploadEffects = [];
-	const testCompEffect = [];
 
 	yield put.resolve(setInComp(true));
 
@@ -1582,7 +1618,8 @@ function* newCompSaga(effects, isSilent) {
 			questionIncrementSaga,
 			"comp",
 			null,
-			isSilent
+			isSilent,
+			uploadEffects
 		)
 	);
 
@@ -1597,6 +1634,12 @@ function* newCompSaga(effects, isSilent) {
 	yield* compQuestionSaga(1, false); // play the first one.
 
 	yield take(FINAL_COMP_QUESTION_ANSWERED);
+
+	yield put.resolve(setShowSkipPrompt(false));
+	yield cancel(...uploadEffects);
+	yield clog("okay, GOT IT ");
+	yield put({ type: SPINNER_HIDE });
+	yield put.resolve(setInComp(false));
 }
 
 function* videoWiggleSaga() {
