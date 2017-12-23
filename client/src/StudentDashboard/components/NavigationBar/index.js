@@ -45,7 +45,7 @@ export default class NavigationBar extends React.Component {
   };
 
   static defaultProps = {
-    showPauseButton: true,
+    showPauseButton: false,
     isCoverPage: false,
     showBookInfo: false,
     onReport: false,
@@ -206,23 +206,6 @@ export default class NavigationBar extends React.Component {
           </span>
         </div>
 
-        {false &&
-          this.props.showPauseButton && (
-            <div className={css.subContainer}>
-              <div
-                className={[css.centerDisplayContainer, css.headerTabBlue].join(
-                  " "
-                )}
-              >
-                <RectangleButton
-                  title={"Pause Recording"}
-                  id="navigation-button"
-                  onClick={this.props.onPauseClicked}
-                />
-              </div>
-            </div>
-          )}
-
         {this.props.centerText && (
           <span className={[css.centerLabel, css.signupCenterLabel].join(" ")}>
             {this.props.centerText}
@@ -263,6 +246,16 @@ export default class NavigationBar extends React.Component {
           <div
             className={[css.rightDisplayContainer, textColorClass].join(" ")}
           >
+            {(true || this.props.showPauseButton) && (
+              <span className={css.pauseButton}>
+                <i
+                  className="fa fa-hand-paper-o"
+                  aria-hidden="true"
+                  style={{ marginRight: 5 }}
+                />Pause
+              </span>
+            )}
+
             {this.props.beforeStudentDemo &&
               !this.props.hideMenuItems &&
               this.renderButton()}

@@ -77,6 +77,25 @@
 	z-index: 100;
 }
 
+.pauseButton {
+	margin-right: 35px;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border: 1px solid #ffffff;
+	padding: 4px 15px;
+	cursor: pointer;
+
+	/* unselectable: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css*/
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
 .headerTabBlue {
 	background: url(/images/dashboard/header-tab-dark-blue.svg);
 	background-size: 250px 90px;
@@ -246,6 +265,12 @@
 @media (max-width: 768px) {
 	.tryButton,
 	.tryButtonMuted {
+		display: none;
+	}
+}
+
+@media (max-width: 1032px) {
+	.pauseButton {
 		display: none;
 	}
 }

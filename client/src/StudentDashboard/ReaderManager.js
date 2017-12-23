@@ -224,7 +224,6 @@ export class StudentDashboard extends React.Component {
       readerProps = {
         ...readerProps,
         showCover: true,
-        showPauseButton: false,
         introAudioSrc: this.props.book.introAudioSrc,
         readerState: this.props.readerState,
         showVolumeIndicator: this.props.showVolumeIndicator
@@ -234,8 +233,6 @@ export class StudentDashboard extends React.Component {
       readerProps = {
         ...readerProps,
         showCover: true,
-        showPauseButton:
-          this.props.readerState === ReaderStateOptions.inProgress,
         onCompPauseClicked: this.props.actions.compPauseClicked
       };
     } else {
@@ -246,8 +243,6 @@ export class StudentDashboard extends React.Component {
         pageNumber: this.props.pageNumber,
         textLines: this.props.book.pages[this.props.pageNumber].lines,
         imageURL: this.props.book.pages[this.props.pageNumber].img,
-        showPauseButton:
-          this.props.readerState === ReaderStateOptions.inProgress,
         isFirstPage: this.props.pageNumber == 1,
         isLastPage: this.props.pageNumber == this.props.book.numPages,
         onPreviousPageClicked: this.props.actions.previousPageClicked,

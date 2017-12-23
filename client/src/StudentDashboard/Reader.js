@@ -56,7 +56,6 @@ export default class Reader extends React.Component {
     bookAuthor: PropTypes.string,
 
     // other state
-    showPauseButton: PropTypes.bool,
     isFirstPage: PropTypes.bool,
     isLastPage: PropTypes.bool,
     showBookInfo: PropTypes.bool,
@@ -116,7 +115,6 @@ export default class Reader extends React.Component {
     showBookInfo: false,
     isFirstPage: false,
     isLastPage: false,
-    showPauseButton: true,
     disabled: false,
     isWithinGrader: false
   };
@@ -743,7 +741,6 @@ export default class Reader extends React.Component {
     let navProps = {
       className: styles.navBar,
       studentName: this.props.studentName,
-      showPauseButton: this.props.showPauseButton,
       showBookInfo: this.props.showBookInfo,
       bookTitle: this.props.bookTitle,
       bookAuthor: this.props.bookAuthor,
@@ -763,7 +760,11 @@ export default class Reader extends React.Component {
       format: this.getFormat(this.props.book),
       subProgressBar: this.props.inComp || this.props.inSpelling,
       subProgressValue: this.getSubProgressValue(),
-      large: this.props.inComp || this.props.inSpelling
+      large: this.props.inComp || this.props.inSpelling,
+      showPauseButton:
+        this.props.section !== SectionOptions.initializing &&
+        this.props.section !== SectionOptions.login &&
+        this.props.section !== SectionOptions.video
     };
 
     return <NavigationBar {...navProps} />;
