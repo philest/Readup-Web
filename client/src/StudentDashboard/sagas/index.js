@@ -1083,7 +1083,7 @@ function* recordingInstructionSaga(isWarmup, isPartialOralReading) {
 	}
 }
 
-function* countdownSaga(isSingle) {
+export function* countdownSaga(isSingle) {
 	if (isSingle) {
 		yield call(stopAudio);
 

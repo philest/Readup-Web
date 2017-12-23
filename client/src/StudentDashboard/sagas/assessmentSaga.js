@@ -40,7 +40,7 @@ import { playSoundAsync, playSound, stopAudio } from "../audioPlayer";
 
 import { sendEmail } from "../../ReportsInterface/emailHelpers";
 
-import { questionIncrementSaga, questionDecrementSaga } from "./index.js";
+import { countdownSaga } from "./index.js";
 
 const PAGE_CHANGE_DEBOUNCE_TIME_MS = 200;
 
@@ -108,6 +108,8 @@ export function* resumeAssessmentSaga(action) {
       recorder.rtcRecorder.state === "paused" &&
       prompt === "AWAITING_PROMPT"
     ) {
+      yield put.resolve(setCurrentModal("no-modal"));
+      yield call(countdownSaga, false);
       yield call(recorder.resumeRecording);
       yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
     }

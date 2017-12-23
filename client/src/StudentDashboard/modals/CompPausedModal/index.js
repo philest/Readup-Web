@@ -110,7 +110,7 @@ export default class CompPausedModal extends React.Component {
             <ButtonArray
               titles={["Done", "Try Again"]}
               images={[firstIcons, "fa-arrow-left"]}
-              actions={[this.onStop, this.props.onTryAgainClicked]}
+              actions={[this.onStop, this.props.onContinueClicked]}
               enlargeFirst={true}
               fontAwesome={true}
               modalType={"info"}
