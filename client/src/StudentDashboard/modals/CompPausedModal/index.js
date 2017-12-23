@@ -101,6 +101,13 @@ export default class CompPausedModal extends React.Component {
         <style type="text/css">
           {".modal-dialog { margin-top: 20vh; margin: 20vh auto 0px; } "}
         </style>
+
+        {this.props.currentShowModal === THIS_MODAL_ID && (
+          <style type="text/css">
+            {".modal-backdrop.in { opacity: 0.65; } "}
+          </style>
+        )}
+
         <BaseModal
           title={this.props.title}
           show={this.props.currentShowModal === THIS_MODAL_ID}

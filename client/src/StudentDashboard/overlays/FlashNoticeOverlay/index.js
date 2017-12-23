@@ -10,7 +10,8 @@ export default class FlashNoticeOverlay extends React.Component {
     currentShowOverlay: PropTypes.string,
     showOveride: PropTypes.bool,
     text: PropTypes.string,
-    prompt: PropTypes.bool
+    prompt: PropTypes.bool,
+    isMoreInstructions: PropTypes.bool
   };
 
   /**
@@ -31,7 +32,12 @@ export default class FlashNoticeOverlay extends React.Component {
     }
 
     return (
-      <div className={styles.introContainer}>
+      <div
+        className={[
+          styles.introContainer,
+          this.props.isMoreInstructions ? styles.countdownWrapper : ""
+        ].join(" ")}
+      >
         <div
           className={[
             styles.introTitle,
@@ -39,7 +45,8 @@ export default class FlashNoticeOverlay extends React.Component {
             this.props.prompt ? styles.large : ""
           ].join(" ")}
         >
-          {this.props.prompt ? "?" : this.props.text}
+          {!this.props.isMoreInstructions &&
+            (this.props.prompt ? "?" : this.props.text)}
         </div>
       </div>
     );

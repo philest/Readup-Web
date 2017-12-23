@@ -1073,14 +1073,18 @@ function* oralReadingInstructionSaga(
 }
 
 function* recordingInstructionSaga(isWarmup, isPartialOralReading) {
+	yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
+
 	if (isWarmup) {
-		yield call(playSoundAsync, "/audio/warmup/w-4.mp3");
+		yield call(playSound, "/audio/warmup/w-4.mp3");
 	} else if (isPartialOralReading) {
 		yield call(playSound, "/audio/laura/now-recording-page-3.mp3");
 	} else {
 		//normal
 		yield call(playSound, "/audio/now-recording-read.mp3");
 	}
+
+	yield put.resolve(setCurrentOverlay("no-overlay"));
 }
 
 export function* countdownSaga(isSingle) {
@@ -1733,6 +1737,8 @@ function* oralReadingRecordingSaga(
 
 	yield call(countdownSaga, false);
 
+	// yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
+
 	yield put.resolve(setShowSkipPrompt(true));
 
 	yield put.resolve(setReaderState(ReaderStateOptions.inProgress));
@@ -1748,6 +1754,8 @@ function* oralReadingRecordingSaga(
 	);
 
 	yield* recordingInstructionSaga(isWarmup, isPartialOralReading);
+
+	// yield put.resolve(setCurrentOverlay("no-overlay"));
 
 	// starts the recording assessment flow
 	effects.push(yield fork(assessmentSaga));
