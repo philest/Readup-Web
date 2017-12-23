@@ -820,7 +820,7 @@ function* helperInstructionSaga(
 			yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 			numAttempts += 1;
 		}
-		yield put({ type: SOUND_CHECK_FINISHED });
+		yield put({ type: NO_CLICKED });
 	}
 }
 
