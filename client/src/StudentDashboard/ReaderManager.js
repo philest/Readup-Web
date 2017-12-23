@@ -213,7 +213,8 @@ export class StudentDashboard extends React.Component {
       onSetPlayingImmediatePrompt: this.props.actions.setPlayingImmediatePrompt,
 
       onNextQuestionClicked: this.props.actions.nextQuestionClicked,
-      onPreviousQuestionClicked: this.props.actions.previousQuestionClicked
+      onPreviousQuestionClicked: this.props.actions.previousQuestionClicked,
+      onTryAgainClicked: this.props.actions.tryAgainClicked
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
@@ -288,6 +289,7 @@ export class StudentDashboard extends React.Component {
           title={
             this.props.inOralReading ? "Done reading?" : "Done with answer?"
           }
+          onTryAgainClicked={this.props.actions.tryAgainClicked}
           onContinueClicked={this.props.actions.resumeClicked}
           onStartOverClicked={this.props.actions.restartRecordingClicked}
           currentShowModal={this.props.currentShowModal}

@@ -146,6 +146,7 @@ export const USER_ID_SET = "USER_ID_SET";
 export const PLAYING_IMMEDIATE_PROMPT_SET = "PLAYING_IMMEDIATE_PROMPT_SET";
 
 export const SOUND_CHECK_FINISHED = "SOUND_CHECK_FINISHED";
+export const TRY_AGAIN_CLICKED = "TRY_AGAIN_CLICKED";
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -162,6 +163,12 @@ export function setSection(section: Section) {
     payload: {
       section
     }
+  };
+}
+
+export function tryAgainClicked() {
+  return {
+    type: TRY_AGAIN_CLICKED
   };
 }
 
