@@ -1085,6 +1085,7 @@ function* recordingInstructionSaga(isWarmup, isPartialOralReading) {
 	}
 
 	yield put.resolve(setCurrentOverlay("no-overlay"));
+	yield call(playSound, "/audio/complete.mp3"); // IDK too much?
 }
 
 export function* countdownSaga(isSingle) {
