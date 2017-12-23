@@ -145,6 +145,8 @@ export const USER_ID_SET = "USER_ID_SET";
 
 export const PLAYING_IMMEDIATE_PROMPT_SET = "PLAYING_IMMEDIATE_PROMPT_SET";
 
+export const SOUND_CHECK_FINISHED = "SOUND_CHECK_FINISHED";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -160,6 +162,12 @@ export function setSection(section: Section) {
     payload: {
       section
     }
+  };
+}
+
+export function finishSoundCheck() {
+  return {
+    type: SOUND_CHECK_FINISHED
   };
 }
 

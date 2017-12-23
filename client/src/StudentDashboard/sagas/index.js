@@ -79,6 +79,7 @@ import {
 	FINAL_COMP_QUESTION_ANSWERED,
 	FINAL_WRITTEN_COMP_QUESTION_ANSWERED,
 	SECTION_SKIPPED,
+	SOUND_CHECK_FINISHED,
 	SKIP_CLICKED,
 	SHOW_SKIP_PROMPT_SET,
 	ASSESSMENT_ID_SET,
@@ -794,6 +795,8 @@ function* helperInstructionSaga(
 	isName,
 	isSoundCheck
 ) {
+	let numAttempts = 0;
+
 	if (isStartReading) {
 		yield call(delay, 5000);
 		yield call(playSoundAsync, "/audio/click-start.mp3");
@@ -812,10 +815,12 @@ function* helperInstructionSaga(
 			yield call(playSoundAsync, "/audio/gen/instruct-1.mp3");
 		}
 	} else if (isSoundCheck) {
-		while (true) {
+		while (numAttempts <= 3) {
 			yield call(delay, 8000);
 			yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
+			numAttempts += 1;
 		}
+		yield put({ type: SOUND_CHECK_FINISHED });
 	}
 }
 
@@ -1841,12 +1846,23 @@ function* soundCheckInstructions() {
 	yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 }
 
-function* soundCheckSaga() {
-	let soundCheckEffects = [];
-	soundCheckEffects.push(
+function* canHearSaga() {
+	yield call(playSound, "/audio/complete.mp3");
+	yield put(setCurrentModal("no-modal"));
+	yield put({ type: SOUND_CHECK_FINISHED });
+}
+
+function* cannotHearSaga() {
+	yield call(playSoundAsync, "/audio/bamboo.mp3");
+	yield put(setCurrentOverlay("overlay-no-sound"));
+	yield take("NEVER_PASS");
+}
+
+function* soundCheckSaga(screwEffects) {
+	screwEffects.push(
 		yield takeLatest(HEAR_INTRO_AGAIN_CLICKED, soundCheckInstructions)
 	);
-	soundCheckEffects.push(
+	screwEffects.push(
 		yield fork(
 			helperInstructionSaga,
 			false,
@@ -1862,27 +1878,11 @@ function* soundCheckSaga() {
 
 	yield call(playSoundAsync, "/audio/additions/sound-check.mp3");
 
-	const { can_hear, cannot_hear, timeout } = yield race({
-		can_hear: take(YES_CLICKED),
-		cannot_hear: take(NO_CLICKED),
-		timeout: call(delay, 32000)
-	});
+	screwEffects.push(yield takeLatest(YES_CLICKED, canHearSaga));
 
-	yield clog("YES_CLICKED: ", can_hear);
-	yield clog("NO_CLICKED: ", cannot_hear);
+	screwEffects.push(yield takeLatest(NO_CLICKED, cannotHearSaga));
 
-	if (cannot_hear || timeout) {
-		yield call(playSoundAsync, "/audio/bamboo.mp3");
-		yield put(setCurrentOverlay("overlay-no-sound"));
-		yield take("NEVER_PASS");
-	}
-
-	if (can_hear) {
-		yield call(playSound, "/audio/complete.mp3");
-		yield put(setCurrentModal("no-modal"));
-	}
-
-	yield cancel(...soundCheckEffects);
+	yield take(SOUND_CHECK_FINISHED);
 }
 
 function* bookCheckSaga() {
@@ -1950,7 +1950,9 @@ function* assessThenSubmitSaga() {
 	if (isDemo && !hasLoggedIn) {
 		yield put.resolve(avatarClicked()); // log in for them
 
-		yield* soundCheckSaga(); // sound check for only the real thing?
+		let screwEffects = [];
+		yield* soundCheckSaga(screwEffects); // sound check for only the real thing?
+		yield cancel(...screwEffects);
 
 		book = yield select(getBook);
 		studentName = yield select(getStudentName);
@@ -1968,7 +1970,9 @@ function* assessThenSubmitSaga() {
 		yield call(classFetchSaga);
 		yield put.resolve(setSection(SectionOptions.login));
 
-		yield* soundCheckSaga(); // sound check for only the real thing?
+		let screwEffects = [];
+		yield* soundCheckSaga(screwEffects); // sound check for only the real thing?
+		yield cancel(...screwEffects);
 
 		// API stuff
 		yield call(loginSaga);
