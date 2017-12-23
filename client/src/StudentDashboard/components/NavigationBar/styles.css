@@ -78,6 +78,9 @@
 }
 
 .pauseButton {
+	opacity: 0.9;
+	transition: 0.3s all;
+
 	margin-right: 35px;
 	border-radius: 10px 10px 10px 10px;
 	-moz-border-radius: 10px 10px 10px 10px;
@@ -94,6 +97,14 @@
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+
+.pauseButton:hover {
+	transition: 0.3s all;
+	color: #143145;
+	opacity: 1;
+	background: white;
+	font-family: "proximanova semibold";
 }
 
 .headerTabBlue {
