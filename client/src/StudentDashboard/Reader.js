@@ -125,6 +125,28 @@ export default class Reader extends React.Component {
     super(props);
   }
 
+  getSubProgressValue = () => {
+    if (this.props.inComp) {
+      if (this.props.isWarmup) {
+        return 15 + 42.5 * (this.props.questionNumber - 1);
+      }
+
+      return this.props.questionNumber / this.props.book.numQuestions * 100;
+    } else if (this.props.inSpelling) {
+      if (this.props.isWarmup) {
+        return 15 + 42.5 * (this.props.spellingQuestionNumber - 1);
+      }
+
+      return (
+        this.props.spellingQuestionNumber /
+        this.props.book.numSpellingQuestions *
+        100
+      );
+    } else if (this.props.inOralReading) {
+      return 35;
+    }
+  };
+
   renderBoxedSpelling = () => {
     return (
       <div>
@@ -147,16 +169,6 @@ export default class Reader extends React.Component {
           onSpellingInputSet={this.props.onSpellingInputSet}
           spellingInput={this.props.spellingInput}
         />
-
-        <div className={styles.progress}>
-          <ProgressBar
-            now={
-              this.props.spellingQuestionNumber /
-              this.props.book.numSpellingQuestions *
-              100
-            }
-          />
-        </div>
 
         <SpellingLetterBox
           onSpellingInputSet={this.props.onSpellingInputSet}
@@ -749,10 +761,9 @@ export default class Reader extends React.Component {
         this.props.section !== SectionOptions.video,
       currentSection: this.props.section,
       format: this.getFormat(this.props.book),
-      subProgressBar:
-        this.props.inComp || this.props.inSpelling || this.props.inOralReading,
-      subProgressValue: 20,
-      large: true
+      subProgressBar: this.props.inComp || this.props.inSpelling,
+      subProgressValue: this.getSubProgressValue(),
+      large: this.props.inComp || this.props.inSpelling
     };
 
     return <NavigationBar {...navProps} />;

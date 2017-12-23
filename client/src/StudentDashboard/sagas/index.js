@@ -490,6 +490,10 @@ function* skipClick() {
 		yield call(playSound, "/audio/complete.mp3");
 		yield call(delay, 500);
 
+		yield put.resolve(
+			setSpellingQuestionNumber(book.numSpellingQuestions) // skip to first Q in second part
+		);
+
 		yield put({ type: FINAL_SPELLING_QUESTION_ANSWERED });
 	}
 }
