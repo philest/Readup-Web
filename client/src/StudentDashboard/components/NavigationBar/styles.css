@@ -60,6 +60,14 @@
 	top: 1px;
 }
 
+.signupCenterLabel {
+	font-style: normal;
+	letter-spacing: 0.5px;
+	opacity: 1;
+	right: 0px;
+	font-family: "proximanova semibold";
+}
+
 .centerDisplayContainer {
 	width: 250px;
 	height: 90px;

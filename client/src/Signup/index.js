@@ -103,7 +103,8 @@ export default class Signup extends React.Component {
         window.location.href = "/";
       },
       inComp: false,
-      inSpelling: false
+      inSpelling: false,
+      centerText: "Your Class"
     };
 
     return <NavigationBar {...navProps} />;

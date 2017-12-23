@@ -39,7 +39,9 @@ export default class NavigationBar extends React.Component {
 
     subProgressBar: PropTypes.bool,
     subProgressValue: PropTypes.number,
-    large: PropTypes.bool
+    large: PropTypes.bool,
+
+    centerText: PropTypes.string
   };
 
   static defaultProps = {
@@ -55,7 +57,8 @@ export default class NavigationBar extends React.Component {
     isWarmup: false,
     progressBar: false,
     subProgressBar: false,
-    large: false
+    large: false,
+    centerText: null
   };
 
   renderButton = () => {
@@ -219,6 +222,12 @@ export default class NavigationBar extends React.Component {
               </div>
             </div>
           )}
+
+        {this.props.centerText && (
+          <span className={[css.centerLabel, css.signupCenterLabel].join(" ")}>
+            {this.props.centerText}
+          </span>
+        )}
 
         {this.props.progressBar && (
           <span className={css.centerLabel}>
