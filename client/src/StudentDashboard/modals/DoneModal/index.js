@@ -45,6 +45,10 @@ export default class DoneModal extends React.Component {
         show={this.props.currentShowModal === THIS_MODAL_ID}
         modalType="success"
       >
+        {this.props.currentShowModal === THIS_MODAL_ID && (
+          <style>{".modal-backdrop.in { opacity: 0.7; }"}</style>
+        )}
+
         <div className={styles.doneModalButtonWrapper}>
           <ButtonArray
             titles={["Turn it in", "Hear it"]}

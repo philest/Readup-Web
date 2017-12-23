@@ -298,7 +298,9 @@ export default class CompModal extends React.Component {
       >
         {this.props.currentShowModal === THIS_MODAL_ID && (
           <style>
-            {" .modal-dialog { margin-top: 30px; } .progress { height: 11px; }"}
+            {
+              " .modal-dialog { margin-top: 30px; } .progress { height: 11px; } .modal-backdrop.in { opacity: 0.6; }"
+            }
           </style>
         )}
 
