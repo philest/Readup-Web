@@ -214,7 +214,8 @@ export class StudentDashboard extends React.Component {
 
       onNextQuestionClicked: this.props.actions.nextQuestionClicked,
       onPreviousQuestionClicked: this.props.actions.previousQuestionClicked,
-      onTryAgainClicked: this.props.actions.tryAgainClicked
+      onTryAgainClicked: this.props.actions.tryAgainClicked,
+      onPauseClicked: this.props.actions.pauseClicked
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader

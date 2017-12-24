@@ -44,10 +44,12 @@ import { countdownSaga } from "./index.js";
 
 const PAGE_CHANGE_DEBOUNCE_TIME_MS = 200;
 
-function* pauseAssessmentSaga(action) {
+export function* pauseAssessmentSaga(action) {
   try {
     const recorder = yield select(getRecorder);
-    yield call(recorder.pauseRecording);
+    if (recorder && recorder.rtcRecorder) {
+      yield call(recorder.pauseRecording);
+    }
   } catch (err) {
     yield clog("err", err);
   }
@@ -55,12 +57,14 @@ function* pauseAssessmentSaga(action) {
 
   yield call(playSoundAsync, "/audio/bamboo.mp3");
 
-  // yield call(playSoundAsync, '/audio/paused.mp3')
-  yield put.resolve(setReaderState(ReaderStateOptions.paused));
-  // yield put.resolve(setCurrentSound('/audio/paused.mp3'))
+  const readerState = yield select(getReaderState);
+
+  if (readerState === "READER_STATE_IN_PROGRESS") {
+    yield put.resolve(setReaderState(ReaderStateOptions.paused));
+  }
+
   yield put.resolve(setCurrentModal("modal-paused"));
   return;
-  // directly show modal here
 }
 
 export function* compPauseAssessmentSaga(action) {
@@ -137,7 +141,7 @@ export default function* assessmentSaga() {
   yield call(console.log, "here in assessmentSaga");
   // watchers!
   // TODO: refactor this into saga for referential integrity of recorder
-  yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga);
+  // yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga);
 
   // yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga);
 

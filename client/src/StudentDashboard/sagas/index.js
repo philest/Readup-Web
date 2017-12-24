@@ -162,7 +162,8 @@ import assessmentSaga from "./assessmentSaga";
 
 import {
 	compPauseAssessmentSaga,
-	resumeAssessmentSaga
+	resumeAssessmentSaga,
+	pauseAssessmentSaga
 } from "./assessmentSaga";
 
 import {
@@ -1952,6 +1953,8 @@ function* assessThenSubmitSaga() {
 	effects.push(yield takeLatest(SKIP_CLICKED, skipClick));
 	effects.push(yield takeLatest(COMP_PAUSE_CLICKED, compPauseAssessmentSaga));
 	effects.push(yield takeLatest(RESUME_CLICKED, resumeAssessmentSaga));
+	effects.push(yield takeLatest(PAUSE_CLICKED, pauseAssessmentSaga));
+
 	effects.push(
 		yield takeLatest(HEAR_QUESTION_AGAIN_CLICKED, hearQuestionAgainSaga)
 	);

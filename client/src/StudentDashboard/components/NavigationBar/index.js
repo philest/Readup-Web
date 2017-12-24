@@ -247,7 +247,10 @@ export default class NavigationBar extends React.Component {
             className={[css.rightDisplayContainer, textColorClass].join(" ")}
           >
             {(true || this.props.showPauseButton) && (
-              <span className={css.pauseButton}>
+              <span
+                className={css.pauseButton}
+                onClick={this.props.onPauseClicked}
+              >
                 <i
                   className="fa fa-hand-paper-o"
                   aria-hidden="true"

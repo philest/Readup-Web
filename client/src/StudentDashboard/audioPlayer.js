@@ -28,17 +28,10 @@ export function playSound(file, onEnd) {
 
     audio = new Audio(file);
 
-    let myTimeout;
-
-    audio.onloadedmetadata = function() {
-      console.log("DURATION :" + audio.duration);
-      console.log("DURATION of :" + file);
-
-      myTimeout = setTimeout(() => {
-        console.log("killed audio in a timeout: ", file);
-        resolve();
-      }, audio.duration * 1000 + 1000);
-    };
+    const myTimeout = setTimeout(() => {
+      console.log("killed audio in a timeout: ", file);
+      resolve();
+    }, 22000);
 
     audio.addEventListener("ended", function() {
       if (myTimeout) {
@@ -49,26 +42,6 @@ export function playSound(file, onEnd) {
       console.log("audio ended");
       resolve();
     });
-
-    // audio.addEventListener("pause", function() {
-    //   if (myTimeout) {
-    //     clearTimeout(myTimeout);
-    //   }
-
-    //   audio = null;
-    //   console.log("AUDIO PAUSED: ", file);
-    //   resolve();
-    // });
-
-    // audio.onpause = function() {
-    //   audio = null;
-    //   console.log("The audio has been paused: ", file);
-    //   if (myTimeout) {
-    //     clearTimeout(myTimeout);
-    //   }
-
-    //   resolve();
-    // };
 
     audio.addEventListener("error", function(error) {
       if (myTimeout) {

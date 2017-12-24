@@ -745,9 +745,7 @@ export default class Reader extends React.Component {
       bookTitle: this.props.bookTitle,
       bookAuthor: this.props.bookAuthor,
       isCoverPage: this.props.showCover,
-      onPauseClicked: this.props.inComp
-        ? this.props.onCompPauseClicked
-        : this.props.onCompPauseClicked,
+      onPauseClicked: this.props.onPauseClicked,
       onExitClicked: this.props.onExitClicked,
       inComp: this.props.inComp,
       inSpelling: this.props.inSpelling,
