@@ -246,7 +246,7 @@ export default class NavigationBar extends React.Component {
           <div
             className={[css.rightDisplayContainer, textColorClass].join(" ")}
           >
-            {(true || this.props.showPauseButton) && (
+            {this.props.showPauseButton && (
               <span
                 className={css.pauseButton}
                 onClick={this.props.onPauseClicked}

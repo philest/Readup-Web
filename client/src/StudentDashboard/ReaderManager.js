@@ -265,6 +265,7 @@ export class StudentDashboard extends React.Component {
           onTurnInClicked={this.props.actions.turnInClicked}
           currentShowModal={this.props.currentShowModal}
           showSpinner={this.props.showSpinner}
+          onExitClicked={this.props.quitAssessment}
         />
 
         <SoundCheckModal

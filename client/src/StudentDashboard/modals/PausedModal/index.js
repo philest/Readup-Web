@@ -20,7 +20,8 @@ export default class PausedModal extends React.Component {
 
     currentShowModal: PropTypes.string,
     modalType: PropTypes.string,
-    showSpinner: PropTypes.bool
+    showSpinner: PropTypes.bool,
+    onExitClicked: PropTypes.func
   };
 
   /**
@@ -51,11 +52,17 @@ export default class PausedModal extends React.Component {
         show={this.props.currentShowModal === THIS_MODAL_ID}
         modalType="info"
       >
+        {this.props.currentShowModal === THIS_MODAL_ID && (
+          <style type="text/css">
+            {".modal-backdrop.in { opacity: 0.65; } "}
+          </style>
+        )}
+
         <div className={commonStyles.modalButtonArrayWrapper}>
           <ButtonArray
             titles={["Go on", "Turn in early"]}
             images={["fa-arrow-left", firstIcons]}
-            actions={[this.props.onContinueClicked, this.props.onTurnInClicked]}
+            actions={[this.props.onContinueClicked, this.props.onExitClicked]}
             enlargeFirst={true}
             fontAwesome={true}
             modalType={"info"}
