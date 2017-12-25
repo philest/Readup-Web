@@ -761,9 +761,10 @@ export default class Reader extends React.Component {
       subProgressValue: this.getSubProgressValue(),
       large: this.props.inComp || this.props.inSpelling,
       showPauseButton:
-        this.props.section !== SectionOptions.initializing &&
-        this.props.section !== SectionOptions.login &&
-        this.props.section !== SectionOptions.video
+        false ||
+        (this.props.section !== SectionOptions.initializing &&
+          this.props.section !== SectionOptions.login &&
+          this.props.section !== SectionOptions.video)
     };
 
     return <NavigationBar {...navProps} />;

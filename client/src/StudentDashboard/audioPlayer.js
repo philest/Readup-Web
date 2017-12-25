@@ -43,15 +43,15 @@ export function playSound(file, onEnd) {
       resolve();
     });
 
-    audio.addEventListener("pause", function() {
-      if (myTimeout) {
-        clearTimeout(myTimeout);
-      }
+    // audio.addEventListener("pause", function() {
+    //   if (myTimeout) {
+    //     clearTimeout(myTimeout);
+    //   }
 
-      audio = null;
-      console.log("audio PAUSED", file);
-      resolve();
-    });
+    //   audio = null;
+    //   console.log("audio PAUSED", file);
+    //   resolve();
+    // });
 
     audio.addEventListener("error", function(error) {
       if (myTimeout) {
