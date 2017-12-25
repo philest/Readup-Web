@@ -21,7 +21,8 @@ export default class SpellingTextField extends React.Component {
     spellingInput: PropTypes.string,
     book: PropTypes.object,
     onHearQuestionAgainClicked: PropTypes.func,
-    hasVolume: PropTypes.bool
+    hasVolume: PropTypes.bool,
+    hasRightVolume: PropTypes.bool
   };
   static defaultProps = {};
 
@@ -147,8 +148,19 @@ export default class SpellingTextField extends React.Component {
               : "hidden"
           }}
         />
+
+        {this.props.hasRightVolume && (
+          <VolumeIndicator
+            hearAgainClicked={this.props.onHearQuestionAgainClicked}
+            offsetLeft
+            visible
+            centered
+            onClick={() => {
+              this.form.focus();
+            }}
+          />
+        )}
       </div>
     );
   }
 }
-

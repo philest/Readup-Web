@@ -43,8 +43,13 @@
 .offsetLeft {
 	display: inline-block;
 	position: relative;
+	top: -13px;
+
+	/*	display: inline-block;
+	position: relative;
 	left: 90px;
 	top: -20px;
+*/
 }
 
 @media screen and (max-width: 1070px) {

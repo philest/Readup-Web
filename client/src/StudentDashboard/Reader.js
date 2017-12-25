@@ -150,6 +150,7 @@ export default class Reader extends React.Component {
       <div>
         <SpellingTextField
           hasVolume={false}
+          hasRightVolume={true}
           book={this.props.book}
           onHearQuestionAgainClicked={this.props.onHearQuestionAgainClicked}
           onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
@@ -173,7 +174,7 @@ export default class Reader extends React.Component {
           spellingInput={this.props.spellingInput}
           onSpellingAnswerGiven={this.props.onSpellingAnswerGiven}
           hearAgainClicked={this.props.onHearQuestionAgainClicked}
-          hasVolume
+          hasVolume={false}
           onSkipClicked={this.props.onSkipClicked}
         />
 
