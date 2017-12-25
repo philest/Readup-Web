@@ -54,6 +54,7 @@ import PromptButtons from "./PromptButtons";
 let showLogs;
 let audioToggleButton;
 let videoToggleButton;
+let remoteMuteToggleButton;
 let localVideo;
 let localAudio;
 
@@ -392,6 +393,7 @@ export default class VideoChat extends React.Component {
     pictureInPicture: PropTypes.bool,
     audioToggleButton: PropTypes.bool,
     videoToggleButton: PropTypes.bool,
+    remoteMuteToggleButton: PropTypes.bool,
     localVideo: PropTypes.bool,
     localAudio: PropTypes.bool,
     studentDash: PropTypes.bool,
@@ -410,7 +412,8 @@ export default class VideoChat extends React.Component {
     localVideo: true,
     localAudio: true,
     studentDash: false,
-    isWithinGrader: true
+    isWithinGrader: true,
+    remoteMuteToggleButton: false
   };
 
   /**
@@ -423,7 +426,8 @@ export default class VideoChat extends React.Component {
       localAudioEnabled: !this.props.audioToggleButton, // If there's a toggle button, start on mute (grader)
       localVideoEnabled: !this.props.videoToggleButton,
       showVideo: !this.props.studentDash, // Hide the video for students, until told to
-      newReaderProps: newReaderProps
+      newReaderProps: newReaderProps,
+      remoteMuted: false
     };
 
     roomJoined = roomJoined.bind(this);
@@ -847,6 +851,22 @@ div#controls div#log p {
               }}
             >
               Turn on your video
+            </Button>
+          )}
+
+          {this.props.remoteMuteToggleButton && (
+            <Button
+              id="mute-toggle"
+              onClick={() => {
+                if (!$("audio")[0]) {
+                  return;
+                }
+                $("audio")[0].muted = !$("audio")[0].muted;
+
+                this.setState({ remoteMuted: !this.state.remoteMuted });
+              }}
+            >
+              {this.state.remoteMuted ? "Unmute student" : "Mute student"}
             </Button>
           )}
 

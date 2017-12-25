@@ -1022,6 +1022,7 @@ export default class GraderInterface extends React.Component {
                 hide={false}
                 audioToggleButton
                 videoToggleButton
+                remoteMuteToggleButton
                 book={book}
               />
             </div>

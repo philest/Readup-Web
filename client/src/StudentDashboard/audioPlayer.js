@@ -43,6 +43,16 @@ export function playSound(file, onEnd) {
       resolve();
     });
 
+    audio.addEventListener("pause", function() {
+      if (myTimeout) {
+        clearTimeout(myTimeout);
+      }
+
+      audio = null;
+      console.log("audio PAUSED", file);
+      resolve();
+    });
+
     audio.addEventListener("error", function(error) {
       if (myTimeout) {
         clearTimeout(myTimeout);
@@ -66,7 +76,7 @@ export function playSoundAsync(file) {
     audio.pause();
   }
 
-  console.log("Playing Sound: " + file);
+  console.log("Playing Sound Async: " + file);
   audio = new Audio(file);
   audio.play();
 }
@@ -78,6 +88,8 @@ export function stopAudio() {
 
   if (!!audio) {
     audio.pause();
-    audio = null;
+    setTimeout(() => {
+      audio = null;
+    }, 1000);
   }
 }
