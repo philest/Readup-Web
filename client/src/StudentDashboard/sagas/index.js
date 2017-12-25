@@ -2025,9 +2025,6 @@ function* assessThenSubmitSaga() {
 
 	yield put.resolve(setSection(SectionOptions.bookIntro));
 
-	yield put.resolve(setInSpelling(true));
-	yield take("dsdssdfsdf");
-
 	yield call(bookIntroSaga, book);
 
 	// cancel the hear again saga...
