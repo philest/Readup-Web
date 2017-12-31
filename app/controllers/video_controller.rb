@@ -97,13 +97,21 @@ skip_before_action :verify_authenticity_token
 			puts "No active rooms."
 		end 
 
+		unique_names = []
+		room_SIDs = []
+
+
 		rooms_by_status.each do |room|
-		  puts room.sid
+		  unique_names.push(room.unique_name)
+		  room_SIDs.push(room.sid)
+		  puts "Name: #{room.unique_name}, SID: #{room.sid}"
 		end
 
 
-	    msg = { :status => "ok", :numActiveRooms => "#{rooms_by_status ? rooms_by_status.length : 0}",
-	    		:name => "#{rooms_by_status.first ? rooms_by_status.first.unique_name : nil}", :roomSID => "#{rooms_by_status.first ? rooms_by_status.first.sid : nil}"
+	    msg = { :status => "ok", 
+	    		:numActiveRooms => "#{rooms_by_status ? rooms_by_status.length : 0}",
+	    		:names => "#{unique_names}",
+	    		:SIDs => "#{room_SIDs}"
 	     }
 	    render :json => msg
 
