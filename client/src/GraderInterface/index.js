@@ -177,6 +177,7 @@ export default class GraderInterface extends React.Component {
       roomNames: null
     };
     this.tick = this.tick.bind(this);
+    this.tock = this.tock.bind(this);
   }
 
   componentWillMount() {
@@ -236,12 +237,14 @@ export default class GraderInterface extends React.Component {
 
   componentDidMount() {
     this.interval = setInterval(this.tick, 60000);
+    this.interval2 = setInterval(this.tock, 3500);
     currAudioPlayer = this.refs.audioPlayer0;
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
     clearInterval(this.interval);
+    clearInterval(this.interval2);
   }
 
   closeReportReadyModal = () => {
@@ -262,8 +265,29 @@ export default class GraderInterface extends React.Component {
     });
   };
 
+  tock() {
+    if (this.props.isProctor) {
+      getActiveRooms()
+        .then(res => {
+          let data = res.data;
+
+          if (JSON.parse(data.names).length !== this.state.roomNames.length) {
+            playSoundAsync("/audio/complete.mp3"); // notify that a new appeared
+          }
+
+          this.setState({ roomNames: JSON.parse(data.names) });
+          this.setState({ roomSIDs: JSON.parse(data.SIDs) });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+
+    return;
+  }
+
   tick() {
-    if (this.props.isVideoChat || this.props.isProctor) {
+    if (this.props.isVideoChat) {
       return;
     }
 
@@ -944,11 +968,6 @@ export default class GraderInterface extends React.Component {
   };
 
   parseAssessmentID = roomName => {
-    console.log("newww");
-
-    console.log(roomName);
-    console.log(roomName.split("-").slice(-2)[0]);
-
     return roomName.split("-").slice(-2)[0];
   };
 
@@ -973,7 +992,7 @@ export default class GraderInterface extends React.Component {
 
       for (let i = 0; i < this.state.roomNames.length; i++) {
         nameElts.push(
-          <div>
+          <div key={1}>
             <a
               href={`${baseURL}/grade/latest?assessment_id=${this.parseAssessmentID(
                 this.state.roomNames[i]
