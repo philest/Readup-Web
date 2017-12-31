@@ -173,7 +173,8 @@ export default class GraderInterface extends React.Component {
       totalTimeReading: this.props.totalTimeReading,
       scoredSpelling: !this.props.scoredSpelling
         ? null
-        : this.props.scoredSpelling
+        : this.props.scoredSpelling,
+      roomNames: null
     };
     this.tick = this.tick.bind(this);
   }
@@ -221,6 +222,16 @@ export default class GraderInterface extends React.Component {
     if (!this.props.isLiveDemo) {
       this.onIsLiveDemoClicked(); // being on grader makes it a live demo
     }
+
+    getActiveRooms()
+      .then(res => {
+        let data = res.data;
+        this.setState({ roomNames: JSON.parse(data.names) });
+        this.setState({ roomSIDs: JSON.parse(data.SIDs) });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   componentDidMount() {
@@ -232,16 +243,6 @@ export default class GraderInterface extends React.Component {
     document.removeEventListener("keydown", this._handleKeyDown);
     clearInterval(this.interval);
   }
-
-  activeRooms = () => {
-    getActiveRooms()
-      .then(res => {
-        return res.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
 
   closeReportReadyModal = () => {
     this.setState({ showReadyForReviewModal: false });
@@ -942,6 +943,28 @@ export default class GraderInterface extends React.Component {
     return questionElt;
   };
 
+  renderRooms = () => {
+    if (!this.state.roomNames) {
+      return "Loading...";
+    }
+
+    if (this.state.roomNames.length === 0 || !this.state.roomNames.length) {
+      console.log("No rooms occupied right now");
+      return "No rooms occupied right now.";
+    } else {
+      console.log("Some rooms occupied right now: ", this.state.roomNames);
+      console.log("len: ", this.state.roomNames.length);
+
+      let nameElts = [];
+
+      for (let i = 0; i < this.state.roomNames.length; i++) {
+        nameElts.push(<div>{this.state.roomNames[i]}</div>);
+      }
+
+      return <div>{nameElts}</div>;
+    }
+  };
+
   render() {
     if (this.props.waiting) {
       return (
@@ -1042,8 +1065,8 @@ export default class GraderInterface extends React.Component {
     if (this.props.isProctor) {
       return (
         <div>
-          {this.renderNavigationBar(false)}
-          HERE I AM!!!!
+          <h4> Rooms Occupied: </h4>
+          {this.renderRooms()}
         </div>
       );
     }
