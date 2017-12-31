@@ -1183,7 +1183,7 @@ export default class ReportsInterface extends React.Component {
               this.state.gradedText.readingEndIndex.paragraphIndex <
               this.state.gradedText.paragraphs.length - 1
             }
-            showMSV={this.props.userID > 156} // backwards compatibility
+            showMSV={this.props.isSample || this.props.userID > 156} // backwards compatibility
             bookKey={this.props.bookKey}
           />
 
