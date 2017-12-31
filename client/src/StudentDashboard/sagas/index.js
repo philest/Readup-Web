@@ -987,14 +987,16 @@ function* bookIntroSaga(book) {
 	if (isWarmup && !hasWrittenComp(book)) {
 		yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
 
-		yield call(playSound, "/audio/warmup/w-1.mp3");
+		// yield call(playSound, "/audio/warmup/w-1.mp3");
+		yield call(playSound, "/audio/helper/lets-try-practice.mp3");
+
 		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		yield call(playSound, "/audio/warmup/w-2.mp3");
 	} else if (isWarmup && hasWrittenComp(book)) {
 		yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
 
-		yield call(playSound, "/audio/new-warmup/new-intro-1-01.mp3");
+		yield call(playSound, "/audio/helper/lets-try-practice.mp3");
 
 		yield put.resolve(setCurrentOverlay("no-overlay"));
 
