@@ -943,7 +943,21 @@ export default class GraderInterface extends React.Component {
     return questionElt;
   };
 
+  parseAssessmentID = roomName => {
+    console.log("newww");
+
+    console.log(roomName);
+    console.log(roomName.split("-").slice(-2)[0]);
+
+    return roomName.split("-").slice(-2)[0];
+  };
+
   renderRooms = () => {
+    let baseURL =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://readupnow.com";
+
     if (!this.state.roomNames) {
       return "Loading...";
     }
@@ -958,7 +972,17 @@ export default class GraderInterface extends React.Component {
       let nameElts = [];
 
       for (let i = 0; i < this.state.roomNames.length; i++) {
-        nameElts.push(<div>{this.state.roomNames[i]}</div>);
+        nameElts.push(
+          <div>
+            <a
+              href={`${baseURL}/grade/latest?assessment_id=${this.parseAssessmentID(
+                this.state.roomNames[i]
+              )}&amp;live=true`}
+            >
+              {this.state.roomNames[i]}
+            </a>
+          </div>
+        );
       }
 
       return <div>{nameElts}</div>;
