@@ -1011,7 +1011,13 @@ function* bookIntroSaga(book) {
 	} else {
 		//standard oral reading
 		yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
-		yield call(playSound, "/audio/your-teacher-wants-intro.mp3");
+
+		yield call(playSound, "/audio/helper/your-teacher-wants-to-hear.mp3");
+		yield call(
+			playSound,
+			"/audio/helper/if-you-ever-dont-know-something.mp3"
+		);
+
 		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		yield put.resolve(showVolumeIndicator());
