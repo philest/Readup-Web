@@ -1127,12 +1127,20 @@ export function* countdownSaga(isSingle) {
 function* spellingInstructionSaga() {
 	const isWarmup = yield select(getIsWarmup);
 	let book = yield select(getBook);
-	// const isDraggingSpelling = book.stepLevel < 10;
-	const isDraggingSpelling = false;
+	// const isClickingSpelling = book.stepLevel < 10;
+	const isClickingSpelling = true;
 
 	if (isWarmup) {
-		if (isDraggingSpelling) {
-			yield call(playSound, "/audio/additions/drag-warmup.mp3");
+		if (isClickingSpelling) {
+			yield call(
+				playSound,
+				"/audio/helper/great-and-for-your-last-activity-just-spell.mp3"
+			);
+
+			yield call(
+				playSound,
+				"/audio/helper/if-you-need-to-get-rid-of-a-letter.mp3"
+			);
 		} else {
 			yield call(playSound, "/audio/warmup/w-9.mp3");
 		}
@@ -1140,8 +1148,11 @@ function* spellingInstructionSaga() {
 
 		yield call(playSound, "/audio/say-sounds-slowly.mp3");
 	} else {
-		if (isDraggingSpelling) {
-			yield call(playSound, "/audio/additions/drag-real.mp3");
+		if (isClickingSpelling) {
+			yield call(
+				playSound,
+				"/audio/helper/great-and-for-your-last-activity-just-spell.mp3"
+			);
 		} else {
 			yield call(playSound, "/audio/spelling-intro-transition.mp3");
 			yield put.resolve(
@@ -1903,7 +1914,10 @@ function* bookCheckSaga() {
 		yield takeLatest(NO_CLICKED, teacherHelpInstructions)
 	);
 
-	yield call(playSoundAsync, "/audio/additions/book-check-full.mp3");
+	yield call(
+		playSoundAsync,
+		"/audio/helper/full-teacher-give-you-a-book.mp3"
+	);
 
 	yield take(YES_CLICKED);
 	yield call(playSoundAsync, "/audio/complete.mp3");
@@ -2062,7 +2076,10 @@ function* assessThenSubmitSaga() {
 	yield call(delay, 200);
 
 	if (isWarmup) {
-		yield call(playSoundAsync, "/audio/warmup/w-12.mp3");
+		yield call(
+			playSoundAsync,
+			"/audio/helper/great-thats-the-end-of-practice.mp3"
+		);
 	} else {
 		yield call(playSoundAsync, "/audio/VB/VB-done.mp3");
 	}
