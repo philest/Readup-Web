@@ -54,6 +54,14 @@ export default class LinkInfo extends React.Component {
           </a>
         </div>
         <span onClick={this.props.back} className={styles.whiteBack}>
+          <i
+            className={"fa fa-arrow-left"}
+            aria-hidden="true"
+            style={{
+              marginRight: 7,
+              fontSize: 15
+            }}
+          />
           Back
         </span>
         <div className={styles.flexContainer}>
