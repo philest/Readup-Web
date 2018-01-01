@@ -12,6 +12,30 @@
 	letter-spacing: 0.6px;
 }
 
+.offcenter {
+	position: relative;
+	margin-left: auto !important;
+	left: -37px;
+}
+
+.backButton {
+	display: inline-block;
+	float: left;
+	border: none;
+	color: #3379b7;
+	position: relative;
+	left: 33px;
+}
+
+.backButton:hover {
+	background-color: white;
+}
+
+.flexContainer {
+	display: flex;
+	justify-content: center;
+}
+
 /*.row {
 	display: flex;
 	justify-content: space-evenly;

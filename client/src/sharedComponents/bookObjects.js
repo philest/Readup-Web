@@ -116,21 +116,24 @@ export const step1 = {
   title: "STEP 1 is not yet available",
   stepLevel: 1,
   stepSeries: "NONE",
-  bookKey: "step1"
+  bookKey: "step1",
+  brand: "STEP"
 };
 
 export const step2 = {
   title: "STEP 2 is not yet available",
   stepLevel: 2,
   stepSeries: "NONE",
-  bookKey: "step2"
+  bookKey: "step2",
+  brand: "STEP"
 };
 
 export const step3 = {
   title: "STEP 3 is not yet available",
   stepLevel: 3,
   stepSeries: "NONE",
-  bookKey: "step3"
+  bookKey: "step3",
+  brand: "STEP"
 };
 
 //////////// YELLOW START ////////////

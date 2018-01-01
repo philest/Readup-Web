@@ -10,7 +10,8 @@ let preLink = "https://";
 
 export default class LinkInfo extends React.Component {
   static propTypes = {
-    userID: PropTypes.number
+    userID: PropTypes.number,
+    back: PropTypes.func
   };
 
   componentWillMount = () => {
@@ -52,11 +53,16 @@ export default class LinkInfo extends React.Component {
             {this.state.classLink}
           </a>
         </div>
-        <a target="_blank" href={`${preLink}www.${this.state.classLink}`}>
-          <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
-            Try it yourself
-          </Button>
-        </a>
+        <span onClick={this.props.back} className={styles.whiteBack}>
+          Back
+        </span>
+        <div className={styles.flexContainer}>
+          <a target="_blank" href={`${preLink}www.${this.state.classLink}`}>
+            <Button className={styles.goButton} bsSize="lg" bsStyle="primary">
+              Try it yourself
+            </Button>
+          </a>
+        </div>
       </div>
     );
   }

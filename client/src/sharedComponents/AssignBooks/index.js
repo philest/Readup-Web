@@ -26,6 +26,8 @@ function getBookKeysAtLevel(level) {
     }
   }
 
+  console.log("There (level, titleArr)", level, titleArr);
+
   return titleArr;
 }
 
@@ -213,6 +215,8 @@ export default class AssignBooks extends React.Component {
   };
 
   renderDropDownBook = (bookKey, level, id) => {
+    console.log("Here we are (bookKey, level, id)", bookKey, level, id);
+
     return (
       <div className={styles.bookElt}>
         <DropdownButton
@@ -293,9 +297,9 @@ export default class AssignBooks extends React.Component {
               onClick={() => {
                 this.props.back();
               }}
-              className={styles.saveButton}
+              className={[styles.saveButton, styles.backButton].join(" ")}
               bsSize="lg"
-              bsStyle="primary"
+              bsStyle="default"
             >
               Back
             </Button>
@@ -305,7 +309,7 @@ export default class AssignBooks extends React.Component {
                 this.batchUpdate(this.state.myClass);
                 this.props.hideModal();
               }}
-              className={styles.saveButton}
+              className={[styles.saveButton, styles.offcenter].join(" ")}
               bsSize="lg"
               bsStyle="primary"
             >

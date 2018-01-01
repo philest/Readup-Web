@@ -4,6 +4,16 @@
 	line-height: 1.5em;
 }
 
+.whiteBack {
+	color: white;
+	font-size: 17px;
+	font-family: "proximanova semibold";
+	position: relative;
+	top: 34px;
+	left: 20px;
+	cursor: pointer;
+}
+
 .formLg {
 	height: 46px;
 	padding: 10px 16px;
@@ -35,9 +45,15 @@
 }
 
 .goButton {
-	margin: 0px auto;
+	/*	margin: 0px auto;
+*/
 	display: block;
 	font-family: "Proximanova semibold";
+}
+
+.flexContainer {
+	display: flex;
+	justify-content: center;
 }
 
 a {
