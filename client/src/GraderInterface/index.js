@@ -975,7 +975,7 @@ export default class GraderInterface extends React.Component {
     let baseURL =
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
-        : "https://readupnow.com";
+        : "https://www.readupnow.com";
 
     if (!this.state.roomNames) {
       return "Loading...";
