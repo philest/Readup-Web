@@ -1,8 +1,5 @@
 .spellingContainer {
-    /*    margin-top: -11vh;
-*/
-
-    height: 192px;
+    height: 152px;
     display: flex;
     justify-content: center;
     position: relative;

@@ -1393,7 +1393,7 @@ function* findPromptSaga(studentID) {
 	if (false && process.env.NODE_ENV === "development") {
 		waitingTime = 200;
 	} else {
-		waitingTime = isLiveDemo ? 6000 : 1000;
+		waitingTime = isLiveDemo ? 8000 : 1000;
 	}
 
 	const { prompt, timeout } = yield race({
@@ -1974,6 +1974,8 @@ function* assessThenSubmitSaga() {
 	let sectionList;
 	let assessmentID = yield select(getAssessmentID);
 	yield clog("sectionList: ", sectionList);
+
+	yield put.resolve(setInSpelling(true));
 
 	// earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 	// now we start the assessment for real

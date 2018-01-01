@@ -123,6 +123,14 @@ export default class Reader extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    if (process.env.NODE_ENV === "production") {
+      // disable right click in prod..
+      document.oncontextmenu = new Function("return false;");
+      document.onselectstart = new Function("return false;");
+    }
+  }
+
   getSubProgressValue = () => {
     if (this.props.inComp) {
       if (this.props.isWarmup) {

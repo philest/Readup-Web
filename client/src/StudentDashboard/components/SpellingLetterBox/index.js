@@ -6,6 +6,8 @@ import BackArrowButton from "../BackArrowButton";
 import VolumeIndicator from "../VolumeIndicator";
 import SkipPrompt from "../SkipPrompt";
 
+import { playSoundAsync } from "../../audioPlayer";
+
 export default class SpellingLetterBox extends React.Component {
   static propTypes = {
     onSpellingInputSet: PropTypes.func,
@@ -31,12 +33,23 @@ export default class SpellingLetterBox extends React.Component {
     };
   }
 
+  componentWillMount() {
+    if (process.env.NODE_ENV === "production") {
+      // disable right click in prod..
+      document.oncontextmenu = new Function("return false;");
+      document.onselectstart = new Function("return false;");
+    }
+  }
+
   addLetter(letter) {
+    playSoundAsync("/audio/keypress.mp3");
     this.props.onSpellingAnswerGiven(true);
     this.props.onSpellingInputSet(this.props.spellingInput + letter);
   }
 
   backspace() {
+    playSoundAsync("/audio/keypress.mp3");
+
     console.log("spellingInput: ", this.props.spellingInput);
 
     if (this.props.spellingInput.length > 0) {
