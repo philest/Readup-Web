@@ -151,10 +151,14 @@ export default class Signup extends React.Component {
             <AssignBooks
               userID={this.props.userID || this.state.userID}
               hideModal={() => this.setCurrentShowPage("LINK_INFO_PAGE")}
+              back={() => this.setCurrentShowPage("ADD_CLASS_PAGE")}
             />
           )}
           {this.state.currentShowPageID === "LINK_INFO_PAGE" && (
-            <LinkInfo userID={this.props.userID || this.state.userID} />
+            <LinkInfo
+              userID={this.props.userID || this.state.userID}
+              back={() => this.setCurrentShowPage("ASSIGN_BOOKS_PAGE")}
+            />
           )}
         </div>
       </div>

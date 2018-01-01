@@ -13,7 +13,8 @@ import {
 
 import {
   createStudentsForUser,
-  setupClass
+  setupClass,
+  getAllStudents
 } from "../../ReportsInterface/emailHelpers";
 
 function remove(array, element) {
@@ -67,6 +68,27 @@ export default class AddClass extends React.Component {
       let holder = nextProps.importedStudents.concat(this.state.students);
       this.setState({ students: holder });
     }
+  }
+
+  componentWillMount() {
+    let holder = [];
+
+    getAllStudents(this.props.userID)
+      .then(res => {
+        console.log("resolved: ");
+        console.log(res);
+        const studentDataArr = res.data;
+        for (let i = 0; i < studentDataArr.length; i++) {
+          holder.push(
+            `${studentDataArr[i].first_name} ${studentDataArr[i].last_name}`
+          );
+        }
+        console.log("holder: ", holder);
+        this.setState({ students: holder });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   checkForm = () => {

@@ -291,6 +291,17 @@ export default class AssignBooks extends React.Component {
           <Modal.Footer>
             <Button
               onClick={() => {
+                this.props.back();
+              }}
+              className={styles.saveButton}
+              bsSize="lg"
+              bsStyle="primary"
+            >
+              Back
+            </Button>
+
+            <Button
+              onClick={() => {
                 this.batchUpdate(this.state.myClass);
                 this.props.hideModal();
               }}

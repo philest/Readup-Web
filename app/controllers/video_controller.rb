@@ -111,7 +111,8 @@ skip_before_action :verify_authenticity_token
 	    msg = { :status => "ok", 
 	    		:numActiveRooms => "#{rooms_by_status ? rooms_by_status.length : 0}",
 	    		:names => "#{unique_names}",
-	    		:SIDs => "#{room_SIDs}"
+	    		:SIDs => "#{room_SIDs}",
+	    		:rooms => "#{rooms_by_status}"
 	     }
 	    render :json => msg
 
