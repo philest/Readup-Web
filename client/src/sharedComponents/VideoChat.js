@@ -216,6 +216,10 @@ export function roomJoined(room) {
             onToggleShowVideo(true);
           } else if (data.includes("VIDEO-OFF")) {
             onToggleShowVideo(false);
+          } else if (data.includes("AUDIO-ON")) {
+            this.props.onSetPlayingImmediatePrompt(true);
+          } else if (data.includes("AUDIO-OFF")) {
+            this.props.onSetPlayingImmediatePrompt(false);
           } else if (data.includes("PROMPT-")) {
             let promptNum = parseInt(data.substring(data.length - 1)); // grab the last character
 
@@ -341,6 +345,7 @@ export function roomJoined(room) {
   if (audioToggleButton) {
     document.getElementById("audio-toggle-off").onclick = function() {
       room.localParticipant.audioTracks.forEach(function(audioTrack, key, map) {
+        dataTrack.send("AUDIO-OFF");
         console.log("muting this users audio");
         audioTrack.disable();
       });
@@ -348,6 +353,7 @@ export function roomJoined(room) {
 
     document.getElementById("audio-toggle-on").onclick = function() {
       room.localParticipant.audioTracks.forEach(function(audioTrack, key, map) {
+        dataTrack.send("AUDIO-ON");
         console.log("enabling this users audio");
         audioTrack.enable();
       });

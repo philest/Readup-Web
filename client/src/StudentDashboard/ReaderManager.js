@@ -387,8 +387,11 @@ export class StudentDashboard extends React.Component {
           currentShowOverlay={this.props.currentShowOverlay}
           showOveride={this.props.playingImmediatePrompt}
           text={this.props.isWarmup ? "Practice" : "Full book"}
+          graderLiveHelping={
+            this.props.playingImmediatePrompt && !this.props.inComp
+          }
           prompt={this.props.inComp || this.props.playingImmediatePrompt}
-          isMoreInstructions={
+          isReadingInstructions={
             this.props.readerState !== ReaderStateOptions.playingBookIntro &&
             this.props.readerState !== ReaderStateOptions.awaitingStart &&
             (this.props.inOralReading || this.props.inSilentReading)

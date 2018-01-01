@@ -1975,8 +1975,6 @@ function* assessThenSubmitSaga() {
 	let assessmentID = yield select(getAssessmentID);
 	yield clog("sectionList: ", sectionList);
 
-	// yield put.resolve(setInSpelling(true));
-
 	// earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 	// now we start the assessment for real
 	effects.push(yield takeLatest(EXIT_CLICKED, exitClick));
