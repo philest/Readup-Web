@@ -33,14 +33,6 @@ export default class SpellingLetterBox extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (process.env.NODE_ENV === "production") {
-      // disable right click in prod..
-      document.oncontextmenu = new Function("return false;");
-      document.onselectstart = new Function("return false;");
-    }
-  }
-
   addLetter(letter) {
     playSoundAsync("/audio/keypress.mp3");
     this.props.onSpellingAnswerGiven(true);
