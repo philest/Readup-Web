@@ -11,7 +11,8 @@ export default class FlashNoticeOverlay extends React.Component {
     showOveride: PropTypes.bool,
     text: PropTypes.string,
     prompt: PropTypes.bool,
-    isMoreInstructions: PropTypes.bool
+    graderLiveHelping: PropTypes.bool,
+    isReadingInstructions: PropTypes.bool
   };
 
   /**
@@ -21,6 +22,18 @@ export default class FlashNoticeOverlay extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {};
+  }
+
+  renderText() {
+    if (this.props.graderLiveHelping) {
+      return;
+    } else if (this.props.prompt) {
+      return "?";
+    } else if (this.props.isReadingInstructions) {
+      return;
+    } else {
+      return this.props.text;
+    }
   }
 
   render() {
@@ -35,7 +48,7 @@ export default class FlashNoticeOverlay extends React.Component {
       <div
         className={[
           styles.introContainer,
-          this.props.isMoreInstructions ? styles.countdownWrapper : ""
+          this.props.isReadingInstructions ? styles.countdownWrapper : ""
         ].join(" ")}
       >
         <div
@@ -45,8 +58,7 @@ export default class FlashNoticeOverlay extends React.Component {
             this.props.prompt ? styles.large : ""
           ].join(" ")}
         >
-          {!this.props.isMoreInstructions &&
-            (this.props.prompt ? "?" : this.props.text)}
+          {this.renderText()}
         </div>
       </div>
     );
