@@ -1004,12 +1004,12 @@ function* bookIntroSaga(book) {
 	} else if (hasWrittenComp(book)) {
 		yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
 		yield call(playSound, "/audio/gen/instruct-3.mp3");
-		yield put.resolve(setCurrentOverlay("no-overlay"));
-
 		yield call(
 			playSound,
 			"/audio/helper/if-you-ever-dont-know-something.mp3"
 		);
+
+		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		yield put.resolve(showVolumeIndicator());
 		yield call(playSound, book.introAudioSrc);
@@ -1019,12 +1019,12 @@ function* bookIntroSaga(book) {
 
 		yield call(playSound, "/audio/helper/your-teacher-wants-to-hear.mp3");
 
-		yield put.resolve(setCurrentOverlay("no-overlay"));
-
 		yield call(
 			playSound,
 			"/audio/helper/if-you-ever-dont-know-something.mp3"
 		);
+
+		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		yield put.resolve(showVolumeIndicator());
 
@@ -1975,7 +1975,7 @@ function* assessThenSubmitSaga() {
 	let assessmentID = yield select(getAssessmentID);
 	yield clog("sectionList: ", sectionList);
 
-	yield put.resolve(setInSpelling(true));
+	// yield put.resolve(setInSpelling(true));
 
 	// earlyExitEffect.push(yield takeLatest(EXIT_CLICKED, redirectToHomepage));
 	// now we start the assessment for real
