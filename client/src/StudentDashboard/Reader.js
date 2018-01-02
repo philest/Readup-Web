@@ -788,6 +788,7 @@ export default class Reader extends React.Component {
               this.props.readerState === ReaderStateOptions.paused
             )
           }
+          onStopClicked={this.props.onStopClicked}
           onSetPlayingImmediatePrompt={this.props.onSetPlayingImmediatePrompt}
           identity={this.props.studentName}
           assessmentID={this.props.assessmentID}

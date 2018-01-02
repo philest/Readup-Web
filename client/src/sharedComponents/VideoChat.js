@@ -36,6 +36,7 @@ import DemoSubmittedOverlay from "../StudentDashboard/overlays/DemoSubmittedOver
 import PermissionsOverlay from "../StudentDashboard/overlays/PermissionsOverlay";
 import CountdownOverlay from "../StudentDashboard/overlays/CountdownOverlay";
 import SpinnerOverlay from "../StudentDashboard/overlays/SpinnerOverlay";
+import FlashNoticeOverlay from "../StudentDashboard/overlays/FlashNoticeOverlay";
 
 import { sendEmail } from "../ReportsInterface/emailHelpers";
 
@@ -212,6 +213,8 @@ export function roomJoined(room) {
             console.log(data);
             console.log("got a message to send over all state");
             this.sendAllPropsIndividually(this.props.readerProps);
+          } else if (data.includes("STOP-RECORDING")) {
+            this.props.onStopClicked();
           } else if (data.includes("VIDEO-ON")) {
             onToggleShowVideo(true);
           } else if (data.includes("VIDEO-OFF")) {
@@ -378,6 +381,11 @@ export function roomJoined(room) {
         videoTrack.enable();
       });
     };
+
+    document.getElementById("stop-recording-student").onclick = function() {
+      console.log("clicked stop recording");
+      dataTrack.send("STOP-RECORDING");
+    };
   }
 }
 
@@ -405,7 +413,8 @@ export default class VideoChat extends React.Component {
     studentDash: PropTypes.bool,
     lastQuestionAudioFile: PropTypes.string,
     screenshotDataURL: PropTypes.string,
-    isWithinGrader: PropTypes.bool
+    isWithinGrader: PropTypes.bool,
+    onStopClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -874,6 +883,10 @@ div#controls div#log p {
             >
               {this.state.remoteMuted ? "Unmute student" : "Mute student"}
             </Button>
+          )}
+
+          {this.props.isWithinGrader && (
+            <Button id="stop-recording-student">Stop recording student</Button>
           )}
 
           {!this.props.studentDash && (

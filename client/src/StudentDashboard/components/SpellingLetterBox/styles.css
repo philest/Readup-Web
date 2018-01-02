@@ -1,4 +1,6 @@
 .containerForBoxAndVolume {
+	display: flex;
+	justify-content: center;
 }
 
 .spellingLetterBox {
