@@ -97,7 +97,6 @@ export default class SpellingTextField extends React.Component {
 
     if (this.props.onSpellingInputSet) {
       // allow screencast to work without this
-
       this.props.onSpellingInputSet(this.form.value); // set to value
     }
   };
