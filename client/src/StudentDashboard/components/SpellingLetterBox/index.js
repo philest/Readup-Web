@@ -36,7 +36,9 @@ export default class SpellingLetterBox extends React.Component {
   addLetter(letter) {
     playSoundAsync("/audio/keypress.mp3");
     this.props.onSpellingAnswerGiven(true);
-    this.props.onSpellingInputSet(this.props.spellingInput + letter);
+    if (this.props.onSpellingInputSet) {
+      this.props.onSpellingInputSet(this.props.spellingInput + letter);
+    }
   }
 
   backspace() {
@@ -44,7 +46,7 @@ export default class SpellingLetterBox extends React.Component {
 
     console.log("spellingInput: ", this.props.spellingInput);
 
-    if (this.props.spellingInput.length > 0) {
+    if (this.props.spellingInput.length > 0 && this.props.onSpellingInputSet) {
       this.props.onSpellingInputSet(this.props.spellingInput.slice(0, -1));
     }
   }

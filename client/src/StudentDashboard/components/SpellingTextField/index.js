@@ -72,7 +72,10 @@ export default class SpellingTextField extends React.Component {
       );
 
       this.form.value = "";
-      this.props.onSpellingInputSet(""); // reset to empty
+      if (this.props.onSpellingInputSet) {
+        // allow screencast to work without this
+        this.props.onSpellingInputSet(""); // reset to empty
+      }
       this.form.focus();
     }
   }
@@ -92,7 +95,11 @@ export default class SpellingTextField extends React.Component {
     this.setState({ showHelper: false });
     this.props.onSpellingAnswerGiven(true);
 
-    this.props.onSpellingInputSet(this.form.value); // set to value
+    if (this.props.onSpellingInputSet) {
+      // allow screencast to work without this
+
+      this.props.onSpellingInputSet(this.form.value); // set to value
+    }
   };
 
   render() {
