@@ -235,7 +235,7 @@ export function roomJoined(room) {
               );
             }
 
-            if (promptNum < 5) {
+            if (promptNum !== 5 && promptNum !== 6) {
               this.props.onSetPlayingImmediatePrompt(true);
 
               playSound(
@@ -263,7 +263,7 @@ export function roomJoined(room) {
                 .catch(err => {
                   console.log("playing the prompt FAILED");
                 });
-            } else {
+            } else if (promptNum === 6) {
               stopAudio();
               this.props.onSetPlayingImmediatePrompt(false);
             }

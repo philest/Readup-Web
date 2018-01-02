@@ -13,7 +13,8 @@ export default class PromptButtons extends React.Component {
     immediate: PropTypes.bool.isRequired, // this is passed from the Rails view
     showPromptAlert: PropTypes.func,
     studentID: PropTypes.number,
-    sendPromptDataMessage: PropTypes.func
+    sendPromptDataMessage: PropTypes.func,
+    spelling: PropTypes.bool
   };
 
   static defaultProps = {
@@ -25,13 +26,14 @@ export default class PromptButtons extends React.Component {
   }
 
   onPromptClicked = promptNumber => {
-    let promptStatus = PromptOptions[Object.keys(PromptOptions)[promptNumber]];
-
-    const params = { prompt_status: promptStatus };
-
-    console.log(params);
-
     if (!this.props.immediate) {
+      let promptStatus =
+        PromptOptions[Object.keys(PromptOptions)[promptNumber]];
+
+      const params = { prompt_status: promptStatus };
+
+      console.log(params);
+
       updateStudent(params, this.props.studentID);
       this.props.showPromptAlert();
     } else {
@@ -71,6 +73,16 @@ export default class PromptButtons extends React.Component {
           <Button href="#" onClick={() => this.onPromptClicked(6)}>
             <strong>No prompt needed</strong>
           </Button>
+          {this.props.immediate && (
+            <span>
+              <Button href="#" onClick={() => this.onPromptClicked(7)}>
+                Say words slowly
+              </Button>
+              <Button href="#" onClick={() => this.onPromptClicked(8)}>
+                Click hear again
+              </Button>
+            </span>
+          )}
         </ButtonGroup>
       </div>
     );

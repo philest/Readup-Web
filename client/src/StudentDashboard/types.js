@@ -88,7 +88,9 @@ export const PromptOptions = {
   whyImportant: "WHY_IMPORTANT",
   whyThinkThat: "WHY_THINK_THAT",
   repeatQuestion: "REPEAT_QUESTION",
-  noPromptNeeded: "NO_PROMPT_NEEDED"
+  noPromptNeeded: "NO_PROMPT_NEEDED",
+  sayWordsSlowly: "SAY_WORDS_SLOWLY",
+  clickHearAgain: "CLICK_HEAR_AGAIN"
 };
 
 export type Prompt = Keys<typeof PromptOptions>;
@@ -108,7 +110,10 @@ export const PromptAudioOptions = {
   WHAT_IN_STORY: "/audio/prompts/VB-what-in-story.mp3",
   WHY_IMPORTANT: "/audio/prompts/VB-why-important.mp3",
   WHY_THINK_THAT: "/audio/prompts/VB-why-think-that.mp3",
-  AWAITING_PROMPT: "/audio/prompts/VB-tell-some-more.mp3" // HACK to have default
+  AWAITING_PROMPT: "/audio/prompts/VB-tell-some-more.mp3", // HACK to have default
+  NO_PROMPT_PLACEHOLDER: null, // HACK to have default
+  SAY_WORDS_SLOWLY: "/audio/remember-say-words.mp3",
+  CLICK_HEAR_AGAIN: "/audio/click-hear-again.mp3"
 };
 
 export type PromptAudio = Keys<typeof promptAudioOptions>;
