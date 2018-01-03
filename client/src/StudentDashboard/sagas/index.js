@@ -750,7 +750,7 @@ function* playSpellingQuestionSaga(isHearAgain) {
 		yield call(delay, 50);
 	}
 
-	yield call(playSound, audiofile);
+	yield call(playSound, audiofile, null, true); // try slowly
 }
 
 function* playPromptSaga(prompt, studentID) {

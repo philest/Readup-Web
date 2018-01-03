@@ -35,7 +35,11 @@ export default class SpellingLetterBox extends React.Component {
   }
 
   addLetter(letter) {
-    if (this.state.keypressInProgress) {
+    if (
+      this.state.keypressInProgress &&
+      this.props.spellingInput.slice(-1) === letter
+    ) {
+      // prevent double clicking the SAME key, but not others.
       return;
     }
 

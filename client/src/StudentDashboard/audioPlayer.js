@@ -5,7 +5,7 @@ export const DEV_DISABLE_VOICE_INSTRUCTIONS = false;
 let audio = null;
 
 // TODO: Daniel fix this pls
-export function playSound(file, onEnd) {
+export function playSound(file, onEnd, isSlow) {
   if (isSafari) {
     console.log("Would play sound: " + file);
     return Promise.resolve(true);
@@ -28,12 +28,20 @@ export function playSound(file, onEnd) {
 
     audio = new Audio(file);
 
+    if (isSlow) {
+      audio.playbackRate = 0.7; /// idk if this works
+    }
+
     const myTimeout = setTimeout(() => {
       console.log("killed audio in a timeout: ", file);
       resolve();
     }, 22000);
 
     audio.addEventListener("ended", function() {
+      if (audio) {
+        audio.playbackRate = 1; /// idk
+      }
+
       if (myTimeout) {
         clearTimeout(myTimeout);
       }
