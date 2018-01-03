@@ -147,6 +147,7 @@ export const PLAYING_IMMEDIATE_PROMPT_SET = "PLAYING_IMMEDIATE_PROMPT_SET";
 
 export const SOUND_CHECK_FINISHED = "SOUND_CHECK_FINISHED";
 export const TRY_AGAIN_CLICKED = "TRY_AGAIN_CLICKED";
+export const WIGGLE_FINISHED_IMAGE_SET = "WIGGLE_FINISHED_IMAGE_SET";
 
 export function setReaderState(readerState: ReaderState) {
   return {
@@ -162,6 +163,15 @@ export function setSection(section: Section) {
     type: SECTION_SET,
     payload: {
       section
+    }
+  };
+}
+
+export function setWiggleFinishedImage(wiggleFinishedImage: boolean) {
+  return {
+    type: WIGGLE_FINISHED_IMAGE_SET,
+    payload: {
+      wiggleFinishedImage
     }
   };
 }
@@ -816,7 +826,8 @@ export const initialState = {
   students: [],
   assessments: [],
   userId: null,
-  playingImmediatePrompt: false
+  playingImmediatePrompt: false,
+  wiggleFinishedImage: true
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -839,6 +850,10 @@ function reducer(state = initialState, action = {}) {
 
     case USER_ID_SET: {
       return { ...state, userId: payload.userId };
+    }
+
+    case WIGGLE_FINISHED_IMAGE_SET: {
+      return { ...state, wiggleFinishedImage: payload.wiggleFinishedImage };
     }
 
     case PLAYING_IMMEDIATE_PROMPT_SET: {

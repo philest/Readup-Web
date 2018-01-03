@@ -85,7 +85,8 @@ function mapStateToProps(state) {
     teacherSignature: state.reader.teacherSignature,
     students: state.reader.students,
     assessments: state.reader.assessments,
-    playingImmediatePrompt: state.reader.playingImmediatePrompt
+    playingImmediatePrompt: state.reader.playingImmediatePrompt,
+    wiggleFinishedImage: state.reader.wiggleFinishedImage
   };
 }
 
@@ -215,7 +216,8 @@ export class StudentDashboard extends React.Component {
       onNextQuestionClicked: this.props.actions.nextQuestionClicked,
       onPreviousQuestionClicked: this.props.actions.previousQuestionClicked,
       onTryAgainClicked: this.props.actions.tryAgainClicked,
-      onPauseClicked: this.props.actions.pauseClicked
+      onPauseClicked: this.props.actions.pauseClicked,
+      wiggleFinishedImage: this.props.wiggleFinishedImage
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader

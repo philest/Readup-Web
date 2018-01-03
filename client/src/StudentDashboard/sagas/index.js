@@ -92,6 +92,8 @@ import {
 	COMP_PAUSE_CLICKED,
 	SECTION_SET,
 	PLAYING_IMMEDIATE_PROMPT_SET,
+	WIGGLE_FINISHED_IMAGE_SET,
+	setWiggleFinishedImage,
 	setStudents,
 	setAssessments,
 	setTeacherSignature,
@@ -217,6 +219,9 @@ function* celebrationSaga() {
 	yield put.resolve(setCurrentModal("no-modal"));
 
 	yield call(playSound, "/audio/celebration.mp3");
+
+	yield call(delay, 3500);
+	yield put.resolve(setWiggleFinishedImage(false));
 }
 
 function* playSectionSaga(
@@ -1864,6 +1869,7 @@ function* resetStateSaga() {
 	yield put(setAssessmentSubmitted(false));
 	yield put.resolve(setSpellingInput(""));
 	yield put.resolve(setWrittenCompInput(""));
+	yield put.resolve(setWiggleFinishedImage(true));
 
 	yield put.resolve(setSpellingQuestionNumber(1));
 	yield put.resolve(setWrittenQuestionNumber(1));

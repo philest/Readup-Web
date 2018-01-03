@@ -105,7 +105,8 @@ export default class Reader extends React.Component {
     isWithinGrader: PropTypes.bool,
     onSetPlayingImmediatePrompt: PropTypes.func,
     onNextQuestionClicked: PropTypes.func,
-    onPreviousQuestionClicked: PropTypes.func
+    onPreviousQuestionClicked: PropTypes.func,
+    wiggleFinishedImage: PropTypes.bool
   };
 
   static defaultProps = {
@@ -323,7 +324,7 @@ export default class Reader extends React.Component {
     }
 
     if (this.props.readerState === ReaderStateOptions.finishedAssessment) {
-      return <FinishedImage />;
+      return <FinishedImage wiggle={this.props.wiggleFinishedImage} />;
     }
 
     if (

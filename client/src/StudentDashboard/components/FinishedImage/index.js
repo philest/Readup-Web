@@ -5,7 +5,13 @@ import styles from "./styles.css";
 // import ReportStyles from "../../../ReportsInterface/styles.css";
 
 export default class FinishedImage extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    wiggle: PropTypes.bool
+  };
+
+  static defaultProps = {
+    wiggle: true
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -24,10 +30,7 @@ export default class FinishedImage extends React.Component {
           src="/images/dashboard/Little-girl-jumping.png"
           className={[
             styles.submittedImage,
-            "fa",
-            "animated",
-            "faa-slow",
-            "faa-tada"
+            this.props.wiggle ? "fa animated faa-slow faa-tada" : ""
           ].join(" ")}
         />
         <p className={styles.subtitle}>You are done!</p>
