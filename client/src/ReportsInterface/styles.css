@@ -53,6 +53,14 @@ body {
 	animation: wiggle 5s infinite;
 }
 
+.videoExit {
+	width: 25px;
+	position: relative;
+	top: -156px;
+	left: 295px;
+	cursor: pointer;
+}
+
 .pulse {
 	animation: pulseOut 2s infinite;
 }

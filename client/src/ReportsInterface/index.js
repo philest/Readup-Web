@@ -95,6 +95,7 @@ export default class ReportsInterface extends React.Component {
     super(props);
     this.state = {
       showAudioPlayback: false,
+      showVideoPlayback: false,
       showCompAudioPlayback: initShowCompAudioPlayback,
       showPricingModal: false,
       showBookModal: false,
@@ -369,6 +370,14 @@ export default class ReportsInterface extends React.Component {
 
   onPlayRecordingClicked = () => {
     this.setState({ showAudioPlayback: true });
+  };
+
+  onPlayVideoClicked = () => {
+    this.setState({ showVideoPlayback: true });
+  };
+
+  onHideVideoClicked = () => {
+    this.setState({ showVideoPlayback: false });
   };
 
   onCompPlayRecordingClicked = qNum => {
@@ -1115,12 +1124,14 @@ export default class ReportsInterface extends React.Component {
 
             <div className={styles.audioWrapper}>
               {!this.state.showAudioPlayback &&
+                !this.state.showVideoPlayback &&
                 !this.state.playbackFidgets && (
                   <Button
                     className={styles.submitButton}
                     bsStyle={"primary"}
                     bsSize={"large"}
-                    onClick={this.onPlayRecordingClicked}
+                    // onClick={this.onPlayRecordingClicked}
+                    onClick={this.onPlayVideoClicked}
                   >
                     {`Hear ${firstName} Read`}
                     &nbsp;&nbsp;<i
@@ -1136,12 +1147,14 @@ export default class ReportsInterface extends React.Component {
                 )}
 
               {!this.state.showAudioPlayback &&
+                !this.state.showVideoPlayback &&
                 this.state.playbackFidgets && (
                   <Button
                     className={[styles.wiggler, styles.submitButton].join(" ")}
                     bsStyle={"primary"}
                     bsSize={"large"}
-                    onClick={this.onPlayRecordingClicked}
+                    // onClick={this.onPlayRecordingClicked}
+                    onClick={this.onPlayVideoClicked}
                   >
                     {`Hear ${firstName} Read`}
                     &nbsp;&nbsp;<i
@@ -1166,6 +1179,26 @@ export default class ReportsInterface extends React.Component {
                   <source src={this.props.recordingURL} />
                   <p>Playback not supported</p>
                 </audio>
+              )}
+
+              {this.state.showVideoPlayback && (
+                <div>
+                  <img
+                    src="/images/remove.svg"
+                    className={styles.videoExit}
+                    onClick={this.onHideVideoClicked}
+                  />
+
+                  <video
+                    controls
+                    autoPlay
+                    preload="auto"
+                    style={{ width: 280 }}
+                  >
+                    <source src={"/sample-video.mp4"} />
+                    <p>Playback not supported</p>
+                  </video>
+                </div>
               )}
             </div>
           </div>
