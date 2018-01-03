@@ -31,7 +31,7 @@ export default class CompQuestion extends React.Component {
     renderCompAudio: PropTypes.func,
     studentFirstName: PropTypes.string,
     assessmentID: PropTypes.number,
-
+    video: PropTypes.bool,
     isInteractive: PropTypes.bool
   };
   static defaultProps = {
@@ -138,7 +138,7 @@ export default class CompQuestion extends React.Component {
             ].join(" ")}
             bsStyle="primary"
           >
-            Hear {this.props.studentFirstName}{" "}
+            {this.props.video ? "See" : "Hear"} {this.props.studentFirstName}{" "}
             <i
               className={[
                 "fa",

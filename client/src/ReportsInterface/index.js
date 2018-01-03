@@ -107,6 +107,7 @@ export default class ReportsInterface extends React.Component {
       showVideoPlayback: false,
       showCompAudioPlayback: initShowCompAudioPlayback,
       showCompVideoPlayback: initShowCompVideoPlayback,
+      video: false,
       showPricingModal: false,
       showBookModal: false,
       showEmailModal: true,
@@ -379,11 +380,11 @@ export default class ReportsInterface extends React.Component {
   onLogoutClicked = () => {};
 
   onPlayRecordingClicked = () => {
-    this.setState({ showAudioPlayback: true });
-  };
-
-  onPlayVideoClicked = () => {
-    this.setState({ showVideoPlayback: true });
+    if (this.props.video) {
+      this.setState({ showVideoPlayback: true });
+    } else {
+      this.setState({ showAudioPlayback: true });
+    }
   };
 
   onHideVideoClicked = () => {
@@ -567,22 +568,24 @@ export default class ReportsInterface extends React.Component {
   };
 
   renderCompAudio = questionNum => {
-    return (
-      <div>
-        <img
-          src="/images/remove.svg"
-          className={styles.videoExit}
-          onClick={() => {
-            this.onCompPlayVideoToggled(questionNum);
-          }}
-        />
+    if (this.props.video) {
+      return (
+        <div>
+          <img
+            src="/images/remove.svg"
+            className={styles.videoExit}
+            onClick={() => {
+              this.onCompPlayVideoToggled(questionNum);
+            }}
+          />
 
-        <video controls autoPlay preload="auto" className={styles.compVideo}>
-          <source src={"/sample-video.mp4"} />
-          <p>Playback not supported</p>
-        </video>
-      </div>
-    );
+          <video controls autoPlay preload="auto" className={styles.compVideo}>
+            <source src={"/sample-video.mp4"} />
+            <p>Playback not supported</p>
+          </video>
+        </div>
+      );
+    }
 
     if (this.props.isSample) {
       return (
@@ -1170,10 +1173,9 @@ export default class ReportsInterface extends React.Component {
                     className={styles.submitButton}
                     bsStyle={"primary"}
                     bsSize={"large"}
-                    // onClick={this.onPlayRecordingClicked}
-                    onClick={this.onPlayVideoClicked}
+                    onClick={this.onPlayRecordingClicked}
                   >
-                    {`Hear ${firstName} Read`}
+                    {`${this.props.video ? "See" : "Hear"} ${firstName} Read`}
                     &nbsp;&nbsp;<i
                       className={[
                         "fa",
@@ -1193,10 +1195,9 @@ export default class ReportsInterface extends React.Component {
                     className={[styles.wiggler, styles.submitButton].join(" ")}
                     bsStyle={"primary"}
                     bsSize={"large"}
-                    // onClick={this.onPlayRecordingClicked}
-                    onClick={this.onPlayVideoClicked}
+                    onClick={this.onPlayRecordingClicked}
                   >
-                    {`Hear ${firstName} Read`}
+                    {`${this.props.video ? "See" : "Hear"} ${firstName} Read`}
                     &nbsp;&nbsp;<i
                       className={[
                         "fa",
@@ -1262,6 +1263,7 @@ export default class ReportsInterface extends React.Component {
 
           {this.props.isSample && (
             <CompReport
+              video={this.props.video}
               studentResponses={sampleStudentResponses}
               graderComments={sampleGraderComments}
               compScores={sampleCompScores}
@@ -1270,9 +1272,17 @@ export default class ReportsInterface extends React.Component {
               numSections={book.numSections}
               questions={book.questions}
               sections={book.sections}
-              showCompAudioPlaybackHash={this.state.showCompVideoPlayback}
+              showCompAudioPlaybackHash={
+                this.props.video
+                  ? this.state.showCompVideoPlayback
+                  : this.state.showCompAudioPlayback
+              }
               // showCompAudioPlaybackHash={this.state.showCompAudioPlayback}
-              onCompPlayRecordingClicked={this.onCompPlayVideoToggled}
+              onCompPlayRecordingClicked={
+                this.props.video
+                  ? this.onCompPlayVideoToggled
+                  : this.onCompPlayRecordingClicked
+              }
               // onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
               renderCompAudio={this.renderCompAudio}
               studentFirstName={firstName}
@@ -1282,6 +1292,7 @@ export default class ReportsInterface extends React.Component {
 
           {!this.props.isSample && (
             <CompReport
+              video={this.props.video}
               studentResponses={this.props.studentResponses}
               graderComments={this.props.graderComments}
               compScores={this.props.compScores}
@@ -1290,8 +1301,16 @@ export default class ReportsInterface extends React.Component {
               numSections={book.numSections}
               questions={book.questions}
               sections={book.sections}
-              showCompAudioPlaybackHash={this.state.showCompAudioPlayback}
-              onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
+              showCompAudioPlaybackHash={
+                this.props.video
+                  ? this.state.showCompVideoPlayback
+                  : this.state.showCompAudioPlayback
+              }
+              onCompPlayRecordingClicked={
+                this.props.video
+                  ? this.onCompPlayVideoToggled
+                  : this.onCompPlayRecordingClicked
+              }
               renderCompAudio={this.renderCompAudio}
               studentFirstName={firstName}
               assessmentID={this.props.assessmentID}
