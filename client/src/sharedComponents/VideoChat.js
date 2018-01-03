@@ -788,8 +788,6 @@ div#controls div#log p {
   width: 90%;
 }
 
-#audio-toggle {
-}
 
 #reader-container {
   height: 100vh;
@@ -801,9 +799,6 @@ div#controls div#log p {
     width: 100%;
 }
 
-#audio-toggle-on:hover, #audio-toggle-off:hover {
-  transform: translateY(0px);
-}
 
 `}
         </style>
@@ -815,78 +810,73 @@ div#controls div#log p {
             </div>
           )}
 
-          {this.props.audioToggleButton && (
-            <Button
-              style={{
-                visibility: this.state.localAudioEnabled ? "visible" : "hidden"
-              }}
-              id="audio-toggle-off"
-              onClick={() => {
-                this.onToggleAudioClicked(false);
-              }}
-            >
-              Turn off your Audio
-            </Button>
-          )}
-          {this.props.audioToggleButton && (
-            <Button
-              style={{
-                visibility: !this.state.localAudioEnabled ? "visible" : "hidden"
-              }}
-              id="audio-toggle-on"
-              onClick={() => {
-                this.onToggleAudioClicked(true);
-              }}
-            >
-              Turn on your Audio
-            </Button>
-          )}
-
-          {this.props.videoToggleButton && (
-            <Button
-              style={{
-                visibility: this.state.localVideoEnabled ? "visible" : "hidden"
-              }}
-              id="video-toggle-off"
-              onClick={() => {
-                this.onToggleVideoClicked(false);
-              }}
-            >
-              Turn off your video
-            </Button>
-          )}
-          {this.props.videoToggleButton && (
-            <Button
-              style={{
-                visibility: !this.state.localVideoEnabled ? "visible" : "hidden"
-              }}
-              id="video-toggle-on"
-              onClick={() => {
-                this.onToggleVideoClicked(true);
-              }}
-            >
-              Turn on your video
-            </Button>
-          )}
-
-          {this.props.remoteMuteToggleButton && (
-            <Button
-              id="mute-toggle"
-              onClick={() => {
-                if (!$("audio")[0]) {
-                  return;
-                }
-                $("audio")[0].muted = !$("audio")[0].muted;
-
-                this.setState({ remoteMuted: !this.state.remoteMuted });
-              }}
-            >
-              {this.state.remoteMuted ? "Unmute student" : "Mute student"}
-            </Button>
-          )}
-
           {this.props.isWithinGrader && (
-            <Button id="stop-recording-student">Stop recording student</Button>
+            <ButtonGroup
+              style={{ marginTop: 40 }}
+              className={[
+                styles.fluencyButtonGroup,
+                styles.promptButtonGroup
+              ].join(" ")}
+            >
+              <Button
+                href="#"
+                id="audio-toggle-off"
+                disabled={!this.state.localAudioEnabled}
+                onClick={() => {
+                  this.onToggleAudioClicked(false);
+                }}
+              >
+                Turn off your Audio
+              </Button>
+              <Button
+                href="#"
+                disabled={this.state.localAudioEnabled}
+                id="audio-toggle-on"
+                onClick={() => {
+                  this.onToggleAudioClicked(true);
+                }}
+              >
+                Turn on your Audio
+              </Button>
+
+              <Button
+                href="#"
+                disabled={!this.state.localVideoEnabled}
+                id="video-toggle-off"
+                onClick={() => {
+                  this.onToggleVideoClicked(false);
+                }}
+              >
+                Turn off your video
+              </Button>
+              <Button
+                href="#"
+                disabled={this.state.localVideoEnabled}
+                id="video-toggle-on"
+                onClick={() => {
+                  this.onToggleVideoClicked(true);
+                }}
+              >
+                Turn on your video
+              </Button>
+              <Button
+                href="#"
+                id="mute-toggle"
+                onClick={() => {
+                  if (!$("audio")[0]) {
+                    return;
+                  }
+                  $("audio")[0].muted = !$("audio")[0].muted;
+
+                  this.setState({ remoteMuted: !this.state.remoteMuted });
+                }}
+              >
+                {this.state.remoteMuted ? "Unmute student" : "Mute student"}
+              </Button>
+              <Button id="stop-recording-student" href="#">
+                Stop recording student
+              </Button>
+            </ButtonGroup>
           )}
 
           {!this.props.studentDash && (
