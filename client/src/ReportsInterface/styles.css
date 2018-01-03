@@ -61,6 +61,11 @@ body {
 	cursor: pointer;
 }
 
+.compVideo {
+	width: 280px;
+	margin: 10px 0px;
+}
+
 .pulse {
 	animation: pulseOut 2s infinite;
 }

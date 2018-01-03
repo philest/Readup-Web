@@ -577,7 +577,7 @@ export default class ReportsInterface extends React.Component {
           }}
         />
 
-        <video controls autoPlay preload="auto" style={{ width: 280 }}>
+        <video controls autoPlay preload="auto" className={styles.compVideo}>
           <source src={"/sample-video.mp4"} />
           <p>Playback not supported</p>
         </video>
