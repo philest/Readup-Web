@@ -75,6 +75,15 @@ const initShowCompAudioPlayback = {
   6: false
 };
 
+const initShowCompVideoPlayback = {
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+  5: false,
+  6: false
+};
+
 export function getFullTitle(question) {
   let title = question.title;
   let subtitle = question.subtitle;
@@ -97,6 +106,7 @@ export default class ReportsInterface extends React.Component {
       showAudioPlayback: false,
       showVideoPlayback: false,
       showCompAudioPlayback: initShowCompAudioPlayback,
+      showCompVideoPlayback: initShowCompVideoPlayback,
       showPricingModal: false,
       showBookModal: false,
       showEmailModal: true,
@@ -387,6 +397,13 @@ export default class ReportsInterface extends React.Component {
     this.setState({ showCompAudioPlayback: showCompAudioNew });
   };
 
+  onCompPlayVideoToggled = qNum => {
+    let showCompVideoNew = this.state.showCompVideoPlayback;
+    showCompVideoNew[String(qNum)] = !showCompVideoNew[String(qNum)];
+
+    this.setState({ showCompVideoPlayback: showCompVideoNew });
+  };
+
   onPricingClicked = () => {
     this.setState({ showPricingModal: true });
   };
@@ -544,6 +561,21 @@ export default class ReportsInterface extends React.Component {
   };
 
   renderCompAudio = questionNum => {
+    return (
+      <div>
+        <img
+          src="/images/remove.svg"
+          className={styles.videoExit}
+          onClick={this.onHideVideoClicked}
+        />
+
+        <video controls autoPlay preload="auto" style={{ width: 280 }}>
+          <source src={"/sample-video.mp4"} />
+          <p>Playback not supported</p>
+        </video>
+      </div>
+    );
+
     if (this.props.isSample) {
       return (
         <audio
@@ -1230,8 +1262,10 @@ export default class ReportsInterface extends React.Component {
               numSections={book.numSections}
               questions={book.questions}
               sections={book.sections}
-              showCompAudioPlaybackHash={this.state.showCompAudioPlayback}
-              onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
+              showCompAudioPlaybackHash={this.state.showCompVideoPlayback}
+              // showCompAudioPlaybackHash={this.state.showCompAudioPlayback}
+              onCompPlayRecordingClicked={this.onCompPlayVideoToggled}
+              // onCompPlayRecordingClicked={this.onCompPlayRecordingClicked}
               renderCompAudio={this.renderCompAudio}
               studentFirstName={firstName}
               isInteractive={false}
