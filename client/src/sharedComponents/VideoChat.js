@@ -215,6 +215,8 @@ export function roomJoined(room) {
             this.sendAllPropsIndividually(this.props.readerProps);
           } else if (data.includes("STOP-RECORDING")) {
             this.props.onStopClicked();
+          } else if (data.includes("HEAR-AGAIN")) {
+            this.props.onHearAgainClicked();
           } else if (data.includes("VIDEO-ON")) {
             onToggleShowVideo(true);
           } else if (data.includes("VIDEO-OFF")) {
@@ -386,6 +388,11 @@ export function roomJoined(room) {
       console.log("clicked stop recording");
       dataTrack.send("STOP-RECORDING");
     };
+
+    document.getElementById("click-hear-again").onclick = function() {
+      console.log("clicked hear again");
+      dataTrack.send("HEAR-AGAIN");
+    };
   }
 }
 
@@ -414,7 +421,8 @@ export default class VideoChat extends React.Component {
     lastQuestionAudioFile: PropTypes.string,
     screenshotDataURL: PropTypes.string,
     isWithinGrader: PropTypes.bool,
-    onStopClicked: PropTypes.func
+    onStopClicked: PropTypes.func,
+    onHearAgainClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -875,6 +883,9 @@ div#controls div#log p {
               </Button>
               <Button id="stop-recording-student" href="#">
                 Stop recording student
+              </Button>
+              <Button id="click-hear-again" href="#">
+                Click hear again
               </Button>
             </ButtonGroup>
           )}
