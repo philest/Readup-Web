@@ -398,6 +398,12 @@ export default class ReportsInterface extends React.Component {
   };
 
   onCompPlayVideoToggled = qNum => {
+    console.log(
+      "attempting to toggle q, to,: ",
+      qNum,
+      !this.state.showCompVideoPlayback[String(qNum)]
+    );
+
     let showCompVideoNew = this.state.showCompVideoPlayback;
     showCompVideoNew[String(qNum)] = !showCompVideoNew[String(qNum)];
 
@@ -566,7 +572,9 @@ export default class ReportsInterface extends React.Component {
         <img
           src="/images/remove.svg"
           className={styles.videoExit}
-          onClick={this.onHideVideoClicked}
+          onClick={() => {
+            this.onCompPlayVideoToggled(questionNum);
+          }}
         />
 
         <video controls autoPlay preload="auto" style={{ width: 280 }}>
