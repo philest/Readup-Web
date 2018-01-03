@@ -107,7 +107,6 @@ export default class ReportsInterface extends React.Component {
       showVideoPlayback: false,
       showCompAudioPlayback: initShowCompAudioPlayback,
       showCompVideoPlayback: initShowCompVideoPlayback,
-      video: false,
       showPricingModal: false,
       showBookModal: false,
       showEmailModal: true,

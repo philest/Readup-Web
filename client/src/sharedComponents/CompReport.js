@@ -20,7 +20,7 @@ export default class CompReport extends React.Component {
     sections: PropTypes.object,
     questions: PropTypes.object,
     assessmentID: PropTypes.number,
-
+    video: PropTypes.video,
     isInteractive: PropTypes.bool
   };
   static defaultProps = {
@@ -42,6 +42,7 @@ export default class CompReport extends React.Component {
   renderCompQuestion = qNum => {
     return (
       <CompQuestion
+        video={this.props.video}
         studentResponse={this.props.studentResponses[qNum - 1]}
         graderComment={this.props.graderComments[qNum - 1]}
         compScore={this.props.compScores[qNum - 1]}
