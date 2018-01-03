@@ -15,7 +15,8 @@ export default class SpellingLetterBox extends React.Component {
     onSpellingAnswerGiven: PropTypes.func,
     hasVolume: PropTypes.bool,
     hearAgainClicked: PropTypes.func,
-    onSkipClicked: PropTypes.func
+    onSkipClicked: PropTypes.func,
+    onLetterClicked: PropTypes.func
   };
 
   static defaultProps = {
@@ -29,19 +30,35 @@ export default class SpellingLetterBox extends React.Component {
   constructor(props, _railsContext) {
     super(props);
     this.state = {
-      myClass: {}
+      keypressInProgress: false
     };
   }
 
   addLetter(letter) {
+    if (this.state.keypressInProgress) {
+      return;
+    }
+
+    this.setState({ keypressInProgress: true });
+
     playSoundAsync("/audio/keypress.mp3");
     this.props.onSpellingAnswerGiven(true);
     if (this.props.onSpellingInputSet) {
       this.props.onSpellingInputSet(this.props.spellingInput + letter);
     }
+
+    setTimeout(() => {
+      this.setState({ keypressInProgress: false });
+    }, 500);
   }
 
   backspace() {
+    if (this.state.keypressInProgress) {
+      return;
+    }
+
+    this.setState({ keypressInProgress: true });
+
     playSoundAsync("/audio/keypress.mp3");
 
     console.log("spellingInput: ", this.props.spellingInput);
@@ -49,6 +66,10 @@ export default class SpellingLetterBox extends React.Component {
     if (this.props.spellingInput.length > 0 && this.props.onSpellingInputSet) {
       this.props.onSpellingInputSet(this.props.spellingInput.slice(0, -1));
     }
+
+    setTimeout(() => {
+      this.setState({ keypressInProgress: false });
+    }, 500);
   }
 
   renderLetter(letter) {

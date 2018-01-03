@@ -2037,6 +2037,8 @@ function* assessThenSubmitSaga() {
 		yield* bookCheckSaga(); // book check for only the real thing?
 	}
 
+	yield put.resolve(setInSpelling(true));
+
 	book = yield select(getBook);
 
 	sectionList = getSectionsList(book);
