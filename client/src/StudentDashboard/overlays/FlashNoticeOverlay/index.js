@@ -28,7 +28,7 @@ export default class FlashNoticeOverlay extends React.Component {
     if (this.props.graderLiveHelping) {
       return;
     } else if (this.props.prompt) {
-      return "?";
+      return;
     } else if (this.props.isReadingInstructions) {
       return;
     } else {
