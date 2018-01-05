@@ -1667,7 +1667,7 @@ function* watchVideoSaga(videoWiggleEffect) {
 	yield put.resolve(setCurrentOverlay("no-overlay"));
 
 	// IF REAL THING
-	if (process.env.NODE_ENV === "development") {
+	if (true || process.env.NODE_ENV === "development") {
 		yield put.resolve(
 			setReaderState(ReaderStateOptions.watchedMostOfVideo)
 		);

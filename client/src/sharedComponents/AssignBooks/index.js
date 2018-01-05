@@ -20,7 +20,7 @@ function getBookKeysAtLevel(level) {
     if (
       library.hasOwnProperty(bookKey) &&
       library[bookKey].stepLevel === level &&
-      library[bookKey].brand === "STEP"
+      (library[bookKey].brand === "STEP" || library[bookKey].brand === "FP")
     ) {
       titleArr.push(bookKey);
     }
