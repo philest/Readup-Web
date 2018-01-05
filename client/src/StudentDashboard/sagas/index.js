@@ -93,6 +93,7 @@ import {
 	SECTION_SET,
 	PLAYING_IMMEDIATE_PROMPT_SET,
 	WIGGLE_FINISHED_IMAGE_SET,
+	setKeyboardDisabled,
 	setWiggleFinishedImage,
 	setStudents,
 	setAssessments,
@@ -1186,6 +1187,8 @@ function* spellingInstructionSaga() {
 		yield call(delay, 250);
 		yield call(playSound, "/audio/number-one.mp3");
 	}
+
+	yield put.resolve(setKeyboardDisabled(false));
 }
 
 function* compInstructionSaga(isWarmup) {
@@ -1872,6 +1875,8 @@ function* resetStateSaga() {
 	yield put.resolve(setSpellingInput(""));
 	yield put.resolve(setWrittenCompInput(""));
 	yield put.resolve(setWiggleFinishedImage(true));
+
+	yield put.resolve(setKeyboardDisabled(true));
 
 	yield put.resolve(setSpellingQuestionNumber(1));
 	yield put.resolve(setWrittenQuestionNumber(1));

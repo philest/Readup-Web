@@ -106,7 +106,8 @@ export default class Reader extends React.Component {
     onSetPlayingImmediatePrompt: PropTypes.func,
     onNextQuestionClicked: PropTypes.func,
     onPreviousQuestionClicked: PropTypes.func,
-    wiggleFinishedImage: PropTypes.bool
+    wiggleFinishedImage: PropTypes.bool,
+    keyboardDisabled: PropTypes.bool
   };
 
   static defaultProps = {
@@ -185,6 +186,7 @@ export default class Reader extends React.Component {
           hearAgainClicked={this.props.onHearQuestionAgainClicked}
           hasVolume={false}
           onSkipClicked={this.props.onSkipClicked}
+          keyboardDisabled={this.props.keyboardDisabled}
         />
 
         <div className={styles.doubleButtonContainer}>

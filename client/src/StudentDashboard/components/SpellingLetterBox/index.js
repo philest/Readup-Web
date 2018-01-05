@@ -16,7 +16,8 @@ export default class SpellingLetterBox extends React.Component {
     hasVolume: PropTypes.bool,
     hearAgainClicked: PropTypes.func,
     onSkipClicked: PropTypes.func,
-    onLetterClicked: PropTypes.func
+    onLetterClicked: PropTypes.func,
+    keyboardDisabled: PropTypes.bool
   };
 
   static defaultProps = {
@@ -36,8 +37,9 @@ export default class SpellingLetterBox extends React.Component {
 
   addLetter(letter) {
     if (
-      this.state.keypressInProgress &&
-      this.props.spellingInput.slice(-1) === letter
+      this.props.keyboardDisabled ||
+      (this.state.keypressInProgress &&
+        this.props.spellingInput.slice(-1) === letter)
     ) {
       // prevent double clicking the SAME key, but not others.
       return;
@@ -57,7 +59,7 @@ export default class SpellingLetterBox extends React.Component {
   }
 
   backspace() {
-    if (this.state.keypressInProgress) {
+    if (this.props.keyboardDisabled || this.state.keypressInProgress) {
       return;
     }
 

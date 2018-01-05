@@ -149,6 +149,8 @@ export const SOUND_CHECK_FINISHED = "SOUND_CHECK_FINISHED";
 export const TRY_AGAIN_CLICKED = "TRY_AGAIN_CLICKED";
 export const WIGGLE_FINISHED_IMAGE_SET = "WIGGLE_FINISHED_IMAGE_SET";
 
+export const KEYBOARD_DISABLED_SET = "KEYBOARD_DISABLED_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -172,6 +174,15 @@ export function setWiggleFinishedImage(wiggleFinishedImage: boolean) {
     type: WIGGLE_FINISHED_IMAGE_SET,
     payload: {
       wiggleFinishedImage
+    }
+  };
+}
+
+export function setKeyboardDisabled(keyboardDisabled: boolean) {
+  return {
+    type: KEYBOARD_DISABLED_SET,
+    payload: {
+      keyboardDisabled
     }
   };
 }
@@ -827,7 +838,8 @@ export const initialState = {
   assessments: [],
   userId: null,
   playingImmediatePrompt: false,
-  wiggleFinishedImage: true
+  wiggleFinishedImage: true,
+  keyboardDisabled: true
 };
 
 // any way to do this other than writing a custom reducer for each?
@@ -854,6 +866,10 @@ function reducer(state = initialState, action = {}) {
 
     case WIGGLE_FINISHED_IMAGE_SET: {
       return { ...state, wiggleFinishedImage: payload.wiggleFinishedImage };
+    }
+
+    case KEYBOARD_DISABLED_SET: {
+      return { ...state, keyboardDisabled: payload.keyboardDisabled };
     }
 
     case PLAYING_IMMEDIATE_PROMPT_SET: {
