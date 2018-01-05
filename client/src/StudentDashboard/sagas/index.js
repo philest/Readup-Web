@@ -1101,7 +1101,7 @@ function* recordingInstructionSaga(isWarmup, isPartialOralReading) {
 		yield call(playSound, "/audio/laura/now-recording-page-3.mp3");
 	} else {
 		//normal
-		yield call(playSound, "/audio/now-recording-read.mp3");
+		yield call(playSound, "/audio/helper/read-aloud-to-end.mp3");
 	}
 
 	yield put.resolve(setCurrentOverlay("no-overlay"));
@@ -1160,6 +1160,8 @@ function* spellingInstructionSaga() {
 				playSound,
 				"/audio/helper/if-you-need-to-get-rid-of-a-letter.mp3"
 			);
+
+			yield call(playSound, "/audio/helper/to-hear-a-word-again.mp3");
 		} else {
 			yield call(playSound, "/audio/warmup/w-9.mp3");
 		}

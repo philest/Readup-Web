@@ -113,7 +113,7 @@ export const PromptAudioOptions = {
   AWAITING_PROMPT: "/audio/prompts/VB-tell-some-more.mp3", // HACK to have default
   NO_PROMPT_PLACEHOLDER: null, // HACK to have default
   SAY_WORDS_SLOWLY: "/audio/remember-say-words.mp3",
-  CLICK_HEAR_AGAIN: "/audio/click-hear-again.mp3"
+  CLICK_HEAR_AGAIN: "/audio/helper/to-hear-a-word-again.mp3"
 };
 
 export type PromptAudio = Keys<typeof promptAudioOptions>;
