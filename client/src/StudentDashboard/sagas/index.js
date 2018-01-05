@@ -1673,7 +1673,7 @@ function* watchVideoSaga(videoWiggleEffect) {
 		);
 	}
 
-	if (process.env.NODE_ENV === "production") {
+	if (false && process.env.NODE_ENV === "production") {
 		videoWiggleEffect.push(yield fork(videoWiggleSaga));
 		// removed the audio instruction because it sometimes interrupted
 	}
