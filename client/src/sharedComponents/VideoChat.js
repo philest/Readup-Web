@@ -644,7 +644,7 @@ div#remote-media video {
     width: ${this.props.studentDash ? "185px" : "270px"};
     float: right;
     right: 0px;
-    z-index: 999;
+    z-index: 999999;
     display: ${this.state.showVideo ? "block" : "none"}
 }
 
