@@ -329,7 +329,7 @@ export default class ReportWithScorer extends React.Component {
 
         <div className={ReportWithScorerStyles.container}>
           <ReportsInterface
-            video={this.props.isSample}
+            video={false}
             fullPage={false}
             name={this.props.name}
             email={this.props.email}

@@ -1235,7 +1235,11 @@ export default class ReportsInterface extends React.Component {
                     preload="auto"
                     style={{ width: 280 }}
                   >
-                    <source src={"/sample-video.mp4"} />
+                    <source
+                      src={
+                        "https://s3-us-west-2.amazonaws.com/readup-now/website/first-run.mp4"
+                      }
+                    />
                     <p>Playback not supported</p>
                   </video>
                 </div>
