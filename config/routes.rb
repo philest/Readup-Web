@@ -114,6 +114,8 @@ Rails.application.routes.draw do
 
   # The student testing the program... 
 
+  get 'demo-class', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/373/warmup/true')
+  get 'democlass', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/373/warmup/true')
 
   get 'rmp1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/4/warmup/true')
 
