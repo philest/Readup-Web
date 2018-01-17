@@ -97,6 +97,11 @@
   var scrollTarget =  isMobileDevice() ? 50 : 160;
 
 
+
+
+  $(document).ready(function(){
+
+
   function highlightNav () {
     // note that the stylings for highlight stuff is SASS!!!
     var scroll = $(window).scrollTop();
@@ -107,7 +112,7 @@
     }
   }
 
-  $(document).ready(function(){
+
     highlightNav();
     $(window).scroll(function (event) {
       highlightNav();
