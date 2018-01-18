@@ -118,6 +118,8 @@ Rails.application.routes.draw do
   get 'democlass', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/386/warmup/true')
 
   get 'rmp1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/389/warmup/true')
+  get 'rmp2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/391/warmup/true')
+  get 'rmp3', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/393/warmup/true')
 
 
   # get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/:id/warmup/true'), id: /\d{4}/
@@ -127,14 +129,14 @@ Rails.application.routes.draw do
   get '/:id', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/%{id}/warmup/true'), id: /\d{1,4}/
 
 
-  get 'rmp2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
 
 
 
   get 'RMP1', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/389/warmup/true')
+  get 'RMP2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/391/warmup/true')
+  get 'RMP3', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/393/warmup/true')
 
 
-  get 'RMP2', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/samantha%20kadis/warmup/true')
 
 
   get 'brian', to: redirect('/student_dashboard/#/story/step4/demo/false/page/0/brian%20turner/warmup/true')
