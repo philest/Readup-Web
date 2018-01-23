@@ -348,7 +348,11 @@ export default class Reader extends React.Component {
           )}
           {!this.props.isWithinGrader && (
             <iframe
-              src="https://fast.wistia.net/embed/iframe/1rokpxeh2j"
+              src={
+                this.props.book.brand === "STEP"
+                  ? "https://fast.wistia.net/embed/iframe/1rokpxeh2j"
+                  : "https://fast.wistia.net/embed/iframe/np4jv2e3ra"
+              }
               title="Wistia video player"
               allowTransparency="true"
               frameBorder="0"
