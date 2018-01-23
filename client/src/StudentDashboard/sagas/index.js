@@ -23,7 +23,8 @@ import {
 	getLastAssessmentID,
 	markCompleted,
 	getIsLiveDemo,
-	getClass
+	getClass,
+	getNumFiles
 } from "./networkingHelpers";
 
 import { clog, isMobileDevice } from "./helpers";
@@ -1057,6 +1058,22 @@ function* playIntro(book) {
 	yield call(playSound, audiofile);
 }
 
+function* playQ(book, currQ) {
+	let audiofile;
+
+	if (book.brand === "STEP") {
+		audiofile = book.questions[String(currQ)].audioSrc;
+	} else {
+		audiofile = `/audio/FP/${toTitleCase(
+			book.genre
+		)}-Questions/Level-${book.fpLevel}/${currQ}.mp3`;
+	}
+
+	yield clog(`Okay, now we're trying to play: ${audiofile}`);
+
+	yield call(playSound, audiofile);
+}
+
 function toTitleCase(str) {
 	return str.replace(/\w\S*/g, function(txt) {
 		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -1360,11 +1377,15 @@ function* playCompQuestionSaga(currQ, isHearAgain, isBack) {
 	}
 
 	let book = yield select(getBook);
-	let audioFile = book.questions[String(currQ)].audioSrc;
+	// let audioFile = book.questions[String(currQ)].audioSrc;
 
 	const isWarmup = yield select(getIsWarmup);
 
-	if (currQ === 2 && (!isHearAgain && !isBack)) {
+	if (
+		currQ === 2 &&
+		(!isHearAgain && !isBack) &&
+		(isWarmup || book.brand === "STEP")
+	) {
 		yield call(playSound, "/audio/additions/remember-look-back.mp3");
 	}
 
@@ -1373,7 +1394,8 @@ function* playCompQuestionSaga(currQ, isHearAgain, isBack) {
 	} else if (isWarmup && currQ === 2) {
 		yield call(playSound, "/audio/additions/warmup-q2.mp3");
 	} else {
-		yield call(playSound, audioFile);
+		// yield call(playSound, audioFile);
+		yield call(playQ, book, currQ);
 	}
 
 	yield put.resolve(setShowSkipPrompt(true));
@@ -1665,6 +1687,7 @@ function* classFetchSaga() {
 			call(getAllStudents, userId),
 			call(getAllAssessments, userId)
 		]);
+		let isLiveDemo = yield call(getIsLiveDemo);
 
 		yield clog(res1.data, res2.data, res3.data);
 
@@ -1912,6 +1935,19 @@ function* resetStateSaga() {
 	yield put(setCurrentOverlay("no-overlay"));
 }
 
+function* getNumQ() {
+	const book = yield select(getBook);
+
+	let numFiles = yield call(
+		getNumFiles,
+		`./public/audio/FP/${toTitleCase(
+			book.genre
+		)}-Questions/Level-${book.fpLevel}`
+	);
+
+	yield clog("numFiles: ", numFiles);
+}
+
 function* teacherHelpInstructions() {
 	yield call(playSoundAsync, "/audio/teacher-help.mp3");
 }
@@ -1985,6 +2021,8 @@ function* assessThenSubmitSaga() {
 	const helperEffect = []; // deals with extra instructions
 
 	yield call(resetStateSaga);
+
+	yield call(getNumQ);
 
 	const permissionsGranted = yield* getMicPermissionsSaga(); // blocks
 

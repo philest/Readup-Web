@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   resources :students
   resources :classrooms
 
+  get '/get_num_files', to: 'users#get_num_files'
 
   get '/users/setup_class', to: 'users#setup_class'
   post '/users/setup_class', to: 'users#setup_class'

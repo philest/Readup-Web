@@ -31,6 +31,12 @@ class UsersController < ApplicationController
 
   end 
 
+  def get_num_files 
+    dir = params['dir']
+    count = Dir.glob(File.join(dir, '**', '*')).select { |file| File.file?(file) }.count
+ 
+    render json: count
+  end 
 
   # GET /users/new_with_class
   def new_with_class

@@ -100,6 +100,21 @@ export function getStudentPromptStatus(studentID) {
     });
 }
 
+export function getNumFiles(dir) {
+  console.log("Okay, getting num files for...", dir);
+
+  const params = { dir: dir };
+
+  return axios
+    .get(`/get_num_files`, {
+      params: params,
+      headers: RctOnR.authenticityHeaders()
+    })
+    .then(res => {
+      return res.data;
+    });
+}
+
 export function resetToAwaitingPrompt(studentID) {
   const params = { prompt_status: PromptOptions.awaitingPrompt };
   updateStudent(params, studentID);
@@ -209,44 +224,6 @@ export function saveSpellingResponse(value, qNum, spellingGroupLibraryIdx) {
       });
   });
 }
-
-// export function getClass(userID) {
-//   let newClass = {};
-
-//   getAllStudents(userID)
-//     .then(res => {
-//       console.log("resolved: ");
-//       console.log(res);
-//       const studentDataArr = res.data;
-
-//       getAllAssessments(userID).then(res => {
-//         const assessmentDataArr = res.data;
-
-//         newClass.numStudents = studentDataArr.length;
-//         for (let i = 0; i < studentDataArr.length; i++) {
-//           newClass[i + 1] = {
-//             name:
-//               studentDataArr[i].first_name + " " + studentDataArr[i].last_name,
-//             level: assessmentDataArr[i]
-//               ? library[assessmentDataArr[i].book_key].stepLevel
-//               : 5,
-//             bookKey: assessmentDataArr[i]
-//               ? assessmentDataArr[i].book_key
-//               : "step5",
-//             assessmentID: assessmentDataArr[i]
-//               ? assessmentDataArr[i].id
-//               : "NO_ASSESSMENT_CREATED"
-//           };
-//         }
-//         console.log("newClass: ", newClass);
-
-//         return newClass;
-//       });
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// }
 
 export function getClass(userID) {
   return new Promise((resolve, reject) => {
