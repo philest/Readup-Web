@@ -3344,7 +3344,47 @@ export const step12p = {
 
 //////////  PURPLE END ///////////
 
+////////// FP END /////////////
+
+function generate_intro_audio() {
+  return "/audio/FP/Intros/Fiction-Intros/Intro-L.mp3";
+}
+
+export const FICTION_L = {
+  title: "BOOK LEVEL L",
+  author: "AUTHOR LEVEL L",
+  bookKey: "fiction_l",
+  brand: "FP",
+  fpLevel: "L",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: true,
+  coverImage: "/images/dashboard/bedtime-large.jpg",
+  introAudioSrc: generate_intro_audio(),
+  numWrittenQuestions: 3,
+  numOralReadingQuestions: 5,
+  numQuestions: 5, // This *could* fuck you over given how the comp is built (assumes that oral starts at 1)
+  numSections: 3,
+  numPages: 1, // legacy
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Factual",
+    2: "Inferential",
+    3: "Critical thinking"
+  },
+  questions: {
+    1: {}
+  }
+};
+
 export const library = {
+  fiction_l: FICTION_L,
+
   demo: fireflyBook,
   nick: fpBook,
   firefly: fireflyBook,

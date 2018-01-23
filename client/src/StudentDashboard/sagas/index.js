@@ -1023,7 +1023,7 @@ function* bookIntroSaga(book) {
 		yield put.resolve(setCurrentOverlay("no-overlay"));
 
 		yield put.resolve(showVolumeIndicator());
-		yield call(playSound, book.introAudioSrc);
+		yield call(playIntro, book);
 	} else {
 		//standard oral reading
 		yield put.resolve(setCurrentOverlay("overlay-flash-notice"));
@@ -1039,8 +1039,28 @@ function* bookIntroSaga(book) {
 
 		yield put.resolve(showVolumeIndicator());
 
-		yield call(playSound, book.introAudioSrc);
+		yield call(playIntro, book);
 	}
+}
+
+function* playIntro(book) {
+	let audiofile;
+
+	if (book.brand === "STEP") {
+		audiofile = book.introAudioSrc;
+	} else {
+		audiofile = `/audio/FP/Intros/${toTitleCase(
+			book.genre
+		)}-Intros/Intro-${book.fpLevel}.mp3`;
+	}
+
+	yield call(playSound, audiofile);
+}
+
+function toTitleCase(str) {
+	return str.replace(/\w\S*/g, function(txt) {
+		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	});
 }
 
 function* oralReadingInstructionSaga(
