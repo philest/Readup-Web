@@ -151,6 +151,8 @@ export const WIGGLE_FINISHED_IMAGE_SET = "WIGGLE_FINISHED_IMAGE_SET";
 
 export const KEYBOARD_DISABLED_SET = "KEYBOARD_DISABLED_SET";
 
+export const NUM_QUESTIONS_FP_SET = "NUM_QUESTIONS_FP_SET";
+
 export function setReaderState(readerState: ReaderState) {
   return {
     type: READER_STATE_SET,
@@ -165,6 +167,15 @@ export function setSection(section: Section) {
     type: SECTION_SET,
     payload: {
       section
+    }
+  };
+}
+
+export function setNumQuestionsFP(numQuestionsFP: number) {
+  return {
+    type: NUM_QUESTIONS_FP_SET,
+    payload: {
+      numQuestionsFP
     }
   };
 }
@@ -802,6 +813,7 @@ export const initialState = {
   numPages: fireflyBook.numPages,
   book: fireflyBook,
   questionNumber: 1,
+  numQuestionsFP: null,
   readerState: ReaderStateOptions.initializing,
   prompt: PromptOptions.awaitingPrompt,
   pauseType: PauseTypeOptions.fromPauseButton,
@@ -858,6 +870,10 @@ function reducer(state = initialState, action = {}) {
     case SECTION_SET: {
       console.log("SET SECTION: " + payload.section);
       return { ...state, section: payload.section };
+    }
+
+    case NUM_QUESTIONS_FP_SET: {
+      return { ...state, numQuestionsFP: payload.numQuestionsFP };
     }
 
     case USER_ID_SET: {

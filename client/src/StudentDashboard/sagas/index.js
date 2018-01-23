@@ -94,6 +94,7 @@ import {
 	SECTION_SET,
 	PLAYING_IMMEDIATE_PROMPT_SET,
 	WIGGLE_FINISHED_IMAGE_SET,
+	setNumQuestionsFP,
 	setKeyboardDisabled,
 	setWiggleFinishedImage,
 	setStudents,
@@ -564,7 +565,8 @@ export function* questionIncrementSaga(
 
 		const assessmentID = yield select(getAssessmentID);
 
-		const numQuestionsInSection = getNumQuestionsinThisCompSection(
+		const numQuestionsInSection = yield call(
+			getNumQuestionsinThisCompSection,
 			isWarmup,
 			isSilentReading,
 			book
@@ -1328,8 +1330,12 @@ export function getAllStartQuestionNums(book) {
 	}
 }
 
-function getNumQuestionsinThisCompSection(isWarmup, isSilentReading, book) {
+function* getNumQuestionsinThisCompSection(isWarmup, isSilentReading, book) {
 	let base;
+
+	if (!isWarmup && book.brand === "FP") {
+		return yield call(getNumQ, book);
+	}
 
 	if (isWarmup) {
 		base = 2;
@@ -1946,6 +1952,10 @@ function* getNumQ() {
 	);
 
 	yield clog("numFiles: ", numFiles);
+
+	yield put.resolve(setNumQuestionsFP(numFiles));
+
+	return numFiles;
 }
 
 function* teacherHelpInstructions() {

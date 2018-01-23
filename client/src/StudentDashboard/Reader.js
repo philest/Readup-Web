@@ -139,7 +139,11 @@ export default class Reader extends React.Component {
         return 15 + 42.5 * (this.props.questionNumber - 1);
       }
 
-      return this.props.questionNumber / this.props.book.numQuestions * 100;
+      return (
+        this.props.questionNumber /
+        (this.props.book.numQuestions || this.props.numQuestionsFP) *
+        100
+      );
     } else if (this.props.inSpelling) {
       if (this.props.isWarmup) {
         return 15 + 42.5 * (this.props.spellingQuestionNumber - 1);

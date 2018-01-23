@@ -3361,9 +3361,6 @@ export const FICTION_L = {
   isWideBook: true,
   coverImage: "/images/dashboard/bedtime-large.jpg",
   introAudioSrc: generate_intro_audio(),
-  numWrittenQuestions: 3,
-  numOralReadingQuestions: 5,
-  numQuestions: 5, // This *could* fuck you over given how the comp is built (assumes that oral starts at 1)
   numSections: 3,
   numPages: 1, // legacy
   pages: {
