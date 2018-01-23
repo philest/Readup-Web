@@ -60,7 +60,14 @@ export default class AvatarContainer extends React.Component {
           fullName={nameArr[i]}
           bookKey={bookKey}
           color={colorArr[i % 4]}
-          disabled={bookKey[bookKey.length - 1] <= 3}
+          disabled={
+            bookKey === "step1" ||
+            bookKey === "step2" ||
+            bookKey === "step3" ||
+            bookKey === "step1p" ||
+            bookKey === "step2p" ||
+            bookKey === "step3p"
+          }
           offset={offsetArr[i % 2]}
           onSetCurrentOverlay={this.props.onSetCurrentOverlay}
           onStudentNameSet={this.props.onStudentNameSet}
