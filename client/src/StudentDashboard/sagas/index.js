@@ -184,7 +184,12 @@ const MAX_NUM_PROMPTS = 2;
 export const SKIPPED_SECTIONS_IN_WARMUP_LIST = [SectionOptions.compOralSecond];
 
 function getSectionsList(book) {
-	if (book.brand === "FP" || book.stepLevel <= 5) {
+	if (book.brand === "FP") {
+		return {
+			1: SectionOptions.oralReadingFullBook,
+			2: SectionOptions.compOralFirst
+		};
+	} else if (book.stepLevel <= 5) {
 		return {
 			1: SectionOptions.oralReadingFullBook,
 			2: SectionOptions.compOralFirst,

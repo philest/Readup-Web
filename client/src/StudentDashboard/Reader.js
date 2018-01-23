@@ -745,7 +745,9 @@ export default class Reader extends React.Component {
   };
 
   getFormat = book => {
-    if (book.brand === "FP" || book.stepLevel <= 5) {
+    if (book.brand === "FP") {
+      return FormatOptions.fp;
+    } else if (book.stepLevel <= 5) {
       return FormatOptions.standard;
     } else if (book.stepLevel <= 8) {
       return FormatOptions.stepFiveThroughEight;

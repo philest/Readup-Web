@@ -7,7 +7,9 @@ import { SectionOptions, FormatOptions } from "../../types";
 import { ProgressBar } from "react-bootstrap";
 
 export function getSectionsListFromFormat(format) {
-  if (format === FormatOptions.standard) {
+  if (format === FormatOptions.fp) {
+    return [SectionOptions.oralReadingFullBook, SectionOptions.compOralFirst];
+  } else if (format === FormatOptions.standard) {
     return [
       SectionOptions.oralReadingFullBook,
       SectionOptions.compOralFirst,
