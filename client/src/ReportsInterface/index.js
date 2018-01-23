@@ -879,17 +879,20 @@ export default class ReportsInterface extends React.Component {
         )}
 
         {this.props.isSample &&
-          this.props.assessmentBrand === "FP" &&
           this.props.isDirectSample && (
             <h4
               onClick={() => {
-                window.location.href = "/reports/direct-sample?brand=STEP";
+                window.location.href =
+                  "/reports/direct-sample?brand=" +
+                  (this.props.assessmentBrand === "FP" ? "STEP" : "FP");
               }}
               className={[styles.blueSubHeading, styles.switchSTEPheading].join(
                 " "
               )}
             >
-              Using STEP? Click here
+              {`Using ${this.props.assessmentBrand === "FP"
+                ? "STEP"
+                : "F&P"}? Click here`}
             </h4>
           )}
 
@@ -1029,17 +1032,18 @@ export default class ReportsInterface extends React.Component {
                   />
                 )}
 
-                {this.props.isSample && (
-                  <Metric
-                    label="Spelling"
-                    number={17}
-                    denominator={20}
-                    showDetails={this.props.isSample}
-                    compSubtotals={subtotals}
-                    isSample={this.props.isSample}
-                    brand={this.props.assessmentBrand}
-                  />
-                )}
+                {this.props.isSample &&
+                  this.props.assessmentBrand === "STEP" && (
+                    <Metric
+                      label="Spelling"
+                      number={17}
+                      denominator={20}
+                      showDetails={this.props.isSample}
+                      compSubtotals={subtotals}
+                      isSample={this.props.isSample}
+                      brand={this.props.assessmentBrand}
+                    />
+                  )}
 
                 {!this.props.isSample &&
                   this.props.compScores["0"] != null && (
@@ -1321,28 +1325,30 @@ export default class ReportsInterface extends React.Component {
             />
           )}
 
-          {this.props.isSample && (
-            <div className={styles.spellingWrapper}>
-              <hr className={styles.metricsDivider} />
+          {this.props.isSample &&
+            this.props.assessmentBrand === "STEP" && (
+              <div className={styles.spellingWrapper}>
+                <hr className={styles.metricsDivider} />
 
-              <h5 className={styles.sectionHeader}>3. SPELLING</h5>
+                <h5 className={styles.sectionHeader}>3. SPELLING</h5>
 
-              <div className={styles.sectionLargeTitle}>
-                <div className={styles.bookInfoWrapper}>
-                  <div className={styles.bookInfoTitle}>
-                    Developmental Spelling
+                <div className={styles.sectionLargeTitle}>
+                  <div className={styles.bookInfoWrapper}>
+                    <div className={styles.bookInfoTitle}>
+                      Developmental Spelling
+                    </div>
+                    {this.props.assessmentBrand === "FP" && (
+                      <span className={styles.optional}>(Optional)</span>
+                    )}
                   </div>
-                  {this.props.assessmentBrand === "FP" && (
-                    <span className={styles.optional}>(Optional)</span>
-                  )}
                 </div>
-              </div>
 
-              <SpellingReport spellingObj={sampleSpellingObj} />
-            </div>
-          )}
+                <SpellingReport spellingObj={sampleSpellingObj} />
+              </div>
+            )}
 
           {!this.props.isSample &&
+            this.props.assessmentBrand === "STEP" &&
             this.props.scoredSpelling && (
               <div className={styles.spellingWrapper}>
                 <hr className={styles.metricsDivider} />
