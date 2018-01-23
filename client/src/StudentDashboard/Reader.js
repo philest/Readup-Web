@@ -610,12 +610,19 @@ export default class Reader extends React.Component {
       );
     }
 
-    if (!this.props.inComp && !this.props.inSpelling) {
+    if (
+      !this.props.inComp &&
+      !this.props.inSpelling &&
+      !this.props.watchingVideo
+    ) {
+      //oral reading
       return (
         <VolumeIndicator
           hearAgainClicked={this.props.onHearIntroAgainClicked}
           visible={
-            this.props.readerState !== ReaderStateOptions.playingBookIntro
+            this.props.readerState === ReaderStateOptions.awaitingStart ||
+            this.props.readerState === ReaderStateOptions.awaitingFinishBook ||
+            this.props.readerState === ReaderStateOptions.inProgress
           }
         />
       );

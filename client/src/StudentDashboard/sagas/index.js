@@ -221,7 +221,7 @@ function* celebrationSaga() {
 
 	yield call(playSound, "/audio/celebration.mp3");
 
-	yield call(delay, 3500);
+	yield call(delay, 4500);
 	yield put.resolve(setWiggleFinishedImage(false));
 }
 
@@ -1664,6 +1664,7 @@ function* watchVideoSaga(videoWiggleEffect) {
 
 	yield call(delay, 3500);
 
+	yield put.resolve(setInOralReading(true));
 	yield put.resolve(setCurrentOverlay("no-overlay"));
 
 	// IF REAL THING
@@ -1865,7 +1866,7 @@ function* resetStateSaga() {
 
 	yield put.resolve(setInComp(false));
 	yield put.resolve(setInSpelling(false));
-	yield put.resolve(setInOralReading(true));
+	yield put.resolve(setInOralReading(false));
 	yield put.resolve(setShowSkipPrompt(false));
 	yield put.resolve(setInSilentReading(false));
 

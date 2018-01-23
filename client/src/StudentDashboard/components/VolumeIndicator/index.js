@@ -29,15 +29,15 @@ export default class VolumeIndicator extends React.Component {
   render() {
     return (
       <div
-        onClick={this.props.hearAgainClicked}
+        onClick={this.props.visible ? this.props.hearAgainClicked : ""}
         className={[
           styles.volumeContainer,
-          styles.clickable,
+          this.props.visible ? styles.clickable : "",
           this.props.offsetLeft ? styles.offsetLeft : "",
           this.props.hideOnSmallScreen ? styles.hideOnSmallScreen : ""
         ].join(" ")}
         style={{
-          visibility: this.props.visible ? "visible" : "hidden",
+          opacity: this.props.visible ? 1 : 0.3,
           textAlign: this.props.centered ? "center" : ""
         }}
       >
