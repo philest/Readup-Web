@@ -3344,11 +3344,315 @@ export const step12p = {
 
 //////////  PURPLE END ///////////
 
-////////// FP END /////////////
+////////// FP START /////////////
 
-function generate_intro_audio() {
-  return "/audio/FP/Intros/Fiction-Intros/Intro-L.mp3";
-}
+export const FICTION_A = {
+  title: "BOOK LEVEL A",
+  author: "AUTHOR LEVEL A",
+  bookKey: "fiction_a",
+  brand: "FP",
+  fpLevel: "A",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_B = {
+  title: "BOOK LEVEL B",
+  author: "AUTHOR LEVEL B",
+  bookKey: "fiction_b",
+  brand: "FP",
+  fpLevel: "B",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_C = {
+  title: "BOOK LEVEL C",
+  author: "AUTHOR LEVEL C",
+  bookKey: "fiction_c",
+  brand: "FP",
+  fpLevel: "C",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_D = {
+  title: "BOOK LEVEL D",
+  author: "AUTHOR LEVEL D",
+  bookKey: "fiction_d",
+  brand: "FP",
+  fpLevel: "D",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_E = {
+  title: "BOOK LEVEL E",
+  author: "AUTHOR LEVEL E",
+  bookKey: "fiction_e",
+  brand: "FP",
+  fpLevel: "E",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_F = {
+  title: "BOOK LEVEL F",
+  author: "AUTHOR LEVEL F",
+  bookKey: "fiction_f",
+  brand: "FP",
+  fpLevel: "F",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_G = {
+  title: "BOOK LEVEL G",
+  author: "AUTHOR LEVEL G",
+  bookKey: "fiction_g",
+  brand: "FP",
+  fpLevel: "G",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_H = {
+  title: "BOOK LEVEL H",
+  author: "AUTHOR LEVEL H",
+  bookKey: "fiction_h",
+  brand: "FP",
+  fpLevel: "H",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_I = {
+  title: "BOOK LEVEL I",
+  author: "AUTHOR LEVEL I",
+  bookKey: "fiction_i",
+  brand: "FP",
+  fpLevel: "I",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_J = {
+  title: "BOOK LEVEL J",
+  author: "AUTHOR LEVEL J",
+  bookKey: "fiction_j",
+  brand: "FP",
+  fpLevel: "J",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_K = {
+  title: "BOOK LEVEL K",
+  author: "AUTHOR LEVEL K",
+  bookKey: "fiction_k",
+  brand: "FP",
+  fpLevel: "K",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
 
 export const FICTION_L = {
   title: "BOOK LEVEL L",
@@ -3360,9 +3664,8 @@ export const FICTION_L = {
   markup: null,
   isWideBook: false,
   coverImage: "/images/fp-generic.jpg",
-  introAudioSrc: generate_intro_audio(),
   numSections: 3,
-  numPages: 1, // legacy
+  numPages: 1,
   pages: {
     1: {
       lines: ["My name is Peter.", "I'm upside down."],
@@ -3370,17 +3673,1195 @@ export const FICTION_L = {
     }
   },
   sections: {
-    1: "Factual",
-    2: "Inferential",
-    3: "Critical thinking"
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
   },
   questions: {
     1: {}
   }
 };
 
+export const FICTION_M = {
+  title: "BOOK LEVEL M",
+  author: "AUTHOR LEVEL M",
+  bookKey: "fiction_m",
+  brand: "FP",
+  fpLevel: "M",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_N = {
+  title: "BOOK LEVEL N",
+  author: "AUTHOR LEVEL N",
+  bookKey: "fiction_n",
+  brand: "FP",
+  fpLevel: "N",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_O = {
+  title: "BOOK LEVEL O",
+  author: "AUTHOR LEVEL O",
+  bookKey: "fiction_o",
+  brand: "FP",
+  fpLevel: "O",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_P = {
+  title: "BOOK LEVEL P",
+  author: "AUTHOR LEVEL P",
+  bookKey: "fiction_p",
+  brand: "FP",
+  fpLevel: "P",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_Q = {
+  title: "BOOK LEVEL Q",
+  author: "AUTHOR LEVEL Q",
+  bookKey: "fiction_q",
+  brand: "FP",
+  fpLevel: "Q",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_R = {
+  title: "BOOK LEVEL R",
+  author: "AUTHOR LEVEL R",
+  bookKey: "fiction_r",
+  brand: "FP",
+  fpLevel: "R",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_S = {
+  title: "BOOK LEVEL S",
+  author: "AUTHOR LEVEL S",
+  bookKey: "fiction_s",
+  brand: "FP",
+  fpLevel: "S",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_T = {
+  title: "BOOK LEVEL T",
+  author: "AUTHOR LEVEL T",
+  bookKey: "fiction_t",
+  brand: "FP",
+  fpLevel: "T",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_U = {
+  title: "BOOK LEVEL U",
+  author: "AUTHOR LEVEL U",
+  bookKey: "fiction_u",
+  brand: "FP",
+  fpLevel: "U",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_V = {
+  title: "BOOK LEVEL V",
+  author: "AUTHOR LEVEL V",
+  bookKey: "fiction_v",
+  brand: "FP",
+  fpLevel: "V",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_W = {
+  title: "BOOK LEVEL W",
+  author: "AUTHOR LEVEL W",
+  bookKey: "fiction_w",
+  brand: "FP",
+  fpLevel: "W",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_X = {
+  title: "BOOK LEVEL X",
+  author: "AUTHOR LEVEL X",
+  bookKey: "fiction_x",
+  brand: "FP",
+  fpLevel: "X",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_Y = {
+  title: "BOOK LEVEL Y",
+  author: "AUTHOR LEVEL Y",
+  bookKey: "fiction_y",
+  brand: "FP",
+  fpLevel: "Y",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const FICTION_Z = {
+  title: "BOOK LEVEL Z",
+  author: "AUTHOR LEVEL Z",
+  bookKey: "fiction_z",
+  brand: "FP",
+  fpLevel: "Z",
+  genre: "FICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+/////////// FP END ///////////////////////
+
+/////////////// FP NONFICTION END ///////////////
+
+export const NONFICTION_A = {
+  title: "BOOK LEVEL A",
+  author: "AUTHOR LEVEL A",
+  bookKey: "nonfiction_a",
+  brand: "FP",
+  fpLevel: "A",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_B = {
+  title: "BOOK LEVEL B",
+  author: "AUTHOR LEVEL B",
+  bookKey: "nonfiction_b",
+  brand: "FP",
+  fpLevel: "B",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_C = {
+  title: "BOOK LEVEL C",
+  author: "AUTHOR LEVEL C",
+  bookKey: "nonfiction_c",
+  brand: "FP",
+  fpLevel: "C",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_D = {
+  title: "BOOK LEVEL D",
+  author: "AUTHOR LEVEL D",
+  bookKey: "nonfiction_d",
+  brand: "FP",
+  fpLevel: "D",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_E = {
+  title: "BOOK LEVEL E",
+  author: "AUTHOR LEVEL E",
+  bookKey: "nonfiction_e",
+  brand: "FP",
+  fpLevel: "E",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_F = {
+  title: "BOOK LEVEL F",
+  author: "AUTHOR LEVEL F",
+  bookKey: "nonfiction_f",
+  brand: "FP",
+  fpLevel: "F",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_G = {
+  title: "BOOK LEVEL G",
+  author: "AUTHOR LEVEL G",
+  bookKey: "nonfiction_g",
+  brand: "FP",
+  fpLevel: "G",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_H = {
+  title: "BOOK LEVEL H",
+  author: "AUTHOR LEVEL H",
+  bookKey: "nonfiction_h",
+  brand: "FP",
+  fpLevel: "H",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_I = {
+  title: "BOOK LEVEL I",
+  author: "AUTHOR LEVEL I",
+  bookKey: "nonfiction_i",
+  brand: "FP",
+  fpLevel: "I",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_J = {
+  title: "BOOK LEVEL J",
+  author: "AUTHOR LEVEL J",
+  bookKey: "nonfiction_j",
+  brand: "FP",
+  fpLevel: "J",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_K = {
+  title: "BOOK LEVEL K",
+  author: "AUTHOR LEVEL K",
+  bookKey: "nonfiction_k",
+  brand: "FP",
+  fpLevel: "K",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_L = {
+  title: "BOOK LEVEL L",
+  author: "AUTHOR LEVEL L",
+  bookKey: "nonfiction_l",
+  brand: "FP",
+  fpLevel: "L",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_M = {
+  title: "BOOK LEVEL M",
+  author: "AUTHOR LEVEL M",
+  bookKey: "nonfiction_m",
+  brand: "FP",
+  fpLevel: "M",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_N = {
+  title: "BOOK LEVEL N",
+  author: "AUTHOR LEVEL N",
+  bookKey: "nonfiction_n",
+  brand: "FP",
+  fpLevel: "N",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_O = {
+  title: "BOOK LEVEL O",
+  author: "AUTHOR LEVEL O",
+  bookKey: "nonfiction_o",
+  brand: "FP",
+  fpLevel: "O",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_P = {
+  title: "BOOK LEVEL P",
+  author: "AUTHOR LEVEL P",
+  bookKey: "nonfiction_p",
+  brand: "FP",
+  fpLevel: "P",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_Q = {
+  title: "BOOK LEVEL Q",
+  author: "AUTHOR LEVEL Q",
+  bookKey: "nonfiction_q",
+  brand: "FP",
+  fpLevel: "Q",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_R = {
+  title: "BOOK LEVEL R",
+  author: "AUTHOR LEVEL R",
+  bookKey: "nonfiction_r",
+  brand: "FP",
+  fpLevel: "R",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_S = {
+  title: "BOOK LEVEL S",
+  author: "AUTHOR LEVEL S",
+  bookKey: "nonfiction_s",
+  brand: "FP",
+  fpLevel: "S",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_T = {
+  title: "BOOK LEVEL T",
+  author: "AUTHOR LEVEL T",
+  bookKey: "nonfiction_t",
+  brand: "FP",
+  fpLevel: "T",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_U = {
+  title: "BOOK LEVEL U",
+  author: "AUTHOR LEVEL U",
+  bookKey: "nonfiction_u",
+  brand: "FP",
+  fpLevel: "U",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_V = {
+  title: "BOOK LEVEL V",
+  author: "AUTHOR LEVEL V",
+  bookKey: "nonfiction_v",
+  brand: "FP",
+  fpLevel: "V",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_W = {
+  title: "BOOK LEVEL W",
+  author: "AUTHOR LEVEL W",
+  bookKey: "nonfiction_w",
+  brand: "FP",
+  fpLevel: "W",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_X = {
+  title: "BOOK LEVEL X",
+  author: "AUTHOR LEVEL X",
+  bookKey: "nonfiction_x",
+  brand: "FP",
+  fpLevel: "X",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_Y = {
+  title: "BOOK LEVEL Y",
+  author: "AUTHOR LEVEL Y",
+  bookKey: "nonfiction_y",
+  brand: "FP",
+  fpLevel: "Y",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+export const NONFICTION_Z = {
+  title: "BOOK LEVEL Z",
+  author: "AUTHOR LEVEL Z",
+  bookKey: "nonfiction_z",
+  brand: "FP",
+  fpLevel: "Z",
+  genre: "NONFICTION",
+  markup: null,
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
+  numSections: 3,
+  numPages: 1,
+  pages: {
+    1: {
+      lines: ["My name is Peter.", "I'm upside down."],
+      img: "/images/dashboard/step/p1.jpg"
+    }
+  },
+  sections: {
+    1: "Within the Text",
+    2: "Beyond the Text",
+    3: "About the Text"
+  },
+  questions: {
+    1: {}
+  }
+};
+
+/////////// FP NONFICTION END /////////////////////
+
 export const library = {
+  nonfiction_a: NONFICTION_A,
+  nonfiction_b: NONFICTION_B,
+  nonfiction_c: NONFICTION_C,
+  nonfiction_d: NONFICTION_D,
+  nonfiction_e: NONFICTION_E,
+  nonfiction_f: NONFICTION_F,
+  nonfiction_g: NONFICTION_G,
+  nonfiction_h: NONFICTION_H,
+  nonfiction_i: NONFICTION_I,
+  nonfiction_j: NONFICTION_J,
+  nonfiction_k: NONFICTION_K,
+  nonfiction_l: NONFICTION_L,
+  nonfiction_m: NONFICTION_M,
+  nonfiction_n: NONFICTION_N,
+  nonfiction_o: NONFICTION_O,
+  nonfiction_p: NONFICTION_P,
+  nonfiction_q: NONFICTION_Q,
+  nonfiction_r: NONFICTION_R,
+  nonfiction_s: NONFICTION_S,
+  nonfiction_t: NONFICTION_T,
+  nonfiction_u: NONFICTION_U,
+  nonfiction_v: NONFICTION_V,
+  nonfiction_w: NONFICTION_W,
+  nonfiction_x: NONFICTION_X,
+  nonfiction_y: NONFICTION_Y,
+  nonfiction_z: NONFICTION_Z,
+
+  fiction_a: FICTION_A,
+  fiction_b: FICTION_B,
+  fiction_c: FICTION_C,
+  fiction_d: FICTION_D,
+  fiction_e: FICTION_E,
+  fiction_f: FICTION_F,
+  fiction_g: FICTION_G,
+  fiction_h: FICTION_H,
+  fiction_i: FICTION_I,
+  fiction_j: FICTION_J,
+  fiction_k: FICTION_K,
   fiction_l: FICTION_L,
+  fiction_m: FICTION_M,
+  fiction_n: FICTION_N,
+  fiction_o: FICTION_O,
+  fiction_p: FICTION_P,
+  fiction_q: FICTION_Q,
+  fiction_r: FICTION_R,
+  fiction_s: FICTION_S,
+  fiction_t: FICTION_T,
+  fiction_u: FICTION_U,
+  fiction_v: FICTION_V,
+  fiction_w: FICTION_W,
+  fiction_x: FICTION_X,
+  fiction_y: FICTION_Y,
+  fiction_z: FICTION_Z,
 
   demo: fireflyBook,
   nick: fpBook,
