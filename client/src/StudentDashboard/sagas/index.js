@@ -188,7 +188,8 @@ export const SKIPPED_SECTIONS_IN_WARMUP_LIST = [SectionOptions.compOralSecond];
 function getSectionsList(book) {
 	if (
 		book.brand === "FP" &&
-		(book.level <= "H" || (book.genre === "FICTION" && book.level === "I"))
+		(book.fpLevel <= "H" ||
+			(book.genre === "FICTION" && book.fpLevel === "I"))
 	) {
 		return {
 			1: SectionOptions.oralReadingFullBook,
@@ -1058,7 +1059,7 @@ function* bookIntroSaga(book) {
 function* playIntro(book) {
 	let audiofile;
 
-	if (book.brand === "STEP") {
+	if (book.brand === "STEP" || book.bookKey === "nick") {
 		audiofile = book.introAudioSrc;
 	} else {
 		audiofile = `/audio/FP/Intros/${toTitleCase(
@@ -1072,7 +1073,7 @@ function* playIntro(book) {
 function* playQ(book, currQ) {
 	let audiofile;
 
-	if (book.brand === "STEP") {
+	if (book.brand === "STEP" || book.bookKey === "nick") {
 		audiofile = book.questions[String(currQ)].audioSrc;
 	} else {
 		audiofile = `/audio/FP/${toTitleCase(
@@ -1342,7 +1343,7 @@ export function getAllStartQuestionNums(book) {
 function* getNumQuestionsinThisCompSection(isWarmup, isSilentReading, book) {
 	let base;
 
-	if (!isWarmup && book.brand === "FP") {
+	if (!isWarmup && (book.brand === "FP" && book.bookKey !== "nick")) {
 		return yield call(getNumQ, book);
 	}
 
@@ -2127,7 +2128,7 @@ function* assessThenSubmitSaga() {
 
 	book = yield select(getBook);
 
-	if (book.brand === "FP") {
+	if (book.brand === "FP" && book.bookKey !== "nick") {
 		yield call(getNumQ);
 	}
 

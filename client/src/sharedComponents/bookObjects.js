@@ -1569,7 +1569,9 @@ export const step12 = {
 export const fpBook = {
   title: "Bedtime for Nick",
   author: "Steve Olson",
-  bookKey: "demo",
+  bookKey: "nick",
+  genre: "FICTION",
+  fpLevel: "G",
   brand: "FP",
   stepLevel: 5,
   numPages: 10, // if you want a shorter book for testing purposes just change this
