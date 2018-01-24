@@ -53,7 +53,8 @@ export const SectionOptions = {
 export type Section = Keys<typeof SectionOptions>;
 
 export const FormatOptions = {
-  fp: "FP",
+  fpBasic: "FP_BASIC",
+  fpAdvanced: "FP_ADVANCED",
   standard: "STANDARD",
   stepFiveThroughEight: "STEP_FIVE_THROUGH_EIGHT",
   stepNineThroughTwelve: "STEP_NINE_THROUGH_TWELVE"

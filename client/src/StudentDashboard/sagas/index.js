@@ -186,10 +186,19 @@ const MAX_NUM_PROMPTS = 2;
 export const SKIPPED_SECTIONS_IN_WARMUP_LIST = [SectionOptions.compOralSecond];
 
 function getSectionsList(book) {
-	if (book.brand === "FP") {
+	if (
+		book.brand === "FP" &&
+		(book.level <= "H" || (book.genre === "FICTION" && book.level === "I"))
+	) {
 		return {
 			1: SectionOptions.oralReadingFullBook,
 			2: SectionOptions.compOralFirst
+		};
+	} else if (book.brand === "FP") {
+		return {
+			1: SectionOptions.oralReadingFullBook,
+			2: SectionOptions.silentReadingPartialAtEnd,
+			3: SectionOptions.compOralFirst
 		};
 	} else if (book.stepLevel <= 5) {
 		return {
@@ -2121,6 +2130,8 @@ function* assessThenSubmitSaga() {
 	book = yield select(getBook);
 
 	sectionList = getSectionsList(book);
+
+	yield clog("reallll sectionList: ", sectionList);
 
 	const videoWiggleEffect = [];
 
