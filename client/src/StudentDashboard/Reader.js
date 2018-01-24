@@ -752,7 +752,7 @@ export default class Reader extends React.Component {
     if (
       book.brand === "FP" &&
       (book.fpLevel <= "H" ||
-        (book.genre === "FICTION" && book.fpLevel === "I"))
+        (book.genre === "NONFICTION" && book.fpLevel === "I"))
     ) {
       return FormatOptions.fpBasic;
     } else if (book.brand === "FP") {

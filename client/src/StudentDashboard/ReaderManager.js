@@ -33,6 +33,7 @@ import SpinnerOverlay from "./overlays/SpinnerOverlay";
 import DisabledSTEPOverlay from "./overlays/DisabledSTEPOverlay";
 import NoSoundOverlay from "./overlays/NoSoundOverlay";
 import FlashNoticeOverlay from "./overlays/FlashNoticeOverlay";
+import ImageOverlay from "./overlays/ImageOverlay";
 
 import { Modal } from "react-bootstrap";
 
@@ -386,6 +387,8 @@ export class StudentDashboard extends React.Component {
   renderOverlayOrNullBasedOnState = () => {
     return (
       <div>
+        <ImageOverlay currentShowOverlay={this.props.currentShowOverlay} />
+
         <DisabledSTEPOverlay
           currentShowOverlay={this.props.currentShowOverlay}
         />

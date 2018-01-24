@@ -189,7 +189,7 @@ function getSectionsList(book) {
 	if (
 		book.brand === "FP" &&
 		(book.fpLevel <= "H" ||
-			(book.genre === "FICTION" && book.fpLevel === "I"))
+			(book.genre === "NONFICTION" && book.fpLevel === "I"))
 	) {
 		return {
 			1: SectionOptions.oralReadingFullBook,
@@ -1121,13 +1121,35 @@ function* oralReadingInstructionSaga(
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 		yield call(playSound, "/audio/complete.mp3");
 	} else if (isPartialOralReading) {
-		yield call(playSound, "/audio/laura/click-start-page-3.mp3");
+		// get book
+		// if FP --> black square
+		// else --> page 3.
+		let book = yield select(getBook);
 
-		yield put.resolve(
-			setReaderState(ReaderStateOptions.talkingAboutStopButton)
-		);
+		if (book.brand === "FP") {
+			yield call(
+				playSound,
+				"/audio/square/click-start-and-read-until-reach-black-square.mp3"
+			);
+			yield put.resolve(setCurrentOverlay("overlay-image"));
+			yield call(playSound, "/audio/square/which-looks-like-this.mp3");
+			yield call(delay, 3000);
+			yield put.resolve(setCurrentOverlay("no-overlay"));
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutStopButton)
+			);
+			yield call(
+				playSound,
+				"/audio/square/when-you-reach-the-black-square-stop.mp3"
+			);
+		} else {
+			yield call(playSound, "/audio/laura/click-start-page-3.mp3");
 
-		yield call(playSound, "/audio/laura/click-stop-laura.mp3");
+			yield put.resolve(
+				setReaderState(ReaderStateOptions.talkingAboutStopButton)
+			);
+			yield call(playSound, "/audio/laura/click-stop-laura.mp3");
+		}
 
 		yield put.resolve(setReaderState(ReaderStateOptions.awaitingStart));
 		yield call(playSound, "/audio/complete.mp3");
@@ -1153,7 +1175,16 @@ function* recordingInstructionSaga(isWarmup, isPartialOralReading) {
 	if (isWarmup) {
 		yield call(playSound, "/audio/warmup/w-4.mp3");
 	} else if (isPartialOralReading) {
-		yield call(playSound, "/audio/laura/now-recording-page-3.mp3");
+		let book = yield select(getBook);
+
+		if (book.brand === "FP") {
+			yield call(
+				playSound,
+				"/audio/square/now-we-are-recording-black-square.mp3"
+			);
+		} else {
+			yield call(playSound, "/audio/laura/now-recording-page-3.mp3");
+		}
 	} else {
 		//normal
 		yield call(playSound, "/audio/helper/read-aloud-to-end.mp3");
