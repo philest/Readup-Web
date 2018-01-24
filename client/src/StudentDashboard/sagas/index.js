@@ -196,7 +196,7 @@ function getSectionsList(book) {
 		};
 	} else if (book.brand === "FP") {
 		return {
-			1: SectionOptions.oralReadingFullBook,
+			1: SectionOptions.oralReadingPartialAtStart,
 			2: SectionOptions.silentReadingPartialAtEnd,
 			3: SectionOptions.compOralFirst
 		};
@@ -2041,8 +2041,6 @@ function* assessThenSubmitSaga() {
 
 	yield call(resetStateSaga);
 
-	yield call(getNumQ);
-
 	const permissionsGranted = yield* getMicPermissionsSaga(); // blocks
 
 	while (!permissionsGranted) {
@@ -2128,6 +2126,10 @@ function* assessThenSubmitSaga() {
 	}
 
 	book = yield select(getBook);
+
+	if (book.brand === "FP") {
+		yield call(getNumQ);
+	}
 
 	sectionList = getSectionsList(book);
 

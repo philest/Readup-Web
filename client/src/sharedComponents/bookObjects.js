@@ -3358,8 +3358,8 @@ export const FICTION_L = {
   fpLevel: "L",
   genre: "FICTION",
   markup: null,
-  isWideBook: true,
-  coverImage: "/images/dashboard/bedtime-large.jpg",
+  isWideBook: false,
+  coverImage: "/images/fp-generic.jpg",
   introAudioSrc: generate_intro_audio(),
   numSections: 3,
   numPages: 1, // legacy

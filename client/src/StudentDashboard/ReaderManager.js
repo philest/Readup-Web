@@ -221,7 +221,8 @@ export class StudentDashboard extends React.Component {
       onPauseClicked: this.props.actions.pauseClicked,
       wiggleFinishedImage: this.props.wiggleFinishedImage,
       keyboardDisabled: this.props.keyboardDisabled,
-      numQuestionsFP: this.props.numQuestionsFP
+      numQuestionsFP: this.props.numQuestionsFP,
+      showCover: true
     };
 
     let readerProps = basicReaderProps; // reader props is augmented then stuck into Reader
