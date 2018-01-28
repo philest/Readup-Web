@@ -1,24 +1,8 @@
-# README
+# ReadUp
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ReadUp automates a time-consuming observational literacy assessment that affects most U.S. students (www.readupnow.com)
 
-Things you may want to cover:
+[ReadUp](https://s3-us-west-2.amazonaws.com/readup-now/website/splash.png)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
 
 * ...
